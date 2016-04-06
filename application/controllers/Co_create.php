@@ -42,7 +42,7 @@ class Co_create extends CI_Controller {
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
 			$this->data['users'] = $this->post_model->get_brand_users($brand_id);
-			$this->data['view'] = 'co_create/create';
+			$this->data['view'] = 'posts/create';
 
 			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
 			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
@@ -53,8 +53,7 @@ class Co_create extends CI_Controller {
 		{
 			$this->session->set_flashdata('error','Brand is not available');
 			redirect(base_url().'brands');
-		}	
-		
+		}		
 	}
 
 	public function save_post()
@@ -113,7 +112,9 @@ class Co_create extends CI_Controller {
 					        {
 					        	$uploaded_files[$i]['file'] = $status['file_name'];
 					        	$uploaded_files[$i]['type'] = 'images';
-					        	if(strpos($_FILES['uploadedimage']['type'],'video'))
+					        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+					        	
+					        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
 					        	{
 					        		$uploaded_files[$i]['type'] = 'video';
 					        	}
@@ -174,7 +175,8 @@ class Co_create extends CI_Controller {
 					    				$post_media_data = array(
 					    										'post_id' => $inserted_id,
 					    										'name' => $file['file'],
-					    										'type' => $file['type']
+					    										'type' => $file['type'],
+					    										'mime' => $file['mime']
 					    									);
 
 					    				$this->timeframe_model->insert_data('post_media',$post_media_data);

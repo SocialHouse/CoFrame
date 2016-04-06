@@ -213,3 +213,9 @@ ALTER TABLE `post_approvers`
 
 ALTER TABLE `post_approvers`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `billing_details` ADD `exp_year` INT NOT NULL AFTER `email`;
+ALTER TABLE `billing_details` ADD `exp_month` INT NOT NULL AFTER `exp_year`;
+
+ALTER TABLE `billing_details` ADD `cc_number` VARCHAR(5) NULL AFTER `name`;
+ALTER TABLE `billing_details` ADD `cvc` VARCHAR(4) NULL AFTER `cc_number`;

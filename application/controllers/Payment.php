@@ -31,6 +31,7 @@ class Payment extends CI_Controller {
 		$this->load->model('timeframe_model');
 
 		$this->user_id = $this->session->userdata('id');
+		$this->user_data = $this->session->userdata('user_info');
 
 		$this->stripe_test_mode = $this->config->item('stripe_test_mode');
     	if($this->stripe_test_mode == TRUE)
@@ -85,15 +86,19 @@ class Payment extends CI_Controller {
 				if(!empty($response))
 				{
 					//billing details
-					$billing_data = array(								
+					$billing_data = array(
 									'user_id' => $user_id,
+									'cc_number' => substr($this->input->post('cc_number'), -4),
+									'cvc' => '***',
 									'name' => $this->input->post('name'),
 									'address' => $this->input->post('address'),
 									'city' => $this->input->post('city'),
 									'state' => $this->input->post('state'),
 									'zip' => $this->input->post('zip'),
 									'country' => $this->input->post('country'),
-									'email' => $this->input->post('email')
+									'email' => $this->input->post('email'),
+									'exp_month' => $this->input->post('expiry_month'),
+									'exp_year' => $this->input->post('expiry_year')
 								);
 
 					$billing_id = $this->input->post('billing_id');
@@ -128,14 +133,14 @@ class Payment extends CI_Controller {
 					
 					$this->timeframe_model->insert_data('transactions',$transaction_data);
 
-					$user_data = array(
+					$stripe_info = array(
 										'stripe_customer_id' => $customer_stripe_key,
 										'stripe_subscription_id' => $subscription_key_id,
 									);
 
-					$condition = array('id' => $billing_id);
-					$this->timeframe_model->update_data('user_info',$user_data,$condition);
-
+					// $condition = array('id' => $billing_id);
+					$condition = array('id' => $this->user_data['user_info_id']);
+					
 					$this->session->set_flashdata('message', 'Thank you for your Subscription');
 					redirect(base_url()."payment");
 				}
