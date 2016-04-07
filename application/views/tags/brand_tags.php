@@ -26,13 +26,13 @@
 								if($tag->status == 1)
 								{
 									?>
-									<a href="<?php echo base_url().'tags/deactivate/'.$tag->id; ?>">Inactive</a>
+									<a href="<?php echo base_url().'tags/deactivate/'.$tag->id; ?>">Deactivate</a>
 									<?php
 								}
 								else
 								{
 									?>
-									<a href="<?php echo base_url().'tags/activate/'.$tag->id; ?>">Active</a> 
+									<a href="<?php echo base_url().'tags/activate/'.$tag->id; ?>">Activate</a> 
 									<?php
 								}
 								?>

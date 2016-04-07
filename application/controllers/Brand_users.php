@@ -29,8 +29,9 @@ class Brand_users extends CI_Controller {
 		$this->user_data = $this->session->userdata('user_info');
 	}
 
-	public function index($brand_id)
+	public function index()
 	{
+		$brand_id = $this->uri->segment(3);
 		$brand = get_users_brand($brand_id);
 		if(!empty($brand))
 		{
@@ -46,8 +47,9 @@ class Brand_users extends CI_Controller {
 	    }
 	}	
 
-	public function add_user($brand_id)
+	public function add_user()
 	{
+		$brand_id = $this->uri->segment(3);
 		if($brand_id)
 		{
 			$this->data = array();			
@@ -75,8 +77,9 @@ class Brand_users extends CI_Controller {
 	    }
 	}
 
-	public function edit_user($brand_map_id)
+	public function edit_user()
 	{
+		$brand_map_id = $this->uri->segment(3);
 		$this->data = array();
 		$user_id = $this->user_id;
 		$brands_user = $this->brand_model->check_brand_owner($brand_map_id,$user_id);
@@ -165,6 +168,20 @@ class Brand_users extends CI_Controller {
 	                {
 	                	$inserted_id = $this->aauth->create_user($this->input->post('email'),$password,$this->input->post('username'));
 	                	$this->aauth->add_member($inserted_id,$this->input->post('permission'));
+
+	                	$error_message = '';
+	                	if(!empty($_FILES['profile_pic']['name']))
+						{							
+							$image_name = $inserted_id.'.png';
+							$status = upload_file('profile_pic',$image_name,'users');
+							if(array_key_exists("upload_errors",$status))
+					        {
+					        	$error =  $status['upload_errors'];
+					        	$error_message = " but unable upload image";
+					        	break;
+					        }
+	                	}
+
 	                	unset($user_data['password']);
 	                	unset($user_data['username']);
 	                	$user_data['aauth_user_id'] = $inserted_id;
@@ -173,8 +190,8 @@ class Brand_users extends CI_Controller {
 	                    							'brand_id' => $brand_id,
 	                    							'access_user_id' => $inserted_id
 	                    						);
-	                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);	                    
-	                    $this->session->set_flashdata('message','User has been saved successfully');
+	                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+	                    $this->session->set_flashdata('message','User has been saved successfully'.$error_message);
 	                    redirect(base_url().'brand_users/index/'.$brand_id);
 	                }
 	                else
@@ -225,7 +242,7 @@ class Brand_users extends CI_Controller {
 	        	$this->data['brand_id'] = $brand_map_id;
 	        	$this->data['brand_name'] = $brands_user->name;
 	        	$this->data['permissions'] = $this->aauth->list_groups();
-	            $this->data['view'] = 'brands/edit_user';
+	            $this->data['view'] = 'brand_users/edit_user';
 
 	            _render_view($this->data);
 	        }
@@ -243,13 +260,36 @@ class Brand_users extends CI_Controller {
 	            $condition = array('id' => $this->input->post('user_id'));
                 $this->timeframe_model->update_data('user_info',$user_data,$condition);
 
+                $error_message = '';
+            	if(!empty($_FILES['profile_pic']['name']))
+				{
+					$image_name = $this->input->post('user_id').'.png';
+					$status = upload_file('profile_pic',$_FILES['profile_pic']['name'],'users');
+					if(array_key_exists("upload_errors",$status))
+			        {
+			        	$error =  $status['upload_errors'];
+			        	$error_message = " but unable upload image";
+			        	break;
+			        }
+			        else
+			        {
+
+			        	if(file_exists(upload_path().'users/'.$this->input->post('user_id').'.png'))
+	        				unlink(upload_path().'users/'.$this->input->post('user_id').'.png');
+
+			        	$old_path = upload_path().'users/'.$status['file_name'];
+		        		$new_path = upload_path().'users/'.$this->input->post('user_id').'.png';
+		        		rename($old_path, $new_path);
+			        }
+            	}
+
                 //get previous permission
                 $current_perm = $this->aauth->get_user_groups($brands_user->access_user_id);
                 //remove previous permission and add new                
                 $this->aauth->remove_member($brands_user->access_user_id,$current_perm[0]->group_id);
                 $this->aauth->add_member($brands_user->access_user_id,$this->input->post('permission'));
 
-                $this->session->set_flashdata('message','User has been updated successfully');
+                $this->session->set_flashdata('message','User has been updated successfully'.$error_message);
 	                       
 	    		redirect(base_url().'brand_users/index/'.$brands_user->brand_id);
 		    }
@@ -269,6 +309,10 @@ class Brand_users extends CI_Controller {
 			$brands_user = $this->brand_model->check_brand_owner($brand_map_id,$user_id);
 			if(!empty($brands_user))
 			{
+				$user_profile = upload_path().'users/'.$brands_user->access_user_id.'.png';
+				if(file_exists($user_profile))
+					unlink($user_profile);
+
 				$this->aauth->delete_user($brands_user->access_user_id);
 				$this->timeframe_model->delete_data('user_info',array('aauth_user_id' => $brands_user->access_user_id));
 				$this->timeframe_model->delete_data('brand_user_map',array('brand_id' => $brands_user->brand_id,'access_user_id' => $brands_user->access_user_id));

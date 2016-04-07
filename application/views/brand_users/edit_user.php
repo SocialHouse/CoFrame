@@ -1,8 +1,23 @@
-<?php echo form_open(base_url().'brand_users/update_user',array('method'=>'post')); ?>
+<?php echo form_open(base_url().'brand_users/update_user',array('method'=>'post','enctype' => 'multipart/form-data')); ?>
 
 	<input type="hidden" name="brand_map_id" value="<?php echo set_value('brand_map_id') ? set_value('brand_map_id') : (isset($brand_map_id) ? $brand_map_id : '' ); ?>">
 	<input type="hidden" name="user_id" value="<?php echo set_value('user_id') ? set_value('user_id') : (isset($user->id) ? $user->id : '' ); ?>">
 
+	<div class="form-group">
+	    <label for="profile_pic">Upload photo</label>
+	    <?php
+		if((isset($user->id) AND file_exists(upload_path().'users/'.$user->id.'.png')) OR (set_value('id') AND file_exists(upload_path().'users/'.set_value('id').'.png')))
+		{
+			?>
+			<div class="">
+				<img height="70" width="50" src="<?php echo upload_url().'users/'.(set_value('id')?set_value('id'):$user->id).'.png'; ?>">
+			</div>
+			<?php
+		}		
+		?>
+	    <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+	</div>	
+	
     <div class="form-group">
 		<label for="firstName">First name</label>		
 		<input type="text" id="first_name" name="first_name" class="form-control" placeholder="First name" value="<?php echo set_value('first_name') ? set_value('first_name') : (isset($user->first_name) ? $user->first_name : '' ); ?>" >

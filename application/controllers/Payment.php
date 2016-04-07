@@ -80,8 +80,35 @@ class Payment extends CI_Controller {
 			
 			try
 			{
-				$response = \Stripe\Customer::create($customer_info);
-				$response = $response->__toArray(true);
+				//check customer is already subscribed
+				$condition = array('id' => $this->user_data['user_info_id']);
+				$select =array('stripe_customer_id','stripe_subscription_id');
+				$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
+				$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+				if(!empty($last_transaction))
+				{
+					$cu = \Stripe\Customer::retrieve($strip_info[0]->stripe_customer_id);
+					$subscription = $cu->subscriptions->retrieve($strip_info[0]->stripe_subscription_id);
+					$subscription->plan = $this->input->post('plan');
+					$response = $subscription->save();
+					$response = $response->__toArray(true);
+					
+					$card_id = $last_transaction->card_id;
+					$subscription_key_id = $response['id'];
+					$customer_stripe_key = $response['customer'];
+					$subscription_info = $response;				
+					
+				}
+				else
+				{					
+					$response = \Stripe\Customer::create($customer_info);
+					$response = $response->__toArray(true);	
+					$customer_stripe_key = $response['id'];
+					$subscription_info =  $response['subscriptions']['data'][0];
+					$subscription_key_id = $subscription_info['id'];
+					$card_id = $response['sources']['data'][0]['id'];
+					
+				}
 
 				if(!empty($response))
 				{
@@ -111,11 +138,7 @@ class Payment extends CI_Controller {
 					{
 						// //insert billing details
 			    		$this->timeframe_model->insert_data('billing_details',$billing_data);
-			    	}
-
-					$customer_stripe_key = $response['id'];
-					$subscription_info =  $response['subscriptions']['data'][0];
-					$subscription_key_id = $subscription_info['id'];
+			    	}					
 					
 					$transaction_data = array(								
 								'plan' => $subscription_info['plan']['id'],
@@ -124,23 +147,21 @@ class Payment extends CI_Controller {
 								'current_period_end' => $subscription_info['current_period_end'],								
 								'stripe_customer_id' => $customer_stripe_key,
 								'subscription_id' => $subscription_key_id,
-								'card_id' => $response['sources']['data'][0]['id'],
+								'card_id' => $card_id,
 								'transaction_status' => $subscription_info['status'],
-								'paid_date' => date('Y-m-d H:i:s',strtotime($subscription_info['start'])),
+								'paid_date' => date('Y-m-d H:i:s',$subscription_info['start']),
 								'response' => json_encode($response),
 								'user_id' => $user_id
 							);
-					
 					$this->timeframe_model->insert_data('transactions',$transaction_data);
 
 					$stripe_info = array(
 										'stripe_customer_id' => $customer_stripe_key,
 										'stripe_subscription_id' => $subscription_key_id,
-									);
-
-					// $condition = array('id' => $billing_id);
+									);					
 					$condition = array('id' => $this->user_data['user_info_id']);
-					
+                    $this->timeframe_model->update_data('user_info',$stripe_info,$condition);
+
 					$this->session->set_flashdata('message', 'Thank you for your Subscription');
 					redirect(base_url()."payment");
 				}

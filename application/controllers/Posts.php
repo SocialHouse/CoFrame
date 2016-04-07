@@ -233,7 +233,7 @@ class Posts extends CI_Controller {
 			$this->timeframe_model->delete_data('post_tags',$condition);			
 			$this->timeframe_model->delete_data('post_media',$condition);
 			$this->timeframe_model->delete_data('post_approvers',$condition);
-			$this->session->set_flashdata('message','Post has been successfully deleted');
+			$this->session->set_flashdata('message','Post has been deleted successfully');
 		}
 		else
 		{
@@ -264,28 +264,31 @@ class Posts extends CI_Controller {
 		if($post_id)
 		{
 			$this->data['post'] = $this->post_model->get_post($post_id);
-			$tags_array = $this->post_model->get_post_tags($post_id);
-			$this->data['selected_tags'] = array();
-			if(!empty($tags_array))
+			if(!empty($this->data['post']))
 			{
-				$this->data['selected_tags'] = array_column($tags_array,'id');
-			}
+				$tags_array = $this->post_model->get_post_tags($post_id);
+				$this->data['selected_tags'] = array();
+				if(!empty($tags_array))
+				{
+					$this->data['selected_tags'] = array_column($tags_array,'id');
+				}
+				
+				$approvers_array = $this->post_model->get_post_approvers($post_id);
+				$this->data['selected_approvers'] = array_column($approvers_array,'aauth_user_id');
+
+				$condition = array('post_id'=>$post_id);
+				$this->data['post_media'] = $this->timeframe_model->get_data_by_condition('post_media',$condition);
 			
-			$approvers_array = $this->post_model->get_post_approvers($post_id);
-			$this->data['selected_approvers'] = array_column($approvers_array,'aauth_user_id');
 
-			$condition = array('post_id'=>$post_id);
-			$this->data['post_media'] = $this->timeframe_model->get_data_by_condition('post_media',$condition);
-		
+				$this->data['tags'] = $this->post_model->get_brand_tags($this->data['post']->brand_id);
+				$this->data['users'] = $this->post_model->get_brand_users($this->data['post']->brand_id);
 
-			$this->data['tags'] = $this->post_model->get_brand_tags($this->data['post']->brand_id);
-			$this->data['users'] = $this->post_model->get_brand_users($this->data['post']->brand_id);
+				$this->data['view'] = 'posts/edit_post';
 
-			$this->data['view'] = 'posts/edit_post';
-
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
-        	_render_view($this->data);
+				$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
+				$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+	        	_render_view($this->data);
+	        }
 		}
 	}
 

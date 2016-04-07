@@ -1,5 +1,11 @@
-<?php echo form_open(base_url().'brand_users/save_user',array('method'=>'post')); ?>
+<?php echo form_open(base_url().'brand_users/save_user',array('method'=>'post','enctype' => 'multipart/form-data')); ?>
 	<h2>Add user for: <?php echo $brand_name; ?></h2>
+
+	<div class="form-group">
+	    <label for="profile_pic">Upload photo</label>	   
+	    <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+	</div>	
+
     <div class="form-group">
 		<label for="first_name">First name</label>
 		<input type="hidden" name="brand_id" value="<?php echo set_value('brand_id') ? set_value('brand_id') : $brand_id; ?>">
