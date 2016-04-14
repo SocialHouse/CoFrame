@@ -27,3 +27,79 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+
+
+# -----------------------------------------------------------------
+# .gitignore for WordPress @salcode
+# ver 20160309
+#
+# By default all files are ignored.  You'll need to whitelist
+# any mu-plugins, plugins, or themes you want to include in the repo.
+#
+# -----------------------------------------------------------------
+
+# ignore everything in the public directory except the "wp-content" directory.
+public/*
+!public/wp-content/
+!*.sql
+
+# ignore all mu-plugins, plugins, themes and uploads
+# unless explicitly whitelisted at the end of this file
+public/wp-content/index.php
+public/wp-content/mu-plugins/*
+public/wp-content/plugins/*
+public/wp-content/themes/*
+public/wp-content/uploads/*
+
+# ignore node dependency directories (used by grunt)
+node_modules/
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+
+# ignore Editor files
+*.komodoproject
+
+# ignore all files starting with . or ~
+.*
+~*
+
+# don't track the compiled CSS
+public/wp-content/themes/sassapress/style.css
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.editorconfig
+!.htaccess
+!README.md
+!CHANGELOG.md
+!composer.json
+
+# track favicon files, if they exist
+!android-chrome-*.png
+!apple-touch-icon*.png
+!browserconfig.xml
+!favicon*.png
+!favicon*.ico
+!manifest.json
+!mstile-*.png
+!safari-pinned-tab.svg
+
+# track these mu-plugins, plugins, and themes
+# add your own entries here
+!public/wp-content/themes/sassapress/
