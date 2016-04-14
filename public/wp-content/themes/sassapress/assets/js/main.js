@@ -147,10 +147,10 @@ jQuery(function($) {
 	//animated content
 	// test for css animation support with fallback
 	if(Modernizr.cssanimations) {
-		$.getScript('/wp-content/themes/sassapress/assets/js/css-animations.js');
+		$.getScript('/public/wp-content/themes/sassapress/assets/js/css-animations.js');
 	}
 	else {
-		$.getScript('/wp-content/themes/sassapress/assets/js/no-css-animations.js');
+		$.getScript('/public/wp-content/themes/sassapress/assets/js/no-css-animations.js');
 	}
 	
 	
