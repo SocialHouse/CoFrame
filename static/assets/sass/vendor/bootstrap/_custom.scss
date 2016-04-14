@@ -7,13 +7,14 @@ $gray-lighter: #aaa;
 $gray-lightest: #ccc;
 
 $brand-primary: #C71F2A;
-$brand-secondary: #94c44a;
+$brand-secondary: #000;
 $brand-dark: #003333;
 $brand-light: #e2eef1;
 $brand-alternate: #006e87;
 
 $navbar-dark-color: #fff;
 $navbar-padding-vertical: 1.375rem;
+$navbar-padding-horizontal: 0;
 
 $border-radius: 8px;
 $border-radius-lg: 12px;
@@ -47,12 +48,12 @@ $futura-light: 'Futura LT W01 Light', Arial, Helvetica, sans-serif;
 $futura-bold: 'Futura LT W01 Bold', Arial, Helvetica, sans-serif;
 $futura-heavy: 'Futura LT W01 Heavy', Arial, Helvetica, sans-serif;
 
-$headings-font-family: $bebas-bold;
+$headings-font-family: $futura-bold;
 $headings-font-weight: normal;
 $headings-line-height: 1;
 
-$font-size-h1: 4.6875rem;
-$font-size-h2: 3.125rem;
+$font-size-h1: .9375rem;
+$font-size-h2: .9375rem;
 $font-size-h3: 2.25rem;
 $font-size-h4: 1.25rem;
 $font-size-h5: .9375rem;
@@ -74,7 +75,7 @@ $container-max-widths: (
   xl: 105em  // 1680
 );
 
-$grid-gutter-width: 3rem; // 48px
+$grid-gutter-width: 1.875rem; // 30px
 
 $grid-breakpoints: (
   // Extra small screen / phone
