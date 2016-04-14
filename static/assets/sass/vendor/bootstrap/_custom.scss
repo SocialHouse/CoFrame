@@ -1,0 +1,95 @@
+//custom variables
+
+$gray-dark: #242324;
+$gray: #504f4c;
+$gray-light: #666666;
+$gray-lighter: #aaa;
+$gray-lightest: #ccc;
+
+$brand-primary: #C71F2A;
+$brand-secondary: #94c44a;
+$brand-dark: #003333;
+$brand-light: #e2eef1;
+$brand-alternate: #006e87;
+
+$navbar-dark-color: #fff;
+$navbar-padding-vertical: 1.375rem;
+
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+$btn-padding-x: 1.875rem;
+$btn-padding-y: 1.25rem;
+$btn-padding-x-sm: 1.25rem;
+$btn-padding-y-sm: .75rem;
+$btn-padding-y-lg: $btn-padding-y;
+$btn-padding-x-lg: 1.875rem;
+$btn-primary-border: $brand-primary;
+$btn-secondary-color: #fff;
+$btn-secondary-bg: $brand-secondary;
+$btn-secondary-border: $brand-secondary;
+$btn-warning-bg: #000;
+$btn-warning-border: #000;
+
+//Forms
+$input-border: #000;
+$input-border-radius: 0;
+$form-group-margin-bottom: .8125rem;
+
+//Fonts
+$bebas: 'Bebas', Arial, Helvetica, sans-serif;
+$bebas-book: 'Bebas Book', Arial, Helvetica, sans-serif;
+$bebas-light: 'Bebas Light', Arial, Helvetica, sans-serif;
+$bebas-thin: 'Bebas Thin', Arial, Helvetica, sans-serif;
+$bebas-bold: 'Bebas Bold', Arial, Helvetica, sans-serif;
+$futura: 'Futura LT W01 Book', Arial, Helvetica, sans-serif;
+$futura-light: 'Futura LT W01 Light', Arial, Helvetica, sans-serif;
+$futura-bold: 'Futura LT W01 Bold', Arial, Helvetica, sans-serif;
+$futura-heavy: 'Futura LT W01 Heavy', Arial, Helvetica, sans-serif;
+
+$headings-font-family: $bebas-bold;
+$headings-font-weight: normal;
+$headings-line-height: 1;
+
+$font-size-h1: 4.6875rem;
+$font-size-h2: 3.125rem;
+$font-size-h3: 2.25rem;
+$font-size-h4: 1.25rem;
+$font-size-h5: .9375rem;
+
+// Close
+$close-font-weight: 800;
+$close-color: #fff;
+$close-text-shadow: none;
+
+$modal-content-border-color: transparent;
+$modal-backdrop-opacity: 0;
+$modal-sm: 480px;
+$modal-inner-padding: 2.1875rem 1.5rem 1.5rem;
+
+$container-max-widths: (
+  sm: inherit,    // 480
+  md: inherit,    // 720
+  lg: inherit,    // 960
+  xl: 105em  // 1680
+);
+
+$grid-gutter-width: 3rem; // 48px
+
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 48em,
+  // Medium screen / tablet
+  md: 60em,
+  // Large screen / desktop
+  lg: 62em,
+  // Extra large screen / wide desktop
+  xl: 105em
+) !default;
+
+@function remCalc($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}

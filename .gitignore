@@ -67,6 +67,7 @@ Thumbs.db
 
 # don't track the compiled CSS
 public/wp-content/themes/sassapress/style.css
+static/assets/css/*
 
 # ignore packaged files
 *.7z
