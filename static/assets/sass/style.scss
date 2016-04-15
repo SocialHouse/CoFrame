@@ -97,7 +97,7 @@ h3 {
 	}
 }
 h5 {
-	font-family: $futura;
+	font-family: $futura-light;
 	text-transform: uppercase;
 	letter-spacing: .25em;
 }
@@ -761,6 +761,10 @@ body.modal-open {
 		background: rgba(255,255,255,.88);
 	}
 }
+.bg-black {
+	background: #000;
+	color: #fff;
+}
 .bg-alternate {
 	background: $brand-alternate;
 	color: #fff;
@@ -823,45 +827,34 @@ body.modal-open {
 .white-title {
 	color: #fff;
 }
-.border-title-block {
-	text-align: center;
-}
 .border-title {
-	color: $brand-primary;
+	position: relative;
+	text-align: center;
+	margin: remCalc(40px) 0 1rem;
 	span {
 		display: inline-block;
 		position: relative;
-		&:before, &:after {
-			content: "";
-			position: absolute;
-			height: 1px;
-			border-top: 1px solid $brand-secondary;
-			top: 1rem;
-			width: calc(100% - 3.75rem);
-			z-index: 1;
+		background: #fff;
+		z-index: 1;
+		padding: 0 15px;
+		.bg-black & {
+			background: #000;
 		}
-		&:before {
-			right: calc(100% - 1.875rem);
-			margin-right: 3.75rem;
-		}
-		&:after {
-			left: calc(100% - 1.875rem);
-			margin-left: 3.75rem;
-		}
-	}
-	&:before, &:after {
-		content: "";
-		position: absolute;
-		height: 22px;
-		width: 19px;
-		z-index: 5;
-		top: 5px;
 	}
 	&:before {
-		left: .9375rem;
+		background: #000;
+		content: "";
+		display: block;
+		height: 1px;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		.bg-black & {
+			background: #fff;
+		}
 	}
 	&:after {
-		right: .9375rem;
+		left: 0;
 	}
 }
 /*Borders*/

@@ -75,7 +75,7 @@ $font-size-h1: 1rem;
 $font-size-h2: 1rem;
 $font-size-h3: remCalc(19px);
 $font-size-h4: 1.25rem;
-$font-size-h5: .9375rem;
+$font-size-h5: remCalc(12px);
 
 // Close
 $close-font-weight: 800;
