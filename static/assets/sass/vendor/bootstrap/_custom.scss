@@ -1,16 +1,31 @@
+//custom functions
+@function remCalc($size) {
+  $remSize: $size / 15px;
+  @return #{$remSize}rem;
+}
+
 //custom variables
 
 $gray-dark: #242324;
-$gray: #504f4c;
+$gray: #999999;
 $gray-light: #666666;
 $gray-lighter: #aaa;
 $gray-lightest: #ccc;
+
+$body-color: #000;
+
+$link-color: #000;
 
 $brand-primary: #C71F2A;
 $brand-secondary: #000;
 $brand-dark: #003333;
 $brand-light: #e2eef1;
 $brand-alternate: #006e87;
+$brand-success: #009245;
+$brand-info: #0071BC;
+$brand-warning: #F5DB12;
+$brand-danger: #C1272D;
+$brand-orange: #F58235;
 
 $navbar-dark-color: #fff;
 $navbar-padding-vertical: 1.375rem;
@@ -18,6 +33,7 @@ $navbar-padding-horizontal: 0;
 
 $border-radius: 8px;
 $border-radius-lg: 12px;
+$border-radius-sm:6px;
 
 $btn-padding-x: 1.875rem;
 $btn-padding-y: 1.25rem;
@@ -48,13 +64,15 @@ $futura-light: 'Futura LT W01 Light', Arial, Helvetica, sans-serif;
 $futura-bold: 'Futura LT W01 Bold', Arial, Helvetica, sans-serif;
 $futura-heavy: 'Futura LT W01 Heavy', Arial, Helvetica, sans-serif;
 
+$font-family-sans-serif: $futura-light;
+
 $headings-font-family: $futura-bold;
 $headings-font-weight: normal;
 $headings-line-height: 1;
 
-$font-size-h1: .9375rem;
-$font-size-h2: .9375rem;
-$font-size-h3: 2.25rem;
+$font-size-h1: 1rem;
+$font-size-h2: 1rem;
+$font-size-h3: remCalc(19px);
 $font-size-h4: 1.25rem;
 $font-size-h5: .9375rem;
 
@@ -68,11 +86,17 @@ $modal-backdrop-opacity: 0;
 $modal-sm: 480px;
 $modal-inner-padding: 2.1875rem 1.5rem 1.5rem;
 
+$popover-bg: #fff;
+$popover-border-width: 0;
+$popover-title-bg: $popover-bg;
+$popover-arrow-outer-color: $popover-bg;
+$popover-max-width: 300px;
+
 $container-max-widths: (
   sm: inherit,    // 480
-  md: inherit,    // 720
-  lg: inherit,    // 960
-  xl: 105em  // 1680
+  md: 992px,
+  lg: 1170px,
+  xl: 1680px
 );
 
 $grid-gutter-width: 1.875rem; // 30px
@@ -81,16 +105,11 @@ $grid-breakpoints: (
   // Extra small screen / phone
   xs: 0,
   // Small screen / phone
-  sm: 48em,
+  sm: 768px,
   // Medium screen / tablet
-  md: 60em,
+  md: 1024px,
   // Large screen / desktop
-  lg: 62em,
+  lg: 1280px,
   // Extra large screen / wide desktop
-  xl: 105em
-) !default;
-
-@function remCalc($size) {
-  $remSize: $size / 16px;
-  @return #{$remSize}rem;
-}
+  xl: 1680px
+);
