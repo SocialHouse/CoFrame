@@ -69,6 +69,7 @@ hr {
 }
 strong, b {
 	font-weight: normal;
+	font-family: $futura-bold;
 }
 
 /* Headings */
@@ -167,6 +168,10 @@ a {
 	position: relative;
 	font-family: $futura;
 	font-size: remCalc(12px);
+	.navbar-nav {
+		position: relative;
+		z-index: 2;
+	}
 	.nav-link {
 		text-transform: uppercase;
 		letter-spacing: .25rem;
@@ -190,7 +195,7 @@ a {
 	height: inherit;
 	margin: 6px 0 0;
 	position: relative;
-	z-index: 9999;
+	z-index: 2;
 	a {
 		display: block;
 	}
@@ -217,6 +222,7 @@ a {
 	min-height: 48px;
 	left: 0;
 	top: 15px;
+	z-index: 1;
 }
 .show-brands-togggler {
 	display: block;
@@ -319,6 +325,59 @@ a {
 	}
 }
 
+.brand-navigation {
+	height: 100%;
+	padding-left: remCalc(30px);
+	padding-right: remCalc(30px);
+}
+.navbar-brand-manage .navbar-nav {
+	margin-top: remCalc(60px);
+	.nav-item {
+		display: block;
+		float: none;
+		text-transform: uppercase;
+		font-size: remCalc(12px);
+		+ .nav-item {
+			margin: 0;
+		}
+	}
+	.nav-link {
+		padding-top: remCalc(12px);
+		padding-bottom: remCalc(12px);
+		letter-spacing: .25rem;
+	}
+	&.navbar-user {
+		margin-top: remCalc(15px);
+		padding-top: remCalc(15px);
+		border-top: 1px solid #000;
+	}
+}
+.current-user-details {
+	position: absolute;
+	bottom: remCalc(24px);
+	left: remCalc(30px);
+	right: remCalc(30px);
+	text-transform: uppercase;
+	font-size: remCalc(10px);
+	letter-spacing: .25rem;
+	font-family: $futura;
+	.user-name {
+		display: inline-block;
+		border: 1px solid #000;
+		font-family: $futura-light;
+		font-size: remCalc(12px);
+		padding: 0 .25rem;
+		margin-bottom: 1rem;
+	}
+	.current-time {
+		font-family: $futura;
+		border-left: 1px solid #000;
+		letter-spacing: 0;
+		strong {
+			font-size: remCalc(28px);
+		}
+	}
+}
 /*heights*/
 @include media-breakpoint-up(md) {
 	.row-sm-12 {
@@ -343,7 +402,7 @@ a {
 }
 .page-main {
 	min-height: 100%;
-	overflow-y: scroll;
+	overflow-y: auto;
 	@include media-breakpoint-up(md) {
 		height: 100% !important;
 		min-height: inherit;
@@ -351,10 +410,22 @@ a {
 	&#overview {
 		padding: remCalc(26px)  remCalc(40px);
 	}
+	&#brand-manage {
+		padding: remCalc(60px)  remCalc(30px) 0;
+	}
 }
 .page-main-header {
 	border-bottom: 2px solid #000;
 	padding-bottom: remCalc(26px);
+}
+.date-header {
+	font-size: remCalc(25px);
+	line-height: remCalc(51px);
+	border-bottom: 1px solid #000;
+	margin-bottom: 1rem;
+	strong {
+		text-transform: uppercase;
+	}
 }
 /*animated sections*/
 @media (min-width: 1025px) {
@@ -686,6 +757,9 @@ body.modal-open {
 			border-color: $brand-primary;
 		}
 	}
+	&.opaque-88 {
+		background: rgba(255,255,255,.88);
+	}
 }
 .bg-alternate {
 	background: $brand-alternate;
@@ -713,6 +787,7 @@ body.modal-open {
 .bg-transparent {
 	background: none;
 }
+
 .color-danger {
 	color: $brand-danger;
 }
