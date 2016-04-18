@@ -33,9 +33,9 @@
 			<section id="brand-manage" class="page-main bg-white col-sm-10">
 				<header class="page-main-header">
 					<h1 class="center-title section-title">Brand Dashboard</h1>
+					<h2 class="date-header"><strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
 				</header>
-				<div class="col-sm-12 date-header"><strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></div>
-				<div class="row">
+				<div class="row equal-cols">
 					<div class="col-md-6">
 						<?php include("lib/reminder-list.php"); ?>
 					</div>

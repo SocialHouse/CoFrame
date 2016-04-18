@@ -365,11 +365,6 @@ hr.fc-divider {
 	bottom: 0; /* strech bg to bottom edge */
 }
 
-.fc-bg table {
-	height: 100%; /* strech bg to bottom edge */
-}
-
-
 /* Tables
 --------------------------------------------------------------------------------------------------*/
 
@@ -826,11 +821,7 @@ a.fc-more:hover {
 }
 
 .fc-day-number.fc-other-month {
-	opacity: 0.3;
-	filter: alpha(opacity=30); /* for IE */
-	/* opacity with small font can sometimes look too faded
-	   might want to set the 'color' property instead
-	   making day-numbers bold also fixes the problem */
+	color: $gray-light;
 }
 
 /* AgendaView all-day area
@@ -1128,18 +1119,28 @@ be a descendant of the grid when it is being dragged.
 
 .calendar-summary {
 	padding: remCalc(22px);
+	height: 100%;
+	.fc-head {
+		border-bottom: 1px solid $gray-light;
+	}
 	.fc th, .fc td {
 		border-width: 0;
-		border-radius: 3px;
+		border-radius: 8px;
+		vertical-align: middle;
+		padding-top: 6px;
+		padding-bottom: 6px;
 		&.ui-state-highlight {
 			background: $brand-primary;
 		}
+	}
+	.fc-day-header {
+		color: $gray-light;
 	}
 	.fc-ltr .fc-basic-view .fc-day-number {
 		text-align: center;
 	}
 	.fc-basic-view .fc-body .fc-row {
-		min-height: 2em;
+		min-height: inherit;
 	}
 	button {
 		height: auto;
@@ -1147,6 +1148,7 @@ be a descendant of the grid when it is being dragged.
 	h2 {
 		text-transform: none;
 		font-size: remCalc(20px);
+		border: 0;
 	}
 }
 

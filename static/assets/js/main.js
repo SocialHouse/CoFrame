@@ -9,7 +9,8 @@ jQuery(function($) {
 	});
 	$('[data-toggle="popover"]').popover({
 		container: 'body',
-		html: true
+		html: true,
+		trigger: 'focus'
 	});
 
 	$(document).ready(function() {
@@ -32,6 +33,19 @@ jQuery(function($) {
 			theme: true,
 			themeButtonIcons: false
     	});
+
+		$('.show-brands-toggler').on('click', function(e) {
+			e.preventDefault();
+		});
+
+
+		//equal column heights
+		var dashboardH = $('#brand-manage').height();
+		var headhH = $('.page-main-header').outerHeight(true);
+		console.log(headhH);
+		$('.equal-cols [class*=col-]').each(function() {
+			$(this).css('height', dashboardH - headhH - 2);
+		});
 	});
 
 });
