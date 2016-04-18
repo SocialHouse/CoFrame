@@ -37,6 +37,13 @@ jQuery(function($) {
 		$('.show-brands-toggler').on('click', function(e) {
 			e.preventDefault();
 		});
+		
+		$('#post-details .outlet-list li').on('click', function() {
+			var outlet = $(this).attr('data-selected-outlet');
+			$(this).toggleClass('disabled');
+			$(this).siblings().addClass('disabled');
+			$('#postOutlet').val(outlet);
+		});
 
 
 		//equal column heights

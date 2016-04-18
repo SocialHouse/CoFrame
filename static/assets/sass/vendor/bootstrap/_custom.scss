@@ -9,7 +9,7 @@
 $gray-dark: #222;
 $gray: #999999;
 $gray-light: #666666;
-$gray-lighter: #B3B3B3;
+$gray-lighter: #bfbfbf;
 $gray-lightest: #f7f7f7;
 
 $body-color: #000;
@@ -48,11 +48,22 @@ $btn-secondary-bg: $brand-secondary;
 $btn-secondary-border: $brand-secondary;
 $btn-warning-bg: #000;
 $btn-warning-border: #000;
+$btn-link-disabled-color: $gray-lighter;
 
 //Forms
 $input-border: #000;
 $input-border-radius: 0;
-$form-group-margin-bottom: .8125rem;
+$input-border-radius-sm: 0;
+$input-border-color: #000;
+$input-box-shadow: 0;
+$input-padding-y: 5px;
+$input-padding-y-sm: 3px;
+$input-padding-x: 5px;
+$input-padding-x-sm: 3px;
+$input-color-placeholder: #ccc;
+$input-height: 22px;
+$input-height-sm: 25px;
+$form-group-margin-bottom: 2rem;
 
 //Fonts
 $bebas: 'Bebas', Arial, Helvetica, sans-serif;
@@ -74,7 +85,7 @@ $headings-line-height: 1;
 $font-size-h1: 1rem;
 $font-size-h2: 1rem;
 $font-size-h3: remCalc(19px);
-$font-size-h4: 1.25rem;
+$font-size-h4: remCalc(13px);
 $font-size-h5: remCalc(12px);
 
 // Close
