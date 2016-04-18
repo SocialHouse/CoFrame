@@ -45,6 +45,7 @@ class Posts extends CI_Controller {
 	}
 
 	//create post in brand
+	//create post in brand
 	public function create()
 	{		
 		$this->data = array();
@@ -56,11 +57,26 @@ class Posts extends CI_Controller {
         	$this->data['brand_name'] = $brand[0]->name;
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+
+			//get default approvers which we added in brand
+			$phases = $this->post_model->get_default_phases($brand_id);
+			$this->data['default_phases'] = array();
+			if(!empty($phases))
+			{
+				foreach($phases as $phase)
+				{
+					$this->data['default_phases'][$phase->phase][] = $phase;					
+				}
+			}
+
 			$this->data['users'] = $this->post_model->get_brand_users($brand_id);
+
 			$this->data['view'] = 'posts/create';
 
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+			// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'custom.css');
+			// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'jquery_ui.css',css_url().'custom.css');
+			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'jquery_ui.js',js_url().'timepicker.js');
 
         	_render_view($this->data);
 		}
@@ -81,6 +97,9 @@ class Posts extends CI_Controller {
 
 		$brand = get_users_brand(isset($post_data['brand_id'])?$post_data['brand_id']:'');
 
+
+		$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
+
 		if($brand)
 		{
 	        $this->form_validation->set_rules('outlets[]','Outlets','required',                                            
@@ -89,15 +108,21 @@ class Posts extends CI_Controller {
 	        $this->form_validation->set_rules('post_copy','post copy','required',
 	                                            array('required' => 'Post copy is required')
 	                                        );
-	        $this->form_validation->set_rules('date','date','required',
+	        $this->form_validation->set_rules('slate_date_month','month','required',
 	                                            array('required' => 'Date is required')
 	                                        );
-	        $this->form_validation->set_rules('time','time','required',
+	        $this->form_validation->set_rules('slate_date_day','time','required',
 	                                            array('required' => 'Time is required')
 	                                        );
-	        $this->form_validation->set_rules('users[]','users','required',
-	                                            array('required' => 'At least select one user for approvel')
+	         $this->form_validation->set_rules('slate_date_year','year','required',
+	                                            array('required' => 'Date is required')
 	                                        );
+	        $this->form_validation->set_rules('slate_time','time','required',
+	                                            array('required' => 'Time is required')
+	                                        );
+	        // $this->form_validation->set_rules('users[]','users','required',
+	        //                                     array('required' => 'At least select one user for approvel')
+	        //                                 );
 	       	
 	       	if($this->form_validation->run() === TRUE)
 	        {
@@ -140,7 +165,7 @@ class Posts extends CI_Controller {
 			    }
 			    if(empty($error))
 			    {
-			    	$date_time = $post_data['date']." ".$post_data['time'];
+			    	$date_time =  $post_data['slate_date_year'].'-'.$post_data['slate_date_month'].'-'.$post_data['slate_date_day']." ".$post_data['slate_time'];
 			    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
 			    	if(!empty($post_data['outlets']))
@@ -171,18 +196,18 @@ class Posts extends CI_Controller {
 					    			}
 					    		}					    		
 
-					    		if(!empty($post_data['users']))
-					    		{
-					    			foreach($post_data['users'] as $user)
-					    			{
-					    				$post_approver_data = array(
-					    										'post_id' => $inserted_id,
-					    										'user_id' => $user
-					    									);
+					    		// if(!empty($post_data['users']))
+					    		// {
+					    		// 	foreach($post_data['users'] as $user)
+					    		// 	{
+					    		// 		$post_approver_data = array(
+					    		// 								'post_id' => $inserted_id,
+					    		// 								'user_id' => $user
+					    		// 							);
 
-					    				$this->timeframe_model->insert_data('post_approvers',$post_approver_data);
-					    			}
-					    		}
+					    		// 		$this->timeframe_model->insert_data('post_approvers',$post_approver_data);
+					    		// 	}
+					    		// }
 
 					    		if(!empty($uploaded_files))
 					    		{
@@ -199,6 +224,70 @@ class Posts extends CI_Controller {
 					    			}
 					    		}
 			    			}
+
+			    			if(isset($post_data['load_default']))
+			    			{
+			    				$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
+			    				if(!empty($default_phases))
+			    				{
+			    					foreach($default_phases as $phase)
+			    					{
+			    						$date_time = $post_data['default_phase_year']."-".$post_data['default_phase_month']."-".$post_data['default_phase_day']." ".$post_data['default_phase_time'];
+								    	$default_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+			    						$phase_data = array(
+			    										'phase' => $phase->phase,
+			    										'brand_id' => $post_data['brand_id'],
+			    										'post_id' => $inserted_id
+			    									);
+			    						//add new phase data for the post with same data as default phase
+			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+
+			    						$phases_approver = array(
+			    											'user_id' => $phase->user_id,
+			    											'phase_id' => $phase_insert_id,
+			    											'approve_by' => $default_date_time,
+			    											'note' => $post_data['default_note']
+
+			    										);
+
+										$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+									}
+			    				}
+			    			}
+			    			else
+			    			{
+			    				if(isset($post_data['phase']['users']) AND !empty($post_data['phase']['users']))
+			    				{
+			    					$phase_number = 1;
+			    					foreach($post_data['phase']['users'] as $key=>$phase)
+			    					{
+			    						$date_time = $post_data['phase']['approve_year'][$key][0]."-".$post_data['phase']['approve_month'][$key][0]."-".$post_data['phase']['approve_day'][$key][0]." ".$post_data['phase']['approve_time'][$key][0];
+									    	$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+			    						$phase_data = array(
+			    										'phase' => $phase_number,
+			    										'brand_id' => $post_data['brand_id'],
+			    										'post_id' => $inserted_id,
+			    										'approve_by' => $approve_date_time,
+				    									'note' => $post_data['phase']['note'][$key][0]
+			    									);			    						
+			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
+
+			    						foreach($phase as $user)
+			    						{ 
+				    						$phases_approver = array(
+				    											'user_id' => $user,
+				    											'phase_id' => $phase_insert_id  
+				    										);
+
+											$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
+										}
+
+			    						$phase_number++;
+			    					}
+			    				}
+			    			}
 			    		}			    	
 			    		$this->session->set_flashdata('message','Post has been saved successfuly');
 			    		redirect(base_url().'posts/index/'.$brand[0]->id);
@@ -206,7 +295,6 @@ class Posts extends CI_Controller {
 			    }
 			    $this->data['error'] = "Unable to save post please try again";
 		    }
-
 		    $this->data['brand_id'] = $brand[0]->id;
 	    	$this->data['brand_name'] = $brand[0]->name;
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
@@ -215,8 +303,10 @@ class Posts extends CI_Controller {
 
 			$this->data['view'] = 'posts/create';
 
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+			// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
+			// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'jquery_ui.css',css_url().'custom.css');
+			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'jquery_ui.js',js_url().'timepicker.js');
 
 	    	_render_view($this->data);
 	    }
@@ -273,8 +363,18 @@ class Posts extends CI_Controller {
 					$this->data['selected_tags'] = array_column($tags_array,'id');
 				}
 				
-				$approvers_array = $this->post_model->get_post_approvers($post_id);
-				$this->data['selected_approvers'] = array_column($approvers_array,'aauth_user_id');
+				// $approvers_array = $this->post_model->get_post_approvers($post_id);
+				// $this->data['selected_approvers'] = array_column($approvers_array,'aauth_user_id');
+				$phases = $this->post_model->get_post_phases($post_id);
+
+				$this->data['phases'] = array();
+				if(!empty($phases))
+				{
+					foreach($phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase;
+					}
+				}				
 
 				$condition = array('post_id'=>$post_id);
 				$this->data['post_media'] = $this->timeframe_model->get_data_by_condition('post_media',$condition);
@@ -312,9 +412,9 @@ class Posts extends CI_Controller {
 	        $this->form_validation->set_rules('time','time','required',
 	                                            array('required' => 'Time is required')
 	                                        );
-	        $this->form_validation->set_rules('users[]','users','required',
-	                                            array('required' => 'At least select one user for approvel')
-	                                        );
+	        // $this->form_validation->set_rules('users[]','users','required',
+	                                            // array('required' => 'At least select one user for approvel')
+	                                        // );
 
 	       	if($this->form_validation->run() === TRUE)
 	        {
@@ -458,7 +558,17 @@ class Posts extends CI_Controller {
 		    
 
 		    $this->data['tags'] = $this->post_model->get_brand_tags($this->data['post']->brand_id);
-			$this->data['users'] = $this->post_model->get_brand_users($this->data['post']->brand_id);			
+			// $this->data['users'] = $this->post_model->get_brand_users($this->data['post']->brand_id);
+			$phases = $this->post_model->get_post_phases($post_id);
+
+			$this->data['phases'] = array();
+			if(!empty($phases))
+			{
+				foreach($phases as $phase)
+				{
+					$this->data['phases'][$phase->phase][] = $phase;
+				}
+			}	
 
 			$this->data['view'] = 'posts/edit_post';
 

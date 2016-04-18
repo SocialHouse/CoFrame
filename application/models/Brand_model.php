@@ -37,7 +37,7 @@ class Brand_model extends CI_Model
 	//get user assosiate with brands
 	public function get_brand_users($brand_id)
 	{
-		$this->db->select('brand_user_map.id,user_info.first_name,user_info.last_name,aauth_users.email');
+		$this->db->select('brand_user_map.id,user_info.first_name,user_info.last_name,aauth_users.email,user_info.aauth_user_id');
 		$this->db->where('brand_id', $brand_id);
 		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
 		$this->db->join('user_info','user_info.aauth_user_id = brand_user_map.access_user_id');

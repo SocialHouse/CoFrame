@@ -52,3 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['approver/add-phase/(:num)'] = "approver/add_phase/$1";
+$route['approver/save-phase'] = "approver/save_phase";
+$route['approver/edit-phase/(:num)'] = "approver/edit_phase/$1";

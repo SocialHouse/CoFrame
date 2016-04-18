@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="form-group col-md-12">
+	<div class="col-md-12">
 		<table class="table">
 			<thead>
 				<tr>
@@ -28,6 +28,8 @@
 								<a href="<?php echo base_url().'posts/index/'.$brand->id; ?>">Posts</a> | 
 								<a href="<?php echo base_url().'posts/create/'.$brand->id; ?>">Add Post</a> | 
 								<a href="<?php echo base_url().'posts/drafts/'.$brand->id; ?>">Drafts</a> | 
+								<a href="<?php echo base_url().'phases/index/'.$brand->id; ?>">Check approver phase</a> | 
+								<a href="<?php echo base_url().'phases/add/'.$brand->id; ?>">Add next phase</a> | 
 								<?php
 								if($brand->is_hidden == 0)
 								{

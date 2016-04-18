@@ -152,4 +152,34 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_default_phases($brand_id)
+	{
+		$this->db->select('first_name,last_name,phases_approver.user_id,phase,brand_id');
+		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
+		$this->db->join('phases','phases.id = phases_approver.phase_id');
+		$this->db->where('brand_id',$brand_id);
+		$this->db->where('post_id',0);
+		$query = $this->db->get('phases_approver');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	public function get_post_phases($post_id)
+	{
+		$this->db->select('first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note');
+		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
+		$this->db->join('phases','phases.id = phases_approver.phase_id');
+		// $this->db->where('brand_id',$brand_id);
+		$this->db->where('post_id',$post_id);
+		$query = $this->db->get('phases_approver');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 }

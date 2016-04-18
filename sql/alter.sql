@@ -219,3 +219,32 @@ ALTER TABLE `billing_details` ADD `exp_month` INT NOT NULL AFTER `exp_year`;
 
 ALTER TABLE `billing_details` ADD `cc_number` VARCHAR(5) NULL AFTER `name`;
 ALTER TABLE `billing_details` ADD `cvc` VARCHAR(4) NULL AFTER `cc_number`;
+
+-- 12-04-2016
+CREATE TABLE IF NOT EXISTS `phases` (
+`id` int(11) NOT NULL,
+  `phase` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `phases`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `phases`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE IF NOT EXISTS `phases_approver` (
+`id` int(11) NOT NULL,
+  `phase_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `phases_approver`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `phases_approver`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `phases` ADD `approve_by` DATETIME NOT NULL , ADD `note` TEXT NULL ;

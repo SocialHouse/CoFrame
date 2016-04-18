@@ -8,7 +8,7 @@
 
 		<div class="form-group">
 	   		<label for="name_on_card">Full name:</label>
-	        <input type="text" placeholder="Name on card" class="form-control" name="name" id="name" data-stripe="name" value="<?php echo set_value('name') ? set_value('name') : (isset($billing_details->name) ? $billing_details->name : '' ); ?>">
+	        <input type="text" placeholder="Full name" class="form-control" name="name" id="name" data-stripe="name" value="<?php echo set_value('name') ? set_value('name') : (isset($billing_details->name) ? $billing_details->name : '' ); ?>">
 	  	</div>
 
 		<div class="form-group">			

@@ -79,31 +79,111 @@
 	    	</div>
 	    </div>
 	</div>
+	
+	<?php
+    if(!empty($phases))
+	{
+	 	foreach($phases as $key=>$phase)
+	 	{	 		
+			?>	   
+		    <div class="col-md-12 well">
+		    	<div class="col-md-12 phase_num_div">
+			    	<label for="date_time">Phase <?php echo $key; ?></label><br/>
+			    	<?php			    	
+				    	foreach($phase as $user)
+				    	{
+				    		?>
+					    	<label class="checkbox-inline"><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></label>					
+					    	<?php
 
-    <div class="form-group">
-    	<?php
-    	if(!empty($users))
-    	{
-	    	foreach($users as $user)
-	    	{
-	    		$checked = '';
-	    		if(isset($selected_approvers) AND in_array($user->aauth_user_id,$selected_approvers))
-	    		{
-	    			$checked = 'checked="checked"';
-	    		}
-	    		?>
-		    	<label class="checkbox-inline">
-		      		<input type="checkbox" name="users[]" value="<?php echo $user->aauth_user_id; ?>" <?php echo set_checkbox('users',$user->aauth_user_id) ? set_checkbox('users',$user->aauth_user_id): $checked; ?>><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
-				</label>					
-		    	<?php
+					    }
+					?>
+				</div>
+			    <div class="col-md-12">
+		    		<label for="date_time">Approve by</label>
+			    </div>
+			    <div class="col-md-12">
+			    	<div class="row">
+					    <div class="col-md-3">
+					    	<div class="form-group"> 
+					    		<label for="date">Month</label>
+					    		<select  name="approve_month[a]" class="form-control" readonly>
+					    			<?php
+					    			for($i = 1;$i<=12;$i++)
+					    			{
+					    				$selected = '';
+					    				if(date('m',strtotime($phase[0]->approve_by)) == $i)
+					    				{
+					    					$selected = 'selected="selected"';
+					    				}
 
-		    }
+					    				?>
+					    				<option <?php echo $selected; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+					    				<?php
+					    			}
+					    			?>
+					    		</select>   		
+					    	</div>
+					    </div>
+					    <div class="col-md-3">
+					    	<div class="form-group"> 
+					    		<label for="date">Day</label>			    		
+					    		<select  name="approve_day[a]" class="form-control" readonly>
+					    			<?php
+					    			for($i = 1;$i<=31;$i++)
+					    			{
+					    				$selected = '';
+					    				if(date('d',strtotime($phase[0]->approve_by)) == $i)
+					    				{
+					    					$selected = 'selected="selected"';
+					    				}
+					    				?>
+					    				<option <?php echo $selected; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+					    				<?php
+					    			}
+					    			?>
+					    		</select> 	    		
+					    	</div>
+					    </div>
+					    <div class="col-md-3">
+					    	<div class="form-group"> 
+					    		<label for="date">Year</label>
+					    		<select  name="approve_year[a]" class="form-control" readonly>
+					    			<?php
+					    			for($i = date('Y');$i<=date('Y') +10;$i++)
+					    			{
+					    				$selected = '';
+					    				if(date('Y',strtotime($phase[0]->approve_by)) == $i)
+					    				{
+					    					$selected = 'selected="selected"';
+					    				}
+					    				?>
+					    				?>
+					    				<option <?php echo $selected; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+					    				<?php
+					    			}
+					    			?>	
+					    		</select>		    		
+					    	</div>
+					    </div>
+					    <div class="col-md-3">
+					    	<div class="form-group">
+					    		<label for="approve_time">Time</label>
+						    	<input type="text" id="approve_time" name="approve_time[a]" class="form-control time" value="<?php echo date('h:i A',strtotime($phase[0]->approve_by)); ?>" readonly>
+					    	</div>
+					    </div>
+				    </div>
+			    </div>
+			    <div class="col-md-12">
+					<label for="time">Note to approvers(optional)</label>
+					<textarea name="note[a]" class="form-control" readonly><?php echo $phase[0]->note; ?></textarea>
+				</div>
+			</div>
+			<?php
 		}
-	    echo form_error('users[]', '<div class="text-danger">', '</div>'); 
-	    ?>
-   		
-	</div>	    
-    
+	}
+	?>  
+
 
     <button type="submit" class="btn btn-primary">Save post</button>    
 

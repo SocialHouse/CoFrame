@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="form-group col-md-12">
+	<div class="col-md-12">
 		<table class="table">
 			<thead>
 				<tr>

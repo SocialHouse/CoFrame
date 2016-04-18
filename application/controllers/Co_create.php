@@ -80,7 +80,7 @@ class Co_create extends CI_Controller {
 	                                            array('required' => 'Time is required')
 	                                        );
 	        $this->form_validation->set_rules('users[]','users','required',
-	                                            array('required' => 'At least select one user for approvel')
+	                                            array('required' => 'At least select one user for approval')
 	                                        );
 	       	
 	       	if($this->form_validation->run() === TRUE)

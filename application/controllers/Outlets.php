@@ -105,7 +105,7 @@ class Outlets extends CI_Controller {
 	        		$data = array('brand_id' => $post_data['brand_id'],'outlet_id' => $outlet);
 	        		$this->timeframe_model->insert_data('brand_outlets',$data);
 	        	}
-	        	$this->session->set_flashdata('message','Outlet has bee added to brand');
+	        	$this->session->set_flashdata('message','Outlet has been added to brand');
 	        	redirect(base_url().'brands');
 	        }
 		}
