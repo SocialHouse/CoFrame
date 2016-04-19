@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light navbar-brand-manage bg-transparent">
-  <a href="/brand-dashboard.php"><img src="assets/images/fpo/lorac-brand-logo.png" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
+  <a href="dashboard.php"><img src="assets/images/fpo/lorac-brand-logo.png" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
 
   <ul class="nav navbar-nav">
 		<li class="nav-item">
