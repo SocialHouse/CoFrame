@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="utf-8">
 <title>Timeframe | Overview</title>
@@ -24,7 +24,7 @@
 					<div class="user-time row">
 						<div class="col-md-5">Current Brand Time </div>
 						<div class="col-md-7 text-md-right current-time">
-							<strong><?php echo date('g:i'); ?></strong><br>
+							<strong id="userTime"></strong><br>
 							<?php echo date('a T'); ?>
 						</div>
 					</div>
@@ -34,17 +34,19 @@
 				<header class="page-main-header">
 					<h1 class="center-title section-title">New Post</h1>
 				</header>
-				<div class="row equal-cols">
-					<div class="col-md-4">
-						<?php include("lib/post-preview.php"); ?>
-					</div>
-					<div class="col-md-4">
-						<?php include("lib/add-post-details.php"); ?>
-					</div>
-					<div class="col-md-4">
-						<?php include("lib/add-post-approvals.php"); ?>
-					</div>
-				</div>
+					<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
+						<div class="row equal-cols">
+							<div class="col-md-4">
+								<?php include("lib/post-preview.php"); ?>
+							</div>
+							<div class="col-md-4">
+								<?php include("lib/add-post-details.php"); ?>
+							</div>
+							<div class="col-md-4">
+								<?php include("lib/add-post-approvals.php"); ?>
+							</div>
+						</div>
+					</form>
 			</section>
 		</div>
 	</div>

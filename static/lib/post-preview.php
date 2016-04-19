@@ -4,6 +4,6 @@
 		<img src="assets/images/post-preview.png" width="406" height="506" alt="" class="center-block"/>
 	</div>
 	<footer class="post-content-footer">
-		<a href="#" class="btn btn-default btn-xs">Cancel</a>
+		<a href="#" class="btn btn-default btn-xs">Delete</a>
 	</footer>
 </div>

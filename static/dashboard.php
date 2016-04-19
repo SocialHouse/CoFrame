@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="utf-8">
 <title>Timeframe | Overview</title>
@@ -24,7 +24,7 @@
 					<div class="user-time row">
 						<div class="col-md-5">Current Brand Time </div>
 						<div class="col-md-7 text-md-right current-time">
-							<strong><?php echo date('g:i'); ?></strong><br>
+							<strong id="userTime"></strong><br>
 							<?php echo date('a T'); ?>
 						</div>
 					</div>
