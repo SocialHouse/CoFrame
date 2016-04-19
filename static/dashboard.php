@@ -16,7 +16,7 @@
 		<?php include("lib/global-navigation.php"); ?>
 	</div>
 	<div class="container content-container">
-		<div class="content-area row">
+		<div class="content-area row animated fadeIn">
 			<section class="brand-navigation bg-white opaque-88 col-sm-2">
 				<?php include("lib/brand-navigation.php"); ?>
 				<div class="current-user-details">

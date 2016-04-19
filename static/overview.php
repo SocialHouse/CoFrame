@@ -15,7 +15,7 @@
 		<?php include("lib/global-navigation.php"); ?>
 	</div>
 	<div class="container content-container">
-		<div class="content-area row">
+		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main bg-white col-sm-12">
 				<header class="page-main-header">
 					<a href="add-a-brand.php" class="btn btn-secondary btn-sm pull-sm-left">Add a Brand</a>
