@@ -33,6 +33,16 @@ jQuery(function($) {
 		$('.equal-cols [class*=col-]').each(function() {
 			$(this).css('height', dashboardH - headhH - 2);
 		});
+
+		//temp nav activation
+		var pathname = location.pathname;
+		var pagename = pathname.replace('/static/', '');
+		$('.navbar-brand-manage .nav-link').each(function() {
+			var href = $(this).attr('href');
+			if(href === pagename) {
+				$(this).addClass('active');
+			}
+		});
 	});
 
 });
