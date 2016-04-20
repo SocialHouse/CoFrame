@@ -50,7 +50,7 @@
 	</div>
 	<div class="form-group form-inline pull-md-right">
 		<label>Tags:</label><br>
-		<div class="form-control">
+		<div class="form-control tag-select" data-toggle="popover-ajax" data-placement="top" data-content-src="lib/tag-list.php" data-popover-class="popover-tags" data-popover-id="popover-tag-list">
 			<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 		</div>
 	</div>
