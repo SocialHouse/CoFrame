@@ -51,6 +51,17 @@
 		</div>
 	</div>
 
+	<!-- Blank Modal -->
+	<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+		  </div>
+		  <div class="modal-body">
+		  </div>
+		</div>
+	  </div>
+	</div>
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/tether.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>

@@ -21,7 +21,7 @@
 		<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..."></textarea>
 	</div>
 	<div class="form-group">
-		<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></label>
+		<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
 		<div class="form__input">
 			<input type="file" name="files[]" id="postFile" class="form__file" data-multiple-caption="{count} files selected" multiple />
 			<label for="postFile" id="postFileLabel"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>
@@ -50,7 +50,7 @@
 	</div>
 	<div class="form-group form-inline pull-md-right">
 		<label>Tags:</label><br>
-		<div class="form-control tag-select" data-toggle="popover-ajax" data-placement="top" data-content-src="lib/tag-list.php" data-popover-class="popover-tags" data-popover-id="popover-tag-list">
+		<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="lib/tag-list.php" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset="2px 0">
 			<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 		</div>
 	</div>

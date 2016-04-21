@@ -3,6 +3,8 @@ jQuery(function($) {
 	var wh = $(window).height();
 	var ww = $(window).width();
 
+	var inlineTether, ajaxTether;
+
 	if($('#brand-manage').length) {
 		setUserTime();
 	}
@@ -10,49 +12,6 @@ jQuery(function($) {
 	$(window).on("orientationchange resize", function () {
 		wh = $(window).height();
 		ww = $(window).width();
-	});
-
-	//popover triggers
-	$('[data-toggle="popover"]').popover({
-		container: 'body',
-		html: true,
-		trigger: 'focus'
-	});
-	//Get popover content from an external source
-	$('[data-toggle="popover-ajax"]').one('click', function() {
-		var target=$(this);
-		var position = target.data('placement');
-		var pclass = target.data('popoverClass');
-		var pid = target.data('popoverId');
-		$.get(target.data('contentSrc'),function(data) {
-			var popoverDiv = $(document.createElement('div'));
-			var popoverContent = $(document.createElement('div'));
-			popoverContent.addClass('popover-content').html(data);
-			popoverDiv.addClass('popover-inline popover ' + pclass).attr('id', pid).html(popoverContent).insertAfter(target);
-			new Tether({
-				element: '#' + pid,
-				target: target,
-				attachment: 'bottom right',
-				targetAttachment: 'top right',
-				offset: '2px 0'
-			});
-			popoverDiv.animate({'opacity': 1});
-		});
-	});
-	//Get popover content from an inline div
-	$('[data-toggle="popover-inline"]').on('click', function() {
-		console.log('popover inline');
-		var target=$(this);
-		var position = target.data('placement');
-		var pclass = target.data('popoverClass');
-		var pcontent = target.data('contentSrc');
-		target.popover({
-			content: $(pcontent).html(),
-			container: '.container-post-details',
-			html: true,
-			placement: position,
-			template: '<div class="popover ' + pclass + '" role="tooltip"><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-		}).popover('toggle');
 	});
 
 	$(document).ready(function() {
@@ -93,31 +52,133 @@ jQuery(function($) {
 		});
 
 		//fake radio button select
-		$('.radio-button').on('click', function() {
+		var btnClicks = 0;
+		$('body').on('click', '.radio-button', function() {
 			var buttonVal = $(this).attr('data-value');
 			var checked = false;
 			$(this).toggleClass('selected');
 			if(buttonVal === "check-all") {
 				var inputGroup = $(this).attr('data-group');
-				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected').html('<i class="fa fa-check"></i>');
+				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
 			}
 			if($(this).hasClass('selected')) {
 				checked = true;
-				$(this).html('<i class="fa fa-check"></i>');
+				btnClicks++;
 			}
 			else {
 				checked = false;
-				$(this).html('');
+				btnClicks--;
 			}
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
+
+			//add selected users to list from popover
+			if($(this).closest('#popover-user-list').length !== 0) {
+				var userImg = $(this).closest('li').find('img');
+				var imgSrc = userImg.attr('src');
+				var imgDiv = userImg.parent().clone();
+				if($(this).hasClass('selected')) {
+					$('#phaseDetails .approval-phase.active .user-list li').prepend(imgDiv);
+				}
+				else {
+					$('#phaseDetails .approval-phase.active .user-list li').find('img[src="' + imgSrc + '"]').parent().remove();
+				}
+				if(btnClicks > 0) {
+					$('#phaseDetails .approval-phase.active .user-list li').find('.post-approver-name').hide();
+				}
+				else {
+					$('#phaseDetails .approval-phase.active .user-list li').find('.post-approver-name').show();
+				}
+			}
 		});
 
-		$('.tag-select').on('click', function() {
+		//popover triggers
+		$('[data-toggle="popover"]').popover({
+			container: 'body',
+			html: true,
+			trigger: 'focus'
+		});
+		//Get popover content from an external source
+		$('body').on('click', '[data-toggle="popover-ajax"]', function() {
+			var target=$(this);
+			var pclass = target.data('popoverClass');
+			var pid = target.data('popoverId');
+			var pattachment = target.data('attachment');
+			var ptattachment = target.data('targetAttachment');
+			var poffset = target.data('offset');
+			var ptitle = target.data('title');
+			var parrow = target.data('popoverArrow');
+			$.get(target.data('contentSrc'),function(data) {
+				var popoverDiv = $(document.createElement('div'));
+				var popoverContent = $(document.createElement('div'));
+				var popoverTitle, popoverArrow;
+				if(ptitle.length) {
+					popoverTitle = '<h5>' + ptitle + '</h5>';
+				}
+				else {
+					popoverTitle = "";
+				}
+				if(parrow) {
+					popoverArrow = '<div class="popover-arrow"></div>';
+				}
+				else {
+					popoverArrow = '';
+				}
+				if(ptattachment.indexOf('left') > -1) {
+					pclass += ' popover-left';
+				}
+				popoverContent.addClass('popover-content').html(popoverArrow + popoverTitle + data);
+				popoverDiv.addClass('popover-inline popover ' + pclass).attr('id', pid).html(popoverContent).insertAfter(target);
+				ajaxTether = new Tether({
+					element: '#' + pid,
+					target: target,
+					attachment: pattachment,
+					targetAttachment: ptattachment,
+					offset: poffset
+				});
+				ajaxTether.enable();
+				popoverDiv.animate({'opacity': 1});
+				//alter toggle attribute so that ajax call is not made again
+				target.removeAttr('data-toggle');
+				target.removeAttr('data-content-src');
+			});
+		});
+		//Get popover content from an inline div
+		$('body').on('click', '[data-toggle="popover-inline"]', function() {
+			ajaxTether.position();
+			var target=$(this);
+			var pid = target.data('contentSrc');
+			var pattachment = target.data('attachment');
+			var ptattachment = target.data('targetAttachment');
+			var poffset = target.data('offset');
+			var ptitle = target.data('title');
+			$(pid).find('h5').html(ptitle);
+			inlineTether = new Tether({
+				element: pid,
+				target: target,
+				attachment: pattachment,
+				targetAttachment: ptattachment,
+				offset: poffset
+			});
+			inlineTether.enable();
+			$(pid).fadeToggle(function() {
+				inlineTether.position();
+			});
+		});
+
+		$('body').on('click', '.popover-toggle', function() {
 			$(this).toggleClass('selected');
 			if($(this).data('popoverId')) {
 				var popover = $(this).data('popoverId');
 				$('#' + popover).fadeToggle();
+			}
+		});
+
+		$('body').on('click', function(e) {
+			var $target = $(e.target);
+			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
+				$('.popover-clickable').fadeOut();
+				$('.popover-toggle').removeClass('selected');
 			}
 		});
 
@@ -150,31 +211,75 @@ jQuery(function($) {
 			var buttonVal = $(this).attr('data-value');
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 		});
-		$('body').on('click', function(e) {
-			var $target = $(e.target);
-			if($target.closest('.popover').length === 0 && $target.closest('.tag-select').length === 0) {
-				$('.popover').fadeOut();
-				$('.tag-select').removeClass('selected');
-			}
+
+		$('body').on('click', '.btn-next-phase', function() {
+			var next = $(this).data('nextPhase');
+			nextPhase(next);
 		});
 	});
 
+	//modal triggers
+	//Get popover content from an external source
+	$('[data-toggle="modal-ajax"]').one('click', function() {
+		var newModal = $('#emptyModal').clone();
+		var target=$(this);
+		var mid = target.data('modalId');
+		var msize = target.data('modalSize');
+		$.get(target.data('modalSrc'),function(data) {
+			newModal.attr('id', mid);
+			if(msize !== "") {
+				newModal.find('.modal-dialog').addClass('modal-' + msize);
+			}
+			newModal.find('.modal-body').html(data);
+			newModal.modal('show');
+		});
+	});
+
+	$('[data-toggle="addPhases"]').one('click', function() {
+		var columnParent = $(this).closest('.col-md-4');
+		var approvalsContainer = $('.container-approvals');
+		approvalsContainer.empty();
+		$.get('lib/add-phase-details.php',function(data) {
+			approvalsContainer.append(data);
+		});
+		columnParent.css('z-index', 2000);
+		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>');
+	});
+
+	function nextPhase(i) {
+		$('#approvalPhase' + i).removeClass('inactive').addClass('active');
+		$('#popover-user-list').find('.selected').addClass('disabled');
+	}
+
+	function previousPhase(i) {
+		$('.approval-phase').removeClass('active').addClass('inactive');
+		$('#approvalPhase' + i).removeClass('inactive').addClass('active');
+	}
+
 });
 
-function setUserTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    h = checkHours(h);
-    m = checkMinutes(m);
-    document.getElementById('userTime').innerHTML = h + ":" + m;
-    var t = setTimeout(setUserTime, 500);
-}
-function checkMinutes(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
-function checkHours(i) {
-    if (i > 12) {i = i-12}; //12 hour format
-    return i;
-}
+
+	function setUserTime() {
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		h = checkHours(h);
+		m = checkMinutes(m);
+		document.getElementById('userTime').innerHTML = h + ":" + m;
+		var t = setTimeout(setUserTime, 500);
+	}
+	function checkMinutes(i) {
+		if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+		return i;
+	}
+	function checkHours(i) {
+		if (i > 12) {i = i-12}; //12 hour format
+		return i;
+	}
+
+	function showContent(obj) {
+		obj.fadeIn();
+	}
+	function hideContent(obj) {
+		obj.fadeOut();
+	}

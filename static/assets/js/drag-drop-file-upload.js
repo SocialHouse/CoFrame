@@ -27,7 +27,6 @@
 			// automatically submit the form on file select
 			$input.on( 'change', function( e ){
 				showFiles( e.target.files );
-				$form.trigger( 'submit' );
 			});
 
 			// drag&drop files if the feature is available
