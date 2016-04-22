@@ -171,9 +171,9 @@ h5 {
 .btn-icon-lg {
 	border-radius: 6px;
 	font-size: 1rem;
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
+	width: 2rem;
+	height: 2rem;
+	line-height: 2rem;
 }
 .btn-gray {
 	color: #808080;
@@ -623,6 +623,7 @@ a {
 }
 .popover-toggle {
 	cursor: pointer;
+	position: relative;
 	&.selected {
 		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
 	}
@@ -1199,7 +1200,7 @@ ul.unstyled {
 		}
 	}
 	&.inactive {
-		height: 45px;
+		height: remCalc(45px);
 		overflow: hidden;
 		h2 {
 			border: 0;
@@ -1410,6 +1411,11 @@ select.form-control {
 }
 .form-control {
 	line-height: 24px;
+	outline: 1px solid #000;/*fix for rounded corners on ios*/
+	border: 0;
+	&:focus {
+		outline: 1px solid;
+	}
 }
 .form-inline .form-control + .form-control {
 	margin-left: 3px;
@@ -1604,7 +1610,9 @@ select.form-control {
 .rounded {
 	border-radius: 3px;
 }
-
+.relative-wrapper {
+	position: relative;
+}
 .table-row {
 	display: table-row;
 }

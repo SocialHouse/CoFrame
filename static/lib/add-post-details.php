@@ -50,7 +50,7 @@
 	</div>
 	<div class="form-group form-inline pull-md-right">
 		<label>Tags:</label><br>
-		<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="lib/tag-list.php" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset="2px 0">
+		<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="lib/tag-list.php" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset="-2px 0">
 			<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 		</div>
 	</div>

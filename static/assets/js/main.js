@@ -134,9 +134,16 @@ jQuery(function($) {
 					target: target,
 					attachment: pattachment,
 					targetAttachment: ptattachment,
-					offset: poffset
+					targetOffset: poffset,
+					constraints: [
+						{
+							to: 'window',
+							attachment: 'together'
+						}
+					]
 				});
 				ajaxTether.enable();
+				ajaxTether.position();
 				popoverDiv.animate({'opacity': 1});
 				//alter toggle attribute so that ajax call is not made again
 				target.removeAttr('data-toggle');
@@ -158,7 +165,13 @@ jQuery(function($) {
 				target: target,
 				attachment: pattachment,
 				targetAttachment: ptattachment,
-				offset: poffset
+				targetOffset: poffset,
+				constraints: [
+					{
+						to: 'window',
+						attachment: 'together'
+					}
+				]
 			});
 			inlineTether.enable();
 			$(pid).fadeToggle(function() {
@@ -219,7 +232,7 @@ jQuery(function($) {
 	});
 
 	//modal triggers
-	//Get popover content from an external source
+	//Get modal content from an external source
 	$('[data-toggle="modal-ajax"]').one('click', function() {
 		var newModal = $('#emptyModal').clone();
 		var target=$(this);
@@ -243,7 +256,7 @@ jQuery(function($) {
 			approvalsContainer.append(data);
 		});
 		columnParent.css('z-index', 2000);
-		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>');
+		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
 	function nextPhase(i) {
