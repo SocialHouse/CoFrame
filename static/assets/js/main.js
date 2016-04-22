@@ -54,15 +54,19 @@ jQuery(function($) {
 		//fake radio button select
 		var btnClicks = 0;
 		$('body').on('click', '.radio-button', function() {
-			var buttonVal = $(this).attr('data-value');
+			var $btn = $(this);
+			if($btn.hasClass('disabled')){
+				return;
+			}
+			var buttonVal = $btn.attr('data-value');
 			var checked = false;
-			$(this).toggleClass('selected');
+			$btn.toggleClass('selected');
 			if(buttonVal === "check-all") {
 				var inputGroup = $(this).attr('data-group');
 				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
 			}
-			if($(this).hasClass('selected')) {
+			if($btn.hasClass('selected')) {
 				checked = true;
 				btnClicks++;
 			}
@@ -73,21 +77,25 @@ jQuery(function($) {
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 
 			//add selected users to list from popover
-			if($(this).closest('#popover-user-list').length !== 0) {
+			if($btn.closest('#popover-user-list').length !== 0) {
 				var userImg = $(this).closest('li').find('img');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
+				var $activePhase = $('#phaseDetails .approval-phase.active');
+				var activePhaseId = $activePhase.attr('id');
+				console.log(activePhaseId);
+				$btn.attr('data-linked-phase', activePhaseId);
 				if($(this).hasClass('selected')) {
-					$('#phaseDetails .approval-phase.active .user-list li').prepend(imgDiv);
+					$activePhase.find('.user-list li').prepend(imgDiv);
 				}
 				else {
-					$('#phaseDetails .approval-phase.active .user-list li').find('img[src="' + imgSrc + '"]').parent().remove();
+					$activePhase.find('img[src="' + imgSrc + '"]').parent().remove();
 				}
 				if(btnClicks > 0) {
-					$('#phaseDetails .approval-phase.active .user-list li').find('.post-approver-name').hide();
+					$activePhase.find('.post-approver-name').hide();
 				}
 				else {
-					$('#phaseDetails .approval-phase.active .user-list li').find('.post-approver-name').show();
+					$activePhase.find('.post-approver-name').show();
 				}
 			}
 		});
@@ -225,8 +233,8 @@ jQuery(function($) {
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 		});
 
-		$('body').on('click', '.btn-next-phase', function() {
-			var next = $(this).data('nextPhase');
+		$('body').on('click', '.btn-change-phase', function() {
+			var next = $(this).data('newPhase');
 			nextPhase(next);
 		});
 	});
@@ -260,13 +268,18 @@ jQuery(function($) {
 	});
 
 	function nextPhase(i) {
+		$('.approval-phase').removeClass('active');
 		$('#approvalPhase' + i).removeClass('inactive').addClass('active');
-		$('#popover-user-list').find('.selected').addClass('disabled');
-	}
-
-	function previousPhase(i) {
-		$('.approval-phase').removeClass('active').addClass('inactive');
-		$('#approvalPhase' + i).removeClass('inactive').addClass('active');
+		var $selected = $('#popover-user-list').find('.selected');
+		$selected.each(function() {
+			var linkedPhase = $(this).data('linkedPhase');
+			if(linkedPhase === 'approvalPhase' + i) {
+				$(this).removeClass('disabled');
+			}
+			else {
+				$(this).addClass('disabled');
+			}
+		});
 	}
 
 });

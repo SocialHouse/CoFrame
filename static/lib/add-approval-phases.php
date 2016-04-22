@@ -27,7 +27,7 @@
 	</div>
 	<div class="form-group">
 		<button class="btn btn-sm btn-default">Cancel</button>
-		<button type="button" class="btn btn-xs btn-disabled pull-sm-right btn-next-phase" data-previous-phase="1" data-next-phase="2" data-active-class="btn-default">Next Phase</button>
+		<button type="button" class="btn btn-xs btn-disabled pull-sm-right btn-change-phase" data-new-phase="2" data-active-class="btn-default">Next Phase</button>
 	</div>
 </div>
 
@@ -59,8 +59,8 @@
 		<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 	</div>
 	<div class="form-group">
-		<button class="btn btn-sm btn-default" onClick="previousPhase(1)">Previous</button>
-		<button type="button" class="btn btn-xs btn-disabled pull-sm-right btn-next-phase" disabled data-active-class="btn-default">Next Phase</button>
+		<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
+		<button type="button" class="btn btn-xs btn-disabled pull-sm-right btn-change-phase" data-new-phase="3" disabled data-active-class="btn-default">Next Phase</button>
 	</div>
 </div>
 
@@ -92,6 +92,6 @@
 		<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 	</div>
 	<div class="form-group">
-		<button class="btn btn-sm btn-default" onClick="previousPhase(2)">Previous</button>
+		<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
 	</div>
 </div>
