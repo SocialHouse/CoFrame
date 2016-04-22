@@ -917,7 +917,7 @@ a {
 	padding: 2rem;
 }
 .padding-22px {
-	padding: 22px;
+	padding: remCalc(22px);
 }
 
 /*icons*/
@@ -1213,7 +1213,15 @@ ul.unstyled {
 		}
 	}
 }
-
+.approval-date {
+	text-transform:  none;
+	margin-bottom: 1rem;
+}
+.approval-note {
+	text-transform: none;
+	font-size: 1rem;
+	line-height: 1;
+}
 
 #post-details {
 	text-transform: uppercase;
@@ -1607,6 +1615,9 @@ select.form-control {
 .small {
 	font-size: 1rem;
 	line-height: 1.5rem;
+}
+.uppercase {
+	text-transform:  uppercase;
 }
 .rounded {
 	border-radius: 3px;
