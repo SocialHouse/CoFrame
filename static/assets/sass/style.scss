@@ -13,6 +13,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "vendor/bootstrap/bootstrap";
 @import "vendor/animate/animate";
 @import "vendor/font-awesome/font-awesome";
+@import "vendor/qtip/qtip";
 @import "partials/fonts";
 
 * {
@@ -111,6 +112,7 @@ h5 {
 	font-family: $futura-light;
 	text-transform: uppercase;
 	letter-spacing: .25em;
+	margin: 0;
 }
 
 /* .btn */
@@ -380,7 +382,7 @@ a {
 		text-transform: uppercase;
 		font-size: remCalc(12px);
 		+ .nav-item {
-			margin: 12px 0 0;
+			margin: remCalc(12px) 0 0;
 		}
 	}
 	.nav-link {
@@ -604,22 +606,50 @@ a {
 }
 
 
-/*Popover*/
-.popover {
+/*Tooltips*/
+.qtip {
+	font-size:  1rem;
+	line-height: inherit;
+	&.popover-users {
+		.qtip-content {
+			padding: 0 1rem 0;
+		}
+		.user-list {
+			margin: 2rem 0 1.5rem;
+			border-top: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		.qtip-tip {
+			margin-top: 27px;
+		}
+	}
+	&.popover-tags {
+		.qtip-content {
+			padding: 0 12px 9px;
+		}
+		.qtip-titlebar {
+			padding: 9px 12px 9px 42px;
+			text-align: left;
+		}
+	}
+}
+.qtip-titlebar {
+	text-align: center;
+	padding: 1rem 1rem 0;
+	font-weight: inherit;
+	@extend h5;
+	.qtip-default & {
+		background:  none;
+	}
+}
+.qtip-shadow {
 	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
-	border-radius: 0;
-	font-size: 1rem;
+}
+.qtip-content {
+	padding: 0 1rem 1rem;
 }
 .popover-inline {
-	opacity: 0;
-	h5 {
-		text-align: center;
-	}
-}
-.popover-title {
-	&:empty {
-		display: none;
-	}
+	display: none;
 }
 .popover-toggle {
 	cursor: pointer;
@@ -628,28 +658,7 @@ a {
 		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
 	}
 }
-.popover-tags {
-	.popover-content {
-		padding: 9px 12px;
-		h5 {
-			padding-left: 30px;
-			text-align: left;
-		}
-	}
-}
-.popover.popover-users {
-	.popover-content {
-		padding: 30px 30px 0;
-	}
-	.popover-arrow {
-		top: 39px;
-	}
-	.user-list {
-		margin: 2rem 0 1.5rem;
-		border-top: 1px solid #000;
-		border-bottom: 1px solid #000;
-	}
-}
+
 
 /*Modal*/
 .modal {
@@ -700,6 +709,7 @@ a {
 
 .modal-contain {
 	position: absolute;
+	left: -2rem;
 }
 .overlay-box {
 	position: absolute;
@@ -1304,6 +1314,7 @@ ul.unstyled {
 	letter-spacing: normal;
 	.fa {
 		position: relative;
+		font-size: 15px;
 		&:before {
 			border: 1px solid #fff;
 			border-radius: 100%;
@@ -1346,6 +1357,7 @@ ul.unstyled {
 		position: absolute;
 		left: 0;
 		top: 0;
+		font-size: 15px;
 		&.tag-custom {
 			border-color: transparent !important;
 		}
@@ -1632,27 +1644,6 @@ select.form-control {
 	display: table-cell;
 }
 
-.copyright {
-	position: absolute;
-	bottom: 44px;
-	width: 100%;
-	font-size: .75rem;
-	line-height: 1.125rem;
-	z-index:9999;
-	letter-spacing: .1rem;
-	.navbar-footer {
-		display: inline;
-		.nav-item {
-			float: none;
-			display: inline;
-		}
-		.nav-link {
-			color: #fff;
-			display: inline-block;
-			padding: 0;
-		}
-	}
-}
 .blur {
     position:relative;
     height:100%;

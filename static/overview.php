@@ -81,7 +81,7 @@
 	</div>
 
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
-	<script type='text/javascript' src='assets/js/vendor/tether.min.js'></script>
+	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 </body>
