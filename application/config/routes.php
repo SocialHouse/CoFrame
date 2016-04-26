@@ -56,3 +56,8 @@ $route['translate_uri_dashes'] = FALSE;
 $route['approver/add-phase/(:num)'] = "approver/add_phase/$1";
 $route['approver/save-phase'] = "approver/save_phase";
 $route['approver/edit-phase/(:num)'] = "approver/edit_phase/$1";
+$route['approvals/(:num)'] = "approvals/index/$1";
+$route['reminders/(:num)'] = "reminders/index/$1";
+
+$route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
+$route['brands/save-existing-user'] = "brand_users/save_existing_user";

@@ -21,6 +21,8 @@ class User_model extends CI_Model
 	public function get_billing_details($user_id)
 	{
 		$this->db->select('*');
+        $this->db->limit(1);
+        $this->db->order_by('id','DESC');
 		$query = $this->db->get_where('billing_details',array('user_id' => $user_id));
 		if($query->num_rows() > 0)
 		{

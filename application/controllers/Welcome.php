@@ -60,6 +60,40 @@ class Welcome extends CI_Controller {
                                 );
 
                         $this->session->set_userdata('user_info',$user_info);
+
+
+                        $remember_me = isset($post_data['remember_me']) ? $post_data['remember_me'] : '';
+                        if(isset($remember_me) && $remember_me=='remember_me')
+                        {
+                            $cookie = array(
+                                'name'   => 'user_pass',
+                                'value'  =>  $post_data['password'],
+                                'expire' => '0'
+                            );
+                            $this->input->set_cookie($cookie);
+
+                            $cookie = array(
+                                'name'   => 'user_name',
+                                'value'  => $post_data['username'],
+                                'expire' => '0'
+                            );
+                            $this->input->set_cookie($cookie);
+                        }
+                        else
+                        {
+                            $this->load->helper('cookie');
+                            //if not check then check already set in cookie or not & delete as per
+                            $user_pass=$this->input->cookie('user_pass', TRUE);
+                            if(isset($user_pass) && !empty($user_pass)){
+                                delete_cookie("user_pass");
+                            }
+
+                            $user_name=$this->input->cookie('user_name', TRUE);
+                            if(isset($user_name) && !empty($user_name)){
+                                delete_cookie("user_name");
+                            }
+                        }
+
                         redirect(base_url().'payment');
                     }
                     else
@@ -85,7 +119,7 @@ class Welcome extends CI_Controller {
         $data = array(
                     'login_verify_token' => $verify_token
                 );
-        $this->timeframe_model->update_data('user_info',$data,array('id' => $user_id));        
+        $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user_id));        
         $this->data['user'] = $this->user_model->get_user($user_id);
         if($this->data['user'])
         {
@@ -227,11 +261,43 @@ class Welcome extends CI_Controller {
                             'user_id' => $inserted_id
                         );
                 $this->timeframe_model->insert_data('login_attempts',$login_attempt);
-                $this->session->set_flashdata('message','You have registered successfully');
+                $this->session->set_flashdata('message','You have registered successfully and verification link sent to your email');
                 redirect(base_url().'welcome');
             }           
         }
-    }   
+    }
+
+    public function verify_user_email($user_id,$verification_code)
+    {
+        $status = $this->aauth->verify_user($user_id,$verification_code);
+        $message = 'Unable to verify email please try again';
+        $class = 'error';
+        if($status)
+        {
+            //check if ip already available
+            $condition = array('user_id' => $user_id,'ip_address' => $_SERVER['REMOTE_ADDR']);
+            $login_attempt = $this->timeframe_model->get_data_by_condition('login_attempts',$condition,'id');
+            if(empty($login_attempt))
+            {
+                $user = $this->aauth->get_user($user_id);
+                if(!empty($user))
+                {
+                    $login_attempt = array(
+                                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                                    'user_name' => $user->name,
+                                    'user_id' => $user_id
+                                );
+                    $this->timeframe_model->insert_data('login_attempts',$login_attempt);
+                }
+            }
+
+            $class = 'message';
+            $message = 'Email verified successfully';
+
+        }
+        $this->session->set_flashdata($class,$message);
+        redirect(base_url().'welcome');
+    }
 
     public function logout()
     {

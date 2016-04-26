@@ -80,16 +80,18 @@ class Brands extends CI_Controller {
 				
 				$this->load->library('upload',$config);
 
-				if(!$this->upload->do_upload("logo"))
-				{
-					$error = array('error'=>$this->upload->display_errors());
-				}
-				else
-				{
-					$filearray = $this->upload->data();
-					$image = $filearray['file_name'];
-				}
+				$status =  upload_file('logo',$filename,'brands');
+
+				if(array_key_exists("upload_errors",$status))
+		        {
+		        	$error =  array('error' => $status['upload_errors']);
+		        }
+		        else
+		        {
+		        	$image = $status['file_name'];
+		        }
 			}
+			
         	$brand_data = array(
         						'name' => $this->input->post('name'),
         						'user_id' => $user_id,
@@ -101,7 +103,7 @@ class Brands extends CI_Controller {
         	if(!isset($error) AND empty($brand_id))
         	{
         		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
-        		$old_path = upload_path().'brands/'.$filearray['file_name'];
+        		$old_path = upload_path().'brands/'.$image;
         		$new_path = upload_path().'brands/'.$insert_id.'.png';
         		rename($old_path, $new_path);
 	        	redirect(base_url().'brands');
@@ -115,7 +117,7 @@ class Brands extends CI_Controller {
         			if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
 	        			unlink(upload_path().'brands/'.$brand_id.'.png');
 
-	        		$old_path = upload_path().'brands/'.$filearray['file_name'];
+	        		$old_path = upload_path().'brands/'.$image;
         			$new_path = upload_path().'brands/'.$brand_id.'.png';
         			rename($old_path, $new_path);
 	        	}

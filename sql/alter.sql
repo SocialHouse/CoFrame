@@ -248,3 +248,16 @@ ALTER TABLE `phases_approver`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `phases` ADD `approve_by` DATETIME NOT NULL , ADD `note` TEXT NULL ;
+
+--21-04-2016--
+CREATE TABLE IF NOT EXISTS `user_outlets` (
+`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `outlet_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `user_outlets`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `user_outlets`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

@@ -1,6 +1,8 @@
 <?php echo form_open(base_url().'posts/update_post',array('method'=>'post','enctype' => 'multipart/form-data')); ?>
 	
-	<input type="hidden" name="id" class="form-control" value="<?php echo $post->id; ?>">
+	<input type="hidden" name="id" class="form-control" value="<?php echo set_value('id') ? set_value('id') : $post->id; ?>">
+
+	<input type="hidden" name="brand_id" class="form-control" value="<?php echo set_value('brand_id') ? set_value('brand_id') : $brand_id; ?>">
 
     <div class="form-group">
 		<label for="post_copy">Post copy</label>
@@ -51,7 +53,7 @@
 	    <div class="col-md-3">
 	    	<div class="form-group">
 	    		<label for="time">Time</label>
-		    	<input type="text" id="time" name="time" class="form-control" value="<?php echo set_value('time') ? set_value('time') : date('h:i A',strtotime($post->slate_date_time)); ?>">
+		    	<input type="text" id="time" name="time" class="form-control time" value="<?php echo set_value('time') ? set_value('time') : date('h:i A',strtotime($post->slate_date_time)); ?>">
 		    	<?php echo form_error('time', '<div class="text-danger">', '</div>'); ?>
 	    	</div>
 	    </div>
@@ -79,15 +81,19 @@
 	    	</div>
 	    </div>
 	</div>
+
+	<div class="row all_phases">
 	
 	<?php
     if(!empty($phases))
 	{
 	 	foreach($phases as $key=>$phase)
-	 	{	 		
+	 	{
 			?>	   
-		    <div class="col-md-12 well">
+		    <div class="col-md-12 well phase_container">
+		    	<input type="hidden" id="phase_number" value="<?php echo $key; ?>">
 		    	<div class="col-md-12 phase_num_div">
+		    		<a href="javascript:void(0)"  id="<?php echo $phase[0]->phase_id; ?>" class="pull-right post-remove-phase">&times;</a>
 			    	<label for="date_time">Phase <?php echo $key; ?></label><br/>
 			    	<?php			    	
 				    	foreach($phase as $user)
@@ -182,9 +188,104 @@
 			<?php
 		}
 	}
-	?>  
+	?>
+	</div>
 
+	<div class="row">
+		<div class="col-md-12 well" align="center">
+			<label for="time">Approval phases(optional)</label><br/>
+			<button type="button" class="btn btn-info" id="add_next_approval_phase">Add next approval phase</button>
+		</div>
+	</div>
 
-    <button type="submit" class="btn btn-primary">Save post</button>    
+	<div class="row">
+	    <div class="col-md-12">
+	    	<button type="submit" class="btn btn-primary">Save post</button>    
+	    </div>
+	</div>
 
+   
 <?php echo form_close(); ?>
+
+<div class="col-md-12 hide well phase_container">
+	<input type="hidden" id="phase_number" value="a">
+	<div class="col-md-12 phase_num_div">
+    	<label for="date_time">Phase 1</label><br/>
+    	<?php
+    	if(!empty($users))
+    	{
+	    	foreach($users as $user)
+	    	{
+	    		?>
+		    	<label class="checkbox-inline">
+		      		<input type="checkbox" name="users[a][]" value="<?php echo $user->aauth_user_id; ?>" <?php echo set_checkbox('users',$user->aauth_user_id); ?>><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
+				</label>					
+		    	<?php
+
+		    }
+		}
+		?>
+	</div>
+    <div class="col-md-12">
+		<label for="date_time">Approve by</label>
+    </div>
+    <div class="col-md-12">
+    	<div class="row">
+		    <div class="col-md-3">
+		    	<div class="form-group"> 
+		    		<label for="date">Month</label>			    		
+		    		<select  name="approve_month[a]" class="form-control">
+		    			<?php
+		    			for($i = 1;$i<=12;$i++)
+		    			{
+		    				?>
+		    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+		    				<?php
+		    			}
+		    			?>
+		    		</select>   		
+		    	</div>
+		    </div>
+		    <div class="col-md-3">
+		    	<div class="form-group"> 
+		    		<label for="date">Day</label>			    		
+		    		<select  name="approve_day[a]" class="form-control">
+		    			<?php
+		    			for($i = 1;$i<=31;$i++)
+		    			{
+		    				?>
+		    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+		    				<?php
+		    			}
+		    			?>
+		    		</select> 	    		
+		    	</div>
+		    </div>
+		    <div class="col-md-3">
+		    	<div class="form-group"> 
+		    		<label for="date">Year</label>
+		    		<select  name="approve_year[a]" class="form-control">
+		    			<?php
+		    			for($i = date('Y');$i<=date('Y') +10;$i++)
+		    			{
+		    				?>
+		    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+		    				<?php
+		    			}
+		    			?>	
+		    		</select>		    		
+		    	</div>
+		    </div>
+		    <div class="col-md-3">
+		    	<div class="form-group">
+		    		<label for="approve_time">Time</label>
+			    	<input type="text" id="approve_time" name="approve_time[a]" class="form-control approve_time">
+		    	</div>
+		    </div>
+	    </div>
+    </div>
+    <div class="col-md-12">
+		<label for="time">Note to approvers(optional)</label>
+		<textarea name="note[a]" class="form-control"></textarea>
+	</div>
+</div>

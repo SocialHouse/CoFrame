@@ -103,10 +103,76 @@ if(!function_exists('get_post_tags'))
     {
         $CI = & get_instance();
 
-        $CI->load->model('timeframe_model');
+        $CI->load->model('post_model');
 
         return $CI->post_model->get_post_tags($post_id);
 
     }
 }
+
+if(!function_exists('get_my_brand')) 
+{
+    function get_my_brand($user_id) 
+    {
+        $CI = & get_instance();
+
+        $CI->load->model('brand_model');
+
+        return $CI->brand_model->get_my_brand($user_id);
+
+    }
+}
+
+if(!function_exists('get_outlet_by_id')) 
+{
+    function get_outlet_by_id($outlet_id) 
+    {
+        $CI = & get_instance();
+
+        $CI->load->model('timeframe_model');
+        $outlet = $CI->timeframe_model->get_data_by_condition('outlets',array('id' => $outlet_id));
+        if($outlet)
+        {
+            return $outlet[0]->outlet_name;
+        }
+        return FALSE;
+
+    }
+}
+
+if(!function_exists('get_approvers_by_phase')) 
+{
+    function get_approvers_by_phase($phase_id) 
+    {
+        $CI = & get_instance();
+
+        $CI->load->model('approval_model');
+        $approvers = $CI->approval_model->get_approvers_by_phase($phase_id);
+        if($approvers)
+        {
+            return $approvers;
+        }
+        return FALSE;
+
+    }
+}
+
+if(!function_exists('get_user_groups')) 
+{
+    function get_user_groups($user_id) 
+    {
+        $CI = & get_instance();
+
+        // $CI->load->('approval_model');
+        $user_group = $CI->aauth->get_user_groups($user_id);
+        if($user_group)
+        {
+            return $user_group[0]->name;
+        }
+        return FALSE;
+
+    }
+}
+
+
 

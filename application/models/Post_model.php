@@ -130,23 +130,43 @@ class Post_model extends CI_Model
 			if($query->num_rows())
 			{
 				foreach($query->result_array() as $row)
-				{
+				{					
 					$row['post_id'] = $last_id;
+
+					$old_path = upload_path().'posts/'.$row['name'];
+					$ext = pathinfo($old_path, PATHINFO_EXTENSION);
+					$file_name = uniqid().'.'.$ext;
+	        		$new_path = upload_path().'posts/'.$file_name;
+	        		copy($old_path,$new_path);
+	        		$row['name'] = $file_name;
 					$this->db->insert('post_media',$row);
 				}
 			}
 
-			$this->db->select('user_id');
-			$query = $this->db->get_where('post_approvers',array('post_id' => $post_id));
-			if($query->num_rows())
+			$query = $this->db->get_where('phases',array('post_id' => $post_id));
+	
+			if($query->num_rows() > 0)
 			{
 				foreach($query->result_array() as $row)
 				{
-					$row['post_id'] = $last_id;
-					$this->db->insert('post_approvers',$row);
+					$previous_phase_id = $row['id'];
+					unset($row['id']);
+					$row['post_id'] = $last_id;					
+					$this->db->insert('phases',$row);
+					$phase_id = $this->db->insert_id();
+
+					$approver_query = $this->db->get_where('phases_approver',array('phase_id' => $previous_phase_id));
+					if($approver_query->num_rows() > 0)
+					{
+						foreach($approver_query->result_array() as $phase_approver)
+						{
+							unset($phase_approver['id']);
+							$phase_approver['phase_id'] = $phase_id;
+							$phase_id = $this->db->insert('phases_approver',$phase_approver);							
+						}
+					}
 				}
 			}
-			
 			return TRUE;
 		}
 		return FALSE;
@@ -169,7 +189,7 @@ class Post_model extends CI_Model
 
 	public function get_post_phases($post_id)
 	{
-		$this->db->select('first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note');
+		$this->db->select('phases.id as phase_id,first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note');
 		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 		$this->db->join('phases','phases.id = phases_approver.phase_id');
 		// $this->db->where('brand_id',$brand_id);

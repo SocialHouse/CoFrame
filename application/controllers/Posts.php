@@ -321,8 +321,21 @@ class Posts extends CI_Controller {
 		{
 			$condition = array('post_id' => $post_id);
 			$this->timeframe_model->delete_data('post_tags',$condition);			
-			$this->timeframe_model->delete_data('post_media',$condition);
-			$this->timeframe_model->delete_data('post_approvers',$condition);
+			$this->timeframe_model->delete_data('post_media',$condition);			
+
+			$phases = $this->timeframe_model->get_data_by_condition('phases',array('post_id' => $post_id));
+			if(!empty($phases))
+			{
+				foreach($phases as $phase)
+				{
+					$condition = array('phase_id' => $phase->id);
+					$this->timeframe_model->delete_data('phases_approver',$condition);
+				}
+				$condition = array('post_id' => $post_id);
+				$this->timeframe_model->delete_data('phases',$condition);
+			}
+
+
 			$this->session->set_flashdata('message','Post has been deleted successfully');
 		}
 		else
@@ -365,7 +378,7 @@ class Posts extends CI_Controller {
 				
 				// $approvers_array = $this->post_model->get_post_approvers($post_id);
 				// $this->data['selected_approvers'] = array_column($approvers_array,'aauth_user_id');
-				$phases = $this->post_model->get_post_phases($post_id);
+				$phases = $this->post_model->get_post_phases($post_id);		
 
 				$this->data['phases'] = array();
 				if(!empty($phases))
@@ -374,7 +387,7 @@ class Posts extends CI_Controller {
 					{
 						$this->data['phases'][$phase->phase][] = $phase;
 					}
-				}				
+				}
 
 				$condition = array('post_id'=>$post_id);
 				$this->data['post_media'] = $this->timeframe_model->get_data_by_condition('post_media',$condition);
@@ -382,6 +395,7 @@ class Posts extends CI_Controller {
 
 				$this->data['tags'] = $this->post_model->get_brand_tags($this->data['post']->brand_id);
 				$this->data['users'] = $this->post_model->get_brand_users($this->data['post']->brand_id);
+				$this->data['brand_id'] = $this->data['post']->brand_id;
 
 				$this->data['view'] = 'posts/edit_post';
 
@@ -502,36 +516,7 @@ class Posts extends CI_Controller {
 		    									);
 		    			
 		    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
-		    			}    		
-
-		    			$users_to_add = $post_data['users'];
-		    			
-		    			$approvers_array = $this->post_model->get_post_approvers($post_data['id']);
-		    			
-						$selected_approvers = array_column($approvers_array,'aauth_user_id');
-
-						$approvers_to_add = array_diff($post_data['users'],$selected_approvers);
-	        			$approvers_to_delete = array_diff($selected_approvers,$post_data['users']);
-	        			if(!empty($approvers_to_delete))
-	        			{
-	        				foreach ($approvers_to_delete as $approver)
-				        	{
-				        		$condition = array('user_id' => $approver,'post_id' => $post_data['id']);
-				        		$this->timeframe_model->delete_data('post_approvers',$condition);
-				        	}
-				        }
-
-				        if(!empty($approvers_to_add))
-	        			{
-	        				foreach ($approvers_to_add as $approver)
-				        	{
-				        		$post_approver_data = array(
-		    										'post_id' => $post_data['id'],
-		    										'user_id' => $approver
-		    									);
-				        		$this->timeframe_model->insert_data('post_approvers',$post_approver_data);
-				        	}
-				        }
+		    			}		   
 
 			    		if(!empty($uploaded_files))
 			    		{
@@ -547,6 +532,47 @@ class Posts extends CI_Controller {
 			    				$this->timeframe_model->insert_data('post_media',$post_media_data);
 			    			}
 			    		}
+
+			    		$condition = array('post_id' => $post_data['id']);
+			    		$phases = $this->timeframe_model->get_data_by_condition('phases',$condition,'id');
+			    		$phase_number = 1;
+			    		if(!empty($phases))
+			    		{
+			    			$phase_number = count($phases) + 1;
+			    		}
+
+			    		if(isset($post_data['phase']['users']) AND !empty($post_data['phase']['users']))
+	    				{
+	    					foreach($post_data['phase']['users'] as $key=>$phase)
+	    					{
+	    						$date_time = $post_data['phase']['approve_year'][$key][0]."-".$post_data['phase']['approve_month'][$key][0]."-".$post_data['phase']['approve_day'][$key][0]." ".$post_data['phase']['approve_time'][$key][0];
+							    	$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+	    						$phase_data = array(
+	    										'phase' => $phase_number,
+	    										'brand_id' => $post_data['brand_id'],
+	    										'post_id' => $post_data['id'],
+	    										'approve_by' => $approve_date_time,
+		    									'note' => $post_data['phase']['note'][$key][0]
+	    									);			    						
+	    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
+
+	    						foreach($phase as $user)
+	    						{ 
+		    						$phases_approver = array(
+		    											'user_id' => $user,
+		    											'phase_id' => $phase_insert_id  
+		    										);
+
+									$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
+								}
+
+	    						$phase_number++;
+	    					}
+	    				}
+
+
+
 
 			    		$this->session->set_flashdata('message','Post has been saved successfuly');
 			    		redirect(base_url().'posts/drafts/'.$this->data['post']->brand_id);

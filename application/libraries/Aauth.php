@@ -950,7 +950,12 @@ class Aauth {
 			$this->aauth_db->where('id', $user_id);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$config = $this->CI->config->item('smtp_config');
+	        $from = $this->config_vars['email'];
+	        $this->CI->load->library('email',$config);
+	        $this->CI->email->initialize($config);
+
+			$this->CI->email->from($from, $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject('Account Verification');
 			$this->CI->email->message('Your verification code is: ' . $ver_code .
