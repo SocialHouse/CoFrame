@@ -31,7 +31,7 @@ jQuery(function($) {
 		var dashboardH = $('#brand-manage').height();
 		var headhH = $('.page-main-header').innerHeight();
 		var colsH = $('.equal-cols').innerHeight();
-		var newColsH = dashboardH - headhH - 2;
+		var newColsH = dashboardH - headhH;
 		$('.equal-cols [class*=col-]').each(function() {
 			if(newColsH > colsH) {
 				$(this).css('height', dashboardH - headhH - 2);
@@ -60,11 +60,17 @@ jQuery(function($) {
 			}
 			var buttonVal = $btn.attr('data-value');
 			var checked = false;
-			$btn.toggleClass('selected');
-			if(buttonVal === "check-all") {
-				var inputGroup = $btn.attr('data-group');
+			var inputGroup = $btn.attr('data-group');
+			if(buttonVal !== "check-all") {
+				$btn.toggleClass('selected');
+			}
+			else if(buttonVal === "check-all" && !$btn.hasClass('selected')) {
 				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
+			}
+			else if(buttonVal === "check-all" && $btn.hasClass('selected')) {
+				$('.radio-button[data-group="' + inputGroup + '"]').removeClass('selected');
+				$('input[name="' + inputGroup + '"]').prop('checked', false);
 			}
 			if($btn.hasClass('selected')) {
 				checked = true;
@@ -145,8 +151,8 @@ jQuery(function($) {
 			var tipW = 1;
 			var tipH = 1;
 			if(parrow) {
-				var tipW = 20;
-				var tipH = 10;
+				tipW = 20;
+				tipH = 10;
 			}
 			$target.qtip({
 				content: {
@@ -215,8 +221,8 @@ jQuery(function($) {
 			var tipW = 1;
 			var tipH = 1;
 			if(parrow) {
-				var tipW = 20;
-				var tipH = 10;
+				tipW = 20;
+				tipH = 10;
 			}
 			$('#qtip-' + pid).qtip('api').set({
 				'content.title': ptitle,

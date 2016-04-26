@@ -29,7 +29,7 @@
 				<div class="pull-sm-left"><img src="assets/images/fpo/sophie.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div>
 				<div class="pull-sm-left post-approver-name"><strong>Sophie Hawkins</strong>Approver</div>
 			</li>
-			<li>
+			<li class="option-all-users">
 				<div class="pull-sm-left"><i class="tf-icon radio-button circle-border" data-value="check-all" data-group="post-approver"><i class="fa fa-check"></i></i></div>
 				<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
 				<div class="pull-sm-left post-approver-name">Check<br>All</div>

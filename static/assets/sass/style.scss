@@ -619,6 +619,9 @@ a {
 			border-top: 1px solid #000;
 			border-bottom: 1px solid #000;
 		}
+		.option-all-users {
+			display: none;
+		}
 		.qtip-tip {
 			margin-top: 27px;
 		}
@@ -1434,7 +1437,8 @@ select.form-control {
 .form-control {
 	line-height: 24px;
 	outline: 1px solid #000;/*fix for rounded corners on ios*/
-	border: 0;
+	border: 1px solid transparent;
+	min-height: 36px;
 	&:focus {
 		outline: 1px solid;
 	}
@@ -1444,6 +1448,7 @@ select.form-control {
 }
 .form-control-sm {
 	line-height: 22px;
+	min-height: 30px;
 }
 .form-control-time {
 	max-width: 4.5rem;
