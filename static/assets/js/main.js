@@ -128,7 +128,8 @@ jQuery(function($) {
 				tip: {
 					width: 20,
 					height: 10
-				}
+				},
+				width: 280
 			}
 		});
 		//Get popover content from an external source

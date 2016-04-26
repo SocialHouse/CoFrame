@@ -677,7 +677,7 @@ a {
 	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
 }
 .qtip-content {
-	padding: 0 1rem 1rem;
+	padding: 1rem;
 }
 .popover-inline {
 	display: none;
@@ -975,6 +975,9 @@ a {
 }
 
 /*icons*/
+.fa[data-toggle*='popover'] {
+	cursor: pointer;
+}
 .fa-custom-circle {
 	border-radius: 100%;
 	font-size: .75rem !important;
