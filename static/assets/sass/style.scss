@@ -51,7 +51,7 @@ img {
 	max-width: 100%;
 	&.circle-img {
 		border-radius: 100%;
-		border-color: #808080;
+		border: 1px solid #808080;
 	}
 }
 p {
@@ -274,7 +274,7 @@ a {
 	-webkit-animation-duration: 2s;
 	animation-duration: 2s;
 	transition: all 500ms;
-	&.active {
+	&.selected {
 		-webkit-transform: rotateZ(90deg);
 		transform: rotateZ(90deg);
 		-webkit-animation-name: none;
@@ -610,6 +610,7 @@ a {
 .qtip {
 	font-size:  1rem;
 	line-height: inherit;
+	max-width: inherit;
 	&.popover-users {
 		.qtip-content {
 			padding: 0 1rem 0;
@@ -633,6 +634,19 @@ a {
 		.qtip-titlebar {
 			padding: 9px 12px 9px 42px;
 			text-align: left;
+		}
+	}
+	&.popover-go-to-brand {
+		.qtip-titlebar {
+			font-size: remCalc(13px);
+			font-family: $futura-bold;
+			padding: remCalc(24px);
+		}
+		.qtip-content {
+			padding: 0 remCalc(24px) remCalc(9px);
+		}
+		.qtip-tip {
+			margin-left: 37px;
 		}
 	}
 }
@@ -660,6 +674,11 @@ a {
 	&.selected {
 		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
 		z-index: 15002;
+	}
+	&.show-brands-toggler {
+		&.selected {
+			box-shadow: none;
+		}
 	}
 }
 
@@ -1060,6 +1079,23 @@ ul.unstyled {
 		line-height: 17px;
 		text-align: center;
 		margin-top: 7px;
+	}
+	&.brand-list {
+		border-top: 1px solid #000;
+		padding-top: remCalc(24px);
+		letter-spacing: .25em;
+		li {
+			border-top: 0;
+			line-height: 48px;
+			text-transform: uppercase;
+			font-size: remCalc(12px);
+			margin-bottom: 1rem;
+		}
+		img {
+			height: 48px;
+			width: 48px;
+			margin-right: remCalc(22px);
+		}
 	}
 	&.calendar-list {
 		li {

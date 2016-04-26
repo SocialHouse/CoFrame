@@ -15,23 +15,6 @@ jQuery(function($) {
 	});
 
 	$(document).ready(function() {
-
-		$('.show-brands-toggler').on('click', function(e) {
-			var $toggler = $(this);
-			e.preventDefault();
-			if($toggler.hasClass('animated')) {
-				$toggler.removeClass('animated pulse');
-				setTimeout(function() {
-					$toggler.addClass('active');
-				}, 150);
-			}
-			else {
-				$toggler.removeClass('active');
-				setTimeout(function() {
-					$toggler.addClass('animated pulse');
-				}, 200);
-			}
-		});
 		
 		$('#post-details .outlet-list li').on('click', function() {
 			var outlet = $(this).attr('data-selected-outlet');
@@ -161,6 +144,10 @@ jQuery(function($) {
 			var ptitle = $target.data('title');
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
+			var pcontainer = $target.data('popoverContainer');
+			if(!pcontainer) {
+				pcontainer = '.page-main';
+			}
 			var tipW = 1;
 			var tipH = 1;
 			if(parrow) {
@@ -190,7 +177,7 @@ jQuery(function($) {
 					},
 					at: ptattachment,
 					my: pattachment,
-					container: $('.page-main'),
+					container: $(pcontainer),
 					target: $target
 				},
 				show: {
@@ -231,6 +218,10 @@ jQuery(function($) {
 			var ptitle = $target.data('title');
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
+			var pcontainer = $target.data('popoverContainer');
+			if(!pcontainer) {
+				pcontainer = '.page-main';
+			}
 			var tipW = 1;
 			var tipH = 1;
 			if(parrow) {
@@ -247,7 +238,7 @@ jQuery(function($) {
 				'position.adjust.y': poffsetY,
 				'position.at': ptattachment,
 				'position.my': pattachment,
-				'position.container': $('.page-main'),
+				'position.container': $(pcontainer),
 				'position.target': $target,
 				'overwrite': false,
 				'style.classes': 'qtip-shadow ' + pclass,
@@ -264,11 +255,29 @@ jQuery(function($) {
 			}, e);
 		});
 
-		$('body').on('click', '.popover-toggle', function() {
-			if($(this).hasClass('selected')) {
+		$('body').on('click', '.popover-toggle', function(e) {
+			e.preventDefault();
+			var $toggler = $(this);
+			if($toggler.hasClass('selected')) {
 				$('.qtip').qtip('hide');
 			}
-			$(this).toggleClass('selected');
+			if($toggler.hasClass('show-brands-toggler')) {
+				if($toggler.hasClass('animated')) {
+					$toggler.removeClass('animated pulse');
+					setTimeout(function() {
+						$toggler.addClass('selected');
+					}, 150);
+				}
+				else {
+					$toggler.removeClass('selected');
+					setTimeout(function() {
+						$toggler.addClass('animated pulse');
+					}, 200);
+				}
+			}
+			else {
+				$toggler.toggleClass('selected');
+			}
 		});
 
 		$('body').on('click', function(e) {
@@ -276,6 +285,11 @@ jQuery(function($) {
 			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
 				$('.qtip').qtip('hide');
 				$('.popover-toggle').removeClass('selected');
+				if($('.popover-toggle').hasClass('show-brands-toggler')) {
+					setTimeout(function() {
+						$('.popover-toggle').addClass('animated pulse');
+					}, 200);
+				}
 			}
 		});
 
