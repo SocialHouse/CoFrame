@@ -160,6 +160,14 @@ h5 {
 .btn-login {
 	margin-top: 19px;
 }
+.btn-reorder {
+	.fa {
+		font-size: 16px;
+		line-height: .8125rem;
+		float: right;
+		padding-left: 10px;
+	}
+}
 .btn-icon {
 	border: 1px solid #000;
 	border-radius: 3px;
@@ -636,7 +644,7 @@ a {
 			text-align: left;
 		}
 	}
-	&.popover-go-to-brand {
+	&.popover-brand-list {
 		.qtip-titlebar {
 			font-size: remCalc(13px);
 			font-family: $futura-bold;
@@ -647,6 +655,12 @@ a {
 		}
 		.qtip-tip {
 			margin-left: 37px;
+		}
+	}
+	&#qtip-popover-reorder-brands {
+		min-width: 400px;
+		.qtip-tip {
+			margin-right: 38px;
 		}
 	}
 }
@@ -675,9 +689,16 @@ a {
 		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
 		z-index: 15002;
 	}
-	&.show-brands-toggler {
+	&.show-brands-toggler, &.btn-reorder {
 		&.selected {
 			box-shadow: none;
+		}
+	}
+	&.btn-reorder {
+		&.selected, &.selected:hover {
+			border-color: $gray-lighter;
+			color: $gray-lighter;
+			background: #fff;
 		}
 	}
 }
@@ -1095,6 +1116,33 @@ ul.unstyled {
 			height: 48px;
 			width: 48px;
 			margin-right: remCalc(22px);
+		}
+	}
+	&.reorder-brand-list {
+		padding-top: remCalc(24px);
+		letter-spacing: .25em;
+		li {
+			cursor: move;
+			border-color: $gray-lighter;
+			line-height: 48px;
+			text-transform: uppercase;
+			font-size: remCalc(12px);
+			padding: 6px 1rem 6px 0;
+			@include clearfix;
+			&:first-child {
+				border: 0;
+			}
+		}
+		img {
+			height: 48px;
+			width: 48px;
+			margin-right: remCalc(22px);
+		}
+		.fa {
+			line-height: 48px;
+			font-size: 16px;
+			color: $gray-lighter;
+			margin: 0;
 		}
 	}
 	&.calendar-list {

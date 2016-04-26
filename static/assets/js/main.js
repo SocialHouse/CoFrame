@@ -258,6 +258,8 @@ jQuery(function($) {
 		$('body').on('click', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
+			//remove focus from the button
+			$toggler.blur();
 			if($toggler.hasClass('selected')) {
 				$('.qtip').qtip('hide');
 			}
@@ -284,12 +286,16 @@ jQuery(function($) {
 			var $target = $(e.target);
 			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
 				$('.qtip').qtip('hide');
-				$('.popover-toggle').removeClass('selected');
-				if($('.popover-toggle').hasClass('show-brands-toggler')) {
-					setTimeout(function() {
-						$('.popover-toggle').addClass('animated pulse');
-					}, 200);
-				}
+				$('.popover-toggle').each(function() {
+					var $toggler = $(this);
+					$toggler.removeClass('selected');
+					//add animation back to go to brand button
+					if($toggler.hasClass('show-brands-toggler')) {
+						setTimeout(function() {
+							$toggler.addClass('animated pulse');
+						}, 200);
+					}
+				});
 			}
 		});
 
