@@ -17,7 +17,20 @@ jQuery(function($) {
 	$(document).ready(function() {
 
 		$('.show-brands-toggler').on('click', function(e) {
+			var $toggler = $(this);
 			e.preventDefault();
+			if($toggler.hasClass('animated')) {
+				$toggler.removeClass('animated pulse');
+				setTimeout(function() {
+					$toggler.addClass('active');
+				}, 150);
+			}
+			else {
+				$toggler.removeClass('active');
+				setTimeout(function() {
+					$toggler.addClass('animated pulse');
+				}, 200);
+			}
 		});
 		
 		$('#post-details .outlet-list li').on('click', function() {
