@@ -1,4 +1,4 @@
-<div class="container-summary-list border-top bg-gray-lightest padding-2rem">
+<div class="container-summary-list border-top border-gray-lighter bg-gray-lightest padding-2rem">
 	<h3>Total Summary <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
 	
 	<ul class="summary-list timeframe-list">

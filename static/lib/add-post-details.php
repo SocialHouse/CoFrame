@@ -11,7 +11,7 @@
 				<li class="disabled" data-selected-outlet="vimeo"><i class="fa fa-vimeo"><span class="bg-outlet bg-vimeo"></span></i></li>
 				<li class="disabled" data-selected-outlet="pinterest"><i class="fa fa-pinterest"><span class="bg-outlet bg-pinterest"></span></i></li>
 				<li class="disabled" data-selected-outlet="tumblr"><i class="fa fa-tumblr"><span class="bg-outlet bg-tumblr"></span></i></li>
-				<li class="disabled" data-selected-outlet="youtube"><i class="fa fa-youtube"><span class="bg-outlet bg-youtube"></span></i></li>
+				<li class="disabled" data-selected-outlet="youtube"><i class="fa fa-youtube-play"><span class="bg-outlet bg-youtube"></span></i></li>
 			</ul>
 			<input type="hidden" id="postOutlet">
 		</div>

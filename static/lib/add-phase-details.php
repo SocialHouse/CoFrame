@@ -1,4 +1,4 @@
-	<div class="bg-gray-lightest border-gray-lighter padding-22px add-phases">
+	<div class="bg-gray-lightest border-gray-lighter border-all padding-22px add-phases">
 		<div class="container-phases">
 			<h4 class="text-xs-center">Mandatory Approvals</h4>
 			<?php include("choose-approval-phases.php"); ?>

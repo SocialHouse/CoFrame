@@ -1,5 +1,5 @@
 <div class="container-approvals">
-	<div class="bg-gray-lightest border-gray-lighter padding-22px">
+	<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
 		<h4 class="text-xs-center">Mandatory Approvals</h4>
 		<label>Check all that apply:</label>
 		<?php include("user-list.php"); ?>
@@ -25,7 +25,7 @@
 			<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 		</div>
 	</div>
-	<div class="bg-gray-lightest border-gray-lighter padding-22px text-xs-center add-phases-footer">
+	<div class="bg-gray-lightest border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
 		<label>Approval Phases (Optional):</label>
 		<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="lib/add-approval-phases.php">Add Approval Phase(s)</a>
 	</div>
