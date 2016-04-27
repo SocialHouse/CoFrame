@@ -27,6 +27,18 @@
 			// automatically submit the form on file select
 			$input.on( 'change', function( e ){
 				showFiles( e.target.files );
+					droppedFiles = e.target.files; // the files that were dropped
+					var $fileDiv = $('.form__input');
+
+					$.each(droppedFiles, function (index, file) {
+						var img = document.createElement('img');
+						img.onload = function () {
+							window.URL.revokeObjectURL(this.src);
+						};
+						img.className = 'form__file-preview';
+						img.src = window.URL.createObjectURL(file);
+						$fileDiv.prepend(img).addClass('has-files');
+					});
 			});
 
 			// drag&drop files if the feature is available
@@ -47,8 +59,8 @@
 				.on( 'drop', function( e ){
 					droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 					var $fileDiv = $('.form__input');
-					
-					$.each(e.originalEvent.dataTransfer.files, function (index, file) {
+
+					$.each(droppedFiles, function (index, file) {
 						var img = document.createElement('img');
 						img.onload = function () {
 							window.URL.revokeObjectURL(this.src);
