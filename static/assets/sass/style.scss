@@ -1189,6 +1189,14 @@ a {
 		line-height: 20px;
 		margin-right: 6px;
 	}
+	.tag-list {
+		.tf-icon {
+			font-size: 18px;
+			height: 18px;
+			width: 18px;
+			line-height: 13px;
+		}
+	}
 	.add-brand-details {
 		font-size: 1rem;
 	}
@@ -1390,6 +1398,20 @@ a {
 	}
 }
 
+#selectTags {
+	.tag-list {
+		li {
+			float: left;
+			margin: 0 16px 2rem;
+		}
+		.fa {
+			position: relative;
+			left: inherit;
+			top: inherit;
+			margin: 0;
+		}
+	}
+}
 .brand-overview {
 	padding: 1rem 0 remCalc(40px);
 	border-bottom: 1px solid #000;
@@ -1622,6 +1644,8 @@ a {
 		left: 0;
 		top: 0;
 		font-size: 15px;
+		width: 19px;
+		height: 19px;
 		&.tag-custom {
 			border-color: transparent !important;
 		}
