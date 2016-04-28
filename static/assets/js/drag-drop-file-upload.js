@@ -13,7 +13,7 @@
 		$( 'form.file-upload' ).each( function(){
 			var $form		 = $( this ),
 				$input		 = $form.find( 'input[type="file"]' ),
-				$label		 = $form.find( '#postFileLabel' ),
+				$label		 = $form.find( '.file-upload-label' ),
 				$errorMsg	 = $form.find( '.form__error span' ),
 				$restart	 = $form.find( '.form__restart' ),
 				droppedFiles = false,

@@ -3,8 +3,8 @@
 	<h4 class="text-xs-center">Add Brand</h4>
 	<div class="form-group">
 		<div class="form__input center-block">
-			<input type="file" name="files[]" id="postFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
-			<label for="postFile" id="postFileLabel">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></span></label>
+			<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
+			<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></span></label>
 			<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
 		</div>
 		<div class="form__uploading">Uploading ...</div>
@@ -23,6 +23,6 @@
 	</div>
 	<footer class="post-content-footer">
 		<button type="reset" class="btn btn-sm btn-default">Cancel</button>
-		<button type="button" class="btn btn-sm btn-disabled pull-sm-right btn-next-step" disabled data-active-class="btn-secondary" data-next-step="2">Next</button>
+		<button type="button" class="btn btn-sm btn-disabled pull-sm-right btn-next-step" data-active-class="btn-secondary" data-next-step="2">Next</button>
 	</footer>
 </div>

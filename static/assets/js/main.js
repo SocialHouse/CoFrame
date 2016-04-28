@@ -22,7 +22,7 @@ jQuery(function($) {
 			$(this).siblings().addClass('disabled');
 			$('#postOutlet').val(outlet);
 		});
-		$('#add-brand-details .outlet-list li').on('click', function() {
+		$('#brandStep2 .outlet-list li').on('click', function() {
 			if(!$(this).hasClass('saved')) {
 				$(this).toggleClass('disabled selected');
 				$(this).siblings().each(function() {
@@ -38,6 +38,25 @@ jQuery(function($) {
 				}
 			}
 		});
+		$('#brandStep3 .outlet-list li').on('click', function() {
+			var savedOutlets = $('#userOutlet').val();
+			var newOutlets = [];
+			var thisOutlet = $(this).data('selectedOutlet');
+			$(this).toggleClass('disabled selected');
+			if($(this).hasClass('selected')) {
+				if(savedOutlets !== '') {
+					newOutlets.push(savedOutlets);
+				}
+				newOutlets.push(thisOutlet);
+			}
+			else {
+				savedOutlets = savedOutlets.split(',');
+				var index = savedOutlets.indexOf(thisOutlet);
+				savedOutlets.splice(index, 1);
+				newOutlets.push(savedOutlets);
+			}
+			$('#userOutlet').val(newOutlets);
+		});
 		//add brand outlet to list
 		$('#addOutlet').on('click', function() {
 			var $selectedItem = $('#brandOutlets .selected');
@@ -48,7 +67,6 @@ jQuery(function($) {
 				var $selectedList = $('#selectedOutlets ul');
 				var $listItem = $(document.createElement('li'));
 				if(outletsVal !== '') {
-					outletsVal = $('#brandOutlet').val();
 					savedOutlets.push(outletsVal);
 				}
 				savedOutlets.push($selectedItem.data('selectedOutlet'));
@@ -76,6 +94,36 @@ jQuery(function($) {
 				$('#brandOutlet').val(savedOutlets);
 			});
 			$('#brandOutlets li[data-selected-outlet="' + removeOutlet + '"]').removeClass('saved').addClass('disabled');
+		});
+
+		$('#userRoleSelect').on('change', function() {
+			var selectedRole = $(this).val();
+			var $actPermissions = $('.permission-details:visible');
+			if($actPermissions.length) {
+				$actPermissions.fadeOut(function() {
+					$('#' + selectedRole + 'Permissions').slideDown();
+				});
+			}
+			else {
+				$('#' + selectedRole + 'Permissions').slideDown();
+			}
+		});
+
+		$('.edit-permissions').on('click', function() {
+			var section = $(this).data('section');
+			var $sectionList = $('#' + section).find('.permissions-list');
+			$(this).toggleClass('btn-disabled');
+			$sectionList.toggleClass('view');
+			if($(this).hasClass('btn-disabled')) {
+				$sectionList.find('li').css('display', 'block');
+			}
+			else {
+				$sectionList.find('li.hidden').css('display', 'none');
+			}
+		});
+		$('.permissions-list .radio-button').on('click', function() {
+			var $parent = $(this).parent('li');
+			$parent.toggleClass('hidden');
 		});
 
 		//equal column heights
@@ -259,7 +307,7 @@ jQuery(function($) {
 				},
 				events: {
 					show: function() {
-						$target.attr('data-toggle', 'popover-inline');
+						$target.attr('data-toggle', 'popover-ajax-inline');
 					}
 				},
 				id: pid,
@@ -300,7 +348,7 @@ jQuery(function($) {
 		});
 
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-inline"]', function(e) {
+		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -346,6 +394,72 @@ jQuery(function($) {
 				event: e.type,
 				ready: true
 			}, e);
+		});
+
+		//Get popover content from an inline div
+		$('body').on('click', '[data-toggle="popover-inline"]', function(e) {
+			var $target = $(this);
+			var pid = $target.data('popoverId');
+			var pclass = $target.data('popoverClass');
+			var pattachment = $target.data('attachment');
+			var ptattachment = $target.data('targetAttachment');
+			var poffsetX = $target.data('offsetX');
+			var poffsetY = $target.data('offsetY');
+			var pwidth = $target.data('popover-width');
+			var parrow = $target.data('popoverArrow');
+			var arrowcorner = $target.data('arrowCorner');
+			var pcontainer = $target.data('popoverContainer');
+			if(!pcontainer) {
+				pcontainer = '.page-main';
+			}
+			if(!pwidth) {
+				pwidth = 280;
+			}
+			var tipW = 1;
+			var tipH = 1;
+			if(parrow) {
+				tipW = 20;
+				tipH = 10;
+			}
+			$target.qtip({
+				content: {
+					text: $('#' + pid)
+				},
+				hide: {
+					effect:function() {
+						$(this).fadeOut();
+					},
+					event: 'unfocus'
+				},
+				position: {
+					adjust: {
+						x: poffsetX,
+						y: poffsetY
+					},
+					at: ptattachment,
+					my: pattachment,
+					container: $(pcontainer),
+					target: $target
+				},
+				overwrite: false,
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
+				},
+				style: {
+					classes: 'qtip-shadow ' + pclass,
+					tip: {
+						corner: arrowcorner,
+						mimic: 'center',
+						height: tipH,
+						width: tipW
+					},
+					width: pwidth
+				}
+			});
 		});
 
 		$('body').on('click', '.popover-toggle', function(e) {

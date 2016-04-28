@@ -29,7 +29,7 @@
 	<footer class="post-content-footer">
 		<div id="outletStepBtns">
 			<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
-			<button type="button" class="btn btn-sm btn-disabled pull-sm-right btn-next-step" disabled data-active-class="btn-secondary">Next</button>
+			<button type="button" class="btn btn-sm btn-disabled pull-sm-right btn-next-step" data-next-step="3" data-active-class="btn-secondary">Next</button>
 		</div>
 		<div class="hidden" id="addOutletBtns">
 			<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStepBtns, #addOutletLink, #selectedOutlets">Cancel</button>

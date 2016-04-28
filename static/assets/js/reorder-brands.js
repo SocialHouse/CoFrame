@@ -62,7 +62,7 @@ jQuery(function($) {
 				},
 				events: {
 					show: function() {
-						$target.attr('data-toggle', 'popover-inline');
+						$target.attr('data-toggle', 'popover-ajax-inline');
 					}
 				},
 				id: pid,

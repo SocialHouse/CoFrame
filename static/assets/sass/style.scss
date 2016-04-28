@@ -154,7 +154,7 @@ h5 {
 }
 .btn-disabled {
 	opacity: 1;
-	color: $gray-lighter;
+	color: $gray-lighter !important;
 	border-color: $gray-lighter !important;
 	background: none;
 }
@@ -598,6 +598,11 @@ a {
 			margin-left: 37px;
 		}
 	}
+	&.popover-inline {
+		.qtip-tip {
+			margin-left: 11px;
+		}
+	}
 	&#qtip-popover-reorder-brands {
 		min-width: 400px;
 		.qtip-tip {
@@ -881,13 +886,7 @@ a {
 		position: relative;
 		background: #fff;
 		z-index: 1;
-		padding: 0 15px;
-		.bg-black & {
-			background: #000;
-		}
-		.bg-gray-dark & {
-			background: $gray-dark;
-		}
+		padding: 0 6px;
 	}
 	&:before {
 		background: #000;
@@ -897,9 +896,6 @@ a {
 		position: absolute;
 		top: 50%;
 		width: 100%;
-		.bg-black &, .bg-gray-dark & {
-			background: #fff;
-		}
 	}
 	&:after {
 		left: 0;
@@ -947,6 +943,8 @@ a {
 /*icons*/
 .fa[data-toggle*='popover'] {
 	cursor: pointer;
+	outline: none;
+	margin-left: 2px;
 }
 .fa-custom-circle {
 	border-radius: 100%;
@@ -1001,6 +999,16 @@ a {
 .radio-button {
 	border-color: #000;
 	cursor: pointer;
+	.fa {
+		display: none;
+		margin-right: 0;
+		margin-left: 2px;
+	}
+	&.selected {
+		.fa {
+			display: inline-block;
+		}
+	}
 }
 /*Unordered Lists*/
 .timeframe-list {
@@ -1099,10 +1107,6 @@ a {
 		}
 		.post-approver-name {
 			padding-top: 4px;
-			text-transform: uppercase;
-			strong {
-				display: block;
-			}
 		}
 		.tf-icon {
 			height: 36px;
@@ -1120,14 +1124,6 @@ a {
 				font-size: 1rem;
 				line-height: 21px;
 				float: none;
-				margin-right: 0;
-				margin-left: 2px;
-				display: none;
-			}
-			&.selected {
-				.fa {
-					display: inline-block;
-				}
 			}
 			&.disabled {
 				border-color: transparent;
@@ -1140,14 +1136,17 @@ a {
 			font-size: 42px;
 			line-height: 27px;
 		}
-		&.selected {
-			margin-left: -1rem;
-			margin-right: -1rem;
-			padding-left: 1rem;
-		}
 		img {
 			margin-right: 10px;
+			border: 0;
 		}
+	}
+}
+
+.post-approver-name {
+	text-transform: uppercase;
+	strong {
+		display: block;
 	}
 }
 
@@ -1201,13 +1200,25 @@ a {
 		.tf-icon {
 			margin-right: 16px;
 		}
+		#brandStep3 & {
+			margin-top: 0;
+		}
+	}
+	&#brandStep3 {
+		.add-link {
+			margin-top: 0;
+		}
+	}
+	&#brandStep2 {
+		.outlet-list {
+			ul {
+				margin: remCalc(80px) 0 0;
+			}
+		}
 	}
 	.outlet-list {
-		ul {
-			margin: remCalc(80px) 0 0;
-			li {
-				padding: 0 10px 12px;
-			}
+		li {
+			padding: 0 10px 12px;
 		}
 		&#selectedOutlets {
 			margin: 8rem 0 -8rem;
@@ -1260,8 +1271,121 @@ a {
 			border-radius: 100%;
 			border: 1px solid $gray-lighter;
 		}
-		.has-files #postFileLabel {
+		.has-files .file-upload-label {
 			display: none;
+		}
+	}
+	&#brandStep3 {
+		.form-group {
+			margin-bottom: 1.5rem;
+			&.input-margin {
+				margin-bottom: .5rem;
+			}
+		}
+		.input-margin {
+			.form-control {
+				margin-bottom: 1rem;
+			}
+		}
+		.has-advanced-upload & {
+			.form__input {
+				height: 60px;
+				width: 60px;
+				margin-top: 2rem;
+			}
+		}
+		.js & {
+			.file-upload-label {
+				font-size: 12px;
+				line-height:15px;
+				padding:0;
+			}
+			.form__file-preview {
+				height: 60px;
+				width: 60px;
+			}
+		}
+	}
+}
+
+#userPermissionsList {
+	.table-header {
+		font-size: 8px;
+		font-family: $futura;
+		white-space: nowrap;
+		width: 23px;
+		height: 120px;
+		float:left;
+		position: relative;
+		letter-spacing: .2em;
+		&:nth-child(odd) {
+			background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%);
+			background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%);
+			background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 );
+		}
+	}
+	.permission {
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+		-webkit-transform-origin: left top;
+		transform-origin: left top;
+		position: absolute;
+		bottom: 0;
+		left: 6px;
+	}
+	.has-permission {
+		width: 23px;
+	}
+	.post-approver-name {
+		letter-spacing: normal;
+	}
+	.table-cell {
+		padding: 4px 0;
+		border-top: 1px solid #000;
+		&:nth-child(even) {
+			background: #f7f7f7;
+		}
+	}
+	img {
+		border: 0;
+		margin-right: 10px;
+	}
+}
+.permissions-current-user {
+	margin-top: 2rem;
+	font-family: $bebas-book;
+	font-size: remCalc(25px);
+	letter-spacing: normal;
+	img {
+		display: block;
+		margin: 0px auto;
+		height: 60px;
+		width: 60px;
+	}
+}
+
+.permissions-list {
+	li {
+		font-size: remCalc(13px);
+		line-height: remCalc(32px);
+		&:first-child {
+			border: 0;
+		}
+	}
+	.radio-button {
+		height: 18px;
+		width: 18px;
+		margin: 7px 0 0;
+		.fa {
+			font-size: .75rem;
+			line-height: 1rem;
+		}
+	}
+	&.view {
+		.radio-button {
+			border: 0;
+			cursor: default;
 		}
 	}
 }
@@ -1377,6 +1501,16 @@ a {
 	left: 0;
 	right: 0;
 	height: 60px;
+	.disclaimer {
+		position: absolute;
+		top: -100%;
+		width: 100%;
+		text-align: center;
+		padding: 0 1rem;
+		margin: 0;
+		text-transform: none;
+		letter-spacing: normal;
+	}
 }
 .form-footer {
 	border-top: 1px solid #000;
@@ -1547,15 +1681,19 @@ a {
 }
 select.form-control {
 	height: 36px;
-	font-family: $bebas-book;
-	font-size: remCalc(20px);
 	padding: 5px 3px;
 	&.form-control-sm {
 		height: 30px;
-		font-size: remCalc(18px);
 	}
 	option{
 		padding: 0;
+	}
+}
+select.form-control, input[type="text"].form-control, input[type="email"].form-control {
+	font-family: $bebas-book;
+	font-size: remCalc(20px);
+	&.form-control-sm {
+		font-size: remCalc(18px);
 	}
 }
 .form-control {
@@ -1680,7 +1818,7 @@ select.form-control {
 		margin-left: 10px;
 	}
 }
-.js #postFileLabel {
+.js .file-upload-label {
 	cursor: pointer;
 	display: inline-block;
 	position: absolute;
@@ -1692,7 +1830,7 @@ select.form-control {
 	width: 100%;
 	margin: 0;
 }
-.js .has-files #postFileLabel {
+.js .has-files .file-upload-label {
 	position: relative;
 	top: inherit;
 	left: inherit;
@@ -1763,8 +1901,8 @@ select.form-control {
 	font-family: $bebas-bold;
 }
 .disclaimer {
-	font-size: 1.25rem;
-	line-height: 1;
+	font-size: remCalc(14px);
+	line-height: remCalc(18px);
 }
 .small {
 	font-size: 1rem;
@@ -1779,11 +1917,18 @@ select.form-control {
 .relative-wrapper {
 	position: relative;
 }
+.table {
+	display: table;
+	margin: 0;
+}
 .table-row {
 	display: table-row;
 }
 .table-cell {
 	display: table-cell;
+}
+.vertical-middle {
+	vertical-align: middle;
 }
 .img-thumbnail {
 	border: 0;
