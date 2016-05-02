@@ -33,7 +33,7 @@ class Brands extends CI_Controller {
 	{
 		$this->data = array();
 		$user_id = $this->user_id;
-		$this->data['brands'] = $this->brand_model->get_users_brands($user_id);
+		$this->data['brands'] = $this->brand_model->get_users_brand($user_id);
 		
 		$this->data['view'] = 'brands/brand_list';
         _render_view($this->data);
@@ -181,5 +181,39 @@ class Brands extends CI_Controller {
 			$this->session->set_flashdata('message','Brand unhide successfull');
 			redirect(base_url().'brands');
 		}
-	}	
+	}
+
+	public function overview()
+	{
+		$this->data = array();
+		$user_id = $this->user_id;
+		$this->data['brands'] = $this->brand_model->get_users_brand($user_id);
+
+		$this->data['view'] = 'brands/overview';
+		$this->data['layout'] = 'layouts/new_user_layout';
+        _render_view($this->data);
+	}
+
+	public function dashboard()
+	{
+		$this->data = array();
+		$brand_id = $this->uri->segment(3);
+		$this->load->model('user_model');
+		$this->data['timezones'] = $this->user_model->get_timezones();
+		$brand =  $this->brand_model->get_users_brands($this->user_id);
+		
+		if(!empty($brand))
+		{
+			$this->load->model('reminder_model');
+			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand_id);			
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+ 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
+			$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
+
+			$this->data['view'] = 'brands/dashboard';
+			$this->data['layout'] = 'layouts/new_user_layout';
+	        _render_view($this->data);
+	    }
+	}		
 }

@@ -174,5 +174,21 @@ if(!function_exists('get_user_groups'))
     }
 }
 
+if(!function_exists('get_brand_reminders'))
+{
+    function get_brand_reminders($user_id,$brand_id,$limit = 0)
+    {
+        $CI = & get_instance();
+
+        $CI->load->model('reminder_model');
+        $reminders = $CI->reminder_model->get_brand_reminders($user_id,$brand_id,$limit);
+        if($reminders)
+        {
+            return $reminders;
+        }
+        return FALSE;
+
+    }
+}
 
 

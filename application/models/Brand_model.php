@@ -9,11 +9,12 @@ class Brand_model extends CI_Model
 	}
 
 	//get brands which is created by user
-	public function get_users_brand($user_id, $brand_id)
+	public function get_users_brand($user_id, $brand_id = 0)
 	{
 		$this->db->select('id,name,created_by,created_at,is_hidden,timezone');
-		$this->db->where('created_by', $user_id);		
-		$this->db->where('id', $brand_id);
+		$this->db->where('created_by', $user_id);
+		if($brand_id > 0)
+			$this->db->where('id', $brand_id);
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)
 		{
@@ -24,8 +25,11 @@ class Brand_model extends CI_Model
 
 	public function get_users_brands($user_id)
 	{
-		$this->db->select('id,name,created_by,created_at,is_hidden');
-		$this->db->where('created_by', $user_id);		
+		$this->db->select('brands.id,name,created_by,brands.created_at,is_hidden');
+		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id');
+		$this->db->where('created_by', $user_id);
+		$this->db->or_where('access_user_id',$user_id);
+		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)
 		{

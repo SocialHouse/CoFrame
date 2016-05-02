@@ -261,3 +261,25 @@ ALTER TABLE `user_outlets`
 
 ALTER TABLE `user_outlets`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+CREATE TABLE IF NOT EXISTS `reminders` (
+`id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `approve_by` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `reminders`
+ ADD PRIMARY KEY (`id`);
+AUTO_INCREMENT for table `reminders`
+--
+ALTER TABLE `reminders`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `reminders` ADD `user_id` INT NOT NULL AFTER `post_id`;
+
+ALTER TABLE `reminders` ADD `text` VARCHAR(500) NOT NULL AFTER `type`;

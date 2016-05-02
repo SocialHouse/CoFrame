@@ -1,7 +1,9 @@
 $(document).ready(function(){
+
+	$('.default_phases').hide();
 	if($('.time').length)
 	{
-		$('.date').datepicker();
+		// $('.date').datepicker();
 		$('.time').timepicker({
 	        minuteStep: 5,
 	        showInputs: false,
