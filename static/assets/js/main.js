@@ -138,10 +138,10 @@ jQuery(function($) {
 			}
 			if(!$(this).hasClass('brand-steps')) {
 				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - 2);
+					$(this).css('height', dashboardH - headhH - 2 - magicNum);
 				}
 				else {
-					$(this).css('height', colsH-magicNum);
+					$(this).css('height', colsH);
 				}
 			}
 		});
