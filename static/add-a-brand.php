@@ -18,7 +18,7 @@
 		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main bg-white col-sm-12">
 				<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="add-brand-details" class="file-upload clearfix row-sm-12">	
-				<div class="row row-sm-12 equal-cols">
+				<div class="row row-sm-12 equal-cols relative-wrapper">
 					<div class="brand-steps col-xl-11 center-block">
 						<div class="col-md-3 col-sm-6 brand-step active" id="brandStep1">
 							<?php include("lib/add-brand-step-1.php"); ?>
