@@ -1411,7 +1411,7 @@ a {
 	.tag-list {
 		li {
 			float: left;
-			margin: 0 16px 2rem;
+			margin: 0 remCalc(16px) 2rem;
 		}
 		.fa {
 			position: relative;
@@ -1642,11 +1642,15 @@ a {
 				}
 			}
 		}
+		.qtip-content & {
+			padding-bottom: 2px;
+			padding-top: 2px;
+		}
 	}
 	.fa {
-		padding: 1px 2px;
+		padding: 0 1px;
 		border-radius: 100%;
-		border: 1px solid transparent;
+		border: 2px solid transparent;
 		transition: all 500ms;
 		margin-right: 10px;
 		position: absolute;
@@ -1708,6 +1712,12 @@ a {
 	.container-approvals & {
 		margin-bottom: remCalc(20px);
 	}
+	.container-phases & {
+		margin-bottom:1rem;
+		.form-control {
+			margin-bottom: .5rem;
+		}
+	}
 	&:last-child {
 		margin-bottom: 0;
 	}
@@ -1739,7 +1749,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	}
 }
 .form-inline .form-control + .form-control {
-	margin-left: 3px;
+	@media (min-width: 1281px) {
+		margin-left: 3px;
+	}
 }
 .form-control-sm {
 	line-height: 22px;
