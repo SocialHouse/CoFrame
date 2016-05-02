@@ -8,12 +8,12 @@
 			var div = document.createElement( 'div' );
 			return ( ( 'draggable' in div ) || ( 'ondragstart' in div && 'ondrop' in div ) ) && 'FormData' in window && 'FileReader' in window;
 		}();
-
+		
 		// applying the effect for every form
 		$( 'form.file-upload' ).each( function(){
 			var $form		 = $( this ),
 				$input		 = $form.find( 'input[type="file"]' ),
-				$label		 = $form.find( '#postFileLabel' ),
+				$label		 = $form.find( '.file-upload-label' ),
 				$errorMsg	 = $form.find( '.form__error span' ),
 				$restart	 = $form.find( '.form__restart' ),
 				droppedFiles = false,
@@ -27,7 +27,18 @@
 			// automatically submit the form on file select
 			$input.on( 'change', function( e ){
 				showFiles( e.target.files );
-				$form.trigger( 'submit' );
+					droppedFiles = e.target.files; // the files that were dropped
+					var $fileDiv = $('.form__input');
+
+					$.each(droppedFiles, function (index, file) {
+						var img = document.createElement('img');
+						img.onload = function () {
+							window.URL.revokeObjectURL(this.src);
+						};
+						img.className = 'form__file-preview';
+						img.src = window.URL.createObjectURL(file);
+						$fileDiv.prepend(img).addClass('has-files');
+					});
 			});
 
 			// drag&drop files if the feature is available
@@ -48,8 +59,8 @@
 				.on( 'drop', function( e ){
 					droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 					var $fileDiv = $('.form__input');
-					
-					$.each(e.originalEvent.dataTransfer.files, function (index, file) {
+
+					$.each(droppedFiles, function (index, file) {
 						var img = document.createElement('img');
 						img.onload = function () {
 							window.URL.revokeObjectURL(this.src);
@@ -64,7 +75,7 @@
 			}
 
 			// if the form was submitted
-			$form.on( 'submit', function( e ){
+			$('#submit-btn').on( 'click', function( e ){
 				// preventing the duplicate submissions if the current one is in progress
 				if( $form.hasClass( 'is-uploading' ) ) return false;
 
@@ -77,14 +88,15 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 					if( droppedFiles ){
+						// console.log(droppedFiles);
 						$.each( droppedFiles, function( i, file ){
-							ajaxData.append( $input.attr( 'name' ), file );
-						});
+							ajaxData.append( 'file['+i+']', file,file.name);
+						});					
 					}
 
 					// ajax request
 					$.ajax({
-						url: 			$form.attr( 'action' ),
+						url: 			$form.attr( 'upload' ),
 						type:			$form.attr( 'method' ),
 						data: 			ajaxData,
 						dataType:		'json',
@@ -95,8 +107,22 @@
 							$form.removeClass( 'is-uploading' );
 						},
 						success: function( data ){
-							$form.addClass( data.success == true ? 'is-success' : 'is-error' );
-							if( !data.success ) $errorMsg.text( data.error );
+							// console.log(data.);
+							// return false;
+							if(data.success)
+							{
+								console.log(JSON.stringify(data));
+								// return;
+								$('#uploaded_files').val(JSON.stringify(data));
+								$form.submit();
+							}
+							// alert('done');
+							// console.log($form);
+							// $form.submit();
+							// $form.addClass( data.success == true ? 'is-success' : 'is-error' );
+							// if( !data.success ) $errorMsg.text( data.error );
+
+							// $form.submit();
 						},
 						error: function(){
 							alert( 'There was a problem with your upload.  Please try again.' );

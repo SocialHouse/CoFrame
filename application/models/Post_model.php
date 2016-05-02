@@ -23,7 +23,7 @@ class Post_model extends CI_Model
 
 	public function get_brand_tags($brand_id)
 	{
-		$this->db->select('id,name');		
+		$this->db->select('id,name,color');		
 		$this->db->where('brand_tags.brand_id',$brand_id);
 		$this->db->where('brand_tags.status',1);
 		$this->db->group_by('name');

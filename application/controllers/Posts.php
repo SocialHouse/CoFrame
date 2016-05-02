@@ -25,6 +25,7 @@ class Posts extends CI_Controller {
         is_user_logged();
 		$this->load->model('timeframe_model');
 		$this->load->model('post_model');
+		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 	}
@@ -46,46 +47,66 @@ class Posts extends CI_Controller {
 
 	//create post in brand
 	//create post in brand
+	// public function create()
+	// {		
+	// 	$this->data = array();
+	// 	$brand_id = $this->uri->segment(3);
+	// 	$brand = get_users_brand($brand_id);
+	// 	if(!empty($brand))
+	// 	{
+	// 		$this->data['brand_id'] = $brand[0]->id;
+ //        	$this->data['brand_name'] = $brand[0]->name;
+	// 		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+	// 		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+
+	// 		//get default approvers which we added in brand
+	// 		$phases = $this->post_model->get_default_phases($brand_id);
+	// 		$this->data['default_phases'] = array();
+	// 		if(!empty($phases))
+	// 		{
+	// 			foreach($phases as $phase)
+	// 			{
+	// 				$this->data['default_phases'][$phase->phase][] = $phase;					
+	// 			}
+	// 		}
+
+	// 		$this->data['users'] = $this->post_model->get_brand_users($brand_id);
+
+	// 		$this->data['view'] = 'posts/create';
+
+	// 		// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'custom.css');
+	// 		// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+	// 		$this->data['css_files'] = array(css_url().'timepicker.css');
+	// 		$this->data['js_files'] = array(js_url().'timepicker.js');
+
+ //        	_render_view($this->data);
+	// 	}
+	// 	else
+	// 	{
+	// 		$this->session->set_flashdata('error','Brand is not available');
+	// 		redirect(base_url().'brands');
+	// 	}	
+		
+	// }
+
 	public function create()
-	{		
+	{
 		$this->data = array();
-		$brand_id = $this->uri->segment(3);
-		$brand = get_users_brand($brand_id);
+		$brand_id = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_users_brand($this->user_id,$brand_id);
 		if(!empty($brand))
 		{
-			$this->data['brand_id'] = $brand[0]->id;
-        	$this->data['brand_name'] = $brand[0]->name;
+			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
-			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+			
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'posts/create-post';
+			$this->data['layout'] = 'layouts/new_user_layout';		
+			
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
-			//get default approvers which we added in brand
-			$phases = $this->post_model->get_default_phases($brand_id);
-			$this->data['default_phases'] = array();
-			if(!empty($phases))
-			{
-				foreach($phases as $phase)
-				{
-					$this->data['default_phases'][$phase->phase][] = $phase;					
-				}
-			}
-
-			$this->data['users'] = $this->post_model->get_brand_users($brand_id);
-
-			$this->data['view'] = 'posts/create';
-
-			// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'custom.css');
-			// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'jquery_ui.css',css_url().'custom.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'jquery_ui.js',js_url().'timepicker.js');
-
-        	_render_view($this->data);
+			_render_view($this->data);
 		}
-		else
-		{
-			$this->session->set_flashdata('error','Brand is not available');
-			redirect(base_url().'brands');
-		}	
-		
 	}
 
 	public function save_post()
@@ -95,137 +116,98 @@ class Posts extends CI_Controller {
 		$uploaded_files = array();
 		$post_data = $this->input->post();
 
-		$brand = get_users_brand(isset($post_data['brand_id'])?$post_data['brand_id']:'');
+		if(!empty($post_data))
+		{		
 
+			$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
 
-		$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
-
-		if($brand)
-		{
-	        $this->form_validation->set_rules('outlets[]','Outlets','required',                                            
-	                                            array('required' => 'At least select one outlet')
-	                                        );
-	        $this->form_validation->set_rules('post_copy','post copy','required',
-	                                            array('required' => 'Post copy is required')
-	                                        );
-	        $this->form_validation->set_rules('slate_date_month','month','required',
-	                                            array('required' => 'Date is required')
-	                                        );
-	        $this->form_validation->set_rules('slate_date_day','time','required',
-	                                            array('required' => 'Time is required')
-	                                        );
-	         $this->form_validation->set_rules('slate_date_year','year','required',
-	                                            array('required' => 'Date is required')
-	                                        );
-	        $this->form_validation->set_rules('slate_time','time','required',
-	                                            array('required' => 'Time is required')
-	                                        );
-	        // $this->form_validation->set_rules('users[]','users','required',
-	        //                                     array('required' => 'At least select one user for approvel')
-	        //                                 );
-	       	
-	       	if($this->form_validation->run() === TRUE)
-	        {
-		       	if(isset($_FILES['media_files']) && !empty($_FILES['media_files']))
-				{
-					$number_of_files = sizeof($_FILES['media_files']['tmp_name']);
-					$files = $_FILES['media_files'];
-					
-					for ($i = 0; $i < $number_of_files; $i++)
-					{
-						if(!empty($files['name'][$i]))
-						{
-					        $_FILES['uploadedimage']['name'] = $files['name'][$i];
-					        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
-					        $randname = uniqid().'.'.$ext;
-					        $_FILES['uploadedimage']['type'] = $files['type'][$i];
-					        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
-					        $_FILES['uploadedimage']['error'] = $files['error'][$i];
-					        $_FILES['uploadedimage']['size'] = $files['size'][$i];
-					        $status = upload_file('uploadedimage',$randname,'posts');
-					       
-					        if(array_key_exists("upload_errors",$status))
-					        {
-					        	$error =  $status['upload_errors'];				        	
-					        	break;
-					        }
-					        else
-					        {
-					        	$uploaded_files[$i]['file'] = $status['file_name'];
-					        	$uploaded_files[$i]['type'] = 'images';
-					        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
-					        	
-					        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
-					        	{
-					        		$uploaded_files[$i]['type'] = 'video';
-					        	}
-					        }
-					    }
-			      	}			      
-			    }
-			    if(empty($error))
-			    {
+			if(!empty($post_data['brand_id']))
+			{
+		        $this->form_validation->set_rules('post_outlet','Outlets','required',                                            
+		                                            array('required' => 'At least select one outlet')
+		                                        );
+		        $this->form_validation->set_rules('post_copy','post copy','required',
+		                                            array('required' => 'Post copy is required')
+		                                        );
+		        $this->form_validation->set_rules('slate_date_month','month','required',
+		                                            array('required' => 'Date is required')
+		                                        );
+		        $this->form_validation->set_rules('slate_date_day','time','required',
+		                                            array('required' => 'Time is required')
+		                                        );
+		         $this->form_validation->set_rules('slate_date_year','year','required',
+		                                            array('required' => 'Date is required')
+		                                        );
+		        $this->form_validation->set_rules('slate_time','time','required',
+		                                            array('required' => 'Time is required')
+		                                        );
+		        // $this->form_validation->set_rules('users[]','users','required',
+		        //                                     array('required' => 'At least select one user for approvel')
+		        //                                 );
+		       	
+		       	if($this->form_validation->run() === TRUE)
+		        {		       
+						
 			    	$date_time =  $post_data['slate_date_year'].'-'.$post_data['slate_date_month'].'-'.$post_data['slate_date_day']." ".$post_data['slate_time'];
 			    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
-			    	if(!empty($post_data['outlets']))
+			    	if(!empty($post_data['post_outlet']))
 		    		{
-		    			foreach($post_data['outlets'] as $outlet)
-		    			{
-		    				$post = array(
-			    						'content' => $this->input->post('post_copy'),
-			    						'slate_date_time' => $slate_date_time,
-			    						'brand_id' => $post_data['brand_id'],
-			    						'outlet_id' => $outlet
-			    					);
+	    				$condition = array('id' => $post_data['post_outlet']);
+						$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
 
-		    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
+	    				$post = array(
+		    						'content' => $this->input->post('post_copy'),
+		    						'slate_date_time' => $slate_date_time,
+		    						'brand_id' => $post_data['brand_id'],
+		    						'outlet_id' =>$post_data['post_outlet']
+		    					);
 
-		    				if($inserted_id)
-					    	{
-					    		if(!empty($post_data['tags']))
-					    		{
-					    			foreach($post_data['tags'] as $tag)
-					    			{
-					    				$post_tag_data = array(
-					    										'post_id' => $inserted_id,
-					    										'brand_tag_id' => $tag
-					    									);
-					    			
-					    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
-					    			}
-					    		}					    		
+	    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
 
-					    		// if(!empty($post_data['users']))
-					    		// {
-					    		// 	foreach($post_data['users'] as $user)
-					    		// 	{
-					    		// 		$post_approver_data = array(
-					    		// 								'post_id' => $inserted_id,
-					    		// 								'user_id' => $user
-					    		// 							);
+	    				if($inserted_id)
+				    	{
+				    		if(!empty($post_data['tags']))
+				    		{
+				    			foreach($post_data['tags'] as $tag)
+				    			{
+				    				$post_tag_data = array(
+				    										'post_id' => $inserted_id,
+				    										'brand_tag_id' => $tag
+				    									);
+				    			
+				    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+				    			}
+				    		}					    		
+			    			
+		    				$reminder_data = array(
+		    										'post_id' => $inserted_id,
+		    										'user_id' => $this->user_id,
+		    										'type' => 'Created',
+		    										'brand_id' => $post_data['brand_id'],
+		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' post'
+		    									);
 
-					    		// 		$this->timeframe_model->insert_data('post_approvers',$post_approver_data);
-					    		// 	}
-					    		// }
+		    				$this->timeframe_model->insert_data('reminders',$reminder_data);	    			
+				    		
+		    				
+		    				$files = json_decode($post_data['uploaded_files'][0])->success;
+				    		if(isset($files) AND !empty($files))
+				    		{
+				    			foreach($files as $file)
+				    			{
+				    				$post_media_data = array(
+				    										'post_id' => $inserted_id,
+				    										'name' => $file->file,
+				    										'type' => $file->type,
+				    										'mime' => $file->mime
+				    									);			    				
 
-					    		if(!empty($uploaded_files))
-					    		{
-					    			foreach($uploaded_files as $file)
-					    			{
-					    				$post_media_data = array(
-					    										'post_id' => $inserted_id,
-					    										'name' => $file['file'],
-					    										'type' => $file['type'],
-					    										'mime' => $file['mime']
-					    									);
+				    				$this->timeframe_model->insert_data('post_media',$post_media_data);
+				    			}
+				    		}
 
-					    				$this->timeframe_model->insert_data('post_media',$post_media_data);
-					    			}
-					    		}
-			    			}
-
-			    			if(isset($post_data['load_default']))
+				    		if(isset($post_data['load_default']))
 			    			{
 			    				$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
 			    				if(!empty($default_phases))
@@ -251,66 +233,314 @@ class Posts extends CI_Controller {
 
 			    										);
 
-										$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+										$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
 									}
 			    				}
 			    			}
 			    			else
 			    			{
-			    				if(isset($post_data['phase']['users']) AND !empty($post_data['phase']['users']))
+			    				if(isset($post_data['phase']['approver']) AND !empty($post_data['phase']['approver']))
 			    				{
-			    					$phase_number = 1;
-			    					foreach($post_data['phase']['users'] as $key=>$phase)
+			    					$phase_number = 1;		    					
+			    					foreach($post_data['phase']['approve_month'] as $key=>$phase)
 			    					{
-			    						$date_time = $post_data['phase']['approve_year'][$key][0]."-".$post_data['phase']['approve_month'][$key][0]."-".$post_data['phase']['approve_day'][$key][0]." ".$post_data['phase']['approve_time'][$key][0];
-									    	$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+			    						$date_time = $post_data['phase']['approve_year'][$key]."-".$post_data['phase']['approve_month'][$key]."-".$post_data['phase']['approve_day'][$key]." ".$post_data['phase']['approve_time'][$key]." ".$post_data['phase']['time_type'][$key];
+									    	
+									    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
 			    						$phase_data = array(
 			    										'phase' => $phase_number,
 			    										'brand_id' => $post_data['brand_id'],
 			    										'post_id' => $inserted_id,
 			    										'approve_by' => $approve_date_time,
-				    									'note' => $post_data['phase']['note'][$key][0]
+				    									'note' => $post_data['phase']['note'][$key]
 			    									);			    						
 			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
 
-			    						foreach($phase as $user)
+			    						foreach($post_data['phase']['approver'] as $user)
 			    						{ 
 				    						$phases_approver = array(
 				    											'user_id' => $user,
 				    											'phase_id' => $phase_insert_id  
 				    										);
 
-											$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
+											$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+											
+											$reminder_data = array(
+		    										'post_id' => $inserted_id,
+		    										'user_id' => $user,
+		    										'type' => 'Approve',
+		    										'brand_id' => $post_data['brand_id'],
+		    										'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
+		    									);
+
+		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+
 										}
 
 			    						$phase_number++;
 			    					}
 			    				}
 			    			}
-			    		}			    	
-			    		$this->session->set_flashdata('message','Post has been saved successfuly');
-			    		redirect(base_url().'posts/index/'.$brand[0]->id);
-			    	}
+		    			}
+		    			$this->session->set_flashdata('message','Post has been saved successfuly');
+		    			redirect(base_url().'posts/index/'.$post_data['brand_id']);
+		    		}
+				    $this->data['error'] = "Unable to save post please try again";
 			    }
-			    $this->data['error'] = "Unable to save post please try again";
+
+			   	$this->data['users'] = $this->brand_model->get_brand_users($post_data['brand_id']);
+				$this->data['outlets'] = $this->post_model->get_brand_outlets($post_data['brand_id']);
+				
+				$this->data['brand_id'] = $post_data['brand_id'];
+				$this->data['view'] = 'posts/create-post';
+				$this->data['layout'] = 'layouts/new_user_layout';		
+				
+				$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
+
+		    	_render_view($this->data);
 		    }
-		    $this->data['brand_id'] = $brand[0]->id;
-	    	$this->data['brand_name'] = $brand[0]->name;
-			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
-			$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
-			$this->data['users'] = $this->post_model->get_brand_users($brand[0]->id);
-
-			$this->data['view'] = 'posts/create';
-
-			// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
-			// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'jquery_ui.css',css_url().'custom.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'jquery_ui.js',js_url().'timepicker.js');
-
-	    	_render_view($this->data);
-	    }
+		}
 	}
+
+	// public function save_post()
+	// {
+	// 	$this->data = array();
+	// 	$error = '';
+	// 	$uploaded_files = array();
+	// 	$post_data = $this->input->post();
+
+	// 	// $brand = get_users_brand(isset($post_data['brand_id'])?$post_data['brand_id']:'');
+
+
+	// 	$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
+
+	// 	if(!empty($post_data['brand_id']))
+	// 	{
+	//         $this->form_validation->set_rules('outlets[]','Outlets','required',                                            
+	//                                             array('required' => 'At least select one outlet')
+	//                                         );
+	//         $this->form_validation->set_rules('post_copy','post copy','required',
+	//                                             array('required' => 'Post copy is required')
+	//                                         );
+	//         $this->form_validation->set_rules('slate_date_month','month','required',
+	//                                             array('required' => 'Date is required')
+	//                                         );
+	//         $this->form_validation->set_rules('slate_date_day','time','required',
+	//                                             array('required' => 'Time is required')
+	//                                         );
+	//          $this->form_validation->set_rules('slate_date_year','year','required',
+	//                                             array('required' => 'Date is required')
+	//                                         );
+	//         $this->form_validation->set_rules('slate_time','time','required',
+	//                                             array('required' => 'Time is required')
+	//                                         );
+	//         // $this->form_validation->set_rules('users[]','users','required',
+	//         //                                     array('required' => 'At least select one user for approvel')
+	//         //                                 );
+	       	
+	//        	if($this->form_validation->run() === TRUE)
+	//         {
+	// 	       	if(isset($_FILES['media_files']) && !empty($_FILES['media_files']))
+	// 			{
+	// 				$number_of_files = sizeof($_FILES['media_files']['tmp_name']);
+	// 				$files = $_FILES['media_files'];
+					
+	// 				for ($i = 0; $i < $number_of_files; $i++)
+	// 				{
+	// 					if(!empty($files['name'][$i]))
+	// 					{
+	// 				        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+	// 				        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+	// 				        $randname = uniqid().'.'.$ext;
+	// 				        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+	// 				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+	// 				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+	// 				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+	// 				        $status = upload_file('uploadedimage',$randname,'posts');
+					       
+	// 				        if(array_key_exists("upload_errors",$status))
+	// 				        {
+	// 				        	$error =  $status['upload_errors'];				        	
+	// 				        	break;
+	// 				        }
+	// 				        else
+	// 				        {
+	// 				        	$uploaded_files[$i]['file'] = $status['file_name'];
+	// 				        	$uploaded_files[$i]['type'] = 'images';
+	// 				        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+					        	
+	// 				        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+	// 				        	{
+	// 				        		$uploaded_files[$i]['type'] = 'video';
+	// 				        	}
+	// 				        }
+	// 				    }
+	// 		      	}			      
+	// 		    }
+	// 		    if(empty($error))
+	// 		    {
+	// 		    	$date_time =  $post_data['slate_date_year'].'-'.$post_data['slate_date_month'].'-'.$post_data['slate_date_day']." ".$post_data['slate_time'];
+	// 		    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+	// 		    	if(!empty($post_data['outlets']))
+	// 	    		{
+	// 	    			foreach($post_data['outlets'] as $outlet)
+	// 	    			{
+	// 	    				$condition = array('id' => $outlet);
+	// 						$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
+
+	// 	    				$post = array(
+	// 		    						'content' => $this->input->post('post_copy'),
+	// 		    						'slate_date_time' => $slate_date_time,
+	// 		    						'brand_id' => $post_data['brand_id'],
+	// 		    						'outlet_id' => $outlet
+	// 		    					);
+
+	// 	    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
+
+	// 	    				if($inserted_id)
+	// 				    	{
+	// 				    		if(!empty($post_data['tags']))
+	// 				    		{
+	// 				    			foreach($post_data['tags'] as $tag)
+	// 				    			{
+	// 				    				$post_tag_data = array(
+	// 				    										'post_id' => $inserted_id,
+	// 				    										'brand_tag_id' => $tag
+	// 				    									);
+					    			
+	// 				    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+	// 				    			}
+	// 				    		}					    		
+				    			
+	// 		    				$reminder_data = array(
+	// 		    										'post_id' => $inserted_id,
+	// 		    										'user_id' => $this->user_id,
+	// 		    										'type' => 'Created',
+	// 		    										'brand_id' => $post_data['brand_id'],
+	// 		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' post'
+	// 		    									);
+
+	// 		    				$this->timeframe_model->insert_data('reminders',$reminder_data);
+				    			
+					    		
+
+	// 				    		if(!empty($uploaded_files))
+	// 				    		{
+	// 				    			foreach($uploaded_files as $file)
+	// 				    			{
+	// 				    				$post_media_data = array(
+	// 				    										'post_id' => $inserted_id,
+	// 				    										'name' => $file['file'],
+	// 				    										'type' => $file['type'],
+	// 				    										'mime' => $file['mime']
+	// 				    									);
+
+	// 				    				$this->timeframe_model->insert_data('post_media',$post_media_data);
+	// 				    			}
+	// 				    		}
+
+	// 				    		if(isset($post_data['load_default']))
+	// 			    			{
+	// 			    				$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
+	// 			    				if(!empty($default_phases))
+	// 			    				{
+	// 			    					foreach($default_phases as $phase)
+	// 			    					{
+	// 			    						$date_time = $post_data['default_phase_year']."-".$post_data['default_phase_month']."-".$post_data['default_phase_day']." ".$post_data['default_phase_time'];
+	// 								    	$default_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+	// 			    						$phase_data = array(
+	// 			    										'phase' => $phase->phase,
+	// 			    										'brand_id' => $post_data['brand_id'],
+	// 			    										'post_id' => $inserted_id
+	// 			    									);
+	// 			    						//add new phase data for the post with same data as default phase
+	// 			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+
+	// 			    						$phases_approver = array(
+	// 			    											'user_id' => $phase->user_id,
+	// 			    											'phase_id' => $phase_insert_id,
+	// 			    											'approve_by' => $default_date_time,
+	// 			    											'note' => $post_data['default_note']
+
+	// 			    										);
+
+	// 										$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
+	// 									}
+	// 			    				}
+	// 			    			}
+	// 			    			else
+	// 			    			{
+	// 			    				if(isset($post_data['phase']['users']) AND !empty($post_data['phase']['users']))
+	// 			    				{
+	// 			    					$phase_number = 1;
+	// 			    					foreach($post_data['phase']['users'] as $key=>$phase)
+	// 			    					{
+	// 			    						$date_time = $post_data['phase']['approve_year'][$key][0]."-".$post_data['phase']['approve_month'][$key][0]."-".$post_data['phase']['approve_day'][$key][0]." ".$post_data['phase']['approve_time'][$key][0];
+	// 									    	$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+	// 			    						$phase_data = array(
+	// 			    										'phase' => $phase_number,
+	// 			    										'brand_id' => $post_data['brand_id'],
+	// 			    										'post_id' => $inserted_id,
+	// 			    										'approve_by' => $approve_date_time,
+	// 				    									'note' => $post_data['phase']['note'][$key][0]
+	// 			    									);			    						
+	// 			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
+
+	// 			    						foreach($phase as $user)
+	// 			    						{ 
+	// 				    						$phases_approver = array(
+	// 				    											'user_id' => $user,
+	// 				    											'phase_id' => $phase_insert_id  
+	// 				    										);
+
+	// 											$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+												
+	// 											$reminder_data = array(
+	// 		    										'post_id' => $inserted_id,
+	// 		    										'user_id' => $user,
+	// 		    										'type' => 'Approve',
+	// 		    										'brand_id' => $post_data['brand_id'],
+	// 		    										'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
+	// 		    									);
+
+	// 		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+
+	// 										}
+
+	// 			    						$phase_number++;
+	// 			    					}
+	// 			    				}
+	// 			    			}
+	// 		    			}			    			
+	// 		    		}			    	
+	// 		    		$this->session->set_flashdata('message','Post has been saved successfuly');
+	// 		    		redirect(base_url().'posts/index/'.$post_data['brand_id']);
+	// 		    	}
+	// 		    }
+	// 		    $this->data['error'] = "Unable to save post please try again";
+	// 	    }
+	// 	    $condition = array('id' => $post_data['brand_id']);
+	// 	    $brand = $this->timeframe_model->get_data_by_condition('brands',$condition);
+	// 	    $this->data['brand_id'] = $brand[0]->id;
+	//     	$this->data['brand_name'] = $brand[0]->name;
+	// 		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+	// 		$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+	// 		$this->data['users'] = $this->post_model->get_brand_users($brand[0]->id);
+
+	// 		$this->data['view'] = 'posts/create';
+
+	// 		// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
+	// 		// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
+	// 		$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'jquery_ui.css',css_url().'custom.css');
+	// 		$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'jquery_ui.js',js_url().'timepicker.js');
+
+	//     	_render_view($this->data);
+	//     }
+	// }
 
 	public function delete($brand_id,$post_id)
 	{
@@ -614,5 +844,68 @@ class Posts extends CI_Controller {
 			$message = "Unable to duplicate post please try again";
 		}
 		redirect(base_url().'posts/drafts/'.$brand_id);
+	}
+
+	public function tag_list($brand_id)
+	{
+		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+		// print_r($this->data);
+		echo $this->load->view('partials/tag_list',$this->data,true);
+	}
+
+	public function upload()
+	{
+		// print_r($_FILES);
+		$files = $_FILES['files'];
+		
+		$files_count = count($files['tmp_name']);
+		$error = '';
+		if($files_count > 0)
+		{
+			for($i = 0;$i < $files_count; $i++)
+			{
+				if(!empty($files['name'][$i]))
+				{
+			        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+			        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+			        $randname = uniqid().'.'.$ext;
+			        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+			        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+			        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+			        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+			        $status = upload_file('uploadedimage',$randname,'posts');
+			      
+			        if(array_key_exists("upload_errors",$status))
+			        {
+			        	$error =  $status['upload_errors'];				        	
+			        	break;
+			        }
+			        else
+			        {
+			        	$uploaded_files[$i]['file'] = $status['file_name'];
+			        	$uploaded_files[$i]['type'] = 'images';
+			        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+			        	
+			        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+			        	{
+			        		$uploaded_files[$i]['type'] = 'video';
+			        	}
+			        }
+			    }
+			}
+		}
+		else
+		{
+			$error = "Please select atleast one file";
+		}
+
+		if(!empty($error))
+		{
+			echo json_encode(array('error' => $error));
+		}
+		else
+		{
+			echo json_encode(array('success'=>$uploaded_files));
+		}
 	}
 }
