@@ -26,7 +26,7 @@ class Brand_model extends CI_Model
 	public function get_users_brands($user_id)
 	{
 		$this->db->select('brands.id,name,created_by,brands.created_at,is_hidden');
-		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id');
+		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
 		$this->db->group_by('brands.id');

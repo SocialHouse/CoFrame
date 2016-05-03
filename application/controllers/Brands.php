@@ -187,8 +187,9 @@ class Brands extends CI_Controller {
 	{
 		$this->data = array();
 		$user_id = $this->user_id;
-		$this->data['brands'] = $this->brand_model->get_users_brand($user_id);
-
+		$this->data['brands'] = $this->brand_model->get_users_brands($user_id);
+		
+		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js',js_url().'reorder-brands.js?ver=1.0.0');
 		$this->data['view'] = 'brands/overview';
 		$this->data['layout'] = 'layouts/new_user_layout';
         _render_view($this->data);
@@ -215,5 +216,18 @@ class Brands extends CI_Controller {
 			$this->data['layout'] = 'layouts/new_user_layout';
 	        _render_view($this->data);
 	    }
-	}		
+	}
+
+	public function brand_list()
+	{
+		$this->data['brands'] =  $this->brand_model->get_users_brands($this->user_id);		
+		echo $this->load->view('partials/brand_list',$this->data,true);		
+	}
+
+	public function reorder_brands()
+	{
+		$this->data['brands'] =  $this->brand_model->get_users_brands($this->user_id);
+		
+		echo $this->load->view('partials/reorder_brands',$this->data,true);		
+	}
 }

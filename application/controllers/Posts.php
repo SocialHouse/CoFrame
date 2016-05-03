@@ -167,9 +167,9 @@ class Posts extends CI_Controller {
 
 	    				if($inserted_id)
 				    	{
-				    		if(!empty($post_data['tags']))
+				    		if(!empty($post_data['post_tag']))
 				    		{
-				    			foreach($post_data['tags'] as $tag)
+				    			foreach($post_data['post_tag'] as $tag)
 				    			{
 				    				$post_tag_data = array(
 				    										'post_id' => $inserted_id,
@@ -848,8 +848,7 @@ class Posts extends CI_Controller {
 
 	public function tag_list($brand_id)
 	{
-		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
-		// print_r($this->data);
+		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);		
 		echo $this->load->view('partials/tag_list',$this->data,true);
 	}
 
