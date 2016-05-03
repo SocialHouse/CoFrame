@@ -13,6 +13,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "vendor/bootstrap/bootstrap";
 @import "vendor/animate/animate";
 @import "vendor/font-awesome/font-awesome";
+@import "vendor/colorpicker/colorpicker";
 @import "vendor/qtip/qtip";
 @import "partials/fonts";
 
@@ -178,6 +179,7 @@ h5 {
 	line-height: 17px;
 	padding: 0;
 	background: none;
+	text-align: center;
 }
 .btn-icon-lg {
 	border-radius: 6px;
@@ -1204,13 +1206,14 @@ a {
 			height: 18px;
 			width: 18px;
 			line-height: 13px;
+			margin: 0;
 		}
 	}
 	.add-brand-details {
 		font-size: 1rem;
 	}
 	.add-link {
-		margin: 8rem 0 2.5rem;
+		margin: 120px 0 2.5rem;
 		display: block;
 		padding: 10px 0 10px 5px;
 		font-family: $futura-light;
@@ -1238,18 +1241,21 @@ a {
 			padding: 0 10px 12px;
 		}
 		&#selectedOutlets {
-			margin: 8rem 0 -8rem;
-			li {
-				display: block;
-				border-top: 1px solid #000;
-				padding: 4px 0 4px 6px;
-			}
 			.tf-icon {
 				text-transform: none;
 			}
 			.fa, [class*='icon-'] {
 				margin-right: 1rem;
 			}
+		}
+	}
+	.selected-items {
+		margin: 120px 0 -120px;
+		li {
+			display: block;
+			border-top: 1px solid #000;
+			padding: 4px 0 4px 6px;
+			line-height: 2.4rem;
 		}
 	}
 	.post-content-footer {
@@ -1273,7 +1279,7 @@ a {
 			height: 200px;
 			width: 200px;
 			padding: 0;
-			margin-top: 8rem;
+			margin-top: 120px;
 			label {
 				padding: 0 1rem;
 			}
@@ -1407,20 +1413,38 @@ a {
 	}
 }
 
-#selectTags {
+#selectBrandTags {
+	.border-title {
+		margin-top: remCalc(74px);
+	}
 	.tag-list {
 		li {
 			float: left;
 			margin: 0 remCalc(16px) 2rem;
 		}
 		.fa {
-			position: relative;
-			left: inherit;
-			top: inherit;
 			margin: 0;
 		}
 	}
+	.form-group:last-child {
+		margin-bottom: 2rem;
+	}
 }
+#selectedTags {
+	text-transform: none;
+	letter-spacing: normal;
+	.edit-tag {
+		margin-top: 5px;
+	}
+}
+#addBrandSuccess {
+	position:  absolute;
+	bottom: 1.5rem;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
 .brand-overview {
 	padding: 1rem 0 remCalc(40px);
 	border-bottom: 1px solid #000;
@@ -1634,7 +1658,7 @@ a {
 	.tag {
 		cursor: pointer;
 		position: relative;
-		&.selected {
+		&.selected, &.saved {
 			.fa {
 				border-color: inherit;
 				&.tag-custom {
@@ -1642,25 +1666,30 @@ a {
 				}
 			}
 		}
+		&.saved {
+			cursor: not-allowed;
+		}
 		.qtip-content & {
 			padding-bottom: 2px;
 			padding-top: 2px;
 		}
 	}
-	.fa {
+	.fa-circle {
 		padding: 0 1px;
 		border-radius: 100%;
 		border: 2px solid transparent;
 		transition: all 500ms;
 		margin-right: 10px;
-		position: absolute;
-		left: 0;
-		top: 0;
 		font-size: 15px;
 		width: 19px;
 		height: 19px;
 		&.tag-custom {
 			border-color: transparent !important;
+		}
+		.select-post-tags & {
+			position: absolute;
+			left: 0;
+			top: 0;			
 		}
 	}
 	.tag-title {

@@ -34,6 +34,7 @@
 						</div>
 					</div>
 					<div class="modal-backdrop fade in modal-contain"></div>
+					<div class="hidden" id="addBrandSuccess"><a href="dashboard.php" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 				</div>
 				</form>
 			</section>
@@ -43,7 +44,9 @@
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
+	<script type='text/javascript' src='assets/js/vendor/bootstrap-colorpicker.min.js?ver=2.3.3'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/add-brand.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/drag-drop-file-upload.js?ver=1.0.0'></script>
 </body>
 </html>

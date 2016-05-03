@@ -2,7 +2,7 @@
 	<h3 class="text-xs-center">Step 2</h3>
 	<h4 class="text-xs-center">Brand Outlets</h4>
 	<div class="add-brand-details border-bottom border-black">
-		<div id="selectedOutlets" class="outlet-list hidden">
+		<div id="selectedOutlets" class="outlet-list selected-items hidden">
 			<ul>
 			</ul>
 		</div>
