@@ -442,7 +442,11 @@ jQuery(function($) {
 			var show = $(this).data('show');
 			var hide = $(this).data('hide');
 			$(hide).slideUp(function() {
-				$(show).slideDown();
+				//call custom function on completion
+				$(hide).trigger('contentSlidUp');
+				$(show).slideDown(function(){
+					$(show).trigger('contentSlidDown');
+				});
 			});
 		});
 	});

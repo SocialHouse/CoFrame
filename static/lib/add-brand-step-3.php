@@ -15,9 +15,8 @@
 			<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Role</button>
 		</div>
 		<div class="hidden" id="userRoleBtns">
-			<p class="disclaimer">Upon clicking ‘Add,’ a registration link
-will be sent to this user.</p>
-			<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStepBtns, #userPermissionsList">Cancel</button>
+			<p class="disclaimer">Upon clicking ‘Add,’ a registration link will be sent to this user.</p>
+			<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addUserRole, #userRoleBtns" data-show="#addUserLink, #outletStepBtns, #userPermissionsList">Cancel</button>
 			<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" disabled id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
 		</div>
 	</footer>
