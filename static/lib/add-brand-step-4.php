@@ -1,7 +1,7 @@
 <div class="container-brand-step">
 	<h3 class="text-xs-center">Step 4</h3>
 	<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
-	<div class="add-brand-details border-bottom border-black">
+	<div class="add-brand-details brand-fields border-bottom border-black">
 		<div id="selectedTags" class="tag-list selected-items hidden">
 			<ul>
 			</ul>

@@ -1,4 +1,4 @@
-	<div id="userPermissionsList" class="">
+	<div id="userPermissionsList" class="user-permissions-list">
 		<div class="clearfix">
 			<div class="pull-sm-right">
 				<div class="table-header">

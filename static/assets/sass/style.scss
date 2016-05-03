@@ -997,6 +997,13 @@ a {
 	font-family: $futura-light;
 	letter-spacing: normal;
 	display: inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.tf-icon-clock {
+	background-image: url(../images/icons/clock.png);
+	height: 1rem;
+	width: 1rem;
 }
 .circle-border {
 	border: 1px solid;
@@ -1041,9 +1048,9 @@ a {
 		font-size: remCalc(16px);
 	}
 	.fa-custom-circle {
-		height: 17px;
-		width: 17px;
-		line-height: 17px;
+		height: remCalc(17px);
+		width: remCalc(17px);
+		line-height: remCalc(17px);
 		text-align: center;
 		margin-top: 7px;
 	}
@@ -1188,6 +1195,10 @@ a {
 	h5 {
 		padding: 1rem 0 .75rem;
 	}
+	.brand-title {
+		font-family: $bebas-book;
+		font-size: remCalc(30px);
+	}
 	.equal-cols & {
 		[class*="container-"] {
 			padding-bottom: 75px;
@@ -1213,7 +1224,7 @@ a {
 		font-size: 1rem;
 	}
 	.add-link {
-		margin: 120px 0 2.5rem;
+		margin: 120px 0 remCalc(44px);
 		display: block;
 		padding: 10px 0 10px 5px;
 		font-family: $futura-light;
@@ -1240,7 +1251,7 @@ a {
 		li {
 			padding: 0 10px 12px;
 		}
-		&#selectedOutlets {
+		&.selected-items, &.saved-items {
 			.tf-icon {
 				text-transform: none;
 			}
@@ -1249,13 +1260,35 @@ a {
 			}
 		}
 	}
-	.selected-items {
+	.selected-items, .saved-items {
 		margin: 120px 0 -120px;
 		li {
+			cursor: inherit;
 			display: block;
 			border-top: 1px solid #000;
 			padding: 4px 0 4px 6px;
 			line-height: 2.4rem;
+		}
+	}
+	.saved-items {
+		margin:  70px 0 0;
+		font-size:  1rem;
+		border-bottom: 1px solid #000;
+		&.outlet-list, &.tag-list {
+			margin-top: 120px;
+		}
+		ul {
+			padding: 0;
+			margin: 0;
+		}
+		.brand-time {
+			display: inline-block;
+			padding-left: 27px;
+			min-height: 22px;
+			background: url(../images/icons/clock.png) no-repeat left center;
+			background-size: 22px;
+			letter-spacing: normal;
+			text-transform: none;
 		}
 	}
 	.post-content-footer {
@@ -1270,6 +1303,14 @@ a {
 			display: none;
 		}
 	}
+	.success & {
+		.post-content-footer button, .brand-fields {
+			display: none;
+		}
+	}
+	.brand-logo {
+		margin-top: 120px;
+	}
 	.has-advanced-upload & {
 		.form__input {
 			border-radius: 100%;
@@ -1279,7 +1320,6 @@ a {
 			height: 200px;
 			width: 200px;
 			padding: 0;
-			margin-top: 120px;
 			label {
 				padding: 0 1rem;
 			}
@@ -1331,7 +1371,7 @@ a {
 	}
 }
 
-#userPermissionsList {
+.user-permissions-list {
 	.table-header {
 		font-size: 8px;
 		font-family: $futura;
@@ -1966,6 +2006,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .center-title {
 	text-align: center;
 	margin: 0px auto;
+}
+.inline-block {
+	display: inline-block;
 }
 .highlight {
 	background: #000;

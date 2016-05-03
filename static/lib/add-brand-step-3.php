@@ -1,10 +1,12 @@
 <div class="container-brand-step">
 	<h3 class="text-xs-center">Step 3</h3>
 	<h4 class="text-xs-center">Users &amp; Permissions</h4>
-	<?php include("user-permission-list.php"); ?>
-	<a href="#addUser" id="addUserLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addUserLink, #outletStepBtns, #userPermissionsList" data-show="#addNewUser, #addUserBtns"><i class="tf-icon circle-border">+</i>Add User</a>
-	<?php include("add-new-user.php"); ?>
-	<?php include("add-user-roles.php"); ?>
+	<div class="brand-fields">
+		<?php include("user-permission-list.php"); ?>
+		<a href="#addUser" id="addUserLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addUserLink, #outletStepBtns, #userPermissionsList" data-show="#addNewUser, #addUserBtns"><i class="tf-icon circle-border">+</i>Add User</a>
+		<?php include("add-new-user.php"); ?>
+		<?php include("add-user-roles.php"); ?>
+	</div>
 	<footer class="post-content-footer">
 		<div id="outletStepBtns">
 			<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="2">Back</button>

@@ -1,7 +1,7 @@
 jQuery(function($) {
 
 	$(document).ready(function() {
-		$('#brandStep2 .outlet-list li').on('click', function() {
+		$('#brandOutlets.outlet-list li').on('click', function() {
 			if(!$(this).hasClass('saved')) {
 				$(this).toggleClass('disabled selected');
 				$(this).siblings().each(function() {
@@ -17,7 +17,7 @@ jQuery(function($) {
 				}
 			}
 		});
-		$('#brandStep3 .outlet-list li').on('click', function() {
+		$('#addNewUser .outlet-list li').on('click', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
 			var thisOutlet = $(this).data('selectedOutlet');
@@ -203,39 +203,10 @@ jQuery(function($) {
 		});
 
 		$('#add-brand-details').on('submit', function(){
+			$(this).addClass('success');
+			//show dashboard button and tooltip
 			$('#addBrandSuccess').show();
-			$('#addBrandSuccess .btn').qtip({
-				content: {
-					attr: 'data-content'
-				},
-				position: {
-					my: 'bottom center',
-					at: 'top center',
-					adjust: {
-						y: -11
-					}
-				},
-				show: {
-					effect: function() {
-						$(this).fadeIn();
-					},
-					ready: true
-				},
-				hide: {
-					effect: function() {
-						$(this).fadeOut();
-					},
-					event: 'unfocus'
-				},
-				style: {
-					classes: 'qtip-shadow text-xs-center',
-					tip: {
-						width: 20,
-						height: 10
-					},
-					width: 320
-				}
-			});
+			successTip();
 			$('.modal-contain').removeClass('in').hide();
 			$('.brand-step').removeClass('active');
 		});
@@ -245,6 +216,41 @@ jQuery(function($) {
 			nextStep(next);
 		});
 	});
+
+	window.successTip = function successTip() {
+		$('#addBrandSuccess .btn').qtip({
+			content: {
+				attr: 'data-content'
+			},
+			position: {
+				my: 'bottom center',
+				at: 'top center',
+				adjust: {
+					y: -11
+				}
+			},
+			show: {
+				effect: function() {
+					$(this).fadeIn();
+				},
+				ready: true
+			},
+			hide: {
+				effect: function() {
+					$(this).fadeOut();
+				},
+				event: 'unfocus'
+			},
+			style: {
+				classes: 'qtip-shadow text-xs-center',
+				tip: {
+					width: 20,
+					height: 10
+				},
+				width: 320
+			}
+		});
+	}
 
 	function nextStep(i) {
 		$('.brand-step').removeClass('active').addClass('inactive');
