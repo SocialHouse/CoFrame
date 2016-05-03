@@ -6,7 +6,7 @@
 			<ul>
 			</ul>
 		</div>
-		<a href="#brandOutlets" id="addTagLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addTagLink, #outletStepBtns, #selectedTags" data-show="#selectBrandTags, #addTagBtns"><i class="tf-icon circle-border">+</i>Add Tag</a>
+		<a href="#brandOutlets" id="addTagLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns"><i class="tf-icon circle-border">+</i>Add Tag</a>
 		<div id="selectBrandTags" class="hidden">
 			<h5 class="text-xs-center border-bottom border-black ">Add a Tag</h5>
 			<h5 class="border-title"><span>Select Tag Color</span></h5>
@@ -45,14 +45,14 @@
 		</div>
 	</div>
 	<footer class="post-content-footer">
-		<div id="outletStepBtns">
+		<div id="outletStep4Btns">
 			<div class="disclaimer"><button class="btn btn-sm btn-default" type="submit">Skip this Step</button></div>
 			<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="3">Back</button>
 			<button type="submit" class="btn btn-sm btn-disabled pull-sm-right btn-next-step btn-secondary" disabled>Done</button>
 		</div>
 		<div id="addTagBtns" class="hidden">
-			<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStepBtns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
-			<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStepBtns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag">Add</button>
+			<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
+			<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag">Add</button>
 		</div>
 	</footer>
 </div>
