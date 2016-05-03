@@ -3,8 +3,6 @@ jQuery(function($) {
 	var wh = $(window).height();
 	var ww = $(window).width();
 
-	var inlineTether, ajaxTether;
-
 	if($('#brand-manage').length) {
 		setUserTime();
 	}
@@ -21,109 +19,6 @@ jQuery(function($) {
 			$(this).toggleClass('disabled');
 			$(this).siblings().addClass('disabled');
 			$('#postOutlet').val(outlet);
-		});
-		$('#brandStep2 .outlet-list li').on('click', function() {
-			if(!$(this).hasClass('saved')) {
-				$(this).toggleClass('disabled selected');
-				$(this).siblings().each(function() {
-					if(!$(this).hasClass('saved')) {
-						$(this).addClass('disabled');
-					}
-				});
-				if(!$(this).hasClass('disabled')) {
-					$('#addOutlet').removeClass('btn-disabled').prop("disabled", false);
-				}
-				else {
-					$('#addOutlet').addClass('btn-disabled').prop("disabled", true);
-				}
-			}
-		});
-		$('#brandStep3 .outlet-list li').on('click', function() {
-			var savedOutlets = $('#userOutlet').val();
-			var newOutlets = [];
-			var thisOutlet = $(this).data('selectedOutlet');
-			$(this).toggleClass('disabled selected');
-			if($(this).hasClass('selected')) {
-				if(savedOutlets !== '') {
-					newOutlets.push(savedOutlets);
-				}
-				newOutlets.push(thisOutlet);
-			}
-			else {
-				savedOutlets = savedOutlets.split(',');
-				var index = savedOutlets.indexOf(thisOutlet);
-				savedOutlets.splice(index, 1);
-				newOutlets.push(savedOutlets);
-			}
-			$('#userOutlet').val(newOutlets);
-		});
-		//add brand outlet to list
-		$('#addOutlet').on('click', function() {
-			var $selectedItem = $('#brandOutlets .selected');
-			var numberSelected =  $selectedItem.length;
-			var savedOutlets = [];
-			var outletsVal = $('#brandOutlet').val();
-			if(numberSelected > 0) {
-				var $selectedList = $('#selectedOutlets ul');
-				var $listItem = $(document.createElement('li'));
-				if(outletsVal !== '') {
-					savedOutlets.push(outletsVal);
-				}
-				savedOutlets.push($selectedItem.data('selectedOutlet'));
-				var outletHtml = $selectedItem.html();
-				var outletTitle = $selectedItem.data('selectedOutlet');
-				var removeOutlet = '<a href="#" class="pull-sm-right remove-outlet" data-remove-outlet="' + outletTitle + '"><i class="tf-icon circle-border">x</i></a>';
-				$listItem.append(outletHtml + outletTitle + removeOutlet).attr('data-outlet', outletTitle);
-				$selectedItem.addClass('saved').removeClass('selected');
-				//set input field value
-				$('#brandOutlet').val(savedOutlets);
-				$selectedList.append($listItem);
-			}
-			else {
-				return;
-			}
-		});
-		//remove brand outlet to list
-		$('body').on('click', '.remove-outlet', function() {
-			var savedOutlets = $('#brandOutlet').val().split(',');
-			var removeOutlet = $(this).data('remove-outlet');
-			$('#selectedOutlets li[data-outlet="' + removeOutlet + '"]').slideUp(function() {
-				var index = savedOutlets.indexOf(removeOutlet);
-				$(this).remove();
-				savedOutlets.splice(index, 1);
-				$('#brandOutlet').val(savedOutlets);
-			});
-			$('#brandOutlets li[data-selected-outlet="' + removeOutlet + '"]').removeClass('saved').addClass('disabled');
-		});
-
-		$('#userRoleSelect').on('change', function() {
-			var selectedRole = $(this).val();
-			var $actPermissions = $('.permission-details:visible');
-			if($actPermissions.length) {
-				$actPermissions.fadeOut(function() {
-					$('#' + selectedRole + 'Permissions').slideDown();
-				});
-			}
-			else {
-				$('#' + selectedRole + 'Permissions').slideDown();
-			}
-		});
-
-		$('.edit-permissions').on('click', function() {
-			var section = $(this).data('section');
-			var $sectionList = $('#' + section).find('.permissions-list');
-			$(this).toggleClass('btn-disabled');
-			$sectionList.toggleClass('view');
-			if($(this).hasClass('btn-disabled')) {
-				$sectionList.find('li').css('display', 'block');
-			}
-			else {
-				$sectionList.find('li.hidden').css('display', 'none');
-			}
-		});
-		$('.permissions-list .radio-button').on('click', function() {
-			var $parent = $(this).parent('li');
-			$parent.toggleClass('hidden');
 		});
 
 		//equal column heights
@@ -224,7 +119,7 @@ jQuery(function($) {
 				effect: function() {
 					$(this).fadeIn();
 				},
-	            event: 'click'
+				event: 'click'
 			},
 			hide: {
 				effect: function() {
@@ -241,7 +136,7 @@ jQuery(function($) {
 				width: 280
 			}
 		});
-		//popover triggers
+		//load popover on page load
 		$('[data-toggle="popover-onload"]').qtip({
 			content: {
 				attr: 'data-content'
@@ -254,7 +149,6 @@ jQuery(function($) {
 				effect: function() {
 					$(this).fadeIn();
 				},
-				when: false,
 				ready: true
 			},
 			hide: {
@@ -506,9 +400,11 @@ jQuery(function($) {
 			}
 		});
 
-		$('body').on('click', '.tag-list .tag', function() {
-			var checked = false;
+		/*Tag Functions*/
+		//assign tags to post
+		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
 			$(this).toggleClass('selected');
+			var checked = false;
 			var numTags = $('.tag-list .selected').length;
 			var tag = $(this).find('.fa');
 			var tagClass = tag.attr('class');
@@ -532,17 +428,13 @@ jQuery(function($) {
 				$('.tag-select .fa.color-gray-lighter').show();
 			}
 			//set the input value
-			var buttonVal = $(this).attr('data-value');
-			$('input[value="' + buttonVal + '"]').prop('checked', checked);
+			var $input = $(this).find('input');
+			$input.prop('checked', checked);
 		});
 
 		$('body').on('click', '.btn-change-phase', function() {
 			var next = $(this).data('newPhase');
 			nextPhase(next);
-		});
-		$('body').on('click', '.btn-next-step', function() {
-			var next = $(this).data('nextStep');
-			nextStep(next);
 		});
 
 		$('body').on('click', '.show-hide', function(e) {
@@ -599,10 +491,6 @@ jQuery(function($) {
 		});
 	}
 
-	function nextStep(i) {
-		$('.brand-step').removeClass('active').addClass('inactive');
-		$('#brandStep' + i).removeClass('inactive').addClass('active');
-	}
 });
 
 
