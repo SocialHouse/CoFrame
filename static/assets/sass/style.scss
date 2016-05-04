@@ -568,6 +568,7 @@ a {
 	font-size:  1rem;
 	line-height: normal;
 	max-width: inherit;
+	min-width: 175px;
 	&.popover-users {
 		.qtip-content {
 			padding: 0 1rem 0;
@@ -611,6 +612,11 @@ a {
 			margin-left: 11px;
 		}
 	}
+	&.popover-sm {
+		.qtip-content {
+			padding: 10px;
+		}
+	}
 	&#qtip-popover-reorder-brands {
 		min-width: 400px;
 		.qtip-tip {
@@ -633,9 +639,6 @@ a {
 .qtip-content {
 	padding: 1rem;
 	text-align: inherit;
-}
-.popover-inline {
-	display: none;
 }
 .popover-toggle {
 	cursor: pointer;
@@ -958,9 +961,11 @@ a {
 }
 
 /*icons*/
-.fa[data-toggle*='popover'] {
+[data-toggle*='popover'] {
 	cursor: pointer;
 	outline: none;
+}
+.fa[data-toggle*='popover'] {
 	margin-left: 2px;
 }
 .fa-custom-circle {
@@ -998,7 +1003,7 @@ a {
     content: "\e901";
 }
 
-.tf-icon {
+[class*="tf-icon"] {
 	font-style: normal;
 	font-family: $futura-light;
 	letter-spacing: normal;
@@ -1011,6 +1016,46 @@ a {
 	height: 1rem;
 	width: 1rem;
 }
+.tf-icon-calendar {
+	background-image: url(../images/icons/calendar.png);
+	height: 25px;
+	width: 21px;
+	background-size: 21px;
+	a:hover &, .active & {
+		background-position: 0 -25px;
+	}
+}
+.tf-icon-search {
+	background-image: url(../images/icons/search.png);
+	height: 17px;
+	width: 17px;
+	background-size: 17px;
+	a:hover &, .active & {
+		background-position: 0 -17px;
+	}
+}
+.tf-icon-filter {
+	background-image: url(../images/icons/filter.png);
+	height: 18px;
+	width: 19px;
+	background-size: 19px;
+	a:hover &, .active & {
+		background-position: 0 -18px;
+	}
+}
+.tf-icon-print {
+	background-image: url(../images/icons/print.png);
+	height: 24px;
+	width: 22px;
+	background-size: 22px;
+	a:hover &, .active & {
+		background-position: 0 -24px;
+	}
+}
+.tf-icon-circle {
+	border-radius: 100%;
+	text-align: center;
+}
 .circle-border {
 	border: 1px solid;
 	border-radius: 100%;
@@ -1019,7 +1064,6 @@ a {
 		border-width: 2px;
 	}
 }
-
 .radio-button {
 	border-color: #000;
 	cursor: pointer;
@@ -1163,6 +1207,42 @@ a {
 		img {
 			margin-right: 10px;
 			border: 0;
+		}
+	}
+	&.approval-list {
+		margin: .75rem 0 1rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		li {
+			@extend .fa-circle;
+			border: 0;
+			padding-bottom: 5px;
+			position: relative;
+			&:before {
+				font-family: FontAwesome;
+				line-height: 1;
+				position: absolute;
+				top: -3px;
+				left: 0;
+				z-index: 2;
+			}
+		}
+		.circle-img {
+			margin-right: 10px
+		}
+		.approved {
+			&:before {
+				color: $brand-success;
+			}
+		}
+		.pending {
+			&:before {
+				color: $brand-danger;
+			}
+			.circle-img {
+				opacity: .5;
+			}
 		}
 	}
 }
@@ -1783,6 +1863,47 @@ a {
 }
 
 /*Calendar Stuff*/
+.calendar-header {
+	border-bottom: 1px solid #000;
+	margin-bottom: 2rem;
+	#brand-manage & {
+		padding: 10px 0;
+	}
+	.date-header {
+		border: 0;
+		line-height: 40px;
+		margin: 0 remCalc(100px) 0 10px;
+	}
+	.tf-icon-circle {
+		background: #dedede;
+		height: 40px;
+		width: 40px;
+		line-height: 52px;
+		&:hover, &.active {
+			background: #c0c0c0;
+		}
+	}
+	.toolbar {
+		.tf-icon-circle {
+			margin-left: 10px;
+		}
+	}
+}
+.btn-group-calendar {
+	background: #c0c0c0;
+	border-radius: 9px;
+	padding: 4px;
+	margin-right: 1rem;
+	.btn {
+		font-size: 11px;
+		color: #fff;
+		background: #c0c0c0;
+		&:hover, &.active {
+			background: #fff;
+			color: #000;
+		}
+	}
+}
 .calendar-day {
 	height: 100%;
 	overflow: auto;
@@ -1866,8 +1987,40 @@ a {
 			text-decoration: underline;
 		}
 	}
+	.btn-secondary {
+		border: 0;
+	}
 	.btn-menu {
 		margin-left: 1rem;
+	}
+}
+
+.popover-menu {
+	background: none;
+	border-radius: $border-radius-sm;
+	.qtip-content {
+		padding: 0;
+	}
+}
+.edit-menu {
+	text-transform: uppercase;
+	font-size: 11px;
+	letter-spacing: .25em;
+	.list-group-item {
+		list-style: none;
+		border-left: 0;
+		border-right: 0;
+		padding: remCalc(9px) remCalc(18px);
+		a {
+			display: block;
+			padding: remCalc(9px) 0;
+		}
+		&:first-child {
+			border-top: 0;
+		}
+		&:last-child {
+			border-bottom: 0;
+		}
 	}
 }
 
@@ -2094,6 +2247,10 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     overflow: hidden;
     padding: 4px 20px 20px;
     margin: -4px -20px 0;
+	.post-content & {
+		padding: 2px 20px 20px;
+		margin: -2px -20px 0;
+	}
 }
 .center-block {
 	float: none;

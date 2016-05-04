@@ -31,9 +31,22 @@
 				</div>
 			</section>
 			<section id="brand-manage" class="page-main bg-white col-sm-10">
-				<header class="page-main-header calendar-header">
-					<a href="#"></a>
-					<h2 class="date-header">Calendar | <strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+				<header class="page-main-header calendar-header clearfix">
+					<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-calendar"></i></a>
+					<h2 class="date-header pull-xs-left">Calendar | <strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+					<div class="btn-group-calendar pull-sm-left">
+						<a href="calendar.php" class="btn btn-sm active">Day</a>
+						<a href="calendar-week.php" class="btn btn-sm">Week</a>
+						<a href="calendar-month.php" class="btn btn-sm">Month</a>
+					</div>
+					<div class="btn-group-calendar pull-sm-left">
+						<a href="#" class="btn btn-sm active" id="calendarBtnToday">Today</a>
+					</div>
+					<div class="pull-md-right toolbar">
+						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-filter"></i></a>
+						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-print"></i></a>
+					</div>
 				</header>
 				<div class="row equal-cols-cal">
 					<div class="col-md-9 equal-height">

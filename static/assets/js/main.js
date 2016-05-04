@@ -286,17 +286,13 @@ jQuery(function($) {
 				'position.container': $(pcontainer),
 				'position.target': $target,
 				'overwrite': false,
+				'show.effect': function() { $(this).fadeIn(); },
+				'show.event': e.type,
 				'style.classes': 'qtip-shadow ' + pclass,
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
 				'style.tip.height': tipH,
 				'style.tip.width': tipW
-			}).show({
-				effect: function() {
-					$(this).fadeIn();
-				},
-				event: e.type,
-				ready: true
 			}, e);
 		});
 
