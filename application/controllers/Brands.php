@@ -230,4 +230,10 @@ class Brands extends CI_Controller {
 		
 		echo $this->load->view('partials/reorder_brands',$this->data,true);		
 	}
+
+	public function get_brand_users($brand_id)
+	{
+		$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+		echo $this->load->view('partials/user_list',$this->data,true);
+	}
 }

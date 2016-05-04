@@ -575,8 +575,9 @@ jQuery(function($) {
 	$('[data-toggle="addPhases"]').one('click', function() {
 		var columnParent = $(this).closest('.col-md-4');
 		var approvalsContainer = $('.container-approvals');
+		var url = $(this).data('div-src');
 		approvalsContainer.empty();
-		$.get('lib/add-phase-details.php',function(data) {
+		$.get(base_url+url,function(data) {
 			approvalsContainer.append(data);
 		});
 		columnParent.css('z-index', 2000);

@@ -907,4 +907,11 @@ class Posts extends CI_Controller {
 			echo json_encode(array('success'=>$uploaded_files));
 		}
 	}
+
+	public function add_phase_details($brand_id)
+	{
+		$this->data = array();
+		$this->data['brand_id'] = $brand_id;
+		echo $this->load->view('partials/add_phase_details',$this->data,true);
+	}
 }

@@ -232,7 +232,7 @@
 						</div>
 						<div class="bg-gray-lightest border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
 							<label>Approval Phases (Optional):</label>
-							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="lib/add-approval-phases.php">Add Approval Phase(s)</a>
+							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
 						<button class="btn btn-sm btn-disabled" disabled data-active-class="btn-default">Save Draft</button>
