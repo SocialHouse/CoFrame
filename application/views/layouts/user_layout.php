@@ -64,7 +64,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo base_url().'brands'; ?>">Brand list</a></li>
+                                <li><a href="<?php echo base_url().'brands/overview'; ?>">Overview</a></li>
                                 <li><a href="<?php echo base_url().'brands/add' ?>">Add brand</a></li>
                             </ul>
                         </li>
