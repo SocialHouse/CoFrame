@@ -176,10 +176,11 @@ h5 {
 	font-size: 10px;
 	width: 17px;
 	height: 17px;
-	line-height: 17px;
+	line-height: 15px;
 	padding: 0;
 	background: none;
 	text-align: center;
+	display: inline-block;
 }
 .btn-icon-lg {
 	border-radius: 6px;
@@ -187,6 +188,14 @@ h5 {
 	width: 2rem;
 	height: 2rem;
 	line-height: 2rem;
+}
+.btn-menu {
+	height: auto;
+	width: auto;
+	padding: 0 0.75rem 0.2rem;
+	.fa {
+		font-size: 6px;
+	}
 }
 .btn-gray {
 	color: #808080;
@@ -491,9 +500,6 @@ a {
 	h1 {
 		border-bottom: 2px solid #000;
 		padding-bottom: remCalc(26px);
-	}
-	#brand-manage & {
-		padding-bottom: 2rem;
 	}
 	#brand-manage & {
 		padding: remCalc(60px) 0 2rem;
@@ -1774,6 +1780,95 @@ a {
 }
 .tag-gray {
 	color: $gray-lighter;
+}
+
+/*Calendar Stuff*/
+.calendar-day {
+	height: 100%;
+	overflow: auto;
+	overflow-x: visible;
+	margin: 0 0 0 -10px;
+	padding-top: 2px;
+}
+.post-day {
+	box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.25);
+	margin: 0 10px 2rem 10px;
+	.post-img {
+		padding-left: 0;
+	}
+	.post-meta {
+		margin-bottom: 3rem;
+		span {
+			display: block;
+		}
+	}
+	.post-author {
+		font-size: 10px;
+		letter-spacing: .25em;
+		text-transform: uppercase;
+	}
+	.post-date {
+	}
+	.post-approval {
+		.fa, [class*=" icon-"] {
+			font-size: 17px;
+		}
+	}
+	.outlet-list {
+		.fa {
+			width: remCalc(42px);
+			font-size: remCalc(22px);
+			line-height: remCalc(50px);
+		}
+	}
+	.bg-outlet {
+		&:before {
+			height: remCalc(42px);
+			width: remCalc(42px);
+		}
+	}
+	.post-tags {
+		.fa {
+			+ .fa {
+				margin-left: -9px;
+			}
+			&:before {
+				border: 1px solid #fff;
+				border-radius: 100%;
+				height: 15px;
+				width: 15px;
+				overflow: hidden;
+			}
+		}
+	}
+	h6 {
+		margin: 0 0 1rem;
+		&:after {
+			width: 60px;
+			border-bottom: 1px solid #000;
+			content: "";
+			display: block;
+			padding: 1rem 0 0;
+		}
+	}
+	.post-body {
+		font-size: remCalc(17px);
+		font-family: "Times New Roman", serif;
+		margin-bottom: 3rem;
+		p {
+			margin-bottom: .25rem;
+		}
+	}
+	.post-actions {
+		text-align: center;
+		a {
+			font-size: 10px;
+			text-decoration: underline;
+		}
+	}
+	.btn-menu {
+		margin-left: 1rem;
+	}
 }
 
 /*forms*/

@@ -40,6 +40,16 @@ jQuery(function($) {
 				}
 			}
 		});
+		//equal column heights v2
+		//use this for everything once integration starts
+		$('.equal-cols-cal .equal-height').each(function() {
+				if(newColsH > colsH) {
+					$(this).css('height', dashboardH - headhH - 2);
+				}
+				else {
+					$(this).css('height', colsH);
+				}
+		});
 
 		//temp nav activation
 		var pathname = location.pathname;
