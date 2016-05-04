@@ -103,6 +103,7 @@ class Posts extends CI_Controller {
 			$this->data['view'] = 'posts/create-post';
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
+			$this->data['background_image'] = 'bg-brand-management.jpg';
 			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
 			_render_view($this->data);
@@ -300,7 +301,7 @@ class Posts extends CI_Controller {
 				$this->data['brand_id'] = $post_data['brand_id'];
 				$this->data['view'] = 'posts/create-post';
 				$this->data['layout'] = 'layouts/new_user_layout';		
-				
+				$this->data['background_image'] = 'bg-brand-management.jpg';
 				$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
 		    	_render_view($this->data);

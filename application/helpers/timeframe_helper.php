@@ -33,6 +33,12 @@ if(!function_exists('_render_view'))
         {
             $data['layout'] = 'layouts/user_layout';
         }
+
+        if(!isset($data['background_image']))
+        {
+            $data['background_image'] = 'bg-brand-management.jpg';
+        }
+
         if(isset($data['view']) AND !empty($data['view']))
         {
             $CI = & get_instance();

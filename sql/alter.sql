@@ -202,17 +202,17 @@ ALTER TABLE `post_tags`
 ALTER TABLE `post_tags`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE IF NOT EXISTS `post_approvers` (
-`id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+-- CREATE TABLE IF NOT EXISTS `post_approvers` (
+-- `id` int(11) NOT NULL,
+--   `post_id` int(11) NOT NULL,
+--   `user_id` int(11) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE `post_approvers`
- ADD PRIMARY KEY (`id`);
+-- ALTER TABLE `post_approvers`
+--  ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `post_approvers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- ALTER TABLE `post_approvers`
+-- MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `billing_details` ADD `exp_year` INT NOT NULL AFTER `email`;
 ALTER TABLE `billing_details` ADD `exp_month` INT NOT NULL AFTER `exp_year`;
@@ -275,8 +275,7 @@ CREATE TABLE IF NOT EXISTS `reminders` (
 
 ALTER TABLE `reminders`
  ADD PRIMARY KEY (`id`);
-AUTO_INCREMENT for table `reminders`
---
+
 ALTER TABLE `reminders`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 

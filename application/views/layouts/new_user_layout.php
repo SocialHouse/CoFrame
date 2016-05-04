@@ -27,7 +27,7 @@ if(isset($css_files))
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
 
-<body class="page-global" style="background-image: url(<?php echo img_url(); ?>bg-admin-overview.jpg);">
+<body class="page-global" style="background-image: url(<?php echo img_url().$background_image; ?>);">
 	<div class="container container-head">
 		<nav class="navbar navbar-dark navbar-main bg-transparent row">
 			<a class="navbar-brand hidden-print" href=""><span class="brand-logo hide-text">Timeframe</span></a>

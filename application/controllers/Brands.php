@@ -190,6 +190,8 @@ class Brands extends CI_Controller {
 		$this->data['brands'] = $this->brand_model->get_users_brands($user_id);
 		
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js',js_url().'reorder-brands.js?ver=1.0.0');
+		
+		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['view'] = 'brands/overview';
 		$this->data['layout'] = 'layouts/new_user_layout';
         _render_view($this->data);
@@ -211,6 +213,7 @@ class Brands extends CI_Controller {
  			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
 
+			$this->data['background_image'] = 'bg-brand-management.jpg';
 			$this->data['view'] = 'brands/dashboard';
 			$this->data['layout'] = 'layouts/new_user_layout';
 	        _render_view($this->data);
