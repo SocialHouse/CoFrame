@@ -93,7 +93,7 @@ class Posts extends CI_Controller {
 	{
 		$this->data = array();
 		$brand_id = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brand($this->user_id,$brand_id);
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
 		if(!empty($brand))
 		{
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
@@ -190,8 +190,10 @@ class Posts extends CI_Controller {
 
 		    				$this->timeframe_model->insert_data('reminders',$reminder_data);	    			
 				    		
-		    				
-		    				$files = json_decode($post_data['uploaded_files'][0])->success;
+		    				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
+							{
+		    					$files = json_decode($post_data['uploaded_files'][0])->success;
+		    				}
 				    		if(isset($files) AND !empty($files))
 				    		{
 				    			foreach($files as $file)
@@ -239,46 +241,49 @@ class Posts extends CI_Controller {
 			    			}
 			    			else
 			    			{
-			    				if(isset($post_data['phase']['approver']) AND !empty($post_data['phase']['approver']))
+			    				if(isset($post_data['phase']) AND !empty($post_data['phase']))
 			    				{
 			    					$phase_number = 1;		    					
-			    					foreach($post_data['phase']['approve_month'] as $key=>$phase)
+			    					foreach($post_data['phase'] as $key=>$phase)
 			    					{
-			    						$date_time = $post_data['phase']['approve_year'][$key]."-".$post_data['phase']['approve_month'][$key]."-".$post_data['phase']['approve_day'][$key]." ".$post_data['phase']['approve_time'][$key]." ".$post_data['phase']['time_type'][$key];
-									    	
-									    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+			    						if(isset($phase['approver']) AND !empty($phase['approver']))
+			    						{
+				    						$date_time = $phase['approve_year']."-".$phase['approve_month']."-".$phase['approve_day']." ".$phase['approve_time']." ".$phase['time_type'];
+										    	
+										    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
-			    						$phase_data = array(
-			    										'phase' => $phase_number,
-			    										'brand_id' => $post_data['brand_id'],
+				    						$phase_data = array(
+				    										'phase' => $phase_number,
+				    										'brand_id' => $post_data['brand_id'],
+				    										'post_id' => $inserted_id,
+				    										'approve_by' => $approve_date_time,
+					    									'note' => $phase['note']
+				    									);			    						
+				    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
+
+				    						foreach($phase['approver'] as $user)
+				    						{ 
+					    						$phases_approver = array(
+					    											'user_id' => $user,
+					    											'phase_id' => $phase_insert_id  
+					    										);
+
+												$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+												
+												$reminder_data = array(
 			    										'post_id' => $inserted_id,
-			    										'approve_by' => $approve_date_time,
-				    									'note' => $post_data['phase']['note'][$key]
-			    									);			    						
-			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
+			    										'user_id' => $user,
+			    										'type' => 'Approve',
+			    										'brand_id' => $post_data['brand_id'],
+			    										'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
+			    									);
 
-			    						foreach($post_data['phase']['approver'] as $user)
-			    						{ 
-				    						$phases_approver = array(
-				    											'user_id' => $user,
-				    											'phase_id' => $phase_insert_id  
-				    										);
+			    								$this->timeframe_model->insert_data('reminders',$reminder_data);
 
-											$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
-											
-											$reminder_data = array(
-		    										'post_id' => $inserted_id,
-		    										'user_id' => $user,
-		    										'type' => 'Approve',
-		    										'brand_id' => $post_data['brand_id'],
-		    										'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
-		    									);
+											}
 
-		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
-
-										}
-
-			    						$phase_number++;
+				    						$phase_number++;
+				    					}
 			    					}
 			    				}
 			    			}

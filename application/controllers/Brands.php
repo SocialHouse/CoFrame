@@ -201,8 +201,7 @@ class Brands extends CI_Controller {
 		$brand_id = $this->uri->segment(3);
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
-		$brand =  $this->brand_model->get_users_brands($this->user_id);
-		
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);		
 		if(!empty($brand))
 		{
 			$this->load->model('reminder_model');

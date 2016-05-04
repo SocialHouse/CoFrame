@@ -9,7 +9,7 @@ if(!empty($users))
 		?>
 		<li>
 			<div class="pull-sm-left">
-				<input type="checkbox" class="hidden-xs-up" name="post-approver" value="Norel Mancuso"><i class="tf-icon radio-button circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="post-approver"><i class="fa fa-check"></i></i>
+				<input type="checkbox" class="hidden-xs-up approvers" name="post-approver" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon radio-button circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="post-approver"><i class="fa fa-check"></i></i>
 			</div>
 			<div class="pull-sm-left">
 				<?php
@@ -31,6 +31,10 @@ if(!empty($users))
 	?>
 	</ul>
 	<?php
+}
+else
+{
+	echo "Currently no users avaialable";
 }
 
 	

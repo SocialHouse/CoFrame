@@ -1,5 +1,13 @@
 jQuery(function($) {
 
+	// $('.container-approvals').click(function(){
+	// 	$(this).addClass('modal-backdrop');
+	// 	$(this).addClass('fade');
+	// 	$(this).addClass('in');
+	// 	$(this).addClass('modal-contain');
+	// 	return false;
+	// });
+
 	var wh = $(window).height();
 	var ww = $(window).width();
 
@@ -188,12 +196,16 @@ jQuery(function($) {
 			//add selected users to list from popover
 			if($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
+				var checkbox = $btn.parent().children('.approvers');			
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
 				var $activePhase = $('#phaseDetails .approval-phase.active');
-				var activePhaseId = $activePhase.attr('id');
+				var activePhaseId = $activePhase.attr('id');				
 				if($btn.hasClass('selected')) {
+					var phase_number = $activePhase.data('id');
+					$(checkbox).attr('name','phase['+phase_number+'][approver][]');
 					$activePhase.find('.user-list li').prepend(imgDiv);
+					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);					
 					$btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
 				}
