@@ -116,8 +116,8 @@ $config_aauth["default"] = array(
 	'email'                          => 'deepakb@techfivesystems.com',
 	'name'                           => 'Emre Akay',
 
-	'verification'                   => false,
-	'verification_link'              => '/account/verification/',
+	'verification'                   => true,
+	'verification_link'              => '/welcome/verify_user_email/',
 	'reset_password_link'            => '/account/reset_password/',
 
 	'hash'							 =>	'sha256'
