@@ -17,7 +17,7 @@ jQuery(function($) {
 				}
 			}
 		});
-		$('#addNewUser .outlet-list li').on('click', function() {
+		$('#addNewUser.outlet-list li').on('click', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
 			var thisOutlet = $(this).data('selectedOutlet');
