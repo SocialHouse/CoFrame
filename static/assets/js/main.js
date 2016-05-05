@@ -63,7 +63,7 @@ jQuery(function($) {
 
 		//fake radio button select
 		var btnClicks = 0;
-		$('body').on('click', '.radio-button', function() {
+		$('body').on('click', '.check-box', function() {
 			var $btn = $(this);
 			if($btn.hasClass('disabled')){
 				return;
@@ -75,11 +75,11 @@ jQuery(function($) {
 				$btn.toggleClass('selected');
 			}
 			else if(buttonVal === "check-all" && !$btn.hasClass('selected')) {
-				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected');
+				$('.check-box[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
 			}
 			else if(buttonVal === "check-all" && $btn.hasClass('selected')) {
-				$('.radio-button[data-group="' + inputGroup + '"]').removeClass('selected');
+				$('.check-box[data-group="' + inputGroup + '"]').removeClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', false);
 			}
 			if($btn.hasClass('selected')) {

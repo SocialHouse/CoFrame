@@ -1069,7 +1069,7 @@ a {
 		border-width: 2px;
 	}
 }
-.radio-button {
+.radio-button, .check-box {
 	border-color: #000;
 	cursor: pointer;
 	.fa {
@@ -1188,7 +1188,7 @@ a {
 			text-align: center;
 			margin-right: 10px;
 		}
-		.radio-button {
+		.check-box {
 			height: 25px;
 			width: 25px;
 			line-height: normal;
@@ -1527,7 +1527,7 @@ a {
 			border: 0;
 		}
 	}
-	.radio-button {
+	.check-box {
 		height: 18px;
 		width: 18px;
 		margin: 7px 0 0;
@@ -1537,7 +1537,7 @@ a {
 		}
 	}
 	&.view {
-		.radio-button {
+		.check-box {
 			border: 0;
 			cursor: default;
 		}

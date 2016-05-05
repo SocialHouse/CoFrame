@@ -105,7 +105,7 @@ jQuery(function($) {
 				$sectionList.find('li.hidden').css('display', 'none');
 			}
 		});
-		$('.permissions-list .radio-button').on('click', function() {
+		$('.permissions-list .check-box').on('click', function() {
 			var $parent = $(this).parent('li');
 			$parent.toggleClass('hidden');
 		});
