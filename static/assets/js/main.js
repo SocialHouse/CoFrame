@@ -186,6 +186,7 @@ jQuery(function($) {
 			var ptattachment = $target.data('targetAttachment');
 			var poffsetX = $target.data('offsetX');
 			var poffsetY = $target.data('offsetY');
+			var pwidth = $target.data('popover-width');
 			var ptitle = $target.data('title');
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
@@ -246,7 +247,8 @@ jQuery(function($) {
 						height: tipH,
 						corner: arrowcorner,
 						mimic: 'center'
-					}
+					},
+					width: pwidth
 				}
 			}, e);
 		});
@@ -260,6 +262,7 @@ jQuery(function($) {
 			var ptattachment = $target.data('targetAttachment');
 			var poffsetX = $target.data('offsetX');
 			var poffsetY = $target.data('offsetY');
+			var pwidth = $target.data('popover-width');
 			var ptitle = $target.data('title');
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
@@ -292,7 +295,8 @@ jQuery(function($) {
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
 				'style.tip.height': tipH,
-				'style.tip.width': tipW
+				'style.tip.width': tipW,
+				'style.width': pwidth
 			}, e);
 		});
 
@@ -312,9 +316,6 @@ jQuery(function($) {
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
-			if(!pwidth) {
-				pwidth = 280;
-			}
 			var tipW = 1;
 			var tipH = 1;
 			if(parrow) {
@@ -326,7 +327,7 @@ jQuery(function($) {
 					text: $('#' + pid)
 				},
 				hide: {
-					effect:function() {
+					effect: function() {
 						$(this).fadeOut();
 					},
 					event: 'unfocus'
@@ -389,6 +390,7 @@ jQuery(function($) {
 			}
 		});
 
+		//hide visible tooltips when body is clicked
 		$('body').on('click', function(e) {
 			var $target = $(e.target);
 			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
@@ -403,6 +405,9 @@ jQuery(function($) {
 						}, 200);
 					}
 				});
+			}
+			if($target.hasClass('qtip-hide')) {
+				$('.qtip').qtip('hide');
 			}
 		});
 

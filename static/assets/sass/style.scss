@@ -64,7 +64,7 @@ p {
 hr {
 	clear: both;
 	border-color: #fff;
-	margin: 1.875rem auto;
+	margin: 2rem auto;
 	.bg-white & {
 		border-color: #000;
 	}
@@ -621,6 +621,11 @@ a {
 		min-width: 400px;
 		.qtip-tip {
 			margin-right: 38px;
+		}
+	}
+	&.popover-lg {
+		.qtip-content {
+			padding: 0 2rem remCalc(20px);
 		}
 	}
 }
