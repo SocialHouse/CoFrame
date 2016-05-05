@@ -15,7 +15,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1223" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1223" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 									<i class="fa fa-circle tag-green"></i><i class="fa fa-circle tag-orange"></i><i class="fa fa-circle tag-red"></i>
 				<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
 									<div id="tags-postid-1223" class="hidden">
@@ -39,7 +39,7 @@
 									<a href="#">Undo</a>
 									</span>
 									<div class="hide-top-bx-shadow">
-										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
 									</div>
 								</div>
 							</div>
@@ -58,11 +58,11 @@
 									<span class="post-author">INSTAGRAM POST BY SOPHIE H:
 </span>
 									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-edit-tag="Marketing"><i class="fa fa-pencil"></i></a></span>
-									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1224" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center"></i></strong></span>
+									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1224" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i></strong></span>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1224" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1224" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 									<i class="fa fa-circle tag-blue"></i>
 									<div id="tags-postid-1224" class="hidden">
 										<div class="tag-list">
@@ -81,7 +81,7 @@
 									<button class="btn btn-approved btn-sm btn-secondary">Approve</button>
 									</span>
 									<div class="hide-top-bx-shadow">
-										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
 									</div>
 								</div>
 							</div>
@@ -100,11 +100,11 @@
 									<span class="post-author">Youtube POST BY SOPHIE H:
 </span>
 									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-edit-tag="Marketing"><i class="fa fa-pencil"></i></a></span>
-									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1225" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center"></i></strong></span>
+									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1225" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i></strong></span>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1225" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1225" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 									<i class="fa fa-circle tag-red"></i>
 									<div id="tags-postid-1225" class="hidden">
 										<div class="tag-list">
@@ -123,7 +123,7 @@
 									<button class="btn btn-approved btn-sm btn-secondary">Schedule</button>
 									</span>
 									<div class="hide-top-bx-shadow">
-										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php"data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+										<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-menu.php"data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
 									</div>
 								</div>
 							</div>
@@ -153,7 +153,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1226" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-1226" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 									<i class="fa fa-circle tag-blue"></i><i class="fa fa-circle tag-green"></i>
 								</div>
 								<div class="col-md-10">

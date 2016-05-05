@@ -359,7 +359,7 @@ jQuery(function($) {
 					},
 					width: pwidth
 				}
-			});
+			}, e);
 		});
 
 		$('body').on('click', '.popover-toggle', function(e) {

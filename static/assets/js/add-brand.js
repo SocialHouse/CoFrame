@@ -227,7 +227,8 @@ jQuery(function($) {
 				at: 'top center',
 				adjust: {
 					y: -11
-				}
+				},
+				container: $('.page-main')
 			},
 			show: {
 				effect: function() {
