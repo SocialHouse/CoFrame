@@ -53,6 +53,7 @@
 						<strong class="uppercase">Filters: </strong>
 						<ul class="filter-list tag-list">
 						</ul>
+						<button type="button" class="btn btn-sm btn-secondary reset-filter pull-sm-right" data-filter="*">Reset Filters</button>
 					</div>
 				</header>
 				<div class="row equal-cols-cal">

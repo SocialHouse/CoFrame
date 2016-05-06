@@ -9,7 +9,7 @@ jQuery(function($) {
 		var filterVal = $filter.attr('data-value');
 		var inputGroup = $filter.attr('data-group');
 		var $selectedFilters = $('#selectedFilters');
-		var filterContent, filterClass;
+		var $filterItem, filterContent, filterClass;
 		if(inputGroup === "post-status") {
 			filterContent = $(this).find('label').text();
 		}
@@ -22,9 +22,9 @@ jQuery(function($) {
 		else {
 			filterClass = '';
 		}
-		var $filterItem =  $(document.createElement('li'));
-		$filterItem.attr('data-value', filterVal).addClass('filter filter-remove' + filterClass).append(filterContent + "<i class='tf-icon-close'></i>");
 		if(filterVal !== "check-all") {
+			$filterItem =  $(document.createElement('li'));
+			$filterItem.attr('data-value', filterVal).addClass('filter-remove' + filterClass).append(filterContent + "<i class='tf-icon-close'></i>");
 			$filter.toggleClass('checked');
 			if(inputGroup === "post-outlet") {
 				$filter.toggleClass('disabled');
@@ -40,13 +40,25 @@ jQuery(function($) {
 			$('.filter[data-group="' + inputGroup + '"]').addClass('checked');
 			if(inputGroup === "post-outlet") {
 				$('.filter[data-group="' + inputGroup + '"]').removeClass('disabled');
+				filterClass = ' outlet-list';
 			}
+			$('.filter[data-group="' + inputGroup + '"]').not($filter).each(function() {
+				$filterItem =  $(document.createElement('li'));
+				filterContent = $(this).html();
+				filterVal = $(this).attr('data-value');
+				$filterItem.attr('data-value', filterVal).addClass('filter-remove' + filterClass).append(filterContent + "<i class='tf-icon-close'></i>");
+				$selectedFilters.find('.filter-list').append($filterItem);
+			});
 		}
 		else if(filterVal === "check-all" && $filter.hasClass('checked')) {
 			$('.filter[data-group="' + inputGroup + '"]').removeClass('checked');
 			if(inputGroup === "post-outlet") {
 				$('.filter[data-group="' + inputGroup + '"]').not($filter).addClass('disabled');
 			}
+			$('.filter[data-group="' + inputGroup + '"]').each(function() {
+				filterVal = $(this).attr('data-value');
+				$selectedFilters.find('.filter-remove[data-value="' + filterVal + '"]').remove();
+			});
 		}
 		
 		filterPosts();
@@ -62,6 +74,7 @@ jQuery(function($) {
 			}
 			
 		});
+		$('#selectedFilters ul').empty();
 		filterPosts();
 	});
 	
