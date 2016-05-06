@@ -22,11 +22,7 @@ jQuery(function($) {
 		});
 
 		//equal column heights
-		var dashboardH = $('.page-main').outerHeight();
-		var headhH = $('.page-main-header').outerHeight(true);
-		var colsH = $('.equal-cols').outerHeight(true);
-		var newColsH = dashboardH - headhH;
-		var magicNum = 0;
+		equalColumns();
 		$('.equal-cols [class*=col-]').each(function() {
 			if($(this).parent().hasClass('brand-steps')) {
 				magicNum = 60;
@@ -40,17 +36,6 @@ jQuery(function($) {
 				}
 			}
 		});
-		//equal column heights v2
-		//use this for everything once integration starts
-		$('.equal-cols-cal .equal-height').each(function() {
-				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - 2);
-				}
-				else {
-					$(this).css('height', colsH);
-				}
-		});
-
 		//temp nav activation
 		var pathname = location.pathname;
 		var pagename = pathname.replace('/static/', '');
@@ -534,6 +519,23 @@ jQuery(function($) {
 		});
 	}
 
+	window.equalColumns = function equalColumns() {
+		var dashboardH = $('.page-main').outerHeight();
+		var headhH = $('.page-main-header').outerHeight(true);
+		var colsH = $('.equal-cols').outerHeight(true);
+		var newColsH = dashboardH - headhH;
+		var magicNum = 0;
+		//equal column heights v2
+		//use this for everything once integration starts
+		$('.equal-cols-cal .equal-height').each(function() {
+				if(newColsH > colsH) {
+					$(this).css('height', dashboardH - headhH - 2);
+				}
+				else {
+					$(this).css('height', colsH);
+				}
+		});
+	};
 });
 
 

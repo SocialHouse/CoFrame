@@ -105,10 +105,14 @@ jQuery(function($) {
 
 		$container.isotope({ filter: filterValue });
 		if(inclusives.length) {
-			$('#selectedFilters').slideDown();
+			$('#selectedFilters').slideDown(function() {
+				equalColumns();
+			});
 		}
 		else {
-			$('#selectedFilters').slideUp();
+			$('#selectedFilters').slideUp(function() {
+				equalColumns();
+			});
 		}
 	}
 });
