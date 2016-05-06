@@ -31,21 +31,28 @@
 				</div>
 			</section>
 			<section id="brand-manage" class="page-main bg-white col-sm-10">
-				<header class="page-main-header calendar-header clearfix">
-					<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-calendar"></i></a>
-					<h2 class="date-header pull-xs-left">Calendar | <strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
-					<div class="btn-group-calendar pull-sm-left">
-						<a href="calendar.php" class="btn btn-sm active">Day</a>
-						<a href="calendar-week.php" class="btn btn-sm">Week</a>
-						<a href="calendar-month.php" class="btn btn-sm">Month</a>
+				<header class="page-main-header calendar-header">
+					<div class="clearfix">
+						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-calendar"></i></a>
+						<h2 class="date-header pull-xs-left">Calendar | <strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+						<div class="btn-group-calendar pull-sm-left">
+							<a href="calendar.php" class="btn btn-sm active">Day</a>
+							<a href="calendar-week.php" class="btn btn-sm">Week</a>
+							<a href="calendar-month.php" class="btn btn-sm">Month</a>
+						</div>
+						<div class="btn-group-calendar pull-sm-left">
+							<a href="#" class="btn btn-sm active" id="calendarBtnToday">Today</a>
+						</div>
+						<div class="pull-md-right toolbar">
+							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+							<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/post-filters.php" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
+							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-print"></i></a>
+						</div>
 					</div>
-					<div class="btn-group-calendar pull-sm-left">
-						<a href="#" class="btn btn-sm active" id="calendarBtnToday">Today</a>
-					</div>
-					<div class="pull-md-right toolbar">
-						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
-						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-filter"></i></a>
-						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-print"></i></a>
+					<div id="selectedFilters" class="clearfix border-top border-black hidden">
+						<strong class="uppercase">Filters: </strong>
+						<ul class="filter-list tag-list">
+						</ul>
 					</div>
 				</header>
 				<div class="row equal-cols-cal">
@@ -63,9 +70,11 @@
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
+	<script type='text/javascript' src='assets/js/vendor/isotope.pkgd.min.js?ver=3.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
 	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/post-filters.js?ver=1.0.0'></script>
 </body>
 </html>

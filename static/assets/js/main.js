@@ -22,9 +22,9 @@ jQuery(function($) {
 		});
 
 		//equal column heights
-		var dashboardH = $('.page-main').height();
-		var headhH = $('.page-main-header').innerHeight();
-		var colsH = $('.equal-cols').innerHeight();
+		var dashboardH = $('.page-main').outerHeight();
+		var headhH = $('.page-main-header').outerHeight(true);
+		var colsH = $('.equal-cols').outerHeight(true);
 		var newColsH = dashboardH - headhH;
 		var magicNum = 0;
 		$('.equal-cols [class*=col-]').each(function() {
@@ -33,7 +33,7 @@ jQuery(function($) {
 			}
 			if(!$(this).hasClass('brand-steps')) {
 				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - 2 - magicNum);
+					$(this).css('height', dashboardH - headhH - magicNum);
 				}
 				else {
 					$(this).css('height', colsH);
@@ -61,7 +61,7 @@ jQuery(function($) {
 			}
 		});
 
-		//fake radio button select
+		//fake check box select
 		var btnClicks = 0;
 		$('body').on('click', '.check-box', function() {
 			var $btn = $(this);
@@ -88,8 +88,7 @@ jQuery(function($) {
 			else {
 				checked = false;
 			}
-			$('input[value="' + buttonVal + '"]').prop('checked', checked);
-
+			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
 			//add selected users to list from popover
 			if($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
@@ -114,6 +113,32 @@ jQuery(function($) {
 					$activePhase.find('.post-approver-name').show();
 				}
 			}
+		});
+		//fake check box label click
+		$('body').on('click', '.label-check-box', function() {
+			var related = $(this).data('for');
+			$('.check-box[data-value="' + related + '"]').trigger('click');
+		});
+
+		//fake radio button select
+		$('body').on('click', '.radio-button', function() {
+			var $btn = $(this);
+			if($btn.hasClass('disabled')){
+				return;
+			}
+			var buttonVal = $btn.attr('data-value');
+			var checked = false;
+			var inputGroup = $btn.attr('data-group');
+			var $siblings = $('.radio-button[data-group="' + inputGroup + '"]');
+			$siblings.removeClass('selected');
+			$btn.toggleClass('selected');
+			if($btn.hasClass('selected')) {
+				checked = true;
+			}
+			else {
+				checked = false;
+			}
+			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 		});
 
 		//popover triggers
@@ -389,7 +414,9 @@ jQuery(function($) {
 				$toggler.toggleClass('selected');
 			}
 		});
-
+		$('.calendar-header a[class*="tf-icon"]').on('click blur', function() {
+			$(this).toggleClass('active');
+		});
 		//hide visible tooltips when body is clicked
 		$('body').on('click', function(e) {
 			var $target = $(e.target);
@@ -406,6 +433,7 @@ jQuery(function($) {
 					}
 				});
 			}
+			//hide tooltips
 			if($target.hasClass('qtip-hide')) {
 				$('.qtip').qtip('hide');
 			}

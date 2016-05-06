@@ -144,6 +144,13 @@ h5 {
 		color: #fff;
 	}
 }
+.btn-secondary {
+	&:hover, &:focus, &:active {
+		background: $brand-primary;
+		border-color: $brand-primary;
+		color: #fff;
+	}	
+}
 .btn-danger {
 	background-color: #8e181b;
 	border-color: #8e181b;
@@ -628,6 +635,11 @@ a {
 			padding: 0 2rem remCalc(20px);
 		}
 	}
+	&.popover-post-filters {
+		.qtip-tip {
+			margin-right: 60px;
+		}
+	}
 }
 .qtip-titlebar {
 	text-align: center;
@@ -644,6 +656,10 @@ a {
 .qtip-content {
 	padding: 1rem;
 	text-align: inherit;
+	h1 {
+		padding-top: 2rem;
+		margin-bottom: 1rem;
+	}
 }
 .popover-toggle {
 	cursor: pointer;
@@ -799,6 +815,7 @@ a {
 	position: absolute;
 	left: -1px;
 	top: remCalc(5px);
+	z-index: 0;
 	&:before {
 		display: block;
 		content: "";
@@ -814,6 +831,15 @@ a {
 	.calendar-list & {
 		left: 0;
 	}
+}
+.outlet-text {
+	color: #fff;
+	text-transform: uppercase;
+	position: relative;
+	z-index: 1;
+	color: #fff;
+	font-size: 11px;
+	font-family: $futura;
 }
 .bg-blogger:before {
 	background: #ff9334;
@@ -850,6 +876,9 @@ a {
 }
 .bg-wordpress:before {
 	background: #1e8cbe;
+}
+.bg-all:before {
+	background: #000;
 }
 
 .color-danger {
@@ -989,6 +1018,7 @@ a {
     font-style: normal;
 }
 [class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
     speak: none;
@@ -1057,6 +1087,12 @@ a {
 		background-position: 0 -24px;
 	}
 }
+.tf-icon-close {
+	background-image: url(../images/icons/close.png);
+	height: 11px;
+	width: 11px;
+	background-size: 11px;
+}
 .tf-icon-circle {
 	border-radius: 100%;
 	text-align: center;
@@ -1068,6 +1104,11 @@ a {
 	&.selected {
 		border-width: 2px;
 	}
+}
+.square-border {
+	border: 1px solid;
+	border-radius: 3px;
+	text-align: center;
 }
 .radio-button, .check-box {
 	border-color: #000;
@@ -1082,6 +1123,9 @@ a {
 			display: inline-block;
 		}
 	}
+}
+.label-check-box, .label-radio-button {
+	cursor: pointer;
 }
 /*Unordered Lists*/
 .timeframe-list {
@@ -1735,7 +1779,7 @@ a {
 			cursor: not-allowed;
 		}
 	}
-	.fa, [class*='icon-'] {
+	.fa, [class^='icon-'] {
 		color: #fff;
 		font-size: 1rem;
 		position: relative;
@@ -1754,7 +1798,6 @@ a {
 		}
 	}
 	[class*='icon-'] {
-		padding: remCalc(10px) 0 0 remCalc(5px);
 		font-size: .85rem;
 	}
 }
@@ -1789,7 +1832,7 @@ a {
 	.tag {
 		cursor: pointer;
 		position: relative;
-		&.selected, &.saved {
+		&.selected, &.saved, &.checked {
 			.fa {
 				border-color: inherit;
 				&.tag-custom {
@@ -1817,14 +1860,6 @@ a {
 		&.tag-custom {
 			border-color: transparent !important;
 		}
-		.select-post-tags & {
-			position: absolute;
-			left: 0;
-			top: 0;			
-		}
-	}
-	.tag-title {
-		padding-left: 30px;
 	}
 }
 .tag-red {
@@ -1871,6 +1906,7 @@ a {
 .calendar-header {
 	border-bottom: 1px solid #000;
 	margin-bottom: 2rem;
+	position: relative;
 	#brand-manage & {
 		padding: 10px 0;
 	}
@@ -1894,6 +1930,42 @@ a {
 		}
 	}
 }
+#selectedFilters {
+	padding-top: remCalc(20px);
+	margin-top: 10px;
+	clear: both;
+	strong {
+		font-size: 13px;
+		letter-spacing: .25em;
+	}
+	.filter-list {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		li {
+			cursor: pointer;
+			display: inline-block;
+			list-style: none;
+			background: $gray-lightest;
+			border-radius: 18px;
+			padding: 10px;
+			margin-left: 12px;
+			.fa-circle {
+				margin-right: 0;
+			}
+		}
+		.outlet-list {
+			line-height: normal;
+			padding: 5px 10px 5px 15px;
+		}
+	}
+	.tag-title {
+		display: none;
+	}
+	.tf-icon-close {
+		margin-left: 10px;
+	}
+}
 .btn-group-calendar {
 	background: #c0c0c0;
 	border-radius: 9px;
@@ -1910,7 +1982,7 @@ a {
 	}
 }
 .calendar-day {
-	height: 100%;
+	height: 100% !important;
 	overflow: auto;
 	overflow-x: visible;
 	margin: 0 0 0 -10px;
@@ -2028,7 +2100,32 @@ a {
 		}
 	}
 }
-
+.post-filters {
+	.square-border {
+		width: 16px;
+		height: 16px;
+		margin-right: 10px;
+		.fa {
+			margin: 0;
+			position: relative;
+			top: -3px;
+			font-size: 14px;
+			display: none;
+		}
+	}
+	.checked .square-border .fa {
+		display: inline-block;
+	}
+	.form-group {
+		margin-bottom: .5rem;
+	}
+	.outlet-list {
+		margin: 0 -3px;
+		li {
+			padding: 0 8px 12px;
+		}
+	}
+}
 /*forms*/
 .form-group {
 	.container-approvals & {
