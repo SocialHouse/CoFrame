@@ -61,3 +61,5 @@ $route['reminders/(:num)'] = "reminders/index/$1";
 
 $route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
 $route['brands/save-existing-user'] = "brand_users/save_existing_user";
+
+$route['set-password/(:any)'] = "tour/set_password/$1";

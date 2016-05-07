@@ -147,14 +147,14 @@ class Aauth {
 
 			if( !$identifier OR strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
 			{
-				$this->error('Username and Password do not match');
+				$this->error('The email and/or password you entered did not match our records. Please try again.');
 				return FALSE;
 			}
 			$db_identifier = 'name';
  		}else{
 			if( !valid_email($identifier) OR strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
 			{
-				$this->error('E-mail Address and Password do not match.');
+				$this->error('The email and/or password you entered did not match our records. Please try again.');
 				return FALSE;
 			}
 			$db_identifier = 'email';
@@ -348,7 +348,7 @@ class Aauth {
 		}
 		// if not matches
 		else {
-			$this->error('Username or Password do not match.');
+			$this->error('The email and/or password you entered did not match our records. Please try again.');
 			return FALSE;
 		}
 	}

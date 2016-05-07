@@ -1,15 +1,5 @@
 <section class="brand-navigation bg-white opaque-88 col-sm-2">
-	<?php $this->load->view('partials/brand_nav'); ?>
-	<div class="current-user-details">
-		<div class="user-name">Master</div>
-		<div class="user-time row">
-			<div class="col-md-5">Current Brand Time </div>
-			<div class="col-md-7 text-md-right current-time">
-				<strong id="userTime"></strong><br>
-				<?php echo date('a T'); ?>
-			</div>
-		</div>
-	</div>
+	<?php $this->load->view('partials/brand_nav'); ?>	
 </section>
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header">
