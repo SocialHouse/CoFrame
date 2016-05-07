@@ -28,7 +28,8 @@ class Tour extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('tour/tour');
+        $this->data['timezones'] = $this->user_model->get_timezones();
+        $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
     }
 
@@ -259,6 +260,136 @@ class Tour extends CI_Controller {
         {
             echo json_encode(array('response' => 'faile','message' => 'Error in reseting password please try to reset once again'));
         }
+    }
+
+    public function check_email_exist()
+    {
+        $email = $this->input->post('email');
+        $user = $this->aauth->user_exist_by_email($email);
+        if($user)
+        {
+            echo "true";
+        }
+        else
+        {
+            echo "false";
+        }
+
+    }
+
+    public function  check_username_exist()
+    {
+        $username = $this->input->post('username');
+        $user = $this->aauth->user_exist_by_name($username);
+        if($user)
+        {
+            echo "false";
+        }
+        else
+        {
+            echo "true";
+        }
+    }
+
+    public function register()
+    {
+        $this->data = array();
+        $this->form_validation->set_rules('first_name','first name','required',                                            
+                                            array('required' => 'First name is required')
+                                        );
+        $this->form_validation->set_rules('last_name','last name','required',
+                                            array('required' => 'Last name is required')
+                                        );
+        $this->form_validation->set_rules('email','email','required|valid_email|is_unique[aauth_users.email]',
+                                            array('required' => 'Email is required')
+                                        );
+        $this->form_validation->set_rules('timezone','timezone','required',
+                                            array('required' => 'Timezone is required')
+                                        );
+        $this->form_validation->set_rules('username','username','required|is_unique[aauth_users.name]',
+                                            array('required' => 'Username is required')
+                                        );
+        $this->form_validation->set_rules('password','password','required',
+                                            array('required' => 'Password is required')
+                                        );
+        $this->form_validation->set_rules('confirm_password','confirm password','required|matches[password]',
+                                            array('required' => 'Confirm password is required','matches' => 'Password field and confirm password field does not match')
+                                        );
+        $this->form_validation->set_rules('phone','phone','regex_match[/^[0-9().-]+$/]',
+                                            array('regex_match' => 'Please enter valid phone number')
+                                        );
+        $this->form_validation->set_rules('company_email','company_email','valid_email',
+                                            array('valid_email' => 'Please enter valid email')
+                                        );        
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            echo json_encode(array('response' => 'fail','message' => 'Validation fails'));
+        }
+        else
+        {
+            $user_data = array(
+                            'first_name' => $this->input->post('first_name'),
+                            'last_name' => $this->input->post('last_name'),
+                            'phone' => $this->input->post('phone'),
+                            'timezone' => $this->input->post('timezone'),
+                            'company_name' => $this->input->post('company_name'),
+                            'company_email' => $this->input->post('company_email'),
+                            'company_url' => $this->input->post('company_url'),
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+            
+            $inserted_id = $this->aauth->create_user($this->input->post('email'),$this->input->post('password'),$this->input->post('username'));
+            
+            if($inserted_id)
+            {
+                $user_data['aauth_user_id']= $inserted_id;
+                $this->timeframe_model->insert_data('user_info',$user_data);
+                $login_attempt = array(
+                            'ip_address' => $_SERVER['REMOTE_ADDR'],
+                            'user_name' => $this->input->post('username'),
+                            'user_id' => $inserted_id
+                        );
+                $this->timeframe_model->insert_data('login_attempts',$login_attempt);                
+                echo json_encode(array('response' => 'success','message' => 'You have registered successfully and verification link sent to your email address'));
+            }
+            else
+            {
+                echo json_encode(array('response' => 'fail','message' => 'Unable to register user, Please try again'));
+            }
+        }
+    }
+
+    public function verify_user_email($user_id,$verification_code)
+    {
+        $status = $this->aauth->verify_user($user_id,$verification_code);        
+        if($status)
+        {
+            //check if ip already available
+            $condition = array('user_id' => $user_id,'ip_address' => $_SERVER['REMOTE_ADDR']);
+            $login_attempt = $this->timeframe_model->get_data_by_condition('login_attempts',$condition,'id');
+            if(empty($login_attempt))
+            {
+                $user = $this->aauth->get_user($user_id);
+                if(!empty($user))
+                {
+                    $login_attempt = array(
+                                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                                    'user_name' => $user->name,
+                                    'user_id' => $user_id
+                                );
+                    $this->timeframe_model->insert_data('login_attempts',$login_attempt);
+
+                }
+            }
+            $this->data['verify'] = 'success';
+        }
+        else
+        {
+            $this->data['verify'] = 'fail';   
+        }
+        $this->load->view('tour/tour',$this->data);
+        $this->load->view('partials/modals');
     }
 
 }

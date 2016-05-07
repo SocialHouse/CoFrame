@@ -8,6 +8,9 @@
 	  	<link rel="profile" href="http://gmpg.org/xfn/11">
 		<link rel="shortcut icon" href="<?php echo img_url(); ?>ico/favicon.ico" ><meta name='robots' content='noindex,follow' />
 		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>tour_style.css?ver=1.0' type='text/css' media='all' />
+
+		<link rel='stylesheet' href='<?php echo css_url(); ?>custom.css?ver=1.0' type='text/css' media='all' />
+
 		<style id='style-inline-css' type='text/css'>
 		    /* Body Style */
 		    body{
@@ -29,6 +32,9 @@
 		<!--[if lt IE 9]><script src="assets/js/html5shiv.js"></script><![endif]-->	
 	</head><!--/head-->
 <body class="home page page-id-6 page-template-default" data-spy="scroll" data-target=".navbar-main">
+	<div id="loading_main">
+        <img class="loading" src="<?php echo img_url(); ?>bx_loader.gif" >
+    </div>
     <div class="container-fluid container-head">
 	  	<nav class="navbar-fixed-top home">
 			<div class="col-sm-12">
@@ -242,113 +248,76 @@
 								<p><a class="btn btn-default btn-sm" href="#pricing">Change</a></p><p>
 							</div>
 							<div class="col-md-4 " data-animation="">
-								<form action="">
+								<div class="hide register-response"></div>
+								<form action="" id="register_form">
 									<div class="field-group">
-										<fieldset class="form-group">
-										<div class="input-group">
-										  <input type="text" class="form-control" id="firstName" placeholder="First Name">
-										  <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-										</div>
+										<fieldset class="form-group float-md">
+											<label class="sr-only" for="firstName">First Name</label>
+										 	<input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name">
 										</fieldset>
+
+										<fieldset class="form-group float-md">
+											<label class="sr-only" for="lastName">Last Name</label>
+											<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name">
+										</fieldset>
+									</div>
+
+									<div class="field-group clear">
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="emailAddress">Email address</label>
-											<input type="email" class="form-control" id="emailAddress" placeholder="Email">
+											<input type="email" class="form-control" id="emailAddress" placeholder="Email" name="email">
 										</fieldset>
+
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="phoneNumber">Phone Number</label>
-											<input type="tel" class="form-control" id="phoneNumber" placeholder="Phone">
+											<input type="tel" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
 										</fieldset>
-										<fieldset class="form-group clear">
+
+										<fieldset class="form-group">
 											<label class="sr-only" for="timeZone">Time Zone</label>
-											<select class="form-control" id="timeZone">
-												<option>Time Zone</option>
-												<option value="UTC-12">UTC-12</option>
-												<option value="UTC-11.5">UTC-11:30</option>
-												<option value="UTC-11">UTC-11</option>
-												<option value="UTC-10.5">UTC-10:30</option>
-												<option value="UTC-10">UTC-10</option>
-												<option value="UTC-9.5">UTC-9:30</option>
-												<option value="UTC-9">UTC-9</option>
-												<option value="UTC-8.5">UTC-8:30</option>
-												<option value="UTC-8">UTC-8</option>
-												<option value="UTC-7.5">UTC-7:30</option>
-												<option value="UTC-7">UTC-7</option>
-												<option value="UTC-6.5">UTC-6:30</option>
-												<option value="UTC-6">UTC-6</option>
-												<option value="UTC-5.5">UTC-5:30</option>
-												<option value="UTC-5">UTC-5</option>
-												<option value="UTC-4.5">UTC-4:30</option>
-												<option value="UTC-4">UTC-4</option>
-												<option value="UTC-3.5">UTC-3:30</option>
-												<option value="UTC-3">UTC-3</option>
-												<option value="UTC-2.5">UTC-2:30</option>
-												<option value="UTC-2">UTC-2</option>
-												<option value="UTC-1.5">UTC-1:30</option>
-												<option value="UTC-1">UTC-1</option>
-												<option value="UTC-0.5">UTC-0:30</option>
-												<option value="UTC+0">UTC+0</option>
-												<option value="UTC+0.5">UTC+0:30</option>
-												<option value="UTC+1">UTC+1</option>
-												<option value="UTC+1.5">UTC+1:30</option>
-												<option value="UTC+2">UTC+2</option>
-												<option value="UTC+2.5">UTC+2:30</option>
-												<option value="UTC+3">UTC+3</option>
-												<option value="UTC+3.5">UTC+3:30</option>
-												<option value="UTC+4">UTC+4</option>
-												<option value="UTC+4.5">UTC+4:30</option>
-												<option value="UTC+5">UTC+5</option>
-												<option value="UTC+5.5">UTC+5:30</option>
-												<option value="UTC+5.75">UTC+5:45</option>
-												<option value="UTC+6">UTC+6</option>
-												<option value="UTC+6.5">UTC+6:30</option>
-												<option value="UTC+7">UTC+7</option>
-												<option value="UTC+7.5">UTC+7:30</option>
-												<option value="UTC+8">UTC+8</option>
-												<option value="UTC+8.5">UTC+8:30</option>
-												<option value="UTC+8.75">UTC+8:45</option>
-												<option value="UTC+9">UTC+9</option>
-												<option value="UTC+9.5">UTC+9:30</option>
-												<option value="UTC+10">UTC+10</option>
-												<option value="UTC+10.5">UTC+10:30</option>
-												<option value="UTC+11">UTC+11</option>
-												<option value="UTC+11.5">UTC+11:30</option>
-												<option value="UTC+12">UTC+12</option>
-												<option value="UTC+12.75">UTC+12:45</option>
-												<option value="UTC+13">UTC+13</option>
-												<option value="UTC+13.75">UTC+13:45</option>
-												<option value="UTC+14">UTC+14</option>
+											<select class="form-control" id="timeZone" name="timezone">
+												<option value="">Time Zone</option>
+												<?php
+											    foreach($timezones as $timezone)
+											    {
+											    	?>
+											    	<option value="<?php echo $timezone->value ?>" <?php echo set_select('timezone', $timezone->value); ?>><?php echo $timezone->timezone; ?></option>
+											    	<?php
+											    }
+											    ?>
 											</select>
 										</fieldset>
 									</div>
-									<div class="field-group">
+
+									<div class="field-group clear">
 										<fieldset class="form-group">
 											<label class="sr-only" for="userName">User Name</label>
-											<input type="text" class="form-control" id="userName" placeholder="User Name">
+											<input type="text" class="form-control" id="userName" placeholder="User Name" name="username">
 										</fieldset>
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="password">Password</label>
-											<input type="password" class="form-control" id="password" placeholder="Password">
+											<input type="password" class="form-control" id="password" placeholder="Password" name="password">
 										</fieldset>
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="confirmPassword">Confirm Password</label>
-											<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+											<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" name="confirm_password">
 										</fieldset>
 									</div>
-									<div class="field-group">
+									<div class="field-group clear">
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="companyName">Company Name</label>
-											<input type="text" class="form-control" id="companyName" placeholder="Company Name">
+											<input type="text" class="form-control" id="companyName" placeholder="Company Name" name="company_name">
 										</fieldset>
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="companyEmail">Company Email</label>
-											<input type="email" class="form-control" id="companyEmail" placeholder="Company Email">
+											<input type="email" class="form-control" id="companyEmail" placeholder="Company Email" name="company_email">
 										</fieldset>
 										<fieldset class="form-group clear">
 											<label class="sr-only" for="companyURL">Company URL</label>
-											<input type="text" class="form-control" id="companyURL" placeholder="Company URL">
+											<input type="text" class="form-control" id="companyURL" placeholder="Company URL" name="company_url">
 										</fieldset>
 									</div>
-									<p class="disclaimer">Your 30-day free trial lasts until midnight on June 2, 2015. By clicking the button BELOW, you are agreeing to the Terms of Service and Privacy Policy.</p>
+									<p class="disclaimer">Your 30-day free trial lasts until midnight on <?php echo date('M d Y',strtotime('+30 days')); ?>. By clicking the button BELOW, you are agreeing to the Terms of Service and Privacy Policy.</p>
 									<div class="text-center">
 										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
@@ -387,10 +356,13 @@
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.scrollify.min.js?ver=0.1.12'></script>
+		<script type='text/javascript' src='<?php echo js_url(); ?>jquery.validate.min.js'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>tour_main.js?ver=1.0.0'></script>
+		<script type='text/javascript' src='<?php echo js_url(); ?>timeframe_forms.js'></script>
 		<script type="text/javascript">
 			var token = "<?php echo isset($token) ? $token : ''; ?>";
 			var error = "<?php echo isset($error) ? $error : ''; ?>";
+			var verify = "<?php echo isset($verify) ? $verify : ''; ?>";
 			jQuery(document).ready(function(){
 				if(token)
 				{
@@ -406,6 +378,22 @@
 	        		jQuery('#recovery_message').html('Link has been expired.');
 	        		jQuery('#savePassword').modal('hide');	        		
 	        		jQuery('#recoverPasswordSuccess').modal('show');
+				}
+
+				if(verify && verify == 'success')
+				{
+					jQuery('#responseHeader').html('Verification successfull');
+					jQuery('#responseMessage').html('You account is verified successfully.');
+					jQuery('#verifyResponse').modal('show');
+					jQuery('#verifyResponseBtn').html('Go To Login');
+				}
+
+				if(verify && verify == 'fail')
+				{
+					jQuery('#responseHeader').html('Verification error');
+					jQuery('#responseMessage').html('Unable to verify your account.');
+					jQuery('#verifyResponse').modal('show');
+					jQuery('#verifyResponseBtn').hide();
 				}
 			});
 		</script>		

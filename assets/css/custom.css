@@ -5,3 +5,13 @@
 .hide {
 	display: none;
 }
+
+#register_form label.error {
+	font-size: 16px !important;
+	color:red;
+	text-transform: capitalize !important;
+	clear: both
+}
+/*  Loadinn image  */
+#loading_main{display:none;position:fixed;height:100%;width:100%;bottom:0px; background-color:rgba(23,23,23,0.40); z-index:99998;}
+#loading_main .loading{position:absolute;left:50%;top:50%; background-color:rgba(23,23,23,0); z-index:99999;}
