@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-	
+
 	jQuery('#loginForm').validate({
         rules: {
             username : { required: true},
@@ -67,6 +67,7 @@ jQuery(document).ready(function(){
             }
         },
         submitHandler: function(form, event) {
+        	jQuery('#loading_main').show();
             event.preventDefault();
             var email = jQuery('#forgotEmail').val();		
 		
@@ -76,7 +77,6 @@ jQuery(document).ready(function(){
 				"type":"POST",
 				success: function(response)
 		        {
-		        	jQuery('#loading_main').show();
 		        	var json = jQuery.parseJSON(response);
 		        	if(json.response == 'success')
 		        	{
@@ -113,6 +113,7 @@ jQuery(document).ready(function(){
             confirm_password :{ required : "Please re-enter password" },
         },
         submitHandler: function(form, event) {
+        	jQuery('#loading_main').show();
             event.preventDefault();           
 			var newPass = jQuery('#newPass').val();		
 			var token = jQuery('#token').val();
@@ -122,8 +123,7 @@ jQuery(document).ready(function(){
 				"data":{"password":newPass,'token': token},
 				"type":"POST",
 				success: function(response)
-		        {
-		        	jQuery('#loading_main').show();
+		        {		        	
 		        	var json = jQuery.parseJSON(response);
 		        	if(json.response == 'success')
 		        	{
