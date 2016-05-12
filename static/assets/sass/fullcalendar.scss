@@ -462,7 +462,6 @@ temporary rendered events).
 .fc-row .fc-content-skeleton {
 	position: relative;
 	z-index: 4;
-	padding-bottom: 2px; /* matches the space above the events */
 }
 
 .fc-row .fc-helper-skeleton {
@@ -1117,7 +1116,7 @@ be a descendant of the grid when it is being dragged.
 	border-bottom-color: transparent;
 }
 
-.calendar-summary {
+.calendar-summary, .calendar-select-date {
 	padding: remCalc(22px);
 	height: 100%;
 	.fc-head {
@@ -1150,6 +1149,30 @@ be a descendant of the grid when it is being dragged.
 		font-size: remCalc(20px);
 		border: 0;
 		letter-spacing: normal;
+	}
+}
+.calendar-select-date {
+	padding: 0;
+	.fc-head {
+		border-bottom: 1px solid $gray-lighter;
+	}
+	.fc-day-header {
+		color: $gray-lighter;
+	}
+	.fc-day-number.fc-other-month {
+		color: $gray-lighter;
+	}
+	.fc td.ui-state-highlight {
+		background: #f4d3d5;
+		&.fc-today {
+			background: none;
+		}
+	}
+	.fc-highlight {
+		background: #f4d3d5;
+	}
+	h2 {
+		font-size: remCalc(17px);
 	}
 }
 

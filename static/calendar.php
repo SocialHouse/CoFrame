@@ -46,7 +46,7 @@
 						<div class="pull-md-right toolbar">
 							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
 							<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/post-filters.php" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
-							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-print"></i></a>
+							<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/print-posts.php" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20"><i class="tf-icon-print"></i></a>
 						</div>
 					</div>
 					<div id="selectedFilters" class="clearfix border-top border-black hidden">
@@ -74,8 +74,8 @@
 	<script type='text/javascript' src='assets/js/vendor/isotope.pkgd.min.js?ver=3.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
-	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/post-filters.js?ver=1.0.0'></script>
 </body>
 </html>

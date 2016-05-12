@@ -620,7 +620,7 @@ a {
 		}
 	}
 	&.popover-sm {
-		.qtip-content {
+		> .qtip-content {
 			padding: 10px;
 		}
 	}
@@ -631,13 +631,18 @@ a {
 		}
 	}
 	&.popover-lg {
-		.qtip-content {
+		> .qtip-content {
 			padding: 0 2rem remCalc(20px);
 		}
 	}
 	&.popover-post-filters {
 		.qtip-tip {
 			margin-right: 60px;
+		}
+	}
+	&.popover-post-print {
+		.qtip-tip {
+			margin-right: 10px;
 		}
 	}
 }
@@ -682,6 +687,14 @@ a {
 	}
 }
 
+.popover-post-print {
+	.form-control {
+		width: calc(50% - 9px);
+	}
+	.form-inline .form-control + .form-control {
+		margin-left: 12px;
+	}
+}
 
 /*Modal*/
 .modal {
@@ -2405,8 +2418,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	border: 0;
 }
 .no-margin {
-	margin: 0;
-	padding: 0;
+	margin: 0 !important;
 }
 
 @import "partials/print";
