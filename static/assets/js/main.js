@@ -14,7 +14,7 @@ jQuery(function($) {
 
 	$(document).ready(function() {
 		
-		$('#post-details .outlet-list li').on('click', function() {
+		$('body').on('click', '#post-details .outlet-list li', function() {
 			var outlet = $(this).data('selectedOutlet');
 			$(this).toggleClass('disabled');
 			$(this).siblings().addClass('disabled');
@@ -465,21 +465,51 @@ jQuery(function($) {
 
 	//modal triggers
 	//Get modal content from an external source
-	$('[data-toggle="modal-ajax"]').one('click', function() {
+	$('body').one('click', '[data-toggle="modal-ajax"]', function() {
 		var newModal = $('#emptyModal').clone();
-		var target=$(this);
-		var mid = target.data('modalId');
-		var msize = target.data('modalSize');
-		$.get(target.data('modalSrc'),function(data) {
+		var $target=$(this);
+		var mid = $target.data('modalId');
+		var msize = $target.data('modalSize');
+		$.get($target.data('modalSrc'),function(data) {
 			newModal.attr('id', mid);
 			if(msize !== "") {
 				newModal.find('.modal-dialog').addClass('modal-' + msize);
 			}
 			newModal.find('.modal-body').html(data);
 			newModal.modal('show');
+			newModal.on('shown.bs.modal', function () {
+				$('.modal-toggler').fadeIn();
+				fileDragNDrop();
+				equalColumns();
+			});
+			newModal.on('hide.bs.modal', function () {
+				$('.modal-toggler').fadeOut();
+			});
+			$target.attr('data-toggle', 'modal-ajax-inline');
 		});
 	});
-
+	//Get modal content from inline source
+	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function() {
+		var $target=$(this);
+		var mid = $target.data('modalId');
+		$('#' + mid).modal('show');
+		$('#' + mid).on('shown.bs.modal', function () {
+			$('.modal-toggler').fadeIn();
+			equalColumns();
+		});
+		$('#' + mid).on('hide.bs.modal', function () {
+			$('.modal-toggler').fadeOut();
+		});
+	});
+	$('.modal').on('show.bs.modal', function() {
+		$('.modal-toggler').fadeIn();
+	});
+	$('.modal').on('hide.bs.modal', function() {
+		$('.modal-toggler').fadeOut();
+	});
+	$('.modal-toggler').on('click', function() {
+		$('.modal').modal('hide');
+	});
 	$('[data-toggle="addPhases"]').one('click', function() {
 		var columnParent = $(this).closest('.col-md-4');
 		var approvalsContainer = $('.container-approvals');

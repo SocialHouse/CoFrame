@@ -57,6 +57,6 @@
 		</div>
 	</div>
 	<footer class="post-content-footer">
-		<div class="auto-save text-xs-center hidden-xs-up">Auto Saving ...</div>
+		<div class="auto-save text-xs-center hidden">Auto Saving ...</div>
 	</footer>
 </div>

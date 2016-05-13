@@ -1140,6 +1140,7 @@ be a descendant of the grid when it is being dragged.
 	}
 	.fc-basic-view .fc-body .fc-row {
 		min-height: inherit;
+		height: auto !important;
 	}
 	button {
 		height: auto;

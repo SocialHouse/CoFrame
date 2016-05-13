@@ -68,6 +68,20 @@
 		</div>
 	</div>
 
+	<button type="button" class="modal-toggler">
+		<span class="sr-only">Toggle Modal</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<!-- Blank Modal -->
+	<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content bg-white">
+		  <div class="modal-body">
+		  </div>
+		</div>
+	  </div>
+	</div>
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
@@ -77,5 +91,6 @@
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/post-filters.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/drag-drop-file-upload.js?ver=1.0.0'></script>
 </body>
 </html>
