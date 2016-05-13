@@ -66,6 +66,50 @@ jQuery(function($) {
 			themeButtonIcons: false
     	});
 
+		//weekly calendar
+		$('#calendar-week').fullCalendar({
+			allDaySlot: false,
+			buttonText: {
+				prev: '',
+				next: ''
+			},
+			contentHeight: 'auto',
+			dayNamesShort: [
+				'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
+			],
+			defaultView: 'agendaWeek',
+			events: 'assets/js/events.json',
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			snapDuration: '00:15:00',
+			theme: true,
+			themeButtonIcons: false
+		});
+
+		//Monthly calendar
+		$('#calendar-month').fullCalendar({
+			buttonText: {
+				prev: '',
+				next: ''
+			},
+			dayNamesShort: [
+				'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
+			],
+			events: 'assets/js/events.json',
+			eventLimit: 4,
+			fixedWeekCount: false,
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			snapDuration: '00:15:00',
+			theme: true,
+			themeButtonIcons: false
+		});
 
 		//Get popover calendar
 		$('body').on('click, focus', '[data-toggle="popover-calendar"]', function(e) {
