@@ -55,7 +55,7 @@
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
-	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 </body>
 </html>

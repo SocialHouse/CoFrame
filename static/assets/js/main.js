@@ -23,19 +23,7 @@ jQuery(function($) {
 
 		//equal column heights
 		equalColumns();
-		$('.equal-cols [class*=col-]').each(function() {
-			if($(this).parent().hasClass('brand-steps')) {
-				magicNum = 60;
-			}
-			if(!$(this).hasClass('brand-steps')) {
-				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - magicNum);
-				}
-				else {
-					$(this).css('height', colsH);
-				}
-			}
-		});
+
 		//temp nav activation
 		var pathname = location.pathname;
 		var pagename = pathname.replace('/static/', '');
@@ -534,6 +522,19 @@ jQuery(function($) {
 				else {
 					$(this).css('height', colsH);
 				}
+		});
+		$('.equal-cols [class*=col-]').each(function() {
+			if($(this).parent().hasClass('brand-steps')) {
+				magicNum = 60;
+			}
+			if(!$(this).hasClass('brand-steps')) {
+				if(newColsH > colsH) {
+					$(this).css('height', dashboardH - headhH - magicNum);
+				}
+				else {
+					$(this).css('height', colsH);
+				}
+			}
 		});
 	};
 });
