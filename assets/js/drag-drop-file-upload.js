@@ -19,6 +19,7 @@
 				droppedFiles = false,
 				showFiles	 = function( files ){
 					$label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
+
 				};
 
 			// letting the server side to know we are going to make an Ajax request
@@ -32,12 +33,85 @@
 
 					$.each(droppedFiles, function (index, file) {
 						var img = document.createElement('img');
+						//for live review fb
+						var preview_img = document.createElement('img');
 						img.onload = function () {
 							window.URL.revokeObjectURL(this.src);
 						};
 						img.className = 'form__file-preview';
 						img.src = window.URL.createObjectURL(file);
 						$fileDiv.prepend(img).addClass('has-files');
+						//for show preview
+
+						var preview_img = '<img class="post-img" src="'+window.URL.createObjectURL(file)+'" >';
+						// preview_img.src = window.URL.createObjectURL(file);
+						var no_of_img = $('#live-post-preview .img-div img').length;
+						var outlet_id = $('#postOutlet').val();
+						if(outlet_id == 1)
+						{
+							if(no_of_img == 0)
+							{
+								$('#live-post-preview .img-div').append(preview_img);							
+							}
+							if(no_of_img == 1) 
+							{
+								$('#live-post-preview .img-div img:first').addClass('width_50');
+								$('#live-post-preview .img-div img:first').removeClass('post-img');
+								var preview_img = '<img class="width_50" src="'+window.URL.createObjectURL(file)+'" >';
+								$('#live-post-preview .img-div').append(preview_img);
+								$('.no-of-photos').html('added <span class="photos_count">2 new photos</span>');
+							}
+							if(no_of_img == 2) 
+							{
+								$('#live-post-preview .img-div img:first').addClass('post-img');
+								$('#live-post-preview .img-div img:first').removeClass('width_50');
+								var preview_img = '<img class="width_50" src="'+window.URL.createObjectURL(file)+'" >';
+								$('#live-post-preview .img-div').append(preview_img);
+								$('.no-of-photos').html('added <span class="photos_count">3 new photos</span>');
+							}
+
+							if(no_of_img == 3)
+							{
+								$('#live-post-preview .img-div img:eq(1)').addClass('width_33');
+								$('#live-post-preview .img-div img:eq(1)').removeClass('width_50');
+								$('#live-post-preview .img-div img:eq(2)').addClass('width_33');
+								$('#live-post-preview .img-div img:eq(2)').removeClass('width_50');							
+								var preview_img = '<img class="width_33" src="'+window.URL.createObjectURL(file)+'" >';
+								$('#live-post-preview .img-div').append(preview_img);
+								$('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
+							}
+
+							if(no_of_img == 4)
+							{
+								$('#live-post-preview .img-div img:eq(0)').addClass('width_50');
+								$('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
+
+								$('#live-post-preview .img-div img:eq(1)').addClass('width_50');
+								$('#live-post-preview .img-div img:eq(1)').removeClass('width_33');						
+								var preview_img = '<img class="width_33" src="'+window.URL.createObjectURL(file)+'" >';
+								$('#live-post-preview .img-div').append(preview_img);
+								$('.no-of-photos').html('added <span class="photos_count">5 new photos</span>');
+							}
+
+							if(no_of_img >= 5)
+							{
+								if($('.more-images').length >= 1)
+								{
+									var more_count = $('.more-images').attr('id');
+									more_count++;
+									$('.more-images').attr('id',more_count);
+									$('.more-images').html('+'+more_count);
+									$('.no-of-photos').html('added <span class="photos_count">'+more_count+' new photos</span>');
+								}
+								else
+								{
+									var preview_img = '<div class="more-images" id="1"> +1</div>';
+									$('#live-post-preview .img-div').append(preview_img);
+									$('.no-of-photos').html('added <span class="photos_count">6 new photos</span>');
+								}							
+							}
+						}
+
 					});
 			});
 

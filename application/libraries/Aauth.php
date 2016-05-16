@@ -958,8 +958,7 @@ class Aauth {
 			$this->CI->email->from($from, $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject('Account Verification');
-			$this->CI->email->message('Your verification code is: ' . $ver_code .
-				" You can also click on (or copy and paste) the following link\n\n" . site_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code );
+			$this->CI->email->message(" You can click on (or copy and paste) the following link\n\n" . base_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code );
 			$this->CI->email->send();
 		}
 	}

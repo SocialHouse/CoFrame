@@ -9653,3 +9653,118 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     display: none; } }
 
 /*# sourceMappingURL=style.css.map */
+
+/*fb preview*/
+.post-container {
+  max-height: 500px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: sans-serif !important;
+  text-transform: capitalize !important;
+  color: #000 !important; 
+  font-weight: normal !important;
+  letter-spacing: 0.2px !important;
+}
+
+.padding_5 {
+  padding: 5px 5px 5px 5px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.user-img-border {
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+.user-profile-img {
+  height:25px;
+  width:25px;
+}
+
+.padding-left-5 {
+  padding-left: 5px;
+}
+
+.margin-left-15 {
+  margin-left: 15px; 
+}
+
+.bottom-div {
+  height:20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+  font-size: 8px;
+}
+
+.post-user-name {
+  font-weight: bold;
+  font-size: 10px;
+  color:#365899;
+  letter-spacing: 0.2px !important;
+}
+
+.time-color {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: normal !important;
+  font-size: 8px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.img-div {
+  min-height: auto;
+}
+
+.post-img {
+  max-height: 200px;
+  max-width: 100%;
+  min-width: 150px;  
+}
+.post_copy_text{text-transform: none !important;}
+
+.hide{
+  display: none;
+}
+
+.width_50 {
+  height: 125px;
+  width: 50%;
+  padding : 1px 1px 1px 1px;
+}
+
+.width_33 {
+  height: 75px;
+  width: 33%;
+  padding : 1px 1px 1px 1px;
+}
+
+.width_25 {
+  height: 75px;
+  width: 25%;
+  padding : 1px 1px 1px 1px;
+}
+
+.more-images {
+  position: absolute; 
+  color: rgb(255, 255, 255); 
+  font-size: 16px; 
+  margin-top: -50px; 
+  margin-left: 175px; 
+  font-weight: bold;
+}
+
+.no-of-photos {
+  text-transform: none;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.photos_count {
+  color:#365899 !important;
+}
+
+.ellipsis{display:inline-block;width:240px;white-space: nowrap;overflow:hidden !important;text-overflow: ellipsis;} 
+
+.user-img {
+  
+}
