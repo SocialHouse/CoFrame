@@ -27,7 +27,7 @@ jQuery(function($) {
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
 		$('.outlet_ul li:first').toggleClass('disabled');
 		$('.outlet_ul li:first').siblings().addClass('disabled');
-		$('#postOutlet').val(outlet_id);
+		$('#postOutlet').val(outlet_id);		
 		createPreview();
 		
 		$('#post-details .outlet-list li').on('click', function() {
@@ -35,6 +35,14 @@ jQuery(function($) {
 			$(this).toggleClass('disabled');
 			$(this).siblings().addClass('disabled');
 			$('#postOutlet').val(outlet);
+
+			var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
+			upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
+			upload_element += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+			$('.form__input').removeClass('has-files');
+			$('.form__input').empty();
+			$('.form__input').append(upload_element);
+
 			createPreview();
 		});
 		$('#brandStep2 .outlet-list li').on('click', function() {
@@ -627,6 +635,7 @@ jQuery(function($) {
 	//live preview		
 	function createPreview(){
 		$('#live-post-preview').empty();
+		$('.no-of-photos').html('');
     	var outlet_id = $('#postOutlet').val();
     	var post_copy;
     	if($('#postCopy').val())

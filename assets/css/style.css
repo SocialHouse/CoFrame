@@ -9730,19 +9730,19 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .width_50 {
   height: 125px;
   width: 50%;
-  padding : 1px 1px 1px 1px;
+  padding : 0.5px 0.5px 0.5px 0.5px;
 }
 
 .width_33 {
   height: 75px;
   width: 33%;
-  padding : 1px 1px 1px 1px;
+  padding : 0.5px 0.5px 0.5px 0.5px;
 }
 
 .width_25 {
   height: 75px;
   width: 25%;
-  padding : 1px 1px 1px 1px;
+  padding : 0.5px 0.5px 0.5px 0.5px;
 }
 
 .more-images {
@@ -9761,10 +9761,4 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .photos_count {
   color:#365899 !important;
-}
-
-.ellipsis{display:inline-block;width:240px;white-space: nowrap;overflow:hidden !important;text-overflow: ellipsis;} 
-
-.user-img {
-  
 }

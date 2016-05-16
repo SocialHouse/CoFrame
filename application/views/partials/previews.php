@@ -17,7 +17,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<br>
-				<span class="post_copy_text ellipsis">					
+				<span class="post_copy_text">					
 				</span>
 				<div class="img-div">
 					<!-- <img src="<?php echo img_url().'1.jpg'; ?>" style="max-height: 200px;max-width: 100%;"> -->
