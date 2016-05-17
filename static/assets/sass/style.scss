@@ -123,7 +123,7 @@ h5 {
 	line-height: 1;
 	text-transform: uppercase;
 	transition: all 300ms;
-	letter-spacing: .25rem;
+	letter-spacing: .2rem;
 	font-family: $futura;
 }
 .btn-sm {
@@ -716,9 +716,15 @@ a {
 	.modal-open & {
 		overflow: visible;
 	}
+	&.alert-modal {
+		top: 50%;
+		bottom: inherit;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
 }
 .modal-dialog {
-	margin-top: 0;
+	margin: 0 auto;
 	box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.25);
 }
 .modal-lg {
@@ -845,40 +851,40 @@ a {
 	font-family: $futura;
 }
 .bg-blogger:before {
-	background: #ff9334;
+	background: $blogger;
 }
 .bg-facebook:before {
-	background: #547BBC;
+	background: $facebook;
 }
 .bg-google-plus:before {
-	background:#de5246;
+	background:$google;
 }
 .bg-instagram:before {
-	background: #696969;
+	background: $instagram;
 }
 .bg-linkedin:before {
-	background: #1384C7;
+	background: $linkedin;
 }
 .bg-pinterest:before {
-	background: #E95655;
+	background: $pinterest;
 }
 .bg-tumblr:before {
-	background: #5E8FAE;
+	background: $tumblr;
 }
 .bg-twitter:before {
-	background: #78CBEF;
+	background: $twitter;
 }
 .bg-youtube:before {
-	background: #E9644A;
+	background: $youtube;
 }
 .bg-vimeo:before {
-	background: #1DAD87;
+	background: $vimeo;
 }
 .bg-vine:before {
-	background: #1DAD87;
+	background: $vine;
 }
 .bg-wordpress:before {
-	background: #1e8cbe;
+	background: $wordpress;
 }
 .bg-all:before {
 	background: #000;
@@ -1743,6 +1749,13 @@ a {
 		margin: 0;
 		text-transform: none;
 		letter-spacing: normal;
+	}
+	.modal & {
+		bottom: 1rem;
+	}
+	.alert-modal & {
+		position: relative;
+		bottom: inherit;
 	}
 }
 .form-footer {

@@ -6,6 +6,7 @@
  
 @import "vendor/bootstrap/variables";
 @import "vendor/bootstrap/custom";
+@import "vendor/font-awesome/variables";
 
 .fc {
 	direction: ltr;
@@ -1281,8 +1282,8 @@ be a descendant of the grid when it is being dragged.
 		}
 	}
 	.fc td.fc-day-number {
-		padding-top: 6px;
-		padding-bottom: 6px;
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 	.fc-day-header {
 		color: $gray-light;
@@ -1332,16 +1333,227 @@ be a descendant of the grid when it is being dragged.
 	}
 }
 #calendar-week {
+	.fc-row.fc-widget-header {
+		margin-bottom: 4px;
+	}
+	th {
+		border-color: transparent;
+		padding: 8px 0;
+		text-transform: uppercase;
+		letter-spacing: .25em;
+		font-size: 11px;
+		&.fc-today-header {
+			padding: 0;
+		}
+		.fc-today-highlight {
+			padding: 8px 0;
+			border: 2px $brand-primary solid;
+			border-radius: 7px;
+			font-family: $futura-bold;
+		}
+	}
+	.fc-axis {
+		padding: 0 12px 0 0;
+		&.fc-time {
+			border: 0;
+			span {
+				position: relative;
+				top: -12px;
+			}
+		}
+	}
 	td {
 		border-color: $gray-lighter;
+		&.fc-widget-header{
+			border-width: 0;
+		}
+		&.fc-widget-content {
+			border-left: 0;
+			&:first-child {
+				border-width: 0;
+			}
+		}
 	}
 	.fc-today {
 		background: #fcf4f4;
+	}
+	.fc-time-grid .fc-slats .fc-minor td {
+		border-top-width: 0;
 	}
 }
 #calendar-month {
 	&.fc-ltr .fc-basic-view .fc-day-number {
 		text-align: left;
+	}
+}
+
+#calendar-month, #calendar-week {
+	.fc-time-grid-event, .fc-time-grid-event .fc-content {
+		overflow: visible;
+	}
+	.fc-event,
+	.fc-event:hover,
+	.ui-widget .fc-event {
+		color: #000;
+	}
+	.fc-event {
+		font-size: 1rem;
+		padding-left: 36px;
+		&.blogger {
+			background: $blogger;
+			border-color: $blogger;
+			&:before {
+				font-family: 'icomoon';
+				content: "\e901";
+			}
+			.fc-content:before {
+				background: $blogger;
+			}
+		}
+		&.facebook {
+			background: $facebook;
+			border-color: $facebook;
+			&:before {
+				content: $fa-var-facebook;
+			}
+			.fc-content:before {
+				background: $facebook;
+			}
+		}
+		&.google {
+			background: $google;
+			border-color: $google;
+			&:before {
+				content: $fa-var-google-plus;
+			}
+			.fc-content:before {
+				background: $google;
+			}
+		}
+		&.instagram {
+			background: $instagram;
+			border-color: $instagram;
+			&:before {
+				content: $fa-var-instagram;
+			}
+			.fc-content:before {
+				background: $instagram;
+			}
+		}
+		&.linkedin {
+			background: $linkedin;
+			border-color: $linkedin;
+			&:before {
+				content: $fa-var-linkedin;
+			}
+			.fc-content:before {
+				background: $linkedin;
+			}
+		}
+		&.pinterest {
+			background: $pinterest;
+			border-color: $pinterest;
+			&:before {
+				content: $fa-var-pinterest-p;
+			}
+			.fc-content:before {
+				background: $pinterest;
+			}
+		}
+		&.tumblr {
+			background: $tumblr;
+			border-color: $tumblr;
+			&:before {
+				content: $fa-var-tumblr;
+			}
+			.fc-content:before {
+				background: $tumblr;
+			}
+		}
+		&.twitter {
+			background: $twitter;
+			border-color: $twitter;
+			&:before {
+				content: $fa-var-twitter;
+			}
+			.fc-content:before {
+				background: $twitter;
+			}
+		}
+		&.youtube {
+			background: $youtube;
+			border-color: $youtube;
+			&:before {
+				content: $fa-var-youtube-play;
+			}
+			.fc-content:before {
+				background: $youtube;
+			}
+		}
+		&.vimeo {
+			background: $vimeo;
+			border-color: $vimeo;
+			&:before {
+				content: $fa-var-vimeo;
+			}
+			.fc-content:before {
+				background: $vimeo;
+			}
+		}
+		&.vine {
+			background: $vine;
+			border-color: $vine;
+			&:before {
+				content: $fa-var-vine;
+			}
+			.fc-content:before {
+				background: $vine;
+			}
+		}
+		&.wordpress {
+			background: $wordpress;
+			border-color: $wordpress;
+			&:before {
+				content: $fa-var-wordpress;
+			}
+			.fc-content:before {
+				background: $wordpress;
+			}
+		}
+		&:before {
+			font-family: "FontAwesome";
+			color: #fff;
+			position: absolute;
+			left: -5px;
+			top: -9px;
+			width: 36px;
+			text-align: center;
+			z-index: 11;
+		}
+		.fc-content {
+			&:before {
+				display: block;
+				content: "";
+				height: 24px;
+				width: 24px;
+				-webkit-transform: rotateZ(45deg);
+				transform: rotateZ(45deg);
+				position: absolute;
+				z-index:10;
+				left:-36px;
+				top: -12px;
+			}
+			.fc-time {
+				display: none;
+			}
+		}
+	}
+	.fc-title {
+		margin-top: -1.25rem;
+		font-size: 1rem;
+		width: 100%;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 }
 

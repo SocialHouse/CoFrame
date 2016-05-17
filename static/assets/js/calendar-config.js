@@ -14,6 +14,10 @@ var calendarType,
 
 jQuery(function($) {
 	$(document).ready(function() {
+		$('#calendarBtnToday').on('click', function(e) {
+			e.preventDefault();
+			$('#calendar-week, #calendar-month').fullCalendar( 'today' );
+		});
 		//print & export functions
 		$('body').on('change', '#startDateType', function() {
 			startType = $(this).val();
@@ -69,24 +73,59 @@ jQuery(function($) {
 		//weekly calendar
 		$('#calendar-week').fullCalendar({
 			allDaySlot: false,
-			buttonText: {
-				prev: '',
-				next: ''
-			},
-			contentHeight: 'auto',
-			dayNamesShort: [
-				'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
-			],
+			columnFormat: 'ddd D',
+			defaultTimedEventDuration: '00:01:00', //events are 1 minute long, no end time needed
 			defaultView: 'agendaWeek',
-			events: 'assets/js/events.json',
-			header: {
-				left: 'prev',
-				center: 'title',
-				right: 'next'
+			dragOpacity: 1,
+			editable: true,
+			eventDragStart: function() {
+				$('.fc-event').css('opacity', '.2');
 			},
+			eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+				//show confirmation modal
+				var newModal = $('#emptyModal').clone();
+				newModal.attr('id', '');
+				newModal.addClass('alert-modal');
+				newModal.find('.modal-dialog').addClass('modal-sm');
+				var confirmationButtons = '<footer class="post-content-footer"><a href="#" class="btn btn-sm btn-default" id="cancelEventChange">Cancel</a><a href="#" class="btn btn-sm  btn-default pull-sm-right" id="confirmEventChange">Confirm</a></footer>';
+				newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Event?</h2><p class="text-xs-center">You are about to reschedule the post of "' + event.title + '" to ' + event.start.format('MMMM D, YYYY h:mm a') + '</p>' + confirmationButtons);
+				newModal.modal({
+					show: true,
+					backdrop: 'static'
+				});
+				$('body').on('click', '#cancelEventChange', function(e) {
+					e.preventDefault();
+					revertFunc();
+					newModal.modal('hide');
+					newModal.on('hidden.bs.modal', function () {
+						newModal.remove();
+					});
+				});
+				$('body').on('click', '#confirmEventChange', function(e) {
+					e.preventDefault();
+					newModal.modal('hide');
+					newModal.on('hidden.bs.modal', function () {
+						newModal.remove();
+					});
+				});
+			},
+			events: 'assets/js/events.json',
+			header: false,
+			slotLabelFormat : 'h:mm a',
 			snapDuration: '00:15:00',
-			theme: true,
-			themeButtonIcons: false
+			viewRender: function() {
+				var dates = GetCalendarDateRange();
+				$('#calendarDateRange').html(dates);
+				$('.fc-day-header').each(function() {
+					var dateText = $(this).text();
+					var todayDate = $.fullCalendar.moment().format('YYYY-MM-DD');
+					var headerDate = $(this).data('date');
+					if(headerDate === todayDate) {
+						$(this).html('<div class="fc-today-highlight">' + dateText + '</div>');
+						$(this).addClass('fc-today-header');
+					}
+				});
+			}
 		});
 
 		//Monthly calendar
@@ -98,14 +137,11 @@ jQuery(function($) {
 			dayNamesShort: [
 				'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
 			],
+			editable: true,
 			events: 'assets/js/events.json',
 			eventLimit: 4,
 			fixedWeekCount: false,
-			header: {
-				left: 'prev',
-				center: 'title',
-				right: 'next'
-			},
+			header: false,
 			snapDuration: '00:15:00',
 			theme: true,
 			themeButtonIcons: false
@@ -186,7 +222,6 @@ jQuery(function($) {
 				}
 			}, e);
 		});
-
 	});
 
 
@@ -259,5 +294,14 @@ jQuery(function($) {
 			};
 			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', savedEvent, true);
 		}
+	};
+
+	window.GetCalendarDateRange = function GetCalendarDateRange() {
+		var calendar = $('#calendar-week').fullCalendar('getCalendar');
+		var view = calendar.view;
+		var start = $.fullCalendar.moment(view.start).format('D');
+		var end = $.fullCalendar.moment(view.end).subtract(1, 'days').format('D');
+		var dates = start + "&#8211;" + end;
+		return dates;
 	};
 });

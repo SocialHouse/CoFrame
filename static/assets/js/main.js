@@ -465,7 +465,7 @@ jQuery(function($) {
 
 	//modal triggers
 	//Get modal content from an external source
-	$('body').one('click', '[data-toggle="modal-ajax"]', function() {
+	$('body').on('click', '[data-toggle="modal-ajax"]', function() {
 		var newModal = $('#emptyModal').clone();
 		var $target=$(this);
 		var mid = $target.data('modalId');
@@ -476,7 +476,10 @@ jQuery(function($) {
 				newModal.find('.modal-dialog').addClass('modal-' + msize);
 			}
 			newModal.find('.modal-body').html(data);
-			newModal.modal('show');
+			newModal.modal({
+				show: true,
+				backdrop: 'static'
+			});
 			newModal.on('shown.bs.modal', function () {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
@@ -492,7 +495,10 @@ jQuery(function($) {
 	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function() {
 		var $target=$(this);
 		var mid = $target.data('modalId');
-		$('#' + mid).modal('show');
+		$('#' + mid).modal({
+			show: true,
+			backdrop: 'static'
+		});
 		$('#' + mid).on('shown.bs.modal', function () {
 			$('.modal-toggler').fadeIn();
 			equalColumns();

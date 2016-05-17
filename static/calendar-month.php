@@ -34,7 +34,7 @@
 				<header class="page-main-header calendar-header">
 					<div class="clearfix">
 						<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-calendar"></i></a>
-						<h2 class="date-header pull-xs-left">Calendar | <strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+						<h2 class="date-header pull-xs-left">Calendar | <strong id="calendarCurrentMonty"><?php echo date('F'); ?></strong> <span id="calendarCurrentYear"><?php echo date('Y'); ?></span></h2>
 						<div class="btn-group-calendar pull-sm-left">
 							<a href="calendar.php" class="btn btn-sm">Day</a>
 							<a href="calendar-week.php" class="btn btn-sm">Week</a>
