@@ -573,6 +573,12 @@ jQuery(function($) {
 			}
 		});
 	};
+	window.qtipEqualColumns = function qtipEqualColumns() {
+		var colsH = $('.equal-cols').outerHeight(true);
+		$('.equal-cols .equal-height').each(function() {
+			$(this).css('height', colsH);
+		});
+	}
 });
 
 	var today = new Date();

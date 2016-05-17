@@ -143,6 +143,22 @@ h5 {
 		border-color: $brand-primary;
 		color: #fff;
 	}
+	&.color-success {
+		color: $brand-success;
+		border-color: $brand-success;
+	}
+	.bg-white &, .bg-gray-lightest & {
+		color: #000;
+		border-color: #000;
+		&:hover {
+			color: #fff;
+			border-color: $brand-primary;
+		}
+		&.color-success {
+			color: $brand-success;
+			border-color: $brand-success;
+		}
+	}
 }
 .btn-secondary {
 	&:hover, &:focus, &:active {
@@ -150,6 +166,15 @@ h5 {
 		border-color: $brand-primary;
 		color: #fff;
 	}	
+	&.color-success {
+		background: $brand-success;
+		border-color: $brand-success;
+		color: #fff;
+		.current-phase & {
+			background: #fff;
+			color: $brand-success;
+		}
+	}
 }
 .btn-danger {
 	background-color: #8e181b;
@@ -645,6 +670,44 @@ a {
 			margin-right: 10px;
 		}
 	}
+	&.qtip-calendar-post {
+		&.qtip-pos-tc {
+			margin-left: 14px;
+			margin-top: 20px;
+		}
+		&.qtip-pos-bc {
+			margin-left: 20px;
+			margin-top: -20px;
+		}
+		&.qtip-pos-br {
+			margin-top: -20px;
+			margin-left: 32px;
+		}
+		&.qtip-pos-tr {
+			margin-top: 20px;
+			margin-left: 24px;
+		}
+		> .qtip-content {
+			padding: 0;
+			.equal-cols {
+				margin: 0;
+			}
+			[class*="col-"] {
+				padding-top: 15px;
+			}
+		}
+		.equal-cols [class*="container-"] {
+			padding-bottom: 62px;
+		}
+		.post-content-footer {
+			border: 0;
+			bottom: 1rem;
+		}
+		.btn-xs {
+			font-size: 8px;
+			letter-spacing: .2em;
+		}
+	}
 }
 .qtip-titlebar {
 	text-align: center;
@@ -774,14 +837,6 @@ a {
 .bg-white {
 	background: #fff;
 	color: #000;
-	.btn-default {
-		color: #000;
-		border-color: #000;
-		&:hover {
-			color: #fff;
-			border-color: $brand-primary;
-		}
-	}
 	&.opaque-88 {
 		background: rgba(255,255,255,.88);
 	}
@@ -1716,15 +1771,40 @@ a {
 			display: none;
 		}
 	}
+	.qtip-calendar-post & {
+		padding: 10px;
+		margin-bottom: 10px;
+		h2 {
+			font-size: 10px;
+			line-height: 17px;
+		}
+		&.current-phase {
+			h2 {
+				font-family: $futura-bold;
+			}
+		}
+		.btn-xs {
+			font-size: 8px;
+			padding: 3px;
+		}
+	}
 }
 .approval-date {
 	text-transform:  none;
 	margin-bottom: 1rem;
+	.qtip-calendar-post & {
+		font-size: 10px;
+		letter-spacing: normal;
+	}
 }
 .approval-note {
 	text-transform: none;
 	font-size: 1rem;
 	line-height: 1;
+	.qtip-calendar-post & {
+		font-size: 12px;
+		letter-spacing: normal;
+	}
 }
 
 #post-details {
