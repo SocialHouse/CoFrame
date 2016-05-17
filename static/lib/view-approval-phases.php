@@ -1,7 +1,8 @@
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase1">
 	<h2 class="clearfix">Phase 1 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button> <button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
-	<ul class="timeframe-list user-list border-bottom">
-		<li><div class="pull-sm-left"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div><div class="pull-sm-left"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div></li>
+	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
+		<li class="pull-sm-left approved"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
+		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 	</ul>
 	<div class="approval-date">
 		<span class="uppercase">Must approve by:</span> 2/26/16 at 9:00 PM PST
@@ -13,8 +14,9 @@
 
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase2">
 	<h2 class="clearfix">Phase 2 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
-	<ul class="timeframe-list user-list border-bottom">
-		<li><div class="pull-sm-left"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div><div class="pull-sm-left"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div></li>
+	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
+		<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
+		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 	</ul>
 	<div class="approval-date">
 		<span class="uppercase">Must approve by:</span> 2/26/16 at 9:00 PM PST
@@ -26,8 +28,9 @@
 
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase3">
 	<h2 class="clearfix">Phase 3 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
-	<ul class="timeframe-list user-list border-bottom">
-		<li><div class="pull-sm-left"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div><div class="pull-sm-left"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div></li>
+	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
+		<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
+		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 	</ul>
 	<div class="approval-date">
 		<span class="uppercase">Must approve by:</span> 2/26/16 at 9:00 PM PST
