@@ -17,6 +17,7 @@
 				$errorMsg	 = $form.find( '.form__error span' ),
 				$restart	 = $form.find( '.form__restart' ),
 				droppedFiles = false,
+				allFiles = [],
 				showFiles	 = function( files ){
 					$label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
 
@@ -31,6 +32,7 @@
 					droppedFiles = e.target.files; // the files that were dropped
 					var $fileDiv = $('.form__input');
 					$.each(droppedFiles, function (index, file) {
+						allFiles.push(file)
 						var img = document.createElement('img');
 						//for live review fb
 						var preview_img = document.createElement('img');
@@ -65,6 +67,7 @@
 					var $fileDiv = $('.form__input');
 
 					$.each(droppedFiles, function (index, file) {
+						allFiles.push(file)
 						var img = document.createElement('img');
 						img.onload = function () {
 							window.URL.revokeObjectURL(this.src);
@@ -96,7 +99,7 @@
 					var ajaxData = new FormData( $form.get( 0 ) );
 					if( droppedFiles ){
 						// console.log(droppedFiles);
-						$.each( droppedFiles, function( i, file ){
+						$.each( allFiles, function( i, file ){
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
 					}
@@ -113,23 +116,13 @@
 						complete: function(){
 							$form.removeClass( 'is-uploading' );
 						},
-						success: function( data ){
-							// console.log(data.);
-							// return false;
+						success: function( data ){							
+							
 							if(data.success)
 							{
-								console.log(JSON.stringify(data));
-								// return;
 								$('#uploaded_files').val(JSON.stringify(data));
 								$form.submit();
 							}
-							// alert('done');
-							// console.log($form);
-							// $form.submit();
-							// $form.addClass( data.success == true ? 'is-success' : 'is-error' );
-							// if( !data.success ) $errorMsg.text( data.error );
-
-							// $form.submit();
 						},
 						error: function(){
 							alert( 'There was a problem with your upload.  Please try again.' );

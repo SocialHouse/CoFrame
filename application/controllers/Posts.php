@@ -621,8 +621,7 @@ class Posts extends CI_Controller {
 
 	public function upload()
 	{
-		// print_r($_FILES);
-		$files = $_FILES['files'];
+		$files = $_FILES['file'];
 		
 		$files_count = count($files['tmp_name']);
 		$error = '';
