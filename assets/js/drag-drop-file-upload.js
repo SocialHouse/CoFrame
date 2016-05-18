@@ -246,6 +246,6 @@
 		{
 			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
 			jQuery('.insta-img-div').empty();
-			jQuery('.insta-img-div').append(preview_img);
+			jQuery('#live-post-preview .insta-img-div').append(preview_img);
 		}
 	}
