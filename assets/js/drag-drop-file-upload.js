@@ -241,4 +241,11 @@
 				}							
 			}
 		}
+
+		if(outlet_id == 3)
+		{
+			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+			jQuery('.insta-img-div').empty();
+			jQuery('.insta-img-div').append(preview_img);
+		}
 	}
