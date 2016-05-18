@@ -1316,6 +1316,9 @@ be a descendant of the grid when it is being dragged.
 	.fc-day-header {
 		color: $gray-lighter;
 	}
+	.fc-row {
+		border: 1px solid transparent;
+	}
 	.fc-day-number.fc-other-month {
 		color: $gray-lighter;
 	}
@@ -1323,6 +1326,9 @@ be a descendant of the grid when it is being dragged.
 		background: #f4d3d5;
 		&.fc-today {
 			background: none;
+			.popover-date-filter & {
+				background: #f4d3d5;
+			}
 		}
 	}
 	.fc-highlight {
@@ -1330,6 +1336,15 @@ be a descendant of the grid when it is being dragged.
 	}
 	h2 {
 		font-size: remCalc(17px);
+	}
+	hr {
+		margin-top: 0;
+		margin-bottom: 1rem;
+		border-color: $gray-lighter;
+	}
+	.selected-week {
+		border: 1px solid $brand-primary;
+		border-radius: 8px;
 	}
 }
 #calendar-week {
@@ -1446,16 +1461,12 @@ be a descendant of the grid when it is being dragged.
 #calendar-month {
 	margin-top: -1rem;
 	th {
-		border-color: transparent;
 		padding: 0 0 1rem;
 		text-transform: uppercase;
 		letter-spacing: .25em;
 		font-size: 11px;
 	}
 	td {
-		&.fc-widget-header{
-			border-width: 0;
-		}
 		&.fc-day-number {
 			font-family: $futura;
 			font-size: 12px;
@@ -1551,7 +1562,16 @@ be a descendant of the grid when it is being dragged.
 	.ui-widget .fc-event {
 		color: #000;
 	}
+	th {
+		border-color: transparent;
+	}
+	td {
+		&.fc-widget-header{
+			border-width: 0;
+		}
+	}
 	.fc-event {
+		cursor: pointer;
 		&.blogger {
 			&:before {
 				font-family: 'icomoon';

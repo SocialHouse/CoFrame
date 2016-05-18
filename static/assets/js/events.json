@@ -1,42 +1,42 @@
 [
   {
     "id": "22345",
-	"className": "google",
+	"className": "google f-google f-retail f-approved",
 	"editable": false,
     "title": "First Post",
     "start": "2016-05-15T09:00:00"
   },
   {
     "id": "12345",
-	"className": "vimeo",
+	"className": "vimeo f-vimeo f-retail f-pending",
 	"editable": false,
     "title": "Second Post",
     "start": "2016-05-15T16:30:00"
   },
   {
     "id": "12346",
-	"className": "twitter",
+	"className": "twitter f-twitter f-brandbuilding f-approved",
 	"editable": false,
     "title": "Another Post",
     "start": "2016-05-16T12:00:00"
   },
   {
     "id": "22346",
-	"className": "wordpress",
+	"className": "wordpress f-wordpress f-brandbuilding f-pending",
 	"editable": false,
     "title": "Close Post",
     "start": "2016-05-16T12:15:00"
   },
   {
     "id": "12347",
-	"className": "instagram",
+	"className": "instagram f-vimeo f-orange f-approved",
 	"editable": false,
     "title": "Test Post",
     "start": "2016-05-17T10:00:00"
   },
   {
     "id": "22347",
-	"className": "pinterest",
+	"className": "pinterest f-vimeo f-retail f-published",
 	"editable": false,
     "title": "Same Time Post",
     "start": "2016-05-17T10:00:00"

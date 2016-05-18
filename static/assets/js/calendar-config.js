@@ -10,7 +10,8 @@ var calendarType,
 	endType,
 	inputType,
 	startDate,
-	startType;
+	startType,
+	firstEventDay;
 
 jQuery(function($) {
 	$(document).ready(function() {
@@ -309,11 +310,15 @@ jQuery(function($) {
 			eventLimit: true,
 			fixedWeekCount: false,
 			header: false,
-			snapDuration: '00:15:00'
+			snapDuration: '00:15:00',
+			viewRender: function() {
+				var dates = GetCalendarMonth();
+				$('#calendarCurrentMonth').html(dates);
+			}
 		});
 
-		//Get popover calendar
-		$('body').on('click, focus', '[data-toggle="popover-calendar"]', function(e) {
+		//Get popover calendar for date selector
+		$('body').on('click, focus', 'input[data-toggle="popover-calendar"]', function(e) {
 			//don't fire calendar popover if date is today or tomorrow
 			var $target = $(this);
 			var pid = $target.data('popoverId');
@@ -348,7 +353,9 @@ jQuery(function($) {
 						}
 					},
 					visible: function() {
-						showSelectCalendar(pid);
+						if(inputType !== undefined) {
+							showSelectCalendar(pid);
+						}
 					}
 				},
 				hide: {
@@ -387,8 +394,86 @@ jQuery(function($) {
 				}
 			}, e);
 		});
-	});
 
+		//Get popover calendar for date selector
+		$('body').on('click', 'a[data-toggle="popover-calendar"]', function(e) {
+			//don't fire calendar popover if date is today or tomorrow
+			var $target = $(this);
+			var pid = $target.data('popoverId');
+			var pclass = $target.data('popoverClass');
+			var pattachment = $target.data('attachment');
+			var ptattachment = $target.data('targetAttachment');
+			var poffsetX = $target.data('offsetX');
+			var poffsetY = $target.data('offsetY');
+			var pwidth = $target.data('popover-width');
+			var parrow = $target.data('popoverArrow');
+			var arrowcorner = $target.data('arrowCorner');
+			var pcontainer = $target.data('popoverContainer');
+			if(!pcontainer) {
+				pcontainer = '.page-main';
+			}
+			var tipW = 1;
+			var tipH = 1;
+			if(parrow) {
+				tipW = 20;
+				tipH = 10;
+			}
+			$target.qtip({
+				content: {
+					text: $('#' + pid)
+				},
+				events: {
+					visible: function() {
+						changeDateCalendar(pid);
+					}
+				},
+				hide: {
+					effect: function() {
+						$(this).fadeOut();
+					},
+					event: 'unfocus'
+				},
+				position: {
+					adjust: {
+						x: poffsetX,
+						y: poffsetY
+					},
+					at: ptattachment,
+					my: pattachment,
+					container: $(pcontainer),
+					target: $target
+				},
+				overwrite: false,
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
+				},
+				style: {
+					classes: 'qtip-shadow ' + pclass,
+					tip: {
+						corner: arrowcorner,
+						mimic: 'center',
+						height: tipH,
+						width: tipW
+					},
+					width: pwidth
+				}
+			}, e);
+		});
+
+		$('body').on('click', '#calendar-change-day #getPostsByDate', function() {
+			//insert functionality to filter by post date here
+		});
+		$('body').on('click', '#calendar-change-week #getPostsByDate', function() {
+			$('#calendar-week').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
+		});
+		$('body').on('click', '#calendar-change-month #getPostsByDate', function() {
+			$('#calendar-month').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
+		});
+	});
 
 	window.showSelectCalendar = function showSelectCalendar(id) {
 		var exportStart, exportEnd;
@@ -403,7 +488,6 @@ jQuery(function($) {
 			],
 			eventOverlap: false,
 			fixedWeekCount: false,
-			gotoDate: '2016 11 22',
 			header: {
 				left: 'prev',
 				center: 'title',
@@ -469,4 +553,63 @@ jQuery(function($) {
 		var dates = start + "&#8211;" + end;
 		return dates;
 	};
+	window.GetCalendarMonth = function GetCalendarMonth() {
+		var calendar = $('#calendar-month').fullCalendar('getCalendar');
+		var view = calendar.view;
+		var start = $.fullCalendar.moment(view.intervalStart).format('MMMM');
+		return start;
+	};
+
+	window.changeDateCalendar = function changeDateCalendar(id) {
+		$('#' + id + ' .date-select-calendar').fullCalendar({
+			buttonText: {
+				prev: '',
+				next: ''
+			},
+			contentHeight: 280,
+			dayNamesShort: [
+				'S', 'M', 'T', 'W', 'T', 'F', 'S'
+			],
+			fixedWeekCount: false,
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			dayClick: function(date) {
+				$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
+				if(id === "calendar-change-week") {
+					var $week = $(this).closest('.fc-week');
+					$week.addClass('selected-week');
+					$week.siblings().removeClass('selected-week');
+					firstEventDay = $week.find('td:first-child').data('date');
+				}
+				else if(id === "calendar-change-day") {
+					var eventData = {
+						allDay: true,
+						start: $.fullCalendar.moment(date),
+						end: $.fullCalendar.moment(date).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
+						rendering: 'background',
+						color: '#f4d3d5'
+					};
+					$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
+				}
+				$('#getPostsByDate').removeClass('btn-disabled').removeAttr('disabled');
+			},
+			theme: true,
+			themeButtonIcons: false,
+			viewRender: function(view) {
+				if(id === "calendar-change-month") {
+					var curMonthView = $('#calendar-month').fullCalendar('getView');
+					var curMonth = $.fullCalendar.moment(curMonthView.intervalStart).format('M');
+					var selectMonth = $.fullCalendar.moment(view.intervalStart).format('M');
+					if(curMonth !== selectMonth) {
+						firstEventDay = view.intervalStart;
+						$('#getPostsByDate').removeClass('btn-disabled').removeAttr('disabled');
+					}
+				}
+			}
+		});
+	};
+
 });

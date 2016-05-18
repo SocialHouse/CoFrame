@@ -713,6 +713,11 @@ a {
 			margin-top: 20px;
 		}
 	}
+	&.popover-date-filter {
+		.qtip-tip {
+			margin-left: 10px;
+		}
+	}
 }
 .qtip-titlebar {
 	text-align: center;
