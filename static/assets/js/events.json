@@ -1,170 +1,212 @@
 [
   {
     "id": "22345",
+	"className": "google",
+	"editable": false,
     "title": "First Post",
-    "start": "2016-05-15T09:00:00",
-	"className": "google"
+    "start": "2016-05-15T09:00:00"
   },
   {
     "id": "12345",
+	"className": "vimeo",
+	"editable": false,
     "title": "Second Post",
-    "start": "2016-05-15T16:30:00",
-	"className": "vimeo"
+    "start": "2016-05-15T16:30:00"
   },
   {
     "id": "12346",
+	"className": "twitter",
+	"editable": false,
     "title": "Another Post",
-    "start": "2016-05-16T12:00:00",
-	"className": "twitter"
+    "start": "2016-05-16T12:00:00"
   },
   {
     "id": "22346",
+	"className": "wordpress",
+	"editable": false,
     "title": "Close Post",
-    "start": "2016-05-16T12:15:00",
-	"className": "wordpress"
+    "start": "2016-05-16T12:15:00"
   },
   {
     "id": "12347",
+	"className": "instagram",
+	"editable": false,
     "title": "Test Post",
-    "start": "2016-05-17T10:00:00",
-	"className": "instagram"
+    "start": "2016-05-17T10:00:00"
   },
   {
     "id": "22347",
+	"className": "pinterest",
+	"editable": false,
     "title": "Same Time Post",
-    "start": "2016-05-17T10:00:00",
-	"className": "pinterest"
+    "start": "2016-05-17T10:00:00"
   },
   {
     "id": "12348",
+	"className": "linkedin",
+	"editable": true,
     "title": "Linkedin Post",
-    "start": "2016-05-18T07:00:00",
-	"className": "linkedin"
+    "start": "2016-05-18T07:00:00"
   },
   {
     "id": "12349",
+ 	"className": "vine",
+	"editable": true,
     "title": "Vine Post",
-    "start": "2016-05-19T12:00:00",
- 	"className": "vine"
+    "start": "2016-05-19T12:00:00"
  },
   {
     "id": "12350",
-    "title": "Facebook Post",
-    "start": "2016-05-20T08:00:00",
-	"className": "facebook"
+	"className": "facebook",
+ 	"editable": true,
+	"title": "Facebook Post",
+    "start": "2016-05-20T08:00:00"
   },
   {
     "id": "12350",
+	"className": "twitter",
+	"editable": true,
     "title": "Post with a really long title",
-    "start": "2016-05-20T06:00:00",
-	"className": "twitter"
+    "start": "2016-05-20T06:00:00"
   },
   {
     "id": "12351",
+	"className": "blogger",
+	"editable": true,
     "title": "Post 1",
-    "start": "2016-05-21T14:30:00",
-	"className": "blogger"
+    "start": "2016-05-21T14:30:00"
   },
   {
     "id": "22351",
+	"className": "facebook",
+	"editable": true,
     "title": "Post 2",
-    "start": "2016-05-21T14:30:00",
-	"className": "facebook"
+    "start": "2016-05-21T14:30:00"
   },
   {
     "id": "22352",
+	"className": "instagram",
+	"editable": true,
     "title": "Post 3",
-    "start": "2016-05-21T14:30:00",
-	"className": "instagram"
+    "start": "2016-05-21T14:30:00"
   },
   {
     "id": "22353",
+	"className": "youtube",
+	"editable": true,
     "title": "Post 4",
-    "start": "2016-05-21T14:30:00",
-	"className": "youtube"
+    "start": "2016-05-21T14:30:00"
   },
   {
     "id": "32345",
+	"className": "google",
+	"editable": true,
     "title": "First Post",
-    "start": "2016-05-22T09:00:00",
-	"className": "google"
+    "start": "2016-05-22T09:00:00"
   },
   {
     "id": "42345",
+	"className": "vimeo",
+	"editable": true,
     "title": "Second Post",
-    "start": "2016-05-22T16:30:00",
-	"className": "vimeo"
+    "start": "2016-05-22T16:30:00"
   },
   {
     "id": "32346",
+	"className": "twitter",
+	"editable": true,
     "title": "Another Post",
-    "start": "2016-05-23T12:00:00",
-	"className": "twitter"
+    "start": "2016-05-23T12:00:00"
   },
   {
     "id": "42346",
+	"className": "wordpress",
+	"editable": true,
     "title": "Close Post",
-    "start": "2016-05-23T12:15:00",
-	"className": "wordpress"
+    "start": "2016-05-23T12:15:00"
   },
   {
     "id": "32347",
+	"className": "instagram",
+	"editable": true,
     "title": "Test Post",
-    "start": "2016-05-24T10:00:00",
-	"className": "instagram"
+    "start": "2016-05-24T10:00:00"
   },
   {
     "id": "42347",
+	"className": "pinterest",
+	"editable": true,
     "title": "Same Time Post",
-    "start": "2016-05-24T10:00:00",
-	"className": "pinterest"
+    "start": "2016-05-24T10:00:00"
   },
   {
     "id": "42348",
+	"className": "linkedin",
+	"editable": true,
     "title": "Linkedin Post",
-    "start": "2016-05-25T07:00:00",
-	"className": "linkedin"
+    "start": "2016-05-25T07:00:00"
   },
   {
     "id": "42349",
+ 	"className": "vine",
+	"editable": true,
     "title": "Vine Post",
-    "start": "2016-05-26T12:00:00",
- 	"className": "vine"
+    "start": "2016-05-26T12:00:00"
  },
   {
     "id": "342350",
+	"className": "facebook",
+	"editable": true,
     "title": "Facebook Post",
-    "start": "2016-05-27T08:00:00",
-	"className": "facebook"
+    "start": "2016-05-27T08:00:00"
   },
   {
     "id": "42350",
-    "title": "Post with a really long title",
-    "start": "2016-05-27T06:00:00",
-	"className": "twitter"
+	"className": "twitter",
+	"editable": true,
+    "title": "Post with a really really long title",
+    "start": "2016-05-27T06:00:00"
   },
   {
     "id": "42351",
+	"className": "blogger",
+	"editable": true,
     "title": "Post 1",
-    "start": "2016-05-28T14:30:00",
-	"className": "blogger"
+    "start": "2016-05-28T14:30:00"
   },
   {
     "id": "32351",
+	"className": "facebook",
+	"editable": true,
     "title": "Post 2",
-    "start": "2016-05-28T14:30:00",
-	"className": "facebook"
+    "start": "2016-05-28T14:30:00"
   },
   {
     "id": "32352",
+	"className": "instagram",
+	"editable": true,
     "title": "Post 3",
-    "start": "2016-05-28T14:30:00",
-	"className": "instagram"
+    "start": "2016-05-28T14:30:00"
   },
   {
     "id": "32353",
-    "title": "Post 4",
-    "start": "2016-05-28T14:30:00",
-	"className": "youtube"
+	"className": "youtube",
+ 	"editable": true,
+	"title": "Post 4",
+    "start": "2016-05-28T14:30:00"
+  },
+  {
+    "id": "32354",
+	"className": "youtube",
+	"editable": true,
+    "title": "Post 5",
+    "start": "2016-05-28T14:30:00"
+  },
+  {
+    "id": "32355",
+	"className": "youtube",
+	"editable": true,
+    "title": "Post 6",
+    "start": "2016-05-28T14:30:00"
   }
 ]

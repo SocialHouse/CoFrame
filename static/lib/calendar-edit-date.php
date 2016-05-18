@@ -1,6 +1,6 @@
 	<hr>
 	<?php date_default_timezone_set('America/Chicago'); ?>
-	<select class="form-control">
+	<select class="form-control" name="postMonth">
         <option value="01">January</option>
         <option value="02">February</option>
         <option value="03">March</option>
@@ -14,14 +14,23 @@
         <option value="11">November</option>
         <option value="12">December</option>
 	</select>
-	<select class="form-control">
-		<option value=""><?php echo date('d'); ?></option>
+	<select class="form-control" name="postDay">
+		<?php 
+			$i = 1;
+			while ($i <= 31) {
+		?>
+			<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+		<?php
+			$i++;
+			}
+		?>
 	</select>
-	<select class="form-control">
-		<option value=""><?php echo date('Y'); ?></option>
+	<select class="form-control" name="postYear">
+		<option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+		<option value="<?php echo date('Y') + 1; ?>"><?php echo date('Y') + 1; ?></option>
 	</select>
-	<input type="text" class="form-control form-control-time" placeholder="<?php echo date('g:i'); ?>">
-	<select class="form-control">
+	<input name="postTime" type="text" class="form-control form-control-time" placeholder="<?php echo date('g:i'); ?>">
+	<select class="form-control" name="postAmPm">
 		<option value="am"<?php if(date('a') == 'am') { echo ' selected'; }?>>AM</option>
 		<option value="pm"<?php if(date('a') == 'pm') { echo ' selected'; }?>>PM</option>
 	</select>

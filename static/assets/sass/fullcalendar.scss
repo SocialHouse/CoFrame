@@ -1337,11 +1337,6 @@ be a descendant of the grid when it is being dragged.
 		margin-bottom: 4px;
 	}
 	th {
-		border-color: transparent;
-		padding: 8px 0;
-		text-transform: uppercase;
-		letter-spacing: .25em;
-		font-size: 11px;
 		&.fc-today-header {
 			padding: 0;
 		}
@@ -1363,10 +1358,6 @@ be a descendant of the grid when it is being dragged.
 		}
 	}
 	td {
-		border-color: $gray-lighter;
-		&.fc-widget-header{
-			border-width: 0;
-		}
 		&.fc-widget-content {
 			border-left: 0;
 			&:first-child {
@@ -1380,28 +1371,188 @@ be a descendant of the grid when it is being dragged.
 	.fc-time-grid .fc-slats .fc-minor td {
 		border-top-width: 0;
 	}
+	.fc-time-grid-event, .fc-time-grid-event .fc-content {
+		overflow: visible;
+	}
+	.fc-event {
+		font-size: 1rem;
+		padding-left: 36px;
+		&.facebook {
+			background: $facebook;
+			border-color: $facebook;
+		}
+		&.google {
+			background: $google;
+			border-color: $google;
+		}
+		&.instagram {
+			background: $instagram;
+			border-color: $instagram;
+		}
+		&.linkedin {
+			background: $linkedin;
+			border-color: $linkedin;
+		}
+		&.pinterest {
+			background: $pinterest;
+			border-color: $pinterest;
+		}
+		&.tumblr {
+			background: $tumblr;
+			border-color: $tumblr;
+		}
+		&.twitter {
+			background: $twitter;
+			border-color: $twitter;
+		}
+		&.youtube {
+			background: $youtube;
+			border-color: $youtube;
+		}
+		&.vimeo {
+			background: $vimeo;
+			border-color: $vimeo;
+		}
+		&.vine {
+			background: $vine;
+			border-color: $vine;
+		}
+		&.wordpress {
+			background: $wordpress;
+			border-color: $wordpress;
+		}
+		.fc-content {
+			&:before {
+				top: -12px;
+				left:-36px;
+				height: 24px;
+				width: 24px;
+			}
+			.fc-time {
+				display: none;
+			}
+		}
+		&:before {
+			width: 36px;
+			top: -9px;
+			left: -5px;
+		}
+	}
+	.fc-title {
+		width: 100%;
+		font-size: 1rem;
+	}
 }
 #calendar-month {
+	margin-top: -1rem;
+	th {
+		border-color: transparent;
+		padding: 0 0 1rem;
+		text-transform: uppercase;
+		letter-spacing: .25em;
+		font-size: 11px;
+	}
+	td {
+		&.fc-widget-header{
+			border-width: 0;
+		}
+		&.fc-day-number {
+			font-family: $futura;
+			font-size: 12px;
+			padding-top: 8px;
+			padding-left: 8px;
+		}
+		border-color: $gray-lighter;
+	}
+	.fc-body > tr > td.fc-widget-content {
+		border-left: 0;
+		border-right: 0;
+	}
 	&.fc-ltr .fc-basic-view .fc-day-number {
 		text-align: left;
+	}
+	.fc-day-grid-event {
+		margin-top: 0;
+		margin-left: 0;
+		.fc-time {
+			font-weight: normal;
+		}
+	}
+	.fc-bg {
+		.fc-today {
+			background: #fcf4f4;
+		}
+	}
+	.fc-highlight {
+		background: #fcf4f4;
+		opacity: 1;
+		filter: alpha(opacity=100);
+	}
+	.fc-event {
+		font-size: 12px;
+		background: transparent;
+		border-color: transparent;
+		.fc-content {
+			line-height: 27px;
+			margin-bottom: 2px;
+			font-family: $futura-light;
+			padding-left: 32px;
+			text-overflow: ellipsis;
+			&:before {
+				height: 19px;
+				width: 19px;
+				top: 4px;
+				left: 5px;
+			}
+		}
+		&:before {
+			width: 27px;
+			top: 7px;
+			left: 2px;
+		}
+	}
+	.fc-more {
+		position: relative;
+		padding-left: 31px;
+		line-height: 27px;
+		font-size: 12px;
+		.bg-outlet {
+			top: 0px;
+			left: 4px;
+			&:before {
+				height: 19px;
+				width: 19px;
+			}
+			i {
+				position: absolute;
+				color: #fff;
+				font-size: 22px;
+				line-height: 16px;
+				top: 0;
+				left: 3px;
+				font-family: $futura-light;
+				font-style: normal;
+			}
+		}
+	}
+	.fc-more-popover {
+		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+		width: 200px;
+		margin-left: -7px;
+		.fc-widget-header {
+			display: none;
+		}
 	}
 }
 
 #calendar-month, #calendar-week {
-	.fc-time-grid-event, .fc-time-grid-event .fc-content {
-		overflow: visible;
-	}
 	.fc-event,
 	.fc-event:hover,
 	.ui-widget .fc-event {
 		color: #000;
 	}
 	.fc-event {
-		font-size: 1rem;
-		padding-left: 36px;
 		&.blogger {
-			background: $blogger;
-			border-color: $blogger;
 			&:before {
 				font-family: 'icomoon';
 				content: "\e901";
@@ -1411,8 +1562,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.facebook {
-			background: $facebook;
-			border-color: $facebook;
 			&:before {
 				content: $fa-var-facebook;
 			}
@@ -1421,8 +1570,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.google {
-			background: $google;
-			border-color: $google;
 			&:before {
 				content: $fa-var-google-plus;
 			}
@@ -1431,8 +1578,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.instagram {
-			background: $instagram;
-			border-color: $instagram;
 			&:before {
 				content: $fa-var-instagram;
 			}
@@ -1441,8 +1586,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.linkedin {
-			background: $linkedin;
-			border-color: $linkedin;
 			&:before {
 				content: $fa-var-linkedin;
 			}
@@ -1451,8 +1594,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.pinterest {
-			background: $pinterest;
-			border-color: $pinterest;
 			&:before {
 				content: $fa-var-pinterest-p;
 			}
@@ -1461,8 +1602,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.tumblr {
-			background: $tumblr;
-			border-color: $tumblr;
 			&:before {
 				content: $fa-var-tumblr;
 			}
@@ -1471,8 +1610,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.twitter {
-			background: $twitter;
-			border-color: $twitter;
 			&:before {
 				content: $fa-var-twitter;
 			}
@@ -1481,8 +1618,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.youtube {
-			background: $youtube;
-			border-color: $youtube;
 			&:before {
 				content: $fa-var-youtube-play;
 			}
@@ -1491,8 +1626,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.vimeo {
-			background: $vimeo;
-			border-color: $vimeo;
 			&:before {
 				content: $fa-var-vimeo;
 			}
@@ -1501,8 +1634,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.vine {
-			background: $vine;
-			border-color: $vine;
 			&:before {
 				content: $fa-var-vine;
 			}
@@ -1511,8 +1642,6 @@ be a descendant of the grid when it is being dragged.
 			}
 		}
 		&.wordpress {
-			background: $wordpress;
-			border-color: $wordpress;
 			&:before {
 				content: $fa-var-wordpress;
 			}
@@ -1524,9 +1653,6 @@ be a descendant of the grid when it is being dragged.
 			font-family: "FontAwesome";
 			color: #fff;
 			position: absolute;
-			left: -5px;
-			top: -9px;
-			width: 36px;
 			text-align: center;
 			z-index: 11;
 		}
@@ -1534,24 +1660,15 @@ be a descendant of the grid when it is being dragged.
 			&:before {
 				display: block;
 				content: "";
-				height: 24px;
-				width: 24px;
 				-webkit-transform: rotateZ(45deg);
 				transform: rotateZ(45deg);
 				position: absolute;
 				z-index:10;
-				left:-36px;
-				top: -12px;
-			}
-			.fc-time {
-				display: none;
 			}
 		}
 	}
 	.fc-title {
 		margin-top: -1.25rem;
-		font-size: 1rem;
-		width: 100%;
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
