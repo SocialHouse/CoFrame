@@ -584,6 +584,7 @@ jQuery(function($) {
 	var today = new Date();
 
 	function setUserTime() {
+		var today = new Date();
 		var h = today.getHours();
 		var m = today.getMinutes();
 		h = checkHours(h);
