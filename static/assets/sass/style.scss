@@ -708,6 +708,11 @@ a {
 			letter-spacing: .2em;
 		}
 	}
+	&.month-post {
+		&.qtip-pos-lb, &.qtip-pos-rb {
+			margin-top: 20px;
+		}
+	}
 }
 .qtip-titlebar {
 	text-align: center;

@@ -193,6 +193,60 @@ jQuery(function($) {
 					$(this).html('<span class="bg-outlet bg-all"><i>+</i></span>' + newText);
 				});
 			},
+			eventClick: function(calEvent, jsEvent) {
+				$(this).qtip({
+					content: {
+						text: 'Loading...',
+						ajax: {
+							url: "edit-post-weekly-calendar.php?postid=22345",
+							type: 'GET',
+							once: true
+						}
+					},
+					events: {
+						hide: function() {
+							//remove the tooltip from the dom once hidden
+							$(this).qtip('destroy');
+						},
+						visible: function() {
+							qtipEqualColumns();
+						}
+					},
+					position: {
+						adjust: {
+							y: -2
+						},
+						at: 'right center',
+						my: 'left center',
+						target: jsEvent.target,
+						viewport: $('body')
+					},
+					show: {
+						effect: function() {
+							$(this).fadeIn();
+						},
+						event: jsEvent.type,
+						ready: true
+					},
+					hide: {
+						effect: function() {
+							$(this).fadeOut();
+						},
+						event: 'unfocus'
+					},
+					//overwrite: true,
+					style: {
+						classes: 'qtip-shadow qtip-calendar-post month-post popover-clickable',
+						tip: {
+							width: 20,
+							height: 10,
+							corner: true,
+							mimic: 'center'
+						},
+						width: 635
+					}
+				}, jsEvent);
+			},
 			eventConstraint: {
 				start: moment().format('YYYY-MM-DD'),
 				end: '2200-01-01'

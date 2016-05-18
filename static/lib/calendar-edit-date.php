@@ -15,7 +15,7 @@
         <option value="12">December</option>
 	</select>
 	<select class="form-control" name="postDay">
-		<?php 
+		<?php
 			$i = 1;
 			while ($i <= 31) {
 		?>
