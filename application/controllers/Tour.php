@@ -40,9 +40,9 @@ class Tour extends CI_Controller {
         if($this->aauth->login($post_data['username'], $post_data['password']))
         {
             $user_id = $this->session->userdata('id');
-            $is_exists = $this->user_model->check_login_attempt($user_id);
-            if($is_exists)
-            {
+            // $is_exists = $this->user_model->check_login_attempt($user_id);
+            // if($is_exists)
+            // {
                 $user = $this->user_model->get_user($user_id);
                 $user_info = array(
                             'user_info_id' => $user->id,
@@ -92,12 +92,12 @@ class Tour extends CI_Controller {
                     }
                 }
                 echo json_encode(array('response' => 'success'));                
-            }
-            else
-            {
-                $email_send = $this->send_verification_link($user_id);
-                echo json_encode(array('response' => 'verify','message'=>'Verification link sent to your email address.'));                
-            }
+            // }
+            // else
+            // {
+            //     $email_send = $this->send_verification_link($user_id);
+            //     echo json_encode(array('response' => 'verify','message'=>'Verification link sent to your email address.'));                
+            // }
         }
         else
         {

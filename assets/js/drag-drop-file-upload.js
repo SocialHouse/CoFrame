@@ -18,16 +18,26 @@
 				$restart	 = $form.find( '.form__restart' ),
 				droppedFiles = false,
 				allFiles = [],
+				outlet = $form.find('#postOutlet').val(),
 				showFiles	 = function( files ){
 					$label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
 
 				};
 
+			$('#post-details .outlet-list li').on('click', function() {
+				var previous_outlet = $('#postOutlet').val();
+				var outlet = $(this).data('selectedOutlet');
+				if(previous_outlet != outlet)
+				{
+					allFiles = [];
+				}
+			});
+
 			// letting the server side to know we are going to make an Ajax request
 			$form.append( '<input type="hidden" name="ajax" value="1" />' );
 
 			// automatically submit the form on file select
-			$(document).on( 'change','#postFile', function( e ){
+			$(document).on( 'change','#postFile', function( e ){				
 				showFiles( e.target.files );
 					droppedFiles = e.target.files; // the files that were dropped
 					var $fileDiv = $('.form__input');
@@ -98,7 +108,6 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 					if( droppedFiles ){
-						// console.log(droppedFiles);
 						$.each( allFiles, function( i, file ){
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
@@ -116,8 +125,7 @@
 						complete: function(){
 							$form.removeClass( 'is-uploading' );
 						},
-						success: function( data ){							
-							
+						success: function( data ){
 							if(data.success)
 							{
 								$('#uploaded_files').val(JSON.stringify(data));
@@ -234,7 +242,62 @@
 				}							
 			}
 		}
+		//for twitter
+		if(outlet_id == 2)
+		{
+			if(no_of_img == 0)
+			{			
+				var preview_img = '<div class="pull-left"><img class="img-radious" src="'+window.URL.createObjectURL(file)+'" ></div>';
+				jQuery('.twitter-img-div').empty();
+				jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+			}
 
+			if(no_of_img == 1) 
+			{
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('width_50');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('height_135');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('img-radious-left');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').removeClass('img-radious');
+
+				var preview_img = '<div class="pull-left width_50"><img class="img-radious-right height_135" src="'+window.URL.createObjectURL(file)+'" ></div>';
+				jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+			}
+
+			if(no_of_img == 2) 
+			{
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first').removeClass('width_50');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('section1');
+
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').addClass('section2');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('img-radious-right-top');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('width_30');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_2_img');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('padding_bottom');	
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('height_135');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('img-radious-right');
+
+				var preview_img = '<img class="width_30 section_2_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+			}
+
+			if(no_of_img == 3) 
+			{
+				jQuery('#live-post-preview .twitter-img-div .pull-left:first').css('width','75%');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').css('width','25%');
+
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('section_2_img');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_3_img');
+
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('section_2_img');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('section_3_img');
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('img-radious-right-bottom');				
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('padding_bottom');
+
+				var preview_img = '<img class="width_30 section_3_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
+				jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+			}
+		}
+		//for insta
 		if(outlet_id == 3)
 		{
 			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';

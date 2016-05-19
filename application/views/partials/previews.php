@@ -67,4 +67,36 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="outlet_2">
+		<div class="twitter-post">
+			<div class="pull-left" style="margin-right: 3px">
+				<img src="<?php echo img_url(); ?>default_profile_twitter.png" class="twitter-default-img">
+			</div>
+			<div class="pull-left">
+				<div  style="margin-bottom:2px">
+					<div><?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?> <span class="twitter_username">@ninadgaikwad - 1s</span></div>
+				</div>
+				<div class="post_copy_text">
+				</div>
+				<div class="twitter-img-div twitter-post-img img-div">					
+				</div>
+				<div class="clearfix"></div>
+				<div class="twitter-bottom-div">					
+					<div class="pull-left"><i class="fa fa-mail-reply"></i> <span></span>
+					</div>
+					<div class="pull-left margin-left-15">
+						<i class="fa fa-refresh"></i>
+					</div>
+					<div class="pull-left margin-left-15">
+						<i class="fa fa-heart"></i>
+					</div>
+					<div class="pull-left margin-left-15">
+						<i class="fa fa-ellipsis-h"></i>
+					</div>					
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
 </div>

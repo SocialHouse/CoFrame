@@ -9732,7 +9732,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 .width_50 {
-  height: 125px;
+  height: 135px;
   width: 50%;
   padding : 0.5px 0.5px 0.5px 0.5px;
 }
@@ -9820,4 +9820,82 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   max-width:300px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   text-transform: none !important;
+}
+/*Twitter*/
+.twitter_username {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 8px;  
+}
+
+.twitter-post {
+  max-height: 400px;
+  min-height: 50px;
+  padding: 5px 5px 5px 5px;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.twitter-post-img {
+  max-width:191px;max-height: 300px;height:auto;
+}
+
+.twitter-bottom-div {
+  height:20px;border:1px solid #1212;margin-top: 8px;color: rgba(0, 0, 0, 0.5);
+}
+
+.img-radious {
+  border-radius: 3px;
+}
+
+.img-radious-left {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.img-radious-right {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.img-radious-right-bottom {  
+  border-bottom-right-radius: 3px;
+}
+
+.img-radious-right-top {
+  border-top-right-radius: 3px;  
+}
+
+.width_30 {
+  width: 30%;
+}
+
+.width_70 {
+  width: 70%;
+  height:135px; !important;
+  padding-right: 2px;
+}
+
+.padding_bottom {
+  padding-bottom: 2px;
+}
+
+.section_2_img {
+  height: 67.5px;
+}
+
+.section_3_img {
+  height: 45px;
+}
+
+.height_135 {
+  height:135px; !important;
+}
+
+.section1{float: left;width: 65%;}
+.section2{float: left;width: 35%;}
+.section1 img,.section2 img{width: 100%;}
+
+.twitter-default-img {
+  height:25px;width:25px;border-radius: 5px;
 }

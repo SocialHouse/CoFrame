@@ -8,6 +8,7 @@
 	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>">
 		<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
+		<input type="hidden" id="all_files">
 		<div class="row equal-cols">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
