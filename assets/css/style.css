@@ -9824,7 +9824,11 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 /*Twitter*/
 .twitter_username {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 8px;  
+  font-size: 10px;  
+}
+
+.twitter-user-info {
+  font-size: 10px;
 }
 
 .twitter-post {
@@ -9897,5 +9901,5 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .section1 img,.section2 img{width: 100%;}
 
 .twitter-default-img {
-  height:25px;width:25px;border-radius: 5px;
+  height:35px;width:35px;border-radius: 5px;
 }

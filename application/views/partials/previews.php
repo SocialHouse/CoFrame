@@ -70,12 +70,12 @@
 
 	<div id="outlet_2">
 		<div class="twitter-post">
-			<div class="pull-left" style="margin-right: 3px">
+			<div class="pull-left" style="margin-right: 8px">
 				<img src="<?php echo img_url(); ?>default_profile_twitter.png" class="twitter-default-img">
 			</div>
 			<div class="pull-left">
 				<div  style="margin-bottom:2px">
-					<div><?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?> <span class="twitter_username">@ninadgaikwad - 1s</span></div>
+					<div class="twitter-user-info"><?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?> <span class="twitter_username">@ninadgaikwad - 1s</span></div>
 				</div>
 				<div class="post_copy_text">
 				</div>
