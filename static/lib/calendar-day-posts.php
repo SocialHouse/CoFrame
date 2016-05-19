@@ -1,5 +1,5 @@
 				<div class="calendar-day">
-					<div class="row bg-white clearfix post-day f-approved f-facebook f-brandbuilding f-orange f-retail">
+					<div class="row bg-white clearfix post-day" data-filters="approved facebook brandbuilding orange retail">
 						<div class="col-md-5 post-img">
 							<img src="assets/images/fpo/post-img-1.jpg" width="420" height="420" alt="" class="img-responsive"/> 
 						</div>
@@ -45,7 +45,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row bg-white clearfix post-day f-pending f-instagram f-blue">
+					<div class="row bg-white clearfix post-day" data-filters="pending instagram blue">
 						<div class="col-md-5 post-img">
 							<img src="assets/images/fpo/post-img-2.jpg" width="420" height="420" alt="" class="img-responsive"/>
 						</div>
@@ -87,7 +87,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row bg-white clearfix post-day f-scheduled f-youtube f-brandbuilding">
+					<div class="row bg-white clearfix post-day" data-filters="scheduled youtube brandbuilding">
 						<div class="col-md-5 post-img">
 							<img src="assets/images/fpo/post-img-4.jpg" width="420" height="420" alt="" class="img-responsive"/>
 						</div>
@@ -129,7 +129,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row bg-white clearfix post-day f-published f-twitter f-retail f-blue">
+					<div class="row bg-white clearfix post-day" data-filters="published twitter retail blue">
 						<div class="col-md-5 post-img">
 							<img src="assets/images/fpo/post-img-3.jpg" width="420" height="420" alt="" class="img-responsive"/>
 						</div>

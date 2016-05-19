@@ -90,7 +90,7 @@ jQuery(function($) {
 		$('.filter').each( function() {
 			//use value if checked
 			if ( $(this).hasClass('checked' )) {
-				inclusives.push( $(this).data('value') );
+				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
 			}
 			else {
 				var index = inclusives.indexOf($(this).data('value'));
