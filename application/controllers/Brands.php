@@ -48,7 +48,7 @@ class Brands extends CI_Controller {
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
-        $data['layout'] = 'layouts/new_user_layout';
+        $this->data['layout'] = 'layouts/new_user_layout';
 
 		$this->data['view'] = 'brands/add_brand';
         _render_view($this->data);
