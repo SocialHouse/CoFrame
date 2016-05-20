@@ -451,16 +451,39 @@ jQuery(function($) {
 
 		$('body').on('click', '.show-hide', function(e) {
 			e.preventDefault();
-			var show = $(this).data('show');
-			var hide = $(this).data('hide');
-			$(hide).slideUp(function() {
-				//call custom function on completion
-				$(hide).trigger('contentSlidUp');
-				$(show).slideDown(function(){
-					$(show).trigger('contentSlidDown');
+			var $trigger = $(this);
+			var show = $trigger.data('show');
+			var hide = $trigger.data('hide');
+			if(hide) { 
+				$(hide).slideUp(function() {
+					//call custom function on completion
+					$(hide).trigger('contentSlidUp', [$trigger]);
+					$(show).slideDown(function(){
+						$(show).trigger('contentSlidDown', [$trigger]);
+					});
 				});
-			});
+			}
+			else {
+				$(show).slideToggle(function(){
+					$(show).trigger('contentSlidDown', [$trigger]);
+				});
+			}
 		});
+	});
+
+	$('#commentReply').on('contentSlidDown', function(event, element) {
+		if($(this).is(':visible')) {
+			element.addClass('active');
+			$(this).closest('.comment').addClass('has-reply');
+		}
+		else {
+			element.removeClass('active');
+			$(this).closest('.comment').removeClass('has-reply');
+		}
+	});
+	
+	$('.add-attachment').on('click', function() {
+		$(this).closest('.attachment').find('input[type="file"]').click();
 	});
 
 	//modal triggers
