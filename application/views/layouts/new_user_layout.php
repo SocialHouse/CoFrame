@@ -70,5 +70,11 @@ if(isset($css_files))
     }
     ?>
     <script type='text/javascript' src='<?php echo js_url(); ?>main.js?ver=1.0.0'></script>
+    <script>
+    	if(typeof(fileDragNDrop) == 'function')
+		{
+			fileDragNDrop();
+		}
+    </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 	'use strict';
 
 	;( function( $, window, document, undefined ){
-
+		window.fileDragNDrop = function fileDragNDrop() {
 		// feature detection for drag&drop upload
 		var isAdvancedUpload = function(){
 			var div = document.createElement( 'div' );
@@ -19,8 +19,8 @@
 				droppedFiles = false,
 				allFiles = [],
 				outlet = $form.find('#postOutlet').val(),
-				showFiles	 = function( files ){
-					$label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
+				showFiles	 = function( files , control){
+					$(control).parents('.file-upload-label').text( files.length > 1 ? ( $(control).parents('input[type="file"]').attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
 
 				};
 
@@ -37,10 +37,11 @@
 			$form.append( '<input type="hidden" name="ajax" value="1" />' );
 
 			// automatically submit the form on file select
-			$(document).on( 'change','#postFile', function( e ){				
-				showFiles( e.target.files );
+			$(document).on( 'change','input[type="file"]', function( e ){		
+				console.log(this);
+				showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
-					var $fileDiv = $('.form__input');
+					var $fileDiv = $(this).parents('.form__input');
 					$.each(droppedFiles, function (index, file) {
 						allFiles.push(file)
 						var img = document.createElement('img');
@@ -108,7 +109,7 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 					if( droppedFiles ){
-						$.each( allFiles, function( i, file ){
+						$.each( droppedFiles, function( i, file ){
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
 					}
@@ -155,6 +156,73 @@
 				}
 			});
 
+			//save brand image
+			// if the form was submitted
+			$('.save_brand').on( 'click', function( e ){
+				var control = this;
+				// preventing the duplicate submissions if the current one is in progress
+				if( $form.hasClass( 'is-uploading' ) ) return false;
+
+				$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+
+				// ajax file upload for modern browsers
+				if( isAdvancedUpload ) {
+					e.preventDefault();
+
+					// gathering the form data
+					var ajaxData = new FormData( $form.get( 0 ) );
+				
+					$.each( allFiles, function( i, file ){
+						ajaxData.append( 'file['+i+']', file,file.name);
+					});					
+				
+
+					// ajax request
+					$.ajax({
+						url: 			$form.attr( 'action' ),
+						type:			$form.attr( 'method' ),
+						data: 			ajaxData,
+						dataType:		'json',
+						cache:			false,
+						contentType:	false,
+						processData:	false,
+						complete: function(){
+							$form.removeClass( 'is-uploading' );
+						},
+						success: function( data ){
+							if(data.response == 'success')
+							{
+								$('#brand_id').val(data.brand_id);
+								$(control).parents().children('.btn-next-step').trigger('click');
+							}
+							else
+							{
+
+							}
+						},
+						error: function(){
+							alert( 'There was a problem with your upload.  Please try again.' );
+						}
+					});
+				}
+
+				// fallback Ajax solution upload for older browsers
+				else {
+					var iframeName	= 'uploadiframe' + new Date().getTime(),
+						$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+					$( 'body' ).append( $iframe );
+					$form.attr( 'target', iframeName );
+
+					$iframe.one( 'load', function(){
+						var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+						$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+						if( !data.success ) $errorMsg.text( data.error );
+						$iframe.remove();
+					});
+				}
+			});
+
 
 			// restart the form if has a state of error/success
 
@@ -169,6 +237,7 @@
 			.on( 'focus', function(){ $input.addClass( 'has-focus' ); })
 			.on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
 		});
+		}
 
 	})( jQuery, window, document );
 

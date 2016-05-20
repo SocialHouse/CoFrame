@@ -44,95 +44,204 @@ class Brands extends CI_Controller {
 		$this->data = array();
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
+		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+		$this->data['background_image'] = 'bg-admin-overview.jpg';
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
+
+        $data['layout'] = 'layouts/new_user_layout';
+
 		$this->data['view'] = 'brands/add_brand';
         _render_view($this->data);
 	}
 
 	public function save_brand()
 	{
-		$this->data = array();
-		$user_id = $this->user_id;
-		$brand_id = $this->input->post('id');
+		$files = $_FILES['files'];
+		
+		if(isset($files) AND isset($files['name']) AND !empty($files['name'][0]))
+		{			
+			$_FILES['file']['name'] = $files['name'][0];	      
+	        $filename = $_FILES["file"]["name"];
+	        $_FILES['file']['type'] = $files['type'][0];
+	        $_FILES['file']['tmp_name'] = $files['tmp_name'][0];
+	        $_FILES['file']['error'] = $files['error'][0];
+	        $_FILES['file']['size'] = $files['size'][0];
+	        $status = upload_file('file',$filename,'brands');
+	        if(array_key_exists("upload_errors",$status))
+	        {
+	        	$error = $status['upload_errors'];	        	
+	        }
+	        else
+	        {
+	        	$filename = $status['file_name'];	        	
+	        }
+		}
+		$brand_id = $this->input->post('brand_id');
+		$brand_data = array(
+    						'name' => $this->input->post('name'),
+    						'user_id' => $this->user_id,
+    						'created_by' => $this->user_id,
+    						'timezone' => $this->input->post('timezone'),
+    						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
+    					);
+		
+    	if(!isset($error) AND empty($brand_id))
+    	{
+    		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
 
-        $this->form_validation->set_rules('name', 'name', 'required',
-                                            array('required' => 'Brand name is required')
-                                        );
-         $this->form_validation->set_rules('timezone', 'timezone', 'required',
-                                            array('required' => 'Timezone is required')
-                                        );
-        if(isset($brand_id) AND !empty($brand_id))
-        {
-        	$this->form_validation->set_rules('is_hidden', '', 'required',
-                                            	array('required' => 'Please check one of radio')
-                                        	);
-        }
+    		if(isset($filename))
+    		{
+    			$old_path = upload_path().'brands/'.$filename;
+	    		$new_path = upload_path().'brands/'.$insert_id.'.png';
+	    		rename($old_path, $new_path);
+    		}    		
+    		echo json_encode(array('response'=>'success','brand_id' => $insert_id));
+    	}
+    	elseif(!isset($error) AND !empty($brand_id))
+    	{
+    		$condition = array('id' => $brand_id);
+    		$this->timeframe_model->update_data('brands',$brand_data,$condition);
+    		if(isset($filename))
+    		{
+    			if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
+        			unlink(upload_path().'brands/'.$brand_id.'.png');
 
-        if($this->form_validation->run() === true) 
-        {
-        	
-        	if(!empty($_FILES['logo']['name']))
-			{
-				$filename = $_FILES["logo"]["name"];
-				$upload_path = upload_path();
-				$config['upload_path'] = $upload_path.'brands/';
-				$config['allowed_types'] = 'gif|jpg|png|jpeg';
-				$config['max_size'] = '40000';
-				
-				$this->load->library('upload',$config);
-
-				$status =  upload_file('logo',$filename,'brands');
-
-				if(array_key_exists("upload_errors",$status))
-		        {
-		        	$error =  array('error' => $status['upload_errors']);
-		        }
-		        else
-		        {
-		        	$image = $status['file_name'];
-		        }
-			}
-			
-        	$brand_data = array(
-        						'name' => $this->input->post('name'),
-        						'user_id' => $user_id,
-        						'created_by' => $user_id,
-        						'timezone' => $this->input->post('timezone'),
-        						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
-        					);
-        	//save brand data        	
-        	if(!isset($error) AND empty($brand_id))
-        	{
-        		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
-        		$old_path = upload_path().'brands/'.$image;
-        		$new_path = upload_path().'brands/'.$insert_id.'.png';
-        		rename($old_path, $new_path);
-	        	redirect(base_url().'brands');
+        		$old_path = upload_path().'brands/'.$filename;
+    			$new_path = upload_path().'brands/'.$brand_id.'.png';
+    			rename($old_path, $new_path);
         	}
-        	elseif(!isset($error['error']) AND !empty($brand_id))
-        	{
-        		$condition = array('id' => $brand_id);
-        		$this->timeframe_model->update_data('brands',$brand_data,$condition);
-        		if(isset($image))
-        		{
-        			if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
-	        			unlink(upload_path().'brands/'.$brand_id.'.png');
+        	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
+    	}
+    	else
+    	{
+    		echo json_encode(array('response'=>'fail'));
+    	}
+    }
 
-	        		$old_path = upload_path().'brands/'.$image;
-        			$new_path = upload_path().'brands/'.$brand_id.'.png';
-        			rename($old_path, $new_path);
+    public function save_outlet()
+    {
+    	$post_data = $this->input->post();
+    	if(!empty($post_data))
+    	{
+    		$outlets_to_add = $post_data['outlets'];
+
+    		$condition = array('brand_id' => $post_data['brand_id']);
+        	$brand_outlets = $this->timeframe_model->get_data_array_by_condition('brand_outlets',$condition);
+        	if(!empty($brand_outlets))
+        	{
+	        	$outlet_ids = array_column($brand_outlets,'outlet_id');
+	        	$outlets_to_add = array_diff($post_data['outlets'],$outlet_ids);
+	        	$outlets_to_delete = array_diff($outlet_ids,$post_data['outlets']);
+	        	foreach ($outlets_to_delete as $outlet)
+	        	{
+	        		$data = array('brand_id' => $post_data['brand_id'],'outlet_id' => $outlet);
+	        		$this->timeframe_model->delete_data('brand_outlets',$data);
 	        	}
-        		redirect(base_url().'brands');
-        	}
-        	else
+	        }
+
+        	foreach ($outlets_to_add as $outlet)
         	{
-        		$this->data['error'] = 'Unable to upload image please try again';
-        	}
-        }       	
-		$this->load->model('user_model');
-		$this->data['timezones'] = $this->user_model->get_timezones();
-		$this->data['view'] = 'brands/add_brand';
-        _render_view($this->data);
-	}
+        		$data = array('brand_id' => $post_data['brand_id'],'outlet_id' => $outlet);
+        		$this->timeframe_model->insert_data('brand_outlets',$data);
+	        }
+	        echo json_encode(array('response'=>'success'));
+    	}
+    	else
+    	{
+    		echo json_encode(array('response'=>'fail'));
+    	}
+
+    }
+
+    public function save_user()
+    {
+
+    }
+	// public function save_brand()
+	// {
+	// 	$this->data = array();
+	// 	$user_id = $this->user_id;
+	// 	$brand_id = $this->input->post('id');
+
+ //        $this->form_validation->set_rules('name', 'name', 'required',
+ //                                            array('required' => 'Brand name is required')
+ //                                        );
+ //         $this->form_validation->set_rules('timezone', 'timezone', 'required',
+ //                                            array('required' => 'Timezone is required')
+ //                                        );
+ //        if(isset($brand_id) AND !empty($brand_id))
+ //        {
+ //        	$this->form_validation->set_rules('is_hidden', '', 'required',
+ //                                            	array('required' => 'Please check one of radio')
+ //                                        	);
+ //        }
+
+ //        if($this->form_validation->run() === true) 
+ //        {
+        	
+ //        	if(!empty($_FILES['logo']['name']))
+	// 		{
+	// 			$filename = $_FILES["logo"]["name"];
+	// 			$upload_path = upload_path();
+	// 			$config['upload_path'] = $upload_path.'brands/';
+	// 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+	// 			$config['max_size'] = '40000';
+				
+	// 			$this->load->library('upload',$config);
+
+	// 			$status =  upload_file('logo',$filename,'brands');
+
+	// 			if(array_key_exists("upload_errors",$status))
+	// 	        {
+	// 	        	$error =  array('error' => $status['upload_errors']);
+	// 	        }
+	// 	        else
+	// 	        {
+	// 	        	$image = $status['file_name'];
+	// 	        }
+	// 		}
+			
+ //        	$brand_data = array(
+ //        						'name' => $this->input->post('name'),
+ //        						'user_id' => $user_id,
+ //        						'created_by' => $user_id,
+ //        						'timezone' => $this->input->post('timezone'),
+ //        						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
+ //        					);
+ //        	//save brand data        	
+ //        	if(!isset($error) AND empty($brand_id))
+ //        	{
+ //        		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
+ //        		$old_path = upload_path().'brands/'.$image;
+ //        		$new_path = upload_path().'brands/'.$insert_id.'.png';
+ //        		rename($old_path, $new_path);
+	//         	redirect(base_url().'brands');
+ //        	}
+ //        	elseif(!isset($error['error']) AND !empty($brand_id))
+ //        	{
+ //        		$condition = array('id' => $brand_id);
+ //        		$this->timeframe_model->update_data('brands',$brand_data,$condition);
+ //        		if(isset($image))
+ //        		{
+ //        			if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
+	//         			unlink(upload_path().'brands/'.$brand_id.'.png');
+
+	//         		$old_path = upload_path().'brands/'.$image;
+ //        			$new_path = upload_path().'brands/'.$brand_id.'.png';
+ //        			rename($old_path, $new_path);
+	//         	}
+ //        		redirect(base_url().'brands');
+ //        	}
+ //        	else
+ //        	{
+ //        		$this->data['error'] = 'Unable to upload image please try again';
+ //        	}
+ //        }       	
+	// 	$this->load->model('user_model');
+	// 	$this->data['timezones'] = $this->user_model->get_timezones();
+	// 	$this->data['view'] = 'brands/add_brand';
+ //        _render_view($this->data);
+	// }
 
 	public function edit($brand_id)
 	{
