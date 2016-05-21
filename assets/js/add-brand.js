@@ -202,25 +202,27 @@ jQuery(function($) {
 			var $selectedItem = $('#selectBrandTags .selected');
 			var numberSelected =  $selectedItem.length;
 			if(numberSelected > 0) {
-				var $selectedList = $('#selectedTags ul');
-				var $clone = $selectedItem.clone();
+				setTimeout(function(){
+					var $selectedList = $('#selectedTags ul');
+					var $clone = $selectedItem.clone();
 
-				var $listItem = $clone.remove('input').removeClass('selected');
-				$listItem.children('.color').attr('name','selected_tags[]');
-						
-				var tagTitle = $selectedItem.data('value');
-				var editTag = '<a href="#" class="pull-sm-right edit-tag btn-icon btn-gray" data-edit-tag="' + tagTitle + '"><i class="fa fa-pencil"></i></a>';
-				//reset custom tags so that another can be added
-				if(customTag === true) {
-					var $custom = $('#selectBrandTags .custom-tag');					
-					var $newCustom = $custom.clone();
-					$newCustom.insertAfter($custom).removeClass('selected').hide();
-					$custom.removeClass('custom-tag');
-					customTag = false;
-				}
-				$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
-				$selectedItem.addClass('saved').removeClass('selected');
-				$selectedList.append($listItem);
+					var $listItem = $clone.remove('input').removeClass('selected');
+					$listItem.children('.color').attr('name','selected_tags[]');
+
+					var tagTitle = $selectedItem.data('value');
+					var editTag = '<a href="#" class="pull-sm-right edit-tag btn-icon btn-gray" data-edit-tag="' + tagTitle + '"><i class="fa fa-pencil"></i></a>';
+					//reset custom tags so that another can be added
+					if(customTag === true) {
+						var $custom = $('#selectBrandTags .custom-tag');					
+						var $newCustom = $custom.clone();
+						$newCustom.insertAfter($custom).removeClass('selected').hide();
+						$custom.removeClass('custom-tag');
+						customTag = false;
+					}
+					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
+					$selectedItem.addClass('saved').removeClass('selected');
+					$selectedList.append($listItem);
+				}, 100);
 				$('.submit_tag').prop('disabled',false);
 			}
 			else {
