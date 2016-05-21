@@ -45,6 +45,7 @@ class Brands extends CI_Controller {
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+		$this->data['tags'] = $this->brand_model->get_tags();
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
@@ -153,9 +154,58 @@ class Brands extends CI_Controller {
 
     }
 
-    public function save_user()
+    public function save_tags()
     {
+		$post_data = $this->input->post();
+    	if(!empty($post_data))
+    	{
+    		$tags = $post_data['tags'];
+    		$labels = $post_data['labels'];
 
+    		$condition = array('brand_id' => $post_data['brand_id']);
+        	$this->timeframe_model->delete_data('brand_tags',$condition);
+
+        	foreach ($tags as $key=>$tag)
+        	{
+        		$data = array(
+	        				'name' => $post_data['labels'][$key],
+	        				'color' => $tag,
+	        				'brand_id' => $post_data['brand_id']
+	        			);        		
+        		$this->timeframe_model->insert_data('brand_tags',$data);
+	        }
+	        echo json_encode(array('response'=>'success','brand_id' => $post_data['brand_id']));
+    	}
+    	else
+    	{
+    		echo json_encode(array('response'=>'fail'));
+    	}
+
+    }
+
+    function success()
+    {
+    	$this->data = array();
+    	$brand_id = $this->uri->segment(3);
+		$condition = array('brand_id' => $brand_id);
+		$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
+		$this->load->model('post_model');
+		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+		// echo "<pre>";
+		// print_r($this->data['outlets']);
+		// die;
+		$condition = array('id' => $brand_id);
+		$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',$condition);
+		// echo "<pre>";
+		// print_r($this->data);
+		// die;
+		$this->data['background_image'] = 'bg-admin-overview.jpg';
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
+
+        $this->data['layout'] = 'layouts/new_user_layout';
+
+		$this->data['view'] = 'brands/brand_save_success';
+        _render_view($this->data);
     }
 	// public function save_brand()
 	// {

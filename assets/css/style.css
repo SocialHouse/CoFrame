@@ -9965,3 +9965,11 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .twitter-default-img {
   height:35px;width:35px;border-radius: 5px;
 }
+
+.backdrop-height {
+  height: 723px;
+}
+
+.brand-success-btn {
+  position:relative !important;
+}

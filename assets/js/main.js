@@ -808,6 +808,42 @@ jQuery(function($) {
     		}
     	});
     });
+
+    //save tags
+     $(document).on('click','.submit_tag',function(){     
+    	var control = this;
+    	var brand_id = $('#brand_id').val();
+    	var selected_labels = $('.labels');
+
+    	var tags = [];
+    	$('input[name="selected_tags[]"]:checked').each(function(i) {
+		   console.log(this.value);
+		   tags[i] = this.value;
+		});
+
+    	var labels = []
+    	$.each(selected_labels,function(i,value){    		
+    		labels[i] = $(value).val();
+    	});
+    	
+
+    	$.ajax({
+    		url: base_url+'brands/save_tags',
+    		data: {'brand_id': brand_id,'tags': tags,'labels':labels},
+    		type:'POST',
+    		dataType: 'json',
+    		success: function( data ){
+    			
+    			if(data.response == 'success')
+    			{    				
+    				window.location.href = base_url+'brands/success/'+data.brand_id;
+    			}
+    		}
+    	});
+    });
+
+
+    
 });
 
 

@@ -147,8 +147,9 @@ jQuery(function($) {
 			$checkbox.prop('checked', checked);
 		});
 
-		var customTag = false
-		$('#chooseTagColor').colorpicker({format: 'hex'}).on('changeColor', function(e) {
+		var customTag = false;
+
+		$('#chooseTagColor').colorpicker({format: 'hex'}).on('changeColor', function(e) {			
 			var customColor = e.color.toHex();
 			var $custom = $('#selectBrandTags .custom-tag');
 			var $icon = $custom.find('.fa');
@@ -160,21 +161,40 @@ jQuery(function($) {
 		$('#tagLabel').on('change', function() {
 			var $tag = $('#selectBrandTags .selected');
 			var label = $(this).val();
-			if(label !== 'other') {
-				$('#otherTagLabel').hide();
-				$tag.attr('data-value', label);
+			if(label)
+			{
+				if(label !== 'other') {
+					$('#otherTagLabel').hide();
+					$tag.attr('data-value', label);
+					$('#addTag').prop('disabled',false);
+				}
+				else {
+					$('#otherTagLabel').show(function(){
+						$(this).find('input').focus();
+					});			
+					$('#addTag').prop('disabled',true);
+						
+				}
 			}
-			else {
-				$('#otherTagLabel').show(function(){
-					$(this).find('input').focus();
-				});
+			else
+			{
+				$('#addTag').prop('disabled',true);
 			}
 		});
 
-		$('#otherTagLabel input').on('keyup blur', function() {
+		$('#otherTagLabel input').on('keyup blur', function() {			
 			var $tag = $('#selectBrandTags .selected');
 			var label = $(this).val();
 			$tag.attr('data-value', label);
+			
+			if($(this).val().length > 0)
+			{
+				$('#addTag').prop('disabled',false);
+			}
+			else
+			{
+				$('#addTag').prop('disabled',true);	
+			}
 		});
 
 		//add tag to list
@@ -184,21 +204,24 @@ jQuery(function($) {
 			if(numberSelected > 0) {
 				var $selectedList = $('#selectedTags ul');
 				var $clone = $selectedItem.clone();
+
 				var $listItem = $clone.remove('input').removeClass('selected');
+				$listItem.children('.color').attr('name','selected_tags[]');
+						
 				var tagTitle = $selectedItem.data('value');
 				var editTag = '<a href="#" class="pull-sm-right edit-tag btn-icon btn-gray" data-edit-tag="' + tagTitle + '"><i class="fa fa-pencil"></i></a>';
 				//reset custom tags so that another can be added
 				if(customTag === true) {
-					var $custom = $('#selectBrandTags .custom-tag');
+					var $custom = $('#selectBrandTags .custom-tag');					
 					var $newCustom = $custom.clone();
 					$newCustom.insertAfter($custom).removeClass('selected').hide();
 					$custom.removeClass('custom-tag');
 					customTag = false;
 				}
-				$listItem.append(tagTitle + editTag).attr('data-tag', tagTitle);
+				$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
 				$selectedItem.addClass('saved').removeClass('selected');
 				$selectedList.append($listItem);
-
+				$('.submit_tag').prop('disabled',false);
 			}
 			else {
 				return;

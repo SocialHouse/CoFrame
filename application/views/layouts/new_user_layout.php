@@ -75,6 +75,10 @@ if(isset($css_files))
 		{
 			fileDragNDrop();
 		}
+
+		jQuery(function($) {
+			successTip();
+		});
     </script>
 </body>
 </html>

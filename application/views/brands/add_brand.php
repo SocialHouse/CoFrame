@@ -32,13 +32,8 @@
 								<?php
 							    foreach($timezones as $timezone)
 							    {
-							    	$selected = "";
-							    	if($brand->timezone == $timezone->value)
-							    	{
-							    		$selected = 'selected="selected"';
-							    	}
 							    	?>
-							    	<option value="<?php echo $timezone->value ?>" <?php echo set_select('timezone', $timezone->value)?set_select('timezone', $timezone->value):(!empty($selected)?$selected:''); ?>><?php echo $timezone->timezone; ?></option>
+							    	<option value="<?php echo $timezone->value ?>" ><?php echo $timezone->timezone; ?></option>
 							    	<?php
 							    }
 							    ?>
@@ -123,10 +118,75 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-6 brand-step inactive" id="brandStep4">
-				<?php  ?>
+				<div class="container-brand-step">
+					<h3 class="text-xs-center">Step 4</h3>
+					<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
+					<div class="add-brand-details brand-fields border-bottom border-black">
+						<div id="selectedTags" class="tag-list selected-items hidden">
+							<ul>
+							</ul>
+						</div>
+						<a href="#brandOutlets" id="addTagLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns"><i class="tf-icon circle-border">+</i>Add Tag</a>
+						<div id="selectBrandTags" class="hidden">
+							<h5 class="text-xs-center border-bottom border-black ">Add a Tag</h5>
+							<h5 class="border-title"><span>Select Tag Color</span></h5>
+							<div class="tag-list">
+								<ul>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="red"><i class="fa fa-circle tag-red"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="pink"><i class="fa fa-circle tag-pink"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="orange"><i class="fa fa-circle tag-orange"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="yellow"><i class="fa fa-circle tag-yellow"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="green"><i class="fa fa-circle tag-green"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="green-dark"><i class="fa fa-circle tag-green-dark"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="blue"><i class="fa fa-circle tag-blue"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="blue-dark"><i class="fa fa-circle tag-blue-dark"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="purple-dark"><i class="fa fa-circle tag-purple-dark"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag[]" checked="checked" value="purple"><i class="fa fa-circle tag-purple"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="brown"><i class="fa fa-circle tag-brown"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="tan"><i class="fa fa-circle tag-tan"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="gray"><i class="fa fa-circle tag-gray"></i></li>
+									<li class="tag hidden custom-tag[]" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" checked="checked" name="brand-tag" value="custom"><i class="fa fa-circle tag-custom"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><a href="#" id="chooseTagColor"><i class="tf-icon circle-border">+</i></a></li>
+								</ul>
+							</div>
+							<div class="form-group">
+								<select class="form-control" name="tagLabel" id="tagLabel">								
+									<option value="">Select Label</option>
+									<option value="Marketing">Marketing</option>
+									<option value="E-Commerce">E-Commerce</option>
+									<option value="Sales">Sales</option>
+									<option value="Promotion">Promotion</option>
+									<?php
+								    foreach($tags as $tag)
+								    {
+								    	?>
+								    	<option value="<?php echo $tag->name ?>" ><?php echo $tag->name; ?></option>
+								    	<?php
+								    }
+								    ?>
+									<option value="other">+ Add Label</option>
+								</select>
+							</div>
+							<div class="form-group hidden" id="otherTagLabel">
+								<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
+							</div>
+						</div>
+					</div>
+					<footer class="post-content-footer">
+						<div id="outletStep4Btns">
+							<div class="disclaimer"><button class="btn btn-sm btn-default" type="submit">Skip this Step</button></div>
+							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="3">Back</button>
+							<button type="button" class="btn btn-sm btn-disabled pull-sm-right submit_tag" disabled>Done</button>
+						</div>
+						<div id="addTagBtns" class="hidden">
+							<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
+							<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag" disabled="disabled">Add</button>
+						</div>
+					</footer>
+				</div>
 			</div>
 		</div>
-		<div class="modal-backdrop fade in modal-contain"></div>
+		<div class="modal-backdrop fade in modal-contain backdrop-height"></div>
 		<div class="hidden" id="addBrandSuccess"><a href="dashboard.php" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 	</div>
 	</form>
