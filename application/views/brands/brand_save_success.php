@@ -40,7 +40,7 @@
 								foreach($outlets as $outlet)
 								{
 									?>
-									<li data-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-youtube-play"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i><?php echo strtolower($outlet->outlet_name); ?></li>
+									<li data-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i><?php echo strtolower($outlet->outlet_name); ?></li>
 									<?php
 								}
 								?>								
