@@ -31,7 +31,7 @@ if(!function_exists('_render_view'))
     {
         if(!isset($data['layout']))
         {
-            $data['layout'] = 'layouts/user_layout';
+            $data['layout'] = 'layouts/new_user_layout';
         }
 
         if(!isset($data['background_image']))
@@ -196,5 +196,23 @@ if(!function_exists('get_brand_reminders'))
 
     }
 }
+
+if(!function_exists('get_time_zone'))
+{
+    function get_time_zone($timezone)
+    {
+        $CI = & get_instance();
+        $condition = array('value' => $timezone);
+        $timezone = $CI->timeframe_model->get_data_by_condition('timezone',$condition);
+        if($timezone)
+        {
+            return $timezone[0]->timezone;
+        }
+        return FALSE;
+
+    }
+}
+
+
 
 
