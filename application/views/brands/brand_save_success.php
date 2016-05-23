@@ -82,94 +82,87 @@
 								</div>
 							</div>
 						</div>
-						<div class="table">
-							<div class="table-cell">
-								<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div>
-								<div class="pull-sm-left post-approver-name"><strong>Norel Mancuso</strong>Master Admin</div>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-						</div>
-						<div class="table">
-							<div class="table-cell">
-								<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/david.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-								<div class="pull-sm-left post-approver-name"><strong>David Weinberg</strong>Manager</div>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-						</div>
-						<div class="table">
-							<div class="table-cell">
-								<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/kristin.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-								<div class="pull-sm-left post-approver-name"><strong>Kristin Patrick</strong>Approver</div>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-						</div>
-						<div class="table border-bottom border-black">
-							<div class="table-cell">
-								<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/johan.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-								<div class="pull-sm-left post-approver-name"><strong>Johan Loekito</strong>Creator</div>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-								<i class="fa fa-check"></i>
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-							<div class="table-cell text-xs-center vertical-middle has-permission">
-							</div>
-						</div>
+						<?php
+						if(!empty($brands_user))
+						{
+							foreach($brands_user as $user)
+							{
+								$image_path = img_url().'default_profile.png';
+								if(file_exists(upload_path().'posts/'.$user->aauth_user_id.'.png'))
+								{
+									$image_path = upload_url().'posts/'.$user->aauth_user_id.'.png';
+								}
+								?>
+								<div class="table">
+									<div class="table-cell">
+										<div class="pull-sm-left"><img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>" class="circle-img"/></div>
+										<div class="pull-sm-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'create'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>											
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'edit'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'approve'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'view'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'settings'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div>
+									<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'billing'))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div>
+								</div>
+								<?php
+							}
+						}
+						?>
 					</div>					
 					<footer class="post-content-footer">						
 					</footer>

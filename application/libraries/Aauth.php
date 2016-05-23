@@ -2314,6 +2314,35 @@ class Aauth {
 		return $ga->getQRCodeGoogleUrl($this->config_vars['name'], $secret);
 	}
 
+	//get matching permission by given string
+	function get_matching_perms($keyword)
+	{
+		$this->aauth_db->select('id');
+		$this->aauth_db->like('name',$keyword);
+		$query = $this->aauth_db->get($this->config_vars['perms']);
+
+		// if not inserted before
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+		return TRUE;
+	}
+
+	//get matching permission by given string
+	function check_user_perm($user_id,$perm)
+	{
+		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");
+		$this->aauth_db->like('name',$perm);
+		$this->aauth_db->where('user_id', $user_id);
+		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
+		
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 } // end class
 
 // $this->CI->session->userdata('id')

@@ -46,6 +46,8 @@ class Brands extends CI_Controller {
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
 		$this->data['tags'] = $this->brand_model->get_tags();
+		$this->data['groups'] = $this->aauth->list_groups();
+
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
@@ -183,6 +185,160 @@ class Brands extends CI_Controller {
 
     }
 
+    public function add_user()
+    {
+    	$post_data = $this->input->post();
+
+    	if(!empty($post_data))
+    	{
+    		$password = uniqid();
+        	$user_data = array(
+        					'first_name' => $this->input->post('first_name'),
+        					'last_name' => $this->input->post('last_name'),	        					
+        					'title' => $this->input->post('title'),	        					
+        					'company_name' => $this->user_data['company_name'],
+        					'company_email' => $this->user_data['company_email'],
+        					'company_url' =>  $this->user_data['company_url'],
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'password' => $password,
+                            'username' => $this->input->post('first_name')
+        				);
+        	
+        	$this->load->helper('email');
+
+        	$this->data['user'] = $user_data;
+
+            $content = $this->load->view('mails/login_details',$this->data,true);
+            
+            $subject = 'Timeframe - login details';
+
+            try
+            {
+                // $mail_send = email_send($post_data['email'], $subject,$content);
+                // if($mail_send)
+                // {
+                	$inserted_id = $this->aauth->create_user($post_data['email'],$password,$post_data['first_name']);
+                	$group_id = $this->aauth->get_group_id($post_data['role']);
+                	$this->aauth->add_member($inserted_id,$group_id);
+
+                	//add permission to user
+                	if(!empty($post_data['permissions']))
+                	{
+                		foreach($post_data['permissions'] as $permission)
+                		{
+                			$matching_perms = $this->aauth->get_matching_perms($permission);
+                			foreach($matching_perms as $perm)
+                			{
+                				$this->aauth->allow_user($inserted_id,$perm->id);
+                			}
+                		}
+                	}
+
+                	$error_message = '';
+                	if(!empty($_FILES['profile_pic']['name']))
+					{							
+						$image_name = $inserted_id.'.png';
+						$status = upload_file('profile_pic',$image_name,'users');
+						if(array_key_exists("upload_errors",$status))
+				        {
+				        	$error =  $status['upload_errors'];
+				        	$error_message = " but unable upload image";
+				        	break;
+				        }
+                	}
+
+                	unset($user_data['password']);
+                	unset($user_data['username']);
+                	$user_data['aauth_user_id'] = $inserted_id;
+                	
+                	$this->timeframe_model->insert_data('user_info',$user_data);
+                    $brand_user_map = array(
+                    							'brand_id' => $post_data['brand_id'],
+                    							'access_user_id' => $inserted_id
+                    						);
+                    
+                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+
+                    $outlets = $this->input->post('outlets');
+                    if(!empty($outlets))
+                    {
+                    	$outlets = explode(',',$outlets);
+                    	foreach($outlets as $outlet)
+                    	{
+                    		 $user_outlets = array(
+	                    							'outlet_id' => $outlet,
+	                    							'user_id' => $inserted_id
+	                    						);
+	                    	$this->timeframe_model->insert_data('user_outlets',$user_outlets);
+                    	}
+                    }
+
+                    $image_path = img_url().'default_profile.jpg';
+					if(file_exists(upload_path().'posts/'.$inserted_id.'.png'))
+					{
+						$image_path = upload_url().'posts/'.$inserted_id.'.png';
+					}
+
+                    $response = '<div class="table">';
+					$response .= '<div class="table-cell">';
+					$response .= '<div class="pull-sm-left"><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
+					$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
+					$response .= '</div>';
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('create',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div>';
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('edit',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div>';
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('approve',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div>';
+
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('view',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div>';
+
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('settings',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div>';
+
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('billing',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
+					$response .= '</div></div>';
+					
+                    echo json_encode(array('response' => 'success','html' => $response));
+                    
+                // }
+                // else
+                // {
+                // 	echo json_encode(array('response' => 'fail'));
+                // }
+            }
+            catch(Exception $ex)
+            {
+                echo json_encode(array('response' => 'fail'));
+            }
+    	}
+    }
+
     function success()
     {
     	$this->data = array();
@@ -191,13 +347,13 @@ class Brands extends CI_Controller {
 		$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
 		$this->load->model('post_model');
 		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
-		// echo "<pre>";
-		// print_r($this->data['outlets']);
-		// die;
+		
 		$condition = array('id' => $brand_id);
 		$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',$condition);
+
+		$this->data['brands_user'] = $this->brand_model->get_brand_users($brand_id);
 		// echo "<pre>";
-		// print_r($this->data);
+		// print_r($this->data['brands_user']);
 		// die;
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
@@ -206,6 +362,11 @@ class Brands extends CI_Controller {
 
 		$this->data['view'] = 'brands/brand_save_success';
         _render_view($this->data);
+    }
+
+    function upload_profile_pic()
+    {
+
     }
 	// public function save_brand()
 	// {

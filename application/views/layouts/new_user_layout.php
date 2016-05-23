@@ -77,7 +77,10 @@ if(isset($css_files))
 		}
 
 		jQuery(function($) {
-			successTip();
+			if(typeof(successTip) == 'function')
+			{
+				successTip();
+			}
 		});
     </script>
 </body>

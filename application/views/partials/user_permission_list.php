@@ -22,12 +22,9 @@
 		</div>
 	</div>
 	<div class="table">
-		<!-- <div class="table-cell">
+		<div class="table-cell">
 			<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div>
 			<div class="pull-sm-left post-approver-name"><strong>Norel Mancuso</strong>Master Admin</div>
-		</div> -->
-		<!-- <div class="table-cell text-xs-center vertical-middle has-permission">
-			<i class="fa fa-check"></i>
 		</div>
 		<div class="table-cell text-xs-center vertical-middle has-permission">
 			<i class="fa fa-check"></i>
@@ -43,6 +40,9 @@
 		</div>
 		<div class="table-cell text-xs-center vertical-middle has-permission">
 			<i class="fa fa-check"></i>
-		</div> -->
+		</div>
+		<div class="table-cell text-xs-center vertical-middle has-permission">
+			<i class="fa fa-check"></i>
+		</div>
 	</div>
 </div>

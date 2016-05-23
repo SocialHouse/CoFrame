@@ -44,7 +44,7 @@
 						<button type="reset" class="btn btn-sm btn-default">Cancel</button>
 						<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand">Next</button>
 
-						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="2"></button>
+						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step " data-active-class="btn-secondary" data-next-step="2"></button>
 					</footer>
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
 							<button type="button" id="save_outlet" class="btn btn-sm btn-disabled pull-sm-right">Next</button>
 
-							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="3"></button>
+							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step " data-active-class="btn-secondary" data-next-step="3"></button>
 						</div>
 						<div class="hidden" id="addOutletBtns">
 							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStep2Btns, #addOutletLink, #selectedOutlets">Cancel</button>
@@ -111,8 +111,8 @@
 						</div>
 						<div class="hidden" id="userRoleBtns">
 							<p class="disclaimer">Upon clicking ‘Add,’ a registration link will be sent to this user.</p>
-							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addUserRole, #userRoleBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
-							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" disabled id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
+							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide go-to-userlist" data-hide="#addUserRole, #userRoleBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
+							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide addUserToBrand" disabled id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
 						</div>
 					</footer>
 				</div>

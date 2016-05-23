@@ -37,8 +37,7 @@
 			$form.append( '<input type="hidden" name="ajax" value="1" />' );
 
 			// automatically submit the form on file select
-			$(document).on( 'change','input[type="file"]', function( e ){		
-				console.log(this);
+			$(document).on( 'change','input[type="file"]', function( e ){						
 				showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
 					var $fileDiv = $(this).parents('.form__input');
@@ -53,6 +52,12 @@
 						img.className = 'form__file-preview';
 						img.src = window.URL.createObjectURL(file);
 						$fileDiv.prepend(img).addClass('has-files');
+
+						//to sho user uploded img on add role page
+						if($('.user-img-preview').length)
+						{
+							$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
+						}
 						//for show preview
 						changePreview(file);
 					});
