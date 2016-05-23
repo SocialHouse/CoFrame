@@ -179,7 +179,7 @@ jQuery(function($) {
 				var $clone = $selectedItem.clone();
 				var $listItem = $clone.remove('input').removeClass('selected');
 				var tagTitle = $selectedItem.data('value');
-				var editTag = '<a href="#" class="pull-sm-right edit-tag btn-icon btn-gray" data-edit-tag="' + tagTitle + '"><i class="fa fa-pencil"></i></a>';
+				var editTag = '<a href="#" class="pull-sm-right remove-tag" data-remove-tag="' + tagTitle + '"><i class="tf-icon circle-border">x</i></a>';
 				//reset custom tags so that another can be added
 				if(customTag === true) {
 					var $custom = $('#selectBrandTags .custom-tag');
@@ -196,6 +196,16 @@ jQuery(function($) {
 			else {
 				return;
 			}
+		});
+		//remove brand outlet from list
+		$('body').on('click', '.remove-tag', function() {
+			var removeTag = $(this).data('remove-tag');
+			$('#selectedTags li[data-value="' + removeTag + '"]').slideUp(function() {
+				$(this).remove();
+				hideNoLength($('#selectedTags'));
+			});
+			$('#selectBrandTags li[data-value="' + removeTag + '"]').removeClass('saved').addClass('disabled');
+			$('#selectBrandTags li[data-value="' + removeTag + '"]').find('input').prop('checked', false);
 		});
 
 		$('#selectedTags').on('contentSlidDown', function() {
