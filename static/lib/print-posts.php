@@ -38,7 +38,7 @@
 		</div>
 	</div>
 </div>
-<footer class="form-footer">
+<footer class="overlay-footer">
 	<div id="exportPrintBtns">
 		<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
 		<div class="pull-sm-right">

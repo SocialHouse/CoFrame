@@ -27,7 +27,22 @@
 			</div>
 		</div>
 	</div>
-	<footer class="post-approval-btns">
-		<a href="#" class="btn btn-secondary btn-xs">Approve</a>
+	<footer class="post-approval-btns post-actions clearfix">
+		<!-- Approver Buttons-->
+		<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
+		<a href="#undoApproval" data-toggle="modal" data-target="#undoApproval">Undo</a>
+		<!-- Creator Buttons-->
+		<div class="btn-group btn-thirds" role="group">
+		  <button type="button" class="btn btn-xs btn-default">Edit</button>
+		  <button type="button" class="btn btn-xs btn-default">Schedule</button>
+		  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
+		</div>
+		<!-- Master Admin Buttons-->
+		<a href="#" class="btn btn-secondary btn-xs pull-sm-left">Approve</a>
+		<div class="btn-group pull-sm-right" role="group">
+		  <button type="button" class="btn btn-xs btn-default">Edit</button>
+		  <button type="button" class="btn btn-xs btn-default">Schedule</button>
+		  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
+		</div>
 	</footer>
 </div>

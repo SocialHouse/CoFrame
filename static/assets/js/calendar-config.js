@@ -137,7 +137,7 @@ jQuery(function($) {
 				//show confirmation modal
 				var newModal = $('#emptyModal').clone();
 				newModal.attr('id', '');
-				newModal.addClass('alert-modal');
+				newModal.addClass('alert-modal modal-reschedule-post');
 				newModal.find('.modal-dialog').addClass('modal-sm');
 				var confirmationButtons = '<footer class="post-content-footer"><a href="#" class="btn btn-sm btn-default" id="cancelEventChange">Cancel</a><a href="#" class="btn btn-sm  btn-default pull-sm-right" id="confirmEventChange">Confirm</a></footer>';
 				newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Event?</h2><p class="text-xs-center">You are about to reschedule the post of "' + event.title + '" to ' + event.start.format('MMMM D, YYYY h:mm a') + '</p>' + confirmationButtons);
@@ -262,7 +262,7 @@ jQuery(function($) {
 				//show confirmation modal
 				var newModal = $('#emptyModal').clone();
 				newModal.attr('id', '');
-				newModal.addClass('alert-modal');
+				newModal.addClass('alert-modal modal-reschedule-post');
 				newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
 				$.get('lib/calendar-edit-date.php',function(data) {
 					newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
@@ -290,7 +290,7 @@ jQuery(function($) {
 						newModal.remove();
 					});
 				});
-				$('body').on('click', '.form-footer button[type="submit"]', function(e) {
+				$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
 					e.preventDefault();
 					var postMonth = newModal.find('select[name="postMonth"]').val();
 					var postDay = newModal.find('select[name="postDay"]').val();

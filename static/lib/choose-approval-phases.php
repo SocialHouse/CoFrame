@@ -7,7 +7,7 @@
 			<option value="">3</option>
 		</select>
 	</div>
-	<footer class="form-footer">
+	<footer class="overlay-footer">
 		<button class="btn btn-xs btn-default">Cancel</button>
 		<button type="button" class="btn btn-xs btn-secondary pull-sm-right" onClick="showContent(jQuery('#phaseDetails')); hideContent(jQuery(this).closest('.overlay-box'));">Next</button>
 	</footer>

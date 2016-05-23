@@ -238,6 +238,10 @@ h5 {
 	&.btn-secondary {
 		background: $gray-lighter;
 		color: #fff;
+		.post-actions & {
+			background: #e5e5e5;
+			color: $gray;
+		}
 	}
 }
 .btn-login {
@@ -1343,7 +1347,7 @@ a {
 	}
 	&.user-list {
 		font-size: 1rem;
-		margin-bottom: remCalc(20px);
+		margin-bottom: 1rem;
 		li {
 			line-height: 1rem;
 			padding: 4px 0;
@@ -1872,6 +1876,9 @@ a {
 			display: none;
 		}
 	}
+	.form-group {
+		margin-bottom: 1rem;
+	}
 	.qtip-calendar-post & {
 		padding: 10px;
 		margin-bottom: 10px;
@@ -1941,8 +1948,13 @@ a {
 }
 .post-approval-btns {
 	margin-top: 1.5rem;
-	.btn {
+	.btn, .btn-group {
 		display: block;
+	}
+	.btn-thirds {
+		.btn {
+			width: 33%;
+		}
 	}
 }
 
@@ -2095,7 +2107,7 @@ a {
 		bottom: inherit;
 	}
 }
-.form-footer {
+.overlay-footer {
 	border-top: 1px solid #000;
 	padding-top: 1rem;
 	margin-top: 2rem;
@@ -2399,18 +2411,22 @@ a {
 			margin-bottom: .25rem;
 		}
 	}
-	.post-actions {
-		text-align: center;
-		a {
-			font-size: 10px;
-			text-decoration: underline;
-		}
+	.btn-menu {
+		margin-left: 1rem;
+	}
+}
+.post-actions {
+	text-align: center;
+	a {
+		font-size: 10px;
+		text-decoration: underline;
+	}
+	.btn {
+		text-decoration: none;
+		font-size: 11px;
 	}
 	.btn-secondary {
 		border: 0;
-	}
-	.btn-menu {
-		margin-left: 1rem;
 	}
 }
 .post-tags {

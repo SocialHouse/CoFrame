@@ -35,7 +35,7 @@
 										<p>Meet the inspiration behind J BRAND Spring on Tumblr: http://jbrn.dj/Tumblr</p>
 									</div>
 									<span class="post-actions pull-xs-left">
-									<button class="btn btn-approved btn-sm" disabled>Approved</button><br>
+									<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
 									<a href="#">Undo</a>
 									</span>
 									<div class="hide-top-bx-shadow">

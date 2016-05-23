@@ -58,7 +58,7 @@
 		</div>
 	</div>
 </div>
-<footer class="form-footer">
+<footer class="overlay-footer">
 	<button type="button" class="btn btn-sm btn-secondary reset-filter" data-filter="*">Reset Filters</button>
 	<div class="pull-sm-right">
 		<button type="button" class="btn btn-sm btn-default qtip-hide">Close</button>

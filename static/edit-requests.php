@@ -60,6 +60,67 @@
 		</div>
 	  </div>
 	</div>
+	<!-- Undo Approval Modal -->
+	<div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Undo Approval</h2>
+					<p class="text-xs-center">Are you sure you want to undo your approval?
+					You will have to approve this again.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Undo</button>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Submit For Approval Modal -->
+	<div class="modal alert-modal fade" id="submitApproval2" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Submit to Phase 2</h2>
+					<p class="text-xs-center">You are about to submit this post to Phase 2 approvers.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Submit</button>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Submit For Approval #3 Modal -->
+	<div class="modal alert-modal fade" id="submitApproval3" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Submit to Phase 3</h2>
+					<p class="text-xs-center">You are about to submit this post to Phase 3 approvers.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Submit</button>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Post Now Modal -->
+	<div class="modal alert-modal fade" id="postNow" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Post Now</h2>
+					<p class="text-xs-center">You are about to post to an outlet. You can’t undo this action.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Post Now</button>
+				</footer>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>

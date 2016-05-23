@@ -34,7 +34,7 @@
 		<option value="am"<?php if(date('a') == 'am') { echo ' selected'; }?>>AM</option>
 		<option value="pm"<?php if(date('a') == 'pm') { echo ' selected'; }?>>PM</option>
 	</select>
-	<footer class="form-footer">
+	<footer class="overlay-footer">
 		<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
 		<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Save</button>
 	</footer>

@@ -15,7 +15,7 @@
 	</div>
 	
 	<div class="bg-white approval-phase animated fadeIn" id="approvalPhase2">
-		<h2 class="clearfix">Phase 2 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-secondary color-success  pull-sm-right">Submit for Approval</button></h2>
+		<h2 class="clearfix">Phase 2 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-secondary color-success pull-sm-right"  data-toggle="modal" data-target="#submitApproval2">Submit for Approval</button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 			<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 			<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
@@ -29,7 +29,7 @@
 	</div>
 	
 	<div class="bg-white approval-phase animated fadeIn" id="approvalPhase3">
-		<h2 class="clearfix">Phase 3 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-secondary color-success  pull-sm-right">Submit for Approval</button></h2>
+		<h2 class="clearfix">Phase 3 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-secondary color-success pull-sm-right"data-toggle="modal" data-target="#submitApproval3">Submit for Approval</button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 			<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 			<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
@@ -70,7 +70,8 @@
 			<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 		</div>
 		<div class="form-group">
-			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
+			<button type="button" class="btn btn-sm btn-default" data-new-phase="2">Cancel</button>
+			<button type="button" class="btn btn-sm btn-secondary pull-sm-right" data-new-phase="2">Save Changes</button>
 		</div>
 	</div>
 </div>

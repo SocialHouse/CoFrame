@@ -67,7 +67,7 @@ jQuery(function($) {
 				var userImg = $btn.closest('li').find('img');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
-				var $activePhase = $('#phaseDetails .approval-phase.active');
+				var $activePhase = $('.approval-phase.editing');
 				var activePhaseId = $activePhase.attr('id');
 				if($btn.hasClass('selected')) {
 					$activePhase.find('.user-list li').prepend(imgDiv);
@@ -410,6 +410,9 @@ jQuery(function($) {
 			if($target.hasClass('qtip-hide')) {
 				$('.qtip').qtip('hide');
 			}
+			if($target.hasClass('modal-hide')) {
+				$('.modal').modal('hide');
+			}
 		});
 
 		/*Tag Functions*/
@@ -471,7 +474,7 @@ jQuery(function($) {
 		});
 	});
 
-	$('#commentReply').on('contentSlidDown', function(event, element) {
+	$('.commentReply').on('contentSlidDown', function(event, element) {
 		if($(this).is(':visible')) {
 			element.addClass('active');
 			$(this).closest('.comment').addClass('has-reply');
