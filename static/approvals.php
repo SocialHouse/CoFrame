@@ -70,22 +70,12 @@
 									<th>Approvals</th>
 									<th>Schedule / View Edit Requests</th>
 								</tr>
-								<tr>
+								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1223, 'click', 'approvals-post');">
 									<td>Tue 5/12</td>
 									<td>12:55 PM</td>
 									<td class="text-xs-center">
-										<div tabindex="0" class="post-tags" data-toggle="popover-inline" data-popover-id="tags-postid-1223" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+										<div class="post-tags">
 											<i class="fa fa-circle tag-green"></i><i class="fa fa-circle tag-orange"></i><i class="fa fa-circle tag-red"></i>
-						<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-											<div id="tags-postid-1223" class="hidden">
-												<div class="tag-list">
-													<ul>
-														<li class="tag"><i class="fa fa-circle tag-red"></i>Brand Building / Product Education</li>
-														<li class="tag"><i class="fa fa-circle tag-orange"></i>Orange Tag</li>
-														<li class="tag"><i class="fa fa-circle tag-green"></i>Marketing</li>
-													</ul>
-												</div>
-											</div>								
 										</div>									
 									</td>
 									<td class="text-xs-center outlet-list">
@@ -114,21 +104,12 @@
 									</td>
 									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
 								</tr>
-								<tr>
+								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1224, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
 									<td>12:55 PM</td>
 									<td class="text-xs-center">
-										<div tabindex="0" class="post-tags" data-toggle="popover-inline" data-popover-id="tags-postid-1225" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+										<div class="post-tags">
 											<i class="fa fa-circle tag-red"></i><i class="fa fa-circle tag-orange"></i>
-						<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-											<div id="tags-postid-1225" class="hidden">
-												<div class="tag-list">
-													<ul>
-														<li class="tag"><i class="fa fa-circle tag-red"></i>Brand Building / Product Education</li>
-														<li class="tag"><i class="fa fa-circle tag-orange"></i>Orange Tag</li>
-													</ul>
-												</div>
-											</div>								
 										</div>									
 									</td>
 									<td class="text-xs-center outlet-list">
@@ -157,20 +138,12 @@
 									</td>
 									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
 								</tr>
-								<tr>
+								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1225, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
 									<td>12:55 PM</td>
 									<td class="text-xs-center">
-										<div tabindex="0" class="post-tags" data-toggle="popover-inline" data-popover-id="tags-postid-1226" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+										<div class="post-tags">
 											<i class="fa fa-circle tag-red"></i>
-						<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-											<div id="tags-postid-1226" class="hidden">
-												<div class="tag-list">
-													<ul>
-														<li class="tag"><i class="fa fa-circle tag-red"></i>Brand Building / Product Education</li>
-													</ul>
-												</div>
-											</div>								
 										</div>									
 									</td>
 									<td class="text-xs-center outlet-list">
@@ -199,21 +172,12 @@
 									</td>
 									<td class="text-xs-center"><a class="btn btn-xs btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
 								</tr>
-								<tr>
+								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1226, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
 									<td>12:55 PM</td>
 									<td class="text-xs-center">
-										<div tabindex="0" class="post-tags" data-toggle="popover-inline" data-popover-id="tags-postid-1227" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+										<div class="post-tags">
 											<i class="fa fa-circle tag-orange"></i><i class="fa fa-circle tag-green"></i>
-						<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-											<div id="tags-postid-1227" class="hidden">
-												<div class="tag-list">
-													<ul>
-														<li class="tag"><i class="fa fa-circle tag-orange"></i>Orange Tag</li>
-														<li class="tag"><i class="fa fa-circle tag-green"></i>Marketing</li>
-													</ul>
-												</div>
-											</div>								
 										</div>									
 									</td>
 									<td class="text-xs-center outlet-list">
@@ -242,20 +206,12 @@
 									</td>
 									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
 								</tr>
-								<tr>
+								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1227, 'click', 'approvals-post');">
 									<td>Wed 5/13</td>
 									<td>12:55 PM</td>
 									<td class="text-xs-center">
-										<div tabindex="0" class="post-tags" data-toggle="popover-inline" data-popover-id="tags-postid-1228" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center">
+										<div class="post-tags">
 											<i class="fa fa-circle tag-green"></i>
-						<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-											<div id="tags-postid-1228" class="hidden">
-												<div class="tag-list">
-													<ul>
-														<li class="tag"><i class="fa fa-circle tag-green"></i>Marketing</li>
-													</ul>
-												</div>
-											</div>								
 										</div>									
 									</td>
 									<td class="text-xs-center outlet-list">

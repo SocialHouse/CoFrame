@@ -761,9 +761,25 @@ a {
 			letter-spacing: .2em;
 		}
 	}
+	&.week-post {
+		&.qtip-pos-lb, &.qtip-pos-rb {
+			margin-top: 10px;
+		}
+		&.qtip-pos-rc, &.qtip-pos-rb {
+			margin-left: -5px;
+		}
+	}
 	&.month-post {
 		&.qtip-pos-lb, &.qtip-pos-rb {
-			margin-top: 20px;
+			margin-top: 23px;
+		}
+		&.qtip-pos-rc, &.qtip-pos-lc {
+			margin-top: -2px;
+		}
+	}
+	&.approvals-post {
+		&.qtip-pos-lc {
+			margin-top: -27px;
 		}
 	}
 	&.popover-date-filter {
@@ -1918,6 +1934,9 @@ a {
 .table-approvals {
 	tbody tr:first-child {
 		background: none;
+	}
+	tr {
+		cursor: pointer;
 	}
 	td {
 		border: 0;

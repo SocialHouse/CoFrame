@@ -80,55 +80,7 @@ jQuery(function($) {
 			dragOpacity: 1,
 			editable: true,
 			eventClick: function(calEvent, jsEvent) {
-				$(this).qtip({
-					content: {
-						text: 'Loading...',
-						ajax: {
-							url: "edit-post-weekly-calendar.php?postid=22345",
-							type: 'GET',
-							once: true
-						}
-					},
-					events: {
-						hide: function() {
-							//remove the tooltip from the dom once hidden
-							$(this).qtip('destroy');
-						},
-						visible: function() {
-							qtipEqualColumns();
-						}
-					},
-					position: {
-						at: 'top left',
-						my: 'bottom center',
-						target: jsEvent.target,
-						viewport: $('body')
-					},
-					show: {
-						effect: function() {
-							$(this).fadeIn();
-						},
-						event: jsEvent.type,
-						ready: true
-					},
-					hide: {
-						effect: function() {
-							$(this).fadeOut();
-						},
-						event: 'unfocus'
-					},
-					//overwrite: true,
-					style: {
-						classes: 'qtip-shadow qtip-calendar-post popover-clickable',
-						tip: {
-							width: 20,
-							height: 10,
-							corner: true,
-							mimic: 'center'
-						},
-						width: 635
-					}
-				}, jsEvent);
+				showPostPopover($(this), calEvent.id, jsEvent, 'week-post')
 			},
 			eventDragStart: function() {
 				$('.fc-event').css('opacity', '.2');
@@ -195,58 +147,7 @@ jQuery(function($) {
 				});
 			},
 			eventClick: function(calEvent, jsEvent) {
-				$(this).qtip({
-					content: {
-						text: 'Loading...',
-						ajax: {
-							url: "edit-post-weekly-calendar.php?postid=22345",
-							type: 'GET',
-							once: true
-						}
-					},
-					events: {
-						hide: function() {
-							//remove the tooltip from the dom once hidden
-							$(this).qtip('destroy');
-						},
-						visible: function() {
-							qtipEqualColumns();
-						}
-					},
-					position: {
-						adjust: {
-							y: -2
-						},
-						at: 'right center',
-						my: 'left center',
-						target: jsEvent.target,
-						viewport: $('body')
-					},
-					show: {
-						effect: function() {
-							$(this).fadeIn();
-						},
-						event: jsEvent.type,
-						ready: true
-					},
-					hide: {
-						effect: function() {
-							$(this).fadeOut();
-						},
-						event: 'unfocus'
-					},
-					//overwrite: true,
-					style: {
-						classes: 'qtip-shadow qtip-calendar-post month-post popover-clickable',
-						tip: {
-							width: 20,
-							height: 10,
-							corner: true,
-							mimic: 'center'
-						},
-						width: 635
-					}
-				}, jsEvent);
+				showPostPopover($(this), calEvent.id, jsEvent, 'month-post')
 			},
 			eventConstraint: {
 				start: moment().format('YYYY-MM-DD'),
