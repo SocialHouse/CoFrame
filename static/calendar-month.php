@@ -59,7 +59,7 @@
 						<div class="date-select-calendar"></div>
 						<div class="text-xs-center">
 							<hr>
-							<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
+							<button type="button" class="btn btn-sm btn-default btn-cancel qtip-hide">Cancel</button>
 							<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide" disabled>Apply</button>
 						</div>
 					</div>

@@ -17,7 +17,14 @@ jQuery(function($) {
 	$(document).ready(function() {
 		$('#calendarBtnToday').on('click', function(e) {
 			e.preventDefault();
-			$('#calendar-week, #calendar-month').fullCalendar( 'today' );
+			if($('#calendar-week').length) {
+				$('#calendar-week').fullCalendar( 'today' );
+				$('#calendar-change-week .date-select-calendar').fullCalendar('destroy');
+			}
+			else if($('#calendar-month').length) {
+				$('#calendar-month').fullCalendar( 'today' );
+				$('#calendar-change-month .date-select-calendar').fullCalendar('destroy');
+			}
 		});
 		//print & export functions
 		$('body').on('change', '#startDateType', function() {
@@ -118,8 +125,10 @@ jQuery(function($) {
 			slotLabelFormat : 'h:mm a',
 			snapDuration: '00:15:00',
 			viewRender: function() {
+				var month = GetCalendarMonth('#calendar-week');
 				var dates = GetCalendarDateRange();
 				$('#calendarDateRange').html(dates);
+				$('#calendarCurrentMonth').text(month);
 				$('.fc-day-header').each(function() {
 					var dateText = $(this).text();
 					var todayDate = $.fullCalendar.moment().format('YYYY-MM-DD');
@@ -213,7 +222,7 @@ jQuery(function($) {
 			header: false,
 			snapDuration: '00:15:00',
 			viewRender: function() {
-				var dates = GetCalendarMonth();
+				var dates = GetCalendarMonth('#calendar-month');
 				$('#calendarCurrentMonth').html(dates);
 			}
 		});
@@ -374,6 +383,35 @@ jQuery(function($) {
 		$('body').on('click', '#calendar-change-month #getPostsByDate', function() {
 			$('#calendar-month').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
 		});
+
+		$('body').on('click', '#calendar-change-week .btn-cancel', function() {
+			var curView = $('#calendar-week').fullCalendar('getView');
+			var curWeekStart = $.fullCalendar.moment(curView.intervalStart).format('YYYY-MM-DD');
+			var selectedWeek =  $('#calendar-change-week .date-select-calendar').find('.selected-week');
+			var selectedStart = selectedWeek.find('td:first').data('date');
+			if(selectedStart !== curWeekStart) {
+				//remove week highlight
+				selectedWeek.removeClass('selected-week');
+				//navigate to current date range
+				$('#calendar-change-week .date-select-calendar').fullCalendar('gotoDate', curWeekStart);
+				//rehighlight current date range
+				$('#calendar-change-week .date-select-calendar .fc-bg td.fc-day').each(function() {
+					if($(this).data('date') === curWeekStart) {
+						$(this).closest('.fc-row').addClass('selected-week');
+					}
+				});
+			}
+		});
+		$('body').on('click', '#calendar-change-month .btn-cancel', function() {
+			var curView = $('#calendar-month').fullCalendar('getView');
+			var curMonthStart = $.fullCalendar.moment(curView.intervalStart).format('YYYY-MM-DD');
+			var selectedView =  $('#calendar-change-month .date-select-calendar').fullCalendar('getView');
+			var selectedStart = $.fullCalendar.moment(selectedView.intervalStart).format('YYYY-MM-DD');
+			if(selectedStart !== curMonthStart) {
+				//navigate to current date range
+				$('#calendar-change-month .date-select-calendar').fullCalendar('gotoDate', curMonthStart);
+			}
+		});
 	});
 
 	window.showSelectCalendar = function showSelectCalendar(id) {
@@ -454,8 +492,8 @@ jQuery(function($) {
 		var dates = start + "&#8211;" + end;
 		return dates;
 	};
-	window.GetCalendarMonth = function GetCalendarMonth() {
-		var calendar = $('#calendar-month').fullCalendar('getCalendar');
+	window.GetCalendarMonth = function GetCalendarMonth(calType) {
+		var calendar = $(calType).fullCalendar('getCalendar');
 		var view = calendar.view;
 		var start = $.fullCalendar.moment(view.intervalStart).format('MMMM');
 		return start;

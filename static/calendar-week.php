@@ -34,7 +34,7 @@
 				<header class="page-main-header calendar-header">
 					<div class="clearfix">
 						<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-week" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
-						<h2 class="date-header pull-xs-left">Calendar | <strong id="calendarCurrentMonty"><?php echo date('F'); ?></strong> <span id="calendarDateRange"></span> <span id="calendarCurrentYear"><?php echo date('Y'); ?></span></h2>
+						<h2 class="date-header pull-xs-left">Calendar | <strong id="calendarCurrentMonth"><?php echo date('F'); ?></strong> <span id="calendarDateRange"></span> <span id="calendarCurrentYear"><?php echo date('Y'); ?></span></h2>
 						<div class="btn-group-calendar pull-sm-left">
 							<a href="calendar.php" class="btn btn-sm">Day</a>
 							<a href="calendar-week.php" class="btn btn-sm active">Week</a>
@@ -59,7 +59,7 @@
 						<div class="date-select-calendar"></div>
 						<div class="text-xs-center">
 							<hr>
-							<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
+							<button type="button" class="btn btn-sm btn-default btn-cancel qtip-hide">Cancel</button>
 							<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide" disabled>Apply</button>
 						</div>
 					</div>
