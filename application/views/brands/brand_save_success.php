@@ -8,7 +8,7 @@
 					<h4 class="text-xs-center">Add Brand</h4>
 					<div class="brand-logo">
 						<?php
-						$image_path = img_url().'default_brand.jpg';
+						$image_path = img_url().'default_brand.png';
 						if(file_exists(upload_path().'brands/'.$brand[0]->id.'.png'))
 						{
 							$image_path = upload_url().'brands/'.$brand[0]->id.'.png';
