@@ -2318,9 +2318,8 @@ class Aauth {
 	function get_matching_perms($keyword)
 	{
 		$this->aauth_db->select('id');
-		$this->aauth_db->like('name',$keyword);
+		$this->aauth_db->like('name',$keyword.'.');
 		$query = $this->aauth_db->get($this->config_vars['perms']);
-
 		// if not inserted before
 		if ($query->num_rows() > 0) {
 			return $query->result();

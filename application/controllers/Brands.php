@@ -214,123 +214,124 @@ class Brands extends CI_Controller {
 
             try
             {
-                // $mail_send = email_send($post_data['email'], $subject,$content);
-                // if($mail_send)
-                // {
+                $mail_send = email_send($post_data['email'], $subject,$content);
+                if($mail_send)
+                {
                 	$inserted_id = $this->aauth->create_user($post_data['email'],$password,$post_data['first_name']);
                 	$group_id = $this->aauth->get_group_id($post_data['role']);
-                	$this->aauth->add_member($inserted_id,$group_id);
-
-                	//add permission to user
-                	if(!empty($post_data['permissions']))
+                	if($inserted_id)
                 	{
-                		foreach($post_data['permissions'] as $permission)
-                		{
-                			$matching_perms = $this->aauth->get_matching_perms($permission);
-                			foreach($matching_perms as $perm)
-                			{
-                				$this->aauth->allow_user($inserted_id,$perm->id);
-                			}
-                		}
-                	}
+	                	$this->aauth->add_member($inserted_id,$group_id);
 
-                	$error_message = '';
-                	if(!empty($_FILES['profile_pic']['name']))
-					{							
-						$image_name = $inserted_id.'.png';
-						$status = upload_file('profile_pic',$image_name,'users');
-						if(array_key_exists("upload_errors",$status))
-				        {
-				        	$error =  $status['upload_errors'];
-				        	$error_message = " but unable upload image";
-				        	break;
-				        }
-                	}
+	                	//add permission to user
+	                	if(!empty($post_data['permissions']))
+	                	{
+	                		foreach($post_data['permissions'] as $permission)
+	                		{
+	                			$matching_perms = $this->aauth->get_matching_perms($permission);                			
+	                			foreach($matching_perms as $perm)
+	                			{
+	                				$this->aauth->allow_user($inserted_id,$perm->id);
+	                			}
+	                		}
+	                	}
 
-                	unset($user_data['password']);
-                	unset($user_data['username']);
-                	$user_data['aauth_user_id'] = $inserted_id;
-                	
-                	$this->timeframe_model->insert_data('user_info',$user_data);
-                    $brand_user_map = array(
-                    							'brand_id' => $post_data['brand_id'],
-                    							'access_user_id' => $inserted_id
-                    						);
-                    
-                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+	                	if(!empty($post_data['image_name']))
+	                	{
+	                		$old_path = upload_path().'users/'.$post_data['image_name'];
+			        		$new_path = upload_path().'users/'.$inserted_id.'.png';
+			        		rename($old_path, $new_path);
+	                	}
 
-                    $outlets = $this->input->post('outlets');
-                    if(!empty($outlets))
-                    {
-                    	$outlets = explode(',',$outlets);
-                    	foreach($outlets as $outlet)
-                    	{
-                    		 $user_outlets = array(
-	                    							'outlet_id' => $outlet,
-	                    							'user_id' => $inserted_id
+	                	unset($user_data['password']);
+	                	unset($user_data['username']);
+	                	$user_data['aauth_user_id'] = $inserted_id;
+	                	
+	                	$this->timeframe_model->insert_data('user_info',$user_data);
+	                    $brand_user_map = array(
+	                    							'brand_id' => $post_data['brand_id'],
+	                    							'access_user_id' => $inserted_id
 	                    						);
-	                    	$this->timeframe_model->insert_data('user_outlets',$user_outlets);
-                    	}
-                    }
+	                    
+	                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
 
-                    $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().'posts/'.$inserted_id.'.png'))
-					{
-						$image_path = upload_url().'posts/'.$inserted_id.'.png';
-					}
+	                    $outlets = $this->input->post('outlets');
+	                    if(!empty($outlets))
+	                    {
+	                    	$outlets = explode(',',$outlets);
+	                    	foreach($outlets as $outlet)
+	                    	{
+	                    		 $user_outlets = array(
+		                    							'outlet_id' => $outlet,
+		                    							'user_id' => $inserted_id
+		                    						);
+		                    	$this->timeframe_model->insert_data('user_outlets',$user_outlets);
+	                    	}
+	                    }
 
-                    $response = '<div class="table">';
-					$response .= '<div class="table-cell">';
-					$response .= '<div class="pull-sm-left"><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
-					$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
-					$response .= '</div>';
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('create',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('edit',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('approve',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
+	                    $image_path = img_url().'default_profile.jpg';
+						if(file_exists(upload_path().'users/'.$inserted_id.'.png'))
+						{
+							$image_path = upload_url().'users/'.$inserted_id.'.png';
+						}
 
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('view',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
+	                    $response = '<div class="table">';
+						$response .= '<div class="table-cell">';
+						$response .= '<div class="pull-sm-left"><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
+						$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
+						$response .= '</div>';
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('create',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div>';
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('edit',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div>';
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('approve',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div>';
 
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('settings',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('view',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div>';
 
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('billing',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div></div>';
-					
-                    echo json_encode(array('response' => 'success','html' => $response));
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('settings',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div>';
+
+						$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+						if(in_array('billing',$post_data['permissions']))
+						{ 
+							$response .= '<i class="fa fa-check"></i>';
+						}
+						$response .= '</div></div>';
+						
+	                    echo json_encode(array('response' => 'success','html' => $response));
+	                }
+	                else
+	                {
+	             		echo json_encode(array('response' => 'fail'));   	
+	                }
                     
-                // }
-                // else
-                // {
-                // 	echo json_encode(array('response' => 'fail'));
-                // }
+                }
+                else
+                {
+                	echo json_encode(array('response' => 'fail'));
+                }
             }
             catch(Exception $ex)
             {
@@ -366,7 +367,30 @@ class Brands extends CI_Controller {
 
     function upload_profile_pic()
     {
-
+    	if(isset($_FILES['file']['name'][1]) AND !empty($_FILES['file']['name'][1]))
+		{			
+			$_FILES['file']['name'] = $_FILES['file']['name'][1];	      
+	        $filename = $_FILES["file"]["name"];
+	        $_FILES['file']['type'] = $_FILES['file']['type'][1];
+	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][1];
+	        $_FILES['file']['error'] = $_FILES['file']['error'][1];
+	        $_FILES['file']['size'] = $_FILES['file']['size'][1];
+	        $status = upload_file('file',$filename,'users');
+	        if(array_key_exists("upload_errors",$status))
+	        {
+	        	$error = $status['upload_errors'];
+	        	echo json_encode(array('response' => 'fail'));   	        	
+	        }
+	        else
+	        {
+	        	$filename = $status['file_name'];
+	     		echo json_encode(array('response' => 'success','file' => $filename));  
+	        }			
+    	}
+    	else
+    	{
+    		echo json_encode(array('response' => 'success'));
+    	}
     }
 	// public function save_brand()
 	// {

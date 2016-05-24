@@ -2,7 +2,7 @@
 <div id="addUserRole" class="hidden">
 	<h5 class="text-xs-center border-bottom border-black ">Set Role<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover-inline" data-placement="bottom" data-popover-id="set-role"data-popover-class="popover-inline" data-attachment="top left" data-target-attachment="bottom center" data-offset-x="-22" data-popover-width="400" data-popover-arrow="true" data-arrow-corner="top left"></i></h5>
 	<div class="permissions-current-user text-xs-center">
-		<img src="<?php echo img_url(); ?>fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img user-img-preview"/>
+		<img src="<?php echo img_url(); ?>default_profile.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img user-img-preview"/>
 		<span class="user-name-role"></span>
 	</div>
 	<div class="form-group">

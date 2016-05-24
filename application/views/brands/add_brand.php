@@ -44,7 +44,7 @@
 						<button type="reset" class="btn btn-sm btn-default">Cancel</button>
 						<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand">Next</button>
 
-						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step " data-active-class="btn-secondary" data-next-step="2"></button>
+						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="2"></button>
 					</footer>
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
 							<button type="button" id="save_outlet" class="btn btn-sm btn-disabled pull-sm-right">Next</button>
 
-							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step " data-active-class="btn-secondary" data-next-step="3"></button>
+							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="3"></button>
 						</div>
 						<div class="hidden" id="addOutletBtns">
 							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStep2Btns, #addOutletLink, #selectedOutlets">Cancel</button>
@@ -174,7 +174,7 @@
 					</div>
 					<footer class="post-content-footer">
 						<div id="outletStep4Btns">
-							<div class="disclaimer"><button class="btn btn-sm btn-default" type="submit">Skip this Step</button></div>
+							<div class="disclaimer"><button class="btn btn-sm btn-default skip_step" type="button">Skip this Step</button></div>
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="3">Back</button>
 							<button type="button" class="btn btn-sm btn-disabled pull-sm-right submit_tag" disabled>Done</button>
 						</div>

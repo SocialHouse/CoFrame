@@ -8,7 +8,7 @@
 					<h4 class="text-xs-center">Add Brand</h4>
 					<div class="brand-logo">
 						<?php
-						$image_path = img_url().'default_brand.png';
+						$image_path = img_url().'default_brand.jpg';
 						if(file_exists(upload_path().'brands/'.$brand[0]->id.'.png'))
 						{
 							$image_path = upload_url().'brands/'.$brand[0]->id.'.png';
@@ -87,10 +87,10 @@
 						{
 							foreach($brands_user as $user)
 							{
-								$image_path = img_url().'default_profile.png';
-								if(file_exists(upload_path().'posts/'.$user->aauth_user_id.'.png'))
+								$image_path = img_url().'default_profile.jpg';
+								if(file_exists(upload_path().'users/'.$user->aauth_user_id.'.png'))
 								{
-									$image_path = upload_url().'posts/'.$user->aauth_user_id.'.png';
+									$image_path = upload_url().'users/'.$user->aauth_user_id.'.png';
 								}
 								?>
 								<div class="table">
@@ -100,7 +100,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'create'))
+										if(check_user_perm($user->aauth_user_id,'create.'))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -110,7 +110,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'edit'))
+										if(check_user_perm($user->aauth_user_id,'edit.'))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -120,7 +120,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'approve'))
+										if(check_user_perm($user->aauth_user_id,'approve.'))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -130,7 +130,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'view'))
+										if(check_user_perm($user->aauth_user_id,'view.'))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -140,7 +140,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'settings'))
+										if(check_user_perm($user->aauth_user_id,'settings.'))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -150,7 +150,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'billing'))
+										if(check_user_perm($user->aauth_user_id,'billing.'))
 										{
 											?>
 											<i class="fa fa-check"></i>

@@ -843,38 +843,6 @@ jQuery(function($) {
     	});
     });
 
-    $('.addUserToBrand').click(function(){
-    	var brand_id = $('#brand_id').val();
-    	var fname = $('#firstName').val();
-    	var lname = $('#lastName').val();
-    	var title = $('#userTitke').val();
-    	var email = $('#userEmail').val();
-    	var selectedOutlets = $('#userOutlet').val();
-    	var userRoleSelect = $('#userRoleSelect :selected').val();
-    	var selectedPermissions = [];
-    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
-		   selectedPermissions[i] = this.value;
-		});
-
-    	$.ajax({
-    		url: base_url+'brands/add_user',    		
-    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions},
-    		type: 'POST',
-    		dataType: 'json',
-    		success: function(data)
-    		{
-    			console.log(data.response);
-    			if(data.response == "success")
-    			{
-    				alert('done');
-    				$('#userPermissionsList').append(data.html);
-    				$('.go-to-userlist').trigger('click');
-    			}
-    		}
-
-    	});
-    });
-
     $('#firstName').keyup(function(){
     	$('.user-name-role').html($(this).val()+' '+$('#lastName').val());
     });
@@ -894,7 +862,13 @@ jQuery(function($) {
     	}
     });
 
-
+    $('.skip_step').click(function(){
+    	var brand_id = $('#brand_id').val();
+    	if(brand_id)
+    	{
+    		window.location.href = base_url+'brands/success/'+brand_id;
+    	}
+    });
     
 });
 

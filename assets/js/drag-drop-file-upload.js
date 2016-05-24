@@ -229,6 +229,117 @@
 			});
 
 
+			//add user to brand
+			$(document).on( 'click','.addUserToBrand', function( e ){
+				var control = this;
+				// preventing the duplicate submissions if the current one is in progress
+				if( $form.hasClass( 'is-uploading' ) ) return false;
+
+				$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+
+				// ajax file upload for modern browsers
+				if( isAdvancedUpload ) {
+					e.preventDefault();
+
+					// gathering the form data
+					var ajaxData = new FormData();				
+					$.each( allFiles, function( i, file ){
+						ajaxData.append( 'file['+i+']', file,file.name);
+					});					
+				
+
+					// ajax request
+					$.ajax({
+						url: 			base_url+'brands/upload_profile_pic',
+						type:			$form.attr( 'method' ),
+						data: 			ajaxData,
+						dataType:		'json',
+						cache:			false,
+						contentType:	false,
+						processData:	false,
+						complete: function(){
+							$form.removeClass( 'is-uploading' );
+						},
+						success: function( data ){
+							if(data.response == 'success')
+							{
+								var brand_id = $('#brand_id').val();
+						    	var fname = $('#firstName').val();
+						    	var lname = $('#lastName').val();
+						    	var title = $('#userTitle').val();
+						    	var email = $('#userEmail').val();
+						    	var selectedOutlets = $('#userOutlet').val();
+						    	var userRoleSelect = $('#userRoleSelect :selected').val();
+						    	var selectedPermissions = [];
+						    	var image_name = '';
+						    	if(data.file)
+						    	{
+						    		image_name = data.file
+						    	}
+						    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
+								   selectedPermissions[i] = this.value;
+								});
+
+						    	$.ajax({
+						    		url: base_url+'brands/add_user',    		
+						    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name},
+						    		type: 'POST',
+						    		dataType: 'json',
+						    		success: function(data)
+						    		{
+						    			if(data.response == "success")
+						    			{
+						    				$('#userPermissionsList').append(data.html);
+						    				$('.go-to-userlist').trigger('click');
+						    				$('#firstName').val('');
+									    	$('#lastName').val('');
+									    	$('#userTitle').val('');
+									    	$('#userEmail').val('');
+									    	$('#userOutlet').val('');
+									    	$('#userRoleSelect').val('');
+									    	$('#userRoleSelect').trigger('change');
+
+									    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
+									    	$('.user_upload_img_div').html('');
+									    	$('.user_upload_img_div').removeClass('has-files');
+									    	var html = '<input type="file" name="files[]" id="userFile" class="form__file" data-multiple-caption="{count} files selected" multiple>';
+											html += '<label for="userFile" id="userFileLabel" class="file-upload-label">Upload photo</label>';
+											html += '<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>';
+									    	$('.user_upload_img_div').html(html);
+						    			}
+						    		}
+
+						    	});
+							}
+							else
+							{
+								alert('Unable to upload image please try again.')
+							}
+						},
+						error: function(){
+							alert( 'There was a problem with your upload.  Please try again.' );
+						}
+					});
+				}
+
+				// fallback Ajax solution upload for older browsers
+				else {
+					var iframeName	= 'uploadiframe' + new Date().getTime(),
+						$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+					$( 'body' ).append( $iframe );
+					$form.attr( 'target', iframeName );
+
+					$iframe.one( 'load', function(){
+						var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+						$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+						if( !data.success ) $errorMsg.text( data.error );
+						$iframe.remove();
+					});
+				}
+			});
+
+
 			// restart the form if has a state of error/success
 
 			$restart.on( 'click', function( e ){

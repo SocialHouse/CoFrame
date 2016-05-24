@@ -2,7 +2,7 @@
 <div id="addNewUser" class="outlet-list hidden">
 	<h5 class="text-xs-center border-bottom border-black ">Add a User</h5>
 	<div class="form-group">
-		<div class="form__input center-block">
+		<div class="form__input center-block user_upload_img_div">
 			<input type="file" name="files[]" id="userFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
 			<label for="userFile" id="userFileLabel" class="file-upload-label">Upload photo</label>
 			<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
