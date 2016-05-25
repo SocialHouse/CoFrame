@@ -765,6 +765,12 @@ a {
 		&.qtip-pos-lb, &.qtip-pos-rb {
 			margin-top: 10px;
 		}
+		&.qtip-pos-rt, &.qtip-pos-lt {
+			margin-top: 12px;
+		}
+		&.qtip-pos-rc, &.qtip-pos-lc {
+			margin-top: 23px;
+		}
 		&.qtip-pos-rc, &.qtip-pos-rb {
 			margin-left: -5px;
 		}
@@ -774,12 +780,18 @@ a {
 			margin-top: 23px;
 		}
 		&.qtip-pos-rc, &.qtip-pos-lc {
-			margin-top: -2px;
+			margin-top: 13px;
+		}
+		&.qtip-pos-tl, &.qtip-pos-rt {
+			margin-top: 3px;
 		}
 	}
 	&.approvals-post {
+		&.qtip-pos-lt {
+			margin-top: 24px;
+		}
 		&.qtip-pos-lc {
-			margin-top: -27px;
+			margin-top: -15px;
 		}
 	}
 	&.popover-date-filter {

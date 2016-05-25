@@ -642,7 +642,7 @@ jQuery(function($) {
 					y: offsetY,
 					x: offsetX
 				},
-				at: 'right center',
+				at: 'right top',
 				my: 'left center',
 				container: $('.page-main'),
 				target: element,

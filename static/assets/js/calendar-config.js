@@ -83,47 +83,32 @@ jQuery(function($) {
 			allDaySlot: false,
 			columnFormat: 'ddd D',
 			defaultTimedEventDuration: '00:01:00', //events are 1 minute long, no end time needed
-			defaultView: 'agendaWeek',
+			defaultView: 'basicWeek',
 			dragOpacity: 1,
 			editable: true,
+			eventAfterAllRender: function() {
+				$("#calendar-week .fc-title").dotdotdot();
+			},
 			eventClick: function(calEvent, jsEvent) {
 				showPostPopover($(this), calEvent.id, jsEvent, 'week-post')
+			},
+			eventConstraint: {
+				start: moment().format('YYYY-MM-DD'),
+				end: '2200-01-01'
 			},
 			eventDragStart: function() {
 				$('.fc-event').css('opacity', '.2');
 			},
-			eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+			eventDragStop: function() {
+				$('.fc-event').css('opacity', '1');
+			},
+			eventDrop: function(event, delta, revertFunc) {
 				//show confirmation modal
-				var newModal = $('#emptyModal').clone();
-				newModal.attr('id', '');
-				newModal.addClass('alert-modal modal-reschedule-post');
-				newModal.find('.modal-dialog').addClass('modal-sm');
-				var confirmationButtons = '<footer class="post-content-footer"><a href="#" class="btn btn-sm btn-default" id="cancelEventChange">Cancel</a><a href="#" class="btn btn-sm  btn-default pull-sm-right" id="confirmEventChange">Confirm</a></footer>';
-				newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Event?</h2><p class="text-xs-center">You are about to reschedule the post of "' + event.title + '" to ' + event.start.format('MMMM D, YYYY h:mm a') + '</p>' + confirmationButtons);
-				newModal.modal({
-					show: true,
-					backdrop: 'static'
-				});
-				$('body').on('click', '#cancelEventChange', function(e) {
-					e.preventDefault();
-					revertFunc();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
-				$('body').on('click', '#confirmEventChange', function(e) {
-					e.preventDefault();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
+				eventDropModal(event, revertFunc, '#calendar-week');
 			},
 			events: 'assets/js/events.json',
 			header: false,
-			slotLabelFormat : 'h:mm a',
-			snapDuration: '00:15:00',
+			timeFormat: 'h:mm a',
 			viewRender: function() {
 				var month = GetCalendarMonth('#calendar-week');
 				var dates = GetCalendarDateRange();
@@ -168,53 +153,9 @@ jQuery(function($) {
 			eventDragStop: function() {
 				$('.fc-event').css('opacity', '1');
 			},
-			eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+			eventDrop: function(event, delta, revertFunc) {
 				//show confirmation modal
-				var newModal = $('#emptyModal').clone();
-				newModal.attr('id', '');
-				newModal.addClass('alert-modal modal-reschedule-post');
-				newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
-				$.get('lib/calendar-edit-date.php',function(data) {
-					newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
-					var newMonth = $.fullCalendar.moment(event.start).format('MM');
-					var newDay = $.fullCalendar.moment(event.start).format('D');
-					var newYear = $.fullCalendar.moment(event.start).format('YYYY');
-					var newTime = $.fullCalendar.moment(event.start).format('h:mm');
-					var newAmPm = $.fullCalendar.moment(event.start).format('a');
-					//set the form values
-					newModal.find('select[name="postMonth"]').val(newMonth);
-					newModal.find('select[name="postDay"]').val(newDay);
-					newModal.find('select[name="postYear"]').val(newYear);
-					newModal.find('input[name="postTime"]').val(newTime);
-					newModal.find('select[name="postAmPm"]').val(newAmPm);
-					newModal.modal({
-						show: true,
-						backdrop: 'static'
-					});
-				});
-				$('body').on('click', '.qtip-hide', function(e) {
-					e.preventDefault();
-					revertFunc();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
-				$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
-					e.preventDefault();
-					var postMonth = newModal.find('select[name="postMonth"]').val();
-					var postDay = newModal.find('select[name="postDay"]').val();
-					var postYear = newModal.find('select[name="postYear"]').val();
-					var postTime = newModal.find('input[name="postTime"]').val();
-					var postAmPm = newModal.find('select[name="postAmPm"]').val();
-					var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
-					event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
-					$('#calendar-month').fullCalendar('updateEvent', event);
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
+				eventDropModal(event, revertFunc, '#calendar-month');
 			},
 			events: 'assets/js/events.json',
 			eventLimit: true,
@@ -414,6 +355,57 @@ jQuery(function($) {
 		});
 	});
 
+	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {
+		var newModal = $('#emptyModal').clone();
+		newModal.attr('id', '');
+		newModal.addClass('alert-modal modal-reschedule-post');
+		newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
+		$.get('lib/calendar-edit-date.php',function(data) {
+			newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
+			var newMonth = $.fullCalendar.moment(event.start).format('MM');
+			var newDay = $.fullCalendar.moment(event.start).format('D');
+			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
+			var newTime = $.fullCalendar.moment(event.start).format('h:mm');
+			var newAmPm = $.fullCalendar.moment(event.start).format('a');
+			//set the form values
+			newModal.find('select[name="postMonth"]').val(newMonth);
+			newModal.find('select[name="postDay"]').val(newDay);
+			newModal.find('select[name="postYear"]').val(newYear);
+			newModal.find('input[name="postTime"]').val(newTime);
+			newModal.find('select[name="postAmPm"]').val(newAmPm);
+			newModal.modal({
+				show: true,
+				backdrop: 'static'
+			});
+		});
+		$('body').on('click', '.qtip-hide', function(e) {
+			e.preventDefault();
+			revertFunc();
+			newModal.modal('hide');
+			newModal.on('hidden.bs.modal', function () {
+				newModal.remove();
+			});
+		});
+		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
+			e.preventDefault();
+			var postMonth = newModal.find('select[name="postMonth"]').val();
+			var postDay = newModal.find('select[name="postDay"]').val();
+			var postYear = newModal.find('select[name="postYear"]').val();
+			var postTime = newModal.find('input[name="postTime"]').val();
+			var postAmPm = newModal.find('select[name="postAmPm"]').val();
+			var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
+			event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
+			$(calendar).fullCalendar('updateEvent', event);
+			//insert ajax call to update database here
+			//run line below on ajax success
+			//$(calendar).fullCalendar( 'refetchEvents' );
+			newModal.modal('hide');
+			newModal.on('hidden.bs.modal', function () {
+				newModal.remove();
+			});
+		});
+	};
+
 	window.showSelectCalendar = function showSelectCalendar(id) {
 		var exportStart, exportEnd;
 		$('#' + id + ' .date-select-calendar').fullCalendar({
@@ -487,8 +479,13 @@ jQuery(function($) {
 	window.GetCalendarDateRange = function GetCalendarDateRange() {
 		var calendar = $('#calendar-week').fullCalendar('getCalendar');
 		var view = calendar.view;
+		var startMonth = $.fullCalendar.moment(view.start).format('MMMM');
 		var start = $.fullCalendar.moment(view.start).format('D');
+		var endMonth = $.fullCalendar.moment(view.end).subtract(1, 'days').format('MMMM');
 		var end = $.fullCalendar.moment(view.end).subtract(1, 'days').format('D');
+		if(startMonth !== endMonth) {
+			end = "<strong>" + endMonth + "</strong> " + end;
+		}
 		var dates = start + "&#8211;" + end;
 		return dates;
 	};

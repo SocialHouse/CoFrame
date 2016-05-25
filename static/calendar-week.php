@@ -93,6 +93,7 @@
 	<script type='text/javascript' src='assets/js/vendor/isotope.pkgd.min.js?ver=3.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
+	<script type='text/javascript' src='assets/js/vendor/jquery.dotdotdot.min.js?ver=1.8.1'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/post-filters.js?ver=1.0.0'></script>

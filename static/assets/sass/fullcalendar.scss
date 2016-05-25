@@ -1348,10 +1348,12 @@ be a descendant of the grid when it is being dragged.
 	}
 }
 #calendar-week {
+	margin-top: -26px;
 	.fc-row.fc-widget-header {
 		margin-bottom: 4px;
 	}
 	th {
+		padding-top: 10px;
 		&.fc-today-header {
 			padding: 0;
 		}
@@ -1362,109 +1364,62 @@ be a descendant of the grid when it is being dragged.
 			font-family: $futura-bold;
 		}
 	}
-	.fc-axis {
-		padding: 0 12px 0 0;
-		&.fc-time {
-			border: 0;
-			span {
-				position: relative;
-				top: -12px;
+	td {
+		&.fc-widget-content {
+			&:first-child {
+				border-width: 0;
+				border-top: 1px solid $gray-lighter;
 			}
 		}
 	}
-	td {
-		&.fc-widget-content {
-			border-left: 0;
-			&:first-child {
-				border-width: 0;
+	.fc-content-skeleton {
+		> table > tbody > tr:first-child {
+			.fc-event {
+				border-top: 0;
 			}
 		}
 	}
 	.fc-today {
 		background: #fcf4f4;
 	}
-	.fc-time-grid .fc-slats .fc-minor td {
-		border-top-width: 0;
-	}
-	.fc-time-grid-event, .fc-time-grid-event .fc-content {
-		overflow: visible;
+	.fc-event-container {
+		height: 90px;
 	}
 	.fc-event {
-		font-size: 1rem;
-		padding-left: 36px;
-		&.facebook {
-			background: $facebook;
-			border-color: $facebook;
-		}
-		&.google {
-			background: $google;
-			border-color: $google;
-		}
-		&.instagram {
-			background: $instagram;
-			border-color: $instagram;
-		}
-		&.linkedin {
-			background: $linkedin;
-			border-color: $linkedin;
-		}
-		&.pinterest {
-			background: $pinterest;
-			border-color: $pinterest;
-		}
-		&.tumblr {
-			background: $tumblr;
-			border-color: $tumblr;
-		}
-		&.twitter {
-			background: $twitter;
-			border-color: $twitter;
-		}
-		&.youtube {
-			background: $youtube;
-			border-color: $youtube;
-		}
-		&.vimeo {
-			background: $vimeo;
-			border-color: $vimeo;
-		}
-		&.vine {
-			background: $vine;
-			border-color: $vine;
-		}
-		&.wordpress {
-			background: $wordpress;
-			border-color: $wordpress;
-		}
+		border: 0;
+		border-top: 1px solid $gray-lighter;
+		border-radius: 0;
+		padding-top: 8px;
+		padding-bottom: 10px;
+		background: none;
 		.fc-content {
-			&:before {
-				top: -12px;
-				left:-36px;
-				height: 24px;
-				width: 24px;
-			}
+			overflow: visible;
 			.fc-time {
-				display: none;
+				font-weight: normal;
 			}
 		}
 		&:before {
-			width: 36px;
-			top: -9px;
-			left: -5px;
+			top: 15px;
 		}
 	}
+	.fc-day-grid-event .fc-content {
+		white-space: normal;
+	}
+	.fc-time {
+		display: block;
+		font-family: $futura-heavy;
+		padding-top: 5px;
+	}
 	.fc-title {
-		width: 100%;
-		font-size: 1rem;
+		overflow: visible;
+		height: 45px;
+		display: inline-block;
 	}
 }
 #calendar-month {
 	margin-top: -1rem;
 	th {
 		padding: 0 0 1rem;
-		text-transform: uppercase;
-		letter-spacing: .25em;
-		font-size: 11px;
 	}
 	td {
 		&.fc-day-number {
@@ -1473,7 +1428,6 @@ be a descendant of the grid when it is being dragged.
 			padding-top: 8px;
 			padding-left: 8px;
 		}
-		border-color: $gray-lighter;
 	}
 	.fc-body > tr > td.fc-widget-content {
 		border-left: 0;
@@ -1494,32 +1448,15 @@ be a descendant of the grid when it is being dragged.
 			background: #fcf4f4;
 		}
 	}
-	.fc-highlight {
-		background: #fcf4f4;
-		opacity: 1;
-		filter: alpha(opacity=100);
-	}
 	.fc-event {
-		font-size: 12px;
-		background: transparent;
-		border-color: transparent;
+		border: 0;
 		.fc-content {
 			line-height: 27px;
-			margin-bottom: 2px;
-			font-family: $futura-light;
-			padding-left: 32px;
+			margin-bottom: 4px;
 			text-overflow: ellipsis;
-			&:before {
-				height: 19px;
-				width: 19px;
-				top: 4px;
-				left: 5px;
-			}
 		}
 		&:before {
-			width: 27px;
 			top: 7px;
-			left: 2px;
 		}
 	}
 	.fc-more {
@@ -1563,15 +1500,30 @@ be a descendant of the grid when it is being dragged.
 		color: #000;
 	}
 	th {
+		font-size: 11px;
+		letter-spacing: .25em;
+		text-transform: uppercase;
 		border-color: transparent;
 	}
 	td {
-		&.fc-widget-header{
+		border-color: $gray-lighter;
+		&.fc-widget-header {
 			border-width: 0;
 		}
 	}
+	.fc-highlight {
+		background: #fcf4f4;
+		opacity: 1;
+		filter: alpha(opacity=100);
+	}
 	.fc-event {
+		font-size: 12px;
 		cursor: pointer;
+		background: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 		&.blogger {
 			&:before {
 				font-family: 'icomoon';
@@ -1675,9 +1627,17 @@ be a descendant of the grid when it is being dragged.
 			position: absolute;
 			text-align: center;
 			z-index: 11;
+			width: 27px;
+			left: 2px;
 		}
 		.fc-content {
+			font-family: $futura-light;
+			padding-left: 32px;
 			&:before {
+				height: 19px;
+				width: 19px;
+				top: 4px;
+				left: 5px;
 				display: block;
 				content: "";
 				-webkit-transform: rotateZ(45deg);
@@ -1686,11 +1646,6 @@ be a descendant of the grid when it is being dragged.
 				z-index:10;
 			}
 		}
-	}
-	.fc-title {
-		margin-top: -1.25rem;
-		text-overflow: ellipsis;
-		overflow: hidden;
 	}
 }
 
