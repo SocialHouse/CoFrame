@@ -202,4 +202,47 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_posts_by_time($brand_id,$start,$end,$outlets = '',$statuses = '')
+	{
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "TO") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->join('outlets','outlets.id = posts.outlet_id');
+		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
+		$this->db->where('brand_id',$brand_id);
+		if($outlets)
+		{
+			$outlets = explode(',', $outlets);
+			$this->db->where_in('outlets.id',$outlets);
+		}
+
+		if($statuses)
+		{
+
+		}
+
+		$query = $this->db->get('posts');
+
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	public function get_posts_info_by_time($brand_id,$start,$end)
+	{
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "TO") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->join('outlets','outlets.id = posts.outlet_id');
+		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
+		
+		$this->db->where('brand_id',$brand_id);
+		$query = $this->db->get('posts');
+
+
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 }

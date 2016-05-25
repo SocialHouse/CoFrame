@@ -45,50 +45,6 @@ class Posts extends CI_Controller {
 		}
 	}
 
-	//create post in brand
-	//create post in brand
-	// public function create()
-	// {		
-	// 	$this->data = array();
-	// 	$brand_id = $this->uri->segment(3);
-	// 	$brand = get_users_brand($brand_id);
-	// 	if(!empty($brand))
-	// 	{
-	// 		$this->data['brand_id'] = $brand[0]->id;
- //        	$this->data['brand_name'] = $brand[0]->name;
-	// 		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
-	// 		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
-
-	// 		//get default approvers which we added in brand
-	// 		$phases = $this->post_model->get_default_phases($brand_id);
-	// 		$this->data['default_phases'] = array();
-	// 		if(!empty($phases))
-	// 		{
-	// 			foreach($phases as $phase)
-	// 			{
-	// 				$this->data['default_phases'][$phase->phase][] = $phase;					
-	// 			}
-	// 		}
-
-	// 		$this->data['users'] = $this->post_model->get_brand_users($brand_id);
-
-	// 		$this->data['view'] = 'posts/create';
-
-	// 		// $this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css',css_url().'custom.css');
-	// 		// $this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
-	// 		$this->data['css_files'] = array(css_url().'timepicker.css');
-	// 		$this->data['js_files'] = array(js_url().'timepicker.js');
-
- //        	_render_view($this->data);
-	// 	}
-	// 	else
-	// 	{
-	// 		$this->session->set_flashdata('error','Brand is not available');
-	// 		redirect(base_url().'brands');
-	// 	}	
-		
-	// }
-
 	public function create()
 	{
 		$this->data = array();
