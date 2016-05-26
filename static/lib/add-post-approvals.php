@@ -7,7 +7,7 @@
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left">
 				<div class="hide-top-bx-shadow">
-					<input type="text" class="form-control form-control-sm popover-toggle single-date-select" name="approval-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+					<input type="text" class="form-control form-control-sm popover-toggle single-date-select" name="approval-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300">
 				</div>
 			</div>
 			<div class="form-group pull-sm-left">
