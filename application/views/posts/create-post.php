@@ -1,6 +1,5 @@
-<section class="brand-navigation bg-white opaque-88 col-sm-2">
-	<?php $this->load->view('partials/brand_nav'); ?>	
-</section>
+<?php $this->load->view('partials/brand_nav'); ?>	
+
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header">
 		<h1 class="center-title section-title">New Post</h1>
@@ -144,7 +143,7 @@
 									?>
 									<li>
 										<div class="pull-sm-left">
-											<input type="checkbox" class="hidden-xs-up" name="phase[approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon radio-button circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[approver][]"><i class="fa fa-check"></i></i>
+											<input type="checkbox" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
 										</div>
 										<div class="pull-sm-left">
 											<?php
@@ -168,7 +167,7 @@
 								?>
 
 								<li class="option-all-users">
-									<div class="pull-sm-left"><i class="tf-icon radio-button circle-border" data-value="check-all" data-group="phase[approver][]"><i class="fa fa-check"></i></i></div>
+									<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
 									<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
 									<div class="pull-sm-left post-approver-name">Check<br>All</div>
 								</li>
@@ -178,7 +177,7 @@
 						?>
 						<label>Must approve by:</label>
 						<div class="form-group form-inline">
-							<select class="form-control form-control-sm" name="phase[approve_month][0]">
+							<select class="form-control form-control-sm" name="phase[0][approve_month]">
 								<option value="">Month</option>
 								<?php
 								for($i = 1;$i<=12;$i++)
@@ -189,7 +188,7 @@
 				    			}
 								?>
 							</select>
-							<select class="form-control form-control-sm" name="phase[approve_day][0]">
+							<select class="form-control form-control-sm" name="phase[0][approve_day]">
 								<option value="">DD</option>
 								<?php
 				    			for($i = 1;$i<=31;$i++)
@@ -200,7 +199,7 @@
 				    			}
 				    			?>
 							</select>
-							<select class="form-control form-control-sm" name="phase[approve_year][0]">
+							<select class="form-control form-control-sm" name="phase[0][approve_year]">
 								<option value="">YYYY</option>
 								<?php
 				    			for($i = date('Y');$i<=date('Y') +10;$i++)
@@ -211,15 +210,15 @@
 				    			}
 				    			?>
 							</select>
-							<input type="text" class="form-control form-control-sm form-control-time" placeholder="HH:MM" name="phase[approve_time][0]">
-							<select class="form-control form-control-sm" name="phase[time_type][0]">
+							<input type="text" class="form-control form-control-sm form-control-time" placeholder="HH:MM" name="phase[0][approve_time]">
+							<select class="form-control form-control-sm" name="phase[0][time_type]">
 								<option value="am">AM</option>
 								<option value="pm">PM</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="approvalNotes">Note to Approvers (optional):</label>
-							<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[note][0]"></textarea>
+							<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>
 						</div>
 					</div>
 					<div class="bg-gray-lightest border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">

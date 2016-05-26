@@ -1,6 +1,5 @@
-<section class="brand-navigation bg-white opaque-88 col-sm-2">
-	<?php $this->load->view('partials/brand_nav'); ?>	
-</section>
+<?php $this->load->view('partials/brand_nav'); ?>	
+
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">

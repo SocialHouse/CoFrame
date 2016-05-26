@@ -1,6 +1,4 @@
-<section class="brand-navigation bg-white opaque-88 col-sm-2">
-	<?php $this->load->view('partials/brand_nav'); ?>	
-</section>
+<?php $this->load->view('partials/brand_nav'); ?>	
 
 <input type="hidden" value="<?php echo $brand_id; ?>" id="brand_id">
 <input type="hidden" id="outlet_ids">

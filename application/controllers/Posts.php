@@ -67,7 +67,7 @@ class Posts extends CI_Controller {
 	}
 
 	public function save_post()
-	{		
+	{
 		$this->data = array();
 		$error = '';
 		$uploaded_files = array();
@@ -205,6 +205,7 @@ class Posts extends CI_Controller {
 			    					{
 			    						if(isset($phase['approver']) AND !empty($phase['approver']))
 			    						{
+			    							
 				    						$date_time = $phase['approve_year']."-".$phase['approve_month']."-".$phase['approve_day']." ".$phase['approve_time']." ".$phase['time_type'];
 										    	
 										    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
@@ -215,7 +216,8 @@ class Posts extends CI_Controller {
 				    										'post_id' => $inserted_id,
 				    										'approve_by' => $approve_date_time,
 					    									'note' => $phase['note']
-				    									);			    						
+				    									);				    						
+				    						
 				    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
 
 				    						foreach($phase['approver'] as $user)
@@ -248,19 +250,18 @@ class Posts extends CI_Controller {
 		    			$this->session->set_flashdata('message','Post has been saved successfuly');
 		    			redirect(base_url().'posts/index/'.$post_data['brand_id']);
 		    		}
-				    $this->data['error'] = "Unable to save post please try again";
-			    }
+		    		$this->data['error'] = "Unable to save post please try again";
+		    	}
 
-			   	$this->data['users'] = $this->brand_model->get_brand_users($post_data['brand_id']);
-				$this->data['outlets'] = $this->post_model->get_brand_outlets($post_data['brand_id']);
+		    	$this->data['users'] = $this->brand_model->get_brand_users($post_data['brand_id']);
+		    	$this->data['outlets'] = $this->post_model->get_brand_outlets($post_data['brand_id']);
 				
 				$this->data['brand_id'] = $post_data['brand_id'];
 				$this->data['view'] = 'posts/create-post';
-				$this->data['layout'] = 'layouts/new_user_layout';		
+				$this->data['layout'] = 'layouts/new_user_layout';
 				$this->data['background_image'] = 'bg-brand-management.jpg';
 				$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
-
-		    	_render_view($this->data);
+				_render_view($this->data);
 		    }
 		}
 	}
@@ -577,56 +578,63 @@ class Posts extends CI_Controller {
 
 	public function upload()
 	{
-		$files = $_FILES['file'];
-		
-		$files_count = count($files['tmp_name']);
-		$error = '';
-		if($files_count > 0)
+		if(isset($_FILES['file']['name'][0]))
 		{
-			for($i = 0;$i < $files_count; $i++)
+			$files = $_FILES['file'];
+			
+			$files_count = count($files['tmp_name']);
+			$error = '';
+			if($files_count > 0)
 			{
-				if(!empty($files['name'][$i]))
+				for($i = 0;$i < $files_count; $i++)
 				{
-			        $_FILES['uploadedimage']['name'] = $files['name'][$i];
-			        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
-			        $randname = uniqid().'.'.$ext;
-			        $_FILES['uploadedimage']['type'] = $files['type'][$i];
-			        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
-			        $_FILES['uploadedimage']['error'] = $files['error'][$i];
-			        $_FILES['uploadedimage']['size'] = $files['size'][$i];
-			        $status = upload_file('uploadedimage',$randname,'posts');
-			      
-			        if(array_key_exists("upload_errors",$status))
-			        {
-			        	$error =  $status['upload_errors'];				        	
-			        	break;
-			        }
-			        else
-			        {
-			        	$uploaded_files[$i]['file'] = $status['file_name'];
-			        	$uploaded_files[$i]['type'] = 'images';
-			        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
-			        	
-			        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
-			        	{
-			        		$uploaded_files[$i]['type'] = 'video';
-			        	}
-			        }
-			    }
+					if(!empty($files['name'][$i]))
+					{
+				        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+				        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+				        $randname = uniqid().'.'.$ext;
+				        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+				        $status = upload_file('uploadedimage',$randname,'posts');
+				      
+				        if(array_key_exists("upload_errors",$status))
+				        {
+				        	$error =  $status['upload_errors'];				        	
+				        	break;
+				        }
+				        else
+				        {
+				        	$uploaded_files[$i]['file'] = $status['file_name'];
+				        	$uploaded_files[$i]['type'] = 'images';
+				        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+				        	
+				        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+				        	{
+				        		$uploaded_files[$i]['type'] = 'video';
+				        	}
+				        }
+				    }
+				}
+			}
+			else
+			{
+				$error = "Please select atleast one file";
+			}
+
+			if(!empty($error))
+			{
+				echo json_encode(array('error' => $error));
+			}
+			else
+			{
+				echo json_encode(array('success'=>$uploaded_files));
 			}
 		}
 		else
 		{
-			$error = "Please select atleast one file";
-		}
-
-		if(!empty($error))
-		{
-			echo json_encode(array('error' => $error));
-		}
-		else
-		{
-			echo json_encode(array('success'=>$uploaded_files));
+			echo json_encode(array('success'=>'no_files'));
 		}
 	}
 

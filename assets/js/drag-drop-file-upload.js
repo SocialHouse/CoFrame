@@ -134,7 +134,8 @@
 						success: function( data ){
 							if(data.success)
 							{
-								$('#uploaded_files').val(JSON.stringify(data));
+								if(data.success != 'no_files')
+									$('#uploaded_files').val(JSON.stringify(data));
 								$form.submit();
 							}
 						},
@@ -302,10 +303,12 @@
 									    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
 									    	$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').removeClass('has-files');
-									    	var html = '<input type="file" name="files[]" id="userFile" class="form__file" data-multiple-caption="{count} files selected" multiple>';
-											html += '<label for="userFile" id="userFileLabel" class="file-upload-label">Upload photo</label>';
-											html += '<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>';
+									    	var html = '<input id="userFile" class="form__file" type="file" multiple="" data-multiple-caption="{count} files selected" name="files[]">';
+											html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
+											html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+											$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').html(html);
+									    	allFiles.splice(1, 1);
 						    			}
 						    		}
 

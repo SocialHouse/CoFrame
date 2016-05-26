@@ -199,12 +199,21 @@ jQuery(function($) {
 			//add selected users to list from popover
 			if($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
+				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
 				var $activePhase = $('#phaseDetails .approval-phase.active');
 				var activePhaseId = $activePhase.attr('id');
 				if($btn.hasClass('selected')) {
 					$activePhase.find('.user-list li').prepend(imgDiv);
+
+					var phase_number = $activePhase.data('id');
+					
+					$(checkbox).attr('name','phase['+phase_number+'][approver][]');
+
+					$activePhase.find('.user-list li').prepend(imgDiv);
+					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);
+
 					$btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
 				}
@@ -424,7 +433,7 @@ jQuery(function($) {
 		});
 
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {
+		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {			
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -446,6 +455,7 @@ jQuery(function($) {
 				tipW = 20;
 				tipH = 10;
 			}
+			
 			$('#qtip-' + pid).qtip('api').set({
 				'content.title': ptitle,
 				'hide.effect': function() {
@@ -459,14 +469,17 @@ jQuery(function($) {
 				'position.container': $(pcontainer),
 				'position.target': $target,
 				'overwrite': false,
-				'show.effect': function() { $(this).fadeIn(); },
-				'show.event': e.type,
 				'style.classes': 'qtip-shadow ' + pclass,
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
 				'style.tip.height': tipH,
-				'style.tip.width': tipW,
-				'style.width': pwidth
+				'style.tip.width': tipW
+			}).show({
+				effect: function() {
+					$(this).fadeIn();
+				},
+				event: e.type,
+				ready: true
 			}, e);
 		});
 
@@ -731,7 +744,6 @@ jQuery(function($) {
 		var dashboardH = $('.page-main').outerHeight();
 		var headhH = $('.page-main-header').outerHeight(true);
 		var colsH = $('.equal-cols').outerHeight(true);
-		console.log(colsH);
 		var newColsH = dashboardH - headhH;
 		var magicNum = 0;
 		//equal column heights v2
@@ -803,7 +815,6 @@ jQuery(function($) {
     			
     			if(data.response == 'success')
     			{
-    				console.log(data.response);
     				$(control).parents().children('.btn-next-step').trigger('click');
     			}
     		}
@@ -818,7 +829,6 @@ jQuery(function($) {
 
     	var tags = [];
     	$('input[name="selected_tags[]"]:checked').each(function(i) {
-		   console.log(this.value);
 		   tags[i] = this.value;
 		});
 
