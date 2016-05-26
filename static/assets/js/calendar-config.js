@@ -170,7 +170,6 @@ jQuery(function($) {
 
 		//Get popover calendar for date selector
 		$('body').on('click, focus', 'input[data-toggle="popover-calendar"]', function(e) {
-			//don't fire calendar popover if date is today or tomorrow
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -182,7 +181,10 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
-			inputType = $(this).attr('name');
+			//clone the calendar div to allow for multiple date selectors on one page
+			var calendarClone = $('#' + pid).clone();
+			calendarClone.attr('id', pid + '-clone');
+			inputType = $target.attr('name');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -194,26 +196,28 @@ jQuery(function($) {
 			}
 			$target.qtip({
 				content: {
-					text: $('#' + pid)
+					text: calendarClone
 				},
 				events: {
 					show: function(e, api) {
-						//don't show calendar popup if date is today or tomorrow
+						//don't show calendar popup if date is set to today or tomorrow
 						if(calendarType === "today" || calendarType === "tomorrow") {
 							e.preventDefault();
 						}
 					},
 					visible: function() {
 						if(inputType !== undefined) {
-							showSelectCalendar(pid);
+							showSelectCalendar(pid + '-clone');
 						}
 					}
 				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
+						//remove clone on hide to prevent duplicate display
+						calendarClone.remove();
 					},
-					event: 'unfocus'
+					event: 'unfocus blur'
 				},
 				position: {
 					adjust: {
@@ -225,7 +229,6 @@ jQuery(function($) {
 					container: $(pcontainer),
 					target: $target
 				},
-				overwrite: false,
 				show: {
 					effect: function() {
 						$(this).fadeIn();
@@ -246,9 +249,42 @@ jQuery(function($) {
 			}, e);
 		});
 
+		//allow click on date select calendar without blurring date input and therefore closing calendar
+		$('body').on('mousedown', '.date-select-calendar', function(e) {
+			e.preventDefault();
+		});
+
+		//update date ranges on input blur
+		$('body').on('blur', 'input[name="start-date"], input[name="end-date"]', function() {
+			var inputVal = $(this).val();
+			if(inputVal !== "") {
+				if($(this).attr('name') === 'start-date') {
+					startDate = $.fullCalendar.moment(inputVal);
+					if(endDate === undefined || startDate > endDate) {
+						endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+						$('input[name="end-date"]').val(endDate.format('M/DD/YYYY'));
+					}
+				}
+				if($(this).attr('name') === 'end-date') {
+					endDate = $.fullCalendar.moment(inputVal);
+					if(startDate === undefined || endDate < startDate) {
+						startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+						$('input[name="end-date"]').val(startDate.format('M/DD/YYYY'));
+					}
+				}
+			}
+		});
+		//update single date calendar on input blur
+		$('body').on('blur', '.single-date-select', function() {
+			var inputVal = $(this).val();
+			if(inputVal !== "") {
+				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+			}
+		});
+
 		//Get popover calendar for date selector
 		$('body').on('click', 'a[data-toggle="popover-calendar"]', function(e) {
-			//don't fire calendar popover if date is today or tomorrow
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -425,41 +461,57 @@ jQuery(function($) {
 				right: 'next'
 			},
 			dayClick: function(date) {
-				if(inputType === 'start-date') {
+				//for date range
+				if(inputType === 'start-date' || inputType === 'end-date') {
+					//remove previously set dates
+					$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
+					if(inputType === 'start-date') {
+						startDate = date;
+						if(endDate === undefined || startDate > endDate ) {
+							endDate = date;
+						}
+					}
+					else if(inputType === 'end-date') {
+						endDate = date;
+						if(startDate === undefined || endDate < startDate) {
+							startDate = date;
+						}
+					}
+					exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
+					exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
+					$('input[name="start-date"]').val(exportStart);
+					$('input[name="end-date"]').val(exportEnd);
+				}
+				//regular single date select
+				else {
+					//don't allow dates earlier than today
+					var today = $.fullCalendar.moment().format('YYYYMMDD');
+					var selected = $.fullCalendar.moment(date).format('YYYYMMDD');
+					if(selected < today) {
+						return;
+					}
 					if(startDate !== undefined) {
 						//remove previously set start date
 						$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
 					}
 					startDate = date;
-					if(endDate === undefined || endDate < startDate) {
-						endDate = date;
-					}
-				}
-				else if(inputType === 'end-date') {
-					if(endDate !== undefined) {
-						//remove previously set end date
-						$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
-					}
 					endDate = date;
-					if(startDate === undefined || startDate > endDate) {
-						startDate = date;
-					}
+					$('input[name="' + inputType + '"]').val($.fullCalendar.moment(date).format('M/D/YYYY'));
 				}
 				var eventData = {
 					allDay: true,
 					start: $.fullCalendar.moment(startDate),
-					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
+					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
 					rendering: 'background',
 					color: '#f4d3d5'
 				};
 				$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
-				exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
-				exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
-				$('input[name="end-date"]').val(exportEnd);
-				$('input[name="start-date"]').val(exportStart);
 			},
 			theme: true,
-			themeButtonIcons: false
+			themeButtonIcons: false,
+			viewRender: function() {
+				$('.qtip').qtip('reposition');
+			}
 		});
 		//render events saved from other calendars
 		if(startDate !== undefined && endDate !== undefined) {
@@ -467,12 +519,18 @@ jQuery(function($) {
 			$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
 			var savedEvent = {
 				allDay: true,
-				start: startDate,
-				end: $.fullCalendar.moment(endDate).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day
+				start: $.fullCalendar.moment(startDate, 'M/D/YYYY'),
+				end: $.fullCalendar.moment(endDate, 'M/D/YYYY').add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
 				rendering: 'background',
 				color: '#f4d3d5'
 			};
 			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', savedEvent, true);
+			if(inputType !== 'end-date') {
+				$('#' + id + ' .date-select-calendar').fullCalendar('gotoDate', startDate);
+			}
+			else {
+				$('#' + id + ' .date-select-calendar').fullCalendar('gotoDate', endDate);
+			}
 		}
 	};
 

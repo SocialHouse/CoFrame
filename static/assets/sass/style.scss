@@ -2534,6 +2534,18 @@ a {
 	&:last-child {
 		margin-bottom: 0;
 	}
+	.timezone {
+		font-family: $bebas;
+		font-size: remCalc(20px);
+		line-height: 36px;
+		color: #000;
+		margin: 22px 0 0 18px;
+		&.form-control-sm {
+			margin-top: 0;
+			font-size: 1rem;
+			line-height: 30px;
+		}
+	}
 }
 label {
 	text-transform: uppercase;
@@ -2565,6 +2577,17 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	&:focus {
 		outline: 1px solid;
 	}
+	&.single-date-select {
+		max-width: 132px;
+	}
+	&.time-select {
+		max-width: 142px;
+		margin-left: 18px;
+		padding: 4px 0px 4px 5px;
+		input {
+			font-size: 20px;
+		}
+	}
 }
 .form-inline .form-control + .form-control {
 	@media (min-width: 1281px) {
@@ -2574,7 +2597,57 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .form-control-sm {
 	line-height: 22px;
 	min-height: 30px;
+	&.single-date-select {
+		max-width: 106px;
+	}
+	&.time-select {
+		max-width: 122px;
+		margin-left: 18px;
+		input {
+			font-size: 16px;
+		}
+		.incrementer {
+			.fa {
+				font-size: 10px;
+				&:first-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
 }
+.time-select {
+	.form-inline & {
+		display: block;
+	}
+	input {
+		font-family: $bebas;
+		float: left;
+		border: 0;
+		width: 33%;
+		outline: none;
+	}
+	.incrementer {
+		float: left;
+		margin-left: -18px;
+		position: relative;
+		z-index: 1;
+		.fa {
+			display: block;
+			cursor: pointer;
+			font-size: 12px;
+			&:first-child {
+				margin-bottom: 2px;
+			}
+		}
+	}
+	.time-separator {
+		position: absolute;
+		margin-left: -8px;
+		font-size: 18px;
+	}
+}
+
 .form-control-time {
 	max-width: 4.5rem;
 	&.form-control-sm {

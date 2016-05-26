@@ -33,20 +33,20 @@
 	</div>
 	<div class="form-group form-inline pull-sm-left">
 		<label>Slate Post:</label><br>
-		<select class="form-control">
-			<option value="">Month</option>
-		</select>
-		<select class="form-control">
-			<option value="">DD</option>
-		</select>
-		<select class="form-control">
-			<option value="">YYYY</option>
-		</select>
-		<input type="text" class="form-control form-control-time" placeholder="HH:MM">
-		<select class="form-control">
-			<option value="am">AM</option>
-			<option value="pm">PM</option>
-		</select>
+		<div class="hide-top-bx-shadow">
+			<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+		</div>
+	</div>
+	<div class="form-group pull-sm-left">
+		<div class="pull-xs-left">
+			<label class="invisible">Post Time</label>
+			<div class="time-select form-control">
+				<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
+				<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
+				<input type="text" class="time-input amselect" name="post-ampm" value="am">
+			</div>
+		</div>
+		<span class="timezone pull-xs-right">PST</span>
 	</div>
 	<div class="form-group form-inline pull-xl-right">
 		<label>Tags:</label><br>

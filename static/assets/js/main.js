@@ -361,11 +361,9 @@ jQuery(function($) {
 			}, e);
 		});
 
-		$('body').on('click', '.popover-toggle', function(e) {
+		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
-			//remove focus from the button
-			$toggler.blur();
 			if($toggler.hasClass('selected')) {
 				$('.qtip').qtip('hide');
 			}
@@ -553,6 +551,121 @@ jQuery(function($) {
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
+	$('body').on('contentShown', '#phaseDetails', function() {
+		addIncrements();
+	});
+
+	//Time selector functions
+	addIncrements();
+	$('body').on('click', '.incrementer', function(e) {
+		var $target = $(e.target);
+		var incDec = ($target.hasClass('increase')) ? 'increase' : 'decrease';
+		var inputName = $(this).data('for');
+		var relatedInput = $('input[name="' + inputName + '"]');
+		if(relatedInput.hasClass('hour-select')) {
+			setHrs(relatedInput, incDec);
+		}
+		if(relatedInput.hasClass('minute-select')) {
+			setMins(relatedInput, incDec);
+		}
+		if(relatedInput.hasClass('amselect')) {
+			setAmPm(relatedInput);
+		}
+	});
+	$('body').on('keydown', '.time-input', function(e) {
+		var incDec;
+		//up arrow pressed
+		if(e.which === 38) {
+			incDec = 'increase';
+		}
+		//down arrow pressed
+		else if(e.which === 40) {
+			incDec = 'decrease';
+		}
+		else {
+			return;
+		}
+		var input = $(this);
+		if(input.hasClass('hour-select')) {
+			setHrs(input, incDec);
+		}
+		if(input.hasClass('minute-select')) {
+			setMins(input, incDec);
+		}
+		if(input.hasClass('amselect')) {
+			setAmPm(input);
+		}
+	});
+
+	function addIncrements() {
+		$('body').find('.time-select .time-input').each(function() {
+			var inputName = $(this).attr('name');
+			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
+			$(this).after(increment);
+			if($(this).hasClass('minute-select')) {
+				$(this).before('<span class="time-separator">:</span>');
+			}
+		});
+	}
+	function setHrs(input, incDec) {
+		var newVal;
+		var minVal = $(input).attr('data-min');
+		var maxVal = $(input).attr('data-max');
+		var inputVal = parseFloat($(input).val());
+		if(!inputVal) {
+			inputVal = 0;
+		}
+		if(incDec === "increase") {
+			if(inputVal < maxVal) {
+				newVal = inputVal + 1;
+			}
+			else if(inputVal >= maxVal) {
+				newVal = minVal;
+			}
+		}
+		else if(incDec === "decrease") {
+			if(inputVal > minVal) {
+				newVal = inputVal - 1;
+			}
+			else if(inputVal <= minVal) {
+				newVal = maxVal;
+			}
+		}
+		$(input).val(newVal);
+	}
+	function setMins(input, incDec) {
+		var newVal;
+		var minVal = $(input).attr('data-min');
+		var maxVal = $(input).attr('data-max');
+		var inputVal = parseFloat($(input).val());
+		if(!inputVal) {
+			inputVal = 0;
+		}
+		if(incDec === "increase") {
+			if(inputVal < maxVal) {
+				newVal = inputVal + 1;
+			}
+			else if(inputVal >= maxVal) {
+				newVal = minVal;
+			}
+		}
+		else if(incDec === "decrease") {
+			if(inputVal > minVal) {
+				newVal = inputVal - 1;
+			}
+			else if(inputVal <= minVal) {
+				newVal = maxVal;
+			}
+		}
+		if(newVal < 10) {
+			newVal = '0' + newVal;
+		}
+		$(input).val(newVal);
+	}
+	function setAmPm(input) {
+		($(input).val() === 'am') ? $(input).val('pm') : $(input).val('am');
+	}
+
 	function nextPhase(i) {
 		var linkedPhase;
 		$('.approval-phase').removeClass('active');
@@ -697,8 +810,12 @@ jQuery(function($) {
 	}
 
 	function showContent(obj) {
-		obj.fadeIn();
+		obj.fadeIn(function() {
+			obj.trigger('contentShown');
+		});
 	}
 	function hideContent(obj) {
-		obj.fadeOut();
+		obj.fadeOut(function() {
+			obj.trigger('contentHidden');
+		});
 	}

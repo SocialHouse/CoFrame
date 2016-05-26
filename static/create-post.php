@@ -62,12 +62,17 @@
 		</div>
 	  </div>
 	</div>
+	<!-- Select Date Calendar -->
+	<div id="calendar-select-date" class="hidden calendar-select-date">
+		<div class="date-select-calendar"></div>
+	</div>
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/drag-drop-file-upload.js?ver=1.0.0'></script>
 	<script>fileDragNDrop();</script>
 </body>

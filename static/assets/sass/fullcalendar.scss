@@ -1319,6 +1319,9 @@ be a descendant of the grid when it is being dragged.
 	.fc-row {
 		border: 1px solid transparent;
 	}
+	.fc-day-number {
+		cursor: pointer;
+	}
 	.fc-day-number.fc-other-month {
 		color: $gray-lighter;
 	}
@@ -1334,6 +1337,9 @@ be a descendant of the grid when it is being dragged.
 	.fc-highlight {
 		background: #f4d3d5;
 	}
+	.fc-bgevent {
+		opacity: 1;
+	}
 	h2 {
 		font-size: remCalc(17px);
 	}
@@ -1345,6 +1351,12 @@ be a descendant of the grid when it is being dragged.
 	.selected-week {
 		border: 1px solid $brand-primary;
 		border-radius: 8px;
+	}
+}
+.future-dates-only {
+	.fc-past {
+		opacity: .3;
+		cursor: not-allowed;
 	}
 }
 #calendar-week {
