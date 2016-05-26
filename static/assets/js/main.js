@@ -364,8 +364,9 @@ jQuery(function($) {
 		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
+			var tooltipId = $toggler.data('hasqtip');
 			if($toggler.hasClass('selected')) {
-				$('.qtip').qtip('hide');
+				$('#qtip-' + tooltipId).qtip('hide');
 			}
 			if($toggler.hasClass('show-brands-toggler')) {
 				if($toggler.hasClass('animated')) {
