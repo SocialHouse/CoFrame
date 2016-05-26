@@ -259,14 +259,14 @@ jQuery(function($) {
 			var inputVal = $(this).val();
 			if(inputVal !== "") {
 				if($(this).attr('name') === 'start-date') {
-					startDate = $.fullCalendar.moment(inputVal);
+					startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 					if(endDate === undefined || startDate > endDate) {
 						endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 						$('input[name="end-date"]').val(endDate.format('M/DD/YYYY'));
 					}
 				}
 				if($(this).attr('name') === 'end-date') {
-					endDate = $.fullCalendar.moment(inputVal);
+					endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 					if(startDate === undefined || endDate < startDate) {
 						startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 						$('input[name="end-date"]').val(startDate.format('M/DD/YYYY'));
