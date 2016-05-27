@@ -70,10 +70,14 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_tags()
+	public function get_tags($brand_id = '')
 	{
 		$this->db->select('name');
 		$this->db->group_by('name');
+		if($brand_id)
+		{
+			$this->db->where('brand_id',$brand_id);
+		}
 		$query = $this->db->get('brand_tags');
 		if($query->num_rows() > 0)
 		{

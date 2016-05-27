@@ -182,7 +182,7 @@
 								foreach($brand_tags as $tag)
 								{
 									?>
-									<li class="tag" data-value="<?php echo $tag->name; ?>" data-group="brand-tag" data-tag="<?php echo $tag->name; ?>"><i class="fa fa-circle tag-<?php echo $tag->color; ?>"></i><?php echo $tag->name; ?>
+									<li class="tag" data-value="<?php echo $tag->name; ?>" data-group="brand-tag" data-tag="<?php echo $tag->name; ?>"><i class="fa fa-circle" style="color:<?php echo $tag->color; ?>;"></i><?php echo $tag->name; ?>
 									</li>
 									<?php
 								}

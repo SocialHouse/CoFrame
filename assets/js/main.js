@@ -546,11 +546,9 @@ jQuery(function($) {
 			}, e);
 		});
 
-		$('body').on('click', '.popover-toggle', function(e) {
+		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
-			//remove focus from the button
-			$toggler.blur();
 			if($toggler.hasClass('selected')) {
 				$('.qtip').qtip('hide');
 			}
@@ -598,8 +596,39 @@ jQuery(function($) {
 		});
 
 		/*Tag Functions*/
+		$('body').on('click','.post_tags',function(){
+			$(this).toggleClass('selected');
+			var checked = false;
+			var numTags = $('.tag-list .selected').length;
+			var tag = $(this).find('.fa');
+			var tagClass = tag.data('tag');
+			if($(this).hasClass('selected')) {
+				var newTag = tag.clone();
+				newTag.children().attr('checked',true);
+				newTag.prependTo('.tag-select');
+				checked = true;
+			}
+			else {
+				$('.tag-select').find('.fa').each(function() {
+					if($(this).data('tag') === tagClass) {
+						$(this).remove();
+					}
+				});
+				checked = false;
+			}
+			if(numTags > 0) {
+				$('.tag-select .fa.color-gray-lighter').hide();
+			}
+			else {
+				$('.tag-select .fa.color-gray-lighter').show();
+			}
+			//set the input value
+			var $input = $(this).find('input');			
+			// $input.attr("checked", checked);			
+		});
+
 		//assign tags to post
-		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
+		$(document).on('click', '.select-post-tags .tag-list .tag', function() {			
 			$(this).toggleClass('selected');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
@@ -719,6 +748,121 @@ jQuery(function($) {
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
+	$('body').on('contentShown', '#phaseDetails', function() {
+		addIncrements();
+	});
+
+	//Time selector functions
+	addIncrements();
+	$('body').on('click', '.incrementer', function(e) {
+		var $target = $(e.target);
+		var incDec = ($target.hasClass('increase')) ? 'increase' : 'decrease';
+		var inputName = $(this).data('for');
+		var relatedInput = $('input[name="' + inputName + '"]');
+		if(relatedInput.hasClass('hour-select')) {
+			setHrs(relatedInput, incDec);
+		}
+		if(relatedInput.hasClass('minute-select')) {
+			setMins(relatedInput, incDec);
+		}
+		if(relatedInput.hasClass('amselect')) {
+			setAmPm(relatedInput);
+		}
+	});
+	$('body').on('keydown', '.time-input', function(e) {
+		var incDec;
+		//up arrow pressed
+		if(e.which === 38) {
+			incDec = 'increase';
+		}
+		//down arrow pressed
+		else if(e.which === 40) {
+			incDec = 'decrease';
+		}
+		else {
+			return;
+		}
+		var input = $(this);
+		if(input.hasClass('hour-select')) {
+			setHrs(input, incDec);
+		}
+		if(input.hasClass('minute-select')) {
+			setMins(input, incDec);
+		}
+		if(input.hasClass('amselect')) {
+			setAmPm(input);
+		}
+	});
+
+	function addIncrements() {
+		$('body').find('.time-select .time-input').each(function() {
+			var inputName = $(this).attr('name');
+			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
+			$(this).after(increment);
+			if($(this).hasClass('minute-select')) {
+				$(this).before('<span class="time-separator">:</span>');
+			}
+		});
+	}
+	function setHrs(input, incDec) {
+		var newVal;
+		var minVal = $(input).attr('data-min');
+		var maxVal = $(input).attr('data-max');
+		var inputVal = parseFloat($(input).val());
+		if(!inputVal) {
+			inputVal = 0;
+		}
+		if(incDec === "increase") {
+			if(inputVal < maxVal) {
+				newVal = inputVal + 1;
+			}
+			else if(inputVal >= maxVal) {
+				newVal = minVal;
+			}
+		}
+		else if(incDec === "decrease") {
+			if(inputVal > minVal) {
+				newVal = inputVal - 1;
+			}
+			else if(inputVal <= minVal) {
+				newVal = maxVal;
+			}
+		}
+		$(input).val(newVal);
+	}
+	function setMins(input, incDec) {
+		var newVal;
+		var minVal = $(input).attr('data-min');
+		var maxVal = $(input).attr('data-max');
+		var inputVal = parseFloat($(input).val());
+		if(!inputVal) {
+			inputVal = 0;
+		}
+		if(incDec === "increase") {
+			if(inputVal < maxVal) {
+				newVal = inputVal + 1;
+			}
+			else if(inputVal >= maxVal) {
+				newVal = minVal;
+			}
+		}
+		else if(incDec === "decrease") {
+			if(inputVal > minVal) {
+				newVal = inputVal - 1;
+			}
+			else if(inputVal <= minVal) {
+				newVal = maxVal;
+			}
+		}
+		if(newVal < 10) {
+			newVal = '0' + newVal;
+		}
+		$(input).val(newVal);
+	}
+	function setAmPm(input) {
+		($(input).val() === 'am') ? $(input).val('pm') : $(input).val('am');
+	}
+
 	function nextPhase(i) {
 		var linkedPhase;
 		$('.approval-phase').removeClass('active');
@@ -765,7 +909,7 @@ jQuery(function($) {
 					$(this).css('height', dashboardH - headhH - magicNum);
 				}
 				else {
-					colsH = 723;
+					// colsH = 723;
 					$(this).css('height', colsH);
 				}
 			}
@@ -792,8 +936,11 @@ jQuery(function($) {
 
     $(document).on('keyup','#postCopy',function(){
     	var post_copy = $(this).val();
+    	post_copy = convertToLink(post_copy);
     	$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
     });
+
+
 
     //save outlet to brand
     $(document).on('click','#save_outlet',function(){
@@ -859,18 +1006,7 @@ jQuery(function($) {
 
     $('#lastName').keyup(function(){
     	$('.user-name-role').html($('#firstName').val().toUpperCase()+' '+$(this).val().toUpperCase());
-    });
-
-    $('#userRoleSelect').change(function(){
-    	if($(this).val())
-    	{
-    		$('.addUserToBrand').prop('disabled',false);
-    	}
-    	else
-    	{
-    		$('.addUserToBrand').prop('disabled',true);
-    	}
-    });
+    });   
 
     $('.skip_step').click(function(){
     	var brand_id = $('#brand_id').val();
@@ -879,9 +1015,16 @@ jQuery(function($) {
     		window.location.href = base_url+'brands/success/'+brand_id;
     	}
     });
+
+   
     
 });
-
+	
+	function convertToLink(text) {
+		console.log(text);
+		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
+		return text.replace(exp,"<a class='anchor_color' href='$1'>$1</a>");
+	}
 
 	function setUserTime() {
 		var today = new Date();
@@ -902,10 +1045,14 @@ jQuery(function($) {
 	}
 
 	function showContent(obj) {
-		obj.fadeIn();
+		obj.fadeIn(function() {
+			obj.trigger('contentShown');
+		});
 	}
 	function hideContent(obj) {
-		obj.fadeOut();
+		obj.fadeOut(function() {
+			obj.trigger('contentHidden');
+		});
 	}
 
 	

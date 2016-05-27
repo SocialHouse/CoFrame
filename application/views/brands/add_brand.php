@@ -27,7 +27,7 @@
 						</div>
 						<div class="form-group">
 							<label>Brand Time Zone:</label>
-							<select class="form-control" name="timezone">
+							<select class="form-control" name="timezone" id="timezone">
 								<option value="">Select Brand Time Zone</option>
 								<?php
 							    foreach($timezones as $timezone)
@@ -42,7 +42,7 @@
 					</div>
 					<footer class="post-content-footer">
 						<button type="reset" class="btn btn-sm btn-default">Cancel</button>
-						<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand">Next</button>
+						<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand" disabled="disabled">Next</button>
 
 						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="2"></button>
 					</footer>
@@ -79,7 +79,7 @@
 					<footer class="post-content-footer">
 						<div id="outletStep2Btns">
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
-							<button type="button" id="save_outlet" class="btn btn-sm btn-disabled pull-sm-right">Next</button>
+							<button type="button" id="save_outlet" class="btn btn-sm btn-disabled pull-sm-right" disabled="disabled">Next</button>
 
 							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="3"></button>
 						</div>
@@ -107,7 +107,7 @@
 						</div>
 						<div class="hidden" id="addUserBtns">
 							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
-							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Role</button>
+							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
 						</div>
 						<div class="hidden" id="userRoleBtns">
 							<p class="disclaimer">Upon clicking ‘Add,’ a registration link will be sent to this user.</p>
@@ -132,38 +132,26 @@
 							<h5 class="border-title"><span>Select Tag Color</span></h5>
 							<div class="tag-list">
 								<ul>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="red"><i class="fa fa-circle tag-red"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="pink"><i class="fa fa-circle tag-pink"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="orange"><i class="fa fa-circle tag-orange"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="yellow"><i class="fa fa-circle tag-yellow"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="green"><i class="fa fa-circle tag-green"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="green-dark"><i class="fa fa-circle tag-green-dark"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="blue"><i class="fa fa-circle tag-blue"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="blue-dark"><i class="fa fa-circle tag-blue-dark"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="purple-dark"><i class="fa fa-circle tag-purple-dark"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag[]" checked="checked" value="purple"><i class="fa fa-circle tag-purple"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="brown"><i class="fa fa-circle tag-brown"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="tan"><i class="fa fa-circle tag-tan"></i></li>
-									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="gray"><i class="fa fa-circle tag-gray"></i></li>
-									<li class="tag hidden custom-tag[]" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" checked="checked" name="brand-tag" value="custom"><i class="fa fa-circle tag-custom"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ef3c39"><i class="fa fa-circle" style="color:#ef3c39;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ff7bac"><i class="fa fa-circle" style="color:#ff7bac;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#f7931e"><i class="fa fa-circle" style="color:#f7931e;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ffdf7f"><i class="fa fa-circle" style="color:#ffdf7f;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#8cc63f"><i class="fa fa-circle" style="color:#8cc63f;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#009245"><i class="fa fa-circle" style="color:#009245;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#58b0e3"><i class="fa fa-circle" style="color:#58b0e3;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#0071bc"><i class="fa fa-circle" style="color:#0071bc;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#662d91"><i class="fa fa-circle" style="color:#662d91;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag[]" checked="checked" value="#a75574"><i class="fa fa-circle" style="color:#a75574;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#a67c52"><i class="fa fa-circle" style="color:#a67c52;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#c7b299"><i class="fa fa-circle" style="color:#c7b299;"></i></li>
+									<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#bfbfbf"><i class="fa fa-circle" style="color:#bfbfbf;"></i></li>
+									<li class="tag hidden custom-tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" checked="checked" name="brand-tag[]" value=""><i class="fa fa-circle tag-custom"></i></li>
 									<li class="tag" data-value="" data-group="brand-tag"><a href="#" id="chooseTagColor"><i class="tf-icon circle-border">+</i></a></li>
 								</ul>
 							</div>
 							<div class="form-group">
 								<select class="form-control" name="tagLabel" id="tagLabel">								
 									<option value="">Select Label</option>
-									<option value="Marketing">Marketing</option>
-									<option value="E-Commerce">E-Commerce</option>
-									<option value="Sales">Sales</option>
-									<option value="Promotion">Promotion</option>
-									<?php
-								    foreach($tags as $tag)
-								    {
-								    	?>
-								    	<option value="<?php echo $tag->name ?>" ><?php echo $tag->name; ?></option>
-								    	<?php
-								    }
-								    ?>
 									<option value="other">+ Add Label</option>
 								</select>
 							</div>

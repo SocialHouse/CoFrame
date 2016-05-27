@@ -200,11 +200,7 @@
 							{
 								$('#brand_id').val(data.brand_id);
 								$(control).parents().children('.btn-next-step').trigger('click');
-							}
-							else
-							{
-
-							}
+							}							
 						},
 						error: function(){
 							alert( 'There was a problem with your upload.  Please try again.' );
@@ -234,10 +230,11 @@
 			$(document).on( 'click','.addUserToBrand', function( e ){
 				var control = this;
 				// preventing the duplicate submissions if the current one is in progress
-				if( $form.hasClass( 'is-uploading' ) ) return false;
+				// if( $form.hasClass( 'is-uploading' ) ) return false;
 
-				$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
-
+				// $form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+				$('.user-upload-img').show();
+				$('.user-img-preview').hide();
 				// ajax file upload for modern browsers
 				if( isAdvancedUpload ) {
 					e.preventDefault();
@@ -309,6 +306,14 @@
 											$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').html(html);
 									    	allFiles.splice(1, 1);
+									    	$('.user-upload-img').hide();
+									    	$('.user-img-preview').show();
+						    			}
+						    			else
+						    			{
+						    				$('.user-upload-img').hide();
+											$('.user-img-preview').show();
+											alert('Unable to add user.');
 						    			}
 						    		}
 
@@ -316,6 +321,8 @@
 							}
 							else
 							{
+								$('.user-upload-img').hide();
+								$('.user-img-preview').show();
 								alert('Unable to upload image please try again.')
 							}
 						},

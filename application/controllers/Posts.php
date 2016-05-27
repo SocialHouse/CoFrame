@@ -60,7 +60,8 @@ class Posts extends CI_Controller {
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
 			$this->data['background_image'] = 'bg-brand-management.jpg';
-			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
+			$this->data['css_files'] = array(css_url().'fullcalendar.css');
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
 
 			_render_view($this->data);
 		}
@@ -80,188 +81,146 @@ class Posts extends CI_Controller {
 
 			if(!empty($post_data['brand_id']))
 			{
-		        $this->form_validation->set_rules('post_outlet','Outlets','required',                                            
-		                                            array('required' => 'At least select one outlet')
-		                                        );
-		        $this->form_validation->set_rules('post_copy','post copy','required',
-		                                            array('required' => 'Post copy is required')
-		                                        );
-		        $this->form_validation->set_rules('slate_date_month','month','required',
-		                                            array('required' => 'Date is required')
-		                                        );
-		        $this->form_validation->set_rules('slate_date_day','time','required',
-		                                            array('required' => 'Time is required')
-		                                        );
-		         $this->form_validation->set_rules('slate_date_year','year','required',
-		                                            array('required' => 'Date is required')
-		                                        );
-		        $this->form_validation->set_rules('slate_time','time','required',
-		                                            array('required' => 'Time is required')
-		                                        );
-		        // $this->form_validation->set_rules('users[]','users','required',
-		        //                                     array('required' => 'At least select one user for approvel')
-		        //                                 );
-		       	
-		       	if($this->form_validation->run() === TRUE)
-		        {		       
 						
-			    	$date_time =  $post_data['slate_date_year'].'-'.$post_data['slate_date_month'].'-'.$post_data['slate_date_day']." ".$post_data['slate_time'];
-			    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+		    	$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
+		    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));		    	
 
-			    	if(!empty($post_data['post_outlet']))
-		    		{
-	    				$condition = array('id' => $post_data['post_outlet']);
-						$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
+		    	if(!empty($post_data['post_outlet']))
+	    		{
+    				$condition = array('id' => $post_data['post_outlet']);
+					$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
 
-	    				$post = array(
-		    						'content' => $this->input->post('post_copy'),
-		    						'slate_date_time' => $slate_date_time,
-		    						'brand_id' => $post_data['brand_id'],
-		    						'outlet_id' =>$post_data['post_outlet']
-		    					);
+    				$post = array(
+	    						'content' => $this->input->post('post_copy'),
+	    						'slate_date_time' => $slate_date_time,
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet']
+	    					);
 
-	    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
+    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
 
-	    				if($inserted_id)
-				    	{
-				    		if(!empty($post_data['post_tag']))
-				    		{
-				    			foreach($post_data['post_tag'] as $tag)
-				    			{
-				    				$post_tag_data = array(
-				    										'post_id' => $inserted_id,
-				    										'brand_tag_id' => $tag
-				    									);
-				    			
-				    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
-				    			}
-				    		}					    		
-			    			
-		    				$reminder_data = array(
-		    										'post_id' => $inserted_id,
-		    										'user_id' => $this->user_id,
-		    										'type' => 'Created',
-		    										'brand_id' => $post_data['brand_id'],
-		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' post'
-		    									);
-
-		    				$this->timeframe_model->insert_data('reminders',$reminder_data);	    			
-				    		
-		    				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
-							{
-		    					$files = json_decode($post_data['uploaded_files'][0])->success;
-		    				}
-				    		if(isset($files) AND !empty($files))
-				    		{
-				    			foreach($files as $file)
-				    			{
-				    				$post_media_data = array(
-				    										'post_id' => $inserted_id,
-				    										'name' => $file->file,
-				    										'type' => $file->type,
-				    										'mime' => $file->mime
-				    									);			    				
-
-				    				$this->timeframe_model->insert_data('post_media',$post_media_data);
-				    			}
-				    		}
-
-				    		if(isset($post_data['load_default']))
+    				if($inserted_id)
+			    	{
+			    		if(!empty($post_data['post_tag']))
+			    		{
+			    			foreach($post_data['post_tag'] as $tag)
 			    			{
-			    				$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
-			    				if(!empty($default_phases))
-			    				{
-			    					foreach($default_phases as $phase)
-			    					{
-			    						$date_time = $post_data['default_phase_year']."-".$post_data['default_phase_month']."-".$post_data['default_phase_day']." ".$post_data['default_phase_time'];
-								    	$default_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+			    				$post_tag_data = array(
+			    										'post_id' => $inserted_id,
+			    										'brand_tag_id' => $tag
+			    									);
+			    			
+			    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+			    			}
+			    		}					    		
+		    			
+	    				$reminder_data = array(
+	    										'post_id' => $inserted_id,
+	    										'user_id' => $this->user_id,
+	    										'type' => 'Created',
+	    										'brand_id' => $post_data['brand_id'],
+	    										'text' => 'Created '.$outlet_data[0]->outlet_name.' post'
+	    									);
+
+	    				$this->timeframe_model->insert_data('reminders',$reminder_data);	    			
+			    		
+	    				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
+						{
+	    					$files = json_decode($post_data['uploaded_files'][0])->success;
+	    				}
+			    		if(isset($files) AND !empty($files))
+			    		{
+			    			foreach($files as $file)
+			    			{
+			    				$post_media_data = array(
+			    										'post_id' => $inserted_id,
+			    										'name' => $file->file,
+			    										'type' => $file->type,
+			    										'mime' => $file->mime
+			    									);			    				
+
+			    				$this->timeframe_model->insert_data('post_media',$post_media_data);
+			    			}
+			    		}
+
+			    		if(isset($post_data['load_default']))
+		    			{
+		    				$default_phases = $this->post_model->get_default_phases($post_data['brand_id']);
+		    				if(!empty($default_phases))
+		    				{
+		    					foreach($default_phases as $phase)
+		    					{
+		    						$date_time = $post_data['default_phase_year']."-".$post_data['default_phase_month']."-".$post_data['default_phase_day']." ".$post_data['default_phase_time'];
+							    	$default_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+		    						$phase_data = array(
+		    										'phase' => $phase->phase,
+		    										'brand_id' => $post_data['brand_id'],
+		    										'post_id' => $inserted_id
+		    									);
+		    						//add new phase data for the post with same data as default phase
+		    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+
+		    						$phases_approver = array(
+		    											'user_id' => $phase->user_id,
+		    											'phase_id' => $phase_insert_id,
+		    											'approve_by' => $default_date_time,
+		    											'note' => $post_data['default_note']
+
+		    										);
+
+									$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
+								}
+		    				}
+		    			}
+		    			else
+		    			{
+		    				if(isset($post_data['phase']) AND !empty($post_data['phase']))
+		    				{
+		    					$phase_number = 1;		    					
+		    					foreach($post_data['phase'] as $key=>$phase)
+		    					{
+		    						if(isset($phase['approver']) AND !empty($phase['approver']))
+		    						{
+		    							$date_time =  $phase['approve_date'].' '.$phase['approve_hour'].':'.$phase['approve_minute'].' '.$phase['approve_ampm'];
+									    	
+									    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
 			    						$phase_data = array(
-			    										'phase' => $phase->phase,
+			    										'phase' => $phase_number,
 			    										'brand_id' => $post_data['brand_id'],
-			    										'post_id' => $inserted_id
-			    									);
-			    						//add new phase data for the post with same data as default phase
-			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
-
-			    						$phases_approver = array(
-			    											'user_id' => $phase->user_id,
-			    											'phase_id' => $phase_insert_id,
-			    											'approve_by' => $default_date_time,
-			    											'note' => $post_data['default_note']
-
-			    										);
-
-										$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);											
-									}
-			    				}
-			    			}
-			    			else
-			    			{
-			    				if(isset($post_data['phase']) AND !empty($post_data['phase']))
-			    				{
-			    					$phase_number = 1;		    					
-			    					foreach($post_data['phase'] as $key=>$phase)
-			    					{
-			    						if(isset($phase['approver']) AND !empty($phase['approver']))
-			    						{
-			    							
-				    						$date_time = $phase['approve_year']."-".$phase['approve_month']."-".$phase['approve_day']." ".$phase['approve_time']." ".$phase['time_type'];
-										    	
-										    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
-
-				    						$phase_data = array(
-				    										'phase' => $phase_number,
-				    										'brand_id' => $post_data['brand_id'],
-				    										'post_id' => $inserted_id,
-				    										'approve_by' => $approve_date_time,
-					    									'note' => $phase['note']
-				    									);				    						
-				    						
-				    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);			    						
-
-				    						foreach($phase['approver'] as $user)
-				    						{ 
-					    						$phases_approver = array(
-					    											'user_id' => $user,
-					    											'phase_id' => $phase_insert_id  
-					    										);
-
-												$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
-												
-												$reminder_data = array(
 			    										'post_id' => $inserted_id,
-			    										'user_id' => $user,
-			    										'type' => 'Approve',
-			    										'brand_id' => $post_data['brand_id'],
-			    										'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
+			    										'approve_by' => $approve_date_time,
+				    									'note' => $phase['note']
 			    									);
+			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+			    						foreach($phase['approver'] as $user)
+			    						{
+			    							$phases_approver = array(
+			    								'user_id' => $user,
+			    								'phase_id' => $phase_insert_id
+			    								);
+			    							$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
 
-			    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+			    							$reminder_data = array(
+			    								'post_id' => $inserted_id,
+			    								'user_id' => $user,
+			    								'type' => 'Approve',
+			    								'brand_id' => $post_data['brand_id'],
+			    								'text' => 'Approve '.$outlet_data[0]->outlet_name.' post'
+			    								);
 
-											}
-
-				    						$phase_number++;
-				    					}
-			    					}
-			    				}
-			    			}
+		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+		    							}
+		    							$phase_number++;
+		    						}
+		    					}
+		    				}
 		    			}
-		    			$this->session->set_flashdata('message','Post has been saved successfuly');
-		    			redirect(base_url().'posts/index/'.$post_data['brand_id']);
 		    		}
-		    		$this->data['error'] = "Unable to save post please try again";
-		    	}
-
-		    	$this->data['users'] = $this->brand_model->get_brand_users($post_data['brand_id']);
-		    	$this->data['outlets'] = $this->post_model->get_brand_outlets($post_data['brand_id']);
-				
-				$this->data['brand_id'] = $post_data['brand_id'];
-				$this->data['view'] = 'posts/create-post';
-				$this->data['layout'] = 'layouts/new_user_layout';
-				$this->data['background_image'] = 'bg-brand-management.jpg';
-				$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0');
-				_render_view($this->data);
+	    			$this->session->set_flashdata('message','Post has been saved successfuly');
+	    			redirect(base_url().'posts/index/'.$post_data['brand_id']);
+	    		}		    		
 		    }
 		}
 	}

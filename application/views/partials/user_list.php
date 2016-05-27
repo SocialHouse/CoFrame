@@ -13,7 +13,7 @@ if(!empty($users))
 			</div>
 			<div class="pull-sm-left">
 				<?php
-				$path = img_url()."fpo/norel.jpg";
+				$path = img_url()."default_profile.jpg";
 				if(file_exists(upload_path().'users/'.$user->aauth_user_id.'.png'))
 				{
 					$path = upload_url().'users/'.$user->aauth_user_id.'.png';

@@ -60,6 +60,22 @@ jQuery(function($) {
 				//set input field value
 				$('#brandOutlet').val(savedOutlets);				
 				$selectedList.append($listItem);
+				
+				if($('#selectedOutlets').children('ul').children('li'))
+				{
+					$('#save_outlet').prop('disabled',false);
+					if(!$('#save_outlet').hasClass('btn-secondary'))
+    					$('#save_outlet').addClass('btn-secondary');
+
+    				$('#save_outlet').removeClass('btn-disabled');    	
+				}
+				else
+				{
+					if(!$('#save_outlet').hasClass('btn-disabled'))
+		    			$('#save_outlet').addClass('btn-disabled');
+		    		$('#save_outlet').removeClass('btn-secondary');
+		    		$('#save_outlet').prop('disabled',true); 
+				}
 			}
 			else {
 				return;
@@ -68,10 +84,7 @@ jQuery(function($) {
 		//remove brand outlet from list
 		$('body').on('click', '.remove-outlet', function() {
 			var savedOutlets = $('#brandOutlet').val().split(',');
-			console.log(savedOutlets);
-			var removeOutlet = $(this).data('remove-outlet');
-			console.log(removeOutlet);
-			console.log(savedOutlets);
+			var removeOutlet = $(this).data('remove-outlet');			
 			$('#selectedOutlets li[data-outlet="' + removeOutlet + '"]').slideUp(function() {
 				$(this).remove();
 				hideNoLength($('#selectedOutlets'));
@@ -81,15 +94,47 @@ jQuery(function($) {
 				$('#brandOutlet').val(savedOutlets);
 			});
 			$('#brandOutlets li[data-selected-outlet="' + removeOutlet + '"]').removeClass('saved').addClass('disabled');
+			
+			if(savedOutlets.length > 1)
+			{
+				$('#save_outlet').prop('disabled',false);
+				if(!$('#save_outlet').hasClass('btn-secondary'))
+					$('#save_outlet').addClass('btn-secondary');
+
+				$('#save_outlet').removeClass('btn-disabled');
+			}
+			else
+			{
+				if(!$('#save_outlet').hasClass('btn-disabled'))
+	    			$('#save_outlet').addClass('btn-disabled');
+	    		$('#save_outlet').removeClass('btn-secondary');
+	    		$('#save_outlet').prop('disabled',true); 
+			}
 		});
 
 		$('#selectedOutlets').on('contentSlidDown', function() {
 			hideNoLength($(this));
-		});
+		});		
 
 		$('#userRoleSelect').on('change', function() {
 			var selectedRole = $(this).val();
-			var $actPermissions = $('.permission-details:visible');
+			if(selectedRole)
+	    	{
+	    		if(!$('.addUserToBrand').hasClass('btn-secondary'))
+	    			$('.addUserToBrand').addClass('btn-secondary');
+	    		$('.addUserToBrand').removeClass('btn-disabled');
+
+	    		$('.addUserToBrand').prop('disabled',false);
+	    	}
+	    	else
+	    	{
+	    		if(!$('.addUserToBrand').hasClass('btn-disabled'))
+	    			$('.addUserToBrand').addClass('btn-disabled');
+	    		$('.addUserToBrand').removeClass('btn-secondary');
+	    		$('.addUserToBrand').prop('disabled',true);
+	    	}
+
+			var $actPermissions = $('.permission-details:visible');			
 			if($actPermissions.length) {
 				$actPermissions.fadeOut(function() {
 					$('#' + selectedRole + 'Permissions').slideDown();
@@ -150,11 +195,12 @@ jQuery(function($) {
 		var customTag = false;
 
 		$('#chooseTagColor').colorpicker({format: 'hex'}).on('changeColor', function(e) {			
-			var customColor = e.color.toHex();
-			var $custom = $('#selectBrandTags .custom-tag');
+			var customColor = e.color.toHex();			
+			var $custom = $('#selectBrandTags .custom-tag');			
 			var $icon = $custom.find('.fa');
 			$icon.css({'color': customColor, 'border-color': customColor});
 			$custom.show();
+			$custom.children().attr('value',customColor);
 			customTag = true;
 		});
 
@@ -283,6 +329,101 @@ jQuery(function($) {
 				width: 320
 			}
 		});
+
+		 $('#brandName').keyup(function(){
+    	if($('#timezone').val() && $(this).val())
+    	{
+    		if(!$('.save_brand').hasClass('btn-secondary'))
+    			$('.save_brand').addClass('btn-secondary');
+    		$('.save_brand').removeClass('btn-disabled');    		
+    		$('.save_brand').prop('disabled',false);
+    	}
+    	else
+    	{
+    		if(!$('.save_brand').hasClass('btn-disabled'))
+    			$('.save_brand').addClass('btn-disabled');
+
+    		$('.save_brand').removeClass('btn-secondary');
+    		$('.save_brand').prop('disabled',true); 
+    	}
+    	
+    });
+
+    $('#timezone').change(function(){
+    	if($(this).val() && $('#brandName').val())
+    	{
+    		if(!$('.save_brand').hasClass('btn-secondary'))
+    			$('.save_brand').addClass('btn-secondary');
+    		$('.save_brand').removeClass('btn-disabled');    		
+    		$('.save_brand').prop('disabled',false);
+    	}
+    	else
+    	{
+    		if(!$('.save_brand').hasClass('btn-disabled'))
+    			$('.save_brand').addClass('btn-disabled');
+
+    		$('.save_brand').removeClass('btn-secondary');
+    		$('.save_brand').prop('disabled',true); 
+    	}
+    });
+
+    $('#firstName').keyup(function(){
+    	if($('#lastName').val() && $('#userEmail').val() && $(this).val())
+    	{
+    		if(!$('#addRole').hasClass('btn-secondary'))
+    			$('#addRole').addClass('btn-secondary');
+    		$('#addRole').removeClass('btn-disabled');    		
+    		$('#addRole').prop('disabled',false);
+    	}
+    	else
+    	{
+    		if(!$('#addRole').hasClass('btn-disabled'))
+    			$('#addRole').addClass('btn-disabled');
+
+    		$('#addRole').removeClass('btn-secondary');
+    		$('#addRole').prop('disabled',true); 
+    	}
+    	
+    });
+
+    $('#lastName').keyup(function(){
+    	if($('#firstName').val() && $('#userEmail').val() && $(this).val())
+    	{
+    		if(!$('#addRole').hasClass('btn-secondary'))
+    			$('#addRole').addClass('btn-secondary');
+    		$('#addRole').removeClass('btn-disabled');    		
+    		$('#addRole').prop('disabled',false);
+    	}
+    	else
+    	{
+    		if(!$('#addRole').hasClass('btn-disabled'))
+    			$('#addRole').addClass('btn-disabled');
+
+    		$('#addRole').removeClass('btn-secondary');
+    		$('#addRole').prop('disabled',true); 
+    	}
+    	
+    });
+
+    $('#userEmail').keyup(function(){
+    	if($('#firstName').val() && $('#lastName').val() && $(this).val())
+    	{
+    		if(!$('#addRole').hasClass('btn-secondary'))
+    			$('#addRole').addClass('btn-secondary');
+    		$('#addRole').removeClass('btn-disabled');    		
+    		$('#addRole').prop('disabled',false);
+    	}
+    	else
+    	{
+    		if(!$('#addRole').hasClass('btn-disabled'))
+    			$('#addRole').addClass('btn-disabled');
+
+    		$('#addRole').removeClass('btn-secondary');
+    		$('#addRole').prop('disabled',true); 
+    	}
+    	
+    });
+
 	}
 
 	function nextStep(i) {

@@ -18,7 +18,14 @@ jQuery(function($) {
 	$(document).ready(function() {
 		$('#calendarBtnToday').on('click', function(e) {
 			e.preventDefault();
-			$('#calendar-week, #calendar-month').fullCalendar( 'today' );
+			if($('#calendar-week').length) {
+				$('#calendar-week').fullCalendar( 'today' );
+				$('#calendar-change-week .date-select-calendar').fullCalendar('destroy');
+			}
+			else if($('#calendar-month').length) {
+				$('#calendar-month').fullCalendar( 'today' );
+				$('#calendar-change-month .date-select-calendar').fullCalendar('destroy');
+			}
 		});
 		//print & export functions
 		$('body').on('change', '#startDateType', function() {
@@ -77,90 +84,28 @@ jQuery(function($) {
 			allDaySlot: false,
 			columnFormat: 'ddd D',
 			defaultTimedEventDuration: '00:01:00', //events are 1 minute long, no end time needed
-			defaultView: 'agendaWeek',
+			defaultView: 'basicWeek',
 			dragOpacity: 1,
 			editable: true,
+			eventAfterAllRender: function() {
+				$("#calendar-week .fc-title").dotdotdot();
+			},
 			eventClick: function(calEvent, jsEvent) {
-				$(this).qtip({
-					content: {
-						text: 'Loading...',
-						ajax: {
-							url: "edit-post-weekly-calendar.php?postid=22345",
-							type: 'GET',
-							once: true
-						}
-					},
-					events: {
-						hide: function() {
-							//remove the tooltip from the dom once hidden
-							$(this).qtip('destroy');
-						},
-						visible: function() {
-							qtipEqualColumns();
-						}
-					},
-					position: {
-						at: 'top left',
-						my: 'bottom center',
-						target: jsEvent.target,
-						viewport: $('body')
-					},
-					show: {
-						effect: function() {
-							$(this).fadeIn();
-						},
-						event: jsEvent.type,
-						ready: true
-					},
-					hide: {
-						effect: function() {
-							$(this).fadeOut();
-						},
-						event: 'unfocus'
-					},
-					//overwrite: true,
-					style: {
-						classes: 'qtip-shadow qtip-calendar-post popover-clickable',
-						tip: {
-							width: 20,
-							height: 10,
-							corner: true,
-							mimic: 'center'
-						},
-						width: 635
-					}
-				}, jsEvent);
+				showPostPopover($(this), calEvent.id, jsEvent, 'week-post')
+			},
+			eventConstraint: {
+				start: moment().format('YYYY-MM-DD'),
+				end: '2200-01-01'
 			},
 			eventDragStart: function() {
 				$('.fc-event').css('opacity', '.2');
 			},
-			eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+			eventDragStop: function() {
+				$('.fc-event').css('opacity', '1');
+			},
+			eventDrop: function(event, delta, revertFunc) {
 				//show confirmation modal
-				var newModal = $('#emptyModal').clone();
-				newModal.attr('id', '');
-				newModal.addClass('alert-modal');
-				newModal.find('.modal-dialog').addClass('modal-sm');
-				var confirmationButtons = '<footer class="post-content-footer"><a href="#" class="btn btn-sm btn-default" id="cancelEventChange">Cancel</a><a href="#" class="btn btn-sm  btn-default pull-sm-right" id="confirmEventChange">Confirm</a></footer>';
-				newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Event?</h2><p class="text-xs-center">You are about to reschedule the post of "' + event.title + '" to ' + event.start.format('MMMM D, YYYY h:mm a') + '</p>' + confirmationButtons);
-				newModal.modal({
-					show: true,
-					backdrop: 'static'
-				});
-				$('body').on('click', '#cancelEventChange', function(e) {
-					e.preventDefault();
-					revertFunc();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
-				$('body').on('click', '#confirmEventChange', function(e) {
-					e.preventDefault();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
+				eventDropModal(event, revertFunc, '#calendar-week');
 			},
 			// events: 'assets/js/events.json',
 			events: function(start, end, timezone, callback) {				
@@ -179,11 +124,12 @@ jQuery(function($) {
 		        });
 		    },
 			header: false,
-			slotLabelFormat : 'h:mm a',
-			snapDuration: '00:15:00',
+			timeFormat: 'h:mm a',
 			viewRender: function() {
+				var month = GetCalendarMonth('#calendar-week');
 				var dates = GetCalendarDateRange();
 				$('#calendarDateRange').html(dates);
+				$('#calendarCurrentMonth').text(month);
 				$('.fc-day-header').each(function() {
 					var dateText = $(this).text();
 					var todayDate = $.fullCalendar.moment().format('YYYY-MM-DD');
@@ -211,58 +157,7 @@ jQuery(function($) {
 				});
 			},
 			eventClick: function(calEvent, jsEvent) {
-				$(this).qtip({
-					content: {
-						text: 'Loading...',
-						ajax: {
-							url: "edit-post-weekly-calendar.php?postid=22345",
-							type: 'GET',
-							once: true
-						}
-					},
-					events: {
-						hide: function() {
-							//remove the tooltip from the dom once hidden
-							$(this).qtip('destroy');
-						},
-						visible: function() {
-							qtipEqualColumns();
-						}
-					},
-					position: {
-						adjust: {
-							y: -2
-						},
-						at: 'right center',
-						my: 'left center',
-						target: jsEvent.target,
-						viewport: $('body')
-					},
-					show: {
-						effect: function() {
-							$(this).fadeIn();
-						},
-						event: jsEvent.type,
-						ready: true
-					},
-					hide: {
-						effect: function() {
-							$(this).fadeOut();
-						},
-						event: 'unfocus'
-					},
-					//overwrite: true,
-					style: {
-						classes: 'qtip-shadow qtip-calendar-post month-post popover-clickable',
-						tip: {
-							width: 20,
-							height: 10,
-							corner: true,
-							mimic: 'center'
-						},
-						width: 635
-					}
-				}, jsEvent);
+				showPostPopover($(this), calEvent.id, jsEvent, 'month-post')
 			},
 			eventConstraint: {
 				start: moment().format('YYYY-MM-DD'),
@@ -274,53 +169,9 @@ jQuery(function($) {
 			eventDragStop: function() {
 				$('.fc-event').css('opacity', '1');
 			},
-			eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+			eventDrop: function(event, delta, revertFunc) {
 				//show confirmation modal
-				var newModal = $('#emptyModal').clone();
-				newModal.attr('id', '');
-				newModal.addClass('alert-modal');
-				newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
-				$.get('lib/calendar-edit-date.php',function(data) {
-					newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
-					var newMonth = $.fullCalendar.moment(event.start).format('MM');
-					var newDay = $.fullCalendar.moment(event.start).format('D');
-					var newYear = $.fullCalendar.moment(event.start).format('YYYY');
-					var newTime = $.fullCalendar.moment(event.start).format('h:mm');
-					var newAmPm = $.fullCalendar.moment(event.start).format('a');
-					//set the form values
-					newModal.find('select[name="postMonth"]').val(newMonth);
-					newModal.find('select[name="postDay"]').val(newDay);
-					newModal.find('select[name="postYear"]').val(newYear);
-					newModal.find('input[name="postTime"]').val(newTime);
-					newModal.find('select[name="postAmPm"]').val(newAmPm);
-					newModal.modal({
-						show: true,
-						backdrop: 'static'
-					});
-				});
-				$('body').on('click', '.qtip-hide', function(e) {
-					e.preventDefault();
-					revertFunc();
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
-				$('body').on('click', '.form-footer button[type="submit"]', function(e) {
-					e.preventDefault();
-					var postMonth = newModal.find('select[name="postMonth"]').val();
-					var postDay = newModal.find('select[name="postDay"]').val();
-					var postYear = newModal.find('select[name="postYear"]').val();
-					var postTime = newModal.find('input[name="postTime"]').val();
-					var postAmPm = newModal.find('select[name="postAmPm"]').val();
-					var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
-					event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
-					$('#calendar-month').fullCalendar('updateEvent', event);
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
-				});
+				eventDropModal(event, revertFunc, '#calendar-month');
 			},
 			// events: base_url+'calender/get_events/'+$('#brand_id').val(),
 			events: function(start, end, timezone, callback) {				
@@ -343,13 +194,13 @@ jQuery(function($) {
 			header: false,
 			snapDuration: '00:15:00',
 			viewRender: function() {
-				var dates = GetCalendarMonth();
+				var dates = GetCalendarMonth('#calendar-month');
 				$('#calendarCurrentMonth').html(dates);
 			}
 		});
 
 		//Get popover calendar for date selector
-		$('body').on('click, focus', 'input[data-toggle="popover-calendar"]', function(e) {
+		$('body').on('click, focus', 'input[data-toggle="popover-calendar"]', function(e) {			
 			//don't fire calendar popover if date is today or tomorrow
 			var $target = $(this);
 			var pid = $target.data('popoverId');
@@ -362,7 +213,10 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
-			inputType = $(this).attr('name');
+			//clone the calendar div to allow for multiple date selectors on one page
+			var calendarClone = $('#' + pid).clone();
+			calendarClone.attr('id', pid + '-clone');
+			inputType = $target.attr('name');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -374,26 +228,28 @@ jQuery(function($) {
 			}
 			$target.qtip({
 				content: {
-					text: $('#' + pid)
+					text: calendarClone
 				},
 				events: {
 					show: function(e, api) {
-						//don't show calendar popup if date is today or tomorrow
+						//don't show calendar popup if date is set to today or tomorrow
 						if(calendarType === "today" || calendarType === "tomorrow") {
 							e.preventDefault();
 						}
 					},
 					visible: function() {
 						if(inputType !== undefined) {
-							showSelectCalendar(pid);
+							showSelectCalendar(pid + '-clone');
 						}
 					}
 				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
+						//remove clone on hide to prevent duplicate display
+						calendarClone.remove();
 					},
-					event: 'unfocus'
+					event: 'unfocus blur'
 				},
 				position: {
 					adjust: {
@@ -405,7 +261,6 @@ jQuery(function($) {
 					container: $(pcontainer),
 					target: $target
 				},
-				overwrite: false,
 				show: {
 					effect: function() {
 						$(this).fadeIn();
@@ -426,6 +281,39 @@ jQuery(function($) {
 			}, e);
 		});
 
+		//allow click on date select calendar without blurring date input and therefore closing calendar
+		$('body').on('mousedown', '.date-select-calendar', function(e) {
+			e.preventDefault();
+		});
+
+		//update date ranges on input blur
+		$('body').on('blur', 'input[name="start-date"], input[name="end-date"]', function() {
+			var inputVal = $(this).val();
+			if(inputVal !== "") {
+				if($(this).attr('name') === 'start-date') {
+					startDate = $.fullCalendar.moment(inputVal);
+					if(endDate === undefined || startDate > endDate) {
+						endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+						$('input[name="end-date"]').val(endDate.format('M/DD/YYYY'));
+					}
+				}
+				if($(this).attr('name') === 'end-date') {
+					endDate = $.fullCalendar.moment(inputVal);
+					if(startDate === undefined || endDate < startDate) {
+						startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+						$('input[name="end-date"]').val(startDate.format('M/DD/YYYY'));
+					}
+				}
+			}
+		});
+		//update single date calendar on input blur
+		$('body').on('blur', '.single-date-select', function() {
+			var inputVal = $(this).val();
+			if(inputVal !== "") {
+				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+			}
+		});
 		//Get popover calendar for date selector
 		$('body').on('click', 'a[data-toggle="popover-calendar"]', function(e) {
 			//don't fire calendar popover if date is today or tomorrow
@@ -504,7 +392,87 @@ jQuery(function($) {
 		$('body').on('click', '#calendar-change-month #getPostsByDate', function() {
 			$('#calendar-month').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
 		});
+
+		$('body').on('click', '#calendar-change-week .btn-cancel', function() {
+			var curView = $('#calendar-week').fullCalendar('getView');
+			var curWeekStart = $.fullCalendar.moment(curView.intervalStart).format('YYYY-MM-DD');
+			var selectedWeek =  $('#calendar-change-week .date-select-calendar').find('.selected-week');
+			var selectedStart = selectedWeek.find('td:first').data('date');
+			if(selectedStart !== curWeekStart) {
+				//remove week highlight
+				selectedWeek.removeClass('selected-week');
+				//navigate to current date range
+				$('#calendar-change-week .date-select-calendar').fullCalendar('gotoDate', curWeekStart);
+				//rehighlight current date range
+				$('#calendar-change-week .date-select-calendar .fc-bg td.fc-day').each(function() {
+					if($(this).data('date') === curWeekStart) {
+						$(this).closest('.fc-row').addClass('selected-week');
+					}
+				});
+			}
+		});
+		$('body').on('click', '#calendar-change-month .btn-cancel', function() {
+			var curView = $('#calendar-month').fullCalendar('getView');
+			var curMonthStart = $.fullCalendar.moment(curView.intervalStart).format('YYYY-MM-DD');
+			var selectedView =  $('#calendar-change-month .date-select-calendar').fullCalendar('getView');
+			var selectedStart = $.fullCalendar.moment(selectedView.intervalStart).format('YYYY-MM-DD');
+			if(selectedStart !== curMonthStart) {
+				//navigate to current date range
+				$('#calendar-change-month .date-select-calendar').fullCalendar('gotoDate', curMonthStart);
+			}
+		});
 	});
+
+	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {
+		var newModal = $('#emptyModal').clone();
+		newModal.attr('id', '');
+		newModal.addClass('alert-modal modal-reschedule-post');
+		newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
+		$.get('lib/calendar-edit-date.php',function(data) {
+			newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
+			var newMonth = $.fullCalendar.moment(event.start).format('MM');
+			var newDay = $.fullCalendar.moment(event.start).format('D');
+			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
+			var newTime = $.fullCalendar.moment(event.start).format('h:mm');
+			var newAmPm = $.fullCalendar.moment(event.start).format('a');
+			//set the form values
+			newModal.find('select[name="postMonth"]').val(newMonth);
+			newModal.find('select[name="postDay"]').val(newDay);
+			newModal.find('select[name="postYear"]').val(newYear);
+			newModal.find('input[name="postTime"]').val(newTime);
+			newModal.find('select[name="postAmPm"]').val(newAmPm);
+			newModal.modal({
+				show: true,
+				backdrop: 'static'
+			});
+		});
+		$('body').on('click', '.qtip-hide', function(e) {
+			e.preventDefault();
+			revertFunc();
+			newModal.modal('hide');
+			newModal.on('hidden.bs.modal', function () {
+				newModal.remove();
+			});
+		});
+		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
+			e.preventDefault();
+			var postMonth = newModal.find('select[name="postMonth"]').val();
+			var postDay = newModal.find('select[name="postDay"]').val();
+			var postYear = newModal.find('select[name="postYear"]').val();
+			var postTime = newModal.find('input[name="postTime"]').val();
+			var postAmPm = newModal.find('select[name="postAmPm"]').val();
+			var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
+			event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
+			$(calendar).fullCalendar('updateEvent', event);
+			//insert ajax call to update database here
+			//run line below on ajax success
+			//$(calendar).fullCalendar( 'refetchEvents' );
+			newModal.modal('hide');
+			newModal.on('hidden.bs.modal', function () {
+				newModal.remove();
+			});
+		});
+	};
 
 	window.showSelectCalendar = function showSelectCalendar(id) {
 		var exportStart, exportEnd;
@@ -525,25 +493,42 @@ jQuery(function($) {
 				right: 'next'
 			},
 			dayClick: function(date) {
-				if(inputType === 'start-date') {
+				//for date range
+				if(inputType === 'start-date' || inputType === 'end-date') {
+					//remove previously set dates
+					$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
+					if(inputType === 'start-date') {
+						startDate = date;
+						if(endDate === undefined || startDate > endDate ) {
+							endDate = date;
+						}
+					}
+					else if(inputType === 'end-date') {
+						endDate = date;
+						if(startDate === undefined || endDate < startDate) {
+							startDate = date;
+						}
+					}
+					exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
+					exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
+					$('input[name="start-date"]').val(exportStart);
+					$('input[name="end-date"]').val(exportEnd);
+				}
+				//regular single date select
+				else {
+					//don't allow dates earlier than today
+					var today = $.fullCalendar.moment().format('YYYYMMDD');
+					var selected = $.fullCalendar.moment(date).format('YYYYMMDD');
+					if(selected < today) {
+						return;
+					}
 					if(startDate !== undefined) {
 						//remove previously set start date
 						$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
 					}
 					startDate = date;
-					if(endDate === undefined || endDate < startDate) {
-						endDate = date;
-					}
-				}
-				else if(inputType === 'end-date') {
-					if(endDate !== undefined) {
-						//remove previously set end date
-						$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
-					}
 					endDate = date;
-					if(startDate === undefined || startDate > endDate) {
-						startDate = date;
-					}
+					$('input[name="' + inputType + '"]').val($.fullCalendar.moment(date).format('M/D/YYYY'));
 				}
 				var eventData = {
 					allDay: true,
@@ -553,13 +538,12 @@ jQuery(function($) {
 					color: '#f4d3d5'
 				};
 				$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
-				exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
-				exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
-				$('input[name="end-date"]').val(exportEnd);
-				$('input[name="start-date"]').val(exportStart);
 			},
 			theme: true,
-			themeButtonIcons: false
+			themeButtonIcons: false,
+			viewRender: function() {
+				$('.qtip').qtip('reposition');
+			}
 		});
 		//render events saved from other calendars
 		if(startDate !== undefined && endDate !== undefined) {
@@ -567,25 +551,36 @@ jQuery(function($) {
 			$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
 			var savedEvent = {
 				allDay: true,
-				start: startDate,
-				end: $.fullCalendar.moment(endDate).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day
+				start: $.fullCalendar.moment(startDate, 'M/D/YYYY'),
+				end: $.fullCalendar.moment(endDate, 'M/D/YYYY').add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
 				rendering: 'background',
 				color: '#f4d3d5'
 			};
 			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', savedEvent, true);
+			if(inputType !== 'end-date') {
+				$('#' + id + ' .date-select-calendar').fullCalendar('gotoDate', startDate);
+			}
+			else {
+				$('#' + id + ' .date-select-calendar').fullCalendar('gotoDate', endDate);
+			}
 		}
 	};
 
 	window.GetCalendarDateRange = function GetCalendarDateRange() {
 		var calendar = $('#calendar-week').fullCalendar('getCalendar');
 		var view = calendar.view;
+		var startMonth = $.fullCalendar.moment(view.start).format('MMMM');
 		var start = $.fullCalendar.moment(view.start).format('D');
+		var endMonth = $.fullCalendar.moment(view.end).subtract(1, 'days').format('MMMM');
 		var end = $.fullCalendar.moment(view.end).subtract(1, 'days').format('D');
+		if(startMonth !== endMonth) {
+			end = "<strong>" + endMonth + "</strong> " + end;
+		}
 		var dates = start + "&#8211;" + end;
 		return dates;
 	};
-	window.GetCalendarMonth = function GetCalendarMonth() {
-		var calendar = $('#calendar-month').fullCalendar('getCalendar');
+	window.GetCalendarMonth = function GetCalendarMonth(calType) {
+		var calendar = $(calType).fullCalendar('getCalendar');
 		var view = calendar.view;
 		var start = $.fullCalendar.moment(view.intervalStart).format('MMMM');
 		return start;

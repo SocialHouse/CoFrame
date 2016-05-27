@@ -67,60 +67,34 @@
 						<div class="form__uploading">Uploading ...</div>
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>
-					</div>
+					</div>					
+					
 					<div class="form-group form-inline pull-sm-left">
-						<label>Slate Post:</label><br>							
-						<select class="form-control" name="slate_date_month">
-							<option value="">Month</option>
-							<?php
-							for($i = 1;$i<=12;$i++)
-			    			{
-			    				?>
-			    				<option value="<?php echo $i; ?>"><?php echo date("M", mktime(null, null, null, $i, 1)); ?></option>
-			    				<?php
-			    			}
-							?>
-						</select>
-						<select class="form-control" name="slate_date_day">
-							<option value="">DD</option>
-							<?php
-			    			for($i = 1;$i<=31;$i++)
-			    			{
-			    				?>
-			    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-			    				<?php
-			    			}
-			    			?>
-						</select>
-						<select class="form-control" name="slate_date_year">
-							<option value="">YYYY</option>
-							<?php
-			    			for($i = date('Y');$i<=date('Y') +10;$i++)
-			    			{
-			    				?>
-			    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-			    				<?php
-			    			}
-			    			?>
-						</select>
-						<input type="text" class="form-control form-control-time" placeholder="HH:MM" name="slate_time">
-						<select class="form-control" name="time_type">
-							<option value="am">AM</option>
-							<option value="pm">PM</option>
-						</select>
+						<label>Slate Post:</label><br>
+						<div class="hide-top-bx-shadow">
+							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+						</div>
 					</div>
-
-					<div class="form-group form-inline pull-md-right">
+					<div class="form-group pull-sm-left">
+						<div class="pull-xs-left">
+							<label class="invisible">Post Time</label>
+							<div class="time-select form-control">
+								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
+								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
+								<input type="text" class="time-input amselect" name="post-ampm" value="am">
+							</div>
+						</div>
+						<span class="timezone pull-xs-right">PST</span>
+					</div>
+					<div class="form-group form-inline pull-xl-right">
 						<label>Tags:</label><br>
-
 						<div class="hide-top-bx-shadow">
 							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
 								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 							</div>
 						</div>
-
 					</div>
-					<div class="clearfix"></div>
+
 					<footer class="post-content-footer">
 						<div class="auto-save text-xs-center hidden-xs-up">Auto Saving ...</div>
 					</footer>
@@ -129,7 +103,7 @@
 
 			<div class="col-md-4">
 				<div class="container-approvals">
-					<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
+					<div>
 						<h4 class="text-xs-center">Mandatory Approvals</h4>
 						<label>Check all that apply:</label>
 						<?php 
@@ -147,7 +121,7 @@
 										</div>
 										<div class="pull-sm-left">
 											<?php
-											$path = img_url()."fpo/norel.jpg";
+											$path = img_url()."default_profile.jpg";
 											if(file_exists(upload_path().'users/'.$user->aauth_user_id.'.png'))
 											{
 												$path = upload_url().'users/'.$user->aauth_user_id.'.png';
@@ -176,64 +150,45 @@
 						}
 						?>
 						<label>Must approve by:</label>
-						<div class="form-group form-inline">
-							<select class="form-control form-control-sm" name="phase[0][approve_month]">
-								<option value="">Month</option>
-								<?php
-								for($i = 1;$i<=12;$i++)
-				    			{
-				    				?>
-				    				<option value="<?php echo $i; ?>"><?php echo date("M", mktime(null, null, null, $i, 1)); ?></option>
-				    				<?php
-				    			}
-								?>
-							</select>
-							<select class="form-control form-control-sm" name="phase[0][approve_day]">
-								<option value="">DD</option>
-								<?php
-				    			for($i = 1;$i<=31;$i++)
-				    			{
-				    				?>
-				    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-				    				<?php
-				    			}
-				    			?>
-							</select>
-							<select class="form-control form-control-sm" name="phase[0][approve_year]">
-								<option value="">YYYY</option>
-								<?php
-				    			for($i = date('Y');$i<=date('Y') +10;$i++)
-				    			{
-				    				?>
-				    				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-				    				<?php
-				    			}
-				    			?>
-							</select>
-							<input type="text" class="form-control form-control-sm form-control-time" placeholder="HH:MM" name="phase[0][approve_time]">
-							<select class="form-control form-control-sm" name="phase[0][time_type]">
-								<option value="am">AM</option>
-								<option value="pm">PM</option>
-							</select>
+						<div class="clearfix">
+							<div class="form-group form-inline pull-sm-left">
+								<div class="hide-top-bx-shadow">
+									<input type="text" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
+								</div>
+							</div>
+							<div class="form-group pull-sm-left">
+								<div class="pull-xs-left">
+									<div class="time-select form-control form-control-sm">
+										<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
+										<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
+										<input type="text" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
+									</div>
+								</div>
+								<span class="timezone pull-xs-right form-control-sm">PST</span>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="approvalNotes">Note to Approvers (optional):</label>
-							<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>
+							<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 						</div>
 					</div>
-					<div class="bg-gray-lightest border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
+					<div class="border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
 						<label>Approval Phases (Optional):</label>
 						<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 					</div>
 					<footer class="post-content-footer">
 					<button class="btn btn-sm btn-disabled" disabled data-active-class="btn-default">Save Draft</button>
-					<button type="submit" class="btn btn-sm" data-active-class="btn-secondary" id="submit-btn">Submit for Approval</button>
+					<button class="btn btn-sm btn-secondary" data-active-class="btn-secondary">Submit for Approval</button>
 					</footer>
 				</div>
 			</div>
 		</div>
 	</form>
 </section>
+<!-- Select Date Calendar -->
+	<div id="calendar-select-date" class="hidden calendar-select-date">
+		<div class="date-select-calendar"></div>
+	</div>
 <?php
 $this->load->view('partials/previews');
 ?>
