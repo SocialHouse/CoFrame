@@ -209,17 +209,26 @@ jQuery(function($) {
 			var label = $(this).val();
 			if(label)
 			{
-				if(label !== 'other') {
+				if(label !== 'other') 
+				{
 					$('#otherTagLabel').hide();
 					$tag.attr('data-value', label);
-					$('#addTag').prop('disabled',false);
+					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
 				}
 				else {
+
 					$('#otherTagLabel').show(function(){
 						$(this).find('input').focus();
-					});			
-					$('#addTag').prop('disabled',true);
-						
+					});
+
+					if(!$('#newLabel').val())
+					{
+						toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+					}
+					else
+					{
+						toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);						
+					}
 				}
 			}
 			else
@@ -227,6 +236,17 @@ jQuery(function($) {
 				$('#addTag').prop('disabled',true);
 			}
 		});
+
+		$('#newLabel').keyup(function(){
+			if($(this).val())
+			{
+				toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+			}
+			else
+			{
+				toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+			}
+		});	
 
 		$('#otherTagLabel input').on('keyup blur', function() {			
 			var $tag = $('#selectBrandTags .selected');
@@ -268,6 +288,7 @@ jQuery(function($) {
 					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
 					$selectedItem.addClass('saved').removeClass('selected');
 					$selectedList.append($listItem);
+					toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false)
 				}, 100);
 				$('.submit_tag').prop('disabled',false);
 			}
@@ -436,5 +457,14 @@ jQuery(function($) {
 		if(numSelected < 1) {
 			$(obj).hide();
 		}
+	}
+
+	toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
+		$(btnClass).attr('disabled',btnState);
+		if(!$(btnClass).hasClass(newClass))
+		{
+			$(btnClass).addClass(newClass);
+		}
+		$(btnClass).removeClass(oldClass);
 	}
 });

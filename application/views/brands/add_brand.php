@@ -164,7 +164,7 @@
 						<div id="outletStep4Btns">
 							<div class="disclaimer"><button class="btn btn-sm btn-default skip_step" type="button">Skip this Step</button></div>
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="3">Back</button>
-							<button type="button" class="btn btn-sm btn-disabled pull-sm-right submit_tag" disabled>Done</button>
+							<button type="button" class="btn btn-sm btn-disabled pull-sm-right submit_tag" disabled="disabled">Done</button>
 						</div>
 						<div id="addTagBtns" class="hidden">
 							<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
