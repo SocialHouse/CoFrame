@@ -93,8 +93,13 @@ jQuery(function($) {
 	$('.btn-choose-plan').on('click', function() {
 		var plan = $(this).attr('data-plan');
 		var price = $(this).attr('data-price');
-		
+		$('#plan').val(plan.toUpperCase());
 		$('#selected-plan').html('<span class="highlight">' + plan + '</span><br>(' + price + ' per month)');
+	});
+
+	$('#plan').change(function(){		
+		if($(this).val())
+			$('#selected-plan').html('<span class="highlight">' + $(this).val() + '</span><br>(' + $(this).find(':selected').attr('data-price') + ' per month)');
 	});
 	
 	
@@ -116,6 +121,7 @@ jQuery(function($) {
 	$('.modal').on('show.bs.modal', function() {
 		if(!modalClick) {			
 			$.scrollify.disable();
+			$('.page-template-default').addClass('modal-open');
 
 			$('.section-content, .page-next-prev, .container-head').fadeOut();
 			$('.modal-toggler').fadeIn();
@@ -130,8 +136,8 @@ jQuery(function($) {
 	$('.modal').on('hidden.bs.modal', function() {
 		if(!modalClick) {
 			
-	    		$('.page-template-default').removeClass('modal-open');
-	    		$.scrollify.enable();
+    		$('.page-template-default').removeClass('modal-open');
+    		$.scrollify.enable();
 	    	
 			$('.section-content, .container-head').fadeIn();
 			if(ww > 991) {

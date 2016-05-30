@@ -181,6 +181,7 @@ jQuery(document).ready(function(){
         		},
         	phone:{number: true},
         	timezone: {required: true},
+        	plan: {required: true},
         	username: {required: true,
         				remote: {
 		                    url: base_url+"tour/check_username_exist",
@@ -198,6 +199,7 @@ jQuery(document).ready(function(){
         	email: {required: 'Please enter email address',email: 'Please enter valid email address',remote: "This email is already in use"},
         	phone:{number: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
+        	plan: {required: "Please select plan"},
         	username: {required: "Please enter username",remote:'This username is already taken'},
         	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
             confirm_password :{ required : "Please re-enter password" },
@@ -218,20 +220,31 @@ jQuery(document).ready(function(){
             var companyName = jQuery('#companyName').val();
             var companyEmail = jQuery('#companyEmail').val();
             var companyURL = jQuery('#companyURL').val();
+            var plan = jQuery('#plan').val();
 
             jQuery.ajax({
 				"url": base_url+'tour/register',
-				"data":{"first_name":firstName,'last_name': lastName,'email':emailAddress,'phone':phoneNumber,'timezone':timeZone,'username':userName,'password':password,'confirm_password': confirmPassword,'company_name':companyName,'company_email':companyEmail,'company_url':companyURL},
+				"data":{"first_name":firstName,'last_name': lastName,'email':emailAddress,'phone':phoneNumber,'timezone':timeZone,'username':userName,'password':password,'confirm_password': confirmPassword,'company_name':companyName,'company_email':companyEmail,'company_url':companyURL,'plan':plan},
 				"type":"POST",
 				success: function(response)
 		        {
+
 		        	var json = jQuery.parseJSON(response);
 		        	if(json.response == 'success')
 		        	{		        				        		
-		        		jQuery('#register_form')[0].reset();		        	
-		        	}		        	
-		        	jQuery('.register-response').text(json.message);		        	
-					jQuery('.register-response').show();
+		        		jQuery('#register_form')[0].reset();						
+						jQuery('#gotTologRegister').show();
+						jQuery('#registerTryAgain').hide();
+						jQuery('#registerCancel').show();
+		        	}
+		        	else
+		        	{
+		        		jQuery('#gotTologRegister').hide();
+						jQuery('#registerTryAgain').show();
+						jQuery('#registerCancel').hide();
+		        	}
+		        	jQuery('.registerResponseText').text(json.message);
+		        	jQuery('#regResponseBtn').trigger('click');
 					jQuery('#loading_main').hide();
 		        }
 			});	

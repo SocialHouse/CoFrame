@@ -284,3 +284,4 @@ ALTER TABLE `reminders` ADD `user_id` INT NOT NULL AFTER `post_id`;
 ALTER TABLE `reminders` ADD `text` VARCHAR(500) NOT NULL AFTER `type`;
 
 ALTER TABLE `brand_tags` CHANGE `color` `color` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `user_info` ADD `plan` VARCHAR(100) NULL AFTER `stripe_subscription_id`;

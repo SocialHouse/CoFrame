@@ -336,7 +336,8 @@ class Tour extends CI_Controller {
                             'company_name' => $this->input->post('company_name'),
                             'company_email' => $this->input->post('company_email'),
                             'company_url' => $this->input->post('company_url'),
-                            'created_at' => date('Y-m-d H:i:s')
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'plan' => $this->input->post('plan')
                         );
             
             $inserted_id = $this->aauth->create_user($this->input->post('email'),$this->input->post('password'),$this->input->post('username'));

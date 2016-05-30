@@ -31,7 +31,7 @@
 		<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js?ver=4.4.2'></script>
 		<!--[if lt IE 9]><script src="assets/js/html5shiv.js"></script><![endif]-->	
 	</head><!--/head-->
-<body class="home page page-id-6 page-template-default modal-open" data-spy="scroll" data-target=".navbar-main">
+<body class="home page page-id-6 page-template-default" data-spy="scroll" data-target=".navbar-main">
 	<div id="loading_main">
         <img class="loading" src="<?php echo img_url(); ?>bx_loader.gif" >
     </div>
@@ -287,6 +287,17 @@
 											    ?>
 											</select>
 										</fieldset>
+
+										<fieldset class="form-group">
+											<label class="sr-only" for="plan">Plan</label>
+											<select class="form-control" id="plan" name="plan">
+												<option value="">Plan</option>
+												<option data-price="$99" value="START-UP">START-UP</option>
+												<option data-price="$199" value="BUSINESS">BUSINESS</option>
+												<option data-price="$299" value="CORPORATE">CORPORATE</option>
+												<option data-price="$499" value="PREMIERE">PREMIERE</option>
+											</select>
+										</fieldset>
 									</div>
 
 									<div class="field-group clear">
@@ -352,6 +363,7 @@
 
 			</div><!--/.content-area.row-->
 		</div><!--/.container-fluid-->
+		<p><a href="#registerResponse" class="btn btn-warning btn-sm pull-right hide" data-backdrop="static" data-toggle="modal" id="regResponseBtn">Go to login</a></p>
 
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=3.0.0'></script>

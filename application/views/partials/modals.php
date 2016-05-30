@@ -181,3 +181,31 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!--verification response-->
+<div class="modal fade" id="registerResponse" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+		        <a class="navbar-brand hidden-print" href="/">
+            <span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">Timeframe</span>
+        </a>
+		<div class="visible-print-block logo-print">
+       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+		</div>
+        <div class="modal-body text-center bg-white">	  	
+		<hr>
+		<p class="registerResponseText">You have registered successfully and verification link sent to your email address</p>
+		<hr>
+
+		<div class="clearfix">
+			<a href="#" class="btn btn-default btn-sm pull-left" id="registerCancel" data-dismiss="modal" aria-label="Close">Cancel</a>
+			<p><a id="gotTologRegister" href="#loginModal" class="btn btn-warning btn-sm pull-right" data-backdrop="static" data-toggle="modal">Go to login</a></p>
+
+			<button type="button" class="btn btn-default btn-sm" id="registerTryAgain" data-dismiss="modal" aria-label="Close">Cancel</button>
+				
+		</div>
+			
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
