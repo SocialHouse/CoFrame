@@ -88,16 +88,22 @@ jQuery(function($) {
 		var inclusives = [];
 		var outlet_ids = [];
 		var statuses = [];
+		var tags = [];
 		// inclusive filters from checkboxes
 		$('.filter').each( function() {
 			//use value if checked
 			if ( $(this).hasClass('checked' )) {
 				inclusives.push( $(this).data('value') );
+				
 				if($(this).data('id'))
 					outlet_ids.push( $(this).data('id') );
 
 				if($(this).data('status'))
 					statuses.push( $(this).data('status') );
+
+				if($(this).data('tag-id'))
+					tags.push( $(this).data('tag-id') );
+
 			}
 			else {
 				var index = inclusives.indexOf($(this).data('value'));
@@ -105,6 +111,7 @@ jQuery(function($) {
 					inclusives.splice(index, 1);
 					outlet_ids.splice(index, 1);
 					statuses.splice(index, 1);
+					//tags.splice(index, 1);
 				}
 			}
 		});	
@@ -113,6 +120,7 @@ jQuery(function($) {
 		var filterValue = inclusives.length ? inclusives.join(', ') : '*';
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
+		$('#tags').val(tags.join());
 
 		$container.isotope({ filter: filterValue });
 		if(inclusives.length) {
@@ -169,12 +177,14 @@ jQuery(function($) {
 		$source = {
 			        url: base_url+'calender/get_events',
 			        dataType: 'json',
+			        method:'post',
 			        data: {			          
 			            start: start,
 			            end: end,
 			            brand_id:$('#brand_id').val(),
 			            outlets:$('#outlet_ids').val(),
 			            statuses:$('#statuses').val(),
+			            tags:$('#tags').val()
 			        }
 		        };
 

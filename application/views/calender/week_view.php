@@ -3,6 +3,7 @@
 <input type="hidden" value="<?php echo $brand_id; ?>" id="brand_id">
 <input type="hidden" id="outlet_ids">
 <input type="hidden" id="statuses">
+<input type="hidden" id="tags">
 
 <input type="hidden" value="<?php echo $brand_id; ?>" id="brand_id">
 <section id="brand-manage" class="page-main bg-white col-sm-10">

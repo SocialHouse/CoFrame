@@ -112,11 +112,13 @@ jQuery(function($) {
 		        $.ajax({
 		            url: base_url+'calender/get_events',
 		            dataType: 'json',
+		            method:'POST',
 		            data: {
 		                // our hypothetical feed requires UNIX timestamps
 		                start: start.format('YYYY-MM-DD'),
 		                end: end.format('YYYY-MM-DD'),
 		                brand_id:$('#brand_id').val(),
+		                tags:$('#tags').val()
 		            },
 		            success: function(doc) {
 		            	callback(doc);
@@ -178,11 +180,13 @@ jQuery(function($) {
 		        $.ajax({
 		            url: base_url+'calender/get_events',
 		            dataType: 'json',
+		            method:'POST',
 		            data: {
 		                // our hypothetical feed requires UNIX timestamps
 		                start: start.format('YYYY-MM-DD'),
 		                end: end.format('YYYY-MM-DD'),
 		                brand_id:$('#brand_id').val(),
+		                tags:$('#tags').val()
 		            },
 		            success: function(doc) {
 		            	callback(doc);

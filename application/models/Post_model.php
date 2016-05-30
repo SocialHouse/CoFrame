@@ -26,7 +26,7 @@ class Post_model extends CI_Model
 		$this->db->select('id,name,color');		
 		$this->db->where('brand_tags.brand_id',$brand_id);
 		$this->db->where('brand_tags.status',1);
-		$this->db->group_by('name');
+		//$this->db->group_by('name');
 		$query = $this->db->get('brand_tags');
 		if($query->num_rows() > 0)
 		{
@@ -202,25 +202,32 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_posts_by_time($brand_id,$start,$end,$outlets = '',$statuses = '')
+	public function get_posts_by_time($brand_id, $start, $end, $outlets = '',$statuses = '',$tags)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "TO") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", " TO ") as start,LOWER(outlets.outlet_name) as className,outlets.id as outlet_id , post_media.name as image_name, post_media.type, post_media.mime');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
+		$this->db->join('post_media','post_media.post_id = posts.id','left');
+		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id');
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
-		$this->db->where('brand_id',$brand_id);
+		$this->db->where('posts.brand_id',$brand_id);
 		if($outlets)
 		{
 			$outlets = explode(',', $outlets);
 			$this->db->where_in('outlets.id',$outlets);
 		}
-
+		if($tags)
+		{
+			$tags = explode(',', $tags);
+			$this->db->where_in('brand_tags.id',$tags);
+		}
 		if($statuses)
 		{
-
+			// $statuses = explode(',', $statuses);
+			// $this->db->where_in('post.status',$statuses);
 		}
-
+		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
-
+		//echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

@@ -469,17 +469,14 @@ jQuery(function($) {
 				'position.container': $(pcontainer),
 				'position.target': $target,
 				'overwrite': false,
+				'show.effect': function() { $(this).fadeIn(); },
+				'show.event': e.type,
 				'style.classes': 'qtip-shadow ' + pclass,
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
 				'style.tip.height': tipH,
-				'style.tip.width': tipW
-			}).show({
-				effect: function() {
-					$(this).fadeIn();
-				},
-				event: e.type,
-				ready: true
+				'style.tip.width': tipW,
+				'style.width': pwidth
 			}, e);
 		});
 
@@ -922,6 +919,75 @@ jQuery(function($) {
 		});
 	}
 
+	window.showPostPopover = function showPostPopover(element, id, jsEvent, className) {
+		var offsetY, offsetX, tipW, tipH;
+		if(className === 'approvals-post') {
+			offsetY = 27;
+			offsetX = 9;
+			tipW = 30;
+			tipH = 15;
+		}
+		else {
+			offsetY = 0;
+			offsetX = 0;
+			tipW = 20;
+			tipH = 10;
+		}
+		element.qtip({
+			content: {
+				text: 'Loading...',
+				ajax: {
+					url: base_url+"posts/get_post_info/"+id,
+					type: 'GET',
+					once: true
+				}
+			},
+			events: {
+				hide: function() {
+					//remove the tooltip from the dom once hidden
+					$(this).qtip('destroy');
+				},
+				visible: function() {
+					qtipEqualColumns();
+				}
+			},
+			position: {
+				adjust: {
+					y: offsetY,
+					x: offsetX
+				},
+				at: 'right top',
+				my: 'left center',
+				container: $('.page-main'),
+				target: element,
+				viewport: $('.page-main')
+			},
+			show: {
+				effect: function() {
+					$(this).fadeIn();
+				},
+				event: jsEvent.type,
+				ready: true
+			},
+			hide: {
+				effect: function() {
+					$(this).fadeOut();
+				},
+				event: 'unfocus'
+			},
+			//overwrite: true,
+			style: {
+				classes: 'qtip-shadow qtip-calendar-post popover-clickable ' + className,
+				tip: {
+					width: tipW,
+					height: tipH,
+					corner: true,
+					mimic: 'center'
+				},
+				width: 635
+			}
+		}, jsEvent);
+	};
 	//live preview		
 	function createPreview(){
 		$('#live-post-preview').empty();

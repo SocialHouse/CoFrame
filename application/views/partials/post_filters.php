@@ -18,7 +18,7 @@
 					foreach($outlets as $outlet)
 					{
 						?>
-						<li class="disabled filter" data-id="<?php echo $outlet->id; ?>" data-value="<?php echo '.f-'.strtolower($outlet->outlet_name); ?>" data-group="post-outlet"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>
+						<li class="disabled filter" data-id="<?php echo $outlet->id; ?>" data-value="<?php echo ".f-".strtolower($outlet->outlet_name); ?>" data-group="post-outlet"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>
 						<?php
 					}
 				}
@@ -34,24 +34,30 @@
 			</div>
 			<div class="col-sm-6 tag-list">
 				<ul>
-					<li class="tag filter" data-tag="" data-value=".f-brandbuilding" data-group="post-tag"><i class="fa fa-circle tag-red"></i><span class="tag-title">Brand Building / Product Education</span></li>
-					<li class="tag filter" data-value=".f-marketing" data-group="post-tag"><i class="fa fa-circle tag-pink"></i><span class="tag-title">Marketing</span></li>
-					<li class="tag filter" data-value=".f-orange" data-group="post-tag"><i class="fa fa-circle tag-orange"></i><span class="tag-title">Orange Tag</span></li>
-					<li class="tag filter" data-value=".f-ecommerce" data-group="post-tag"><i class="fa fa-circle tag-yellow"></i><span class="tag-title">E-Commerce</span></li>
-					<li class="tag filter" data-value=".f-retail" data-group="post-tag"><i class="fa fa-circle tag-green"></i><span class="tag-title">Retail Support</span></li>
-					<li class="tag filter" data-value=".f-darkgreen" data-group="post-tag"><i class="fa fa-circle tag-green-dark"></i><span class="tag-title">Dark Green Tag</span></li>
-					<li class="tag filter" data-value=".f-blue" data-group="post-tag"><i class="fa fa-circle tag-blue"></i><span class="tag-title">Blue Tag</span></li>
-				</ul>
-			</div>
-			<div class="col-sm-6 tag-list">
-				<ul>
-					<li class="tag filter" data-value=".f-darkblue" data-group="post-tag"><i class="fa fa-circle tag-blue-dark"></i><span class="tag-title">Dark Blue Tag</span></li>
-					<li class="tag filter" data-value=".f-lorem" data-group="post-tag"><i class="fa fa-circle tag-purple-dark"></i><span class="tag-title">Lorem Ipsum Dolor</span></li>
-					<li class="tag filter" data-value=".f-purple" data-group="post-tag"><i class="fa fa-circle tag-purple"></i><span class="tag-title">Purple Tag</span></li>
-					<li class="tag filter" data-value=".f-onsectetur" data-group="post-tag"><i class="fa fa-circle tag-brown"></i><span class="tag-title">Onsectetur Adipiscing</span></li>
-					<li class="tag filter" data-value=".f-tan" data-group="post-tag"><i class="fa fa-circle tag-tan"></i><span class="tag-title">Tan Tag</span></li>
-					<li class="tag filter" data-value=".f-gray" data-group="post-tag"><i class="fa fa-circle tag-gray"></i><span class="tag-title">Gray Tag</span></li>
-					<li class="tag filter" data-value="check-all" data-group="post-tag"><i class="fa fa-circle tag-custom" style="color: #000; border-color: #000"></i><span class="tag-title">All</span></li>
+					<?php 
+					$count = 1;
+						foreach ($tags as $key => $obj) {
+							?>
+							<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
+								<i class="fa fa-circle" style="color:<?php echo $obj->color ; ?>"></i>
+								<span class="tag-title"><?php echo $obj->name?></span>
+							</li>
+							<?php
+							if($count %7 == 0){
+								?>
+									</ul>
+								</div>
+								<div class="col-sm-6 tag-list">
+									<ul>
+								<?php
+							}
+							$count++;
+						}
+					?>
+					<li data-group="post-tag" data-value="check-all" class="tag filter">
+						<i class="fa fa-circle tag-custom"></i>
+						<span class="tag-title">All</span>
+					</li>
 				</ul>
 			</div>
 		</div>
