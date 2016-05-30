@@ -237,7 +237,7 @@ jQuery(function($) {
 			}
 		});
 
-		$('#newLabel').keyup(function(){
+		$(document).on('keyup blur','#newLabel',function(){
 			if($(this).val())
 			{
 				toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
