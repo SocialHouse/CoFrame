@@ -114,10 +114,10 @@ $config_aauth["default"] = array(
 	'use_cookies'                    => false,
 
 	'email'                          => 'deepakb@techfivesystems.com',
-	'name'                           => 'Emre Akay',
+	'name'                           => 'Timeframe',
 
 	'verification'                   => true,
-	'verification_link'              => '/tour/verify_user_email/',
+	'verification_link'              => 'tour/verify_user_email/',
 	'reset_password_link'            => '/account/reset_password/',
 
 	'hash'							 =>	'sha256'
