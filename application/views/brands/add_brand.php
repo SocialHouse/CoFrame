@@ -103,7 +103,7 @@
 					<footer class="post-content-footer">
 						<div id="outletStep3Btns">
 							<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="2">Back</button>
-							<button type="button" class="btn btn-sm pull-sm-right btn-next-step btn-secondary"  data-next-step="4">Next</button>
+							<button type="button" id="add_user_next" class="btn btn-sm pull-sm-right btn-next-step btn-secondary"  data-next-step="4">Next</button>
 						</div>
 						<div class="hidden" id="addUserBtns">
 							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>

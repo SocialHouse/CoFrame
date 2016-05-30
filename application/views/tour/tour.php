@@ -31,7 +31,7 @@
 		<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js?ver=4.4.2'></script>
 		<!--[if lt IE 9]><script src="assets/js/html5shiv.js"></script><![endif]-->	
 	</head><!--/head-->
-<body class="home page page-id-6 page-template-default" data-spy="scroll" data-target=".navbar-main">
+<body class="home page page-id-6 page-template-default modal-open" data-spy="scroll" data-target=".navbar-main">
 	<div id="loading_main">
         <img class="loading" src="<?php echo img_url(); ?>bx_loader.gif" >
     </div>
@@ -236,7 +236,7 @@
 				</section>
 				<section id="get-started" class="page-section" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/bg-start.jpg);">
 					<div class="section-content">
-						<div class="row bg-white get-started-detail animated" data-animation="fadeInUp">
+						<div class="row bg-white get-started-detail animated register_form_height" data-animation="fadeInUp">
 							<div class="col-md-4 " data-animation=""></p>
 								<h1>Start your free 30-day trial</h1>
 								<hr />

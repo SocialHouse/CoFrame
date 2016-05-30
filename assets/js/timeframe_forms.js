@@ -155,8 +155,13 @@ jQuery(document).ready(function(){
         }
     });
 
+    jQuery.validator.addMethod("domain", function(value, element) {
+	  return this.optional(element) || /^\s*(http\:\/\/)?([a-z\d\-]{1,63}\.)*[a-z\d\-]{1,255}\.[a-z]{2,6}\s*$/.test(value);
+	});
+
     
     jQuery('#register_form').validate({
+    	onkeyup: false,
         rules: {
         	first_name: {required: true},
         	last_name: {required: true},
@@ -185,7 +190,7 @@ jQuery(document).ready(function(){
             password :{ required : true,minlength:6 },
             confirm_password :{ required : true,equalTo: "#password"},
             company_email :{email: true},
-            company_url:{url:true}
+            company_url:{domain:true}
         },
         messages :{
         	first_name: {required: "Please enter first name"},
@@ -197,7 +202,7 @@ jQuery(document).ready(function(){
         	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
             confirm_password :{ required : "Please re-enter password" },
             company_email :{email:'Please enter valid email address'},
-            company_url:{required: "Please enter valid url eg. http://example.com"}
+            company_url:{domain: "Please enter valid url eg. www.example.com"}
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();

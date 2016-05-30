@@ -13,10 +13,11 @@
 	</div>
 	<div class="form-group input-margin">
 		<label for="firstName">User Info:</label>
-		<input type="text" class="form-control" id="firstName" placeholder="First Name">
-		<input type="text" class="form-control" id="lastName" placeholder="Last Name">
+		<input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name">
+		<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name">
 		<input type="text" class="form-control" id="userTitle" placeholder="Title (Optional)">
-		<input type="email" class="form-control" id="userEmail" placeholder="Email">
+		<input type="email" class="form-control" id="userEmail" placeholder="Email" name="email">
+		<div id="emailValid" class="error hide">Please enter valid email</div>
 	</div>
 	
 	<h5 class="border-title"><span>Permitted Outlets</span></h5>

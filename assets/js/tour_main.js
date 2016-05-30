@@ -115,6 +115,8 @@ jQuery(function($) {
 	var modalClick = false;
 	$('.modal').on('show.bs.modal', function() {
 		if(!modalClick) {			
+			$.scrollify.disable();
+
 			$('.section-content, .page-next-prev, .container-head').fadeOut();
 			$('.modal-toggler').fadeIn();
 			if(Modernizr.cssfilters) {
@@ -127,6 +129,10 @@ jQuery(function($) {
 	});
 	$('.modal').on('hidden.bs.modal', function() {
 		if(!modalClick) {
+			
+	    		$('.page-template-default').removeClass('modal-open');
+	    		$.scrollify.enable();
+	    	
 			$('.section-content, .container-head').fadeIn();
 			if(ww > 991) {
 				$('.page-next-prev').fadeIn();
@@ -136,6 +142,16 @@ jQuery(function($) {
 		}
 	});
 	
+	$(document).keyup(function(e) {
+	    if (e.keyCode == 27) { 
+	    	if($('.page-template-default').hasClass('modal-open'))
+	    	{
+	    		$('.page-template-default').removeClass('modal-open');
+	    		$.scrollify.enable();
+	    	}
+	    }
+	});
+
 	$('.modal [data-toggle]').on('click', function(e) {
 		e.stopPropagation();
 		modalClick = true;

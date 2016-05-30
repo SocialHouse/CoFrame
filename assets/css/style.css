@@ -11005,3 +11005,10 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .anchor_color {
   color:#0000EE;
 }
+
+#add-brand-details .error {
+  /*font-size: 16px !important;*/
+  color:red;
+  text-transform: none !important;
+  clear: both
+}

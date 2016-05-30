@@ -388,9 +388,10 @@ jQuery(function($) {
     	}
     });
 
-    $('#firstName').keyup(function(){
-    	if($('#lastName').val() && $('#userEmail').val() && $(this).val())
+     $(document).on('keyup blur','#firstName',function(){
+    	if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $(this).val())
     	{
+    		// $('#emailValid').hide();
     		if(!$('#addRole').hasClass('btn-secondary'))
     			$('#addRole').addClass('btn-secondary');
     		$('#addRole').removeClass('btn-disabled');    		
@@ -398,6 +399,8 @@ jQuery(function($) {
     	}
     	else
     	{
+    		// if($('#userEmail').val() && !validateEmail($('#userEmail').val()))
+    		// 	$('#emailValid').show();
     		if(!$('#addRole').hasClass('btn-disabled'))
     			$('#addRole').addClass('btn-disabled');
 
@@ -407,9 +410,11 @@ jQuery(function($) {
     	
     });
 
-    $('#lastName').keyup(function(){
-    	if($('#firstName').val() && $('#userEmail').val() && $(this).val())
+    $(document).on('keyup blur','#lastName',function(){
+    	if($('#firstName').val() && $('#userEmail').val() && validateEmail($(this).val()) && $(this).val())
     	{
+    		// $('#emailValid').hide()
+
     		if(!$('#addRole').hasClass('btn-secondary'))
     			$('#addRole').addClass('btn-secondary');
     		$('#addRole').removeClass('btn-disabled');    		
@@ -417,6 +422,9 @@ jQuery(function($) {
     	}
     	else
     	{
+    		// if($('#userEmail').val() && !validateEmail($('#userEmail').val()))
+    		// 	$('#emailValid').show();
+
     		if(!$('#addRole').hasClass('btn-disabled'))
     			$('#addRole').addClass('btn-disabled');
 
@@ -426,9 +434,11 @@ jQuery(function($) {
     	
     });
 
-    $('#userEmail').keyup(function(){
-    	if($('#firstName').val() && $('#lastName').val() && $(this).val())
+    $(document).on('keyup blur','#userEmail',function(){    	
+    	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
     	{
+    		// $('#emailValid').hide()
+
     		if(!$('#addRole').hasClass('btn-secondary'))
     			$('#addRole').addClass('btn-secondary');
     		$('#addRole').removeClass('btn-disabled');    		
@@ -436,6 +446,15 @@ jQuery(function($) {
     	}
     	else
     	{
+    		// if($(this).val() && !validateEmail($(this).val()))
+    		// {
+    		// 	$('#emailValid').show();
+    		// }
+    		// else
+    		// {
+    		// 	$('#emailValid').hide();
+    		// }
+
     		if(!$('#addRole').hasClass('btn-disabled'))
     			$('#addRole').addClass('btn-disabled');
 
@@ -445,6 +464,15 @@ jQuery(function($) {
     	
     });
 
+    if($('#userPermissionsList').children('.table'))
+    {
+    	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
+    }
+	}
+
+	function validateEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email);
 	}
 
 	function nextStep(i) {

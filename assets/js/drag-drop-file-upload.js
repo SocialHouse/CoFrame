@@ -308,11 +308,24 @@
 									    	allFiles.splice(1, 1);
 									    	$('.user-upload-img').hide();
 									    	$('.user-img-preview').show();
+
+									    	if($('#add_user_next').hasClass('btn-disabled'))
+									    	{
+									    		$('#add_user_next').removeClass('btn-disabled');
+									    	}
+									    	$('#add_user_next').addClass('btn-secondary');
+									    	$('#add_user_next').prop('disabled',false);
 						    			}
 						    			else
 						    			{
 						    				$('.user-upload-img').hide();
 											$('.user-img-preview').show();
+											if(!$('#add_user_next').hasClass('btn-disabled'))
+									    	{
+									    		$('#add_user_next').addClass('btn-disabled');
+									    	}
+									    	$('#add_user_next').removeClass('btn-secondary');
+									    	$('#add_user_next').prop('disabled',true);
 											alert('Unable to add user.');
 						    			}
 						    		}
