@@ -604,7 +604,6 @@ jQuery(function($) {
 		}
 	});
 	//Time selector functions
-	addIncrements();
 	$('body').on('click', '.incrementer', function(e) {
 		var $target = $(e.target);
 		var incDec = ($target.hasClass('increase')) ? 'increase' : 'decrease';
@@ -645,16 +644,6 @@ jQuery(function($) {
 		}
 	});
 
-	function addIncrements() {
-		$('body').find('.time-select .time-input').each(function() {
-			var inputName = $(this).attr('name');
-			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
-			$(this).after(increment);
-			if($(this).hasClass('minute-select')) {
-				$(this).before('<span class="time-separator">:</span>');
-			}
-		});
-	}
 	function setHrs(input, incDec) {
 		var newVal;
 		var minVal = $(input).attr('data-min');
@@ -729,6 +718,18 @@ jQuery(function($) {
 			}
 		});
 	}
+
+	window.addIncrements = function addIncrements() {
+		$('body').find('.time-select .time-input').each(function() {
+			var inputName = $(this).attr('name');
+			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
+			$(this).after(increment);
+			if($(this).hasClass('minute-select')) {
+				$(this).before('<span class="time-separator">:</span>');
+			}
+		});
+	};
+	addIncrements();
 
 	window.equalColumns = function equalColumns() {
 		var dashboardH = $('.page-main').outerHeight();

@@ -403,17 +403,20 @@ jQuery(function($) {
 			var newMonth = $.fullCalendar.moment(event.start).format('MM');
 			var newDay = $.fullCalendar.moment(event.start).format('D');
 			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
-			var newTime = $.fullCalendar.moment(event.start).format('h:mm');
+			var newHour = $.fullCalendar.moment(event.start).format('h');
+			var newMin = $.fullCalendar.moment(event.start).format('mm');
 			var newAmPm = $.fullCalendar.moment(event.start).format('a');
 			//set the form values
-			newModal.find('select[name="postMonth"]').val(newMonth);
-			newModal.find('select[name="postDay"]').val(newDay);
-			newModal.find('select[name="postYear"]').val(newYear);
-			newModal.find('input[name="postTime"]').val(newTime);
-			newModal.find('select[name="postAmPm"]').val(newAmPm);
+			newModal.find('input[name="post-date"]').val(newMonth + '/' + newDay + '/' + newYear);
+			newModal.find('input[name="post-hour"]').val(newHour);
+			newModal.find('input[name="post-minute"]').val(newMin);
+			newModal.find('input[name="post-ampm"]').val(newAmPm);
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
+			});
+			newModal.on('shown.bs.modal', function () {
+				addIncrements();
 			});
 		});
 		$('body').on('click', '.qtip-hide', function(e) {
@@ -426,13 +429,12 @@ jQuery(function($) {
 		});
 		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
 			e.preventDefault();
-			var postMonth = newModal.find('select[name="postMonth"]').val();
-			var postDay = newModal.find('select[name="postDay"]').val();
-			var postYear = newModal.find('select[name="postYear"]').val();
-			var postTime = newModal.find('input[name="postTime"]').val();
-			var postAmPm = newModal.find('select[name="postAmPm"]').val();
-			var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
-			event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
+			var postDay = newModal.find('input[name="post-date"]').val();
+			var postHour = newModal.find('input[name="post-hour"]').val();
+			var postMin = newModal.find('input[name="post-minute"]').val();
+			var postAmPm = newModal.find('input[name="post-ampm"]').val();
+			var postDate = postDay + " " + postHour + ":" + postMin + " " + postAmPm;
+			event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
 			$(calendar).fullCalendar('updateEvent', event);
 			//insert ajax call to update database here
 			//run line below on ajax success
