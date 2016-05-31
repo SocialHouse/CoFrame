@@ -114,11 +114,11 @@ if(!function_exists('delete_file'))
 
 if(!function_exists('rename_file')) 
 {
-    function rename_file($old_path,$new_path) 
+    function rename_file($old_path,$new_path,$upload_path) 
     {
         if (!is_dir($new_path))
         {       
-            mkdir($new_path, 0777,true);
+            mkdir($upload_path, 0777,true);
         }
         rename($old_path, $new_path);
     }

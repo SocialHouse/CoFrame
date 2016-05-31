@@ -106,7 +106,7 @@ class Brands extends CI_Controller {
     		{
     			//helper function to delete files
     			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-    			rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+    			rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png',,upload_path().$this->user_id.'/brands/'.$brand_id);
     		}
         	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
     	}
@@ -234,8 +234,8 @@ class Brands extends CI_Controller {
                 	if(!empty($post_data['image_name']))
                 	{
                 		$old_path = upload_path().$this->user_id.'/users/'.$post_data['image_name'];
-		        		$new_path = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';
-		        		rename($old_path, $new_path);
+		        		$new_path = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';		        		
+		        		rename_file($old_path, $new_path,upload_path().$this->user_id.'/users/');
                 	}
 
                 	unset($user_data['password']);
