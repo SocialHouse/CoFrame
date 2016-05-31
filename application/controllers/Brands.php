@@ -256,7 +256,7 @@ class Brands extends CI_Controller {
                 	{
                 		$old_path = upload_path().$this->user_id.'/users/'.$post_data['image_name'];
 		        		$new_path = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';		        		
-		        		rename_file($old_path, $new_path,upload_path().$this->user_id.'/users/');
+		        		rename_file($old_path, $new_path);
                 	}
 
                 	unset($user_data['password']);
