@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `user_id` INT(11) NOT NULL AFTER `brand_id`;
