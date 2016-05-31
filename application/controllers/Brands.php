@@ -106,7 +106,7 @@ class Brands extends CI_Controller {
     		{
     			//helper function to delete files
     			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-    			rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png',,upload_path().$this->user_id.'/brands/'.$brand_id);
+    			rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png',upload_path().$this->user_id.'/brands/'.$brand_id);
     		}
         	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
     	}
