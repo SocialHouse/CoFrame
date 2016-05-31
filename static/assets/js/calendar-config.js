@@ -169,7 +169,7 @@ jQuery(function($) {
 		});
 
 		//Get popover calendar for date selector
-		$('body').on('click, focus', 'input[data-toggle="popover-calendar"]', function(e) {
+		$('body').on('click focus', 'input[data-toggle="popover-calendar"]', function(e) {
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -185,6 +185,15 @@ jQuery(function($) {
 			var calendarClone = $('#' + pid).clone();
 			calendarClone.attr('id', pid + '-clone');
 			inputType = $target.attr('name');
+			var inputVal = $target.val();
+			if(inputVal === '') {
+				startDate = today;
+				endDate = '';
+			}
+			else if(inputVal !== '' && $target.hasClass('single-date-select')) {
+				startDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
+				endDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
+			}
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -214,10 +223,8 @@ jQuery(function($) {
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
-						//remove clone on hide to prevent duplicate display
-						calendarClone.remove();
 					},
-					event: 'unfocus blur'
+					event: 'unfocus'
 				},
 				position: {
 					adjust: {
@@ -237,7 +244,7 @@ jQuery(function($) {
 					ready: true
 				},
 				style: {
-					classes: 'qtip-shadow ' + pclass,
+					classes: 'qtip-shadow popover-calendar ' + pclass,
 					tip: {
 						corner: arrowcorner,
 						mimic: 'center',
@@ -247,11 +254,6 @@ jQuery(function($) {
 					width: pwidth
 				}
 			}, e);
-		});
-
-		//allow click on date select calendar without blurring date input and therefore closing calendar
-		$('body').on('mousedown', '.date-select-calendar', function(e) {
-			e.preventDefault();
 		});
 
 		//update date ranges on input blur
@@ -318,7 +320,7 @@ jQuery(function($) {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: 'click unfocus'
 				},
 				position: {
 					adjust: {

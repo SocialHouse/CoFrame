@@ -133,7 +133,7 @@ jQuery(function($) {
 				effect: function() {
 					$(this).fadeOut();
 				},
-				event: 'unfocus'
+				event: 'click unfocus'
 			},
 			style: {
 				classes: 'qtip-shadow',
@@ -189,6 +189,7 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -197,6 +198,9 @@ jQuery(function($) {
 			if(parrow) {
 				tipW = 20;
 				tipH = 10;
+			}
+			if(phide !== false) {
+				phide = 'click unfocus';
 			}
 			$target.qtip({
 				content: {
@@ -211,6 +215,10 @@ jQuery(function($) {
 				events: {
 					show: function() {
 						$target.attr('data-toggle', 'popover-ajax-inline');
+					},
+					visible: function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
 					}
 				},
 				id: pid,
@@ -229,13 +237,14 @@ jQuery(function($) {
 						$(this).fadeIn();
 					},
 					event: e.type,
-					ready: true
+					ready: true,
+					solo: true
 				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: phide
 				},
 				overwrite: false,
 				style: {
@@ -265,6 +274,7 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -274,12 +284,17 @@ jQuery(function($) {
 				tipW = 20;
 				tipH = 10;
 			}
+			if(phide !== false) {
+				phide = 'click unfocus';
+			}
 			$('#qtip-' + pid).qtip('api').set({
 				'content.title': ptitle,
-				'hide.effect': function() {
-					$(this).fadeOut();
+				'events.visible' : function() {
+					var classes = $(this).qtip('api').get('style.classes');
+					$('.qtip').trigger('qtipShown', [classes]);
 				},
-				'hide.event': 'unfocus',
+				'hide.effect': function() { $(this).fadeOut(); },
+				'hide.event': phide,
 				'position.adjust.x': poffsetX,
 				'position.adjust.y': poffsetY,
 				'position.at': ptattachment,
@@ -289,6 +304,7 @@ jQuery(function($) {
 				'overwrite': false,
 				'show.effect': function() { $(this).fadeIn(); },
 				'show.event': e.type,
+				'show.solo': true,
 				'style.classes': 'qtip-shadow ' + pclass,
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
@@ -324,11 +340,17 @@ jQuery(function($) {
 				content: {
 					text: $('#' + pid)
 				},
+				events: {
+					visible: function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
+					}
+				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: 'click unfocus'
 				},
 				position: {
 					adjust: {
@@ -346,7 +368,8 @@ jQuery(function($) {
 						$(this).fadeIn();
 					},
 					event: e.type,
-					ready: true
+					ready: true,
+					show: true,
 				},
 				style: {
 					classes: 'qtip-shadow ' + pclass,
@@ -364,10 +387,6 @@ jQuery(function($) {
 		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
-			var tooltipId = $toggler.data('hasqtip');
-			if($toggler.hasClass('selected')) {
-				$('#qtip-' + tooltipId).qtip('hide');
-			}
 			if($toggler.hasClass('show-brands-toggler')) {
 				if($toggler.hasClass('animated')) {
 					$toggler.removeClass('animated pulse');
@@ -383,17 +402,25 @@ jQuery(function($) {
 				}
 			}
 			else {
-				$toggler.toggleClass('selected');
+				if(e.type === 'click') {
+					//remove selected class if user clicks from one toggler to another
+					$('.popover-toggle.selected').each(function() {
+						$(this).removeClass('selected');
+					});
+					$toggler.addClass('selected');
+				}
+				else {
+					$toggler.removeClass('selected');
+				}
 			}
 		});
 		$('.calendar-header a[class*="tf-icon"]').on('click blur', function() {
 			$(this).toggleClass('active');
 		});
-		//hide visible tooltips when body is clicked
+		//remove selected state on tooltip toggles when body is clicked
 		$('body').on('click', function(e) {
 			var $target = $(e.target);
 			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
-				$('.qtip').qtip('hide');
 				$('.popover-toggle').each(function() {
 					var $toggler = $(this);
 					$toggler.removeClass('selected');
@@ -411,6 +438,22 @@ jQuery(function($) {
 			}
 			if($target.hasClass('modal-hide')) {
 				$('.modal').modal('hide');
+			}
+		});
+		//hide active tooltips on input focus
+		$('body').on('focus', '.form-control', function() {
+			var $target = $(this);
+			if($target.attr('data-toggle') === undefined) {
+				//make sure this isn't a tooltip in a tooltip situation
+				if($target.closest('.qtip').length === 0) {
+					$('.qtip').fadeOut();
+				}
+				else {
+					$target.closest('.qtip').addClass('parent-tooltip');
+					$('.qtip:not(.parent-tooltip)').fadeOut(function() {
+						$target.closest('.qtip').removeClass('parent-tooltip');
+					});
+				}
 			}
 		});
 
@@ -555,7 +598,11 @@ jQuery(function($) {
 	$('body').on('contentShown', '#phaseDetails', function() {
 		addIncrements();
 	});
-
+	$('body').on('qtipShown', function(e, classes) {
+		if(classes.indexOf('popover-post-date') > -1) {
+			addIncrements();
+		}
+	});
 	//Time selector functions
 	addIncrements();
 	$('body').on('click', '.incrementer', function(e) {

@@ -2537,13 +2537,18 @@ a {
 	.timezone {
 		font-family: $bebas;
 		font-size: remCalc(20px);
-		line-height: 36px;
 		color: #000;
-		margin: 22px 0 0 18px;
+		margin: 4px 0 0 18px;
+		label {
+			display: block;
+		}
 		&.form-control-sm {
 			margin-top: 0;
 			font-size: 1rem;
 			line-height: 30px;
+		}
+		.qtip & {
+			margin-top: 7px;
 		}
 	}
 }

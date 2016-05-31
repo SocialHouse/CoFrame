@@ -10,7 +10,7 @@
 								</div>
 								<div class="col-md-10 post-meta">
 									<span class="post-author">Facebook Post By Johan L:</span>
-									<span class="post-date">Wednesday, 5/13/16 at 5:05 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1223" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"><i class="fa fa-pencil"></i></a></span>
+									<span class="post-date">Wednesday, 5/13/16 at 5:05 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1223" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day" data-hide="false"><i class="fa fa-pencil"></i></a></span>
 									<span class="post-approval"><strong>All Approvals Received <i class="fa fa-check-circle color-success"></i></strong></span>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
 								<div class="col-md-10 post-meta">
 									<span class="post-author">INSTAGRAM POST BY SOPHIE H:
 </span>
-									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1224" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"><i class="fa fa-pencil"></i></a></span>
+									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1224" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day" data-hide="false"><i class="fa fa-pencil"></i></a></span>
 									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1224" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i></strong></span>
 								</div>
 							</div>
@@ -99,7 +99,7 @@
 								<div class="col-md-10 post-meta">
 									<span class="post-author">Youtube POST BY SOPHIE H:
 </span>
-									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1225" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"><i class="fa fa-pencil"></i></a></span>
+									<span class="post-date">Wednesday, 5/13/16 at 6:21 PM PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="lib/calendar-edit-date.php" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-1225" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day" data-hide="false"><i class="fa fa-pencil"></i></a></span>
 									<span class="post-approval"><strong>Pending Approvals <i class="icon-clock2 color-danger" data-popover-id="approvals-postid-1225" data-toggle="popover-ajax" data-content-src="lib/approval-list.php" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i></strong></span>
 								</div>
 							</div>
