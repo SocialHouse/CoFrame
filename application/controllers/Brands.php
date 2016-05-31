@@ -94,7 +94,7 @@ class Brands extends CI_Controller {
     		if(isset($filename))
     		{
     			//helper function to rename files
-	    		rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$insert_id.'/'.$insert_id.'.png');	    	
+	    		rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$insert_id.'/'.$insert_id.'.png',,upload_path().$this->user_id.'/brands/'.$insert_id);	    	
     		}    		
     		echo json_encode(array('response'=>'success','brand_id' => $insert_id));
     	}
