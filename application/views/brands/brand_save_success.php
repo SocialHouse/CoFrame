@@ -7,13 +7,15 @@
 					<h3 class="text-xs-center">Step 1</h3>
 					<h4 class="text-xs-center">Add Brand</h4>
 					<div class="brand-logo">
+
 						<?php
 						$image_path = img_url().'default_brand.png';
-						if(file_exists(upload_path().'brands/'.$brand[0]->id.'.png'))
+						if(file_exists(upload_path().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png'))
 						{
-							$image_path = upload_url().'brands/'.$brand[0]->id.'.png';
+							$image_path = upload_url().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png';
 						}
 						?>
+
 						<img src="<?php echo $image_path ?>" alt="<?php echo $brand[0]->name; ?>" class="circle-img center-block">
 					</div>
 					<div class="saved-items">
@@ -88,9 +90,9 @@
 							foreach($brands_user as $user)
 							{
 								$image_path = img_url().'default_profile.jpg';
-								if(file_exists(upload_path().'users/'.$user->aauth_user_id.'.png'))
+								if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png'))
 								{
-									$image_path = upload_url().'users/'.$user->aauth_user_id.'.png';
+									$image_path = upload_url().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png';
 								}
 								?>
 								<div class="table">

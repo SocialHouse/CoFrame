@@ -76,9 +76,9 @@ if(!function_exists('upload_file'))
         $CI = & get_instance();
         $upload_path = upload_path().$upload_folder.'/';
 
-        if (!file_exists($upload_path))
+        if (!is_dir($upload_path))
         {       
-            mkdir($upload_path, 0777);
+            mkdir($upload_path, 0777,true);
         }
 
         $config['upload_path'] = $upload_path;
@@ -102,6 +102,24 @@ if(!function_exists('upload_file'))
         }
     }
 }
+
+if(!function_exists('delete_file')) 
+{
+    function delete_file($path) 
+    {
+        if(file_exists($path))
+            unlink($path);
+    }
+}
+
+if(!function_exists('rename_file')) 
+{
+    function rename_file($old_path,$new_path) 
+    {
+       rename($old_path, $new_path);
+    }
+}
+
 
 if(!function_exists('get_post_tags')) 
 {

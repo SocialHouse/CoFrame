@@ -24,9 +24,9 @@
 							<div class="brand-link text-xs-center">
 								<?php
 								$image_path = img_url().'default_brand.png';
-								if(file_exists(upload_path().'brands/'.$brand->id.'.png'))
+								if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png'))
 								{
-									$image_path = upload_url().'brands/'.$brand->id.'.png';
+									$image_path = upload_url().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png';
 								}
 								?>
 								<img src="<?php echo $image_path; ?>" width="135" height="135" alt="" class="img-responsive center-block circle-img"/>								

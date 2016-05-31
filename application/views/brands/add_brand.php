@@ -3,6 +3,7 @@
 
 	<input type="hidden" name="all_selected_outlets" id="all_selected_outlets" />
 	<input type="hidden" name="brand_id" id="brand_id" />
+	<input type="hidden" name="user_id" id="user_id" value="<?php echo $this->user_id; ?>" >
 
 	<div class="row row-sm-12 equal-cols relative-wrapper">
 		<div class="brand-steps col-xl-11 center-block">

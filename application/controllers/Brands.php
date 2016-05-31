@@ -59,7 +59,8 @@ class Brands extends CI_Controller {
 	public function save_brand()
 	{
 		$files = $_FILES['files'];
-		
+		$brand_id = $this->input->post('brand_id');
+
 		if(isset($files) AND isset($files['name']) AND !empty($files['name'][0]))
 		{			
 			$_FILES['file']['name'] = $files['name'][0];	      
@@ -68,7 +69,7 @@ class Brands extends CI_Controller {
 	        $_FILES['file']['tmp_name'] = $files['tmp_name'][0];
 	        $_FILES['file']['error'] = $files['error'][0];
 	        $_FILES['file']['size'] = $files['size'][0];
-	        $status = upload_file('file',$filename,'brands');
+	        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
 	        if(array_key_exists("upload_errors",$status))
 	        {
 	        	$error = $status['upload_errors'];	        	
@@ -77,8 +78,7 @@ class Brands extends CI_Controller {
 	        {
 	        	$filename = $status['file_name'];	        	
 	        }
-		}
-		$brand_id = $this->input->post('brand_id');
+		}		
 		$brand_data = array(
     						'name' => $this->input->post('name'),
     						'user_id' => $this->user_id,
@@ -93,9 +93,8 @@ class Brands extends CI_Controller {
 
     		if(isset($filename))
     		{
-    			$old_path = upload_path().'brands/'.$filename;
-	    		$new_path = upload_path().'brands/'.$insert_id.'.png';
-	    		rename($old_path, $new_path);
+    			//helper function to rename files
+	    		rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$insert_id.'.png');	    	
     		}    		
     		echo json_encode(array('response'=>'success','brand_id' => $insert_id));
     	}
@@ -105,13 +104,10 @@ class Brands extends CI_Controller {
     		$this->timeframe_model->update_data('brands',$brand_data,$condition);
     		if(isset($filename))
     		{
-    			if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
-        			unlink(upload_path().'brands/'.$brand_id.'.png');
-
-        		$old_path = upload_path().'brands/'.$filename;
-    			$new_path = upload_path().'brands/'.$brand_id.'.png';
-    			rename($old_path, $new_path);
-        	}
+    			//helper function to delete files
+    			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+    			rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+    		}
         	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
     	}
     	else
@@ -237,8 +233,8 @@ class Brands extends CI_Controller {
 
                 	if(!empty($post_data['image_name']))
                 	{
-                		$old_path = upload_path().'users/'.$post_data['image_name'];
-		        		$new_path = upload_path().'users/'.$inserted_id.'.png';
+                		$old_path = upload_path().$this->user_id.'/users/'.$post_data['image_name'];
+		        		$new_path = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';
 		        		rename($old_path, $new_path);
                 	}
 
@@ -269,9 +265,9 @@ class Brands extends CI_Controller {
                     }
 
                     $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().'users/'.$inserted_id.'.png'))
+					if(file_exists(upload_path().$this->user_id.'/users/'.$inserted_id.'.png'))
 					{
-						$image_path = upload_url().'users/'.$inserted_id.'.png';
+						$image_path = upload_url().$this->user_id.'/users/'.$inserted_id.'.png';
 					}
 
                     $response = '<div class="table">';
@@ -337,29 +333,27 @@ class Brands extends CI_Controller {
     {
     	$this->data = array();
     	$brand_id = $this->uri->segment(3);
-		$condition = array('brand_id' => $brand_id);
-		$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
-		$this->load->model('post_model');
-		$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
-		
-		$condition = array('id' => $brand_id);
-		$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',$condition);
+    	$this->data['brand'] = $this->brand_model->get_users_brands($this->user_id,$brand_id);
+    	if(!empty($this->data['brand']))
+    	{
+			$condition = array('brand_id' => $brand_id);
+			$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
+			$this->load->model('post_model');
+			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);			
+			$this->data['brands_user'] = $this->brand_model->get_brand_users($brand_id);
+			$this->data['background_image'] = 'bg-admin-overview.jpg';
+			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
-		$this->data['brands_user'] = $this->brand_model->get_brand_users($brand_id);
-		// echo "<pre>";
-		// print_r($this->data['brands_user']);
-		// die;
-		$this->data['background_image'] = 'bg-admin-overview.jpg';
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
+	        $this->data['layout'] = 'layouts/new_user_layout';
 
-        $this->data['layout'] = 'layouts/new_user_layout';
-
-		$this->data['view'] = 'brands/brand_save_success';
-        _render_view($this->data);
+			$this->data['view'] = 'brands/brand_save_success';
+	        _render_view($this->data);
+	    }
     }
 
     function upload_profile_pic()
     {
+    	$post_data = $this->input->post();
     	if(isset($_FILES['file']['name'][1]) AND !empty($_FILES['file']['name'][1]))
 		{			
 			$_FILES['file']['name'] = $_FILES['file']['name'][1];	      
@@ -368,7 +362,7 @@ class Brands extends CI_Controller {
 	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][1];
 	        $_FILES['file']['error'] = $_FILES['file']['error'][1];
 	        $_FILES['file']['size'] = $_FILES['file']['size'][1];
-	        $status = upload_file('file',$filename,'users');
+	        $status = upload_file('file',$filename,$post_data['user_id'].'/users');
 	        if(array_key_exists("upload_errors",$status))
 	        {
 	        	$error = $status['upload_errors'];
@@ -455,7 +449,7 @@ class Brands extends CI_Controller {
 		$brand_id = $this->uri->segment(3);
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);		
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
 		if(!empty($brand))
 		{
 			$this->load->model('reminder_model');

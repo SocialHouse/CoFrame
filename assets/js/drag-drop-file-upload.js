@@ -119,6 +119,12 @@
 						});					
 					}
 
+					var other_data = $('form').serializeArray();
+					$.each(other_data,function(key,input){
+						if(input.name == 'brand_id' || input.name== 'user_id')
+				        	ajaxData.append(input.name,input.value);
+				    });
+
 					// ajax request
 					$.ajax({
 						url: 			$form.attr( 'upload' ),
@@ -134,6 +140,7 @@
 						success: function( data ){
 							if(data.success)
 							{
+								return;
 								if(data.success != 'no_files')
 									$('#uploaded_files').val(JSON.stringify(data));
 								$form.submit();
@@ -243,8 +250,13 @@
 					var ajaxData = new FormData();				
 					$.each( allFiles, function( i, file ){
 						ajaxData.append( 'file['+i+']', file,file.name);
-					});					
-				
+					});	
+
+					var other_data = $('form').serializeArray();
+					$.each(other_data,function(key,input){
+						if(input.name == 'brand_id' || input.name== 'user_id')
+				        	ajaxData.append(input.name,input.value);
+				    });
 
 					// ajax request
 					$.ajax({

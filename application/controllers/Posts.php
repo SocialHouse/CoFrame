@@ -28,6 +28,7 @@ class Posts extends CI_Controller {
 		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+
 	}
 
 	public function index()
@@ -50,12 +51,14 @@ class Posts extends CI_Controller {
 		$this->data = array();
 		$brand_id = $this->uri->segment(3);	
 		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+
 		if(!empty($brand))
 		{
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
 			
 			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['brand'] = $brand[0];
 			$this->data['view'] = 'posts/create-post';
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
@@ -537,6 +540,7 @@ class Posts extends CI_Controller {
 
 	public function upload()
 	{
+		$post_data = $this->input->post();
 		if(isset($_FILES['file']['name'][0]))
 		{
 			$files = $_FILES['file'];
@@ -556,7 +560,7 @@ class Posts extends CI_Controller {
 				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
 				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
 				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
-				        $status = upload_file('uploadedimage',$randname,'posts');
+				        $status = upload_file('uploadedimage',$randname,$post_data['user_id'].'/brands/'.$post_data['brand_id'].'/posts');
 				      
 				        if(array_key_exists("upload_errors",$status))
 				        {

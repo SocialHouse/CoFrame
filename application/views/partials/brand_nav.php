@@ -2,9 +2,9 @@
 	<nav class="navbar navbar-light navbar-brand-manage bg-transparent">
 		<?php
 		$image_path = img_url().'default_brand.png';
-		if(file_exists(upload_path().'brands/'.$brand_id.'.png'))
+		if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png'))
 		{
-			$image_path = upload_url().'brands/'.$brand_id.'.png';
+			$image_path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png';
 		}
 		?>
 	  	<a href="<?php echo base_url().'brands/dashboard/'.$brand_id; ?>"><img src="<?php echo $image_path ?>" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
