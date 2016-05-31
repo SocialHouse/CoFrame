@@ -114,6 +114,20 @@ jQuery(function($) {
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 		});
 
+		$('body').on('click', '.select-box', function() {
+			var $box = $(this);
+			var boxVal = $box.attr('data-value');
+			var inputGroup = $box.attr('data-group');
+			if(boxVal !== "check-all") {
+				$box.toggleClass('checked');
+			}
+			else if(boxVal === "check-all" && !$box.hasClass('checked')) {
+				$('.select-box[data-group="' + inputGroup + '"]').addClass('checked');
+			}
+			else if(boxVal === "check-all" && $box.hasClass('checked')) {
+				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
+			}
+		});
 		//popover triggers
 		$('[data-toggle="popover"]').qtip({
 			content: {

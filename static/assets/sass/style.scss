@@ -2494,7 +2494,7 @@ a {
 		}
 	}
 }
-.post-filters {
+.post-filters, .select-box {
 	.square-border {
 		width: 16px;
 		height: 16px;
@@ -2520,6 +2520,9 @@ a {
 		}
 	}
 }
+.select-box.checked .square-border .fa{
+	display: inline-block;
+}
 /*forms*/
 .form-group {
 	.container-approvals & {
@@ -2538,7 +2541,7 @@ a {
 		font-family: $bebas;
 		font-size: remCalc(20px);
 		color: #000;
-		margin: 4px 0 0 18px;
+		margin: 4px 0 0 remCalc(18px);
 		label {
 			display: block;
 		}
@@ -2583,14 +2586,14 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		outline: 1px solid;
 	}
 	&.single-date-select {
-		max-width: 132px;
+		max-width: remCalc(132px);
 	}
 	&.time-select {
-		max-width: 142px;
+		max-width: remCalc(142px);
 		margin-left: 18px;
 		padding: 4px 0px 4px 5px;
 		input {
-			font-size: 20px;
+			font-size: remCalc(20px);
 		}
 	}
 }
@@ -2606,8 +2609,8 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		max-width: 106px;
 	}
 	&.time-select {
-		max-width: 122px;
-		margin-left: 18px;
+		max-width: remCalc(122px);
+		margin-left: remCalc(18px);
 		input {
 			font-size: 16px;
 		}
@@ -2634,7 +2637,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	}
 	.incrementer {
 		float: left;
-		margin-left: -18px;
+		margin-left: remCalc(-18px);
 		position: relative;
 		z-index: 1;
 		.fa {

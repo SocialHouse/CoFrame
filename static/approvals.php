@@ -47,7 +47,7 @@
 						</ul>
 						<button type="button" class="btn btn-sm btn-secondary reset-filter pull-sm-right" data-filter="*">Reset Filters</button>
 					</div>
-					<div id="calendar-change-month" class="hidden calendar-select-date">
+					<div id="calendar-change-date-approvals" class="hidden calendar-select-date">
 						<div class="date-select-calendar"></div>
 						<div class="text-xs-center">
 							<hr>
