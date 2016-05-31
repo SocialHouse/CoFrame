@@ -86,8 +86,23 @@ class Post_model extends CI_Model
 
 	public function get_post($post_id)
 	{
-		$this->db->where('id',$post_id);
+		// $this->db->where('id',$post_id);
+		// $query = $this->db->get('posts');
+		// if($query->num_rows() > 0)
+		// {
+		// 	return $query->row();
+		// }
+		// return FALSE;
+		if(empty($post_id))
+			return FALSE;
+
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by');
+		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
+		$this->db->join('brands','brands.id = posts.brand_id');
+		$this->db->where('posts.id',$post_id);
+		$this->db->where('posts.id',$post_id);
 		$query = $this->db->get('posts');
+
 		if($query->num_rows() > 0)
 		{
 			return $query->row();
@@ -204,7 +219,7 @@ class Post_model extends CI_Model
 
 	public function get_posts_by_time($brand_id, $start, $end, $outlets = '',$statuses = '',$tags)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", " TO ") as start,LOWER(outlets.outlet_name) as className,outlets.id as outlet_id , post_media.name as image_name, post_media.type, post_media.mime');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", " TO ") as start,LOWER(outlets.outlet_name) as className');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->join('post_media','post_media.post_id = posts.id','left');
 		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id');
@@ -252,4 +267,15 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_images($post_id){
+		$this->db->select('post_media.name, post_media.type, post_media.mime');
+		$this->db->where('post_media.post_id',$post_id);
+		$query = $this->db->get('post_media');
+
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
 }

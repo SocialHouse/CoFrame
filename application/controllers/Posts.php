@@ -97,7 +97,8 @@ class Posts extends CI_Controller {
 	    						'content' => $this->input->post('post_copy'),
 	    						'slate_date_time' => $slate_date_time,
 	    						'brand_id' => $post_data['brand_id'],
-	    						'outlet_id' =>$post_data['post_outlet']
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'user_id' =>$this->user_id
 	    					);
 
     				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
@@ -611,6 +612,7 @@ class Posts extends CI_Controller {
 	public function get_post_info($post_id){
 		if(!empty($post_id)){
 			$this->data['post_deatils'] = $this->post_model->get_post($post_id);
+			$this->data['post_images'] = $this->post_model->get_images($post_id);
 			$post_phases= $this->post_model->get_post_phases($post_id);
 		
 			if(!empty($post_phases))
