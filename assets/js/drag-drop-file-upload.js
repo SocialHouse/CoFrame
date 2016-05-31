@@ -140,7 +140,6 @@
 						success: function( data ){
 							if(data.success)
 							{
-								return;
 								if(data.success != 'no_files')
 									$('#uploaded_files').val(JSON.stringify(data));
 								$form.submit();
