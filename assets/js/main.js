@@ -456,31 +456,60 @@ jQuery(function($) {
 				tipH = 10;
 			}
 			
-			$('#qtip-' + pid).qtip('api').set({
-				'content.title': ptitle,
-				'hide.effect': function() {
-					$(this).fadeOut();
-				},
-				'hide.event': 'unfocus',
-				'position.adjust.x': poffsetX,
-				'position.adjust.y': poffsetY,
-				'position.at': ptattachment,
-				'position.my': pattachment,
-				'position.container': $(pcontainer),
-				'position.target': $target,
-				'overwrite': false,
-				'style.classes': 'qtip-shadow ' + pclass,
-				'style.tip.corner': arrowcorner,
-				'style.tip.mimic': 'center',
-				'style.tip.height': tipH,
-				'style.tip.width': tipW
-			}).show({
-				effect: function() {
-					$(this).fadeIn();
-				},
-				event: e.type,
-				ready: true
-			}, e);
+			if($(this).hasClass('post-filter-popup'))
+			{
+				$('#qtip-' + pid).qtip('api').set({
+					'content.title': ptitle,
+					'hide.effect': function() {
+						$(this).fadeOut();
+					},
+					'hide.event': 'unfocus',
+					'position.adjust.x': poffsetX,
+					'position.adjust.y': poffsetY,
+					'position.at': ptattachment,
+					'position.my': pattachment,
+					'position.container': $(pcontainer),
+					'position.target': $target,
+					'overwrite': false,
+					'show.effect': function() { $(this).fadeIn(); },
+					'show.event': e.type,
+					'style.classes': 'qtip-shadow ' + pclass,
+					'style.tip.corner': arrowcorner,
+					'style.tip.mimic': 'center',
+					'style.tip.height': tipH,
+					'style.tip.width': tipW,
+					'style.width': pwidth
+				}, e);
+			}
+			else
+			{
+				$('#qtip-' + pid).qtip('api').set({
+					'content.title': ptitle,
+					'hide.effect': function() {
+						$(this).fadeOut();
+					},
+					'hide.event': 'unfocus',
+					'position.adjust.x': poffsetX,
+					'position.adjust.y': poffsetY,
+					'position.at': ptattachment,
+					'position.my': pattachment,
+					'position.container': $(pcontainer),
+					'position.target': $target,
+					'overwrite': false,
+					'style.classes': 'qtip-shadow ' + pclass,
+					'style.tip.corner': arrowcorner,
+					'style.tip.mimic': 'center',
+					'style.tip.height': tipH,
+					'style.tip.width': tipW
+				}).show({
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
+				}, e);
+			}
+			
 		});
 
 		//Get popover content from an inline div
