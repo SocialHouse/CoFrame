@@ -69,7 +69,7 @@ class Brands extends CI_Controller {
 	        $_FILES['file']['tmp_name'] = $files['tmp_name'][0];
 	        $_FILES['file']['error'] = $files['error'][0];
 	        $_FILES['file']['size'] = $files['size'][0];
-	        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
+	        $status = upload_file('file',$filename,$this->user_id.'/brands/');
 	        if(array_key_exists("upload_errors",$status))
 	        {
 	        	$error = $status['upload_errors'];	        	
@@ -94,7 +94,7 @@ class Brands extends CI_Controller {
     		if(isset($filename))
     		{
     			//helper function to rename files
-	    		rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$insert_id.'.png');	    	
+	    		rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$insert_id.'/'.$insert_id.'.png');	    	
     		}    		
     		echo json_encode(array('response'=>'success','brand_id' => $insert_id));
     	}
@@ -106,7 +106,7 @@ class Brands extends CI_Controller {
     		{
     			//helper function to delete files
     			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-    			rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+    			rename_file(upload_path().$this->user_id.'/brands/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
     		}
         	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
     	}
