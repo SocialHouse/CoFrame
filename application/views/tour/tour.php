@@ -270,7 +270,7 @@
 
 										<fieldset class="form-group float-md">
 											<label class="sr-only" for="phoneNumber">Phone Number</label>
-											<input type="tel" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
+											<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
 										</fieldset>
 
 										<fieldset class="form-group">
@@ -369,8 +369,10 @@
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.scrollify.min.js?ver=0.1.12'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>jquery.validate.min.js'></script>
+		<script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>tour_main.js?ver=1.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>timeframe_forms.js'></script>
+
 		<script type="text/javascript">
 			var token = "<?php echo isset($token) ? $token : ''; ?>";
 			var error = "<?php echo isset($error) ? $error : ''; ?>";

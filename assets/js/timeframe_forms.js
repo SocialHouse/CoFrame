@@ -159,7 +159,11 @@ jQuery(document).ready(function(){
 	  return this.optional(element) || /^\s*(http\:\/\/)?([a-z\d\-]{1,63}\.)*[a-z\d\-]{1,255}\.[a-z]{2,6}\s*$/.test(value);
 	});
 
-    
+	 jQuery.validator.addMethod("phone_num", function(value, element) {
+	  return this.optional(element) ||  /^(?:\(\d{3}\)|\d{3}-)\d{3}-\d{4}$/.test(value);
+	});
+
+   
     jQuery('#register_form').validate({
     	onkeyup: false,
         rules: {
@@ -179,7 +183,7 @@ jQuery(document).ready(function(){
 		                }
 	                }
         		},
-        	phone:{number: true},
+        	phone:{phone_num: true},
         	timezone: {required: true},
         	plan: {required: true},
         	username: {required: true,
@@ -197,7 +201,7 @@ jQuery(document).ready(function(){
         	first_name: {required: "Please enter first name"},
         	last_name: {required: "Please enter last name"},
         	email: {required: 'Please enter email address',email: 'Please enter valid email address',remote: "This email is already in use"},
-        	phone:{number: 'Please enter valid phone number'},
+        	phone:{phone_num: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
         	plan: {required: "Please select plan"},
         	username: {required: "Please enter username",remote:'This username is already taken'},
