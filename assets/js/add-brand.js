@@ -199,6 +199,7 @@ jQuery(function($) {
 			var $custom = $('#selectBrandTags .custom-tag');			
 			var $icon = $custom.find('.fa');
 			$icon.css({'color': customColor, 'border-color': customColor});
+			$custom.attr('data-color',customColor);
 			$custom.show();
 			$custom.children().attr('value',customColor);
 			customTag = true;
@@ -276,7 +277,7 @@ jQuery(function($) {
 					$listItem.children('.color').attr('name','selected_tags[]');
 
 					var tagTitle = $selectedItem.data('value');
-					var editTag = '<a href="#" class="pull-sm-right edit-tag btn-icon btn-gray" data-edit-tag="' + tagTitle + '"><i class="fa fa-pencil"></i></a>';
+					var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
 					//reset custom tags so that another can be added
 					if(customTag === true) {
 						var $custom = $('#selectBrandTags .custom-tag');					
@@ -288,13 +289,39 @@ jQuery(function($) {
 					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
 					$selectedItem.addClass('saved').removeClass('selected');
 					$selectedList.append($listItem);
-					toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false)
+					toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
 				}, 100);
 				$('.submit_tag').prop('disabled',false);
 			}
 			else {
 				return;
 			}
+		});
+
+		$(document).on('click','.remove-tag',function(){	
+			control = this;
+			var li = $(".tags-to-add").children('li');
+			var selected = 0;
+			$.each(li,function(a,b){			
+				if($(b).data('color') == $(control).parents('li').data('color') && $(b).data('value') == $(control).parents('li').data('value'))
+				{			
+					$(b).removeClass('saved');
+				}
+				if($(b).hasClass('saved'))
+				{
+					selected++;
+				}
+
+			});
+			if(selected > 0)
+			{
+				toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
+			}
+			else
+			{
+				toggleBtnClass('btn-secondary','btn-disabled','.submit_tag',true);
+			}
+			$(this).parents('li').remove();
 		});
 
 		$('#selectedTags').on('contentSlidDown', function() {
@@ -462,6 +489,80 @@ jQuery(function($) {
     		$('#addRole').prop('disabled',true); 
     	}
     	
+    });
+
+    $('.skip_step').click(function(){
+    	var brand_id = $('#brand_id').val();
+    	if(brand_id)
+    	{
+    		window.location.href = base_url+'brands/success/'+brand_id;
+    	}
+    });
+
+    //save outlet to brand
+    $(document).on('click','#save_outlet',function(){
+    	var control = this;
+    	var brand_id = $('#brand_id').val();
+    	var elements = $('.outlets');
+
+    	var outlet_ids = [];
+    	$.each(elements,function(i,value){    		
+    		outlet_ids.push($(value).val());
+    	});    	
+
+    	$.ajax({
+    		url: base_url+'brands/save_outlet',
+    		data: {'brand_id': brand_id,'outlets': outlet_ids},
+    		type:'POST',
+    		dataType: 'json',
+    		success: function( data ){
+    			
+    			if(data.response == 'success')
+    			{
+    				$(control).parents().children('.btn-next-step').trigger('click');
+    			}
+    		}
+    	});
+    });
+
+    //save tags
+     $(document).on('click','.submit_tag',function(){     
+    	var control = this;
+    	var brand_id = $('#brand_id').val();
+    	var selected_labels = $('.labels');
+
+    	var tags = [];
+    	$('input[name="selected_tags[]"]:checked').each(function(i) {
+		   tags[i] = this.value;
+		});
+
+    	var labels = []
+    	$.each(selected_labels,function(i,value){    		
+    		labels[i] = $(value).val();
+    	});
+    	
+
+    	$.ajax({
+    		url: base_url+'brands/save_tags',
+    		data: {'brand_id': brand_id,'tags': tags,'labels':labels},
+    		type:'POST',
+    		dataType: 'json',
+    		success: function( data ){
+    			
+    			if(data.response == 'success')
+    			{    				
+    				window.location.href = base_url+'brands/success/'+data.brand_id;
+    			}
+    		}
+    	});
+    });
+
+    $('#firstName').keyup(function(){
+    	$('.user-name-role').html($(this).val()+' '+$('#lastName').val());
+    });
+
+    $('#lastName').keyup(function(){
+    	$('.user-name-role').html($('#firstName').val().toUpperCase()+' '+$(this).val().toUpperCase());
     });
 
     if($('#userPermissionsList').children('.table'))

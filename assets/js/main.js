@@ -469,14 +469,17 @@ jQuery(function($) {
 				'position.container': $(pcontainer),
 				'position.target': $target,
 				'overwrite': false,
-				'show.effect': function() { $(this).fadeIn(); },
-				'show.event': e.type,
 				'style.classes': 'qtip-shadow ' + pclass,
 				'style.tip.corner': arrowcorner,
 				'style.tip.mimic': 'center',
 				'style.tip.height': tipH,
-				'style.tip.width': tipW,
-				'style.width': pwidth
+				'style.tip.width': tipW
+			}).show({
+				effect: function() {
+					$(this).fadeIn();
+				},
+				event: e.type,
+				ready: true
 			}, e);
 		});
 
@@ -1005,85 +1008,6 @@ jQuery(function($) {
     	post_copy = convertToLink(post_copy);
     	$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
     });
-
-
-
-    //save outlet to brand
-    $(document).on('click','#save_outlet',function(){
-    	var control = this;
-    	var brand_id = $('#brand_id').val();
-    	var elements = $('.outlets');
-
-    	var outlet_ids = [];
-    	$.each(elements,function(i,value){    		
-    		outlet_ids.push($(value).val());
-    	});    	
-
-    	$.ajax({
-    		url: base_url+'brands/save_outlet',
-    		data: {'brand_id': brand_id,'outlets': outlet_ids},
-    		type:'POST',
-    		dataType: 'json',
-    		success: function( data ){
-    			
-    			if(data.response == 'success')
-    			{
-    				$(control).parents().children('.btn-next-step').trigger('click');
-    			}
-    		}
-    	});
-    });
-
-    //save tags
-     $(document).on('click','.submit_tag',function(){     
-    	var control = this;
-    	var brand_id = $('#brand_id').val();
-    	var selected_labels = $('.labels');
-
-    	var tags = [];
-    	$('input[name="selected_tags[]"]:checked').each(function(i) {
-		   tags[i] = this.value;
-		});
-
-    	var labels = []
-    	$.each(selected_labels,function(i,value){    		
-    		labels[i] = $(value).val();
-    	});
-    	
-
-    	$.ajax({
-    		url: base_url+'brands/save_tags',
-    		data: {'brand_id': brand_id,'tags': tags,'labels':labels},
-    		type:'POST',
-    		dataType: 'json',
-    		success: function( data ){
-    			
-    			if(data.response == 'success')
-    			{    				
-    				window.location.href = base_url+'brands/success/'+data.brand_id;
-    			}
-    		}
-    	});
-    });
-
-    $('#firstName').keyup(function(){
-    	$('.user-name-role').html($(this).val()+' '+$('#lastName').val());
-    });
-
-    $('#lastName').keyup(function(){
-    	$('.user-name-role').html($('#firstName').val().toUpperCase()+' '+$(this).val().toUpperCase());
-    });   
-
-    $('.skip_step').click(function(){
-    	var brand_id = $('#brand_id').val();
-    	if(brand_id)
-    	{
-    		window.location.href = base_url+'brands/success/'+brand_id;
-    	}
-    });
-
-   
-    
 });
 	
 	function convertToLink(text) {

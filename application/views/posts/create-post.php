@@ -124,9 +124,9 @@
 										<div class="pull-sm-left">
 											<?php
 											$path = img_url()."default_profile.jpg";
-											if(file_exists(upload_path().'users/'.$user->aauth_user_id.'.png'))
+											if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
 											{
-												$path = upload_url().'users/'.$user->aauth_user_id.'.png';
+												$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
 											}
 											?>
 											<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
