@@ -178,7 +178,8 @@
 					</div>
 					<footer class="post-content-footer">
 					<button class="btn btn-sm btn-disabled" disabled data-active-class="btn-default">Save Draft</button>
-					<button class="btn btn-sm btn-secondary" data-active-class="btn-secondary">Submit for Approval</button>
+					<button type="submit" class="btn btn-sm btn-secondary" data-active-class="btn-secondary" id="submit-btn">Submit for Approval</button>
+
 					</footer>
 				</div>
 			</div>
