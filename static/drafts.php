@@ -47,7 +47,7 @@
 									<th>
 										<div class="select-box" data-value="check-all" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></div>
 									</th>
-									<th>Last Saved</th>
+									<th class="text-xs-left">Last Saved</th>
 									<th>Tags</th>
 									<th>Outlet</th>
 									<th>Post Copy</th>
