@@ -116,7 +116,11 @@ if(!function_exists('rename_file'))
 {
     function rename_file($old_path,$new_path) 
     {
-       rename($old_path, $new_path);
+        if (!is_dir($new_path))
+        {       
+            mkdir($new_path, 0777,true);
+        }
+        rename($old_path, $new_path);
     }
 }
 
