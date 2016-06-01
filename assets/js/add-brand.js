@@ -274,9 +274,8 @@ jQuery(function($) {
 					var $clone = $selectedItem.clone();
 
 					var $listItem = $clone.remove('input').removeClass('selected');
-					$listItem.children('.color').attr('name','selected_tags[]');
-
-					var tagTitle = $selectedItem.data('value');
+					$listItem.children('.color').attr('name','selected_tags[]');					
+					var tagTitle = $selectedItem.attr('data-value');
 					var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
 					//reset custom tags so that another can be added
 					if(customTag === true) {
@@ -286,6 +285,7 @@ jQuery(function($) {
 						$custom.removeClass('custom-tag');
 						customTag = false;
 					}
+					
 					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
 					$selectedItem.addClass('saved').removeClass('selected');
 					$selectedList.append($listItem);
