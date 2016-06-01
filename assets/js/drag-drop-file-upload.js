@@ -33,16 +33,42 @@
 				}
 			});
 
+			$('body').on('click', '.btn-next-step', function() {
+				var next = $(this).data('nextStep');
+				if(next == 1)
+				{
+					allFiles = [];
+				}
+			});
+
+			$('#save_outlet').click(function(){
+				allFiles = [];
+			});
+
 			// letting the server side to know we are going to make an Ajax request
 			$form.append( '<input type="hidden" name="ajax" value="1" />' );
 
 			// automatically submit the form on file select
-			$(document).on( 'change','input[type="file"]', function( e ){						
+			$(document).on( 'change','input[type="file"]', function( e ){
+				var fileInput = this;				
 				showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
 					var $fileDiv = $(this).parents('.form__input');
 					$.each(droppedFiles, function (index, file) {
+						if($(fileInput).parents('.brand-image').length)
+						{
+							$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+							$('.remove-brand-img').show();
+							allFiles = [];
+						}
+						if($(fileInput).parents('.user_upload_img_div').length)
+						{
+							$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+							$('.remove-user-img').show();
+							allFiles.splice(1, 1);
+						}						
 						allFiles.push(file)
+
 						var img = document.createElement('img');
 						//for live review fb
 						var preview_img = document.createElement('img');
@@ -50,8 +76,9 @@
 							window.URL.revokeObjectURL(this.src);
 						};
 						img.className = 'form__file-preview';
-						img.src = window.URL.createObjectURL(file);
-						$fileDiv.prepend(img).addClass('has-files');
+						img.src = window.URL.createObjectURL(file);						
+						
+						$fileDiv.prepend(img).addClass('has-files');					
 
 						//to sho user uploded img on add role page
 						if($('.user-img-preview').length)
@@ -79,10 +106,23 @@
 					$form.removeClass( 'is-dragover' );
 				})
 				.on( 'drop', function( e ){
+					var target_file_input = e.target;
 					droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 					var $fileDiv = $('.form__input');
 
 					$.each(droppedFiles, function (index, file) {
+						if($(target_file_input).hasClass('brand-image').length)
+						{
+							allFiles = [];
+							$(target_file_input).children('.form__file-preview').remove();
+							$('.remove-brand-img').show();
+						}
+						if($(target_file_input).hasClass('user_upload_img_div').length)
+						{
+							allFiles.splice(1, 1);
+							$(target_file_input).children('.form__file-preview').remove();
+							$('.remove-user-img').show();
+						}
 						allFiles.push(file)
 						var img = document.createElement('img');
 						img.onload = function () {
@@ -90,7 +130,7 @@
 						};
 						img.className = 'form__file-preview';
 						img.src = window.URL.createObjectURL(file);
-						$fileDiv.prepend(img).addClass('has-files');
+						$(target_file_input).prepend(img).addClass('has-files');
 
 						//for show preview
 						changePreview(file);
@@ -113,12 +153,13 @@
 
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
-					if( droppedFiles ){
-						$.each( droppedFiles, function( i, file ){
+					if( allFiles ){
+						$.each( allFiles, function( i, file ){
+							console.log(file);
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
 					}
-
+					return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
 						if(input.name == 'brand_id' || input.name== 'user_id')
@@ -184,9 +225,10 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 				
-					$.each( allFiles, function( i, file ){
+					
+					$.each( allFiles, function( i, file ){						
 						ajaxData.append( 'file['+i+']', file,file.name);
-					});					
+					});
 				
 
 					// ajax request
@@ -205,6 +247,7 @@
 							if(data.response == 'success')
 							{
 								$('#brand_id').val(data.brand_id);
+								allFiles = [];
 								$(control).parents().children('.btn-next-step').trigger('click');
 							}							
 						},
@@ -316,6 +359,7 @@
 											html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
 											$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').html(html);
+									    	$('.remove-user-img').hide();
 									    	allFiles.splice(1, 1);
 									    	$('.user-upload-img').hide();
 									    	$('.user-img-preview').show();
@@ -372,6 +416,22 @@
 					});
 				}
 			});
+
+			 //remove brand img when click on this btn
+		    $('.remove-brand-img').click(function(){
+		    	$('.brand-image').removeClass('has-files');
+		    	$('.brand-image').children('.form__file-preview').remove();
+		    	allFiles = [];
+		    	console.log(allFiles);
+		    	$(this).hide();
+		    });
+
+		    $('.remove-user-img').click(function(){
+		    	$('.user_upload_img_div').removeClass('has-files');
+		    	$('.user_upload_img_div').children('.form__file-preview').remove();
+		    	allFiles.splice(1, 1);
+		    	$(this).hide();
+		    });
 
 
 			// restart the form if has a state of error/success

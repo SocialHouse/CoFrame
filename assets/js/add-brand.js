@@ -523,7 +523,7 @@ jQuery(function($) {
     			}
     		}
     	});
-    });
+    });  
 
     //save tags
      $(document).on('click','.submit_tag',function(){     
@@ -576,7 +576,7 @@ jQuery(function($) {
 	    return re.test(email);
 	}
 
-	function nextStep(i) {
+	function nextStep(i) {		
 		$('.brand-step').removeClass('active').addClass('inactive');
 		$('#brandStep' + i).removeClass('inactive').addClass('active');
 	}

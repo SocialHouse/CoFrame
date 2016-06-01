@@ -58,7 +58,6 @@ class Brands extends CI_Controller {
 
 	public function save_brand()
 	{
-		$files = $_FILES['files'];
 		$brand_id = $this->input->post('brand_id');
 
 		
@@ -70,67 +69,47 @@ class Brands extends CI_Controller {
     						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
     					);
 		
-    	if(!isset($error) AND empty($brand_id))
+    	if(empty($brand_id))
     	{
     		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
-
-    		if(isset($files) AND isset($files['name']) AND !empty($files['name'][0]))
-			{			
-				$_FILES['file']['name'] = $files['name'][0];	      
-		        $filename = $_FILES["file"]["name"];
-		        $_FILES['file']['type'] = $files['type'][0];
-		        $_FILES['file']['tmp_name'] = $files['tmp_name'][0];
-		        $_FILES['file']['error'] = $files['error'][0];
-		        $_FILES['file']['size'] = $files['size'][0];
-		        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$insert_id);
-		        if(array_key_exists("upload_errors",$status))
-		        {
-		        	$error = $status['upload_errors'];	        	
-		        }
-		        else
-		        {
-		        	$filename = $status['file_name'];	        	
-		        }
-			}
-    		if(isset($filename))
-    		{
-    			//helper function to rename files
-	    		rename_file(upload_path().$this->user_id.'/brands/'.$insert_id.'/'.$filename, upload_path().$this->user_id.'/brands/'.$insert_id.'/'.$insert_id.'.png');	    	
-    		}    		
-    		echo json_encode(array('response'=>'success','brand_id' => $insert_id));
+    		$brand_id = $insert_id;    		
     	}
-    	elseif(!isset($error) AND !empty($brand_id))
+    	else
     	{
     		$condition = array('id' => $brand_id);
     		$this->timeframe_model->update_data('brands',$brand_data,$condition);
-    		
-    		if(isset($files) AND isset($files['name']) AND !empty($files['name'][0]))
-			{			
-				$_FILES['file']['name'] = $files['name'][0];	      
-		        $filename = $_FILES["file"]["name"];
-		        $_FILES['file']['type'] = $files['type'][0];
-		        $_FILES['file']['tmp_name'] = $files['tmp_name'][0];
-		        $_FILES['file']['error'] = $files['error'][0];
-		        $_FILES['file']['size'] = $files['size'][0];
-		        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
-		        if(array_key_exists("upload_errors",$status))
-		        {
-		        	$error = $status['upload_errors'];	        	
-		        }
-		        else
-		        {
-		        	$filename = $status['file_name'];	        	
-		        }
-			}
-
-    		if(isset($filename))
-    		{
-    			//helper function to delete files
-    			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-    			rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-    		}
-        	echo json_encode(array('response'=>'success','brand_id' => $brand_id));
     	}
+
+    	if(isset($_FILES['file']))
+		{			
+			$_FILES['file']['name'] = $_FILES['file']['name'][0];	      
+	        $filename = $_FILES["file"]["name"];
+	        $_FILES['file']['type'] = $_FILES['file']['type'][0];
+	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][0];
+	        $_FILES['file']['error'] = $_FILES['file']['error'][0];
+	        $_FILES['file']['size'] = $_FILES['file']['size'][0];
+	        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
+	        if(array_key_exists("upload_errors",$status))
+	        {
+	        	$error = $status['upload_errors'];	        	
+	        }
+	        else
+	        {
+	        	$filename = $status['file_name'];	        	
+	        }
+		}
+
+		if(isset($filename))
+		{
+			//helper function to delete files
+			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+			rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+		}
+
+		if(!isset($error))
+		{
+			echo json_encode(array('response'=>'success','brand_id' => $brand_id));
+		}
     	else
     	{
     		echo json_encode(array('response'=>'fail'));
@@ -374,15 +353,15 @@ class Brands extends CI_Controller {
 
     function upload_profile_pic()
     {
-    	$post_data = $this->input->post();
-    	if(isset($_FILES['file']['name'][1]) AND !empty($_FILES['file']['name'][1]))
+       	$post_data = $this->input->post();
+    	if(isset($_FILES['file']['name'][0]) AND !empty($_FILES['file']['name'][0]))
 		{			
-			$_FILES['file']['name'] = $_FILES['file']['name'][1];	      
+			$_FILES['file']['name'] = $_FILES['file']['name'][0];
 	        $filename = $_FILES["file"]["name"];
-	        $_FILES['file']['type'] = $_FILES['file']['type'][1];
-	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][1];
-	        $_FILES['file']['error'] = $_FILES['file']['error'][1];
-	        $_FILES['file']['size'] = $_FILES['file']['size'][1];
+	        $_FILES['file']['type'] = $_FILES['file']['type'][0];
+	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][0];
+	        $_FILES['file']['error'] = $_FILES['file']['error'][0];
+	        $_FILES['file']['size'] = $_FILES['file']['size'][0];
 	        $status = upload_file('file',$filename,$post_data['user_id'].'/users');
 	        if(array_key_exists("upload_errors",$status))
 	        {

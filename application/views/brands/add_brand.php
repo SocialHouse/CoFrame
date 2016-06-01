@@ -10,17 +10,22 @@
 			<div class="col-md-3 col-sm-6 brand-step active" id="brandStep1">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 1</h3>
-					<h4 class="text-xs-center">Add Brand</h4>
-					<div class="brand-fields">
+					<h4 class="text-xs-center">Add Brand</h4>					
+					<div class="brand-fields">						
 						<div class="form-group">
-							<div class="form__input center-block brand-logo">
-								<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
-								<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></span></label>
-								<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
+							<div class="brand-logo">
+								<a href="#" class="pull-sm-right remove-brand-img hide"><i class="tf-icon circle-border">x</i></a><br><br>
+								<label>
+								<div class="form__input center-block brand-image">								
+									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
+									<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></span></label>
+									<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
+								</div>
+								</label>
+								<div class="form__uploading">Uploading ...</div>
+								<div class="form__success">Done!</div>
+								<div class="form__error">Error! <span></span></div>
 							</div>
-							<div class="form__uploading">Uploading ...</div>
-							<div class="form__success">Done!</div>
-							<div class="form__error">Error! <span></span></div>
 						</div>
 						<div class="form-group">
 							<label for="brandName">Brand Name:</label>
