@@ -104,3 +104,8 @@ public/wp-content/themes/sassapress/style.css
 # track these mu-plugins, plugins, and themes
 # add your own entries here
 !public/wp-content/themes/sassapress/
+
+/application/config/database.php
+/application/config/config.php
+/assets/uploads/*
+uploads/*

@@ -222,7 +222,7 @@ class Post_model extends CI_Model
 		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", " TO ") as start,LOWER(outlets.outlet_name) as className');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->join('post_media','post_media.post_id = posts.id','left');
-		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id');
+		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id','left');
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		if($outlets)
@@ -242,7 +242,7 @@ class Post_model extends CI_Model
 		}
 		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
-		//echo $this->db->last_query();
+		 // echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

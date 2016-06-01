@@ -159,7 +159,7 @@
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
 					}
-					return false;
+					// return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
 						if(input.name == 'brand_id' || input.name== 'user_id')
