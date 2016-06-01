@@ -9,6 +9,8 @@
 
 					if(!empty($post_deatils)){
 						$outlet_id = $post_deatils->outlet_id;
+						$brand_onwer = $post_deatils->created_by;
+						$brand_id = $post_deatils->brand_id;
 					}
 					switch ($outlet_id) {
 						// image preview if the outlet id 1 ( facebook ) 
@@ -77,8 +79,8 @@
 																}
 															}
 															if($i < 5){
-																if (file_exists('uploads/posts/'.$key->name)) {
-						                                        	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"class="'. $cls .'" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+						                                        	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" />';
 							                                    }
 															}else{
 																echo $more_txt ;
@@ -137,10 +139,11 @@
 												<?php 
 													$i = 1;
 													$more_div = '';
+
 													if($img_count == 1 ){
-														if (file_exists('uploads/posts/'.$post_deatils[0]->name)) {
+														if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_deatils[0]->name)){
 															echo '<div class="pull-left">';
-				                                        		echo '<img src="'.base_url().'uploads/posts/'. $post_deatils[0]->name.'"  class="img-radious" />';
+				                                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_deatils[0]->name.'"  class="img-radious" />';
 				                                        	echo '</div>';
 					                                    }
 													}
@@ -153,8 +156,8 @@
 															}
 
 															echo '<div class="pull-'.$type.'  width_50">';
-															if (file_exists('uploads/posts/'. $key->name)) {
-					                                        	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class=" height_135 img-radious-'.$type.'" />';
+															if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+					                                        	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class=" height_135 img-radious-'.$type.'" />';
 						                                    }else{
 						                                    	echo '<img src="'.img_url().'default_profile.jpg" class=" height_135 img-radious-'.$type.'" />';	
 						                                    }
@@ -167,8 +170,8 @@
 														foreach ($post_images as $key) {
 															if($i == 1) {
 																echo '<div class="pull-left section1" >';
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="height_135 img-radious-left" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="height_135 img-radious-left" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="height_135 img-radious-left" />';	
 							                                    }
@@ -176,15 +179,15 @@
 				                                        		echo '<div class="pull-left width_50 section2">';
 															}
 															if($i == 2) {
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="img-radious-right-top width_30 section_2_img padding_bottom" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="img-radious-right-top width_30 section_2_img padding_bottom" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="img-radious-right-top width_30 section_2_img padding_bottom"  />';	
 							                                    }
 															}
 															if($i == 3) {
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="width_30 section_2_img img-radious-right-bottom" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="width_30 section_2_img img-radious-right-bottom" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="width_30 section_2_img img-radious-right-bottom"  />';	
 							                                    }
@@ -201,8 +204,8 @@
 															if($i == 1) {
 																echo '<div class="pull-left section1" style="width: 75%;" >';
 
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="height_135 img-radious-left" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="height_135 img-radious-left" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="height_135 img-radious-left"  />';	
 							                                    }	
@@ -210,22 +213,22 @@
 				                                        		echo '<div class="pull-left width_50 section2" style="width: 25%;" > ';
 															}
 															if($i == 2) {
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="width_30 section_3_img padding_bottom" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="width_30 section_3_img padding_bottom" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="width_30 section_3_img padding_bottom"  />';	
 							                                    }
 															}
 															if($i == 3) {
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="width_30 section_3_img padding_bottom" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="width_30 section_3_img padding_bottom" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="width_30 section_3_img padding_bottom"  />';	
 							                                    }
 															}
 															if($i == 4 ) {
-																if (file_exists('uploads/posts/'. $key->name)) {
-																	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"  class="width_30 section_3_img" />';
+																if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+																	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class="width_30 section_3_img" />';
 							                                    }else{
 							                                    	echo '<img src="'.img_url().'default_profile.jpg" class="width_30 section_3_img"  />';	
 							                                    }
@@ -281,15 +284,15 @@
 									<div class="insta-img-div">
 										<?php 
 											foreach ($post_images as $key) {
-												if (file_exists('uploads/posts/'.$key->name)) {
-		                                        	echo '<img src="'.base_url().'uploads/posts/'. $key->name.'"	/>';
+												if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+		                                        	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
 		                                        	break;
 			                                    }
 											}
-										?>										
+										?>
 									</div>	
 									
-									<div class="insta-post-copy">		
+									<div class="insta-post-copy">
 										<div class="insta-comment-div">
 											<span class="insta-comment-user-name"><?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?> </span>
 											<span class="post_copy_text"><?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?></span>
@@ -300,7 +303,41 @@
 									</div>
 								</div>
 							</div>
-							<?php							
+							<?php
+							break;
+
+						case '4':
+							?>
+							<div class="linkedin-post" >
+								<div class="linkedin-profile">
+									<img src="<?php echo img_url(); ?>default_profile_linkedin.png">
+								</div>
+								<div class="linkedin-content">
+									<div class="linkedin-user-detail">
+										<span><?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?></span>
+										<p>Software Developer at Techfive</p>
+									</div>
+									<div class="post_copy_text">
+										<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+									</div>
+									<div class="likedin-img-div">
+										<?php
+											foreach ($post_images as $key) {
+												if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+		                                        	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
+		                                        	break;
+			                                    }
+											}
+										?>
+									</div>
+									<ul class="actions">
+										<li>like</li>
+										<li>Comment</li>
+									</ul>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<?php
 							break;
 
 						default:

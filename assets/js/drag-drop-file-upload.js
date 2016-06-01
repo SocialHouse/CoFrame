@@ -583,4 +583,13 @@
 			jQuery('.insta-img-div').empty();
 			jQuery('#live-post-preview .insta-img-div').append(preview_img);
 		}
+		
+		//for likedin
+		if(outlet_id == 4)
+		{
+			console.log('likedin');
+			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+			jQuery('.likedin-img-div').empty();
+			jQuery('#live-post-preview .likedin-img-div').append(preview_img);
+		}
 	}
