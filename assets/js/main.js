@@ -199,27 +199,25 @@ jQuery(function($) {
 			//add selected users to list from popover
 			if($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
+				$(userImg).attr('data-id',buttonVal);
 				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
+				
 				var $activePhase = $('#phaseDetails .approval-phase.active');
 				var activePhaseId = $activePhase.attr('id');
 				if($btn.hasClass('selected')) {
-					$activePhase.find('.user-list li').prepend(imgDiv);
-
 					var phase_number = $activePhase.data('id');
-					
-					$(checkbox).attr('name','phase['+phase_number+'][approver][]');
-
+					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" value="' + buttonVal + '" name="phase['+phase_number+'][approver][]">';
 					$activePhase.find('.user-list li').prepend(imgDiv);
-					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);
-
+					$activePhase.find('.user-list li').prepend(imgDiv);
+					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
 					$btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
 				}
 				else {
-					$activePhase.find('img[src="' + imgSrc + '"]').parent().remove();
-					$btn.removeAttr('data-linked-phase');
+					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();
+					// $btn.removeAttr('data-linked-phase');
 					btnClicks--;
 				}
 				if(btnClicks > 0) {
@@ -314,7 +312,7 @@ jQuery(function($) {
 				effect: function() {
 					$(this).fadeOut();
 				},
-				event: 'unfocus'
+				event: 'click unfocus'
 			},
 			style: {
 				classes: 'qtip-shadow',
@@ -370,6 +368,7 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -378,6 +377,9 @@ jQuery(function($) {
 			if(parrow) {
 				tipW = 20;
 				tipH = 10;
+			}
+			if(phide !== false) {
+				phide = 'click unfocus';
 			}
 			$target.qtip({
 				content: {
@@ -392,6 +394,10 @@ jQuery(function($) {
 				events: {
 					show: function() {
 						$target.attr('data-toggle', 'popover-ajax-inline');
+					},
+					visible: function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
 					}
 				},
 				id: pid,
@@ -410,13 +416,14 @@ jQuery(function($) {
 						$(this).fadeIn();
 					},
 					event: e.type,
-					ready: true
+					ready: true,
+					solo: true
 				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: phide
 				},
 				overwrite: false,
 				style: {
@@ -446,6 +453,7 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -455,15 +463,20 @@ jQuery(function($) {
 				tipW = 20;
 				tipH = 10;
 			}
+			if(phide !== false) {
+				phide = 'click unfocus';
+			}
 			
 			if($(this).hasClass('post-filter-popup'))
 			{
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
-					'hide.effect': function() {
-						$(this).fadeOut();
+					'events.visible' : function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
 					},
-					'hide.event': 'unfocus',
+					'hide.effect': function() { $(this).fadeOut(); },
+					'hide.event': phide,
 					'position.adjust.x': poffsetX,
 					'position.adjust.y': poffsetY,
 					'position.at': ptattachment,
@@ -473,6 +486,7 @@ jQuery(function($) {
 					'overwrite': false,
 					'show.effect': function() { $(this).fadeIn(); },
 					'show.event': e.type,
+					'show.solo': true,
 					'style.classes': 'qtip-shadow ' + pclass,
 					'style.tip.corner': arrowcorner,
 					'style.tip.mimic': 'center',
@@ -485,8 +499,10 @@ jQuery(function($) {
 			{
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
-					'hide.effect': function() {
-						$(this).fadeOut();
+					'content.title': ptitle,
+					'events.visible' : function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
 					},
 					'hide.event': 'unfocus',
 					'position.adjust.x': poffsetX,
@@ -538,11 +554,17 @@ jQuery(function($) {
 				content: {
 					text: $('#' + pid)
 				},
+				events: {
+					visible: function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
+					}
+				},
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: 'click unfocus'
 				},
 				position: {
 					adjust: {
@@ -560,7 +582,8 @@ jQuery(function($) {
 						$(this).fadeIn();
 					},
 					event: e.type,
-					ready: true
+					ready: true,
+					show: true,
 				},
 				style: {
 					classes: 'qtip-shadow ' + pclass,
@@ -657,7 +680,7 @@ jQuery(function($) {
 		});
 
 		//assign tags to post
-		$(document).on('click', '.select-post-tags .tag-list .tag', function() {			
+		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
 			$(this).toggleClass('selected');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
@@ -687,30 +710,49 @@ jQuery(function($) {
 			$input.prop('checked', checked);
 		});
 
-
 		$('body').on('click', '.btn-change-phase', function() {
 			var next = $(this).data('newPhase');
 			nextPhase(next);
 		});
-		// $('body').on('click', '.btn-next-step', function() {
-		// 	var next = $(this).data('nextStep');
-		// 	nextStep(next);
-		// });
 
 		$('body').on('click', '.show-hide', function(e) {
 			e.preventDefault();
-			var show = $(this).data('show');
-			var hide = $(this).data('hide');
-			$(hide).slideUp(function() {
-				//call custom function on completion
-				$(hide).trigger('contentSlidUp');
-				$(show).slideDown(function(){
-					$(show).trigger('contentSlidDown');
+			var $trigger = $(this);
+			var show = $trigger.data('show');
+			var hide = $trigger.data('hide');
+			if(hide) { 
+				$(hide).slideUp(function() {
+					//call custom function on completion
+					$(hide).trigger('contentSlidUp', [$trigger]);
+					$(show).slideDown(function(){
+						$(show).trigger('contentSlidDown', [$trigger]);
+					});
 				});
-			});
-		});		
+			}
+			else {
+				$(show).slideToggle(function(){
+					$(show).trigger('contentSlidDown', [$trigger]);
+				});
+			}
+		});
 	});
 
+	$('.commentReply').on('contentSlidDown', function(event, element) {
+		if($(this).is(':visible')) {
+			element.addClass('active');
+			$(this).closest('.comment').addClass('has-reply');
+		}
+		else {
+			element.removeClass('active');
+			$(this).closest('.comment').removeClass('has-reply');
+		}
+	});
+	
+	$('.add-attachment').on('click', function() {
+		$(this).closest('.attachment').find('input[type="file"]').click();
+	});
+
+	//modal triggers
 	//Get modal content from an external source
 	$('body').on('click', '[data-toggle="modal-ajax"]', function() {
 		var newModal = $('#emptyModal').clone();
@@ -780,9 +822,12 @@ jQuery(function($) {
 	$('body').on('contentShown', '#phaseDetails', function() {
 		addIncrements();
 	});
-
+	$('body').on('qtipShown', function(e, classes) {
+		if(classes.indexOf('popover-post-date') > -1) {
+			addIncrements();
+		}
+	});
 	//Time selector functions
-	addIncrements();
 	$('body').on('click', '.incrementer', function(e) {
 		var $target = $(e.target);
 		var incDec = ($target.hasClass('increase')) ? 'increase' : 'decrease';
@@ -823,16 +868,6 @@ jQuery(function($) {
 		}
 	});
 
-	function addIncrements() {
-		$('body').find('.time-select .time-input').each(function() {
-			var inputName = $(this).attr('name');
-			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
-			$(this).after(increment);
-			if($(this).hasClass('minute-select')) {
-				$(this).before('<span class="time-separator">:</span>');
-			}
-		});
-	}
 	function setHrs(input, incDec) {
 		var newVal;
 		var minVal = $(input).attr('data-min');
@@ -908,10 +943,17 @@ jQuery(function($) {
 		});
 	}
 
-	// function nextStep(i) {
-	// 	$('.brand-step').removeClass('active').addClass('inactive');
-	// 	$('#brandStep' + i).removeClass('inactive').addClass('active');
-	// }
+	window.addIncrements = function addIncrements() {
+		$('body').find('.time-select .time-input').each(function() {
+			var inputName = $(this).attr('name');
+			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
+			$(this).after(increment);
+			if($(this).hasClass('minute-select')) {
+				$(this).before('<span class="time-separator">:</span>');
+			}
+		});
+	};
+	addIncrements();
 
 	window.equalColumns = function equalColumns() {
 		var dashboardH = $('.page-main').outerHeight();
@@ -938,7 +980,6 @@ jQuery(function($) {
 					$(this).css('height', dashboardH - headhH - magicNum);
 				}
 				else {
-					// colsH = 723;
 					$(this).css('height', colsH);
 				}
 			}
@@ -949,7 +990,7 @@ jQuery(function($) {
 		$('.equal-cols .equal-height').each(function() {
 			$(this).css('height', colsH);
 		});
-	}
+	};
 
 	window.showPostPopover = function showPostPopover(element, id, jsEvent, className) {
 		var offsetY, offsetX, tipW, tipH;

@@ -221,6 +221,15 @@ jQuery(function($) {
 			var calendarClone = $('#' + pid).clone();
 			calendarClone.attr('id', pid + '-clone');
 			inputType = $target.attr('name');
+			var inputVal = $target.val();
+			if(inputVal === '') {
+				startDate = today;
+				endDate = '';
+			}
+			else if(inputVal !== '' && $target.hasClass('single-date-select')) {
+				startDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
+				endDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
+			}
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -250,10 +259,8 @@ jQuery(function($) {
 				hide: {
 					effect: function() {
 						$(this).fadeOut();
-						//remove clone on hide to prevent duplicate display
-						calendarClone.remove();
 					},
-					event: 'unfocus blur'
+					event: 'unfocus'
 				},
 				position: {
 					adjust: {
@@ -273,7 +280,7 @@ jQuery(function($) {
 					ready: true
 				},
 				style: {
-					classes: 'qtip-shadow ' + pclass,
+					classes: 'qtip-shadow popover-calendar ' + pclass,
 					tip: {
 						corner: arrowcorner,
 						mimic: 'center',
@@ -295,14 +302,14 @@ jQuery(function($) {
 			var inputVal = $(this).val();
 			if(inputVal !== "") {
 				if($(this).attr('name') === 'start-date') {
-					startDate = $.fullCalendar.moment(inputVal);
+					startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 					if(endDate === undefined || startDate > endDate) {
 						endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 						$('input[name="end-date"]').val(endDate.format('M/DD/YYYY'));
 					}
 				}
 				if($(this).attr('name') === 'end-date') {
-					endDate = $.fullCalendar.moment(inputVal);
+					endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 					if(startDate === undefined || endDate < startDate) {
 						startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 						$('input[name="end-date"]').val(startDate.format('M/DD/YYYY'));
@@ -318,9 +325,9 @@ jQuery(function($) {
 				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 			}
 		});
+
 		//Get popover calendar for date selector
 		$('body').on('click', 'a[data-toggle="popover-calendar"]', function(e) {
-			//don't fire calendar popover if date is today or tomorrow
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -354,7 +361,7 @@ jQuery(function($) {
 					effect: function() {
 						$(this).fadeOut();
 					},
-					event: 'unfocus'
+					event: 'click unfocus'
 				},
 				position: {
 					adjust: {
@@ -437,7 +444,8 @@ jQuery(function($) {
 			var newMonth = $.fullCalendar.moment(event.start).format('MM');
 			var newDay = $.fullCalendar.moment(event.start).format('D');
 			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
-			var newTime = $.fullCalendar.moment(event.start).format('h:mm');
+			var newHour = $.fullCalendar.moment(event.start).format('h');
+			var newMin = $.fullCalendar.moment(event.start).format('mm');
 			var newAmPm = $.fullCalendar.moment(event.start).format('a');
 			//set the form values
 			newModal.find('select[name="postMonth"]').val(newMonth);
@@ -448,6 +456,9 @@ jQuery(function($) {
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
+			});
+			newModal.on('shown.bs.modal', function () {
+				addIncrements();
 			});
 		});
 		$('body').on('click', '.qtip-hide', function(e) {
@@ -537,7 +548,7 @@ jQuery(function($) {
 				var eventData = {
 					allDay: true,
 					start: $.fullCalendar.moment(startDate),
-					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
+					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
 					rendering: 'background',
 					color: '#f4d3d5'
 				};

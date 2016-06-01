@@ -32,26 +32,29 @@
 			<div class="col-sm-12">
 				<h2 class="text-xs-center">Tags</h2>
 			</div>
+
 			<div class="col-sm-6 tag-list">
 				<ul>
 					<?php 
-					$count = 1;
-						foreach ($tags as $key => $obj) {
-							?>
-							<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
-								<i class="fa fa-circle" style="color:<?php echo $obj->color ; ?>"></i>
-								<span class="tag-title"><?php echo $obj->name?></span>
-							</li>
-							<?php
-							if($count %7 == 0){
+						if(!empty($tags)){
+							$count = 1;
+							foreach ($tags as $key => $obj) {
 								?>
-									</ul>
-								</div>
-								<div class="col-sm-6 tag-list">
-									<ul>
+								<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
+									<i class="fa fa-circle" style="color:<?php echo $obj->color ; ?>"></i>
+									<span class="tag-title"><?php echo $obj->name?></span>
+								</li>
 								<?php
+								if($count %7 == 0){
+									?>
+										</ul>
+									</div>
+									<div class="col-sm-6 tag-list">
+										<ul>
+									<?php
+								}
+								$count++;
 							}
-							$count++;
 						}
 					?>
 					<li data-group="post-tag" data-value="check-all" class="tag filter">

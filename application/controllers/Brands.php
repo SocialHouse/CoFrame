@@ -503,6 +503,7 @@ class Brands extends CI_Controller {
 	public function get_brand_users($brand_id)
 	{
 		$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+		$this->data['brand'] =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
 		echo $this->load->view('partials/user_list',$this->data,true);
 	}
 }

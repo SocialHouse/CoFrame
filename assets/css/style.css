@@ -10233,6 +10233,8 @@ a {
       background: #c0c0c0; }
   .calendar-header .toolbar .tf-icon-circle {
     margin-left: 10px; }
+  .calendar-header .btn-xs {
+    margin-top: 10px; }
 
 #selectedFilters {
   padding-top: 1.33333rem;
@@ -10367,24 +10369,27 @@ a {
     .edit-menu .list-group-item:last-child {
       border-bottom: 0; }
 
-.post-filters .square-border {
+.post-filters .square-border, .select-box .square-border {
   width: 16px;
   height: 16px;
   margin-right: 10px; }
-  .post-filters .square-border .fa {
+  .post-filters .square-border .fa, .select-box .square-border .fa {
     margin: 0;
     position: relative;
     top: -3px;
     font-size: 14px;
     display: none; }
-.post-filters .checked .square-border .fa {
+.post-filters .checked .square-border .fa, .select-box .checked .square-border .fa {
   display: inline-block; }
-.post-filters .form-group {
+.post-filters .form-group, .select-box .form-group {
   margin-bottom: .5rem; }
-.post-filters .outlet-list {
+.post-filters .outlet-list, .select-box .outlet-list {
   margin: 0 -3px; }
-  .post-filters .outlet-list li {
+  .post-filters .outlet-list li, .select-box .outlet-list li {
     padding: 0 8px 12px; }
+
+.select-box.checked .square-border .fa {
+  display: inline-block; }
 
 /*forms*/
 .container-approvals .form-group {
@@ -10398,13 +10403,16 @@ a {
 .form-group .timezone {
   font-family: "Bebas", Arial, Helvetica, sans-serif;
   font-size: 1.33333rem;
-  line-height: 36px;
   color: #000;
-  margin: 22px 0 0 18px; }
+  margin: 4px 0 0 1.2rem; }
+  .form-group .timezone label {
+    display: block; }
   .form-group .timezone.form-control-sm {
     margin-top: 0;
     font-size: 1rem;
     line-height: 30px; }
+  .qtip .form-group .timezone, .modal .form-group .timezone {
+    margin-top: 7px; }
 
 label {
   text-transform: uppercase;
@@ -10434,13 +10442,13 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   .form-control:focus {
     outline: 1px solid; }
   .form-control.single-date-select {
-    max-width: 132px; }
+    max-width: 8.8rem; }
   .form-control.time-select {
-    max-width: 142px;
+    max-width: 9.46667rem;
     margin-left: 18px;
     padding: 4px 0px 4px 5px; }
     .form-control.time-select input {
-      font-size: 20px; }
+      font-size: 1.33333rem; }
 
 @media (min-width: 1281px) {
   .form-inline .form-control + .form-control {
@@ -10452,8 +10460,8 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   .form-control-sm.single-date-select {
     max-width: 106px; }
   .form-control-sm.time-select {
-    max-width: 122px;
-    margin-left: 18px; }
+    max-width: 8.13333rem;
+    margin-left: 1.2rem; }
     .form-control-sm.time-select input {
       font-size: 16px; }
     .form-control-sm.time-select .incrementer .fa {
@@ -10471,7 +10479,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   outline: none; }
 .time-select .incrementer {
   float: left;
-  margin-left: -18px;
+  margin-left: -1.2rem;
   position: relative;
   z-index: 1; }
   .time-select .incrementer .fa {
