@@ -453,11 +453,16 @@
 
 	function changePreview(file)
 	{
+		var selected,selected_outlet ='' ;
 		var preview_img = '<img class="post-img" src="'+window.URL.createObjectURL(file)+'" >';
 		// preview_img.src = window.URL.createObjectURL(file);
 		var no_of_img = jQuery('#live-post-preview .img-div img').length;
 		var outlet_id = jQuery('#postOutlet').val();
-		if(outlet_id == 1)
+		selected = jQuery('#postOutlet').attr('data-outlet-const');
+		console.log('chnage" '+selected);
+		selected_outlet = 'outlet_'+ selected;
+		
+		if(selected_outlet == 'outlet_facebook')
 		{
 			if(no_of_img == 0)
 			{
@@ -522,7 +527,7 @@
 			}
 		}
 		//for twitter
-		if(outlet_id == 2)
+		if(selected_outlet == 'outlet_twitter')
 		{
 			if(no_of_img == 0)
 			{			
@@ -577,19 +582,39 @@
 			}
 		}
 		//for insta
-		if(outlet_id == 3)
+		if( selected_outlet == 'outlet_instagram')
 		{
+			console.log(selected_outlet);
 			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
 			jQuery('.insta-img-div').empty();
 			jQuery('#live-post-preview .insta-img-div').append(preview_img);
 		}
 		
-		//for likedin
-		if(outlet_id == 4)
+		//for tumblr
+		if(selected_outlet == 'outlet_linkedin')
 		{
-			console.log('likedin');
-			var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
-			jQuery('.likedin-img-div').empty();
-			jQuery('#live-post-preview .likedin-img-div').append(preview_img);
+			console.log(selected_outlet);
+            var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+            jQuery('.likedin-img-div').empty();
+            jQuery('#live-post-preview .likedin-img-div').append(preview_img);
+
+		}
+
+		//for tumblr
+		if(selected_outlet == 'outlet_tumblr')
+		{
+			console.log(selected_outlet);
+			var preview_img = '<img width="100%" src="'+window.URL.createObjectURL(file)+'" >';
+			console.log(preview_img);
+            jQuery('#live-post-preview .tumblr-img-div').append(preview_img);			
+		}
+
+		//for vine
+		if(selected_outlet == 'outlet_vine')
+		{
+			console.log(selected_outlet);
+			var preview_img = '<img width="100%" src="'+window.URL.createObjectURL(file)+'" >';
+            jQuery('.vine-img-div').empty();
+            jQuery('#live-post-preview .vine-img-div').append(preview_img);		
 		}
 	}

@@ -25,9 +25,11 @@ jQuery(function($) {
 	$(document).ready(function() {
 
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
+		var outlet_const = $('.outlet_ul li:first').data('outlet-const');
 		$('.outlet_ul li:first').toggleClass('disabled');
 		$('.outlet_ul li:first').siblings().addClass('disabled');
-		$('#postOutlet').val(outlet_id);		
+		$('#postOutlet').val(outlet_id);
+		$('#postOutlet').attr('data-outlet-const',outlet_const);		
 		createPreview();
 
 		equalColumns();
@@ -35,11 +37,13 @@ jQuery(function($) {
 		$('#post-details .outlet-list li').on('click', function() {
 			var previous_outlet = $('#postOutlet').val();
 			var outlet = $(this).data('selectedOutlet');
+			var outlet_const = $(this).data('outlet-const');
 			if(previous_outlet != outlet)
 			{
 				$(this).toggleClass('disabled');
 				$(this).siblings().addClass('disabled');
 				$('#postOutlet').val(outlet);
+				$('#postOutlet').attr('data-outlet-const',outlet_const);
 
 				var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
 				upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
@@ -1066,11 +1070,12 @@ jQuery(function($) {
 		$('#live-post-preview').empty();
 		$('.no-of-photos').html('');
     	var outlet_id = $('#postOutlet').val();
+    	var selected_outlet = $('#postOutlet').attr('data-outlet-const');
     	var post_copy;
     	if($('#postCopy').val())
     		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
     	$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
-    	$('#live-post-preview').append($('#outlet_'+outlet_id).html());    	
+    	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());    	
     }
 
     $(document).on('keyup','#postCopy',function(){
@@ -1081,7 +1086,6 @@ jQuery(function($) {
 });
 	
 	function convertToLink(text) {
-		console.log(text);
 		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
 		return text.replace(exp,"<a class='anchor_color' href='$1'>$1</a>");
 	}

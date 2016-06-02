@@ -44,7 +44,7 @@
 											$class = 'youtube-play';
 										}
 										?>
-										<li class="disabled" data-selected-outlet="<?php echo $outlet->id; ?>"><i class="fa fa-<?php echo $class; ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>
+										<li class="disabled" data-selected-outlet="<?php echo $outlet->id; ?>" data-outlet-const="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo $class; ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>
 										<?php
 									}
 									?>

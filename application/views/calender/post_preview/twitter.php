@@ -1,3 +1,15 @@
+<?php 
+if(!empty($post_images)){
+		$img_count = count($post_images);
+	}else{
+		$img_count = '';
+	}
+	if(!empty($post_deatils)){
+		$outlet_name = $post_deatils->outlet_name;
+		$brand_onwer = $post_deatils->created_by;
+		$brand_id = $post_deatils->brand_id;
+	}
+?>
 <div id="outlet_2">
 	<div class="twitter-post">
 		<div class="pull-left" style="margin-right: 8px">
