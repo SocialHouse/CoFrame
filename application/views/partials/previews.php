@@ -99,4 +99,49 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
+
+
+	<div id="outlet_4">
+		
+		<div class="linkedin-post" >
+			<div class="linkedin-profile">
+				<img src="<?php echo img_url(); ?>default_profile_linkedin.png">
+			</div>
+			<div class="linkedin-content">
+				<div class="linkedin-user-detail">
+					<span>ninad g</span>
+					<p>Software Developer at Techfive</p>
+				</div>
+				<div class="post_copy_text"></div>
+				<div class="likedin-img-div" ></div>
+				<ul class="actions">
+					<li>like</li>
+					<li>Comment</li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div id="outlet_5">
+		
+		<div class="Vine-post" >
+			<div class="Vine-profile">
+				<img src="<?php echo img_url(); ?>default_profile_linkedin.png">
+			</div>
+			<div class="linkedin-content">
+				<div class="linkedin-user-detail">
+					<span>ninad g</span>
+					<p>Software Developer at Techfive</p>
+				</div>
+				<div class="post_copy_text"></div>
+				<div class="likedin-img-div" ></div>
+				<ul class="actions">
+					<li>like</li>
+					<li>Comment</li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
 </div>

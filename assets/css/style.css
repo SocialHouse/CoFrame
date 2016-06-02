@@ -8936,6 +8936,9 @@ a {
   line-height: normal;
   max-width: inherit;
   min-width: 175px; }
+  .qtip.qtip-default.qtip-shadow.popover-users.popover-clickable.qtip-focus{
+    padding: 1rem;
+  }
   .qtip.popover-users .qtip-content {
     padding: 0 1rem 0; }
   .qtip.popover-users .user-list {
@@ -11020,3 +11023,108 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   text-transform: none !important;
   clear: both
 }
+
+/* linkedin post preview */
+.linkedin-post{
+    font-family: Arial,sans-serif;
+  }
+  .linkedin-user-detail{
+    color: #008cc9;
+  }
+  .linkedin-user-detail p{
+    color: #66696a;
+    margin-bottom: 7px;
+    text-transform:none;
+  }
+  .linkedin-profile{
+    margin-right:5px;
+    float:left;
+  }
+  .linkedin-profile img{
+    width: 54px !important;
+  }
+  .linkedin-content{
+    width:78%;
+    float:left;
+    padding: 6px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+  }
+  .linkedin-content  .post_copy_text{
+    border-top: 2px solid #eee;
+      content: "";
+      display: block;
+      margin: 0 6px 10px;
+  }
+  .linkedin-content img {
+      display: block;
+      height: auto;
+      max-height: 400px;
+      max-width: 100%;
+      width: auto;
+  }
+  ul.actions{
+    list-style: outside none none ! important;
+    display: inline-block;
+      margin-left: 0px;
+      padding-left: 7px;
+      margin-top: 5px;
+  }
+  .actions li{
+    display: inline;
+      color: #008cc9;
+      font-weight: normal;
+      text-decoration: none;
+      cursor: pointer;
+  }
+  .actions li:hover{
+      text-decoration: underline;
+  }
+
+  /* vine post preview */ 
+  .vine-user-info{
+    width: 70%;
+    float: left;
+    color: #464646;
+  }
+  .vine-user-profile{
+    width: 20%;
+    float: left;
+    color: #00bf8f;
+      cursor: pointer;
+  }
+  .vine-user-info > span {
+    color: #b2b2b2;
+    font-size: 12px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+  .content{
+    padding-top: 8px;
+  }
+  .vine-comment-div .post_copy_text{
+    padding: 6px;
+    color: #464646;
+    font-weight: 300;
+    letter-spacing: 0.015em;
+      line-height:23px;
+  }
+  .vine-post{
+    font-size: 16px;      
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;   
+  }
+  .post-actions{
+    padding: 8px;
+    color: #b2b2b2;
+    text-align: left;
+    font-size: 10px;
+  }
+  .post-actions > span{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .vine-comment-div > hr {
+    border-color: #d9d9d9 !important;
+    margin: 0;
+  }
+
+   /* vine post preview end*/ 

@@ -9,7 +9,8 @@ jQuery(function($) {
 						$(this).addClass('disabled').removeClass('selected');
 					}
 				});
-				if(!$(this).hasClass('disabled')) {
+				if(!$(this).hasClass('disabled')) {				
+
 					$('#addOutlet').removeClass('btn-disabled').prop("disabled", false);
 				}
 				else {
@@ -51,7 +52,8 @@ jQuery(function($) {
 				savedOutlets.push($selectedItem.data('selectedOutlet'));	
 				var outletTitle = $selectedItem.data('selected-outlet');
 				var outletId = $selectedItem.data('selected-outlet-id');
-				
+				var outletConst = $selectedItem.data('outlet-const');				
+
 				var outletHtml = $selectedItem.html()+'<input type="hidden" class="outlets" name="outlets[]" value="'+outletId+'" >' ;				
 				var removeOutlet = '<a href="#" class="pull-sm-right remove-outlet" data-remove-outlet="' + outletTitle + '"><i class="tf-icon circle-border">x</i></a>';
 				$listItem.append(outletHtml + outletTitle + removeOutlet).attr('data-outlet', outletTitle);
@@ -506,13 +508,23 @@ jQuery(function($) {
     	var elements = $('.outlets');
 
     	var outlet_ids = [];
-    	$.each(elements,function(i,value){    		
+    	var social_media_keys = {};
+    	var i =0;
+    	$.each(elements,function(i,value){
     		outlet_ids.push($(value).val());
-    	});    	
+    		if($(value).val())
+    		{
+    			social_media_keys[$(value).val()] = $('#'+$(value).val()).val();
+    		}
+    	}); 	
+
+    	var data = {'brand_id': brand_id,'outlets': outlet_ids};
+    	var post_data = {}
+    	$.extend(post_data, data, social_media_keys);
 
     	$.ajax({
     		url: base_url+'brands/save_outlet',
-    		data: {'brand_id': brand_id,'outlets': outlet_ids},
+    		data: post_data,
     		type:'POST',
     		dataType: 'json',
     		success: function( data ){

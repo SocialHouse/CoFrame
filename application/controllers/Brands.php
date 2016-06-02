@@ -48,7 +48,7 @@ class Brands extends CI_Controller {
 		$this->data['groups'] = $this->aauth->list_groups();
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
 
         $this->data['layout'] = 'layouts/new_user_layout';
 
@@ -133,17 +133,39 @@ class Brands extends CI_Controller {
 	        	foreach ($outlets_to_delete as $outlet)
 	        	{
 	        		$data = array('brand_id' => $post_data['brand_id'],'outlet_id' => $outlet);
+	        		$outlet_info = $this->timeframe_model->get_data_by_condition('brand_outlets',$data);
 	        		$this->timeframe_model->delete_data('brand_outlets',$data);
+
+	        		if(!empty($outlet_info))
+	        		{
+	        			$data = array('brand_outlet_id' => $outlet_info[0]->id);
+	        			$this->timeframe_model->delete_data('social_media_keys',$data);
+	        		}
 	        	}
 	        }
 
         	foreach ($outlets_to_add as $outlet)
         	{
         		$data = array('brand_id' => $post_data['brand_id'],'outlet_id' => $outlet);
-        		$this->timeframe_model->insert_data('brand_outlets',$data);
-	        }
-	        echo json_encode(array('response'=>'success'));
-    	}
+        		$brand_outlet_id = $this->timeframe_model->insert_data('brand_outlets',$data);
+
+        		if(isset($post_data[$outlet]) and !empty($post_data[$outlet]))
+        		{
+        			$token_response = json_decode($post_data[$outlet]);
+        			
+        			$data = array(
+						'access_token' => $token_response->authResponse->accessToken,
+						'social_media_id' => $token_response->authResponse->userID,
+						'user_id' => $this->user_id,
+						'brand_outlet_id' => $brand_outlet_id,
+						'response' => json_encode($token_response),
+						'type' => 'facebook'
+					);
+					$this->timeframe_model->insert_data('social_media_keys',$data);
+				}
+			}
+			echo json_encode(array('response'=>'success'));
+		}
     	else
     	{
     		echo json_encode(array('response'=>'fail'));

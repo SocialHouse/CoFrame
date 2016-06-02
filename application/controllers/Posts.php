@@ -622,7 +622,7 @@ class Posts extends CI_Controller {
 					$this->data['phases'][$phase->phase][] = $phase;
 				}
 			}
-			echo $this->load->view('partials/individual_post',$this->data,true);
+			echo $this->load->view('calender/post_preview',$this->data,true);
 		}
 	}
 }

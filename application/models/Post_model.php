@@ -96,9 +96,10 @@ class Post_model extends CI_Model
 		if(empty($post_id))
 			return FALSE;
 
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
-		$this->db->join('brands','brands.id = posts.brand_id');
+		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
+		$this->db->join('brands','brands.id = posts.brand_id','left');
 		$this->db->where('posts.id',$post_id);
 		$this->db->where('posts.id',$post_id);
 		$query = $this->db->get('posts');
@@ -219,10 +220,10 @@ class Post_model extends CI_Model
 
 	public function get_posts_by_time($brand_id, $start, $end, $outlets = '',$statuses = '',$tags)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", " TO ") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->join('post_media','post_media.post_id = posts.id','left');
-		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id');
+		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id','left');
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		if($outlets)
@@ -242,7 +243,7 @@ class Post_model extends CI_Model
 		}
 		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
-		//echo $this->db->last_query();
+		 // echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
 			return $query->result();
@@ -252,7 +253,7 @@ class Post_model extends CI_Model
 
 	public function get_posts_info_by_time($brand_id,$start,$end)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "TO") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		

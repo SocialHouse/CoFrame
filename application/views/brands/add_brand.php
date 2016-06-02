@@ -72,14 +72,22 @@
 								{
 									foreach($outlets as $outlet)
 									{
+										$event = '';
+										if($outlet->outlet_constant == 'FACEBOOK')
+										{
+											$event = 'onclick="login(this)"';
+										}
 										?>
-										<li class="disabled" data-selected-outlet-id="<?php echo strtolower($outlet->id); ?>" data-selected-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>		
+
+										<li class="disabled" <?php echo $event; ?>  data-outlet-const="<?php echo $outlet->outlet_constant; ?>" data-selected-outlet-id="<?php echo strtolower($outlet->id); ?>" data-selected-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>	
+										<input type="hidden" id="<?php echo $outlet->id; ?>" name="<?php echo $outlet->id; ?>">	
 										<?php
 									}
 								}
 								?>								
 							</ul>
 							<input type="hidden" id="brandOutlet">
+							
 						</div>
 					</div>
 					<footer class="post-content-footer">
