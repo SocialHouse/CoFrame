@@ -25,9 +25,10 @@
 						</li>
 						<?php
 					}
+					echo '<li class="filter" data-value="check-all" data-group="post-outlet"><i class="fa"><span class="bg-outlet bg-all"></span><span class="outlet-text">All</span></i></li>';
 				}
 				?>				
-				<li class="filter" data-value="check-all" data-group="post-outlet"><i class="fa"><span class="bg-outlet bg-all"></span><span class="outlet-text">All</span></i></li>
+				
 			</ul>
 		</div>
 	</div>
