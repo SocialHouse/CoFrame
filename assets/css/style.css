@@ -9706,7 +9706,8 @@ a {
     float: none;
     display: block;
     border-radius: 100%;
-    border: 1px solid #bfbfbf; }
+    border: 1px solid #bfbfbf;
+    margin:0px; }
   .js .brand-step .has-files .file-upload-label {
     display: none; }
   .brand-step#brandStep3 .form-group {
