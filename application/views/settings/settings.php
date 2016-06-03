@@ -478,8 +478,12 @@
 			<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag">Add</button>
 		</div>
 	</footer>
-</div>
+</div>						</div>
+					</div>
+				</div>
+				</form>
+			</section>
+		</div>
+	</div>
 
-<?php
-$this->load->view('partials/previews');
-?>
+	 
