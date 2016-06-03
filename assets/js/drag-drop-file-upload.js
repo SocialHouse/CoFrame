@@ -65,7 +65,7 @@
 						{
 							$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
 							$('.remove-user-img').show();
-							allFiles.splice(1, 1);
+							allFiles =[];
 						}						
 						allFiles.push(file)
 
@@ -119,7 +119,7 @@
 						}
 						if($(target_file_input).hasClass('user_upload_img_div').length)
 						{
-							allFiles.splice(1, 1);
+							allFiles = [];
 							$(target_file_input).children('.form__file-preview').remove();
 							$('.remove-user-img').show();
 						}
@@ -154,8 +154,7 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 					if( allFiles ){
-						$.each( allFiles, function( i, file ){
-							console.log(file);
+						$.each( allFiles, function( i, file ){							
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});					
 					}
@@ -361,7 +360,7 @@
 											$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').html(html);
 									    	$('.remove-user-img').hide();
-									    	allFiles.splice(1, 1);
+									    	allFiles = [];
 									    	$('.user-upload-img').hide();
 									    	$('.user-img-preview').show();
 
@@ -430,7 +429,7 @@
 		    $('.remove-user-img').click(function(){
 		    	$('.user_upload_img_div').removeClass('has-files');
 		    	$('.user_upload_img_div').children('.form__file-preview').remove();
-		    	allFiles.splice(1, 1);
+		    	allFiles = [];
 		    	$(this).hide();
 		    });
 
