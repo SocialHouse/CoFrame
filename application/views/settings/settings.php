@@ -9,7 +9,14 @@
 	<h3 class="text-xs-center">Step 1</h3>
 	<h4 class="text-xs-center">Add Brand</h4>
 	<div class="brand-logo">
-		<img src="<?php echo img_url(); ?>fpo/jbrand-brand-logo.png" alt="J Brand" class="circle-img center-block">
+		<?php
+		$image_path = img_url().'default_brand.png';
+		if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png'))
+		{
+			$image_path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png';
+		}
+		?> 
+		<img src="<?php echo $image_path ?>" alt="" class="circle-img center-block">
 	</div>
 	<div class="saved-items">
 		<ul class="text-xs-center">
@@ -143,7 +150,15 @@
 					?> 
 					<div class="table">
 						<div class="table-cell">
-							<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/norel.jpg" width="36" height="36" alt="" class="circle-img"/></div>
+							<?php
+								$path = img_url()."default_profile.jpg";
+							
+								if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
+								{
+									$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
+								}
+							?>
+							<div class="pull-sm-left"><img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/></div>
 							<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
 						</div> 
 
