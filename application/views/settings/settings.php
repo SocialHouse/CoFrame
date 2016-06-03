@@ -14,7 +14,7 @@
 	<div class="saved-items">
 		<ul class="text-xs-center">
 			<li class="brand-title"><?=$brand->name?></li>
-			<li><span class="brand-time">PST – Los Angeles, CA</span></li>
+			<li><span class="brand-time"><?php echo $timezone; ?></span></li>
 		</ul>
 	</div>
 	<div class="hidden brand-fields">
@@ -48,18 +48,29 @@
 							<div class="container-brand-step">
 	<h3 class="text-xs-center">Step 2</h3>
 	<h4 class="text-xs-center">Brand Outlets</h4>
-	<div class="outlet-list saved-items">
-		<ul>
-			<?php foreach($outlets as $key => $outlet): ?>
-				<?php echo $outlet->outlet_name; ?>	
-			<?php endforeach; ?> 
-			<li data-outlet="youtube"><i class="fa fa-youtube-play"><span class="bg-outlet bg-youtube"></span></i>youtube</li>
-			<li data-outlet="tumblr"><i class="fa fa-tumblr"><span class="bg-outlet bg-tumblr"></span></i>tumblr</li>
-			<li data-outlet="facebook"><i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>facebook</li>
-			<li data-outlet="vimeo"><i class="fa fa-vimeo"><span class="bg-outlet bg-vimeo"></span></i>vimeo</li>
-			<li data-outlet="pinterest"><i class="fa fa-pinterest"><span class="bg-outlet bg-pinterest"></span></i>pinterest</li>
-			<li data-outlet="wordpress"><i class="fa fa-wordpress"><span class="bg-outlet bg-wordpress"></span></i>wordpress</li>
-		</ul>
+	<div class="outlet-list saved-items"> 
+		<?php 
+			if(!empty($outlets))
+			{
+				?>
+				<ul>
+				<?php
+				foreach($outlets as $outlet)
+				{
+					$class = strtolower($outlet->outlet_name);
+					if(strtolower($outlet->outlet_name) == 'youtube')
+					{
+						$class = 'youtube-play';
+					}
+					?> 
+					<li data-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo $class; ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i><?php echo strtolower($outlet->outlet_name); ?></li>
+					<?php
+				}
+				?>
+				</ul>
+				<?php
+			}
+		?>	  
 	</div>
 	<div class="add-brand-details brand-fields border-bottom border-black hidden">
 		<div id="selectedOutlets" class="outlet-list selected-items">
@@ -124,94 +135,77 @@
 				</div>
 			</div>
 		</div>
-		<div class="table">
-			<div class="table-cell">
-				<div class="pull-sm-left"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></div>
-				<div class="pull-sm-left post-approver-name"><strong>Norel Mancuso</strong>Master Admin</div>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-		</div>
-		<div class="table">
-			<div class="table-cell">
-				<div class="pull-sm-left"><img src="assets/images/fpo/david.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-				<div class="pull-sm-left post-approver-name"><strong>David Weinberg</strong>Manager</div>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-		</div>
-		<div class="table">
-			<div class="table-cell">
-				<div class="pull-sm-left"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-				<div class="pull-sm-left post-approver-name"><strong>Kristin Patrick</strong>Approver</div>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-		</div>
-		<div class="table border-bottom border-black">
-			<div class="table-cell">
-				<div class="pull-sm-left"><img src="assets/images/fpo/johan.jpg" width="36" height="36" alt="David Weinberg" class="circle-img"/></div>
-				<div class="pull-sm-left post-approver-name"><strong>Johan Loekito</strong>Creator</div>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-				<i class="fa fa-check"></i>
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-			<div class="table-cell text-xs-center vertical-middle has-permission">
-			</div>
-		</div>
+		<?php 
+			if(!empty($users))
+			{ 
+				foreach($users as $user)
+				{ 
+					?> 
+					<div class="table">
+						<div class="table-cell">
+							<div class="pull-sm-left"><img src="<?php echo img_url(); ?>fpo/norel.jpg" width="36" height="36" alt="" class="circle-img"/></div>
+							<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
+						</div> 
+
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"create")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div>
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"edit")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div>
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"approve")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div>
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"view")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div>
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"settings")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div>
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"billing")) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div> 
+					</div> 
+					<?php
+				} 
+			}
+		?>	   
 	</div>
 	<div class="hidden brand-fields">
 			<div id="userPermissionsList" class="user-permissions-list">
@@ -414,13 +408,21 @@
 	<h3 class="text-xs-center">Step 4</h3>
 	<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
 	<div class="tag-list saved-items">
-		<ul>
-			<li class="tag" data-value="Marketing" data-group="brand-tag" data-tag="Marketing"><i class="fa fa-circle tag-red"></i>Marketing</li>
-			<li class="tag" data-value="E-Commerce" data-group="brand-tag" data-tag="E-Commerce"><i class="fa fa-circle tag-blue-dark"></i>E-Commerce</li>
-			<li class="tag" data-value="Sales" data-group="brand-tag" data-tag="Sales"><i class="fa fa-circle tag-yellow"></i>Sales</li>
-			<li class="tag" data-value="Promotion" data-group="brand-tag" data-tag="Promotion"><i class="fa fa-circle tag-green-dark"></i>Promotion</li>
-			<li class="tag" data-value="Lorem Ipsum Dolor" data-group="brand-tag" data-tag="Lorem Ipsum Dolor"><i class="fa fa-circle tag-purple-dark"></i>Lorem Ipsum Dolor</li>
-		</ul>
+		<?php
+		if (!empty($tags)) {
+			?>
+			<ul>
+				<?php
+				foreach($tags as $key => $tag) {
+					?>
+					<li class="tag" data-value="<?php echo $tag->name; ?>" data-group="brand-tag" data-tag="<?php echo $tag->name; ?>"><i class="fa fa-circle tag-red" style="background-color:<?php echo $tag->name;?>"></i><?php echo $tag->name; ?></li> 
+					<?php
+				}
+			?>
+			</ul>
+			<?php
+		}
+		?> 
 	</div>
 	<div class="add-brand-details brand-fields border-bottom border-black hidden">
 		<div id="selectedTags" class="tag-list selected-items hidden">

@@ -143,4 +143,18 @@ class Brand_model extends CI_Model
 
 		return FALSE;
 	}
+
+	public function get_brand_timezone_string($brand_id)
+	{ 
+		$this->db->select('timezone.timezone');
+		$this->db->join('brands','timezone.value = brands.timezone'); 
+		$query = $this->db->where('brands.id',$brand_id);
+		$query = $this->db->get('timezone');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE; 
+
+	}
 }
