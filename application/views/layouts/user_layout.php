@@ -86,7 +86,7 @@
                                 <li><a href="<?php echo base_url().'me/plan' ?>">Plan</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url().'welcome/logout' ?>">Logout</a></li>                        
+                        <li><a href="<?php echo base_url().'tour/logout' ?>">Logout</a></li>                        
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

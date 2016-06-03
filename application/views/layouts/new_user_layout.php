@@ -43,7 +43,7 @@ if(isset($css_files))
 		      		<a class="nav-link" href="user-preferences.php">User Preferences</a>
 		    	</li>
 		    	<li class="nav-item">
-		      		<a class="btn btn-default btn-sm" href="<?php echo base_url().'welcome/logout' ?>">Log out</a>
+		      		<a class="btn btn-default btn-sm" href="<?php echo base_url().'tour/logout' ?>">Log out</a>
 		    	</li>
 		  	</ul>
 		</nav>

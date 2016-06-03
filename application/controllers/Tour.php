@@ -28,6 +28,11 @@ class Tour extends CI_Controller {
 
     public function index()
     {
+        $this->user_data = $this->session->userdata('user_info');
+        if($this->user_data['user_info_id']){
+            redirect(base_url().'brands/overview');
+        }
+        //echo '<pre>'; print_r($this->user_data );echo '</pre>'; die;
         $this->data['timezones'] = $this->user_model->get_timezones();
         $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
@@ -391,6 +396,11 @@ class Tour extends CI_Controller {
         }
         $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
+    }
+
+    public function logout() {
+        $this->aauth->logout();
+        redirect(base_url().'tour');
     }
 
 }
