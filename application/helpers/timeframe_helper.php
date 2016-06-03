@@ -240,6 +240,27 @@ if(!function_exists('check_user_perm'))
     }
 }
 
+if(! function_exists('create_slug_url')){
+
+        function create_slug_url($id, $table_name, $title){
+            $ci =& get_instance();
+            $ci->load->database();
+            $config = array(
+                        'table' => $table_name,
+                        'id' => 'id',
+                        'field' => 'slug',
+                        'title' => 'name',
+                        'replacement' => 'dash' // Either dash or underscore
+                    );  
+            $ci->load->library('slug', $config);
+
+            $fields = array('slug'=>$ci->slug->create_uri($title));
+            $ci->db->where('id',$id);
+            return $ci->db->update($table_name,$fields);
+        }
+
+}
+
 
 
 
