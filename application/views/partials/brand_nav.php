@@ -28,7 +28,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-user">
 			<li class="nav-item">
-		  		<a class="nav-link" href="settings.php">Settings</a>
+		  		<a class="nav-link" href="<?php echo base_url().'settings/view/'.$brand->slug; ?>">Settings</a>
 			</li>
 			<li class="nav-item">
 	  			<a class="nav-link" href="archive.php">Archive</a>
