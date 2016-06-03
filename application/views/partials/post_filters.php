@@ -60,12 +60,9 @@
 								}
 								$count++;
 							}
+							echo '<li data-group="post-tag" data-value="check-all" class="tag filter"><i class="fa fa-circle tag-custom"></i><span class="tag-title">All</span></li>';
 						}
 					?>
-					<li data-group="post-tag" data-value="check-all" class="tag filter">
-						<i class="fa fa-circle tag-custom"></i>
-						<span class="tag-title">All</span>
-					</li>
 				</ul>
 			</div>
 		</div>
