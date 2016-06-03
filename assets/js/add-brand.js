@@ -494,10 +494,10 @@ jQuery(function($) {
     });
 
     $('.skip_step').click(function(){
-    	var brand_id = $('#brand_id').val();
+    	var slug = $('#slug').val();
     	if(brand_id)
     	{
-    		window.location.href = base_url+'brands/success/'+brand_id;
+    		window.location.href = base_url+'brands/success/'+slug;
     	}
     });
 
@@ -541,6 +541,7 @@ jQuery(function($) {
      $(document).on('click','.submit_tag',function(){     
     	var control = this;
     	var brand_id = $('#brand_id').val();
+    	var slug = $('#slug').val();
     	var selected_labels = $('.labels');
 
     	var tags = [];
@@ -563,7 +564,7 @@ jQuery(function($) {
     			
     			if(data.response == 'success')
     			{    				
-    				window.location.href = base_url+'brands/success/'+data.brand_id;
+    				window.location.href = base_url+'brands/success/'+slug;
     			}
     		}
     	});

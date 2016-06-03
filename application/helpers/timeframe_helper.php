@@ -11,7 +11,7 @@ if(!function_exists('is_user_logged'))
         {
            return true;
         }
-        redirect(base_url().'welcome');
+        redirect(base_url());
     }
 }
 
@@ -254,9 +254,11 @@ if(! function_exists('create_slug_url')){
                     );  
             $ci->load->library('slug', $config);
 
-            $fields = array('slug'=>$ci->slug->create_uri($title));
+            $slug = $ci->slug->create_uri($title);
+            $fields = array('slug'=>$slug);
             $ci->db->where('id',$id);
-            return $ci->db->update($table_name,$fields);
+            $ci->db->update($table_name,$fields);
+            return $slug;
         }
 
 }

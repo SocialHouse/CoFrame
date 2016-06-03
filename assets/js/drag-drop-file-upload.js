@@ -247,6 +247,7 @@
 							if(data.response == 'success')
 							{
 								$('#brand_id').val(data.brand_id);
+								$('#slug').val(data.slug);
 								allFiles = [];
 								$(control).parents().children('.btn-next-step').trigger('click');
 							}							
@@ -458,8 +459,7 @@
 		// preview_img.src = window.URL.createObjectURL(file);
 		var no_of_img = jQuery('#live-post-preview .img-div img').length;
 		var outlet_id = jQuery('#postOutlet').val();
-		selected = jQuery('#postOutlet').attr('data-outlet-const');
-		console.log('chnage" '+selected);
+		selected = jQuery('#postOutlet').attr('data-outlet-const');		
 		selected_outlet = 'outlet_'+ selected;
 		
 		if(selected_outlet == 'outlet_facebook')

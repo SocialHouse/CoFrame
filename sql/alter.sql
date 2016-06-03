@@ -304,3 +304,7 @@ INSERT INTO `outlets` VALUES(5, 'Vine', 'VINE');
 INSERT INTO `outlets` VALUES(6, 'Pinterest', 'PINTEREST');
 INSERT INTO `outlets` VALUES(7, 'Youtube', 'YOUTUBE');
 INSERT INTO `outlets` VALUES(8, 'Tumblr', 'TUMBLR');
+
+--- 03-06-2016 ---
+ALTER TABLE `brands` DROP `user_id`;
+ALTER TABLE `brands` ADD `slug` VARCHAR(100) NULL AFTER `timezone`;

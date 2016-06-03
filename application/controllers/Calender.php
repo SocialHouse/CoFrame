@@ -33,8 +33,8 @@ class Calender extends CI_Controller {
 	public function index()
 	{
 		$this->data = array();
-		$brand_id = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
@@ -50,8 +50,8 @@ class Calender extends CI_Controller {
 	public function month()
     {
     	$this->data = array();
-		$brand_id = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
@@ -69,8 +69,8 @@ class Calender extends CI_Controller {
     {
     	
     	$this->data = array();
-		$brand_id = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
 
 		if(!empty($brand))
 		{

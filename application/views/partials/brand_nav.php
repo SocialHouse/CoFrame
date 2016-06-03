@@ -11,7 +11,7 @@
 
 		<ul class="nav navbar-nav">
 			<li class="nav-item">
-		  		<a class="nav-link" href="<?php echo base_url().'posts/create/'.$brand_id ?>">Create Post</a>
+		  		<a class="nav-link" href="<?php echo base_url().'posts/create/'.$brand->slug; ?>">Create Post</a>
 			</li>
 			<li class="nav-item">
 		  		<a class="nav-link" href="approvals.php">Approvals</a>
@@ -20,7 +20,7 @@
 	  			<a class="nav-link" href="cocreate.php">Co-Create</a>
 			</li>
 			<li class="nav-item">
-		  		<a class="nav-link" href="<?php echo base_url().'calender/month/'.$brand_id ?>">Calendar</a>
+		  		<a class="nav-link" href="<?php echo base_url().'calender/month/'.$brand->slug; ?>">Calendar</a>
 			</li>
 			<li class="nav-item">
 		  		<a class="nav-link" href="drafts.php">Drafts</a>

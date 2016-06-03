@@ -30,7 +30,7 @@
 								}
 								?>
 								<img src="<?php echo $image_path; ?>" width="135" height="135" alt="" class="img-responsive center-block circle-img"/>								
-								<a href="<?php echo base_url().'brands/dashboard/'.$brand->id; ?>" class="btn btn-default btn-xs">View Dashboard</a>
+								<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>" class="btn btn-default btn-xs">View Dashboard</a>
 							</div>
 						</div>
 						<div class="col-md-6">

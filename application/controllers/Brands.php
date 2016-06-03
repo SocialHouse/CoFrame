@@ -59,11 +59,10 @@ class Brands extends CI_Controller {
 	public function save_brand()
 	{
 		$brand_id = $this->input->post('brand_id');
-
+		$slug = $this->input->post('slug');
 		
 		$brand_data = array(
-    						'name' => $this->input->post('name'),
-    						'user_id' => $this->user_id,
+    						'name' => $this->input->post('name'),    						
     						'created_by' => $this->user_id,
     						'timezone' => $this->input->post('timezone'),
     						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
@@ -72,6 +71,7 @@ class Brands extends CI_Controller {
     	if(empty($brand_id))
     	{
     		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
+    		$slug = create_slug_url($insert_id,'brands',$this->input->post('name'));
     		$brand_id = $insert_id;    		
     	}
     	else
@@ -108,7 +108,7 @@ class Brands extends CI_Controller {
 
 		if(!isset($error))
 		{
-			echo json_encode(array('response'=>'success','brand_id' => $brand_id));
+			echo json_encode(array('response'=>'success','brand_id' => $brand_id,'slug'=>$slug));
 		}
     	else
     	{
@@ -354,10 +354,11 @@ class Brands extends CI_Controller {
     function success()
     {
     	$this->data = array();
-    	$brand_id = $this->uri->segment(3);
-    	$this->data['brand'] = $this->brand_model->get_users_brands($this->user_id,$brand_id);
+    	$slug = $this->uri->segment(3);
+    	$this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);
     	if(!empty($this->data['brand']))
     	{
+    		$brand_id = $this->data['brand'][0]->id;
 			$condition = array('brand_id' => $brand_id);
 			$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
 			$this->load->model('post_model');
@@ -468,14 +469,14 @@ class Brands extends CI_Controller {
 	public function dashboard()
 	{
 		$this->data = array();
-		$brand_id = $this->uri->segment(3);
+		$slug = $this->uri->segment(3);
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 		if(!empty($brand))
 		{
 			$this->load->model('reminder_model');
-			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand_id);			
+			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id);			
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
  			$this->data['css_files'] = array(css_url().'fullcalendar.css');

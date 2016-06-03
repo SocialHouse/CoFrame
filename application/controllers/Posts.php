@@ -49,15 +49,16 @@ class Posts extends CI_Controller {
 	public function create()
 	{
 		$this->data = array();
-		$brand_id = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
+			$brand_id = $brand[0]->id;
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
 			
-			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 			$this->data['view'] = 'posts/create-post';
 			$this->data['layout'] = 'layouts/new_user_layout';		
