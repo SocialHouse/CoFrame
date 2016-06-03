@@ -1,47 +1,8 @@
-
-  // // This is called with the results from from FB.getLoginStatus().
-  // function statusChangeCallback(response) {        
-  //   if (response.status === 'connected') {
-  //     jQuery.ajax({
-  //         type: 'POST',
-  //         url: base_url+'social_media/save_fb_data',
-  //         data: response,
-  //         success: function(content)
-  //         {
-  //           jQuery('#test').hide();
-  //         }
-
-  //       });
-  //       testAPI();
-  //   } else if (response.status === 'not_authorized') {
-  //     jQuery('#test').show();
-  //     // The person is logged into Facebook, but not your app.
-  //     document.getElementById('status').innerHTML = 'Please log ' +
-  //       'into this app.';
-  //   } else {
-  //     // The person is not logged into Facebook, so we're not sure if
-  //     // they are logged into this app or not.
-  //     jQuery('#test').show();
-  //     document.getElementById('status').innerHTML = 'Please log ' +
-  //       'into Facebook.';
-  //   }
-  // }
-
-  // // This function is called when someone finishes with the Login
-  // // Button.  See the onlogin handler attached to it in the sample
-  // // code below.
-  // function checkLoginState() {
-  //   alert('test');
-  //   FB.getLoginStatus(function(response) {
-  //     statusChangeCallback(response);
-  //   });
-  // }
-
 function login(control) { 
     if(jQuery(control).hasClass('disabled'))
     {
         FB.login(function(response) {
-            console.log(response);
+            console.log('access_token '+response.authResponse.accessToken);
             if (response.authResponse) 
             {
                 jQuery('#'+jQuery(control).data('selected-outlet-id')).val(JSON.stringify(response));
@@ -53,22 +14,20 @@ function login(control) {
                     var data=apiresponse['data'];
                     var ids = new Array();
                     var access_token = new Array();
-                    for(var i=0; i<data.length; i++){
-                        console.log(data[i]);
+                    for(var i=0; i<data.length; i++){                      
                         ids[i]=data[i].id;
                         access_token[i] = data[i].access_token;
                     }
-                    console.log(ids);
+                    console.log('page_access_token '+access_token[1]);
 
                     FB.api(
                         "/"+ids[1]+"/feed",
                         "POST",
                         {
-                            "message": "This is a test message",
+                            "message": "This is a test message by Ninad",
                             access_token : access_token[1]
                         },
                         function (response) {
-                            console.log(response);
                           if (response && !response.error) {
                             /* handle the result */
                           }
@@ -91,12 +50,12 @@ function login(control) {
 
 window.fbAsyncInit = function() {
     FB.init({
-    appId      : '1711815429100433',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.5' // use graph api version 2.5
-});
+        appId      : '1711815429100433',
+        cookie     : true,  // enable cookies to allow the server to access 
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.5' // use graph api version 2.5
+    });
 
   // Now that we've initialized the JavaScript SDK, we call 
   // FB.getLoginStatus().  This function gets the state of the
@@ -113,8 +72,7 @@ window.fbAsyncInit = function() {
   // FB.getLoginStatus(function(response) {
   //   statusChangeCallback(response);
   // });
-
-  };
+};
 
 // Load the SDK asynchronously
 (function(d, s, id) {
