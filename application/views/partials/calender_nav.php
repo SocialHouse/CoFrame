@@ -17,13 +17,13 @@ switch ($segment) {
 }
 ?>
 <div class="btn-group-calendar pull-sm-left">
-	<a href="<?php echo base_url().'calender/'.$brand_id; ?>" class="btn btn-sm <?php echo $day; ?>">Day</a>
-	<a href="<?php echo base_url().'calender/week/'.$brand_id; ?>" class="btn btn-sm <?php echo $week; ?>">Week</a>
-	<a href="<?php echo base_url().'calender/month/'.$brand_id; ?>" class="btn btn-sm <?php echo $month; ?>">Month</a>
+	<a href="<?php echo base_url().'calender/day/'.$brand->slug; ?>" class="btn btn-sm <?php echo $day; ?>">Day</a>
+	<a href="<?php echo base_url().'calender/week/'.$brand->slug; ?>" class="btn btn-sm <?php echo $week; ?>">Week</a>
+	<a href="<?php echo base_url().'calender/month/'.$brand->slug; ?>" class="btn btn-sm <?php echo $month; ?>">Month</a>
 </div>
 
 <div class="btn-group-calendar pull-sm-left">
-	<a href="#" class="btn btn-sm active" id="calendarBtnToday">Today</a>
+	<a class="btn btn-sm active" href="#" id="calendarBtnToday">Today</a>
 </div>
 
 <div class="pull-md-right toolbar">

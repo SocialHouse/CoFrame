@@ -30,16 +30,38 @@ class Calender extends CI_Controller {
 		$this->user_data = $this->session->userdata('user_info');
 	}
 
-	public function index()
+	public function day()
 	{
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
+			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id, date("Y-m-d"));
+
+			if(!empty($this->data['post_details'])){
+				foreach ($this->data['post_details'] as $key => $post) {
+					$this->data['post_details'][$key]->post_images = $this->post_model->get_images($post->id);
+					$this->data['post_details'][$key]->post_tags = $this->post_model->get_post_tags($post->id);
+
+					$this->data['post_details'][$key]->post_phases = $this->post_model->get_post_phases($post->id);
+				
+					// if(!empty($post_phases))
+					// {
+					// 	foreach($post_phases as $phase)
+					// 	{
+					// 		$this->data['post_details'][$key]->phases[$phase->phase][] = $phase;
+					// 	}
+					// }
+				}
+				
+				
+			}
+			
+			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
 			$this->data['view'] = 'calender/day_view';
@@ -51,7 +73,7 @@ class Calender extends CI_Controller {
     {
     	$this->data = array();
 		$slug = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
@@ -70,7 +92,7 @@ class Calender extends CI_Controller {
     	
     	$this->data = array();
 		$slug = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
@@ -109,5 +131,15 @@ class Calender extends CI_Controller {
     {
     	$brand_id = $this->uri->segment(3);
     	$this->load->view('partials/print_posts');
+    }
+
+    public function edit_date()
+    {
+    	$this->load->view('calender/edit_date');
+    }
+
+    public function edit_menu()
+    {
+    	$this->load->view('calender/edit_menu');
     }
 }

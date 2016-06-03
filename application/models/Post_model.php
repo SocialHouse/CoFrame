@@ -23,7 +23,9 @@ class Post_model extends CI_Model
 
 	public function get_brand_tags($brand_id)
 	{
-		$this->db->select('id,name,color');		
+
+		//$this->db->select('id,name,color');
+		$this->db->select('id,name,color, CONCAT(REPLACE(name, " ", "_") ,"_",color) as tag_name');				
 		$this->db->where('brand_tags.brand_id',$brand_id);
 		$this->db->where('brand_tags.status',1);
 		//$this->db->group_by('name');
@@ -37,7 +39,7 @@ class Post_model extends CI_Model
 
 	public function get_post_tags($post_id)
 	{
-		$this->db->select('brand_tags.id,name');		
+		$this->db->select('brand_tags.id,name,color as tag_color, CONCAT(REPLACE(name, " ", "_") ,"_",color) as tag_name');		
 		$this->db->join('post_tags','brand_tags.id = post_tags.brand_tag_id');
 		$this->db->where('brand_tags.status',1);
 		$this->db->where('post_tags.post_id',$post_id);		
@@ -100,7 +102,6 @@ class Post_model extends CI_Model
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
-		$this->db->where('posts.id',$post_id);
 		$this->db->where('posts.id',$post_id);
 		$query = $this->db->get('posts');
 
@@ -273,6 +274,28 @@ class Post_model extends CI_Model
 		$this->db->where('post_media.post_id',$post_id);
 		$query = $this->db->get('post_media');
 
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+
+	public function get_post_by_date($brand_id, $date){
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name');
+		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
+		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
+		$this->db->join('brands','brands.id = posts.brand_id','left');
+		$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
+
+		if($brand_id)
+		{
+			$this->db->where('posts.brand_id',$brand_id);
+		}
+		
+		$query = $this->db->get('posts');
+		//echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

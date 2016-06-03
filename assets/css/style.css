@@ -11184,3 +11184,44 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 /* tumblr post preview end*/ 
+
+/* youtube post preview */ 
+.youtube-post .content{
+    font-family: Roboto,arial,sans-serif;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+  }
+  .youtube-comment-div{
+    padding: 6px;
+  }
+  .youtube-comment-div .post_copy_text{
+    color: #1c8cd2;
+    font-weight: bold;
+    line-height: 1.3;
+    max-height: 32px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 280px;
+    cursor: pointer;
+    display: -webkit-inline-box ;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+  .youtube-comment-div .post_copy_text:hover {
+    text-decoration: underline;
+  }
+  .youtube-sharing-option {
+    padding-top: 10px;
+    color: #b2b2b2;
+  }
+  .youtube-sharing-option > span:first-child {
+      margin-left: 10px;
+  }
+  .youtube-sharing-option > span:last-child{
+      float: right;
+    margin-right: 10px;
+  }
+  /* youtube post preview end*/ 

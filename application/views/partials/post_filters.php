@@ -18,7 +18,11 @@
 					foreach($outlets as $outlet)
 					{
 						?>
-						<li class="disabled filter" data-id="<?php echo $outlet->id; ?>" data-value="<?php echo ".f-".strtolower($outlet->outlet_name); ?>" data-group="post-outlet"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>
+						<li class="disabled filter" data-id="<?php echo $outlet->id; ?>" data-value="<?php echo ".f-".strtolower($outlet->outlet_name); ?>" data-group="post-outlet">
+							<i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>">
+								<span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span>
+							</i>
+						</li>
 						<?php
 					}
 				}
@@ -41,7 +45,7 @@
 							foreach ($tags as $key => $obj) {
 								?>
 								<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
-									<i class="fa fa-circle" style="color:<?php echo $obj->color ; ?>"></i>
+									<i class="fa fa-circle tag-<?php echo $obj->tag_name; ?>" style="color:<?php echo $obj->color ; ?>"></i>
 									<span class="tag-title"><?php echo $obj->name?></span>
 								</li>
 								<?php

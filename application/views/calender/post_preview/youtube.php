@@ -10,4 +10,22 @@ if(!empty($post_images)){
 		$brand_id = $post_deatils->brand_id;
 	}
 ?>
-youtube.php
+<div class="youtube-post" style="width:100%">
+	<div class="clearfix"></div>
+	<div class="content">
+		<video autobuffer autoloop loop ontrols="true" width="100%">
+			<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4">
+		</video>
+
+		<div class="youtube-comment-div">
+			<div class="post_copy_text">
+				<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+			</div>
+			<div class="youtube-sharing-option">
+				<span>21 views</span>
+				<span>1 week ago</span>
+			</div>
+			
+		</div>
+	</div>
+</div>
