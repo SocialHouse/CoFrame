@@ -50,7 +50,7 @@ class Posts extends CI_Controller {
 	{
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_users_brands($this->user_id,$slug);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
