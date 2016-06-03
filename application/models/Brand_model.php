@@ -41,12 +41,12 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_brand_by_slug($user_id, $brand_id = 0)
+	public function get_brand_by_slug($user_id, $slug = '')
 	{
 		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');
 		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
-		if($brand_id > 0)
-			$this->db->where('brands.id', $brand_id);
+		if($slug)
+			$this->db->where('brands.slug', $slug);
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
 		$this->db->group_by('brands.id');
