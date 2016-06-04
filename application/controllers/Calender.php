@@ -40,26 +40,8 @@ class Calender extends CI_Controller {
 		{
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
-			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id, date("Y-m-d"));
 
-			if(!empty($this->data['post_details'])){
-				foreach ($this->data['post_details'] as $key => $post) {
-					$this->data['post_details'][$key]->post_images = $this->post_model->get_images($post->id);
-					$this->data['post_details'][$key]->post_tags = $this->post_model->get_post_tags($post->id);
-
-					$this->data['post_details'][$key]->post_phases = $this->post_model->get_post_phases($post->id);
-				
-					// if(!empty($post_phases))
-					// {
-					// 	foreach($post_phases as $phase)
-					// 	{
-					// 		$this->data['post_details'][$key]->phases[$phase->phase][] = $phase;
-					// 	}
-					// }
-				}
-				
-				
-			}
+			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id);
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
@@ -141,5 +123,16 @@ class Calender extends CI_Controller {
     public function edit_menu()
     {
     	$this->load->view('calender/edit_menu');
+    }
+
+    public function get_post_by_date(){
+    	$brand_id = $this->input->post('brand_id');
+    	$sdate = $this->input->post('sdate');
+	    if(!empty($brand_id)){
+	    	$this->data['post_details'] = $this->post_model->get_post_by_date($brand_id,$sdate);
+	    	echo $this->load->view('calender/post_preview/day_post',$this->data,true);
+	    }else{
+	    	echo false;
+	    }
     }
 }

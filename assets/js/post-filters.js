@@ -93,7 +93,8 @@ jQuery(function($) {
 		$('.filter').each( function() {
 			//use value if checked
 			if ( $(this).hasClass('checked' )) {
-				inclusives.push( $(this).data('value') );
+
+				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );				
 				
 				if($(this).data('id'))
 					outlet_ids.push( $(this).data('id') );
@@ -121,7 +122,7 @@ jQuery(function($) {
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
-
+		console.log(filterValue);
 		$container.isotope({ filter: filterValue });
 		if(inclusives.length) {
 			$('#selectedFilters').slideDown(function() {

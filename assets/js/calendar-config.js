@@ -12,7 +12,8 @@ var calendarType,
 	inputType,
 	startDate,
 	startType,
-	firstEventDay;
+	firstEventDay,
+	daySelectedDate;
 
 jQuery(function($) {
 	$(document).ready(function() {
@@ -128,10 +129,14 @@ jQuery(function($) {
 			header: false,
 			timeFormat: 'h:mm a',
 			viewRender: function() {
+
 				var month = GetCalendarMonth('#calendar-week');
+				var year = GetCalendarYear('#calendar-week');
 				var dates = GetCalendarDateRange();
+				$('#calendarCurrentYear').text(year);
 				$('#calendarDateRange').html(dates);
 				$('#calendarCurrentMonth').text(month);
+				//$('#calendarCurrentYear').text(month);
 				$('.fc-day-header').each(function() {
 					var dateText = $(this).text();
 					var todayDate = $.fullCalendar.moment().format('YYYY-MM-DD');
@@ -199,6 +204,8 @@ jQuery(function($) {
 			snapDuration: '00:15:00',
 			viewRender: function() {
 				var dates = GetCalendarMonth('#calendar-month');
+				var year = GetCalendarYear('#calendar-month');
+				$('#calendarCurrentYear').text(year);
 				$('#calendarCurrentMonth').html(dates);
 			}
 		});
@@ -395,7 +402,14 @@ jQuery(function($) {
 		});
 
 		$('body').on('click', '#calendar-change-day #getPostsByDate', function() {
-			//insert functionality to filter by post date here
+			// $('#calendarCurrentdate').text(daySelectedDate);
+			// $('#calendarCurrentMonth').text(daySelectedDate);
+			var date = moment(daySelectedDate);
+			selectedmonth = moment(daySelectedDate).format('MMM');
+			selectedday = moment(daySelectedDate).format('DD \, YYYY');
+			$('#calendarCurrentdate').text(selectedday);
+			$('#calendarCurrentMonth').text(selectedmonth);
+			findPostbyDate(daySelectedDate)
 		});
 		$('body').on('click', '#calendar-change-week #getPostsByDate', function() {
 			$('#calendar-week').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
@@ -552,6 +566,7 @@ jQuery(function($) {
 					rendering: 'background',
 					color: '#f4d3d5'
 				};
+				daySelectedDate = $.fullCalendar.moment(startDate);
 				$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
 			},
 			theme: true,
@@ -601,6 +616,14 @@ jQuery(function($) {
 		return start;
 	};
 
+	window.GetCalendarYear = function GetCalendarYear(calType) {
+		var calendar = $(calType).fullCalendar('getCalendar');
+		var view = calendar.view;
+		var start = $.fullCalendar.moment(view.intervalStart).format('YYYY');
+		return start;
+	};
+
+
 	window.changeDateCalendar = function changeDateCalendar(id) {
 		$('#' + id + ' .date-select-calendar').fullCalendar({
 			buttonText: {
@@ -634,6 +657,8 @@ jQuery(function($) {
 						color: '#f4d3d5'
 					};
 					$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
+					daySelectedDate = date.format();
+					
 				}
 				$('#getPostsByDate').removeClass('btn-disabled').removeAttr('disabled');
 			},
@@ -651,6 +676,24 @@ jQuery(function($) {
 				}
 			}
 		});
+	};
+
+
+	window.findPostbyDate = function findPostbyDate(date) {
+		$.ajax({
+	            url: base_url+'calender/get_post_by_date',
+	            dataType: 'html',
+	            method:'POST',
+	            data: {
+	                // our hypothetical feed requires UNIX timestamps
+	                sdate: date,
+	                brand_id:$('#brand_id').val(),
+	            },
+	            success: function(doc) {
+	            	$('.calendar-day').empty();
+	            	$('.calendar-day').html(doc);	            	
+	            }
+	        });
 	};
 
 });

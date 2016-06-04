@@ -11225,3 +11225,15 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     margin-right: 10px;
   }
   /* youtube post preview end*/ 
+
+  .no-data{
+    padding: 20px;
+  }
+.day-image {
+  vertical-align: middle;
+}
+.day-image img{
+  max-height: 280px; 
+  width: 100%;
+} 
+  

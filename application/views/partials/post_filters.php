@@ -45,7 +45,7 @@
 							$count = 1;
 							foreach ($tags as $key => $obj) {
 								?>
-								<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
+								<li class="tag filter" data-group="post-tag" data-value="<?php echo strtolower($obj->tag_name); ?>"  data-tag-id="<?php echo $obj->id ?>" >
 									<i class="fa fa-circle tag-<?php echo $obj->tag_name; ?>" style="color:<?php echo $obj->color ; ?>"></i>
 									<span class="tag-title"><?php echo $obj->name?></span>
 								</li>
