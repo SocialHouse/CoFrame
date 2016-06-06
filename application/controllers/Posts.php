@@ -607,7 +607,7 @@ class Posts extends CI_Controller {
 	{
 		$this->data = array();
 		$this->data['brand_id'] = $brand_id;
-		echo $this->load->view('partials/add_phase_details',$this->data,true);
+		echo $this->load->view('posts/add_phase_details',$this->data,true);
 	}
 
 	public function get_post_info($post_id){

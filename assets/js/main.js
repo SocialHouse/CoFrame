@@ -810,17 +810,29 @@ jQuery(function($) {
 		$('.modal').modal('hide');
 	});
 
-	$('[data-toggle="addPhases"]').one('click', function() {
+	$(document).on('click','[data-toggle="addPhases"]',function() {
 		var columnParent = $(this).closest('.col-md-4');
 		var div_src = $(this).data('div-src');
 
 		var approvalsContainer = $('.container-approvals');
-		approvalsContainer.empty();
+		// approvalsContainer.empty();
+		approvalsContainer.children('.dafault-phase').addClass('hide');
 		$.get(base_url+div_src,function(data) {
 			approvalsContainer.append(data);
 		});
 		columnParent.css('z-index', 2000);
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
+	});
+
+	$(document).on('click','.cancel-phase',function(){		
+		$('.container-approvals').children('div:first').removeClass('hide');		
+		$('.container-approvals').children('div:eq(1)').remove();
+		$('.container-approvals').children('div:eq(2)').remove();
+		$('.modal-backdrop').remove();
+		if($(this).hasClass('phase-num'))
+		{
+			$(this).trigger('click');
+		}
 	});
 
 	$('body').on('contentShown', '#phaseDetails', function() {

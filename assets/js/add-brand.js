@@ -589,7 +589,16 @@ jQuery(function($) {
 	    return re.test(email);
 	}
 
-	function nextStep(i) {		
+	function nextStep(i) {	
+		if(i == 1)
+		{
+			if($('.brand-image').children('.default-img').length)
+			{
+				$('.brand-image').children('.default-img').remove();
+				$('.brand-image').removeClass('has-files');
+			}
+		}
+
 		$('.brand-step').removeClass('active').addClass('inactive');
 		$('#brandStep' + i).removeClass('inactive').addClass('active');
 	}

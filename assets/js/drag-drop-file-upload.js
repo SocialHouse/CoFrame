@@ -224,10 +224,18 @@
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
 				
-					
-					$.each( allFiles, function( i, file ){						
-						ajaxData.append( 'file['+i+']', file,file.name);
-					});
+					if(allFiles.length > 0)
+					{
+						$.each( allFiles, function( i, file ){						
+							ajaxData.append( 'file['+i+']', file,file.name);
+						});
+					}
+					else
+					{
+						var img_html = '<img class="form__file-preview default-img" src="'+base_url+'assets/images/default_brand.png" >';
+						$('.brand-image').prepend(img_html);
+						$('.brand-image').addClass('has-files');
+					}
 				
 
 					// ajax request

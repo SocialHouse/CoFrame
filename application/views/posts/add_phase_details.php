@@ -32,7 +32,7 @@
 					<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-sm btn-default">Cancel</button>
+					<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
 					<button type="button" class="btn btn-xs pull-sm-right btn-change-phase" data-new-phase="2" data-active-class="btn-default">Next Phase</button>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 		</select>
 	</div>
 	<footer class="form-footer">
-		<button type="button" class="btn btn-xs btn-default">Cancel</button>
+		<button type="button" class="btn btn-xs btn-default cancel-phase phase-num">Cancel</button>
 		<button type="button" class="btn btn-xs btn-secondary pull-sm-right" onClick="showContent(jQuery('#phaseDetails')); hideContent(jQuery(this).closest('.overlay-box'));">Next</button>
 	</footer>
 </div>
