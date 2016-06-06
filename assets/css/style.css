@@ -11227,6 +11227,8 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   /* youtube post preview end*/ 
 
   .no-data{
+    width: 100%;
+    margin:0; 
     padding: 20px;
   }
 .day-image {
@@ -11236,4 +11238,12 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   max-height: 280px; 
   width: 100%;
 } 
-  
+.post-content-footer > .save-draft-btn{
+  width: 98px ! important;
+  padding-left: 10px; 
+  padding-right: 10px;
+}
+
+.post-content-footer > .submit-approval{
+  width:180px !important;
+}

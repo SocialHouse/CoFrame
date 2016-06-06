@@ -180,8 +180,8 @@
 							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
-						<button class="btn btn-sm btn-disabled" disabled data-active-class="btn-default">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary" data-active-class="btn-secondary" id="submit-btn">Submit for Approval</button>
+						<button class="btn btn-sm btn-disabled save-draft-btn" disabled data-active-class="btn-default">Save Draft</button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval" data-active-class="btn-secondary" id="submit-btn">Submit for Approval</button>
 
 						</footer>
 					</div>
