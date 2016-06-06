@@ -141,7 +141,7 @@
 			}
 
 			// if the form was submitted
-			$('#submit-btn').on( 'click', function( e ){
+			$(document).on( 'click','.submit-btn', function( e ){
 				// preventing the duplicate submissions if the current one is in progress
 				if( $form.hasClass( 'is-uploading' ) ) return false;
 

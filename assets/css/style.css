@@ -11247,3 +11247,23 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .post-content-footer > .submit-approval{
   width:180px !important;
 }
+
+.margin-top-30 {
+  margin-top:30px !important;
+}
+
+.phase-date-time-div {
+  width:65px !important;
+}
+
+.phase-date-time-input  {
+  width:70px !important;
+}
+
+.phase-time-input {
+  width:100px;
+}
+
+.phase-timezone {
+  margin-left:5px !important;
+}

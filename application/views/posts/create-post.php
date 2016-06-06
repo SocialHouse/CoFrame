@@ -86,9 +86,9 @@
 								<input type="text" class="time-input amselect" name="post-ampm" value="am">
 							</div>
 						</div>
-						<span class="timezone pull-xs-right">PST</span>
+						<span class="timezone pull-xs-right margin-top-30">PST</span>
 					</div>
-					<div class="form-group form-inline pull-xl-right">
+					<div class="form-group form-inline">
 						<label>Tags:</label><br>
 						<div class="hide-top-bx-shadow">
 							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
@@ -181,7 +181,7 @@
 						</div>
 						<footer class="post-content-footer">
 						<button class="btn btn-sm btn-disabled save-draft-btn" disabled data-active-class="btn-default">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary submit-approval" data-active-class="btn-secondary" id="submit-btn">Submit for Approval</button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary">Submit for Approval</button>
 
 						</footer>
 					</div>

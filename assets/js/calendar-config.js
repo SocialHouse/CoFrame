@@ -330,6 +330,32 @@ jQuery(function($) {
 			if(inputVal !== "") {
 				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+				$activePhase = $(this).parent().parent().parent().parent();					
+				setTimeout(function() {
+
+					var phase_num = $activePhase.data('id') + 1;
+					// console.log(phase_num)
+					// console.log($('.date-preview'+phase_num));
+					// console.log(startDate.format('M/DD/YYYY'));
+					$('.date-preview'+phase_num).html(startDate.format('M/DD/YYYY')+' at')
+					if($activePhase.find('.approver-selected').children('li').children('div').length > 2)
+					{						
+						if($activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
+						{
+							var btn_num = 0;
+							if($activePhase.find('[data-new-phase]').length > 1)
+								btn_num = 1;
+							toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+						}
+					}
+					else
+					{
+
+						if($activePhase.find('[data-new-phase]').length > 1)
+							btn_num = 1;
+						toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+					}
+				},100);
 			}
 		});
 
