@@ -1159,6 +1159,8 @@ jQuery(function($) {
 				$(b).children('div:eq(1)').addClass('active');
 			}
 		});
+
+		$('.modal-backdrop').remove();
 	});
 
 	$(document).on('click','.edit-phase',function(){
