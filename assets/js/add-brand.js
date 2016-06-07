@@ -271,12 +271,13 @@ jQuery(function($) {
 			var $selectedItem = $('#selectBrandTags .selected');
 			var numberSelected =  $selectedItem.length;
 			if(numberSelected > 0) {
-				setTimeout(function(){
-					var $selectedList = $('#selectedTags ul');
-					var $clone = $selectedItem.clone();
+				var $selectedList = $('#selectedTags ul');
+				var $clone = $selectedItem.clone();
 
-					var $listItem = $clone.remove('input').removeClass('selected');
-					$listItem.children('.color').attr('name','selected_tags[]');					
+				var $listItem = $clone.remove('input').removeClass('selected');
+				$listItem.children('.color').attr('name','selected_tags[]');
+				$('.submit_tag').prop('disabled',true);
+				setTimeout(function(){										
 					var tagTitle = $selectedItem.attr('data-value');
 					var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
 					//reset custom tags so that another can be added
@@ -290,9 +291,9 @@ jQuery(function($) {
 					
 					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
 					$selectedItem.addClass('saved').removeClass('selected');
-					$selectedList.append($listItem);
-					toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
-				}, 100);
+					$selectedList.append($listItem);					
+				}, 200);
+				toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
 				$('.submit_tag').prop('disabled',false);
 			}
 			else {

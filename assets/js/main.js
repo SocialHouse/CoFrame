@@ -233,6 +233,11 @@ jQuery(function($) {
 								if($activePhase.find('[data-new-phase]').length > 1)
 									btn_num = 1;
 								toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+								
+								if($activePhase.data('id') == 0)
+								{
+									toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+								}
 							}							
 						}
 						else
@@ -240,7 +245,12 @@ jQuery(function($) {
 							var btn_num = 0;
 							if($activePhase.find('[data-new-phase]').length > 1)
 								btn_num = 1;
-							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+
+							if($activePhase.data('id') == 0)
+							{
+								toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+							}
 						}						
 					},100);
 
@@ -259,14 +269,23 @@ jQuery(function($) {
 								if($activePhase.find('[data-new-phase]').length > 1)
 									btn_num = 1;
 								toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+								if($activePhase.data('id') == 0)
+								{
+									toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+								}
 							}
 						}
 						else
-						{	
+						{
 							var btn_num = 0;
 							if($activePhase.find('[data-new-phase]').length > 1)
 								btn_num = 1;
-							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+
+							if($activePhase.data('id') == 0)
+							{
+								toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+							}
 						}
 					},100);
 					// $btn.removeAttr('data-linked-phase');
@@ -944,7 +963,7 @@ jQuery(function($) {
 	});
 
 	$(document).on('keyup blur','.approvalNotes',function(){		
-		var textarea_text = $(this).parent().parent().parent().children('div:last').find('.approval-note').text($(this).val());
+		var textarea_text = $(this).parent().parent().parent().children('div:last').find('.approval-note').html($(this).val().replace(/\r?\n/g,'<br/>'));
 	});
 
 	function setHrs(input, incDec) {
@@ -991,13 +1010,23 @@ jQuery(function($) {
 					btn_num = 1;
 
 				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+				}
 			}
 			else
 			{
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);			
+				toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+				}
 			}
 		}
 		else
@@ -1005,7 +1034,12 @@ jQuery(function($) {
 			var btn_num = 0;
 			if($activePhase.find('[data-new-phase]').length > 1)
 				btn_num = 1;
-			toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+			toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+
+			if($activePhase.data('id') == 0)
+			{
+				toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+			}
 		}
 	}
 	function setMins(input, incDec) {
@@ -1052,8 +1086,25 @@ jQuery(function($) {
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);				
+				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+				}
 			}
+			else
+			{
+				var btn_num = 0;
+				if($activePhase.find('[data-new-phase]').length > 1)
+					btn_num = 1;
+				toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+				}
+			}			
 		}
 		else
 		{
@@ -1061,6 +1112,11 @@ jQuery(function($) {
 			if($activePhase.find('[data-new-phase]').length > 1)
 				btn_num = 1;
 			toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+
+			if($activePhase.data('id') == 0)
+			{
+				toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+			}
 		}
 	}
 	function setAmPm(input) {
@@ -1091,8 +1147,17 @@ jQuery(function($) {
 
 		$.each(child_divs,function(a,b){
 			$(b).children('div:first').addClass('hide');
-			$(b).children('div:eq(1)').removeClass('hide');
-			$(b).children('div:eq(1)').addClass('active');
+			if($(b).find('.user-list li').children('div').length > 2 && $(b).find('.phase-date-time-input').val() && $(b).find('.hour-select').val() && $(b).find('.minute-select').val())
+			{				
+				$(b).children('div:eq(1)').removeClass('hide');
+				$(b).children('div:eq(1)').addClass('active');
+			}
+
+			if(a == 3)
+			{
+				$(b).children('div:eq(1)').removeClass('hide');
+				$(b).children('div:eq(1)').addClass('active');
+			}
 		});
 	});
 

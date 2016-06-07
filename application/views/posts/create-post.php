@@ -7,6 +7,7 @@
 	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>">
 		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
 		<input type="hidden" name="user_id" id="user_id" value="<?php echo $brand->created_by; ?>">
+		<input type="hidden" name="save_as" id="save_as" value="">
 
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
@@ -180,8 +181,8 @@
 							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
-						<button class="btn btn-sm btn-disabled save-draft-btn" disabled data-active-class="btn-default">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary">Submit for Approval</button>
+						<button class="btn btn-sm save-draft-btn submit-btn" data-active-class="btn-default" id="draft">Save Draft</button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
 
 						</footer>
 					</div>

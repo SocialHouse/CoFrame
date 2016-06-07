@@ -142,6 +142,12 @@
 
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){
+				if($(this).attr('id') == 'draft')
+				{
+					$('#save_as').val('draft');
+				}
+				else
+					$('#save_as').val('');
 				// preventing the duplicate submissions if the current one is in progress
 				if( $form.hasClass( 'is-uploading' ) ) return false;
 
@@ -161,7 +167,7 @@
 					// return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
-						if(input.name == 'brand_id' || input.name== 'user_id')
+						if(input.name == 'brand_id' || input.name== 'user_id' || input.name == 'save_as')
 				        	ajaxData.append(input.name,input.value);
 				    });
 
