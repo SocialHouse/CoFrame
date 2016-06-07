@@ -1,6 +1,6 @@
 <div class="container-brand-step">
 	<h3 class="text-xs-center">Step 4</h3>
-	<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
+	<h4 class="text-xs-center">Post Tags</h4>
 	<div class="tag-list saved-items">
 		<ul>
 			<li class="tag" data-value="Marketing" data-group="brand-tag" data-tag="Marketing"><i class="fa fa-circle tag-red"></i>Marketing</li>
@@ -62,6 +62,9 @@
 		<div id="addTagBtns" class="hidden">
 			<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
 			<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag">Add</button>
+		</div>
+		<div class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default">Manage Tags</button>
 		</div>
 	</footer>
 </div>

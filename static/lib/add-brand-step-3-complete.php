@@ -133,5 +133,8 @@
 			<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addUserRole, #userRoleBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
 			<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" disabled id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
 		</div>
+		<div class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default">Manage Users</button>
+		</div>
 	</footer>
 </div>

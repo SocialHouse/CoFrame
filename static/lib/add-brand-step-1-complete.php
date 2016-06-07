@@ -35,5 +35,8 @@
 	<footer class="post-content-footer">
 		<button type="reset" class="btn btn-sm btn-default hidden">Cancel</button>
 		<button type="button" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hidden" data-active-class="btn-secondary" data-next-step="2">Next</button>
+		<div class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default">Edit Brand Info</button>
+		</div>
 	</footer>
 </div>

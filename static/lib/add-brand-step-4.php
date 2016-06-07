@@ -12,19 +12,19 @@
 			<h5 class="border-title"><span>Select Tag Color</span></h5>
 			<div class="tag-list">
 				<ul>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="red"><i class="fa fa-circle tag-red"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="pink"><i class="fa fa-circle tag-pink"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="orange"><i class="fa fa-circle tag-orange"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="yellow"><i class="fa fa-circle tag-yellow"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="green"><i class="fa fa-circle tag-green"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="green-dark"><i class="fa fa-circle tag-green-dark"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="blue"><i class="fa fa-circle tag-blue"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="blue-dark"><i class="fa fa-circle tag-blue-dark"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="purple-dark"><i class="fa fa-circle tag-purple-dark"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="purple"><i class="fa fa-circle tag-purple"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="brown"><i class="fa fa-circle tag-brown"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="tan"><i class="fa fa-circle tag-tan"></i></li>
-					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="gray"><i class="fa fa-circle tag-gray"></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="red"><i class="fa fa-circle tag-red"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="pink"><i class="fa fa-circle tag-pink"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="orange"><i class="fa fa-circle tag-orange"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="yellow"><i class="fa fa-circle tag-yellow"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="green"><i class="fa fa-circle tag-green"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="green-dark"><i class="fa fa-circle tag-green-dark"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="blue"><i class="fa fa-circle tag-blue"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="blue-dark"><i class="fa fa-circle tag-blue-dark"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="purple-dark"><i class="fa fa-circle tag-purple-dark"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="purple"><i class="fa fa-circle tag-purple"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="brown"><i class="fa fa-circle tag-brown"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="tan"><i class="fa fa-circle tag-tan"><i class="fa fa-check"></i></i></li>
+					<li class="tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="gray"><i class="fa fa-circle tag-gray"><i class="fa fa-check"></i></i></li>
 					<li class="tag hidden custom-tag" data-value="" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag" value="custom"><i class="fa fa-circle tag-custom"></i></li>
 					<li class="tag" data-value="" data-group="brand-tag"><a href="#" id="chooseTagColor"><i class="tf-icon circle-border">+</i></a></li>
 				</ul>

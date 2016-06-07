@@ -45,5 +45,8 @@
 			<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStep2Btns, #addOutletLink, #selectedOutlets">Cancel</button>
 			<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" disabled id="addOutlet" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStep2Btns, #addOutletLink, #selectedOutlets">Add</button>
 		</div>
+		<div class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default">Manage Outlets</button>
+		</div>
 	</footer>
 </div>
