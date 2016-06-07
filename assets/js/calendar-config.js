@@ -111,7 +111,7 @@ jQuery(function($) {
 			// events: 'assets/js/events.json',
 			events: function(start, end, timezone, callback) {				
 		        $.ajax({
-		            url: base_url+'calender/get_events',
+		            url: base_url+'calendar/get_events',
 		            dataType: 'json',
 		            method:'POST',
 		            data: {
@@ -180,10 +180,10 @@ jQuery(function($) {
 				//show confirmation modal
 				eventDropModal(event, revertFunc, '#calendar-month');
 			},
-			// events: base_url+'calender/get_events/'+$('#brand_id').val(),
+			// events: base_url+'calendar/get_events/'+$('#brand_id').val(),
 			events: function(start, end, timezone, callback) {				
 		        $.ajax({
-		            url: base_url+'calender/get_events',
+		            url: base_url+'calendar/get_events',
 		            dataType: 'json',
 		            method:'POST',
 		            data: {
@@ -707,7 +707,7 @@ jQuery(function($) {
 
 	window.findPostbyDate = function findPostbyDate(date) {
 		$.ajax({
-	            url: base_url+'calender/get_post_by_date',
+	            url: base_url+'calendar/get_post_by_date',
 	            dataType: 'html',
 	            method:'POST',
 	            data: {

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Calender extends CI_Controller {
+class calendar extends CI_Controller {
 	
 	/**
      * Index Page for this controller.
@@ -46,7 +46,7 @@ class Calender extends CI_Controller {
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
-			$this->data['view'] = 'calender/day_view';
+			$this->data['view'] = 'calendar/day_view';
 	        _render_view($this->data);
 	    }
 	}
@@ -64,7 +64,7 @@ class Calender extends CI_Controller {
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
 
-			$this->data['view'] = 'calender/month_view';
+			$this->data['view'] = 'calendar/month_view';
 	        _render_view($this->data);
 	    }
     }
@@ -83,7 +83,7 @@ class Calender extends CI_Controller {
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
 
-			$this->data['view'] = 'calender/week_view';
+			$this->data['view'] = 'calendar/week_view';
 	        _render_view($this->data);
 	    }
     }
@@ -121,7 +121,7 @@ class Calender extends CI_Controller {
     	$sdate = $this->input->post('sdate');
 	    if(!empty($brand_id)){
 	    	$this->data['post_details'] = $this->post_model->get_post_by_date($brand_id,$sdate);
-	    	echo $this->load->view('calender/post_preview/day_post',$this->data,true);
+	    	echo $this->load->view('calendar/post_preview/day_post',$this->data,true);
 	    }else{
 	    	echo false;
 	    }
@@ -133,12 +133,11 @@ class Calender extends CI_Controller {
 		$path = $this->uri->segment(3);
 
 		if(!empty($path)){
-
-			if($path == 'edit_menu' ){
+			if($path == 'edit_menu' || $path == 'edit_date' ){
 				$this->data['slug'] = $this->uri->segment(4);
 				$this->data['post_id'] = $this->uri->segment(5);
 			}
-			$this->load->view('calender/'.$path, $this->data);
+			$this->load->view('calendar/'.$path, $this->data);
 		}
 		else{
 
@@ -167,6 +166,27 @@ class Calender extends CI_Controller {
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($post_details->brand_id);
 		}
 		//echo '<pre>'; print_r($this->data);echo '</pre>';
-		$this->load->view('calender/edit_post_calendar', $this->data);
+		$this->load->view('calendar/edit_post_calendar', $this->data);
+	}
+
+	public function reschedule_post()
+	{
+		$sdate = '';
+		$post_data = $this->input->post();
+		$schedule_date = $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
+		$schedule_date = date("Y-m-d H:i", strtotime($schedule_date));
+		$condition = array('id' => $post_data['post_id']);
+		$scheduler_array = array('slate_date_time'=> $schedule_date );
+		$result = $this->timeframe_model->update_data('posts',$scheduler_array,$condition);
+		if($result){
+			$post_details = $this->post_model->get_post($post_data['post_id']);
+			if(!empty($post_data['selcted_data'])){
+				$sdate = $post_data['selcted_data'];
+			}
+			$this->data['post_details'] = $this->post_model->get_post_by_date( $post_details->brand_id,$sdate);
+	    	echo $this->load->view('calendar/post_preview/day_post',$this->data,true);
+		}else{
+			echo 'false';
+		}
 	}
 }

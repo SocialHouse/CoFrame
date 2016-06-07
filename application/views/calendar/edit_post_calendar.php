@@ -10,8 +10,8 @@
 					<h4 class="text-xs-center">Live Preview</h4>
 					<div id="live-post-preview">
 						<?php
-						if (file_exists(APPPATH."views/calender/post_preview/".strtolower($post_details->outlet_name).".php")){
-						 	$this->load->view('calender/post_preview/'.strtolower($post_details->outlet_name));
+						if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
+						 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
 						}
 						?>
 					</div>

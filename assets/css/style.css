@@ -11232,10 +11232,10 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     padding: 20px;
   }
 .day-image {
-  vertical-align: middle;
+  vertical-align: middle !important ;
 }
 .day-image img{
-  max-height: 280px; 
+  max-height: 228px; 
   width: 100%;
 } 
 .post-content-footer > .save-draft-btn{

@@ -135,10 +135,10 @@ jQuery(function($) {
 			});
 		}
 
-		renderCalender();
+		rendercalendar();
 	}
 
-	function renderCalender()
+	function rendercalendar()
 	{
 		var date = new Date();
 		var first = date.getDate() - date.getDay(); // First day is the day of the month - the day of the week
@@ -155,8 +155,8 @@ jQuery(function($) {
 		var mm = lastDay.getMonth() + 1;
 		var y = lastDay.getFullYear();
 		var end = y+'-'+mm+'-'+dd;
-		var calender_class = '#calendar-week'
-		if($('#calender_type').val() == 'month')
+		var calendar_class = '#calendar-week'
+		if($('#calendar_type').val() == 'month')
 		{
 			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 			var dd = firstDay.getDate();
@@ -170,13 +170,13 @@ jQuery(function($) {
 			var mm = lastDay.getMonth() + 1;
 			var y = lastDay.getFullYear();
 			var end = y+'-'+mm+'-'+dd;
-			var calender_class = '#calendar-month';
+			var calendar_class = '#calendar-month';
 		}		
 
-		$(calender_class).fullCalendar ('removeEvents');
+		$(calendar_class).fullCalendar ('removeEvents');
 
 		$source = {
-			        url: base_url+'calender/get_events',
+			        url: base_url+'calendar/get_events',
 			        dataType: 'json',
 			        method:'post',
 			        data: {			          
@@ -189,7 +189,7 @@ jQuery(function($) {
 			        }
 		        };
 
-		$(calender_class).fullCalendar('addEventSource', $source);
+		$(calendar_class).fullCalendar('addEventSource', $source);
 
 		
 	}

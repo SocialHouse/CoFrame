@@ -1245,6 +1245,28 @@ jQuery(function($) {
     	post_copy = convertToLink(post_copy);
     	$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
     });
+
+    $(document).on("submit", "#reschedule_post", function(event){
+	 	event.preventDefault();
+    	var post_url = $(this).attr('action');
+    	var selected_date = $('#selected_date').val();    	
+    	$.ajax({
+	    		'type':'POST',
+	    		'data':$(this).serialize()+'&selcted_data='+ selected_date,
+	    		dataType: 'html',
+	    		url: post_url,                 
+	            success: function(response)
+	            {
+	            	if(response  != 'false')
+	            	{
+	            		alert('Your post has been update successfully. ');
+	            	}
+	            	$('.calendar-day').empty();
+	            	console.log(response);
+	            	$('.calendar-day').html(response);
+	            }
+	    	});
+    });
 });
 	
 	function convertToLink(text) {
@@ -1289,4 +1311,6 @@ jQuery(function($) {
 		}
 		jQuery(btnClass).removeClass(oldClass);
 	}
+	
+	
 	

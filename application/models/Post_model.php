@@ -283,7 +283,7 @@ class Post_model extends CI_Model
 
 
 	public function get_post_by_date($brand_id, $date=''){
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');

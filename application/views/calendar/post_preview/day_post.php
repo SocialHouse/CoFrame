@@ -1,6 +1,8 @@
 <?php 
-	
+	//echo '<pre>'; print_r($post_details);echo '</pre>'; 
 	if(!empty($post_details)){
+		$selected_date =  date('Y-m-d',strtotime($post_details[0]->slate_date_time));
+		echo '<input type="hidden" id="selected_date" value="'.$selected_date .'"/>' ;
 		foreach ($post_details as $key => $post) {
 			$outlet_name = strtolower($post->outlet_name);
 			$brand_onwer = $post->created_by;
@@ -18,7 +20,7 @@
 			}
 
 			?>
-			<div  data-filters="approved <?php echo $outlet_name.' '.$tag_list; ?>" class="row bg-white clearfix post-day f-approved f-<?php echo $outlet_name; ?>">
+			<div  data-filters="approved <?php echo $outlet_name.' '.$tag_list; ?>" class="row bg-white clearfix post-day f-approved f-<?php echo $outlet_name; ?>"style="width:97% !important;">
 				<div class="col-md-5 post-img day-image">
 					<?php 
 					$display_img = 'false';
@@ -26,13 +28,13 @@
 							foreach ($post->post_images as $img) {
 								if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$img->name)) {
 									$display_img = 'true';
-			                    	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'"  /> ';
+			                    	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'"  width="228px"/> ';
 			                    	break;
 			                    }
 							}
 						}
 						if($display_img == 'false'){
-							echo '<img class="default-img reblog-avatar-image-thumb" src="'.img_url().'post-img-3.jpg"  >';
+							echo '<img class="default-img reblog-avatar-image-thumb" src="'.img_url().'post-img-3.jpg"  width="228px"  >';
 						}
 					?>
 				</div>
@@ -43,7 +45,7 @@
 						</div>
 						<div class="col-md-10 post-meta">
 							<span class="post-author"><?php echo $outlet_name; ?> Post By <?php echo (!empty($post->user))?$post->user :'';?>:</span>
-							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray" data-toggle="popover-ajax" data-content-src="<?php echo base_url()?>calender/get_view/edit_date/<?php echo $brand->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
+							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray post-filter-popup" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 								<i class="fa fa-pencil"></i>
 								</a>
 							</span>
@@ -79,14 +81,14 @@
 						<div class="col-md-10">
 							<h6>POST COPY</h6>
 							<div class="post-body">
-								<p><?php echo (!empty($post->content))?$post->content :'';?></p>
+								<p><?php echo (!empty($post->content))?$post->content :'&nbsp;';?></p>
 							</div>
 							<span class="post-actions pull-xs-left">
 								<button class="btn btn-approved btn-sm" disabled>Approved</button><br>
 								<a href="#">Undo</a>
 							</span>
 							<div class="hide-top-bx-shadow">
-								<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url()?>calender/get_view/edit_menu/<?php echo $brand->slug.'/'.$post->id; ?>" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day">
+								<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_menu/<?php echo $post->slug.'/'.$post->id; ?>" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day">
 									<i class="fa fa-circle-o"></i> 
 									<i class="fa fa-circle-o"></i> 
 									<i class="fa fa-circle-o"></i>

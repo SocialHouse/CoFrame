@@ -6,7 +6,7 @@
 			<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-day" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
 			<h2 class="date-header pull-xs-left">Calendar | <strong id="calendarCurrentMonth"><?php echo date('F'); ?></strong > <span id="calendarCurrentdate"><?php echo date('d') . ", " . date('Y'); ?></span></h2>
 
-			<?php $this->load->view('partials/calender_nav'); ?>
+			<?php $this->load->view('partials/calendar_nav'); ?>
 		</div>
 		<div id="selectedFilters" class="clearfix border-top border-black hidden">
 			<strong class="uppercase">Filters: </strong>
@@ -26,7 +26,7 @@
 	<div class="row equal-cols-cal">
 		<div class="col-md-9 equal-height">
 			<div class="calendar-day">
-				<?php $this->load->view('calender/post_preview/day_post'); ?>
+				<?php $this->load->view('calendar/post_preview/day_post'); ?>
 			</div>
 		</div>
 		<div class="col-md-3 equal-height">
