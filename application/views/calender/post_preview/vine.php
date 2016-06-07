@@ -4,18 +4,18 @@ if(!empty($post_images)){
 	}else{
 		$img_count = '';
 	}
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
-		$brand_onwer = $post_deatils->created_by;
-		$brand_id = $post_deatils->brand_id;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
+		$brand_onwer = $post_details->created_by;
+		$brand_id = $post_details->brand_id;
 	}
 ?>
 <div class="vine-post" style="width:100%">
 	<div style="padding: 8px">
 		<div class="vine-user-profile" >
 			<?php 
-				if (file_exists(upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png')) {
-	            	echo '<img src="'.upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png"class="default-img img-circle" />';
+				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+	            	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png"class="default-img img-circle" />';
 	            }else{
 	            	echo '<img class="default-img img-circle" src="'.img_url().'default_profile.jpg" width="40">';	
 	            }
@@ -34,7 +34,7 @@ if(!empty($post_images)){
 
 		<div class="vine-comment-div">
 			<div class="post_copy_text">
-				<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 			</div>
 			<hr>
 			<div class="vine-sharing-option">

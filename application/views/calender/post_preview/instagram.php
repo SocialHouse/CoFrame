@@ -4,10 +4,10 @@ if(!empty($post_images)){
 	}else{
 		$img_count = '';
 	}
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
-		$brand_onwer = $post_deatils->created_by;
-		$brand_id = $post_deatils->brand_id;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
+		$brand_onwer = $post_details->created_by;
+		$brand_id = $post_details->brand_id;
 	}
 ?>
 <div id="outlet_3">
@@ -15,14 +15,14 @@ if(!empty($post_images)){
 		<div class="insta-profile-div">
 			<div class="pull-left">
 				<?php 
-					if (file_exists(upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png')) {
-                    	echo '<img src="'.upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png" class="img-circle insta-profile" />';
+					if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+                    	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="img-circle insta-profile" />';
                     }else{
                     	echo '<img class="img-circle insta-profile" src="'.img_url().'default_profile.jpg">';	
                     }
 				?>
 			</div>
-			<div class="margin-left-5 insta-username pull-left"><b><?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?></b></div>
+			<div class="margin-left-5 insta-username pull-left"><b><?php echo (!empty($post_details->user))? $post_details->user :''; ?></b></div>
 			<div class="pull-right insta-time insta-username">0m</div>
 		</div>
 		<div class="clearfix"></div>
@@ -42,8 +42,8 @@ if(!empty($post_images)){
 		
 		<div class="insta-post-copy">
 			<div class="insta-comment-div">
-				<span class="insta-comment-user-name"><?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?> </span>
-				<span class="post_copy_text"><?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?></span>
+				<span class="insta-comment-user-name"><?php echo (!empty($post_details->user))? $post_details->user :''; ?> </span>
+				<span class="post_copy_text"><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></span>
 			</div>
 		</div>
 		<div class="insta-add-comment">

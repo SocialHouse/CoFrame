@@ -612,7 +612,7 @@ class Posts extends CI_Controller {
 
 	public function get_post_info($post_id){
 		if(!empty($post_id)){
-			$this->data['post_deatils'] = $this->post_model->get_post($post_id);
+			$this->data['post_details'] = $this->post_model->get_post($post_id);
 			$this->data['post_images'] = $this->post_model->get_images($post_id);
 			$post_phases= $this->post_model->get_post_phases($post_id);
 		

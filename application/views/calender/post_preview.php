@@ -1,12 +1,12 @@
 <?php 
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
 ?>	
 		<div class="row equal-cols">
 			<div class="col-md-6 bg-white equal-height">
 				<div class="container-post-preview">
 					<div id="live-post-preview">
-						<?php 				
+						<?php
 						if (file_exists(APPPATH."views/calender/post_preview/".strtolower($outlet_name).".php")){
 						 	$this->load->view('calender/post_preview/'.strtolower($outlet_name));
 						}
@@ -22,12 +22,12 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-md-6 bg-gray-lightest equal-height">
+			
 				<?php 
 					if(!empty($phases)){ 
 					?> 
-					<div class="container-phases">
-						<div class="">
+					<div class="col-md-6 bg-gray-lightest equal-height">
+						<div class="container-phases">							
 							<?php
 								foreach ($phases as $phase_no => $obj) {
 									?>
@@ -74,13 +74,12 @@
 								  <button type="button" class="btn btn-xs btn-default">View Edit Requests</button>
 								  <button type="button" class="btn btn-xs btn-default">Suggest an Edit</button>
 								</div>
-							</footer>
+							</footer>							
 						</div>
 					</div>
 					<?php
 					}
 				?>
-			</div>
 		</div>
 		<?php
 			}

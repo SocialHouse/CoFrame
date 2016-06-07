@@ -4,10 +4,10 @@ if(!empty($post_images)){
 	}else{
 		$img_count = '';
 	}
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
-		$brand_onwer = $post_deatils->created_by;
-		$brand_id = $post_deatils->brand_id;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
+		$brand_onwer = $post_details->created_by;
+		$brand_id = $post_details->brand_id;
 	}
 ?>
 <div class="linkedin-post" >
@@ -16,11 +16,11 @@ if(!empty($post_images)){
 	</div>
 	<div class="linkedin-content">
 		<div class="linkedin-user-detail">
-			<span><?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?></span>
+			<span><?php echo (!empty($post_details->user))? $post_details->user :''; ?></span>
 			<p>Software Developer at Techfive</p>
 		</div>
 		<div class="post_copy_text">
-			<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+			<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 		</div>
 		<div class="likedin-img-div">
 			<?php

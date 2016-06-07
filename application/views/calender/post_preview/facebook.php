@@ -4,10 +4,10 @@ if(!empty($post_images)){
 	}else{
 		$img_count = '';
 	}
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
-		$brand_onwer = $post_deatils->created_by;
-		$brand_id = $post_deatils->brand_id;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
+		$brand_onwer = $post_details->created_by;
+		$brand_id = $post_details->brand_id;
 	}
 ?>
 <div id="facebook">
@@ -16,8 +16,8 @@ if(!empty($post_images)){
 			<div class="margin-bottom-10">
 				<div class="pull-left user-img-border">
 					<?php 
-						if (file_exists(upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png')) {
-                        	echo '<img src="'.upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png" width="406" height="506" alt="" class="center-block" />';
+						if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+                        	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" width="406" height="506" alt="" class="center-block" />';
                         }else{
                         	echo '<img class="user-profile-img" src="'.img_url().'default_profile.jpg">';	
                         }
@@ -26,7 +26,7 @@ if(!empty($post_images)){
 				</div>
 				<div class="pull-left padding-left-5">
 					<span class="post-user-name">
-						<?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?>
+						<?php echo (!empty($post_details->user))? $post_details->user :''; ?>
 						<span class="no-of-photos"></span>
 					</span><br/>
 					<span class="time-color">
@@ -36,7 +36,7 @@ if(!empty($post_images)){
 				<div class="clearfix"></div>
 				<br>
 				<span class="post_copy_text">
-					<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+					<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 				</span>
 				<div class="img-div">
 					<?php 

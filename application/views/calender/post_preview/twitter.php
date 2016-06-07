@@ -4,18 +4,18 @@ if(!empty($post_images)){
 	}else{
 		$img_count = '';
 	}
-	if(!empty($post_deatils)){
-		$outlet_name = $post_deatils->outlet_name;
-		$brand_onwer = $post_deatils->created_by;
-		$brand_id = $post_deatils->brand_id;
+	if(!empty($post_details)){
+		$outlet_name = $post_details->outlet_name;
+		$brand_onwer = $post_details->created_by;
+		$brand_id = $post_details->brand_id;
 	}
 ?>
 <div id="outlet_2">
 	<div class="twitter-post">
 		<div class="pull-left" style="margin-right: 8px">
 			<?php 
-				if (file_exists(upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png')) {
-                	echo '<img src="'.upload_url().$post_deatils->created_by.'/users/'.$post_deatils->user_id.'.png" class="center-block" />';
+				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
                 }else{
                 	echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
                 }
@@ -24,12 +24,12 @@ if(!empty($post_images)){
 		<div  style="margin-bottom:2px">
 			<div >
 				<div class="twitter-user-info">
-					<?php echo (!empty($post_deatils->user))? $post_deatils->user :''; ?> 
+					<?php echo (!empty($post_details->user))? $post_details->user :''; ?> 
 					<span class="twitter_username">@ninadgaikwad - 1s</span>
 				</div>
 			</div>
 			<div class="post_copy_text" style="height: 21px;">
-				<?php echo (!empty($post_deatils->content)) ? $post_deatils->content : '';?>
+				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 			</div>
 			<div class="twitter-img-div twitter-post-img img-div" style="margin-left:40px;">
 				<?php 
@@ -37,9 +37,9 @@ if(!empty($post_images)){
 					$more_div = '';
 					if(!empty($post_images)){
 						if($img_count == 1 ){
-							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_deatils[0]->name)){
+							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_details[0]->name)){
 								echo '<div class="pull-left">';
-	                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_deatils[0]->name.'"  class="img-radious" />';
+	                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_details[0]->name.'"  class="img-radious" />';
 	                        	echo '</div>';
 	                        }
 						}

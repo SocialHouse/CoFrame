@@ -45,7 +45,7 @@ class Calender extends CI_Controller {
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 			$this->data['view'] = 'calender/day_view';
 	        _render_view($this->data);
 	    }
@@ -115,15 +115,6 @@ class Calender extends CI_Controller {
     	$this->load->view('partials/print_posts');
     }
 
-    public function edit_date()
-    {
-    	$this->load->view('calender/edit_date');
-    }
-
-    public function edit_menu()
-    {
-    	$this->load->view('calender/edit_menu');
-    }
 
     public function get_post_by_date(){
     	$brand_id = $this->input->post('brand_id');
@@ -135,4 +126,47 @@ class Calender extends CI_Controller {
 	    	echo false;
 	    }
     }
+
+    public function get_view()
+	{
+		$this->data = '';
+		$path = $this->uri->segment(3);
+
+		if(!empty($path)){
+
+			if($path == 'edit_menu' ){
+				$this->data['slug'] = $this->uri->segment(4);
+				$this->data['post_id'] = $this->uri->segment(5);
+			}
+			$this->load->view('calender/'.$path, $this->data);
+		}
+		else{
+
+		}
+	} 
+
+	public function edit_post_calendar()
+	{		
+		$this->data['slug'] = $this->uri->segment(3);
+		$this->data['post_id'] = $this->uri->segment(4);
+		if(!empty($this->data['post_id'])){
+			$post_details = $this->post_model->get_post($this->data['post_id']);
+			$this->data['post_details'] = $post_details;
+			$this->data['post_images'] = $this->post_model->get_images($post_details->id);
+			$this->data['outlets'] = $this->post_model->get_brand_outlets($post_details->brand_id);
+			$post_phases= $this->post_model->get_post_phases($post_details->id);
+		
+			if(!empty($post_phases))
+			{
+				foreach($post_phases as $phase)
+				{
+					$this->data['phases'][$phase->phase][] = $phase;
+				}
+			}
+
+			$this->data['outlets'] = $this->post_model->get_brand_outlets($post_details->brand_id);
+		}
+		//echo '<pre>'; print_r($this->data);echo '</pre>';
+		$this->load->view('calender/edit_post_calendar', $this->data);
+	}
 }
