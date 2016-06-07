@@ -224,22 +224,15 @@ class Brands extends CI_Controller {
         	$this->load->helper('email');
 
         	$this->data['user'] = $user_data;
-
-            $content = $this->load->view('mails/login_details',$this->data,true);
-            
-            $subject = 'Timeframe - login details';
-
+          
             try
             {
                 
-            	$inserted_id = $this->aauth->create_user($post_data['email'],$password,$post_data['first_name']);
+            	$inserted_id = $this->aauth->create_user_without_name($post_data['email'],$password,'');
             	$group_id = $this->aauth->get_group_id($post_data['role']);
             	if($inserted_id)
             	{
-            		email_send($post_data['email'], $subject,$content);
-	                
                 	$this->aauth->add_member($inserted_id,$group_id);
-
                 	//add permission to user
                 	if(!empty($post_data['permissions']))
                 	{

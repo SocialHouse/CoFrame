@@ -254,4 +254,62 @@ jQuery(document).ready(function(){
 			});	
         }
     });
+
+
+    jQuery('#registerSubUser').validate({
+    	onkeyup: false,
+        rules: {        
+        	username: {required: true,
+        				remote: {
+		                    url: base_url+"tour/check_username_exist",
+		                    type: "post"
+		                }
+        			},
+            password :{ required : true,minlength:6 },
+            confirm_password :{ required : true,equalTo: "#password_reg"},
+        },
+        messages :{        
+        	username: {required: "Please enter username",remote:'This username is already taken'},
+        	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
+            confirm_password :{ required : "Please re-enter password" },            
+        },
+        submitHandler: function(form, event) {
+        	jQuery('#loading_main').show();
+            event.preventDefault();
+
+            var user_id = jQuery('#user_id').val();
+            var verification_code = jQuery('#verification_code').val();
+            var username = jQuery('#username_reg').val();
+            var password = jQuery('#password_reg').val();
+            var confirmPassword = jQuery('#confirm_password_reg').val();
+
+            jQuery.ajax({
+				"url": base_url+'tour/save_sub_user',
+				"data":{'user_id':user_id,'verification_code':verification_code,'username':username,'password':password,'confirm_password': confirmPassword},
+				"type":"POST",
+				success: function(response)
+		        {
+
+		        	var json = jQuery.parseJSON(response);
+		        	if(json.response == 'success')
+		        	{		        				        		
+		        		jQuery('#registerSubUser')[0].reset();						
+						jQuery('#gotTologRegister').show();
+						jQuery('#registerModal').hide();
+						jQuery('#registerTryAgain').hide();
+						jQuery('#registerCancel').show();
+		        	}
+		        	else
+		        	{
+		        		jQuery('#gotTologRegister').hide();
+						jQuery('#registerTryAgain').show();
+						jQuery('#registerCancel').hide();
+		        	}
+		        	jQuery('.registerResponseText').text(json.message);
+		        	jQuery('#regResponseBtn').trigger('click');
+					jQuery('#loading_main').hide();
+		        }
+			});	
+        }
+    });
 });

@@ -368,7 +368,7 @@ class Tour extends CI_Controller {
 
     public function verify_user_email($user_id,$verification_code)
     {
-        $status = $this->aauth->verify_user($user_id,$verification_code);        
+        $status = $this->aauth->verify_user($user_id,$verification_code);
         if($status)
         {
             //check if ip already available
@@ -396,6 +396,57 @@ class Tour extends CI_Controller {
         }
         $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
+    }
+
+    public function register_sub_user($user_id = '',$verification_code = '')
+    {
+        $this->data['user_id'] = $user_id;
+        $this->data['verification_code'] = $verification_code;
+        
+        $user = $this->timeframe_model->get_data_by_condition('aauth_users',array('id' => $user_id,'verification_code' => $verification_code));        
+        $this->data['is_user'] = 'fail';
+        if($user)
+        {
+            $this->data['is_user'] = 'success';
+        }
+
+        $this->load->view('tour/tour',$this->data);
+        $this->load->view('partials/modals');
+    }
+
+    public function save_sub_user()
+    {
+        $post_data = $this->input->post();
+
+        $status = $this->aauth->update_user($post_data['user_id'],'',$post_data['password'],$post_data['username']);
+        if($status)
+        {
+            $verification_status = $this->aauth->verify_user($post_data['user_id'],$post_data['verification_code']);
+            if($verification_status)
+            {
+                $user = $this->aauth->get_user($post_data['user_id']);
+                if(!empty($user))
+                {
+                    $login_attempt = array(
+                                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                                    'user_name' => $user->name,
+                                    'user_id' => $post_data['user_id']
+                                );
+                    $this->timeframe_model->insert_data('login_attempts',$login_attempt);
+
+                }
+                echo json_encode(array('response' => 'success','message'=>'You have registered successfully'));
+            }
+            else
+            {
+                echo json_encode(array('response' => 'fail','message','Unable to register please try again'));
+            }
+        }
+        else
+        {
+           echo json_encode(array('response' => 'fail','message','Unable to register please try again'));
+        }
+
     }
 
     public function logout() {

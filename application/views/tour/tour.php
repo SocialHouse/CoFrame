@@ -377,6 +377,10 @@
 			var token = "<?php echo isset($token) ? $token : ''; ?>";
 			var error = "<?php echo isset($error) ? $error : ''; ?>";
 			var verify = "<?php echo isset($verify) ? $verify : ''; ?>";
+			var user_id = "<?php echo isset($user_id) ? $user_id : ''; ?>";
+			var verification_code = "<?php echo isset($verification_code) ? $verification_code : ''; ?>";
+			var is_user = "<?php echo isset($is_user) ? $is_user : ''; ?>";
+
 			jQuery(document).ready(function(){
 				if(token)
 				{
@@ -409,6 +413,20 @@
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').hide();
 				}
+
+				if(verification_code && user_id && is_user == 'success')
+				{
+					jQuery('#registerModal').modal('show');				
+				}
+
+				if(is_user == 'fail')
+				{
+					jQuery('#responseHeader').html('Register error');
+					jQuery('#responseMessage').html('This url seems to be wrong please check email and try again.');
+					jQuery('#verifyResponse').modal('show');
+					jQuery('#verifyResponseBtn').hide();
+				}
+				
 			});
 		</script>		
 	</body>

@@ -209,3 +209,46 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true">
+  	<div class="modal-dialog modal-sm" role="document">
+    	<div class="modal-content">
+			<a class="navbar-brand hidden-print" href="/">
+            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">Timeframe</span>
+        	</a>
+			<div class="visible-print-block logo-print">
+	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+			</div>
+	        <div class="modal-body text-center bg-white">
+			  	<h5>Password Recovery</h5>
+				<hr>
+		        <form id="registerSubUser">
+		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo $verification_code; ?>" />
+		        	<input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>" />
+					<div class="form-group">
+						<label class="sr-only" for="username_reg">Username</label>
+						<input type="text" class="form-control" id="username_reg" placeholder="Username" name="username" >
+					</div>
+
+					<div class="form-group">
+						<label class="sr-only" for="password_reg">Password</label>
+						<input type="password" class="form-control" id="password_reg" placeholder="Password" name="password" value="<?php echo set_value('user_pass',$user_pass); ?>">
+					</div>
+
+					<div class="form-group">
+						<label class="sr-only" for="confirm_password">Confirm password</label>
+						<input type="password" class="form-control" id="confirm_password_reg" placeholder="Confirm password" name="confirm_password" value="<?php echo set_value('user_pass',$user_pass); ?>">
+					</div>
+					
+					<hr>
+					<div class="clearfix">
+						<a href="#" class="btn btn-default btn-sm pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+						<button type="submit" 	id="save_pass" class="btn btn-primary btn-sm pull-right">Submit</button>
+						<a href="#loginModal" type="button" id="loginSuccess" class="hide" data-backdrop="static" data-toggle="modal"></a>
+					</div>
+				</form>
+      		</div>
+    	</div><!-- /.modal-content -->
+  	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
