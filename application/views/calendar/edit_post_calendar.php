@@ -1,5 +1,3 @@
-
-	
 <!-- $outlet_name = $post_details->outlet_name; -->
 
 <!-- action="<?php echo base_url() ?>posts/edit/<?php echo $slug ?>" -->
@@ -57,7 +55,7 @@
 					</div>
 					<div class="form-group">
 						<label for="postCopy">Post Copy</label>
-						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..."></textarea>
+						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
 					</div>
 					<div class="form-group">
 						<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
@@ -87,16 +85,7 @@
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>
 					</div>
-					
 
-					<div class="form-group pull-xl-right">
-						<label>Tags:</label><br>
-						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$post_details->brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
-								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
-							</div>
-						</div>
-					</div>
 					<div class="form-group pull-sm-left">
 						<label>Slate Post:</label><br>
 						<div class="hide-top-bx-shadow">
@@ -118,6 +107,15 @@
 						</span>
 					</div>
 
+					<div class="form-group pull-xl-right">
+						<label>Tags:</label><br>
+						<div class="hide-top-bx-shadow">
+							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$post_details->brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+							</div>
+						</div>
+					</div>
+
 					<div class="clearfix"></div>
 					<footer class="post-content-footer">
 						<div class="auto-save text-xs-center hidden">Auto Saving ...</div>
@@ -132,6 +130,7 @@
 				<h4 class="text-xs-center">Post Details</h4>
 					<?php 
 					//include("lib/view-approval-phases.php");
+							//echo '<pre>'; print_r($phases);echo '</pre>';
 							if(!empty($phases)){ 
 							?> 
 								<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
@@ -139,6 +138,7 @@
 										<div class="">
 											<?php
 												foreach ($phases as $phase_no => $obj) {
+													echo '<pre>'; print_r($obj);echo '</pre>';
 													?>
 													<div>
 														<div class="bg-white approval-phase animated fadeIn" id="approvalPhase<?php echo $phase_no ?>">
@@ -223,12 +223,11 @@
 					
 					<footer class="post-content-footer day-edit-post">
 						<button type="button" class="btn btn-sm btn-default">Save Changes</button>
-						<button class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>
+						<button type="button" class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>
 					</footer>
 
 				</div>
 			</div>
 		</div>
 	</form>
-
 
