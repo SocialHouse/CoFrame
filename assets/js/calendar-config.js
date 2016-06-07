@@ -346,6 +346,11 @@ jQuery(function($) {
 							if($activePhase.find('[data-new-phase]').length > 1)
 								btn_num = 1;
 							toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+
+							if($activePhase.data('id') == 0)
+							{
+								toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+							}
 						}
 					}
 					else
@@ -354,6 +359,11 @@ jQuery(function($) {
 						if($activePhase.find('[data-new-phase]').length > 1)
 							btn_num = 1;
 						toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+
+						if($activePhase.data('id') == 0)
+						{
+							toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+						}
 					}
 				},100);
 			}

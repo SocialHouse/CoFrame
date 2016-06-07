@@ -308,3 +308,7 @@ INSERT INTO `outlets` VALUES(8, 'Tumblr', 'TUMBLR');
 --- 03-06-2016 ---
 ALTER TABLE `brands` DROP `user_id`;
 ALTER TABLE `brands` ADD `slug` VARCHAR(100) NULL AFTER `timezone`;
+
+--- 07-06-2016 ---
+ALTER TABLE `posts` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `slate_date_time`;
+ALTER TABLE `reminders` CHANGE `approve_by` `due_date` DATETIME NULL DEFAULT NULL;

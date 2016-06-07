@@ -43,10 +43,10 @@
 						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
 					</ul>
 					<div class="approval-date">
-						<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span><span class="time-preview1"> 9:00 PM </span>PST
+						<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span><span class="time-preview1"></span>PST
 					</div>
 					<div class="approval-note">
-						NOTE: As per last meeting, we’re using the white collection as the first spring campaign.
+						
 					</div>
 				</div>
 			</div>
@@ -92,10 +92,10 @@
 						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
 					</ul>
 					<div class="approval-date">
-						<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span><span class="time-preview2"> 9:00 PM </span>PST
+						<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span><span class="time-preview2"></span>PST
 					</div>
 					<div class="approval-note">
-						NOTE: As per last meeting, we’re using the white collection as the first spring campaign.
+						
 					</div>
 				</div>
 			</div>
@@ -139,10 +139,10 @@
 						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
 					</ul>
 					<div class="approval-date">
-						<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span><span class="time-preview3"> 9:00 PM </span>PST
+						<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span><span class="time-preview3"></span>PST
 					</div>
 					<div class="approval-note">
-						NOTE: As per last meeting, we’re using the white collection as the first spring campaign.
+						
 					</div>
 				</div>
 			</div>
@@ -150,14 +150,14 @@
 			<div>
 				<div>
 					<footer class="post-content-footer">
-						<button type="button" class="btn btn-sm btn-disabled" disabled data-active-class="btn-default">Cancel</button>
-						<button type="button" class="btn btn-sm pull-sm-right save-phases" data-active-class="btn-secondary">Save Phases</button>
+						<button type="button" class="btn btn-sm btn-default cancel-phase" data-active-class="btn-default">Cancel</button>
+						<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled" data-active-class="btn-secondary" disabled="disabled">Save Phases</button>
 					</footer>
 				</div>
 				<div class="hide">
 					<footer class="post-content-footer">
-						<button class="btn btn-sm btn-disabled save-draft-btn" disabled data-active-class="btn-default">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary">Submit for Approval</button>
+						<button class="btn btn-sm save-draft-btn" data-active-class="btn-default submit-btn" id="draft">Save Draft</button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
 					</footer>
 				</div>
 			</div>
