@@ -11267,3 +11267,8 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .phase-timezone {
   margin-left:5px !important;
 }
+
+footer.day-edit-post .btn-default{
+  border: 1px solid #000 !important;
+  color: #000 !important;
+}

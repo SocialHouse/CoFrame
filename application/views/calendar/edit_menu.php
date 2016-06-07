@@ -12,7 +12,7 @@ if(!empty($post_id) && !empty($slug)){
 			<li><a href="#">Suggest an Edit</a></li>
 		</ul>
 		<ul class="list-group-item">
-			<li><a href="#">Delete</a></li>
+			<li><a href="#" class="delete_post" data-post-id="<?php echo $post_id ; ?>">Delete</a></li>
 		</ul>
 	</div>
 <?php 

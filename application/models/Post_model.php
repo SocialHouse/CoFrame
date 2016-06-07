@@ -239,8 +239,8 @@ class Post_model extends CI_Model
 		}
 		if($statuses)
 		{
-			// $statuses = explode(',', $statuses);
-			// $this->db->where_in('post.status',$statuses);
+			$statuses = explode(',', $statuses);
+			$this->db->where_in('posts.status',$statuses);
 		}
 		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
