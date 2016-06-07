@@ -2523,8 +2523,20 @@ a {
 		}
 	}
 }
-.select-box.checked .square-border .fa{
-	display: inline-block;
+.select-box {
+	height: 16px;
+	line-height: 16px;
+	&.checked {
+		.square-border .fa{
+			visibility: visible;
+		}
+	}
+	.square-border .fa {
+		height: 14px;
+		visibility: hidden;
+		display: block;
+		top: 0;
+	}
 }
 /*forms*/
 .form-group {
