@@ -1339,6 +1339,24 @@ jQuery(function($) {
 	            }
 	    	});
     });
+
+
+    $(document).on("click", ".delete_post", function(event){
+    	event.preventDefault();
+    	if(confirm("Are you sure, you want to delete it?"))
+        {
+	    	var post_id = $(this).data('post-id');
+	    	$.ajax({
+	    		'type':'GET',
+	    		dataType: 'json',
+	    		url: base_url+'calendar/delete_post/'+post_id,
+	            success: function(response)
+	            {
+	            	location.reload();
+	            }
+	    	});
+	    }    	
+    });
 });
 	
 	function convertToLink(text) {
