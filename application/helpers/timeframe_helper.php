@@ -263,6 +263,17 @@ if(! function_exists('create_slug_url')){
 
 }
 
+if(!function_exists('get_post_count_status'))
+{
+    function get_post_count_status($brand_id,$status)
+    {
+        $CI = & get_instance();        
+        $result = $CI->timeframe_model->get_data_by_condition('posts',array('brand_id' => $brand_id,'status' => $status),'count(id) as count');        
+        return $result[0]->count;
+    }
+}
+
+
 
 
 

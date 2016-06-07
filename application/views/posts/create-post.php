@@ -11,7 +11,7 @@
 
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
-		<div class="row equal-cols">
+		<div class="row equal-cols create">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
@@ -89,11 +89,13 @@
 						</div>
 						<span class="timezone pull-xs-right margin-top-30">PST</span>
 					</div>
-					<div class="form-group form-inline">
-						<label>Tags:</label><br>
-						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
-								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+					<div class="form-group form-inline">						
+						<div class="hide-top-bx-shadow width_100">
+							<div class="pull-xs-right">
+								<label>Tags:</label><br>
+								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+									<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -162,7 +164,7 @@
 								</div>
 								<div class="form-group pull-sm-left">
 									<div class="pull-xs-left">
-										<div class="time-select form-control form-control-sm">
+										<div class="time-select form-control form-control-sm default_approver_time">
 											<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
 											<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
 											<input type="text" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">

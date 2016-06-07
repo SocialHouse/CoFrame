@@ -1213,7 +1213,12 @@ jQuery(function($) {
 					$(this).css('height', dashboardH - headhH - magicNum);
 				}
 				else {
-					$(this).css('height', colsH);
+					if($(this).parent().hasClass('create'))
+					{
+						$(this).css('height', 862);
+					}
+					else
+						$(this).css('height', colsH);
 				}
 			}
 		});

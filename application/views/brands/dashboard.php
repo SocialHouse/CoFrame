@@ -49,11 +49,10 @@
 				<h3>Total Summary <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
 				
 				<ul class="summary-list timeframe-list">
-					<li><i class="fa fa-check-circle color-info"></i>Scheduled Posts <div class="pull-sm-right">13</div></li>
-					<li><i class="fa fa-check-circle color-success"></i>Approved Posts <div class="pull-sm-right">6</div></li>
-					<li><i class="fa fa-minus-circle color-warning"></i>Pending Approval <div class="pull-sm-right">4</div></li>
-					<li><i class="icon-clock2 color-orange"></i>Awaiting Scheduling <div class="pull-sm-right">5</div></li>
-					<li><i class="fa fa-pencil fa-custom-circle color-white bg-gray"></i>Drafts <div class="pull-sm-right">0</div></li>
+					<li><i class="fa fa-check-circle color-info"></i>Scheduled Posts <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'schecduled'); ?></div></li>
+					<li><i class="fa fa-check-circle color-success"></i>Posted <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'posted'); ?></div></li>
+					<li><i class="fa fa-minus-circle color-warning"></i>Pending Approval <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'pending'); ?></div></li>
+					<li><i class="fa fa-pencil fa-custom-circle color-white bg-gray"></i>Drafts <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'draft'); ?></div></li>
 				</ul>
 			</div>
 		</div>
@@ -61,11 +60,24 @@
 			<div class="calendar-summary bg-gray-dark">
 				<div id="calendar"></div>
 				<div class="today-summary">
-					<h5 class="border-title"><span>Summary</span></h5>
-					<ul class="timeframe-list calendar-list outlet-list">
-						<li><i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>5:05 PM <span class="excerpt-summary">Let whites influence your fre...</span></li>
-						<li><i class="fa fa-twitter"><span class="bg-outlet bg-twitter"></span></i>5:05 PM <span class="excerpt-summary">Let whites influence your fre...</span></li>
-						<li><i class="fa fa-instagram"><span class="bg-outlet bg-instagram"></span></i>5:05 PM <span class="excerpt-summary">Let whites influence your fre...</span></li>
+					<?php
+					if(!empty($summary_posts))
+					{
+						?>
+						<h5 class="border-title"><span>Summary</span></h5>
+						<ul class="timeframe-list calendar-list outlet-list">
+							<?php
+							foreach($summary_posts as $post)
+							{
+								?>
+								<li class="post-summary"><i class="fa fa-<?php echo $post->outlet_name; ?>"><span class="bg-outlet bg-<?php echo $post->outlet_name; ?>"></span></i><?php echo date('H:i A',strtotime($post->slate_date_time)); ?><span class="excerpt-summary"><?php echo $post->content; ?></span></li>
+								<?php
+							}
+							?>
+						</ul>
+						<?php
+					}
+					?>	
 					</ul>
 				</div>
 			</div>

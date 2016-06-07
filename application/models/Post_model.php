@@ -88,13 +88,6 @@ class Post_model extends CI_Model
 
 	public function get_post($post_id)
 	{
-		// $this->db->where('id',$post_id);
-		// $query = $this->db->get('posts');
-		// if($query->num_rows() > 0)
-		// {
-		// 	return $query->row();
-		// }
-		// return FALSE;
 		if(empty($post_id))
 			return FALSE;
 
@@ -320,6 +313,23 @@ class Post_model extends CI_Model
 				return $result;
 			}
 			return FALSE;			
+		}
+		return FALSE;
+	}
+
+	public function post_by_status($brand_id,$status)
+	{
+		$this->db->select('posts.id,posts.content,outlets.outlet_name,posts.slate_date_time');
+		$this->db->join('outlets','outlets.id = posts.outlet_id');
+		$this->db->where('status',$status);
+		$this->db->where('brand_id',$brand_id);
+		$this->db->where('user_id',$this->user_id);
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') >= "'.date("Y-m-d").'")');
+		$this->db->order_by('slate_date_time','desc');
+		$query = $this->db->get('posts');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
 		}
 		return FALSE;
 	}

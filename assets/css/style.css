@@ -10492,11 +10492,20 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     font-size: 12px; }
     .time-select .incrementer .fa:first-child {
       margin-bottom: 2px; }
+
 .time-select .time-separator {
   position: absolute;
-  margin-left: -8px;
-  font-size: 18px; }
+  margin-left: -91px;
+  font-size: 18px; 
+  display: none;
+}
 
+.phase-time-input > .time-separator {
+  position: absolute;
+  margin-left: -66px !important;
+  font-size: 18px; 
+  display: none;
+}
 .form-control-time {
   max-width: 4.5rem; }
   .form-control-time.form-control-sm {
@@ -11266,4 +11275,21 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .phase-timezone {
   margin-left:5px !important;
+}
+
+.post-summary{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 174px;
+    cursor: pointer;
+    display: -webkit-inline-box ;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+.width_100{
+  width:100%;
 }
