@@ -10378,9 +10378,9 @@ a {
   height: 16px;
   margin-right: 10px; }
   .post-filters .square-border .fa, .select-box .square-border .fa {
-    margin: 0;
+    margin:0 0 0 0px;
     position: relative;
-    top: -3px;
+    top: -1px;
     font-size: 14px;
     display: none; }
 .post-filters .checked .square-border .fa, .select-box .checked .square-border .fa {
@@ -11297,7 +11297,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .width_100{
   width:100%;
 }
-
 footer.day-edit-post .btn-default{
   border: 1px solid #000 !important;
   color: #000 !important;
