@@ -188,20 +188,5 @@ class calendar extends CI_Controller {
 		}else{
 			echo 'false';
 		}
-	}
-
-	public function delete_post($post_id)
-	{
-		$sdate = '';
-		
-		$condition = array('id' => $post_id);
-		$array = array('status'=> 'delete' );
-		$result = $this->timeframe_model->update_data('posts',$array,$condition);
-		if($result){
-			echo 'true';
-		}else{
-			echo 'false';
-		}
-
-	}
+	}	
 }

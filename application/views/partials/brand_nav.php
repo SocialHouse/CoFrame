@@ -23,7 +23,7 @@
 		  		<a class="nav-link" href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>">Calendar</a>
 			</li>
 			<li class="nav-item">
-		  		<a class="nav-link" href="drafts.php">Drafts</a>
+		  		<a class="nav-link" href="<?php echo base_url().'drafts/'.$brand->slug; ?>">Drafts</a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-user">

@@ -609,4 +609,20 @@ class Posts extends CI_Controller {
 			echo $this->load->view('calendar/post_preview',$this->data,true);
 		}
 	}
+
+	public function delete_post()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data) AND !empty($post_data))
+		{
+			foreach($post_data['post_ids'] as $post_id)
+			{
+				$condition = array('id' => $post_id);
+				$array = array('status'=> 'deleted' );
+				$this->timeframe_model->update_data('posts',$array,$condition);				
+			}
+			echo 'true';
+		}
+
+	}
 }

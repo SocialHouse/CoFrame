@@ -1,0 +1,98 @@
+<?php $this->load->view('partials/brand_nav'); ?>
+<section id="brand-manage" class="page-main bg-white col-sm-10">
+	<header class="page-main-header calendar-header">
+		<div class="clearfix">
+			<a class="btn btn-xs btn-secondary pull-xs-left"data-toggle="modal" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
+			<div class="pull-md-right toolbar">
+				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+			</div>
+		</div>
+	</header>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-approvals">
+				<tbody>
+					<tr>
+						<th>
+							<div class="select-box" data-value="check-all" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></div>
+						</th>
+						<th class="text-xs-left">Last Saved</th>
+						<th>Tags</th>
+						<th>Outlet</th>
+						<th>Post Copy</th>
+						<th>Edit</th>
+						<th>Duplicate</th>
+					</tr>
+					<tr>
+						<?php
+						if(!empty($drafts))
+						{
+							foreach($drafts as $draft)
+							{
+								?>
+								<td class="text-xs-center">
+									<div class="select-box" data-value="<?php echo $draft->id ?>" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square checkbox-top"></i></i></div>
+								</td>
+								<td><?php echo date('d M,Y',strtotime($draft->slate_date_time)); ?></td>
+								<td class="text-xs-center">
+									<div class="post-tags">
+										<?php
+										$tags = get_post_tags($draft->id);
+										if(!empty($tags))
+										{
+											foreach($tags as $tag)
+											{
+												?>
+												<i class="fa fa-circle" style="color:<?php echo $tag['tag_color']; ?>"></i>
+												<?php
+											}
+										}
+										?>
+									</div>									
+								</td>
+								<td class="text-xs-center outlet-list">
+									<?php
+									$outlet = get_outlet_by_id($draft->outlet_id);
+									?>
+									<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
+								</td>
+								<td> <div class="post-copy-draft"><?php echo $draft->content; ?></div></td>
+								<td class="text-xs-center">
+									<a class="btn btn-xs btn-secondary">Edit</a>
+								</td>
+								<td class="text-xs-center"><a href="edit-requests.php" class="btn btn-xs btn-default">Duplicate</a></td>
+								<?php
+							}
+						}
+						else
+						{
+							?>
+							<td class="text-xs-center" colspan="7">
+							Currently no drafts available
+							</td>
+							<?php
+						}
+						?>						
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</section>
+
+<!-- Delete Modal -->
+<div class="modal alert-modal fade" id="deleteDrafts" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-white">
+			<div class="modal-body">
+				<h2 class="text-xs-center">Delete Drafts</h2>
+				<p class="text-xs-center">Are you sure you want to delete these drafts? You cannot undo this action.</p>
+				<footer class="overlay-footer">
+				<button type="button" class="btn btn-sm btn-default modal-hide go-back">Go Back</button>
+				<button type="submit" class="btn btn-sm pull-sm-right btn-secondary" id="submitDeleteDrafts">Delete</button>
+			</footer>
+			</div>
+		</div>
+	</div>
+</div>

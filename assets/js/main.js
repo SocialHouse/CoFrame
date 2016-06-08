@@ -365,6 +365,21 @@ jQuery(function($) {
 			}
 		});
 
+		$('body').on('click', '.select-box', function() {
+			var $box = $(this);
+			var boxVal = $box.attr('data-value');
+			var inputGroup = $box.attr('data-group');
+			if(boxVal !== "check-all") {
+				$box.toggleClass('checked');
+			}
+			else if(boxVal === "check-all" && !$box.hasClass('checked')) {
+				$('.select-box[data-group="' + inputGroup + '"]').addClass('checked');
+			}
+			else if(boxVal === "check-all" && $box.hasClass('checked')) {
+				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
+			}
+		});
+		
 		//popover triggers
 		$('[data-toggle="popover"]').qtip({
 			content: {
@@ -716,6 +731,9 @@ jQuery(function($) {
 			//hide tooltips
 			if($target.hasClass('qtip-hide')) {
 				$('.qtip').qtip('hide');
+			}
+			if($target.hasClass('modal-hide')) {
+				$('.modal').modal('hide');
 			}
 		});
 
@@ -1345,11 +1363,14 @@ jQuery(function($) {
     	event.preventDefault();
     	if(confirm("Are you sure, you want to delete it?"))
         {
-	    	var post_id = $(this).data('post-id');
+        	var post_id = [];
+        	post_id.push($(this).data('post-id'));
+
 	    	$.ajax({
-	    		'type':'GET',
+	    		'type':'POST',
 	    		dataType: 'json',
-	    		url: base_url+'calendar/delete_post/'+post_id,
+	    		url: base_url+'posts/delete_post',
+	    		data:{'post_ids':post_id},
 	            success: function(response)
 	            {
 	            	location.reload();
@@ -1357,6 +1378,28 @@ jQuery(function($) {
 	    	});
 	    }    	
     });
+
+    $(document).on("click", "#submitDeleteDrafts", function(event){
+    	var postsTotDelete = [];
+    	$.each($(".select-box"),function(a,b){
+    		if($(b).hasClass('checked') && $(b).data('value') != "check-all")
+    		{
+    			postsTotDelete.push($(b).data('value'));
+    		}
+    	});
+
+    	$.ajax({
+    		'type':'POST',
+    		dataType: 'json',
+    		url: base_url+'posts/delete_post',
+    		data:{'post_ids':postsTotDelete},
+            success: function(response)
+            {
+            	location.reload();
+            }
+    	});
+    });
+    
 });
 	
 	function convertToLink(text) {

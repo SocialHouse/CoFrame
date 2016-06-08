@@ -39,8 +39,7 @@
 				<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase1">
 					<h2 class="clearfix">Phase 1 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 					<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
-						<!-- <li class="pull-sm-left approved"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
-						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
+						
 					</ul>
 					<div class="approval-date">
 						<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span><span class="time-preview1"></span>PST
@@ -88,8 +87,7 @@
 				<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase2">
 					<h2 class="clearfix">Phase 2 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 					<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
-						<!-- <li class="pull-sm-left approved"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
-						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
+						
 					</ul>
 					<div class="approval-date">
 						<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span><span class="time-preview2"></span>PST
@@ -135,8 +133,7 @@
 				<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase">
 					<h2 class="clearfix">Phase 3 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 					<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
-						<!-- <li class="pull-sm-left approved"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
-						<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li> -->
+						
 					</ul>
 					<div class="approval-date">
 						<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span><span class="time-preview3"></span>PST
