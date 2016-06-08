@@ -151,7 +151,7 @@
 					{
 						?>
 						<tr>
-							<td class="text-xs-center">Currently no approvals available.</td>
+							<td class="text-xs-center" colspan="8">Currently no approvals available.</td>
 						</tr>
 						<?php
 					}
