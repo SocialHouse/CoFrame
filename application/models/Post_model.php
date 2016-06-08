@@ -220,6 +220,7 @@ class Post_model extends CI_Model
 		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id','left');
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
+		$this->db->where('posts.status != "delete"');
 		if($outlets)
 		{
 			$outlets = explode(',', $outlets);

@@ -1,7 +1,18 @@
-<!-- $outlet_name = $post_details->outlet_name; -->
 
+<!-- $outlet_name = $post_details->outlet_name; -->
+<?php    
+if(isset($css_files))
+{
+    foreach ($css_files as $css_src) 
+    {
+        ?>
+        <link href="<?php echo $css_src ?>" rel="stylesheet">
+        <?php
+    }
+}
+?>
 <!-- action="<?php echo base_url() ?>posts/edit/<?php echo $slug ?>" -->
-	<form  id="day-edit-post-details" class="file-upload clearfix">	
+	<form  id="post-details" class="file-upload clearfix">	
 		<div class="row equal-cols">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
@@ -129,9 +140,11 @@
 				<div class="container-phases">
 				<h4 class="text-xs-center">Post Details</h4>
 					<?php 
+					$phase_count = 0;
 					//include("lib/view-approval-phases.php");
 							//echo '<pre>'; print_r($phases);echo '</pre>';
 							if(!empty($phases)){ 
+								$phase_count = count($phases);
 							?> 
 								<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
 									<div class="container-phases">
@@ -143,7 +156,7 @@
 														<div class="bg-white approval-phase animated fadeIn" id="approvalPhase<?php echo $phase_no ?>">
 															<h2 class="clearfix">Phase <?php echo $phase_no ?> <button title="Edit Phase" class="btn-icon">
 																<i class="fa fa-pencil"></i></button>
-																<button class="btn btn-xs btn-secondary color-success pull-sm-right">Resubmit for Approval</button>
+																<button type="button" class="btn btn-xs btn-secondary color-success pull-sm-right">Resubmit for Approval</button>
 															</h2>
 															<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 																<?php
@@ -222,11 +235,33 @@
 					
 					<footer class="post-content-footer day-edit-post">
 						<button type="button" class="btn btn-sm btn-default">Save Changes</button>
-						<button type="button" class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>
+						<?php 
+							if($phase_count > 0){
+								echo '<button type="button" class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>';
+							}
+						?>
 					</footer>
 
 				</div>
 			</div>
 		</div>
 	</form>
-
+	<script src="<?=js_url()?>jquery.js"></script> 
+    <script src="<?=js_url()?>bootstrap.min.js"></script>
+    <?php       
+    if(isset($js_files))
+    {
+        foreach ($js_files as $js_src) 
+        {
+            ?>
+            <script src="<?php echo $js_src; ?>"></script>
+            <?php
+        }
+    }
+    ?>
+<script>
+  $(document).ready(function(){
+    alert('Nik jhg   gasd asdkjhg');
+    console.log('Nik jhg   gasd asdkjhg');
+  });
+</script>

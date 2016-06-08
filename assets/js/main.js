@@ -863,6 +863,7 @@ jQuery(function($) {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
 				equalColumns();
+				$(".content-container").addClass('height-999');
 			});
 			newModal.on('hide.bs.modal', function () {
 				$('.modal-toggler').fadeOut();
@@ -893,6 +894,10 @@ jQuery(function($) {
 		$('.modal-toggler').fadeOut();
 	});
 	$('.modal-toggler').on('click', function() {
+		if($(".content-container").hasClass('height-999')){
+			$(".content-container").removeClass('height-999');
+			console.log('removed');
+		}		
 		$('.modal').modal('hide');
 	});
 

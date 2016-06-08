@@ -11319,3 +11319,7 @@ footer.day-edit-post .btn-default{
   .checkbox-top {
      top: -4px !important;
   }
+  
+  .height-999{
+    height: 999px !important;
+  }
