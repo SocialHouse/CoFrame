@@ -2,7 +2,7 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
-			<a class="btn btn-xs btn-secondary pull-xs-left"data-toggle="modal" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
+			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
 			<div class="pull-md-right toolbar">
 				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
 			</div>
@@ -22,14 +22,14 @@
 						<th>Post Copy</th>
 						<th>Edit</th>
 						<th>Duplicate</th>
-					</tr>
-					<tr>
-						<?php
-						if(!empty($drafts))
+					</tr>					
+					<?php
+					if(!empty($drafts))
+					{
+						foreach($drafts as $draft)
 						{
-							foreach($drafts as $draft)
-							{
-								?>
+							?>
+							<tr>
 								<td class="text-xs-center">
 									<div class="select-box" data-value="<?php echo $draft->id ?>" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square checkbox-top"></i></i></div>
 								</td>
@@ -60,20 +60,22 @@
 								<td class="text-xs-center">
 									<a class="btn btn-xs btn-secondary">Edit</a>
 								</td>
-								<td class="text-xs-center"><a href="edit-requests.php" class="btn btn-xs btn-default">Duplicate</a></td>
-								<?php
-							}
+								<td class="text-xs-center"><a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a></td>
+							</tr>
+							<?php
 						}
-						else
-						{
-							?>
+					}
+					else
+					{
+						?>
+						<tr>
 							<td class="text-xs-center" colspan="7">
 							Currently no drafts available
 							</td>
-							<?php
-						}
-						?>						
-					</tr>
+						</tr>
+						<?php
+					}
+					?>
 				</tbody>
 			</table>
 

@@ -504,18 +504,7 @@ class Posts extends CI_Controller {
 
 	    	_render_view($this->data);
 	    }
-	}
-
-	public function duplicate($brand_id,$post_id)
-	{
-		$status = $this->post_model->duplicate_post($post_id);
-		$message = "Post has been duplicated successfully";
-		if($atatus)
-		{
-			$message = "Unable to duplicate post please try again";
-		}
-		redirect(base_url().'posts/drafts/'.$brand_id);
-	}
+	}	
 
 	public function tag_list($brand_id)
 	{

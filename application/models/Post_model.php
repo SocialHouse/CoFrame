@@ -120,7 +120,7 @@ class Post_model extends CI_Model
 
 	public function duplicate_post($post_id)
 	{
-		$status = $this->db->query('INSERT INTO posts (content,brand_id,outlet_id,slate_date_time) SELECT content,brand_id,outlet_id,slate_date_time FROM posts WHERE id='.$post_id);
+		$status = $this->db->query('INSERT INTO posts (content,brand_id,user_id,outlet_id,slate_date_time) SELECT content,brand_id,user_id,outlet_id,slate_date_time FROM posts WHERE id='.$post_id);
 		$last_id = $this->db->insert_id();
 		if($status)
 		{
