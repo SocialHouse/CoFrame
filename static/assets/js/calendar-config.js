@@ -5,6 +5,7 @@ var yyyy = today.getFullYear();
 var tmd = tomorrow.getDate();
 var tmm = tomorrow.getMonth()+1;
 var tmy = tomorrow.getFullYear();
+var nextMonth = today.getMonth()+2 + "/" + "1/" + yyyy;
 var calendarType,
 	endDate,
 	endType,
@@ -168,6 +169,102 @@ jQuery(function($) {
 			}
 		});
 
+		$('#calendar-archive-1').fullCalendar({
+			aspectRatio: '.92',
+			buttonText: {
+				prev: '',
+				prevYear: '',
+				next: '',
+				nextYear: ''
+			},
+			contentHeight: 'auto',
+			dayClick: function(date) {
+				var exportStart, exportEnd;
+				//remove previously set dates
+				startDate = date;
+				if(endDate === undefined || startDate > endDate ) {
+					endDate = date;
+				}
+				exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
+				exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
+				$('input[name="start-date"]').val(exportStart);
+				$('input[name="end-date"]').val(exportEnd);
+				$('input[value="daterange"]').prop('checked', true);
+				var eventData = {
+					allDay: true,
+					start: $.fullCalendar.moment(startDate),
+					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
+					rendering: 'background',
+					color: '#f4d3d5'
+				};
+				$('#calendar-archive-1, #calendar-archive-2').fullCalendar('removeEvents');
+				$('#calendar-archive-1, #calendar-archive-2').fullCalendar('renderEvent', eventData, true);
+			},
+			dayNamesShort: [
+				'S', 'M', 'T', 'W', 'T', 'F', 'S'
+			],
+			fixedWeekCount: false,
+			header: {
+				left: 'prevYear prev',
+				center: 'title',
+				right: 'next nextYear'
+			},
+			theme: true,
+			themeButtonIcons: false,
+			viewRender: function(view) {
+				equalColumns();
+			}
+		});
+		$('#calendar-archive-2').fullCalendar({
+			aspectRatio: '.92',
+			buttonText: {
+				prev: '',
+				prevYear: '',
+				next: '',
+				nextYear: ''
+			},
+			contentHeight: 'auto',
+			dayClick: function(date) {
+				var exportStart, exportEnd;
+				//remove previously set dates
+				//$('#calendar-archive-1, #calendar-archive-2').fullCalendar('removeEvents');
+				endDate = date;
+				if(startDate === undefined || endDate < startDate ) {
+					startDate = date;
+				}
+				exportStart = $.fullCalendar.moment(startDate).format('M/D/YYYY');
+				exportEnd = $.fullCalendar.moment(endDate).format('M/D/YYYY');
+				$('input[name="start-date"]').val(exportStart);
+				$('input[name="end-date"]').val(exportEnd);
+				$('input[value="daterange"]').prop('checked', true);
+				var eventData = {
+					allDay: true,
+					start: $.fullCalendar.moment(startDate),
+					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
+					rendering: 'background',
+					color: '#f4d3d5'
+				};
+				$('#calendar-archive-1, #calendar-archive-2').fullCalendar('removeEvents');
+				$('#calendar-archive-1, #calendar-archive-2').fullCalendar('renderEvent', eventData, true);
+			},
+			dayNamesShort: [
+				'S', 'M', 'T', 'W', 'T', 'F', 'S'
+			],
+			fixedWeekCount: false,
+			header: {
+				left: 'prevYear prev',
+				center: 'title',
+				right: 'next nextYear'
+			},
+			theme: true,
+			themeButtonIcons: false,
+			viewRender: function(view) {
+				equalColumns();
+			}
+		});
+		//set second calendar one month ahead
+		$('#calendar-archive-2').fullCalendar('gotoDate', $.fullCalendar.moment(nextMonth, 'M/DD/YYYY'));
+
 		//Get popover calendar for date selector
 		$('body').on('click focus', 'input[data-toggle="popover-calendar"]', function(e) {
 			var $target = $(this);
@@ -226,6 +323,7 @@ jQuery(function($) {
 					},
 					event: 'unfocus'
 				},
+				overwrite: false,
 				position: {
 					adjust: {
 						x: poffsetX,
@@ -274,14 +372,6 @@ jQuery(function($) {
 						$('input[name="end-date"]').val(startDate.format('M/DD/YYYY'));
 					}
 				}
-			}
-		});
-		//update single date calendar on input blur
-		$('body').on('blur', '.single-date-select', function() {
-			var inputVal = $(this).val();
-			if(inputVal !== "") {
-				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
-				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 			}
 		});
 
@@ -509,6 +599,11 @@ jQuery(function($) {
 					rendering: 'background',
 					color: '#f4d3d5'
 				};
+				if($('#calendar-archive-1').length) {
+					$('input[value="daterange"]').prop('checked', true);
+					$('#calendar-archive-1, #calendar-archive-2').fullCalendar('removeEvents');			
+					$('#calendar-archive-1, #calendar-archive-2').fullCalendar('renderEvent', eventData, true);
+				}
 				$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
 			},
 			theme: true,
@@ -517,10 +612,8 @@ jQuery(function($) {
 				$('.qtip').qtip('reposition');
 			}
 		});
-		//render events saved from other calendars
+		//render previously selected dates on display
 		if(startDate !== undefined && endDate !== undefined) {
-			//remove previously set events and redraw
-			$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
 			var savedEvent = {
 				allDay: true,
 				start: $.fullCalendar.moment(startDate, 'M/D/YYYY'),
@@ -528,7 +621,8 @@ jQuery(function($) {
 				rendering: 'background',
 				color: '#f4d3d5'
 			};
-			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', savedEvent, true);
+			$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
+			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', savedEvent , true);
 			if(inputType !== 'end-date') {
 				$('#' + id + ' .date-select-calendar').fullCalendar('gotoDate', startDate);
 			}

@@ -469,6 +469,14 @@ jQuery(function($) {
 					});
 				}
 			}
+			else {
+				//hide qtip that doesn't have the id of the one that should display now
+				var qtipId = $(this).data('hasqtip');
+				$target.closest('.qtip').addClass('parent-tooltip');
+				$('.qtip:not(.parent-tooltip):not(#qtip-' + qtipId + ')').fadeOut(function() {
+					$target.closest('.qtip').removeClass('parent-tooltip');
+				});
+			}
 		});
 
 		/*Tag Functions*/
@@ -774,6 +782,14 @@ jQuery(function($) {
 				}
 			}
 		});
+		var colHs = [];
+		$('.equal-section').each(function() {
+			$(this).css('height', '');
+			var colH = $(this).outerHeight();
+			colHs.push(colH);
+		});
+		var tallest = Math.max.apply(null, colHs);
+		$('.equal-section').css('height', tallest);
 	};
 	window.qtipEqualColumns = function qtipEqualColumns() {
 		var colsH = $('.equal-cols').outerHeight(true);

@@ -825,7 +825,7 @@ a {
 	position: relative;
 	&.selected {
 		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.5);
-		z-index: 15002;
+		z-index: 16000;
 	}
 	&.show-brands-toggler, &.btn-reorder {
 		&.selected {
@@ -1828,6 +1828,11 @@ a {
 		padding-bottom: 1.5rem;
 	}
 }
+.equalSections {
+	height: 100%;
+	position: relative;
+	padding-bottom: 100px;
+}
 [class*="container-"] {
 	h4 {
 		margin-bottom: 1.5rem;
@@ -2561,6 +2566,46 @@ a {
 		top: 0;
 	}
 }
+
+/*Archive*/
+.archives {
+	box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.5);
+	margin-top: remCalc(90px);
+	padding-top: 2.5rem;
+	.radio {
+		margin-bottom: 1.75rem;
+	}
+	.radio-w-inputs {
+		margin-bottom: 1rem;
+		input[type="radio"] {
+			margin-top: 14px;
+		}
+	}
+	label {
+		font-size: 12px;
+		span {
+			display: inline-block;
+			position: relative;
+			top: -12px;
+		}
+	}
+	.export-options {
+		padding: 2rem;
+	}
+	.table-cell {
+		vertical-align: top;
+	}
+	.equal-section {
+		margin-bottom: 1.46667rem;
+	}
+	.form-control.popover-toggle {
+		max-width: remCalc(105px);
+	}
+}
+.container-archive {
+	padding-bottom: 100px;
+	position: relative;
+}
 /*forms*/
 .form-group {
 	.container-approvals & {
@@ -2867,9 +2912,14 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     overflow: hidden;
     padding: 4px 20px 20px;
     margin: -4px -20px 0;
+	position: relative;
 	.post-content & {
 		padding: 2px 20px 20px;
 		margin: -2px -20px 0;
+	}
+	.archives & {
+		padding: 2px 20px 20px;
+		margin: -2px -20px -20px;
 	}
 }
 .center-block {
@@ -2926,6 +2976,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 .table-cell {
 	display: table-cell;
+	float: none;
 }
 .vertical-middle {
 	vertical-align: middle;

@@ -1267,7 +1267,7 @@ be a descendant of the grid when it is being dragged.
 	border-bottom-color: transparent;
 }
 
-.calendar-summary, .calendar-select-date {
+.calendar-summary, .calendar-select-date, .archive-calendar {
 	padding: remCalc(22px);
 	height: 100%;
 	.fc-head {
@@ -1357,6 +1357,28 @@ be a descendant of the grid when it is being dragged.
 	.fc-past {
 		opacity: .3;
 		cursor: not-allowed;
+	}
+}
+.archive-calendar {
+	padding: 1.5rem 1.46667rem 1.46667rem;
+	h2 {
+		font-family: $futura;
+		padding: 0;
+		line-height: 30px;
+		font-size: remCalc(17px);
+	}
+	.fc {
+		font-family: $futura;
+		td.ui-state-highlight {
+			background: none;
+		}
+	}
+	.fc-day-header {
+		color: $gray-lighter;
+		font-family: $futura-light;
+	}
+	.fc-other-month {
+		opacity: 0;
 	}
 }
 #calendar-week {
@@ -1668,16 +1690,29 @@ be a descendant of the grid when it is being dragged.
 	border: 0;
 	color: $gray-light;
 }
-.ui-button {
-	font-family: "FontAwesome";
-	&.fc-prev-button {
-		&:before {
-			content: "\f053"
+.fc {
+	.ui-button {
+		font-family: "FontAwesome";
+		font-size: 21px;
+		&.fc-prev-button {
+			&:before {
+				content: "\f104"
+			}
 		}
-	}
-	&.fc-next-button {
-		&:before {
-			content: "\f054"
+		&.fc-prevYear-button {
+			&:before {
+				content: "\f100"
+			}
+		}
+		&.fc-next-button {
+			&:before {
+				content: "\f105"
+			}
+		}
+		&.fc-nextYear-button {
+			&:before {
+				content: "\f101"
+			}
 		}
 	}
 }
