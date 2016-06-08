@@ -56,4 +56,9 @@
 	</div>
   </div>
 </div>
+<button type="button" class="modal-toggler">
+	<span class="sr-only">Toggle Modal</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</button>
 
