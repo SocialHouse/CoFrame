@@ -28,7 +28,7 @@ if(!empty($post_images)){
 					<span class="twitter_username">@ninadgaikwad - 1s</span>
 				</div>
 			</div>
-			<div class="post_copy_text" style="height: 21px;">
+			<div class="post_copy_text">
 				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 			</div>
 			<div class="twitter-img-div twitter-post-img img-div" style="margin-left:40px;">

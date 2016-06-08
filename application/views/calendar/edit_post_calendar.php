@@ -138,7 +138,6 @@
 										<div class="">
 											<?php
 												foreach ($phases as $phase_no => $obj) {
-													echo '<pre>'; print_r($obj);echo '</pre>';
 													?>
 													<div>
 														<div class="bg-white approval-phase animated fadeIn" id="approvalPhase<?php echo $phase_no ?>">

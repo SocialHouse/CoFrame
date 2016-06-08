@@ -10939,6 +10939,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .twitter-user-info {
   font-size: 10px;
+  min-height:40px;
 }
 
 .twitter-post {
@@ -11035,6 +11036,10 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   color:red;
   text-transform: none !important;
   clear: both
+}
+
+.twitter-post .post_copy_text{
+  padding-left:40px
 }
 
 /* linkedin post preview */

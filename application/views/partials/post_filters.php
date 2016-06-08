@@ -2,11 +2,11 @@
 <div class="row post-filters">
 	<div class="col-md-2">
 		<h2 class="text-xs-center">Post Status</h2>
-		<div class="form-group filter" data-status="published" data-value=".f-published" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-published">Published</label></div>
-		<div class="form-group filter" data-status="approved" data-value=".f-approved" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-approved">Approved</label></div>
+		<div class="form-group filter" data-status="posted" data-value=".f-posted" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-posted">Posted</label></div>
+		<div class="form-group filter" data-status="draft" data-value=".f-draft" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-draft">Draft</label></div>
 		<div class="form-group filter" data-status="scheduled" data-value=".f-scheduled" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-scheduled">Scheduled</label></div>
 		<div class="form-group filter" data-status="pending" data-value=".f-pending" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-pending">Pending</label></div>
-		<div class="form-group filter" data-status="published" data-value="check-all" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for="check-all">All</label></div>
+		<div class="form-group filter" data-status="posted" data-value="check-all" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for="check-all">All</label></div>
 	</div>
 	<div class="col-md-4">
 		<h2 class="text-xs-center">Outlets</h2>
