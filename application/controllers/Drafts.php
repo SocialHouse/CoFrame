@@ -51,4 +51,15 @@ class Drafts extends CI_Controller {
 			_render_view($this->data);
 		}
 	}
+
+	public function duplicate($slug,$post_id)
+	{
+		$status = $this->post_model->duplicate_post($post_id);
+		$message = "Post has been duplicated successfully";
+		if($atatus)
+		{
+			$message = "Unable to duplicate post please try again";
+		}
+		redirect(base_url().'drafts/'.$slug);
+	}
 }
