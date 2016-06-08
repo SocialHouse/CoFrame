@@ -920,6 +920,7 @@ jQuery(function($) {
 		if($(".content-container").hasClass('height-999')){
 			$(".content-container").removeClass('height-999');
 			console.log('removed');
+			equalColumns();
 		}		
 		$('.modal').modal('hide');
 	});

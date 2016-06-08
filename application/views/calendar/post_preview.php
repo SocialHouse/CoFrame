@@ -5,7 +5,7 @@
 		<div class="row equal-cols">
 			<div class="col-md-6 bg-white equal-height">
 				<div class="container-post-preview">
-					<div id="live-post-preview">
+					<div id="live-post-preview remove_box">
 						<?php
 						if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($outlet_name).".php")){
 						 	$this->load->view('calendar/post_preview/'.strtolower($outlet_name));

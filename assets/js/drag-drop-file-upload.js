@@ -467,6 +467,7 @@
 
 	function changePreview(file)
 	{
+		console.log(file);
 		var selected,selected_outlet ='' ;
 		var preview_img = '<img class="post-img" src="'+window.URL.createObjectURL(file)+'" >';
 		// preview_img.src = window.URL.createObjectURL(file);
@@ -474,7 +475,7 @@
 		var outlet_id = jQuery('#postOutlet').val();
 		selected = jQuery('#postOutlet').attr('data-outlet-const');		
 		selected_outlet = 'outlet_'+ selected;
-		
+		console.log(no_of_img);		
 		if(selected_outlet == 'outlet_facebook')
 		{
 			if(no_of_img == 0)

@@ -10849,7 +10849,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .width_33 {
   height: 75px;
-  width: 33%;
+  width: 32%;
   padding : 0.5px 0.5px 0.5px 0.5px;
 }
 
@@ -11323,3 +11323,6 @@ footer.day-edit-post .btn-default{
   .height-999{
     height: 999px !important;
   }
+.remove_box{
+  box-shadow: none;
+}

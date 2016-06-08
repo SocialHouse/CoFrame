@@ -191,5 +191,26 @@ class calendar extends CI_Controller {
 		}else{
 			echo 'false';
 		}
+	}
+
+	public function get_brand_users_by_post($brand_id, $post_id,$phase_count)
+	{
+		$this->data = '';
+		$this->data['phases'] = '';
+		if(!empty($post_id)){
+			$this->data['post_details'] =  $this->post_model->get_post($post_id);
+			$post_phases = $this->post_model->get_post_phases($post_id);
+			if(!empty($post_phases))
+			{
+				foreach($post_phases as $phase)
+				{
+					$this->data['phases'][$phase->phase][] = $phase;
+				}
+			}
+			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			$this->data['current_phase'] = $phase_count;
+			// echo '<pre>'; print_r($this->data);echo '</pre>'; 
+		}
+		echo $this->load->view('calendar/post_user_list',$this->data,true);
 	}	
 }
