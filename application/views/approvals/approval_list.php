@@ -147,6 +147,14 @@
 							$i++;
 						}
 					}
+					else
+					{
+						?>
+						<tr>
+							<td class="text-xs-center">Currently no approvals available.</td>
+						</tr>
+						<?php
+					}
 					?>					
 				</tbody>
 			</table>
