@@ -63,6 +63,8 @@ $route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
 $route['brands/save-existing-user'] = "brand_users/save_existing_user";
 
 $route['drafts/(:any)'] = "drafts/index/$1";
+$route['approvals/(:any)'] = "approvals/index/$1";
+
 
 $route['set-password/(:any)'] = "tour/set_password/$1";
 $route['register-sub-user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";

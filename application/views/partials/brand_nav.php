@@ -14,7 +14,7 @@
 		  		<a class="nav-link" href="<?php echo base_url().'posts/create/'.$brand->slug; ?>">Create Post</a>
 			</li>
 			<li class="nav-item">
-		  		<a class="nav-link" href="approvals.php">Approvals</a>
+		  		<a class="nav-link" href="<?php echo base_url().'approvals/'.$brand->slug; ?>">Approvals</a>
 			</li>
 			<li class="nav-item">
 	  			<a class="nav-link" href="cocreate.php">Co-Create</a>

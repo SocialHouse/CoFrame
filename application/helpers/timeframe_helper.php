@@ -164,14 +164,14 @@ if(!function_exists('get_outlet_by_id'))
     }
 }
 
-if(!function_exists('get_approvers_by_phase')) 
+if(!function_exists('get_post_approvers')) 
 {
-    function get_approvers_by_phase($phase_id) 
+    function get_post_approvers($post_id) 
     {
         $CI = & get_instance();
 
         $CI->load->model('approval_model');
-        $approvers = $CI->approval_model->get_approvers_by_phase($phase_id);
+        $approvers = $CI->approval_model->get_post_approvers($post_id);
         if($approvers)
         {
             return $approvers;

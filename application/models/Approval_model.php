@@ -36,4 +36,34 @@ class Approval_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_post_approvers($post_id)
+	{
+		$this->db->select('created_by');
+		$this->db->join('brands','brands.id = posts.brand_id');
+		$this->db->where('posts.id',$post_id);
+		$query = $this->db->get('posts');
+		if($query->num_rows() > 0)
+		{
+			$result = [];
+			$result['owner_id'] = $query->row()->created_by;
+			$this->db->select('phases_approver.user_id,first_name,last_name');
+			$this->db->join('phases','phases.id = phases_approver.phase_id');
+			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
+			$this->db->where('phases.post_id',$post_id);
+			$query = $this->db->get('phases_approver');
+		
+			if($query->num_rows() > 0)
+			{
+				$result['result'] = $query->result_array();
+				
+				return $result;
+			}
+		}
+
+
+
+		
+		return FALSE;
+	}
+
 }
