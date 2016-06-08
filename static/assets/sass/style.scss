@@ -592,6 +592,9 @@ a {
 	#overview & {
 		padding: remCalc(26px)  0;
 	}
+	#user-preferences & {
+		padding: remCalc(26px)  0 .75rem;
+	}
 }
 .date-header {
 	font-size: remCalc(25px);
@@ -2384,7 +2387,7 @@ a {
 		margin-left: 10px;
 	}
 }
-.btn-group-calendar {
+.btn-group-calendar, .btn-group {
 	background: #c0c0c0;
 	border-radius: 9px;
 	padding: 4px;
@@ -2606,6 +2609,91 @@ a {
 	padding-bottom: 100px;
 	position: relative;
 }
+
+/*User Prefs*/
+#user-preferences {
+	.user-info {
+		position: relative;
+		z-index: 100;
+	}
+	.btn-group {
+		margin: 0px auto 3rem;
+		.btn {
+			float: none;
+		}
+		.btn-sm {
+			border-radius: $border-radius-sm;
+		}
+	}
+	.field-group {
+		padding-bottom: .5rem;
+	}
+	.form-group {
+		margin-bottom: 1rem;
+	}
+	.page-divider {
+		position: absolute;
+		top: remCalc(91px);
+		bottom: 0;
+		left: 50%;
+		margin-left: -1px;
+		border-left: 1px solid #000;
+		z-index: 1;
+	}
+	.price-title {
+		h2 {
+			border-width: 2px;
+			margin-bottom: 3rem;
+			padding-bottom: 1.5rem;
+		}
+		h3 {
+			font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+			font-size: 6.5625rem;
+			line-height: 6rem;
+			margin: 0 0 4rem;
+			small {
+				display: block;
+				font-size: 2.1875rem;
+				line-height: 1.7rem;
+			}
+		}
+	}
+	.pricing-details {
+		padding: 2rem 2rem remCalc(105px);
+		ul {
+			font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+			text-align: left;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			font-size: 1.625rem;
+			line-height: 2.1875rem;
+			border-top: 1px solid #000;
+		}
+		li {
+			border-bottom: 1px solid #000;
+		}
+		.btn {
+			position: absolute;
+			bottom: 2rem;
+			display: block;
+			left: 2rem;
+			right: 2rem;
+		}
+	}
+	.active-plan {
+		box-shadow: 0px 20px 45px 0px rgba(0, 0, 0, 0.25);
+	}
+}
+.section-label {
+	display: block;
+	text-align: left;
+	font-family: $futura;
+	font-size: 11px;
+	letter-spacing: inherit;
+	padding-left: 5px;
+}
+
 /*forms*/
 .form-group {
 	.container-approvals & {
@@ -2638,6 +2726,17 @@ a {
 		}
 	}
 }
+@media (min-width: 48em) {
+	 .form-group.float-md {
+		 width: 50%;
+		 float: left;
+		 + .form-group.float-md {
+			 .form-control {
+				 border-left: 0;
+			 }
+		 }
+	 }
+}
 label {
 	text-transform: uppercase;
 	font-size: 10px;
@@ -2653,7 +2752,7 @@ select.form-control {
 		padding: 0;
 	}
 }
-select.form-control, input[type="text"].form-control, input[type="email"].form-control {
+select.form-control, input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control {
 	font-family: $bebas-book;
 	font-size: remCalc(20px);
 	&.form-control-sm {
