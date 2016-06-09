@@ -127,9 +127,7 @@
 					<footer class="post-content-footer">
 						<div class="auto-save text-xs-center hidden">Auto Saving ...</div>
 					</footer>
-				</div>
-
-				<?php //include("lib/add-post-details.php"); ?> 
+				</div>			
 			</div>
 			
 			<div class="col-md-4">
@@ -146,13 +144,17 @@
 										if(!empty($phases)){ 
 											$phase_count = count($phases);
 											foreach ($phases as $phase_no => $obj) {
+												$user_list = 'data-toggle="popover-ajax-inline"';
+												if($phase_no == 1)
+												{
+													$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'brands/get_brand_users/'.$post_details->brand_id.'"';
+												}
 												$phase_no -- ;
-												//print_r($obj);
 												?>
 													<div>
 														<div class="bg-white approval-phase active animated fadeIn hide" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
 															<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> </h2>
-															<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/	'.($phase_no + 1); ?>" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
+															<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
 																<li>
 																<?php
 																	foreach($obj as $user)
@@ -219,7 +221,6 @@
 																{
 																	?>
 																	<div class="pull-sm-left">
-																		<input type="checkbox" name="phase[<?php echo $phase_no ; ?>][approver][]" value="<?php echo $user->user_id; ?>" class="hidden-xs-up approvers">
 																		<img width="36" height="36" class="circle-img" alt="Sampat" src="http://localhost/timeframe_server/assets/images/default_profile.jpg" data-id="<?php echo $user->user_id; ?>">
 																	</div>
 																	<?php
@@ -227,7 +228,7 @@
 																?>
 															</ul>
 															<div class="approval-date">
-																<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"></span>PST
+																<span class="uppercase">Must approve by:</span> <span class="date-preview1"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
 															</div>
 															<div class="approval-note">
 																

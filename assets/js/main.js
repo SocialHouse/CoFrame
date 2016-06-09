@@ -473,7 +473,7 @@ jQuery(function($) {
 			}
 		});
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {
+		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {		
 			var $target=$(this);
 			var pcontent = $target.data('contentSrc');
 			var pclass = $target.data('popoverClass');
@@ -512,11 +512,43 @@ jQuery(function($) {
 				},
 				events: {
 					show: function() {
-						$target.attr('data-toggle', 'popover-ajax-inline');
+						$target.attr('data-toggle', 'popover-ajax-inline');						
 					},
 					visible: function() {
+						var modal = this;
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
+						
+						setTimeout(function(){
+							if($target.hasClass('first-new-phase'))
+							{
+								alert('test');
+								var phase_div = $target.parent().parent().parent().children('div');
+								var count = 0;
+								$.each(phase_div,function(i,j){									
+								
+									$.each($(j).children('div').find('input[type="checkbox"]'),function(a,b){
+										$.each($(modal).children('div:eq(2)').children('ul').children('li'),function(c,d){
+											if($(d).children('div:first').children('input').val() == $(b).val())
+											{
+												if($target.parent().attr('id') != $(j).children('div:first').attr('id'))
+												{
+													alert('test');
+													$(d).children('div:first').children('i').addClass('disabled');
+												}
+												else
+												{
+													alert('2');
+													$(d).children('div:first').children('i').removeClass('disabled');
+												}
+												$(d).children('div:first').children('i').addClass('selected');
+												$(d).children('div:first').children('i').attr('data-linked-phase',$(b).parent().parent().parent().parent().attr('id'));
+											}
+										});
+									});
+								});	
+							}
+						},600);
 					}
 				},
 				id: pid,
@@ -559,7 +591,7 @@ jQuery(function($) {
 		});
 
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {			
+		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {		
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -927,6 +959,12 @@ jQuery(function($) {
 				$('.modal-toggler').fadeOut();
 			});
 			$target.attr('data-toggle', 'modal-ajax-inline');
+
+			$('#approvalPhase1').find('ul').trigger('click');
+			setTimeout(function() {
+				$('#approvalPhase1').find('ul').trigger('click');
+				console.log($('#approvalPhase1'));
+			},300)			
 		});
 	});
 	//Get modal content from inline source
