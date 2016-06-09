@@ -369,38 +369,40 @@ jQuery(function($) {
 			var $box = $(this);
 			var boxVal = $box.attr('data-value');
 			var inputGroup = $box.attr('data-group');
+
+			
+
 			if(boxVal !== "check-all") {
 				$box.toggleClass('checked');
-
-				var postsTotDelete = [];
-		    	$.each($(".select-box"),function(a,b){
-		    		if($(b).hasClass('checked') && $(b).data('value') != "check-all")
-		    		{
-		    			postsTotDelete.push($(b).data('value'));
-		    		}
-		    	});
-
-		    	if(postsTotDelete.length)
-		    	{
-		    		$('.delete-draft').attr('data-toggle','modal');
-		    		toggleBtnClass('btn-disabled','btn-secondary',$('.delete-draft'),false);		    	
-		    	}
-		    	else
-		    	{
-		    		$('.delete-draft').attr('data-toggle','');
-		    		toggleBtnClass('btn-secondary','btn-disabled',$('.delete-draft'),true);	
-		    	}
+		    	
 			}
 			else if(boxVal === "check-all" && !$box.hasClass('checked')) {
 				$('.select-box[data-group="' + inputGroup + '"]').addClass('checked');
-				$('.delete-draft').attr('data-toggle','modal');
-				toggleBtnClass('btn-disabled','btn-secondary',$('.delete-draft'),false);			
+				$('.delete-draft').attr('data-toggle','modal');						
 			}
 			else if(boxVal === "check-all" && $box.hasClass('checked')) {
-				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
-				toggleBtnClass('btn-secondary','btn-disabled',$('.delete-draft'),true);
+				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');				
 				$('.delete-draft').attr('data-toggle','');
 			}
+
+			var postsTotDelete = [];
+			$.each($(".select-box"),function(a,b){
+	    		if($(b).hasClass('checked') && $(b).data('value') != "check-all")
+	    		{
+	    			postsTotDelete.push($(b).data('value'));
+	    		}
+	    	});
+
+	    	if(postsTotDelete.length)
+	    	{
+	    		$('.delete-draft').attr('data-toggle','modal');
+	    		toggleBtnClass('btn-disabled','btn-secondary',$('.delete-draft'),false);		    	
+	    	}
+	    	else
+	    	{
+	    		$('.delete-draft').attr('data-toggle','');
+	    		toggleBtnClass('btn-secondary','btn-disabled',$('.delete-draft'),true);	
+	    	}
 		});
 		
 		//popover triggers
@@ -911,6 +913,7 @@ jQuery(function($) {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
 				equalColumns();
+				addIncrements();
 				$(".content-container").addClass('height-999');
 			});
 			newModal.on('hide.bs.modal', function () {
@@ -934,6 +937,8 @@ jQuery(function($) {
 		$('#' + mid).on('hide.bs.modal', function () {
 			$('.modal-toggler').fadeOut();
 		});
+
+
 	});
 	$('.modal').on('show.bs.modal', function() {
 		$('.modal-toggler').fadeIn();
