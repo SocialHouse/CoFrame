@@ -201,7 +201,13 @@ jQuery(function($) {
 			
 			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
 			//add selected users to list from popover
-			if($btn.closest('#qtip-popover-user-list').length !== 0) {
+		
+			if($btn.hasClass('user-list')) {				
+				if($btn.parent().parent().parent().parent().parent().attr('id') != 'qtip-popover-user-list')
+				{
+					$btn.parent().parent().parent().parent().parent().attr('id','qtip-popover-user-list');
+				}
+
 				var userImg = $btn.closest('li').find('img');
 				$(userImg).attr('data-id',buttonVal);
 				var checkbox = $btn.parent().children('.approvers');
@@ -211,12 +217,13 @@ jQuery(function($) {
 				// var img = imgDiv;
 				var $activePhase = $('#phaseDetails .approval-phase.active');
 				var activePhaseId = $activePhase.attr('id');
+				
 				if($btn.hasClass('selected')) {
 					$activePhase.parent().children('div:eq(1)').find('.user-list li').append(imgDiv);
 				
-
+				
 					var phase_number = $activePhase.data('id');
-					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" value="' + buttonVal + '" name="phase['+phase_number+'][approver][]">';
+					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase['+phase_number+'][approver][]">';
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);					
 					$btn.attr('data-linked-phase', activePhaseId);
@@ -955,7 +962,21 @@ jQuery(function($) {
 		$('.modal').modal('hide');
 	});
 
-	$(document).on('click','[data-toggle="addPhases"]',function() {
+	$(document).on('click','[data-toggle="addPhases"]',function() {		
+		if($('.container-approvals').children('.add_phases_num'))
+		{			
+			$('.container-approvals').children('.add_phases_num').remove();			
+		}
+
+		if($('#qtip-popover-user-list'))
+		{
+			$('#qtip-popover-user-list').remove();
+		}
+
+		if($('.add-phases'))
+		{
+			$('.add-phases').remove();	
+		}
 		var columnParent = $(this).closest('.col-md-4');
 		var div_src = $(this).data('div-src');
 

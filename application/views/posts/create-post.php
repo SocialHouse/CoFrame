@@ -116,14 +116,14 @@
 							if(!empty($users))
 							{
 								?>
-								<ul class="timeframe-list user-list">
+								<ul class="timeframe-list user-list first-phase">
 									<?php
 									foreach ($users as $user)
 									{
 										?>
 										<li>
 											<div class="pull-sm-left">
-												<input type="checkbox" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
+												<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
 											</div>
 											<div class="pull-sm-left">
 												<?php

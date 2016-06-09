@@ -141,7 +141,8 @@
 			}
 
 			// if the form was submitted
-			$(document).on( 'click','.submit-btn', function( e ){
+			$(document).on( 'click','.submit-btn', function( e ){	
+				var btn = this;			
 				if($(this).attr('id') == 'draft')
 				{
 					$('#save_as').val('draft');
@@ -167,11 +168,8 @@
 					// return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
-						console.log(input.name);
-						console.log(input.value);
-						if(input.name == 'brand_id' || input.id == 'post_user_id' || input.name == 'save_as'){
+						if(input.name == 'brand_id' || input.name== 'user_id' || input.name == 'save_as')
 				        	ajaxData.append(input.name,input.value);
-						}
 				    });
 
 					// ajax request
@@ -189,9 +187,21 @@
 						success: function( data ){
 							if(data.success)
 							{
+								if($(btn).hasClass('clear-phase'))
+								{
+									$.each($('[data-clear-phase]'),function(a,b){
+										b.remove();
+									});
+
+								}
+								// return;
 								if(data.success != 'no_files')
 									$('#uploaded_files').val(JSON.stringify(data));
-								$form.submit();
+
+								setTimeout(function(){
+									$form.submit();
+								},100);
+								
 							}
 						},
 						error: function(){
@@ -439,7 +449,7 @@
 		    	$('.brand-image').removeClass('has-files');
 		    	$('.brand-image').children('.form__file-preview').remove();
 		    	allFiles = [];
-		    	console.log(allFiles);
+		    
 		    	$(this).hide();
 		    });
 
@@ -470,7 +480,7 @@
 
 	function changePreview(file)
 	{
-		console.log(file);
+		
 		var selected,selected_outlet ='' ;
 		var preview_img = '<img class="post-img" src="'+window.URL.createObjectURL(file)+'" >';
 		// preview_img.src = window.URL.createObjectURL(file);
@@ -478,7 +488,7 @@
 		var outlet_id = jQuery('#postOutlet').val();
 		selected = jQuery('#postOutlet').attr('data-outlet-const');		
 		selected_outlet = 'outlet_'+ selected;
-		console.log(no_of_img);		
+		
 		if(selected_outlet == 'outlet_facebook')
 		{
 			if(no_of_img == 0)

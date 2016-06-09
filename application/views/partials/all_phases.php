@@ -154,8 +154,8 @@ if(!empty($post_details->brand_id)){
 	</div>
 	<div class="hide">
 		<footer class="post-content-footer">
-			<button class="btn btn-sm save-draft-btn" data-active-class="btn-default submit-btn" id="draft">Save Draft</button>
-			<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
+			<button class="btn btn-sm save-draft-btn submit-btn clear-phase" data-active-class="btn-default" id="draft">Save Draft</button>
+			<button type="button" class="btn btn-sm btn-secondary submit-approval submit-btn clear-phase" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
 		</footer>
 	</div>
 </div>

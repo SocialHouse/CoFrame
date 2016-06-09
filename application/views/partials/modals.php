@@ -253,6 +253,23 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
   	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Calender -->
 <div id="calendar-select-date" class="hidden calendar-select-date">
 	<div class="date-select-calendar"></div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal alert-modal fade" id="deleteDrafts" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-white">
+			<div class="modal-body">
+				<h2 class="text-xs-center">Delete Drafts</h2>
+				<p class="text-xs-center">Are you sure you want to delete these drafts? You cannot undo this action.</p>
+				<footer class="overlay-footer">
+				<button type="button" class="btn btn-sm btn-default modal-hide go-back">Go Back</button>
+				<button type="submit" class="btn btn-sm pull-sm-right btn-secondary" id="submitDeleteDrafts">Delete</button>
+			</footer>
+			</div>
+		</div>
+	</div>
 </div>
