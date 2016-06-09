@@ -235,5 +235,87 @@ class calendar extends CI_Controller {
 			$this->load->view('calendar/approval_list', $this->data);			
 		}
 		
+	}
+
+
+	public function edit_post()
+	{
+		$this->data = array();
+		$error = '';
+		$uploaded_files = array();
+		$post_data = $this->input->post();
+		echo '<pre>'; print_r($post_data);echo '</pre>';
+		if(!empty($post_data['post_id'])){
+			$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
+		    $slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+		   /* if(!empty($post_data['post_outlet']))
+    		{*/
+				$condition = array('id' => $post_data['post_outlet']);
+				$post_condition = array('id' => $post_data['post_id']);
+				$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
+				
+				if(!empty($post_data['post_tag'])){
+
+					$selected_tags = $this->post_model->get_post_tags($post_data['post_id']);
+					
+					$tags_to_add = isset($post_data['post_tag']) ? $post_data['post_tag']: array();
+
+					if(!empty($selected_tags )){
+						$selected_tags_ids = array_column($selected_tags,'id'); // list of selected tags ids
+						
+						$tags_to_add = array_diff($post_data['post_tag'],$selected_tags_ids); // new tags to add 
+			        	
+			        	$tags_to_delete = array_diff($selected_tags_ids,$post_data['post_tag']); // old tags that we want to remove 
+
+			        	foreach ($tags_to_delete as $tag)
+			        	{
+			        		$condition = array('brand_tag_id' => $tag,'post_id' => $post_data['post_id']);
+			        		$this->timeframe_model->delete_data('post_tags',$condition);
+			        	}
+					}
+					
+					foreach($tags_to_add as $tag)
+		    			{
+
+		    				$post_tag_data = array(
+		    										'post_id' => $post_data['post_id'],
+		    										'brand_tag_id' => $tag
+		    									);
+		    			
+		    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+		    			}
+
+				}
+
+				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
+				{
+					$files = json_decode($post_data['uploaded_files'][0])->success;
+				}
+	    		if(isset($files) AND !empty($files))
+	    		{
+	    			foreach($files as $file)
+	    			{
+	    				$post_media_data = array(
+	    										'post_id' => $post_data['post_id'],
+	    										'name' => $file->file,
+	    										'type' => $file->type,
+	    										'mime' => $file->mime
+	    									);
+
+	    				$this->timeframe_model->insert_data('post_media',$post_media_data);
+	    			}
+	    		}
+				
+	        	
+				$post = array(
+    						'content' => $this->input->post('post_copy'),
+    						'slate_date_time' => $slate_date_time,
+    					);
+
+				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
+				$this->session->set_flashdata('message','Post has been updated successfuly.');
+	    		redirect(base_url().'calendar/day/'.$post_data['brand_slug']);
+
+		}
 	}	
 }

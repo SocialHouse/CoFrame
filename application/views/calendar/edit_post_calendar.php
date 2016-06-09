@@ -1,7 +1,5 @@
 
-<!-- $outlet_name = $post_details->outlet_name; -->
-<!-- action="<?php echo base_url() ?>posts/edit/<?php echo $slug ?>" -->
-	<form  id="edit-post-details" class="file-upload clearfix">	
+<form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">	
 		<div class="row equal-cols">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
@@ -18,10 +16,18 @@
 					</footer>
 				</div>
 			</div>
+			
 			<div class="col-md-4">
 				<div class="container-post-details post-content">
 					<h4 class="text-xs-center">Post Details</h4>
 					<div class="form-group">
+					<input type="hidden" name="post_id" value="<?php echo $post_details->id; ?>">
+					<input type="hidden" name=" brand_id" value="<?php echo $post_details->brand_id ; ?>">
+					<input type="hidden" name=" brand_slug" value="<?php echo $slug ; ?>">
+					<input type="hidden" name="uploaded_files[]" id="uploaded_files">
+					<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $this->user_id; ?>">
+					
+					<input type="hidden" id="all_files">
 						<div class="outlet-list clearfix">
 							<label for="postOutlet" class="pull-sm-left">Outlet: </label>
 							<?php 
@@ -56,17 +62,17 @@
 					</div>
 					<div class="form-group">
 						<label for="postCopy">Post Copy</label>
-						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
+						<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
 					</div>
 					<div class="form-group">
 						<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
 						<div class="form__input has-files">
 							<?php 
-								if(!empty($post_images)){								
+								if(!empty($post_images)){
+									$class = 1;
 									foreach ($post_images as $key) {
-										if (file_exists('uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'.$key->name)) {
-											echo '<img src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview" />';
-										}
+										echo '<img src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview delete-img " data-delete="'.$class.'" />';
+										$class++;									
 		                            }
 		                            echo '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>';
 								}else{?>
@@ -90,16 +96,16 @@
 					<div class="form-group pull-sm-left">
 						<label>Slate Post:</label><br>
 						<div class="hide-top-bx-shadow">
-							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0"  value="<?php echo date('m/d/Y' , strtotime($post_details->slate_date_time))?>" >
 						</div>
 					</div>
 					<div class="form-group pull-sm-left">
 						<div class="pull-xs-left">
 							<label class="invisible">Post Time</label>
 							<div class="time-select form-control">
-								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
-								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
-								<input type="text" class="time-input amselect" name="post-ampm" value="am">
+								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time))?>">
+								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time))?>">
+								<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time))?>">
 							</div>
 						</div>
 						<span class="timezone pull-xs-right">
@@ -341,7 +347,7 @@
 					<?php //include("lib/view-approval-phases.php"); ?>
 					
 					<footer class="post-content-footer day-edit-post">
-						<button type="button" class="btn btn-sm btn-default">Save Changes</button>
+						<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
 						<?php 
 							if($phase_count > 0){
 								echo '<button type="button" class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>';

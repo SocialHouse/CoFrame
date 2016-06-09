@@ -30,9 +30,10 @@ if(!empty($post_images)){
 		<div class="insta-img-div">
 			<?php 
 				if(!empty($post_images)){
+					$class = 1;
 					foreach ($post_images as $key) {
 						if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-	                    	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
+	                    	echo '<img class="'.$class.'" src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
 	                    	break;
 	                    }
 					}

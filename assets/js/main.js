@@ -1521,6 +1521,11 @@ jQuery(function($) {
             }
     	});
     });
+
+    $(document).on('click','.delete-img',function(){
+    	$('.'+$(this).data('delete')).remove();
+    	$(this).remove();
+    });
     
 });
 	
