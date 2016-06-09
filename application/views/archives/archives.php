@@ -72,7 +72,7 @@
 				<div class="container-archive">
 					<h2 class="text-xs-center">Export Foramt</h2>
 					<div class="row">
-						<div class="col-md-3 col-sm-6 center-block equal-section">
+						<div class="col-md-3 col-sm-6 center-block equal-section export-format">
 							<div class="radio">
 								<label>
 								<input type="radio" name="exportType" value="CSV" checked>
