@@ -194,9 +194,7 @@
 	</form>
 </section>
 <!-- Select Date Calendar -->
-	<div id="calendar-select-date" class="hidden calendar-select-date">
-		<div class="date-select-calendar"></div>
-	</div>
 <?php
 $this->load->view('partials/previews');
+$this->load->view('partials/modals');
 ?>

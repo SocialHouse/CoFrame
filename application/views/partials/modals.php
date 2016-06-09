@@ -252,3 +252,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
     	</div><!-- /.modal-content -->
   	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="calendar-select-date" class="hidden calendar-select-date">
+	<div class="date-select-calendar"></div>
+</div>

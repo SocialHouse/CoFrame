@@ -10392,8 +10392,112 @@ a {
   .post-filters .outlet-list li, .select-box .outlet-list li {
     padding: 0 8px 12px; }
 
-.select-box.checked .square-border .fa {
-  display: inline-block; }
+.select-box {
+  height: 16px;
+  line-height: 16px; }
+  .select-box.checked .square-border .fa {
+    visibility: visible; }
+  .select-box .square-border .fa {
+    height: 14px;
+    visibility: hidden;
+    display: block;
+    top: 0; }
+
+    /*Archive*/
+.archives {
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.5);
+  margin-top: 6rem;
+  padding-top: 2.5rem; }
+  .archives .radio {
+    margin-bottom: 1.75rem; }
+  .archives .radio-w-inputs {
+    margin-bottom: 1rem; }
+    .archives .radio-w-inputs input[type="radio"] {
+      margin-top: 14px; }
+  .archives label {
+    font-size: 12px; }
+    .archives label span {
+      display: inline-block;
+      position: relative;
+      top: -12px; }
+  .archives .export-options {
+    padding: 2rem; }
+  .archives .table-cell {
+    vertical-align: top; }
+  .archives .equal-section {
+    margin-bottom: 1.46667rem; }
+  .archives .form-control.popover-toggle {
+    max-width: 7rem; }
+
+.container-archive {
+  padding-bottom: 100px;
+  position: relative; }
+
+  /*User Prefs*/
+#user-preferences .user-info {
+  position: relative;
+  z-index: 100; }
+#user-preferences .btn-group {
+  margin: 0px auto 3rem; }
+  #user-preferences .btn-group .btn {
+    float: none; }
+  #user-preferences .btn-group .btn-sm, #user-preferences .btn-group .btn-group-sm > .btn {
+    border-radius: 6px; }
+#user-preferences .field-group {
+  padding-bottom: .5rem; }
+#user-preferences .form-group {
+  margin-bottom: 1rem; }
+#user-preferences .page-divider {
+  position: absolute;
+  top: 6.06667rem;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+  border-left: 1px solid #000;
+  z-index: 1; }
+#user-preferences .price-title h2 {
+  border-width: 2px;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem; }
+#user-preferences .price-title h3 {
+  font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+  font-size: 6.5625rem;
+  line-height: 6rem;
+  margin: 0 0 4rem; }
+  #user-preferences .price-title h3 small {
+    display: block;
+    font-size: 2.1875rem;
+    line-height: 1.7rem; }
+#user-preferences .pricing-details {
+  padding: 2rem 2rem 7rem; }
+  #user-preferences .pricing-details ul {
+    font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.625rem;
+    line-height: 2.1875rem;
+    border-top: 1px solid #000; }
+  #user-preferences .pricing-details li {
+    border-bottom: 1px solid #000; }
+  #user-preferences .pricing-details .btn {
+    position: absolute;
+    bottom: 2rem;
+    display: block;
+    left: 2rem;
+    right: 2rem; }
+#user-preferences .active-plan {
+  box-shadow: 0px 20px 45px 0px rgba(0, 0, 0, 0.25); }
+
+.section-label {
+  display: block;
+  text-align: left;
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: inherit;
+  padding-left: 5px; }
+
 
 /*forms*/
 .container-approvals .form-group {
@@ -10670,6 +10774,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   .post-content .hide-top-bx-shadow {
     padding: 2px 20px 20px;
     margin: -2px -20px 0; }
+    .archives .hide-top-bx-shadow {
+    padding: 2px 20px 20px;
+    margin: -2px -20px -20px; }
 
 .center-block {
   float: none; }

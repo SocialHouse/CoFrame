@@ -31,7 +31,7 @@
 		  		<a class="nav-link" href="<?php echo base_url().'settings/view/'.$brand->slug; ?>">Settings</a>
 			</li>
 			<li class="nav-item">
-	  			<a class="nav-link" href="archive.php">Archive</a>
+	  			<a class="nav-link" href="<?php echo base_url().'archives/'.$brand->slug; ?>">Archive</a>
 			</li>
 		</ul>
 	</nav>
