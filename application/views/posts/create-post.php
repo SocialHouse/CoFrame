@@ -6,7 +6,7 @@
 	</header>
 	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>">
 		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
-		<input type="hidden" name="user_id" id="user_id" value="<?php echo $brand->created_by; ?>">
+		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $brand->created_by; ?>">
 		<input type="hidden" name="save_as" id="save_as" value="">
 
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">

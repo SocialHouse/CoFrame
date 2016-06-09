@@ -21,7 +21,7 @@ if(!empty($post_images)){
                 }
 			?>
 		</div>
-		<div  style="margin-bottom:2px">
+		<div  class="pull-left" style="margin-bottom:2px">
 			<div >
 				<div class="twitter-user-info">
 					<?php echo (!empty($post_details->user))? $post_details->user :''; ?> 
@@ -31,7 +31,7 @@ if(!empty($post_images)){
 			<div class="post_copy_text">
 				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
 			</div>
-			<div class="twitter-img-div twitter-post-img img-div" style="margin-left:40px;">
+			<div class="twitter-img-div twitter-post-img img-div">
 				<?php 
 					$i = 1;
 					$more_div = '';
@@ -137,7 +137,7 @@ if(!empty($post_images)){
 				?>
 			</div>
 			<div class="clearfix"></div>
-			<div class="twitter-bottom-div" style="margin-left:40px;">
+			<div class="twitter-bottom-div">
 				<div class="pull-left">
 					<i class="fa fa-mail-reply"></i>
 					<span></span>

@@ -1198,10 +1198,26 @@ jQuery(function($) {
 	function nextPhase(i,control) {
 		$(control).parent().parent().addClass('inactive');
 		$(control).parent().parent().removeClass('active');
-
 		var linkedPhase;
 		$('.approval-phase').removeClass('active');
 		$('#approvalPhase' + i).removeClass('inactive').addClass('active');
+		$activePhase = $('#approvalPhase' + i).removeClass('inactive');
+		if($activePhase.find('.approver-selected').children('li').children('div').length > 2)
+		{
+			if($activePhase.find('.phase-date-time-input').val() && $activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
+			{
+				var btn_num = 0;
+				if($activePhase.find('[data-new-phase]').length > 1)
+					btn_num = 1;
+				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+				}
+			}
+		}
+
 		var $selected = $('#qtip-popover-user-list').find('.selected');
 		$selected.each(function() {
 			linkedPhase = $(this).attr('data-linked-phase');
@@ -1244,8 +1260,25 @@ jQuery(function($) {
 			$(b).children('div:eq(1)').removeClass('active');			
 		});
 		
-		$(this).parent().parent().parent().children('div:first').removeClass('inactive');		
-		$(this).parent().parent().parent().children('div:first').addClass('active');		
+		$(this).parent().parent().parent().children('div:first').removeClass('inactive');	
+		var $activePhase = $(this).parent().parent().parent().children('div:first');
+		
+		if($activePhase.find('.approver-selected').children('li').children('div').length > 2)
+		{
+			if($activePhase.find('.phase-date-time-input').val() && $activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
+			{
+				var btn_num = 0;
+				if($activePhase.find('[data-new-phase]').length > 1)
+					btn_num = 1;
+				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				
+				if($activePhase.data('id') == 0)
+				{
+					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+				}
+			}
+		}
+		$activePhase.addClass('active');		
 	});
 
 	window.addIncrements = function addIncrements() {

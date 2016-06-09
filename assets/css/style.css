@@ -11111,7 +11111,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 .height_135 {
-  height:135px; !important;
+  height:135px !important;
 }
 
 .section1{float: left;width: 65%;}
@@ -11145,9 +11145,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   clear: both
 }
 
-.twitter-post .post_copy_text{
-  padding-left:40px
-}
 
 /* linkedin post preview */
 .linkedin-post{
