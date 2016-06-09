@@ -37,9 +37,9 @@ if(!empty($post_images)){
 					$more_div = '';
 					if(!empty($post_images)){
 						if($img_count == 1 ){
-							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_details[0]->name)){
+							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_images[0]->name)){
 								echo '<div class="pull-left">';
-	                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_details[0]->name.'"  class="img-radious" />';
+	                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'"  class="img-radious" />';
 	                        	echo '</div>';
 	                        }
 						}
