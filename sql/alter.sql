@@ -312,3 +312,7 @@ ALTER TABLE `brands` ADD `slug` VARCHAR(100) NULL AFTER `timezone`;
 --- 07-06-2016 ---
 ALTER TABLE `posts` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `slate_date_time`;
 ALTER TABLE `reminders` CHANGE `approve_by` `due_date` DATETIME NULL DEFAULT NULL;
+
+--- 07-06-2016 ---
+ALTER TABLE `phases` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `approve_by`;
+ALTER TABLE `phases_approver` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `user_id`;

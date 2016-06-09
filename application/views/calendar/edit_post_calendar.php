@@ -1,16 +1,5 @@
 
 <!-- $outlet_name = $post_details->outlet_name; -->
-<?php    
-if(isset($css_files))
-{
-    foreach ($css_files as $css_src) 
-    {
-        ?>
-        <link href="<?php echo $css_src ?>" rel="stylesheet">
-        <?php
-    }
-}
-?>
 <!-- action="<?php echo base_url() ?>posts/edit/<?php echo $slug ?>" -->
 	<form  id="edit-post-details" class="file-upload clearfix">	
 		<div class="row equal-cols">
@@ -364,21 +353,6 @@ if(isset($css_files))
 			</div>
 		</div>
 	</form>
-	<script src="<?=js_url()?>jquery.js"></script> 
-    <script src="<?=js_url()?>bootstrap.min.js"></script>
-    <?php       
-    if(isset($js_files))
-    {
-        foreach ($js_files as $js_src) 
-        {
-            ?>
-            <script src="<?php echo $js_src; ?>"></script>
-            <?php
-        }
-    }
-    ?>
-    <script type="text/javascript">
-    	function toggle(argument) {
-    		// body...
-    	}
-    </script>
+<?php 
+$this->load->view('partials/modals');
+?>

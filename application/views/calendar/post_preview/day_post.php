@@ -1,5 +1,5 @@
 <?php 
-	//echo '<pre>'; print_r($post_details);echo '</pre>'; 
+
 	if(!empty($post_details)){
 		$selected_date =  date('Y-m-d',strtotime($post_details[0]->slate_date_time));
 		echo '<input type="hidden" id="selected_date" value="'.$selected_date .'"/>' ;
@@ -45,11 +45,38 @@
 						</div>
 						<div class="col-md-10 post-meta">
 							<span class="post-author"><?php echo $outlet_name; ?> Post By <?php echo (!empty($post->user))?$post->user :'';?>:</span>
-							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray post-filter-popup" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
+							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray post-filter-popup" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top right" data-target-attachment="left center" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container=".calendar-day">
 								<i class="fa fa-pencil"></i>
 								</a>
 							</span>
-							<span class="post-approval"><strong>All Approvals Received <i class="fa fa-check-circle color-success"></i></strong></span>
+							<?php 
+								if($post->status == 'scheduled'){
+									?>
+									<span class="post-approval">
+										<strong>All Approvals Received 
+											<i class="fa fa-check-circle color-success"></i>
+										</strong>
+									</span>
+									<?php 
+								}
+								if($post->status == 'pending'){
+									?>
+									<span class="post-approval">
+										<strong>Pending Approvals <i class="icon-clock2 color-danger post-filter-popup" data-hide="false"  data-popover-id="approvals-postid-<?php echo $post->id; ?>" data-toggle="popover-ajax" data-content-src="<?php echo base_url()?>calendar/approval_list/<?php echo $post->id; ?>" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i>
+										</strong>
+									</span>
+									<?php
+								}
+								if($post->status == 'posted'){
+									?>
+									<span class="post-approval">
+										<strong>Published 
+											<i class="fa fa-globe color-gray-lighter"></i>
+										</strong>
+									</span>
+									<?php
+								}
+							?>
 						</div>
 					</div>
 					<div class="row">
@@ -84,8 +111,35 @@
 								<p><?php echo (!empty($post->content))? read_more($post->content, 100) :'&nbsp;';?></p>
 							</div>
 							<span class="post-actions pull-xs-left">
-								<button class="btn btn-approved btn-sm" disabled>Approved</button><br>
+							<?php 
+							if($post->status == 'pending'){
+								if($this->user_id == $post->user_id){
+									?>
+									<button class="btn btn-approved btn-sm btn-secondary">Approve</button>
+									<?php
+								}else{
+									?>
+									<button class="btn btn-approved btn-sm btn-secondary">Schedule</button>
+									<?php 
+								}
+								
+							}
+							?>
+							<?php 
+							if($post->status == 'posted'){
+								?>
+								<button class="btn btn-approved btn-sm btn-default">View Live</button>
+								<?php 
+							}
+							?>	
+							<?php 
+							if($post->status == 'scheduled'){
+								?>
+								<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
 								<a href="#">Undo</a>
+								<?php
+							}
+							?>	
 							</span>
 							<div class="hide-top-bx-shadow">
 								<button class="btn-icon btn-icon-lg btn-menu popover-toggle" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_menu/<?php echo $post->slug.'/'.$post->id; ?>" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day">

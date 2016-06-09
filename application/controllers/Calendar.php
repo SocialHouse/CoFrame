@@ -212,5 +212,28 @@ class calendar extends CI_Controller {
 			// echo '<pre>'; print_r($this->data);echo '</pre>'; 
 		}
 		echo $this->load->view('calendar/post_user_list',$this->data,true);
+	}
+
+
+	public function approval_list($post_id){
+		$this->data ='';
+		if(!empty($post_id)){
+			$post_phases = $this->post_model->get_post_phases($post_id);
+			if(!empty($post_phases))
+			{
+				foreach($post_phases as $phase)
+				{
+					if($phase->status == 'approved' ){
+						$this->data['approved'][] = $phase;
+					}
+					if($phase->status == 'pending' ){
+						$this->data['pending'][] = $phase;
+					}
+				}
+			}
+			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
+			$this->load->view('calendar/approval_list', $this->data);			
+		}
+		
 	}	
 }

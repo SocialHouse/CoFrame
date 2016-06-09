@@ -91,7 +91,7 @@ class Post_model extends CI_Model
 		if(empty($post_id))
 			return FALSE;
 
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name,posts.status');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
@@ -199,7 +199,7 @@ class Post_model extends CI_Model
 
 	public function get_post_phases($post_id)
 	{
-		$this->db->select('phases.id as phase_id,first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note');
+		$this->db->select('phases.id as phase_id,first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note,phases_approver.status');
 		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 		$this->db->join('phases','phases.id = phases_approver.phase_id');
 		// $this->db->where('brand_id',$brand_id);
@@ -277,7 +277,7 @@ class Post_model extends CI_Model
 
 
 	public function get_post_by_date($brand_id, $date=''){
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
@@ -301,7 +301,7 @@ class Post_model extends CI_Model
 					$result[$key]->post_images = $this->get_images($post->id);
 					$result[$key]->post_tags = $this->get_post_tags($post->id);
 
-					$result[$key]->post_phases = $this->get_post_phases($post->id);
+					//$result[$key]->post_phases = $this->get_post_phases($post->id);
 				
 					// if(!empty($post_phases))
 					// {
