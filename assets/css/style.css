@@ -10421,7 +10421,7 @@ a {
       position: relative;
       top: -12px; }
   .archives .export-options {
-    padding: 2rem; }
+    padding: 1rem; }
   .archives .table-cell {
     vertical-align: top; }
   .archives .equal-section {
@@ -11423,13 +11423,18 @@ footer.day-edit-post .btn-default{
     white-space: nowrap;
   }
 
-  .checkbox-top {
-     top: -4px !important;
-  }
+  /*.checkbox-top {
+     top: 0px !important;
+  }*/
   
   .height-999{
     height: 999px !important;
   }
 .remove_box{
   box-shadow: none;
+}
+
+/*archives*/
+.export-format{ 
+  width:100px;
 }
