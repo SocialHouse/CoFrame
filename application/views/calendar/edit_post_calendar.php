@@ -159,14 +159,16 @@
 											$phase_count = count($phases);
 											foreach ($phases as $phase_no => $obj) {
 												$user_list = 'data-toggle="popover-ajax-inline"';
+												$class = 'inactive';
 												if($phase_no == 1)
 												{
+													$class = 'active';
 													$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'brands/get_brand_users/'.$post_details->brand_id.'"';
 												}
 												$phase_no -- ;
 												?>
 													<div>
-														<div class="bg-white approval-phase active animated fadeIn hide" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
+														<div class="bg-white approval-phase animated fadeIn hide edit-phase-div <?php echo $class; ?>" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
 															<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> </h2>
 															<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
 																<li>
@@ -196,7 +198,7 @@
 															<div class="clearfix">
 																<div class="form-group form-inline pull-sm-left phase-date-time-div">
 																	<div class="hide-top-bx-shadow">
-																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" value="<?php echo date('d/m/Y' , strtotime($obj[0]->approve_by))?>" >
+																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" value="<?php echo date('m/d/Y' , strtotime($obj[0]->approve_by))?>" >
 																	</div>
 																</div>
 																<div class="form-group pull-sm-left">
@@ -221,8 +223,13 @@
 																		<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="<?php echo $phase_no ?>">Previous</button>
 																		<?php
 																	}else{
+																		$class = 'cancel-edit-phase';
+																		if($phase_no == 2)
+																		{
+																			$class = 'last_previous_btn';
+																		}
 																		?>
-																		<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
+																		<button type="button" class="btn btn-sm btn-default <?php echo $class; ?>">Cancel</button>
 																		<?php																			
 																	}
 																?>
@@ -248,27 +255,32 @@
 																	}
 																	?>
 																	<li class="pull-sm-left <?php echo $user->status; ?>">
-																		<img width="36" height="36" class="circle-img" alt="" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
+																		<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
 																	</li>
 																	<?php
 																}
 																?>
 															</ul>
 															<div class="approval-date">
-																<div class="old">
-																	<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no - 1 ; ?>"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
+																<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no + 1 ; ?>"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no + 1 ; ?>"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span> PST
+															</div>
+															<?php
+															if(!empty($obj[0]->note))
+															{
+																?>
+																<div class="approval-note">
+																	NOTE: <?php echo $obj[0]->note ?>
 																</div>
-																<div class="old">
-																	<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no - 1 ; ?>"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
+																<?php
+															}
+															else
+															{
+																?>
+																<div class="approval-note">		
 																</div>
-															</div>
-															<div class="old">
-																<?php echo $obj[0]->note ?>
-															</div>
-															<div class="approval-note new">
-																<?php echo $obj[0]->note ?>
-															</div>
-
+																<?php
+															}
+															?>	
 														</div>
 													</div>
 
@@ -290,7 +302,7 @@
 											}else{
 												?>
 												<div>
-													<div class="bg-white approval-phase animated fadeIn <?php echo $inactive ;?>" id="approvalPhase<?php echo $i?>" data-id="<?php echo $i?>">
+													<div class="bg-white approval-phase animated fadeIn edit-phase-div  <?php echo $inactive ;?>" id="approvalPhase<?php echo $i?>" data-id="<?php echo $i -1 ?>">
 														<h2 class="clearfix">Phase <?php echo $i?></h2>
 														<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
 															<li>
@@ -325,8 +337,13 @@
 														<div class="form-group">
 															<?php 
 																if($i != 1){
+																	$class = '';
+																	if($phase_no == 2)
+																	{
+																		$class = 'last_previous_btn';
+																	}
 																	?>
-																	<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="<?php echo $i - 1 ?>">Previous</button>
+																	<button type="button" class="btn btn-sm btn-default btn-change-phase <?php echo $class; ?>" data-new-phase="<?php echo $i - 1 ?>">Previous</button>
 																	<?php
 																}else{
 																	if($i != 3){
@@ -351,22 +368,14 @@
 															<h2 class="clearfix">Phase <?php echo $i?> <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 															<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 																
-															</ul>
+															</ul>													
+
 															<div class="approval-date">
-																<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i?>"></span><span class="time-preview3"></span>PST
+																<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span><span class="time-preview3"></span>PST
 															</div>
-															
-															<?php
-															if(!empty($obj[0]->note))
-															{
-																?>
-																<div class="approval-note">
-																	NOTE: <?php echo $obj[0]->note; ?>
-																</div>
-																<?php
-															}
-															?>																
-															
+															<div class="approval-note">
+																NOTE: <?php echo $obj[0]->note; ?>
+															</div>
 														</div>
 												</div>
 												<?php
