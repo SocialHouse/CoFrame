@@ -117,8 +117,19 @@
 					<div class="form-group pull-xl-right">
 						<label>Tags:</label><br>
 						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$post_details->brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
-								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+								<?php
+								$style = ''; 
+								if(!empty($selected_tags)){
+									$style = ' style="display: none;" ';
+									foreach ($selected_tags as $stag) {
+										?>
+										<i style="color:<?php echo $stag['tag_color']; ?>" data-tag="<?php echo $stag['id']; ?>" class="fa fa-circle"><input type="checkbox" value="<?php echo $stag['id']; ?>" name="post_tag[]" class="hidden-xs-up" checked="checked"></i>
+										<?php
+										}
+								}
+								?>
+								<i class="fa fa-circle color-gray-lighter"  <?php echo $style; ?>></i> | <i class="fa fa-caret-down color-black"></i>
 							</div>
 						</div>
 					</div>
@@ -193,7 +204,7 @@
 															</div>
 															<div class="form-group">
 																<label for="approvalNotes">Note to Approvers (optional):</label>
-																<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no ;?>][note]"></textarea>
+																<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no ;?>][note]"><?php echo $obj[0]->note; ?></textarea>
 															</div>
 															<div class="form-group">
 																<?php 
@@ -230,9 +241,16 @@
 															<div class="approval-date">
 																<span class="uppercase">Must approve by:</span> <span class="date-preview1"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
 															</div>
-															<div class="approval-note">
-																
-															</div>
+															<?php
+															if(!empty($obj[0]->note))
+															{
+																?>
+																<div class="approval-note">
+																	NOTE: <?php echo $obj[0]->note ?>
+																</div>
+																<?php
+															}
+															?>	
 														</div>
 													</div>
 
@@ -283,8 +301,9 @@
 														</div>
 														<div class="form-group">
 															<label for="approvalNotes">Note to Approvers (optional):</label>
-															<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>
+															<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $i?>][note]"></textarea>
 														</div>
+
 														<div class="form-group">
 															<?php 
 																if($i != 1){
@@ -318,9 +337,18 @@
 															<div class="approval-date">
 																<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i?>"></span><span class="time-preview3"></span>PST
 															</div>
-															<div class="approval-note">
-																
-															</div>
+															
+															<?php
+															if(!empty($obj[0]->note))
+															{
+																?>
+																<div class="approval-note">
+																	NOTE: <?php echo $obj[0]->note; ?>
+																</div>
+																<?php
+															}
+															?>																
+															
 														</div>
 												</div>
 												<?php
