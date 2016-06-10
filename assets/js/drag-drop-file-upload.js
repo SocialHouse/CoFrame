@@ -142,7 +142,8 @@
 
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
-				var btn = this;			
+				var btn = this;	
+					
 				if($(this).attr('id') == 'draft')
 				{
 					$('#save_as').val('draft');

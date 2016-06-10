@@ -224,8 +224,8 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 			  	<h5>Password Recovery</h5>
 				<hr>
 		        <form id="registerSubUser">
-		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo $verification_code; ?>" />
-		        	<input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>" />
+		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo !empty ($verification_code)? $verification_code:'' ; ?>" />
+		        	<input type="hidden" name="user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
 					<div class="form-group">
 						<label class="sr-only" for="username_reg">Username</label>
 						<input type="text" class="form-control" id="username_reg" placeholder="Username" name="username" >

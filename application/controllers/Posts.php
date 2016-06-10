@@ -353,7 +353,7 @@ class Posts extends CI_Controller {
 					       
 					        if(array_key_exists("upload_errors",$status))
 					        {
-					        	$error =  $status['upload_errors'];				        	
+					        	$error =  $status['upload_errors'];
 					        	break;
 					        }
 					        else
