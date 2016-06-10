@@ -175,7 +175,7 @@
 							</div>
 							<div class="form-group">
 								<label for="approvalNotes">Note to Approvers (optional):</label>
-								<textarea class="form-control" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
+								<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
 							</div>
 						</div>
 						<div class="border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
