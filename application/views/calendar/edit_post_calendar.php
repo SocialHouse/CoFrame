@@ -114,10 +114,11 @@
 						</span>
 					</div>
 
-					<div class="form-group pull-xl-right">
-						<label>Tags:</label><br>
-						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+					<div class="form-group form-inline">
+						<div class="hide-top-bx-shadow width_100">
+							<div class="pull-xs-right">
+								<label>Tags:</label><br>
+								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax"  data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
 								<?php
 								$style = ''; 
 								if(!empty($selected_tags)){
@@ -129,7 +130,8 @@
 										}
 								}
 								?>
-								<i class="fa fa-circle color-gray-lighter"  <?php echo $style; ?>></i> | <i class="fa fa-caret-down color-black"></i>
+									<i class="fa fa-circle color-gray-lighter"  <?php echo $style; ?>></i> | <i class="fa fa-caret-down color-black"></i>
+								</div>
 							</div>
 						</div>
 					</div>
