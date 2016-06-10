@@ -195,7 +195,7 @@
 															<div class="clearfix">
 																<div class="form-group form-inline pull-sm-left phase-date-time-div">
 																	<div class="hide-top-bx-shadow">
-																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" value="<?php echo date('d/m/Y' , strtotime($obj[0]->approve_by))?>" >
+																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" value="<?php echo date('m/d/Y' , strtotime($obj[0]->approve_by))?>" >
 																	</div>
 																</div>
 																<div class="form-group pull-sm-left">
@@ -254,7 +254,7 @@
 																?>
 															</ul>
 															<div class="approval-date">
-																<span class="uppercase">Must approve by:</span> <span class="date-preview1"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
+																<span class="uppercase">Must approve by:</span> <span class="date-preview1"><?php echo date('m/d/Y', strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
 															</div>
 															<?php
 															if(!empty($obj[0]->note))
