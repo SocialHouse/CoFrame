@@ -522,7 +522,6 @@ jQuery(function($) {
 						setTimeout(function(){
 							if($target.hasClass('first-new-phase'))
 							{
-								alert('test');
 								var phase_div = $target.parent().parent().parent().children('div');
 								var count = 0;
 								$.each(phase_div,function(i,j){									
@@ -533,12 +532,10 @@ jQuery(function($) {
 											{
 												if($target.parent().attr('id') != $(j).children('div:first').attr('id'))
 												{
-													alert('test');
 													$(d).children('div:first').children('i').addClass('disabled');
 												}
 												else
 												{
-													alert('2');
 													$(d).children('div:first').children('i').removeClass('disabled');
 												}
 												$(d).children('div:first').children('i').addClass('selected');
