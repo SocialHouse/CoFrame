@@ -614,4 +614,51 @@ class Posts extends CI_Controller {
 		}
 
 	}
+
+	function resubmit_phases()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data['phase_ids']))
+		{
+			foreach($post_data['phase_ids'] as $phase_id)
+			{
+				$phase_data = array(
+						'status' => 'pending'
+					);
+				$this->timeframe_model->update_data('phases',$phase_data,array('id' => $phase_id));
+				$phase = $this->timeframe_model->get_data_by_condition('phases',array('id' => $phase_id),'post_id,brand_id,approve_by');
+				
+				$post_id = $phase[0]->post_id;
+				$brand_id = $phase[0]->brand_id;
+				$outlet = get_outlet_by_id($post_data['outlet']);
+
+				$approvers = $this->timeframe_model->get_data_by_condition('phases_approver',array('id' => $phase_id));
+				foreach($approvers as $approver)
+				{					
+					$this->timeframe_model->update_data('phases_approver',$phase_data,array('id' => $approver->id));
+
+					//delete old reminders of this post to this user
+					$this->timeframe_model->delete_data('reminders',array('post_id' => $post_id,'user_id' => $approver->user_id));
+
+					//add new reminser
+					$reminder_data = array(
+							'type' => 'reminder',
+							'brand_id' => $brand_id,
+							'post_id' => $post_id,
+							'user_id' => $approver->user_id,
+							'due_date' => $phase[0]->approve_by,
+							'text' => 'Recheck '.ucfirst($outlet).' post'
+
+						);
+					$this->timeframe_model->insert_data('reminders',$reminder_data);
+
+				}				
+			}
+			echo json_encode(array('response' => 'success'));
+		}
+		else
+		{
+			echo json_encode(array('response' => 'fail'));
+		}
+	}
 }

@@ -228,7 +228,7 @@ jQuery(function($) {
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);					
 					$btn.attr('data-linked-phase', activePhaseId);
 
-					$activePhase.parent().children('div:eq(1)').find('.user-list').append('<li class="pull-sm-left approved"></li>')
+					$activePhase.parent().children('div:eq(1)').find('.user-list').append('<li class="pull-sm-left pending"></li>')
 					$activePhase.parent().children('div:eq(1)').find('.user-list li:last').append(newImage);
 					
 					setTimeout(function() {
@@ -622,6 +622,8 @@ jQuery(function($) {
 					'events.visible' : function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
+
+
 					},
 					'hide.effect': function() { $(this).fadeOut(); },
 					'hide.event': phide,
@@ -651,6 +653,29 @@ jQuery(function($) {
 					'events.visible' : function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
+
+						var modal = this;						
+						var phase_div = $target.parent().parent().parent().children('div');
+						var count = 0;
+						$.each(phase_div,function(i,j){
+							$.each($(j).children('div').find('input[type="checkbox"]'),function(a,b){
+								$.each($(modal).children('div:eq(2)').children('ul').children('li'),function(c,d){
+									if($(d).children('div:first').children('input').val() == $(b).val())
+									{
+										if($target.parent().attr('id') != $(j).children('div:first').attr('id'))
+										{
+											$(d).children('div:first').children('i').addClass('disabled');
+										}
+										else
+										{
+											$(d).children('div:first').children('i').removeClass('disabled');
+										}
+										$(d).children('div:first').children('i').addClass('selected');
+										$(d).children('div:first').children('i').attr('data-linked-phase',$(b).parent().parent().parent().parent().attr('id'));
+									}
+								});
+							});
+						});	
 					},
 					'hide.event': 'unfocus',
 					'position.adjust.x': poffsetX,
@@ -1342,6 +1367,35 @@ jQuery(function($) {
 		$activePhase.addClass('active');		
 	});
 
+	//resubmit approval single phsae
+	$(document).on('click','.resubmit-approval',function(){
+		var btn = this;
+		var phase_id = $(this).attr('id');
+		var outlet = $('#postOutlet').val();		
+		var phase_ids = [];
+		if(phase_id)
+		{
+			phase_ids.push(phase_id);
+			$.ajax({
+	    		type:'POST',
+	    		data:{'phase_ids':phase_ids,'outlet':outlet},
+	    		dataType: 'json',
+	    		url: base_url+'posts/resubmit_phases',
+	            success: function(response)
+	            {
+	            	if(response.response  == 'success')
+	            	{
+	            		toggleBtnClass('btn-default','btn-disabled',btn,true);
+	            	}
+	            	else
+	            	{
+	            		alert('Unable to resubmit this approval phase');
+	            	}
+	            }
+	    	});
+		}
+	});
+
 	window.addIncrements = function addIncrements() {
 		$('body').find('.time-select .time-input').each(function() {
 			var inputName = $(this).attr('name');
@@ -1555,11 +1609,6 @@ jQuery(function($) {
             	location.reload();
             }
     	});
-    });
-
-    $(document).on('click','.delete-img',function(){
-    	$('.'+$(this).data('delete')).remove();
-    	$(this).remove();
     });
     
 });

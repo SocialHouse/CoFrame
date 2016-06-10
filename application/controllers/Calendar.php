@@ -148,28 +148,36 @@ class calendar extends CI_Controller {
 	{		
 		$this->data['slug'] = $this->uri->segment(3);
 		$this->data['post_id'] = $this->uri->segment(4);
-		if(!empty($this->data['post_id'])){
-			$post_id = $this->data['post_id'];
-			$post_details = $this->post_model->get_post($this->data['post_id']);
-			$this->data['post_details'] = $post_details;
-			$this->data['post_images'] = $this->post_model->get_images($post_id);
-			$this->data['outlets'] = $this->post_model->get_brand_outlets($post_details->brand_id);
-			$post_phases = $this->post_model->get_post_phases($post_id);
-			$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);		
-			if(!empty($post_phases))
-			{
-				foreach($post_phases as $phase)
-				{
-					$this->data['phases'][$phase->phase][] = $phase;
-				}
-			}
 
-			
-		}
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
+		if(!empty($brand))
+		{
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['brand'] = $brand[0];
+
+			if(!empty($this->data['post_id'])){
+				$post_id = $this->data['post_id'];
+				$post_details = $this->post_model->get_post($this->data['post_id']);
+				$this->data['post_details'] = $post_details;
+				$this->data['post_images'] = $this->post_model->get_images($post_id);
+				$this->data['outlets'] = $this->post_model->get_brand_outlets($post_details->brand_id);
+				$post_phases = $this->post_model->get_post_phases($post_id);
+				$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);		
+				if(!empty($post_phases))
+				{
+					foreach($post_phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase;
+					}
+				}
+
+				
+			}
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'datepicker.js',js_url().'timepicker.js');
-		// echo '<pre>'; print_r($post_phases);echo '</pre>';
-		$this->load->view('calendar/edit_post_calendar', $this->data);
+			// echo '<pre>'; print_r($post_phases);echo '</pre>';
+			$this->load->view('calendar/edit_post_calendar', $this->data);
+		}
 	}
 
 	public function reschedule_post()
