@@ -221,7 +221,7 @@
 																		<?php
 																	}else{
 																		?>
-																		<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
+																		<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
 																		<?php																			
 																	}
 																?>
@@ -328,7 +328,7 @@
 																}else{
 																	if($i != 3){
 																		?>
-																			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
+																			<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
 																		<?php
 																	}
 																}
@@ -374,7 +374,7 @@
 									<div>
 										<div>
 											<footer class="post-content-footer">
-												<button type="button" class="btn btn-sm btn-default cancel-phase" data-active-class="btn-default">Cancel</button>
+												<button type="button" class="btn btn-sm btn-default cancel-edit-phase" data-active-class="btn-default">Cancel</button>
 												<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled" data-active-class="btn-secondary" disabled="disabled">Save Phases</button>
 											</footer>
 										</div>
