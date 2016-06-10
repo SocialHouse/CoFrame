@@ -170,10 +170,15 @@
 																<?php
 																	foreach($obj as $user)
 																	{
+																		$image_path = img_url().'default_profile.jpg';
+																		if(file_exists(upload_path().$brand->created_by.'/users/'.$user->user_id.'.png'))
+																		{
+																			$image_path = upload_url().$brand->created_by.'/users/'.$user->user_id.'.png';
+																		}
 																		?>
 																		<div class="pull-sm-left">
 																			<input type="checkbox" name="phase[<?php echo $phase_no ; ?>][approver][]" value="<?php echo $user->user_id; ?>" class="hidden-xs-up approvers">
-																			<img width="36" height="36" class="circle-img" alt="Sampat" src="http://localhost/timeframe_server/assets/images/default_profile.jpg" data-id="<?php echo $user->user_id; ?>">
+																			<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
 																		</div>
 																		<?php
 																	}
@@ -225,15 +230,23 @@
 														</div>
 
 														<div class="bg-white approval-phase animated fadeIn" id="preview_approvalPhase<?php echo $phase_no + 1;?>">
-															<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
+															<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> 
+																<button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button>
+																<button type="button" id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-default pull-sm-right resubmit-approval">Resubmit for Approval</button>
+															</h2>
 															<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 																<?php
 																foreach($obj as $user)
 																{
+																	$image_path = img_url().'default_profile.jpg';
+																	if(file_exists(upload_path().$brand->created_by.'/users/'.$user->user_id.'.png'))
+																	{
+																		$image_path = upload_url().$brand->created_by.'/users/'.$user->user_id.'.png';
+																	}
 																	?>
-																	<div class="pull-sm-left">
-																		<img width="36" height="36" class="circle-img" alt="Sampat" src="http://localhost/timeframe_server/assets/images/default_profile.jpg" data-id="<?php echo $user->user_id; ?>">
-																	</div>
+																	<li class="pull-sm-left <?php echo $user->status; ?>">
+																		<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
+																	</li>
 																	<?php
 																}
 																?>
@@ -363,12 +376,12 @@
 												<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled" data-active-class="btn-secondary" disabled="disabled">Save Phases</button>
 											</footer>
 										</div>
-										<div class="hide">
+										<!-- <div class="hide">
 											<footer class="post-content-footer">
 												<button class="btn btn-sm save-draft-btn" data-active-class="btn-default submit-btn" id="draft">Save Draft</button>
 												<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
 											</footer>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>

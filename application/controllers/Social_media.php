@@ -28,6 +28,7 @@ class Social_media extends CI_Controller {
         $this->load->model('timeframe_model');
         $this->load->config('twitter');
         $this->user_data = $this->session->userdata('user_info');
+        $this->user_id = $this->session->userdata('id');
         
         //for twittr
         $this->load->library('twitteroauth');
@@ -125,12 +126,12 @@ class Social_media extends CI_Controller {
 		$data = array(
 				'access_token' => $this->input->post('authResponse')['accessToken'],
 				'social_media_id' => $this->input->post('authResponse')['userID'],
-				'user_id' => $this->user_data['user_id'],
+				'user_id' => $this->user_id,
 				'response' => json_encode($this->input->post()),
 				'type' => 'facebook'
 			);
 
-		$condition = array('user_id' => $this->user_data['user_id'],'type' => 'facebook');
+		$condition = array('user_id' =>  $this->user_id,'type' => 'facebook');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 		if(!empty($is_key_exist))
 		{

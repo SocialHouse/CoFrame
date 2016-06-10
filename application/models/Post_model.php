@@ -199,7 +199,7 @@ class Post_model extends CI_Model
 
 	public function get_post_phases($post_id)
 	{
-		$this->db->select('phases.id as phase_id,first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note,phases_approver.status');
+		$this->db->select('phases.id as phase_id,first_name,last_name,phases_approver.user_id,phase,brand_id,post_id,approve_by,note,phases_approver.status,phases.status as phase_status');
 		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 		$this->db->join('phases','phases.id = phases_approver.phase_id');
 		// $this->db->where('brand_id',$brand_id);
