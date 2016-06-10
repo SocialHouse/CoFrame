@@ -1,5 +1,8 @@
 
-<form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">	
+<form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">
+
+		<input type="text" name="is_new_approver" value="no" id="is-new-approver">
+
 		<div class="row equal-cols">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
@@ -245,25 +248,27 @@
 																	}
 																	?>
 																	<li class="pull-sm-left <?php echo $user->status; ?>">
-																		<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
+																		<img width="36" height="36" class="circle-img" alt="" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
 																	</li>
 																	<?php
 																}
 																?>
 															</ul>
 															<div class="approval-date">
-																<span class="uppercase">Must approve by:</span> <span class="date-preview1"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
-															</div>
-															<?php
-															if(!empty($obj[0]->note))
-															{
-																?>
-																<div class="approval-note">
-																	NOTE: <?php echo $obj[0]->note ?>
+																<div class="old">
+																	<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no - 1 ; ?>"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
 																</div>
-																<?php
-															}
-															?>	
+																<div class="old">
+																	<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no - 1 ; ?>"><?php echo date('d/m/y',strtotime($obj[0]->approve_by)); ?></span><span class="time-preview<?php echo $phase_no - 1 ; ?>"><?php  echo ' '.date('\a\t A',strtotime($obj[0]->approve_by)); ?></span> PST
+																</div>
+															</div>
+															<div class="old">
+																<?php echo $obj[0]->note ?>
+															</div>
+															<div class="approval-note new">
+																<?php echo $obj[0]->note ?>
+															</div>
+
 														</div>
 													</div>
 
