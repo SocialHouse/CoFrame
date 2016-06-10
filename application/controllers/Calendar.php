@@ -325,5 +325,14 @@ class calendar extends CI_Controller {
 	    		redirect(base_url().'calendar/day/'.$post_data['brand_slug']);
 
 		}
+	}
+
+	public function selected_tag_list($brand_id, $post_id)
+	{
+		if(!empty($post_id)){
+			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+			$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+    		echo $this->load->view('calendar/selected_tag_list',$this->data,true);
+		}
 	}	
 }
