@@ -40,7 +40,7 @@ if(isset($css_files))
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
 		    	</li>
 		   		<li class="nav-item">
-		      		<a class="nav-link" href="user-preferences.php">User Preferences</a>
+		      		<a class="nav-link" href="<?php echo base_url()?>/user_preferences">User Preferences</a>
 		    	</li>
 		    	<li class="nav-item">
 		      		<a class="btn btn-default btn-sm" href="<?php echo base_url().'tour/logout' ?>">Log out</a>

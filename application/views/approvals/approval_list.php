@@ -125,7 +125,7 @@
 															$image_path = img_url().'default_profile.jpg';
 															if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
 															{
-																$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['result']['user_id'].'.png';
+																$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
 															}
 															?>
 															<li class="approved">

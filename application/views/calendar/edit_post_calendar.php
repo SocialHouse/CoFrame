@@ -182,7 +182,7 @@
 																		}
 																		?>
 																		<div class="pull-sm-left">
-																			<input type="checkbox" name="phase[<?php echo $phase_no ; ?>][approver][]" value="<?php echo $user->user_id; ?>" class="hidden-xs-up approvers">
+																			<input type="checkbox" name="phase[<?php echo $phase_no;?>][approver][]" value="<?php echo $user->user_id; ?>" checked="checked" class="hidden-xs-up approvers">
 																			<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
 																		</div>
 																		<?php
@@ -194,19 +194,19 @@
 																	<div class="pull-sm-left post-approver-name">Add <br>Approvers</div>
 																</li>
 															</ul>
-
+															<input type="hidden"  value="<?php echo $obj[0]->phase_id; ?>" name="phase[<?php echo $phase_no;?>][phase_id]" >
 															<div class="clearfix">
 																<div class="form-group form-inline pull-sm-left phase-date-time-div">
 																	<div class="hide-top-bx-shadow">
-																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" value="<?php echo date('m/d/Y' , strtotime($obj[0]->approve_by))?>" >
+																		<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[<?php echo $phase_no;?>][approve_date]" value="<?php echo date('m/d/Y' , strtotime($obj[0]->approve_by))?>" >
 																	</div>
 																</div>
 																<div class="form-group pull-sm-left">
 																	<div class="pull-xs-left">
 																		<div class="time-select form-control form-control-sm phase-time-input">
-																			<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $phase_no ;?> ][approve_hour]"  value="<?php echo date('h' , strtotime($obj[0]->approve_by))?>">
-																			<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $phase_no ;?>][approve_minute]"  value="<?php echo date('i' , strtotime($obj[0]->approve_by))?>">
-																			<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $phase_no ;?>][approve_ampm]"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
+																			<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $phase_no;?>][approve_hour]"  value="<?php echo date('h' , strtotime($obj[0]->approve_by))?>">
+																			<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $phase_no;?>][approve_minute]"  value="<?php echo date('i' , strtotime($obj[0]->approve_by))?>">
+																			<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $phase_no;?>][approve_ampm]"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
 																		</div>
 																	</div>
 																	<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
@@ -214,7 +214,7 @@
 															</div>
 															<div class="form-group">
 																<label for="approvalNotes">Note to Approvers (optional):</label>
-																<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no ;?>][note]"><?php echo $obj[0]->note; ?></textarea>
+																<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no;?>][note]"><?php echo $obj[0]->note; ?></textarea>
 															</div>
 															<div class="form-group">
 																<?php 
@@ -304,7 +304,7 @@
 												<div>
 													<div class="bg-white approval-phase animated fadeIn edit-phase-div  <?php echo $inactive ;?>" id="approvalPhase<?php echo $i?>" data-id="<?php echo $i -1 ?>">
 														<h2 class="clearfix">Phase <?php echo $i?></h2>
-														<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
+														<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax-inline" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
 															<li>
 																<div class="pull-sm-left">
 																	<i class="tf-icon tf-icon-plus circle-border bg-black">+</i>
@@ -315,15 +315,15 @@
 														<div class="clearfix">
 															<div class="form-group form-inline pull-sm-left phase-date-time-div">
 																<div class="hide-top-bx-shadow">
-																	<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[<?php echo $i?>][approve_date]">
+																	<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[<?php echo $i- 1;?>][approve_date]">
 																</div>
 															</div>
 															<div class="form-group pull-sm-left">
 																<div class="pull-xs-left">
 																	<div class="time-select form-control form-control-sm phase-time-input">
-																		<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $i?>][approve_hour]">
-																		<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $i?>][approve_minute]">
-																		<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $i?>][approve_ampm]">
+																		<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $i- 1;?>][approve_hour]">
+																		<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $i- 1;?>][approve_minute]">
+																		<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $i- 1;?>][approve_ampm]">
 																	</div>
 																</div>
 																<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
@@ -331,7 +331,7 @@
 														</div>
 														<div class="form-group">
 															<label for="approvalNotes">Note to Approvers (optional):</label>
-															<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $i?>][note]"></textarea>
+															<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $i- 1;?>][note]"></textarea>
 														</div>
 
 														<div class="form-group">

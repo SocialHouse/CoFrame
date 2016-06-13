@@ -69,3 +69,5 @@ $route['archives/(:any)'] = "archives/index/$1";
 
 $route['set-password/(:any)'] = "tour/set_password/$1";
 // $route['register_user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";
+$route['user_preferences/(:any)'] = "user_preferences/index/$1";
+
