@@ -106,8 +106,8 @@
 				<div class="padding-22px">
 					<h4 class="text-xs-center">Edit Requests</h4>
 					<div class="form-group">
-						<label for="postCopy">Suggest an Edit:</label>
-						<textarea class="form-control" id="postCopy" rows="2" name="comment" placeholder="Suggest an edit here..."></textarea>
+						<label for="comment_copy">Suggest an Edit:</label>
+						<textarea class="form-control" id="comment_copy" rows="2" name="comment" placeholder="Suggest an edit here..."></textarea>
 					</div>
 					<div class="form-group clearfix">
 						<div class="attachment pull-sm-left">
@@ -115,8 +115,8 @@
 							<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>			
 						</div>
 						<div class="pull-sm-right">
-							<button type="reset" class="btn btn-default btn-sm">Clear</button>
-							<button type="button" class="btn btn-default btn-sm save-edit-req">Submit</button>
+							<button type="button" class="btn btn-default btn-sm reset-request">Clear</button>
+							<button type="button" class="btn btn-disabled btn-sm save-edit-req" disabled="disabled">Submit</button>
 						</div>
 					</div>
 					<ul class="timeframe-list comment-list clearfix">

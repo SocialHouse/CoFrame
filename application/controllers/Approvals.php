@@ -47,9 +47,11 @@ class Approvals extends CI_Controller {
 			{
 				foreach($approvals as $approval)
 				{
-					$this->data['approval_list'][date('D m/d',strtotime($approval->slate_date_time))][$approval->post_id] = $approval;
+					$this->data['approval_list'][date('D m/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;
 				}
 			}
+
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
 
 			$this->data['view'] = 'approvals/approval_list';
 			$this->data['layout'] = 'layouts/new_user_layout';

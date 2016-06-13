@@ -298,6 +298,15 @@ if(!function_exists('get_comment_reply'))
     }
 }
 
+if(!function_exists('is_edit_request'))
+{
+    function is_edit_request($post_id)
+    {
+        $CI = & get_instance();        
+        return $CI->timeframe_model->get_data_by_condition('post_comments',array('post_id' => $post_id,'status !=' => 'accepted','status !=' => 'rejected'));
+    }
+}
+
 
 
 

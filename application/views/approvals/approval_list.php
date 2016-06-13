@@ -4,9 +4,10 @@
 		<div class="clearfix">
 			<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-date-approvals" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
 			<h2 class="date-header pull-xs-left">Approvals</h2>
+
 			<div class="pull-md-right toolbar">
 				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
-				<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/post-filters.php" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
+				<a href="#" class="tf-icon-circle pull-xs-left post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/post_filters/'.$brand_id; ?>" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
 				<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/print-posts.php" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20"><i class="tf-icon-print"></i></a>
 			</div>
 		</div>
@@ -113,7 +114,7 @@
 											<td><?php echo read_more($post->content,35); ?></td>
 											<td class="text-xs-center">
 												<?php 
-												$approvers = get_post_approvers($post->post_id);
+												$approvers = get_post_approvers($post->id);
 												if($approvers)
 												{
 													?>
@@ -138,7 +139,17 @@
 												}
 												?>	
 											</td>										
-											<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
+											<td class="text-xs-center">
+												<?php 
+												$is_edit_request = is_edit_request($post->id);
+												$btn_class = 'btn-disabled';
+												if($is_edit_request)
+												{
+													$btn_class = 'btn-secondary';
+												}
+												?>
+												<a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a>
+												<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
 										</tr>
 										<?php
 									}
