@@ -1637,6 +1637,28 @@ jQuery(function($) {
             }
     	});
     });
+
+
+
+    $(document).on("click", ".approve_post", function(event){
+    	var post_id = $(this).data('post-id');
+    	var user_id = $(this).data('user-id');
+    	console.log(post_id);
+    	if(post_id){
+    		$.ajax({
+	    		'type':'POST',
+	    		dataType: 'json',
+	    		url: base_url+'posts/approve_post/',
+	    		data:{'post_id':post_id,'user_id':user_id,},
+	            success: function(response)
+	            {
+	            	console.log(response);
+	            	//location.reload();
+	            }
+	    	});
+    	}   	
+
+    });
     
 });
 	

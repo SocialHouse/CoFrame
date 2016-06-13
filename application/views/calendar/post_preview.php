@@ -13,9 +13,9 @@
 						?>
 					</div>
 					<footer class="post-content-footer">
-						<a href="#" class="btn btn-secondary btn-xs">Approve</a>
+						<a href="#" class="btn btn-secondary btn-xs approve_post" data-post-id="<?php echo $post_details->id; ?>"  data-user-id="<?php echo $this->user_id; ?>" >Approve</a>
 						<div class="btn-group pull-md-right" role="group">
-						  <button type="button" class="btn btn-xs btn-default">Edit</button>
+						<a href="#"  class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
 						  <button type="button" class="btn btn-xs btn-default">Schedule</button>
 						  <button type="button" class="btn btn-xs btn-default">Post Now</button>
 						</div>

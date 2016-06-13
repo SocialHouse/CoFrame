@@ -661,4 +661,24 @@ class Posts extends CI_Controller {
 			echo json_encode(array('response' => 'fail'));
 		}
 	}
+
+	public function post_approve($post_id, $user_id)
+	{
+		if(!empty($post_id)){
+			$phases = $this->post_model->get_post_phases($post_id);		
+
+			$phases_array = array();
+			if(!empty($phases))
+			{
+				foreach($phases as $phase)
+				{
+					$phases_array[$phase->phase][] = $phase;
+				}
+			}
+			echo count($phases_array);
+			// $condition = array('id' => $post_id);
+			// $array = array('status'=> 'scheduled' );
+			// $this->timeframe_model->update_data('posts',$array,$condition);
+		}
+	}
 }

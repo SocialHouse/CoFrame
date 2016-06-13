@@ -7,7 +7,7 @@
 			$image_path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png';
 		}
 		?>
-	  	<a href="<?php echo base_url().'brands/dashboard/'.$brand_id; ?>"><img src="<?php echo $image_path ?>" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
+	  	<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>"><img src="<?php echo $image_path ?>" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
 
 		<ul class="nav navbar-nav">
 			<li class="nav-item">

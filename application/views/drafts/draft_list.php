@@ -58,7 +58,7 @@
 								</td>
 								<td> <div class="post-copy-draft"><?php echo $draft->content; ?></div></td>
 								<td class="text-xs-center">
-									<a class="btn btn-xs btn-secondary">Edit</a>
+									<a href="#" class="btn btn-xs btn-secondary" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
 								</td>
 								<td class="text-xs-center"><a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a></td>
 							</tr>
@@ -83,4 +83,20 @@
 	</div>
 </section>
 
+<!-- Blank Modal -->
+<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  </div>
+	  <div class="modal-body">
+	  </div>
+	</div>
+  </div>
+</div>
+<button type="button" class="modal-toggler">
+	<span class="sr-only">Toggle Modal</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</button>
 <?php $this->load->view('partials/modals'); ?>

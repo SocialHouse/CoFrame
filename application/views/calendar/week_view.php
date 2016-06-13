@@ -5,7 +5,6 @@
 <input type="hidden" id="statuses">
 <input type="hidden" id="tags">
 
-<input type="hidden" value="<?php echo $brand_id; ?>" id="brand_id">
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
@@ -36,3 +35,20 @@
 		</div>
 	</div>
 </section>
+
+<!-- Blank Modal -->
+<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  </div>
+	  <div class="modal-body">
+	  </div>
+	</div>
+  </div>
+</div>
+<button type="button" class="modal-toggler">
+	<span class="sr-only">Toggle Modal</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</button>

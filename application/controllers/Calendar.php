@@ -35,17 +35,15 @@ class calendar extends CI_Controller {
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-
 		if(!empty($brand))
 		{
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
-
-			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id);
+			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id,$this->user_id);
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 			$this->data['view'] = 'calendar/day_view';
 	        _render_view($this->data);
 	    }
@@ -61,8 +59,9 @@ class calendar extends CI_Controller {
 		{
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['slug'] = $slug;
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
 			$this->data['view'] = 'calendar/month_view';
 	        _render_view($this->data);
@@ -80,8 +79,9 @@ class calendar extends CI_Controller {
 		{
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
+			$this->data['slug'] = $slug;
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
 			$this->data['view'] = 'calendar/week_view';
 	        _render_view($this->data);
@@ -120,7 +120,7 @@ class calendar extends CI_Controller {
     	$brand_id = $this->input->post('brand_id');
     	$sdate = $this->input->post('sdate');
 	    if(!empty($brand_id)){
-	    	$this->data['post_details'] = $this->post_model->get_post_by_date($brand_id,$sdate);
+	    	$this->data['post_details'] = $this->post_model->get_post_by_date($brand_id,$this->user_id,$sdate);
 	    	echo $this->load->view('calendar/post_preview/day_post',$this->data,true);
 	    }else{
 	    	echo false;
@@ -194,7 +194,7 @@ class calendar extends CI_Controller {
 			if(!empty($post_data['selcted_data'])){
 				$sdate = $post_data['selcted_data'];
 			}
-			$this->data['post_details'] = $this->post_model->get_post_by_date( $post_details->brand_id,$sdate);
+			$this->data['post_details'] = $this->post_model->get_post_by_date( $post_details->brand_id, $this->user_id, $sdate);
 	    	echo $this->load->view('calendar/post_preview/day_post',$this->data,true);
 		}else{
 			echo 'false';

@@ -44,6 +44,8 @@ class Drafts extends CI_Controller {
 
 			$this->data['drafts'] = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'draft','user_id' => $this->user_id));
 
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
+
 			$this->data['view'] = 'drafts/draft_list';
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			

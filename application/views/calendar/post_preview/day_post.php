@@ -20,7 +20,7 @@
 			}
 
 			?>
-			<div  data-filters="approved <?php echo $outlet_name.' '.$tag_list; ?>" class="row bg-white clearfix post-day f-approved f-<?php echo $outlet_name; ?>"style="width:97% !important;">
+			<div  data-filters="<?php echo $outlet_name.' '.$tag_list.' '.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>"style="width:97% !important;">
 				<div class="col-md-5 post-img day-image">
 					<?php 
 					$display_img = 'false';
@@ -115,17 +115,14 @@
 							if($post->status == 'pending'){
 								if($this->user_id == $post->user_id){
 									?>
-									<button class="btn btn-approved btn-sm btn-secondary">Approve</button>
+									<button class="btn btn-approved btn-sm btn-secondary approve_post" data-post-id="<?php echo $post->id; ?>" data-user-id="<?php echo $this->user_id; ?>" >Approve</button>
 									<?php
 								}else{
 									?>
 									<button class="btn btn-approved btn-sm btn-secondary">Schedule</button>
 									<?php 
 								}
-								
 							}
-							?>
-							<?php 
 							if($post->status == 'posted'){
 								?>
 								<button class="btn btn-approved btn-sm btn-default">View Live</button>
