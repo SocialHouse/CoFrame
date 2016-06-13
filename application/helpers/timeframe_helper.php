@@ -274,19 +274,31 @@ if(!function_exists('get_post_count_status'))
 }
 
 if (!function_exists('read_more')) 
+{
+    function read_more($content, $word_limit=null)
     {
-        function read_more($content, $word_limit=null)
-        {
-            
-            //get an instance of CI so we can access our configuration
-            if(empty($word_limit)){
-                $word_limit = 30;
-            }
-             $out = strlen($content) > $word_limit ? substr($content,0,$word_limit)."..." : $content;
-          
-            return $out;
+        
+        //get an instance of CI so we can access our configuration
+        if(empty($word_limit)){
+            $word_limit = 30;
         }
+         $out = strlen($content) > $word_limit ? substr($content,0,$word_limit)."..." : $content;
+      
+        return $out;
     }
+}
+
+if(!function_exists('get_comment_reply'))
+{
+    function get_comment_reply($comment_id)
+    {
+        $CI = & get_instance();
+        $CI->load->model('approval_model');
+        return $CI->approval_model->get_comment_reply($comment_id);
+    }
+}
+
+
 
 
 

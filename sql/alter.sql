@@ -316,3 +316,23 @@ ALTER TABLE `reminders` CHANGE `approve_by` `due_date` DATETIME NULL DEFAULT NUL
 --- 07-06-2016 ---
 ALTER TABLE `phases` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `approve_by`;
 ALTER TABLE `phases_approver` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'pending' AFTER `user_id`;
+
+--- 13-06-2016 ---
+CREATE TABLE IF NOT EXISTS `post_comments` (
+`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `phase_id` int(11) NOT NULL,
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `post_comments`
+ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `post_comments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `post_comments` ADD `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
+ALTER TABLE `post_comments` ADD `status` VARCHAR(10) NULL DEFAULT NULL AFTER `comment`;
+ALTER TABLE `post_comments` ADD `parent_id` INT NULL AFTER `status`;
+ALTER TABLE `post_comments` ADD `media` VARCHAR(20) NULL AFTER `comment`;

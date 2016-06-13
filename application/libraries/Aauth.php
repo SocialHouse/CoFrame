@@ -1056,7 +1056,7 @@ class Aauth {
 			$this->CI->email->subject('Registeration link');
 
 			$this->CI->data['user'] = $row;
-			$this->CI->data['url'] =  base_url() .'tour/register-sub-user/'. $user_id . '/' . $ver_code ;
+			$this->CI->data['url'] =  base_url() .'tour/register_sub_user/'. $user_id . '/' . $ver_code ;
 
 			$message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
 			$this->CI->email->message($message);

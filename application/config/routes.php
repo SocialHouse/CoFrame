@@ -53,11 +53,10 @@ $route['default_controller'] = 'tour';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['approver/add-phase/(:num)'] = "approver/add_phase/$1";
-$route['approver/save-phase'] = "approver/save_phase";
-$route['approver/edit-phase/(:num)'] = "approver/edit_phase/$1";
-$route['approvals/(:num)'] = "approvals/index/$1";
-$route['reminders/(:num)'] = "reminders/index/$1";
+$route['edit-request/(:any)'] = "approvals/edit_request/(:any)";
+$route['approvals/save_edit_request'] = "approvals/save_edit_request";
+$route['approvals/(:any)'] = "approvals/index/$1";
+$route['reminders/(:any)'] = "reminders/index/$1";
 
 $route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
 $route['brands/save-existing-user'] = "brand_users/save_existing_user";
@@ -69,4 +68,4 @@ $route['archives/(:any)'] = "archives/index/$1";
 
 
 $route['set-password/(:any)'] = "tour/set_password/$1";
-$route['register-sub-user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";
+// $route['register_user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";

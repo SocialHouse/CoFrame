@@ -113,7 +113,7 @@
 											<td><?php echo read_more($post->content,35); ?></td>
 											<td class="text-xs-center">
 												<?php 
-												$approvers = get_post_approvers($post->id);
+												$approvers = get_post_approvers($post->post_id);
 												if($approvers)
 												{
 													?>

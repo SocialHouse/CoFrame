@@ -11435,3 +11435,8 @@ footer.day-edit-post .btn-default{
 .export-format{ 
   width:100px;
 }
+
+/*edit request*/
+.replay{
+  font-size: 13px !important;
+}

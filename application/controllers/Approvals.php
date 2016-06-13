@@ -58,5 +58,77 @@ class Approvals extends CI_Controller {
 	    }
 	}
 
-	
+	function edit_request()
+	{
+		$this->data = array();		
+		$post_id = $this->uri->segment(2);
+		$this->load->model('post_model');
+		$this->data['post_id'] = $post_id;
+		$this->data['post_details'] = $this->post_model->get_post($post_id);
+		$this->data['post_images'] = $this->post_model->get_images($post_id);
+		$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
+		$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+
+		if(!empty($brand))
+		{
+			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
+			if(!empty($this->data['phase']))
+			{
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand'] = $brand[0];
+				$this->data['view'] = 'approvals/edit_request';
+				$this->data['layout'] = 'layouts/new_user_layout';
+
+		        _render_view($this->data);
+		    }
+	    }
+	}
+
+	function save_edit_request()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$uploaded_file = '';
+			if(isset($_FILES) AND !empty($_FILES))
+			{
+		        $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+		        $randname = uniqid().'.'.$ext;
+				$status = upload_file('attachment',$randname,$post_data['brand_owner'].'/brands/'.$post_data['brand_id'].'/requests/');					       
+		        if(array_key_exists("upload_errors",$status))
+		        {
+		        	$error =  $status['upload_errors'];	        	
+		        }
+		        else
+		        {
+		        	$uploaded_file = $status['file_name'];	        	
+		        }
+		    }
+
+		    if(!isset($error))
+		    {
+		    	$request_data =array(
+		    			'post_id' => $post_data['brand_owner'],
+		    			'phase_id' => $post_data['phase_id'],
+		    			'user_id' => $post_data['user_id'],
+		    			'comment' => $post_data['comment'],
+		    			'media' => $uploaded_file
+		    		);
+
+		    	$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
+
+		    	$this->data['comment'] = $this->approval_model->get_comment($inserted_id);		    	
+		    	$this->data['brand_owner'] = $post_data['brand_owner'];
+		    	$this->data['post_id'] = $post_data['post_id'];
+		    	$this->data['brand_id'] = $post_data['brand_id'];
+
+		    	$response_html = $this->load->view('partials/request_html',$this->data,true);
+		    	echo json_encode(array('response' => 'success','html' => $response_html));
+		    }
+		    else
+		    {
+		    	echo json_encode(array('response' => 'fail'));	
+		    }
+		}
+	}
 }

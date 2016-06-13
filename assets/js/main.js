@@ -1660,6 +1660,51 @@ jQuery(function($) {
 
     });
     
+    //to save edit request
+    $(document).on('click','.save-edit-req',function(){
+    	var attachment = $('#attachment')[0].files[0];
+    	var data = new FormData();
+		
+		jQuery.each($('#attachment')[0].files, function(i, file) {
+			data.append( 'attachment', file,file.name);
+
+		});
+
+		jQuery.each($('textarea'), function(i, control) {
+		    data.append(control.name, control.value);
+		});
+		
+		jQuery.each($('input'), function(i, control) {
+			if(control.name == 'brand_owner' || control.name == 'phase_id' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
+		    	data.append(control.name, control.value);
+		});
+
+    	$.ajax({
+    		type:'POST',
+    		url: base_url+'approvals/save_edit_request',
+    		cache: false,
+		    contentType: false,
+    		processData: false,
+		    data:data,
+		    dataType: 'json',
+		    success:function(response)
+		    {
+		    	if(response.response  == 'success')
+            	{
+            		$('#postCopy').val('');
+            		$('.comment-list').prepend(response.html);
+            		$('#attachment').remove();
+            		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+            		$('.attachment').prepend(attachment_html);
+            		$('#attachment')[0].files = '';
+            	}
+            	else
+            	{
+            		alert('Edit request has not been saved.');
+            	}
+		    }
+    	});
+    });
 });
 	
 	function convertToLink(text) {
