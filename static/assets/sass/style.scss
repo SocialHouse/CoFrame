@@ -603,6 +603,20 @@ a {
 	#user-preferences & {
 		padding: remCalc(26px)  0 .75rem;
 	}
+	.tf-icon-circle {
+		background: #dedede;
+		height: 40px;
+		width: 40px;
+		line-height: 52px;
+		&:hover, &.active {
+			background: #c0c0c0;
+		}
+	}
+	.toolbar {
+		.tf-icon-circle {
+			margin-left: 10px;
+		}
+	}
 }
 .date-header {
 	font-size: remCalc(25px);
@@ -611,8 +625,23 @@ a {
 	padding-bottom: 0;
 	margin-bottom: 0;
 	letter-spacing: normal;
+	h2 {
+		font-size: remCalc(25px);
+		line-height: 60px;
+		border: 0;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		letter-spacing: normal;
+	}
 	strong {
 		text-transform: uppercase;
+	}
+	.tf-icon-circle {
+		margin-top: 8px;
+		margin-bottom: 9px;
+	}
+	.form-search {
+		margin-top: 6px;
 	}
 }
 /*animated sections*/
@@ -1207,6 +1236,7 @@ a {
 [class*="tf-icon"] {
 	font-style: normal;
 	font-family: $futura-light;
+	font-size: 1rem;
 	letter-spacing: normal;
 	display: inline-block;
 	background-size: contain;
@@ -2347,20 +2377,6 @@ a {
 		border: 0;
 		line-height: 40px;
 		margin: 0 remCalc(100px) 0 10px;
-	}
-	.tf-icon-circle {
-		background: #dedede;
-		height: 40px;
-		width: 40px;
-		line-height: 52px;
-		&:hover, &.active {
-			background: #c0c0c0;
-		}
-	}
-	.toolbar {
-		.tf-icon-circle {
-			margin-left: 10px;
-		}
 	}
 	.btn-xs {
 		margin-top: 10px;

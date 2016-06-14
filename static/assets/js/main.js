@@ -543,7 +543,7 @@ jQuery(function($) {
 				$('.form-search, .input-search').animate({
 					width: '300px'
 				}, function(){
-					$('.input-search').attr('placeholder', 'Search')
+					$('.input-search').attr('placeholder', 'Search').focus();
 				});
 			}, 400);
 		});

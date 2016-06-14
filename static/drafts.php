@@ -35,7 +35,11 @@
 					<div class="clearfix">
 						<a class="btn btn-xs btn-secondary pull-xs-left"data-toggle="modal" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
 						<div class="pull-md-right toolbar">
-							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+							<form class="form-inline pull-xs-left form-search">
+							<input type="text" name="search" class="form-control input-search">
+							<button type="submit" class="btn btn-search"><i class="tf-icon-search"></i></button>
+							</form>
+							<a href="#" class="tf-icon-circle pull-xs-left" id="showSearch"><i class="tf-icon-search"></i></a>
 						</div>
 					</div>
 				</header>

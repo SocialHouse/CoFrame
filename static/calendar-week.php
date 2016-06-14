@@ -44,7 +44,11 @@
 							<a href="#" class="btn btn-sm active" id="calendarBtnToday">Today</a>
 						</div>
 						<div class="pull-md-right toolbar">
-							<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+							<form class="form-inline pull-xs-left form-search">
+							<input type="text" name="search" class="form-control input-search">
+							<button type="submit" class="btn btn-search"><i class="tf-icon-search"></i></button>
+							</form>
+							<a href="#" class="tf-icon-circle pull-xs-left" id="showSearch"><i class="tf-icon-search"></i></a>
 							<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/post-filters.php" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
 							<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/print-posts.php" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20" data-hide="false"><i class="tf-icon-print"></i></a>
 						</div>
