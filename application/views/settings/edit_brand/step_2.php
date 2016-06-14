@@ -88,14 +88,14 @@
 		</form>
 	</div>
 
-	<?php       
-    if(isset($js_files))
+<?php       
+if(isset($js_files))
+{
+    foreach ($js_files as $js_src) 
     {
-        foreach ($js_files as $js_src) 
-        {
-            ?>
-            <script src="<?php echo $js_src; ?>"></script>
-            <?php
-        }
+        ?>
+        <script src="<?php echo $js_src; ?>"></script>
+        <?php
     }
-    ?>
+}
+?>

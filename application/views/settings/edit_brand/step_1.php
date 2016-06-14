@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<label>Brand Time Zone:</label>
 				<select class="form-control" name="timezone" id="timezone">
-					<option value="">Select Brand Time Zone</option>
+					<option value=""> Select Brand Time Zone </option>
 					<?php
 				    foreach($timezones_list as $tmzone)
 				    {
@@ -60,8 +60,19 @@
 			</div>
 		</div>
 		<footer class="post-content-footer">
-			<button type="reset" class="btn btn-sm btn-default">Cancel</button>
+			<button type="button" class="btn btn-sm btn-default">Cancel</button>
 			<button type="submit" class="btn btn-sm btn-default pull-sm-right save_brand" >Save</button>
 		</footer>
 	</div>
 </form>
+<?php       
+if(isset($js_files))
+{
+    foreach ($js_files as $js_src) 
+    {
+        ?>
+        <script src="<?php echo $js_src; ?>"></script>
+        <?php
+    }
+}
+?>
