@@ -112,12 +112,35 @@ class Approvals extends CI_Controller {
 		    if(!isset($error))
 		    {
 		    	$request_data =array(
-		    			'post_id' => $post_data['brand_owner'],
+		    			'post_id' => $post_data['post_id'],
 		    			'phase_id' => $post_data['phase_id'],
 		    			'user_id' => $post_data['user_id'],
 		    			'comment' => $post_data['comment'],
 		    			'media' => $uploaded_file
 		    		);
+
+		    	if(isset($post_data['parent_id']))
+		    	{
+		    		$parent_data = array(
+		    				'parent_id' => $post_data['parent_id']
+		    			);
+		    		$request_data = array_merge($request_data, $parent_data);
+		    	}
+		    	else
+		    	{
+		    		$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id');
+
+		    		$user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
+
+		    		$remoinder_data = array(
+				    				'type' => 'notification',
+				    				'text' => ucfirst($user_info[0]->first_name).' '.ucfirst($user_info[0]->last_name).' has commented on your post',
+				    				'brand_id' => $post[0]->brand_id,
+				    				'user_id' => $post[0]->user_id,
+				    				'post_id' => $post_data['post_id']
+				    			);
+		    		$this->timeframe_model->insert_data('reminders',$remoinder_data);
+		    	}
 
 		    	$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
 
@@ -134,5 +157,96 @@ class Approvals extends CI_Controller {
 		    	echo json_encode(array('response' => 'fail'));	
 		    }
 		}
+	}
+
+	function view_request()
+	{
+		$this->data = array();		
+		$post_id = $this->uri->segment(2);
+		$this->load->model('post_model');
+		$this->data['post_id'] = $post_id;
+		$this->data['post_details'] = $this->post_model->get_post($post_id);
+		$this->data['post_images'] = $this->post_model->get_images($post_id);
+		$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
+		$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+
+		if(!empty($brand))
+		{
+			$this->data['phases'] = $this->approval_model->all_approval_phases($post_id);			
+			if(!empty($this->data['phases']))
+			{
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand'] = $brand[0];
+				$this->data['view'] = 'approvals/view_request';
+				$this->data['layout'] = 'layouts/new_user_layout';
+
+		        _render_view($this->data);
+		    }
+	    }
+	}
+
+	function change_comment_status()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$new_data = array(
+					'status' => $post_data['status']
+				);
+			$status = $this->timeframe_model->update_data('post_comments',$new_data,array('id' => $post_data['comment_id']));
+			if($status)
+				echo "1";
+			else
+				echo "0";
+		}
+	}
+
+	function save_reply()
+	{
+		$post_data = $this->input->post();
+		print_r($post_data);
+		// if(!empty($post_data))
+		// {
+		// 	$uploaded_file = '';
+		// 	if(isset($_FILES) AND !empty($_FILES))
+		// 	{
+		//         $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+		//         $randname = uniqid().'.'.$ext;
+		// 		$status = upload_file('attachment',$randname,$post_data['brand_owner'].'/brands/'.$post_data['brand_id'].'/requests/');					       
+		//         if(array_key_exists("upload_errors",$status))
+		//         {
+		//         	$error =  $status['upload_errors'];	        	
+		//         }
+		//         else
+		//         {
+		//         	$uploaded_file = $status['file_name'];	        	
+		//         }
+		//     }
+
+		//     if(!isset($error))
+		//     {
+		//     	$request_data =array(
+		//     			'post_id' => $post_data['brand_owner'],
+		//     			'phase_id' => $post_data['phase_id'],
+		//     			'user_id' => $post_data['user_id'],
+		//     			'comment' => $post_data['comment'],
+		//     			'media' => $uploaded_file
+		//     		);
+
+		//     	$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
+
+		//     	$this->data['comment'] = $this->approval_model->get_comment($inserted_id);		    	
+		//     	$this->data['brand_owner'] = $post_data['brand_owner'];
+		//     	$this->data['post_id'] = $post_data['post_id'];
+		//     	$this->data['brand_id'] = $post_data['brand_id'];
+
+		//     	$response_html = $this->load->view('partials/request_html',$this->data,true);
+		//     	echo json_encode(array('response' => 'success','html' => $response_html));
+		//     }
+		//     else
+		//     {
+		//     	echo json_encode(array('response' => 'fail'));	
+		//     }
+		// }
 	}
 }

@@ -54,7 +54,12 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['edit-request/(:any)'] = "approvals/edit_request/(:any)";
+$route['view-request/(:any)'] = "approvals/view_request/(:any)";
+
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
+$route['approvals/save_reply'] = "approvals/save_reply";
+
+$route['approvals/change_comment_status'] = "approvals/change_comment_status";
 $route['approvals/(:any)'] = "approvals/index/$1";
 $route['reminders/(:any)'] = "reminders/index/$1";
 

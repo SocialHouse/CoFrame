@@ -25,26 +25,44 @@
 						<div class="author clearfix">
 							<?php
 							if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-			                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
+			                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
 			                }else{
-			                	echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
+			                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile_twitter.png">';	
 			                }
 							?>
 							
 							<div class="author-meta pull-sm-left">
 								<h5>Created By:</h5>
-								David W
+								<?php echo $post_details->user; ?>
 							</div>
 							<div class="pull-sm-right">
 								<div class="post-tags" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-postid-<?php echo $post_details->id; ?>" data-popover-class="popover-inline popover-sm" data-attachment="bottom center" data-target-attachment="top center" data-popover-arrow="true" data-arrow-corner="bottom center">
-									<i class="fa fa-circle tag-green"></i><i class="fa fa-circle tag-orange"></i><i class="fa fa-circle tag-red"></i>
+									<?php
+									if(!empty($selected_tags))
+									{
+										foreach($selected_tags as $tag)
+										{
+											?>
+											<i class="fa fa-circle" style="color:<?php echo $tag['tag_color']; ?>" ></i>
+											<?php											
+										}
+									}
+									?>									
 									<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
 									<div id="tags-postid-<?php echo $post_details->id; ?>" class="hidden">
 										<div class="tag-list">
 											<ul>
-												<li class="tag"><i class="fa fa-circle tag-red"></i>Brand Building / Product Education</li>
-												<li class="tag"><i class="fa fa-circle tag-orange"></i>Orange Tag</li>
-												<li class="tag"><i class="fa fa-circle tag-green"></i>Marketing</li>
+												<?php
+												if(!empty($selected_tags))
+												{
+													foreach($selected_tags as $tag)
+													{
+														?>
+														<li class="tag"><i class="fa fa-circle" style="color:<?php echo $tag['tag_color']; ?>"></i><?php echo $tag['tag_name']; ?></li>
+														<?php
+													}
+												}
+												?>
 											</ul>
 										</div>
 									</div>								
@@ -55,9 +73,8 @@
 				</div>
 				<footer class="post-approval-btns post-actions clearfix">
 					<?php
-					if(!empty($phases[0]->phase_status) && $phases[0]->phase_status == 'accepted' ){
-						?>
-						<!-- Approver Buttons-->
+					if(!empty($phase['phase_users'][0]->phase_status) && $phase['phase_users'][0]->phase_status == 'accepted' ){
+						?>						
 						<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
 						<a href="#undoApproval" data-toggle="modal" data-target="#undoApproval">Undo</a>
 						<?php
@@ -187,29 +204,29 @@
 															$path = upload_url().$brand->created_by.'/users/'.$replay->user_id.'.png';
 														}
 														?>
-														<img src="<?php echo $path; ?>" width="36" height="36" alt="Norel Mancuso" class="circle-img pull-sm-left">
+														<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	" class="circle-img pull-sm-left">
 
 														<div class="author-meta pull-sm-left">
-															<?php echo ucfirst($replay->first_name).' '.$replay->last_name; ?>	
+															<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	
 															<span class="dateline"><?php echo date('m/d/Y' , strtotime($replay->created_at));; ?></span>
 														</div>
 													</div>	
 													<div class="comment">
 														<p><?php echo $replay->comment; ?></p>
-													</div>
-													<?php
-													if(!empty($replay->media))
-													{
+														<?php														
+														if(!empty($replay->media))
+														{
+															?>
+															<div class="comment-asset">
+																<a href="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" title="Download Asset">
+																	<i class="tf-icon-download"></i>
+																	<img src="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" width="60" height="60" alt=""/>
+																</a>
+															</div>
+															<?php
+														}
 														?>
-														<div class="comment-asset">
-															<a href="<?php echo upload_url().$brand->created_by.'/'.$brands.'/'.$post_id.'/requests/'.$comment->media ?>" title="Download Asset">
-																<i class="tf-icon-download"></i>
-																<img src="<?php echo base_url().$brand->created_by.'/'.$brands.'/'.$post_id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
-															</a>
-														</div>
-														<?php
-													}
-													?>
+													</div>													
 												</li>
 											</ul>
 											<?php

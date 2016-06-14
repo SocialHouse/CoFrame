@@ -47,7 +47,7 @@ class Approval_model extends CI_Model
 		{
 			$result = [];
 			$result['owner_id'] = $query->row()->created_by;
-			$this->db->select('phases_approver.user_id,first_name,last_name');
+			$this->db->select('phases_approver.user_id,first_name,last_name,phases_approver.status');
 			$this->db->join('phases','phases.id = phases_approver.phase_id');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 			$this->db->where('phases.post_id',$post_id);
@@ -84,26 +84,35 @@ class Approval_model extends CI_Model
 			{
 				$result['phase_users'] = $query->result();
 				
-				$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media');
-				$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
-				$this->db->where('phase_id',$phase_id);
-				$this->db->where('(parent_id IS NULL OR parent_id = "")');
-				$this->db->order_by('id','DESC');
-				$query = $this->db->get('post_comments');
-					
-				if($query->num_rows() > 0)
+				$phase_comments = $this->get_phase_comments($phase_id);
+				if($phase_comments)
 				{
-					$result['phase_comments'] = $query->result();
+					$result['phase_comments'] = $phase_comments;
 				}
+				
 				return $result;
 			}
 		}
 		return FALSE;
 	}
 
+	function all_approval_phases($post_id)
+	{
+		$this->db->select('phases.id as id,phases.phase,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status');		
+		$this->db->join('phases','phases_approver.phase_id = phases.id');
+		$this->db->where('post_id',$post_id);
+		$this->db->group_by('phase');
+		$query = $this->db->get('phases_approver');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 	function get_comment_reply($comment_id)
 	{
-		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status');
+		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media');
 		$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
 		$this->db->where('parent_id',$comment_id);
 		$query = $this->db->get('post_comments');
@@ -125,6 +134,34 @@ class Approval_model extends CI_Model
 		if($query->num_rows() > 0)
 		{
 			return $query->row();
+		}
+		return FALSE;
+	}
+
+	function get_phase_users($phase_id)
+	{
+		$this->db->select('user_info.aauth_user_id,first_name,last_name,phases_approver.status');
+		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');		
+		$this->db->where('phases_approver.phase_id',$phase_id);
+		$query = $this->db->get('phases_approver');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	function get_phase_comments($phase_id)
+	{
+		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media');
+		$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
+		$this->db->where('phase_id',$phase_id);
+		$this->db->where('(parent_id IS NULL OR parent_id = "")');
+		$this->db->order_by('id','DESC');
+		$query = $this->db->get('post_comments');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
 		}
 		return FALSE;
 	}

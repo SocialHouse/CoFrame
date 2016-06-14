@@ -128,7 +128,7 @@
 																$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
 															}
 															?>
-															<li class="approved">
+															<li class="<?php echo $approver['status']; ?>">
 																<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img">
 															</li>
 															<?php
