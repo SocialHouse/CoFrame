@@ -14,7 +14,7 @@
 		<div class="col-md-4">
 			<div class="container-post-approval-preview post-content">
 				<h4 class="text-xs-center">Post</h4>
-				<div id="live-post-preview remove_box">
+				<div id="live-post-preview-approver">
 					<?php
 						if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
 						 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
