@@ -26,6 +26,7 @@ class Settings extends CI_Controller {
 		$this->load->model('timeframe_model');
 		$this->load->model('post_model');
 		$this->load->model('brand_model');
+		$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 	}
@@ -61,5 +62,36 @@ class Settings extends CI_Controller {
 		}
 	}
 
-	
+	public function edit_step(){
+		$this->data = array();
+		$slug = $this->input->post('brand_slug');
+		$step_number = $this->input->post('step_no');
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+		$this->data['brand'] = $brand[0];
+		if(!empty($step_number) && !empty($slug)){
+			if($step_number == 1 ){
+			$timezone_str = $this->brand_model->get_brand_timezone_string($brand[0]->id);
+			$this->data['timezone'] = $timezone_str[0]->timezone; 
+			$this->data['timezones_list'] = $this->user_model->get_timezones();
+			}
+
+			if($step_number == 2 ){
+				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+				//$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+			}
+
+			if($step_number == 3 ){
+				$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+			} 
+
+			if($step_number == 4 ){
+				$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+			}
+
+	    	echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);			
+		}else{
+			echo 'false';
+		}
+		
+	}
 }
