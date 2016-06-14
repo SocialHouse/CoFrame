@@ -25,7 +25,7 @@ if(!empty($post_images)){
 			<div >
 				<div class="twitter-user-info">
 					<?php echo (!empty($post_details->user))? $post_details->user :''; ?> 
-					<span class="twitter_username">@ninadgaikwad - 1s</span>
+					<span class="twitter_username"></span>
 				</div>
 			</div>
 			<div class="post_copy_text">

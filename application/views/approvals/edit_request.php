@@ -23,7 +23,14 @@
 					<div class="clearfix"></div>					
 					<div class="post-preview-footer">
 						<div class="author clearfix">
-							<img src="<?php echo img_url()?>/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img pull-sm-left">
+							<?php
+							if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+			                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
+			                }else{
+			                	echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
+			                }
+							?>
+							
 							<div class="author-meta pull-sm-left">
 								<h5>Created By:</h5>
 								David W
@@ -47,14 +54,8 @@
 					</div>
 				</div>
 				<footer class="post-approval-btns post-actions clearfix">
-						<!-- Creator Buttons-->
-						<div class="btn-group btn-thirds" role="group">
-						  <button type="button" class="btn btn-xs btn-default">Edit</button>
-						  <button type="button" class="btn btn-xs btn-default">Schedule</button>
-						  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
-						</div>
 					<?php
-					if(!empty($phases[0]->phase_status) && $phases[0]->phase_status == 'scheduled' ){
+					if(!empty($phases[0]->phase_status) && $phases[0]->phase_status == 'accepted' ){
 						?>
 						<!-- Approver Buttons-->
 						<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
@@ -66,13 +67,6 @@
 						<?php
 					}
 					?>
-					<!-- Master Admin Buttons-->
-					
-					<div class="btn-group pull-sm-right" role="group">
-					  <button type="button" class="btn btn-xs btn-default">Edit</button>
-					  <button type="button" class="btn btn-xs btn-default">Schedule</button>
-					  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
-					</div>
 				</footer>
 			</div>
 		</div>
