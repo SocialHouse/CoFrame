@@ -35,6 +35,7 @@ jQuery(function($) {
 			else {
 				$selectedFilters.find('.filter-remove[data-value="' + filterVal + '"]').remove();
 			}
+			$('.filter[data-group="' + inputGroup + '"][data-value="check-all"]').removeClass('selected checked');
 		}
 		else if(filterVal === "check-all" && !$filter.hasClass('checked')) {
 			$('.filter[data-group="' + inputGroup + '"]').addClass('checked');
