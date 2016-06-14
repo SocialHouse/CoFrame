@@ -1665,6 +1665,8 @@ jQuery(function($) {
     	$('#attachment').remove();
     	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
 		$('.attachment').prepend(attachment_html);
+		
+		toggleBtnClass('btn-secondary','btn-disabled',$(this).parent().children('.save-edit-req'),true);
     });
     
     //to save edit request
@@ -1753,16 +1755,26 @@ jQuery(function($) {
     });
 
     $(document).on('keyup blur','.reply-comment',function(){
+    	var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
     	if($(this).val())
-    	{
-	    	var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
+    	{	    	
 	    	toggleBtnClass('btn-disabled','btn-secondary',btn,false);
 	    }
 	    else
 	    {
-	    	alert('ts');
 	    	toggleBtnClass('btn-secondary','btn-disabled',btn,true);
 	    }
+    });
+
+    $(document).on('click','.reset-comment',function(){
+    	var parent_id = $(this).data('comment-id');
+    	var parent_div = $("input[name='attachment"+parent_id+"']" ).parent();
+    	$("input[name='attachment"+parent_id+"']" ).remove();
+    	
+    	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';	            		
+    	$(parent_div).prepend(attachment_html);
+    	$("textarea[name='comment"+parent_id+"']").val('');    	
+    	toggleBtnClass('btn-secondary','btn-disabled',$(this).parent().children('.save-reply'),true);
     });
 
     $(document).on('click','.save-reply',function(){
