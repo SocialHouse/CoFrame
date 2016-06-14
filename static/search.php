@@ -36,7 +36,7 @@
 						<?php include("lib/search-filters.php"); ?>
 					</div>
 					<div class="col-md-9">
-						<header class="page-main-header calendar-header">
+						<header class="page-main-header search-header">
 							<div class="clearfix">
 								<h1 class="pull-md-left title-search">5 refined search results for search term</h1>
 								<div class="pull-md-right toolbar">

@@ -2336,7 +2336,7 @@ a {
 }
 
 /*Calendar Stuff*/
-.calendar-header {
+.calendar-header, .search-header {
 	border-bottom: 1px solid #000;
 	margin-bottom: 2rem;
 	position: relative;
@@ -2365,6 +2365,9 @@ a {
 	.btn-xs {
 		margin-top: 10px;
 	}
+}
+.search-header {
+	margin-bottom: 0;
 }
 #selectedFilters {
 	padding-top: remCalc(20px);
