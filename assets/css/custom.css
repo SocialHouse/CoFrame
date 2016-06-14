@@ -22,10 +22,6 @@
 /*  Loadinn image  */
 #loading_main{display:none;position:fixed;height:100%;width:100%;bottom:0px; background-color:rgba(23,23,23,0.40); z-index:99998;}
 #loading_main .loading{position:absolute;left:50%;top:50%; background-color:rgba(23,23,23,0); z-index:99999;}
-.register_form_height {
-	height:530px !important;
-	overflow-y: scroll;
-}
 
 body.modal-open {
     overflow: hidden !important;

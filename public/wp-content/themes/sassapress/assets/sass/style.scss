@@ -403,8 +403,19 @@ a {
 		}
 	}
 	&#get-started {
-		.section-background {
-			max-height: 100%;
+		height: auto !important;
+		.section-content {
+			position: relative;
+			top: inherit;
+			left: inherit;
+			right: inherit;
+			bottom: inherit;
+			@media (min-width: 1280px) {
+				padding-top: 7rem;
+			}
+			@include media-breakpoint-up(md) {
+				padding-top: 9rem;
+			}
 		}
 	}
 	@include media-breakpoint-up(md) {
@@ -715,19 +726,19 @@ a {
 	}
 	.box-create {
 		h2:before {
-			background: url(assets/images/create.png) no-repeat center;
+			background: url(../images/create.png) no-repeat center;
 			background-size: 44px 44px;
 		}
 	}
 	.box-slate {
 		h2:before {
-			background: url(assets/images/slate.png) no-repeat center;
+			background: url(../images/slate.png) no-repeat center;
 			background-size: 42px 49px;
 		}
 	}
 	.box-approve {
 		h2:before {
-			background: url(assets/images/approve.png) no-repeat center;
+			background: url(../images/approve.png) no-repeat center;
 			background-size: 53px 49px;
 		}
 	}
@@ -856,13 +867,10 @@ a {
 		}
 	}
 	@media (min-width: 1280px) {
-		margin: 7rem auto 0;
+		margin: 0 auto;
 	}
 	@media (min-width: 1500px) {
 		width: 105rem;
-	}
-	@include media-breakpoint-up(md) {
-		margin: 9rem auto 0;
 	}
 }
 .faq {
@@ -1577,9 +1585,9 @@ p:empty {
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
 		/* SVG blur filter */
-		-webkit-filter: url(/wp-content/themes/sassapress/assets/images/blur.svg#blur);
-		-moz-filter: url(/wp-content/themes/sassapress/assets/images/blur.svg#blur);
-		filter: url(/wp-content/themes/sassapress/assets/images/blur.svg#blur);
+		-webkit-filter: url(/wp-content/themes/sassapress/../images/blur.svg#blur);
+		-moz-filter: url(/wp-content/themes/sassapress/../images/blur.svg#blur);
+		filter: url(/wp-content/themes/sassapress/../images/blur.svg#blur);
 		/*CSS filter*/
 		filter: blur(35px) brightness(0.75);
 		-webkit-filter: blur(35px) brightness(0.75);

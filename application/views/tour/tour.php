@@ -62,7 +62,7 @@
 						<ul id="menu-footer-menu" class="nav navbar-nav navbar-footer">
 							<li id="menu-item-34" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34 nav-item"><a title="Privacy Policy" href="/public/privacy-policy/" class="nav-link">Privacy Policy</a></li>
 						</ul>
-						|  &copy; 2016 Social House, Inc.
+						|  &copy; <?php echo date('Y'); ?> Social House, Inc.
 					</div>
 					<div class="overlay"></div>
 			  	</div>
@@ -355,7 +355,6 @@
 							</div>
 						</div>
 					</nav>
-					<img width="1920" height="1080" src="<?php echo base_url(); ?>assets/uploads/2016/02/bg-start.jpg" class="section-background wp-post-image" alt="bg-start" srcset="<?php echo base_url(); ?>assets/uploads/2016/02/bg-start-300x169.jpg 300w, <?php echo base_url(); ?>assets/uploads/2016/02/bg-start-768x432.jpg 768w, <?php echo base_url(); ?>assets/uploads/2016/02/bg-start-1024x576.jpg 1024w, <?php echo base_url(); ?>assets/uploads/2016/02/bg-start.jpg 1920w" sizes="(max-width: 1920px) 100vw, 1920px" />
 				</section>				
 				<button type="button" class="modal-toggler">
 					<span class="sr-only">Toggle Modal</span>
