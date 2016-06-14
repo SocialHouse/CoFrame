@@ -1223,8 +1223,15 @@ a {
 	height: 17px;
 	width: 17px;
 	background-size: 17px;
-	a:hover &, .active & {
+	a:hover & {
 		background-position: 0 -17px;
+	}
+}
+#showSearch.tf-icon-circle {
+	transition: all 500ms;
+	&.active {
+		border-radius: 8px;
+		background: #dedede;
 	}
 }
 .tf-icon-filter {
@@ -2806,6 +2813,29 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		}
 	}
 }
+.form-search {
+	position: relative;
+	width: 0px;
+	overflow: hidden;
+	right:-50px;
+	input[type="text"].form-control {
+		background: #dedede;
+		border-radius: 8px;
+		border: 0;
+		outline: 0;
+		height: 40px;
+		font-family: $futura-light;
+		width: 0;
+	}
+	.btn {
+		position: absolute;
+		right: 11px;
+		top: 12px;
+		padding: 0;
+		background: 0;
+		transition: all 500ms;
+	}
+}
 .time-select {
 	.form-inline & {
 		display: block;
@@ -3085,6 +3115,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 .no-margin {
 	margin: 0 !important;
+}
+.shrink {
+	transform: scale(0);
 }
 
 @import "partials/print";
