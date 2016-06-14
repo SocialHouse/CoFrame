@@ -503,7 +503,7 @@ jQuery(function($) {
     });
 
     //save outlet to brand
-    $(document).on('click','#save_outlet',function(){
+    $(document).on('click','#add-brand-details #save_outlet',function(){
     	var control = this;
     	var brand_id = $('#brand_id').val();
     	var elements = $('.outlets');

@@ -50,12 +50,14 @@ class Settings extends CI_Controller {
 
 			$timezone_str = $this->brand_model->get_brand_timezone_string($brand_id);
 			$this->data['timezone'] = $timezone_str[0]->timezone; 
+			$this->data['selected_outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
 			
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['view'] = 'settings/settings';
-			$this->data['layout'] = 'layouts/new_user_layout';   
-
+			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
+			$this->data['layout'] = 'layouts/new_user_layout';
+			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
 			$this->data['background_image'] = 'bg-brand-management.jpg';  
 
 			_render_view($this->data);
@@ -68,6 +70,7 @@ class Settings extends CI_Controller {
 		$step_number = $this->input->post('step_no');
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 		$this->data['brand'] = $brand[0];
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
 		if(!empty($step_number) && !empty($slug)){
 			if($step_number == 1 ){
 			$timezone_str = $this->brand_model->get_brand_timezone_string($brand[0]->id);
@@ -76,8 +79,9 @@ class Settings extends CI_Controller {
 			}
 
 			if($step_number == 2 ){
-				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
-				//$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+				$this->data['selected_outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+				$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+				
 			}
 
 			if($step_number == 3 ){
@@ -87,7 +91,7 @@ class Settings extends CI_Controller {
 			if($step_number == 4 ){
 				$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
 			}
-
+			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
 	    	echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);			
 		}else{
 			echo 'false';

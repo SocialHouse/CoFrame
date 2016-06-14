@@ -3,12 +3,26 @@
 	<h4 class="text-xs-center">Brand Outlets</h4>
 	<div class="outlet-list saved-items">
 		<ul>
-			<li data-outlet="youtube"><i class="fa fa-youtube-play"><span class="bg-outlet bg-youtube"></span></i>youtube</li>
-			<li data-outlet="tumblr"><i class="fa fa-tumblr"><span class="bg-outlet bg-tumblr"></span></i>tumblr</li>
-			<li data-outlet="facebook"><i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>facebook</li>
-			<li data-outlet="vimeo"><i class="fa fa-vimeo"><span class="bg-outlet bg-vimeo"></span></i>vimeo</li>
-			<li data-outlet="pinterest"><i class="fa fa-pinterest"><span class="bg-outlet bg-pinterest"></span></i>pinterest</li>
-			<li data-outlet="wordpress"><i class="fa fa-wordpress"><span class="bg-outlet bg-wordpress"></span></i>wordpress</li>
+		<?php			
+			if(!empty($selected_outlets )){
+				foreach ($selected_outlets as $st_outlet) {
+					
+					if($st_outlet->outlet_name == 'youtube'){
+						$st_outlet->outlet_name= 'youtube';
+					}
+					$outlet_name =  strtolower($st_outlet->outlet_name);			
+					$outlet_id =  $st_outlet->id;
+					?>
+					<li data-outlet="<?php echo $outlet_name; ?>">
+						<i class="fa fa-<?php echo $outlet_name; ?>">
+							<span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span>
+						</i>
+						<?php echo strtoupper($outlet_name); ?>
+					</li>
+					<?php	
+				}
+			}
+		?>
 		</ul>
 	</div>
 	<footer class="post-content-footer">

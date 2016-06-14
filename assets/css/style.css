@@ -11465,3 +11465,15 @@ footer.day-edit-post .btn-default{
 .replay{
   font-size: 13px !important;
 }
+
+/*for alignment in edit brand info (setting step 1 edit page)*/
+.pd-bot-15{
+  padding-bottom: 15px
+}
+
+.form__input.center-block.brand_image-uplaod {
+  border-radius: 100%;
+  padding-top: 40%;
+  text-align: center;
+  vertical-align: middle;
+}

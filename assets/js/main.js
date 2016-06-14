@@ -1739,12 +1739,78 @@ jQuery(function($) {
 	            success: function(response){
 	            	if(response != 'false'){
 	            		$('#brandStep'+step_no).empty();
+	            		$('#brandStep'+step_no).addClass('active');
 	            		$('#brandStep'+step_no).html(response);
 	            	}
 	            }
 	    	});
     	} 		
 	}); 
+
+	$(document).on('click','#step_1_edit .remove-brand-img',function(){
+		var img = $('#step_1_edit').find('.form__file-preview');
+		var current_div = $('#step_1_edit .brand-image');
+		current_div.removeClass('has-files');
+		current_div.addClass('brand_image-uplaod');
+		current_div.removeClass('hide');
+		$(this).addClass('hide');
+		$('#step_1_edit').find('.file-upload-label').removeClass('file-upload-label');
+		$('#step_1_edit').find('#brandFileLabel').removeClass('hide');
+		// file-upload-label
+		img.remove();
+	}); 
+
+	$(document).on('change','#step_1_edit #brandFile',function() {
+		  if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+            	$('#step_1_edit .remove-brand-img').removeClass('hide');
+            	$('#step_1_edit .brand-image').removeClass('brand_image-uplaod');
+            	$('#step_1_edit .brand-image').addClass('has-files');
+            	$('#step_1_edit #brandFileLabel').addClass('hide');
+            	$('#step_1_edit #brandFile').addClass('hide');
+            	img = '<img class="form__file-preview hide" src="'+ e.target.result+'"> ';
+            	img_div = $('#step_1_edit .brand-image');
+            	$('#step_1_edit').find('.form__file-preview').remove();
+            	img_div.append(img);
+            }            
+            reader.readAsDataURL(this.files[0]);
+        }
+	});
+	$(document).on('submit','#step_1_edit',function(e){
+		e.preventDefault();
+		var form = $(this);
+		$.ajax({
+    		'type':'POST',
+    		'dataType':'json',
+    		url: form.attr('action'),
+    		data:form.serialize(),
+            success: function(result){
+            	console.log(result.response);
+            	if(result.response == 'success'){
+            		location.reload();
+            	}
+            }
+    	});
+	});
+
+	$(document).on('submit','#step_2_edit',function(e){
+		e.preventDefault();
+		var form = $(this);
+		$.ajax({
+    		'type':'POST',
+    		'dataType':'json',
+    		url: form.attr('action'),
+    		data:form.serialize(),
+            success: function(result){
+            	console.log(result.response);
+            	if(result.response == 'success'){
+            		location.reload();
+            	}
+            }
+    	});
+	});
+
 });
 	
 	function convertToLink(text) {
