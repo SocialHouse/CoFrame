@@ -1412,7 +1412,7 @@ jQuery(function($) {
 	            {
 	            	if(response.response  == 'success')
 	            	{
-	            		toggleBtnClass('btn-default','btn-disabled',btn,true);
+	            		$(btn).remove();
 	            	}
 	            	else
 	            	{
