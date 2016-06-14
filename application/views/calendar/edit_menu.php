@@ -8,7 +8,7 @@ if(!empty($post_id) && !empty($slug)){
 			<li><a href="#">Post Now</a></li>
 		</ul>
 		<ul class="list-group-item">
-			<li><a href="#">View Edit Requests</a></li>
+			<li><a href="<?php echo base_url().'view-request/'.$post_id; ?>">View Edit Requests</a></li>
 			<li><a href="#">Suggest an Edit</a></li>
 		</ul>
 		<ul class="list-group-item">

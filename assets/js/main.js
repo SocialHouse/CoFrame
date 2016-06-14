@@ -1412,7 +1412,7 @@ jQuery(function($) {
 	            {
 	            	if(response.response  == 'success')
 	            	{
-	            		toggleBtnClass('btn-default','btn-disabled',btn,true);
+	            		$(btn).remove();
 	            	}
 	            	else
 	            	{
@@ -1704,8 +1704,7 @@ jQuery(function($) {
 	            		$('.comment-list').prepend(response.html);
 	            		$('#attachment').remove();
 	            		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
-	            		$('.attachment').prepend(attachment_html);
-	            		$('#attachment')[0].files = '';
+	            		$('.attachment').prepend(attachment_html);	            		
 	            	}
 	            	else
 	            	{
@@ -1726,6 +1725,120 @@ jQuery(function($) {
     		toggleBtnClass('btn-secondary','btn-disabled','.save-edit-req',true);
     	}
     })
+
+    //view edit request
+    $(document).on('click','.change-status',function(){
+    	var comment_id = $(this).data('id');
+    	var status = $(this).data('status');
+    	
+    	var data = {'comment_id': comment_id,'status' : status};
+    	var control = this;
+    	$.ajax({
+    		type:'POST',
+    		url: base_url+'approvals/change_comment_status',    		
+		    data:data,
+		    success:function(response)
+		    {
+		    	if(response == 1)
+		    	{
+		    		$(control).parent().parent().children('p:last').html('Status: '+status);
+		    		$(control).parent().children('button').prop('disabled',true);
+		    	}
+		    	else
+		    	{
+		    		alert('Unable to change status.');
+		    	}
+		    }
+    	});
+    });
+
+    $(document).on('keyup blur','.reply-comment',function(){
+    	if($(this).val())
+    	{
+	    	var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
+	    	toggleBtnClass('btn-disabled','btn-secondary',btn,false);
+	    }
+	    else
+	    {
+	    	alert('ts');
+	    	toggleBtnClass('btn-secondary','btn-disabled',btn,true);
+	    }
+    });
+
+    $(document).on('click','.save-reply',function(){
+    	var parent_id = $(this).data('comment-id');
+    	var status = $(this).data('status');
+    	
+    	var reply_div = $(this).parent().parent().parent().parent();
+
+    	var data = new FormData();
+    	jQuery.each($("input[name='attachment"+parent_id+"']" )[0].files, function(i, file) {
+    		data.append( 'attachment', file,file.name);
+		});
+
+		jQuery.each($("textarea[name='comment"+parent_id+"']"), function(i, control) {
+		    data.append('comment', control.value);
+		});
+
+		jQuery.each($("input[name='phase_id"+parent_id+"']"), function(i, control) {
+		    data.append('phase_id', control.value);
+		});
+
+		jQuery.each($('input'), function(i, control) {
+			if(control.name == 'brand_owner' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
+		    	data.append(control.name, control.value);
+		});
+    	
+    	data.append('parent_id',parent_id);
+
+    	$.ajax({
+    		type:'POST',
+    		url: base_url+'approvals/save_edit_request',
+		    cache: false,
+		    contentType: false,
+    		processData: false,
+		    data:data,
+		    dataType: 'json',
+		    success:function(response)
+		    {
+		    	if(response.response  == 'success')
+            	{
+		    		$(reply_div).empty();
+		    		$(reply_div).prepend(response.html);
+		    		$("input[name='comment"+parent_id+"']" ).val('');            		
+            		$("input[name='attachment"+parent_id+"']" ).remove();
+            		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+            		$("input[name='attachment"+parent_id+"']" ).prepend(attachment_html);            	
+		    	}
+		    	else
+		    	{
+		    		alert('Unable to save reply.');
+		    	}
+		    }
+    	});
+    });
+
+    $(document).on('click','.approval-phase',function(){
+    	var id = $(this).attr('id');
+    	if(id)
+    	{
+    		for(var i =1; i<=3;i++)
+    		{    			
+    			if(id != 'approvalPhase'+i)
+    			{
+    				$('.approvalPhase'+i).addClass('hide');
+    				$('#approvalPhase'+i).removeClass('active');
+    			}
+    			else
+    			{
+    				$('.approvalPhase'+i).removeClass('hide');
+    			}    			
+    		}
+    		
+    		$(this).addClass('active');
+    	}
+    })
+    
 
     $(document).on('click','.edit-brands-info',function(){
 		var step_no = $(this).data('step-no');
@@ -1811,8 +1924,9 @@ jQuery(function($) {
     	});
 	});
 
+
 });
-	
+
 	function convertToLink(text) {
 		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
 		return text.replace(exp,"<a class='anchor_color' href='$1'>$1</a>");

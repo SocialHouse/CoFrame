@@ -9987,7 +9987,7 @@ a {
 
 .container-view-approvals .btn {
   padding: 5px 7px;
-  font-size: 10px; }
+  font-size: 8px; }
 
 .container-post-discussion {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
@@ -10109,6 +10109,9 @@ a {
   margin-top: 2rem; }
 
 #live-post-preview {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4); }
+
+#live-post-preview-approver {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4); }
 
 .auto-save {

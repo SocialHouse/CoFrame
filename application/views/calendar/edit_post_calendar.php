@@ -242,7 +242,15 @@
 														<div class="bg-white approval-phase animated fadeIn" id="preview_approvalPhase<?php echo $phase_no + 1;?>">
 															<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> 
 																<button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button>
-																<button type="button" id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-default pull-sm-right resubmit-approval">Resubmit for Approval</button>
+
+																<?php
+																if($obj[0]->phase_status != 'pending')
+																{
+																	?>
+																	<button type="button" id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-default pull-sm-right resubmit-approval">Resubmit for Approval</button>
+																	<?php
+																}
+																?>													
 															</h2>
 															<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 																<?php
