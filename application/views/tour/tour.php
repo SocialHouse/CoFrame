@@ -272,7 +272,9 @@
 											<label class="sr-only" for="phoneNumber">Phone Number</label>
 											<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
 										</fieldset>
+									</div>
 
+									<div class="field-group clear">
 										<fieldset class="form-group">
 											<label class="sr-only" for="timeZone">Time Zone</label>
 											<select class="form-control" id="timeZone" name="timezone">
