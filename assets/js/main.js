@@ -1643,7 +1643,7 @@ jQuery(function($) {
     $(document).on("click", ".approve_post", function(event){
     	var post_id = $(this).data('post-id');
     	var user_id = $(this).data('user-id');
-    	console.log(post_id);
+    	
     	if(post_id){
     		$.ajax({
 	    		'type':'POST',
@@ -1715,14 +1715,14 @@ jQuery(function($) {
     	}    	
     });
 
-    $(document).on('keyup blur','#comment_copy',function(){    	
+    $(document).on('keyup blur','#comment_copy',function(){
     	if($(this).val())
     	{
     		toggleBtnClass('btn-disabled','btn-secondary','.save-edit-req',false);
     	}
     	else
     	{
-    		toggleBtnClass('btn-secondary','btn-disabled','.save-edit-req',true);	
+    		toggleBtnClass('btn-secondary','btn-disabled','.save-edit-req',true);
     	}
     })
 
@@ -1839,6 +1839,26 @@ jQuery(function($) {
     	}
     })
     
+
+    $(document).on('click','.edit-brands-info',function(){
+		var step_no = $(this).data('step-no');
+		var brand_slug = $('#brand_slug').val();
+		if(brand_slug){
+    		$.ajax({
+	    		'type':'POST',
+	    		dataType: 'html',
+	    		url: base_url+'settings/edit_step',
+	    		data:{'step_no':step_no,'brand_slug':brand_slug,},
+	            success: function(response){
+	            	if(response != 'false'){
+	            		$('#brandStep'+step_no).empty();
+	            		$('#brandStep'+step_no).html(response);
+	            	}
+	            }
+	    	});
+    	} 		
+	}); 
+
 });
 
 	function convertToLink(text) {
