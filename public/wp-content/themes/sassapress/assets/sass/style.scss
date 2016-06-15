@@ -896,6 +896,7 @@ a {
 	font-size: 1.6875rem;
 	line-height: 1;
 	border-width: 1px;
+	font-family: $futura-light;
 	.input-group & {
 		@include media-breakpoint-up(sm) {
 			width: 50%;
@@ -989,9 +990,6 @@ a {
 	}
 	.modal-body {
 		font-family: $futura-light;
-	}
-	.form-control {
-		font-family: $bebas-book;
 	}
 	hr {
 		border-color: #000;
