@@ -29,7 +29,7 @@
 			?>
 			<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 
-			<div  data-filters="<?php echo $outlet_name.' '.$tag_list.' '.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>"style="width:97% !important;">
+			<div  data-filters="<?php echo $outlet_name.' '.$tag_list.' '.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
 				<div class="col-md-5 post-img day-image">
 					<?php 
 					$display_img = 'false';
@@ -58,7 +58,7 @@
 						</div>
 						<div class="col-md-10 post-meta">
 							<span class="post-author"><?php echo $outlet_name; ?> Post By <?php echo (!empty($post->user))?$post->user :'';?>:</span>
-							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray post-filter-popup" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top right" data-target-attachment="left center" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container=".calendar-day">
+							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray post-filter-popup" data-toggle="popover-ajax"  data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"  data-popover-constrain=".calendar-day">
 								<i class="fa fa-pencil"></i>
 								</a>
 							</span>

@@ -2,12 +2,14 @@
 	<nav class="navbar navbar-light navbar-brand-manage bg-transparent">
 		<?php
 		$image_path = img_url().'default_brand.png';
+		$image_class = 'center-block brand-img';
 		if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png'))
 		{
 			$image_path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/'.$brand_id.'.png';
+			$image_class = 'circle-img center-block brand-img';
 		}
 		?>
-	  	<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>"><img src="<?php echo $image_path ?>" width="135" height="135" class="circle-img center-block brand-img" alt=""/></a>
+	  	<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>"><img src="<?php echo $image_path ?>" width="135" height="135" class="<?php echo $image_class; ?>" alt=""/></a>
 
 		<ul class="nav navbar-nav">
 			<li class="nav-item">
