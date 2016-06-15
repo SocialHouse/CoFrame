@@ -9674,7 +9674,8 @@ a {
       background: url(../images/icons/clock.png) no-repeat left center;
       background-size: 22px;
       letter-spacing: normal;
-      text-transform: none; }
+      text-transform: none;
+      line-height: normal; }
   .brand-step .post-content-footer {
     bottom: 1rem; }
   .brand-step.active {
