@@ -11486,3 +11486,14 @@ footer.day-edit-post .btn-default{
   font-size: 8px !important;
   margin-top:6px;
 }
+
+#step_3_edit.has-advanced-upload .form__input{
+  background: #e6e6e6 none repeat scroll 0 0;
+  border-radius: 100%;
+  color: #808080;
+  min-height: inherit;
+  padding: 0;
+  height: 60px;
+  margin-top: 2rem;
+  width: 60px;
+}

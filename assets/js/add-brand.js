@@ -9,7 +9,7 @@ jQuery(function($) {
 						$(this).addClass('disabled').removeClass('selected');
 					}
 				});
-				if(!$(this).hasClass('disabled')) {				
+				if(!$(this).hasClass('disabled')) {
 
 					$('#addOutlet').removeClass('btn-disabled').prop("disabled", false);
 				}

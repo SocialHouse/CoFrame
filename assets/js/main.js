@@ -56,6 +56,7 @@ jQuery(function($) {
 			}
 		});
 
+
 		// $('#brandStep2 .outlet-list li').on('click', function() {
 		// 	if(!$(this).hasClass('saved')) {
 		// 		$(this).toggleClass('disabled selected');
@@ -1463,6 +1464,7 @@ jQuery(function($) {
 				magicNum = 60;
 			}
 			if(!$(this).hasClass('brand-steps')) {
+
 				if(newColsH > colsH) {
 					$(this).css('height', dashboardH - headhH - magicNum);
 				}
@@ -1996,6 +1998,29 @@ jQuery(function($) {
 	$(document).on('submit','#step_3_edit',function(e){
 		e.preventDefault();
 		var form = $(this);
+		var step_no = '3';
+		var brand_slug = $('#brand_slug').val();
+		if(brand_slug){
+	    	$.ajax({
+	    		'type':'POST',
+	    		dataType: 'html',
+	    		url: base_url+'settings/edit_step',
+	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
+	            success: function(response){
+	            	if(response != 'false'){
+	            		toggleBtnClass('btn-disabled','btn-default',$('.edit-brands-info'),false);
+	            		$('#brandStep'+step_no).empty();
+	            		$('#brandStep'+step_no).removeClass('active');
+	            		$('#brandStep'+step_no).html(response);
+	            	}
+	            }
+	    	});
+    	}
+	});
+
+	$(document).on('submit','#step_4_edit',function(e){
+		e.preventDefault();
+		var form = $(this);
 		$.ajax({
     		'type':'POST',
     		'dataType':'json',
@@ -2014,40 +2039,6 @@ jQuery(function($) {
     	});
 	});
 
-	$(document).on('submit','#step_4_edit',function(e){
-		e.preventDefault();
-		var form = $(this);
-		var brand_id = $('#brand_id').val();
-    	var slug = $('#slug').val();
-    	var selected_labels = $('.labels');
-
-    	var tags = [];
-    	$('input[name="selected_tags[]"]:checked').each(function(i) {
-		   tags[i] = this.value;
-		});
-		var labels = []
-    	$.each(selected_labels,function(i,value){    		
-    		labels[i] = $(value).val();
-    	});
-
-    	$.ajax({
-    		url: form.attr('action'),
-    		data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug},
-    		type:'POST',
-    		dataType: 'json',
-    		success: function(result){
-            	console.log(result.response);
-            	if(result.response == 'success'){
-            		window.location.reload();
-            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
-            		// $('#brandStep4').empty();
-            		// $('#brandStep4').removeClass('active');
-            		// $('#brandStep4').html(response);
-            	}
-            }
-    	});
-	});
-
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
 		var step_no = $(this).data('step-no');
@@ -2060,7 +2051,7 @@ jQuery(function($) {
 	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
 	            success: function(response){
 	            	if(response != 'false'){
-	            		toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+	            		toggleBtnClass('btn-disabled','btn-default',$('.edit-brands-info'),false);
 	            		$('#brandStep'+step_no).empty();
 	            		$('#brandStep'+step_no).removeClass('active');
 	            		$('#brandStep'+step_no).html(response);
@@ -2069,7 +2060,6 @@ jQuery(function($) {
 	    	});
     	}
     });
-
 
 });
 

@@ -10,7 +10,9 @@
 		}();
 		
 		// applying the effect for every form
+		
 		$( 'form.file-upload' ).each( function(){
+			
 			var $form		 = $( this ),
 				$input		 = $form.find( 'input[type="file"]' ),
 				$label		 = $form.find( '.file-upload-label' ),

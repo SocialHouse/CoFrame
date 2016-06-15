@@ -73,9 +73,6 @@ class Settings extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 		$this->data['brand_id'] = $brand[0]->id;
 		$this->data['brand'] = $brand[0];
-		$this->data['users'] = $this->brand_model->get_brand_users( $brand[0]->id);
-
-
 
 		if(!empty($step_number) && !empty($slug)){
 
@@ -92,7 +89,9 @@ class Settings extends CI_Controller {
 			}
 
 			if($step_number == 3 ){
-				$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+				$this->data['groups'] = $this->aauth->list_groups();
+				$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+				$this->data['users'] = $this->brand_model->get_brand_users( $brand[0]->id);
 			} 
 
 			if($step_number == 4 ){
