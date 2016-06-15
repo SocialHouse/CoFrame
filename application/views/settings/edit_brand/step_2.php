@@ -77,7 +77,7 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep2Btns">
-				<button type="button" class="btn btn-sm btn-default btn-next-step">Cancel</button>
+				<button type="button" class="btn btn-sm btn-default close_brand">Cancel</button>
 				<button type="submit" id="save_outlet" class="btn btn-sm btn-secondary pull-sm-right">Save</button>
 			</div>
 			<div class="hidden" id="addOutletBtns">
@@ -88,14 +88,14 @@
 		</form>
 	</div>
 
-	<?php       
-    if(isset($js_files))
+<?php       
+if(isset($js_files))
+{
+    foreach ($js_files as $js_src) 
     {
-        foreach ($js_files as $js_src) 
-        {
-            ?>
-            <script src="<?php echo $js_src; ?>"></script>
-            <?php
-        }
+        ?>
+        <script src="<?php echo $js_src; ?>"></script>
+        <?php
     }
-    ?>
+}
+?>

@@ -1617,6 +1617,11 @@ jQuery(function($) {
 	    }    	
     });
 
+     $(document).on("click", ".close_brand", function(event){
+     	event.preventDefault();
+    	location.reload();
+    });
+
     $(document).on("click", "#submitDeleteDrafts", function(event){
     	var postsTotDelete = [];
     	$.each($(".select-box"),function(a,b){
