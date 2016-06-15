@@ -194,6 +194,9 @@ h5 {
 		background: #fff;
 		border-color: #000;
 		color: #000;
+		&:disabled {
+			border-color: #bfbfbf;
+		}
 	}	
 	&.color-success {
 		background: $brand-success;
@@ -3566,15 +3569,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .day-image img{
   max-height: 228px;
   width: 100%;
-}
-.post-content-footer > .save-draft-btn{
-  width: 98px !important;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.post-content-footer > .submit-approval{
-  width:180px !important;
 }
 
 .margin-top-30 {

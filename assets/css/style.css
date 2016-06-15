@@ -8542,6 +8542,8 @@ h5, .qtip-titlebar {
   background: #fff;
   border-color: #000;
   color: #000; }
+  .btn-secondary:hover:disabled, .btn-secondary:focus:disabled, .btn-secondary:active:disabled {
+    border-color: #bfbfbf; }
 .btn-secondary.color-success {
   background: #009245;
   border-color: #009245;
@@ -11288,14 +11290,6 @@ ul.actions {
 .day-image img {
   max-height: 228px;
   width: 100%; }
-
-.post-content-footer > .save-draft-btn {
-  width: 98px !important;
-  padding-left: 10px;
-  padding-right: 10px; }
-
-.post-content-footer > .submit-approval {
-  width: 180px !important; }
 
 .margin-top-30 {
   margin-top: 30px !important; }
