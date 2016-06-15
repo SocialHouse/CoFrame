@@ -90,8 +90,8 @@
 						<span class="timezone pull-xs-right margin-top-30">PST</span>
 					</div>
 					<div class="form-group form-inline pull-xl-right">						
-						<div class="hide-top-bx-shadow width_100">
-							<label>Tags:</label><br>
+						<label>Tags:</label>
+						<div class="hide-top-bx-shadow">
 							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
 								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 							</div>
