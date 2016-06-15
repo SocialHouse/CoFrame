@@ -108,7 +108,7 @@ if(!function_exists('delete_file'))
     function delete_file($path) 
     {
         if(file_exists($path))
-            unlink($path);
+           @unlink($path);
     }
 }
 

@@ -80,15 +80,26 @@ class Brands extends CI_Controller {
     		$this->timeframe_model->update_data('brands',$brand_data,$condition);
     	}
 
-    	if(isset($_FILES['file']))
+    	if(isset($_FILES['file']) && !empty( $_FILES['file']['name'][0]) )
 		{			
-			$_FILES['file']['name'] = $_FILES['file']['name'][0];	      
-	        $filename = $_FILES["file"]["name"];
+			$_FILES['file']['name'] = $_FILES['file']['name'][0];
+			if(!empty($_FILES['file']['name'])){
+				$filename = $brand_id.'.png';
+			}
 	        $_FILES['file']['type'] = $_FILES['file']['type'][0];
 	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][0];
 	        $_FILES['file']['error'] = $_FILES['file']['error'][0];
 	        $_FILES['file']['size'] = $_FILES['file']['size'][0];
+	        if(isset($filename))
+			{
+				//helper function to delete files
+				if(file_exists(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename)){
+					delete_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename);
+				}
+			}
+
 	        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
+
 	        if(array_key_exists("upload_errors",$status))
 	        {
 	        	$error = $status['upload_errors'];	        	
@@ -98,14 +109,6 @@ class Brands extends CI_Controller {
 	        	$filename = $status['file_name'];	        	
 	        }
 		}
-
-		if(isset($filename))
-		{
-			//helper function to delete files
-			delete_file($this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-			rename_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename,upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
-		}
-
 		if(!isset($error))
 		{
 			echo json_encode(array('response'=>'success','brand_id' => $brand_id,'slug'=>$slug));

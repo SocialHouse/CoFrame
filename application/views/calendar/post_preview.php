@@ -63,7 +63,7 @@
 									?>
 									<div class="before-approve">	
 										<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
-										<a class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+										<a  class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
 									</div>
 
 									<div class="after-approve hide">
@@ -100,7 +100,7 @@
 						{
 							?>
 							<div class="btn-group pull-md-right" role="group">
-								<a href="#"  class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+								<a href="#" data-clear="yes" class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
 								<button type="button" class="btn btn-xs btn-default">Schedule</button>
 						  		<button type="button" class="btn btn-xs btn-default">Post Now</button>
 						  	</div>
