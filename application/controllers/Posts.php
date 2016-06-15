@@ -727,4 +727,22 @@ class Posts extends CI_Controller {
 			echo "1";
 		}
 	}
+
+	function schedule_post()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$post_sataus = array(
+					'status' => 'scheduled'
+				);
+
+			$this->timeframe_model->update_data('posts',$post_sataus,array('id' => $post_data['post_id']));
+			echo "1";
+		}
+		else
+		{
+			echo "0";
+		}
+	}
 }

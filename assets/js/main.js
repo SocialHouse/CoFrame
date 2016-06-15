@@ -1025,8 +1025,8 @@ jQuery(function($) {
 			$('#edit-post-details').parent().empty();
 			console.log(current_modal_id);
 			$(edit_modal).attr('id', 'emptyModal');
-			equalColumns();
-		}		
+			equalColumns();			
+		}
 		$('.modal').modal('hide');
 	});
 
@@ -1897,8 +1897,31 @@ jQuery(function($) {
     		
     		$(this).addClass('active');
     	}
-    })
-    
+    });
+
+    $(document).on('click','.schedule-post',function(){
+    	var id = $(this).attr('id');
+    	var btn = this;
+    	if(id)
+    	{
+    		$.ajax({
+	    		'type':'POST',	    		
+	    		url: base_url+'posts/schedule_post',
+	    		data:{'post_id':id},
+	            success: function(response){
+	            	if(response == 1)
+	            	{
+		            	$(btn).html('Scheduled');
+		            	$(btn).prop('disabled',true);
+		            }
+		            else
+		            {
+		            	alert('Unable to scedule post.');
+		            }
+	            }
+	    	});
+    	}
+    });
 
     $(document).on('click','.edit-brands-info',function(){
 		var step_no = $(this).data('step-no');

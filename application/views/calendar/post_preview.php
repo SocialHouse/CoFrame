@@ -23,6 +23,8 @@
 
 ?>	
 		<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
+		<input type="hidden" name="outlet_id" id="postOutlet" value="<?php echo $post_details->user_id; ?>" />
+		
 		<div class="row equal-cols">
 			<div class="col-md-6 bg-white equal-height">
 				<div class="container-post-preview">
@@ -74,39 +76,40 @@
 							}
 							else
 							{
-								if($post_details->status == 'pending')
+
+								if($post_details->user_id == $this->user_id)
 								{
 									?>
-									<button class="btn btn-approved btn-sm btn-secondary small_font_size">Schedule</button>
-									<?php
-								}
-								if($post_details->status == 'posted')
-								{
-									?>
-									<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>
-									<?php 
-								}
-								if($post_details->status == 'scheduled')
-								{
-									?>
-									<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Scheduled</button>
+									<div class="btn-group pull-md-right" role="group">
+										<a href="#" data-clear="yes" class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+										<?php
+										if($post_details->status == 'scheduled')
+										{
+											?>
+											<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>	
+											<button type="button" class="btn btn-xs btn-default">Post Now</button>
+											<?php
+										}
+										elseif($post_details->status == 'pending')
+										{
+											?>
+											<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
+											<button type="button" class="btn btn-xs btn-default">Post Now</button>
+											<?php
+										}
+										elseif($post_details->status == 'posted')
+										{
+											?>
+											<button type="button" class="btn btn-xs btn-default">Posted</button>
+											<?php
+										}
+										?>								  		
+								  	</div>
 									<?php
 								}
 							}
 							?>
-						</span>	
-						<?php
-						if($post_details->user_id == $this->user_id)
-						{
-							?>
-							<div class="btn-group pull-md-right" role="group">
-								<a href="#" data-clear="yes" class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
-								<button type="button" class="btn btn-xs btn-default">Schedule</button>
-						  		<button type="button" class="btn btn-xs btn-default">Post Now</button>
-						  	</div>
-							<?php
-						}
-						?>
+						</span>						
 					</footer>
 				</div>
 			</div>
@@ -116,16 +119,16 @@
 					?> 
 					<div class="col-md-6 bg-gray-lightest equal-height">
 						<div class="container-phases">							
-							<?php								
+							<?php
 								foreach ($phases as $phase_no => $obj) {
 									?>
 									<div class="bg-white approval-phase animated fadeIn" id="approvalPhase<?php echo $phase_no ?>">
 										<h2 class="clearfix">Phase <?php echo $phase_no ?>
 											<?php
-											if($obj[0]->phase_status == 'approved' AND $post_details->user_id == $this->user_id)
+											if($obj[0]->phase_status != 'pending' AND $post_details->user_id == $this->user_id)
 											{
 												?>
-												<button class="btn btn-xs btn-secondary color-success pull-sm-right">Resubmit for Approval</button>
+												<button id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-secondary color-success pull-sm-right resubmit-approval">Resubmit for Approval</button>
 												<?php
 											}
 											?>
