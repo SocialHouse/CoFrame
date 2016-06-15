@@ -939,6 +939,18 @@ jQuery(function($) {
 			}
 		});
 	});
+	
+	var brandStepH;
+	$('#addNewUser').on('contentSlidDown', function(event, element) {
+		parentH = $(this).parents('.brand-step').prop('style')['height'];
+		if(parentH !== 'auto') {
+			brandStepH = parentH;
+			$(this).parents('.brand-step').css('height', 'auto');
+		}
+	});
+	$('#addNewUser').on('contentSlidUp', function(event, element) {
+		$(this).parents('.brand-step').css('height', brandStepH);
+	});
 
 	$('.commentReply').on('contentSlidDown', function(event, element) {
 		if($(this).is(':visible')) {
