@@ -1,22 +1,26 @@
 <div class="container-brand-step">
-	<form id="step_4_edit" method="POST" action="<?php echo base_url()?>brands/save_outlet" enctype="multipart/form-data">
+	<form id="step_4_edit" method="POST" action="<?php echo base_url()?>brands/save_tags" enctype="multipart/form-data">
 		<h3 class="text-xs-center">Step 4</h3>
+		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
+		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
 		<div class="add-brand-details brand-fields border-bottom border-black">
 			<div id="selectedTags" class="tag-list selected-items hidden" style="display: block;">
 				<ul>
 				<?php 
-					foreach ($selected_tags as $st_tag) {
-						?>
-						<li data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag" data-tag="<?php echo $st_tag->tag_name; ?>">
-							<input type="checkbox" value="<?php echo $st_tag->color; ?>" name="brand-tag" class="hidden-xs-up">
-							<i class="fa fa-circle" style="color:<?php echo $st_tag->color; ?>"><i class="fa fa-check"></i></i>
-							<?php echo $st_tag->tag_name; ?>
-							<a data-remove-tag="<?php echo $st_tag->tag_name; ?>" class="pull-sm-right remove-tag" href="#">
-								<i class="tf-icon circle-border">x</i>
-							</a>
-						</li>
-						<?php						
+					if(!empty($selected_tags)){
+						foreach ($selected_tags as $st_tag) {
+							?>
+							<li data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag" data-tag="<?php echo $st_tag->tag_name; ?>">
+								<input type="checkbox" value="<?php echo $st_tag->color; ?>" checked="checked" name="selected_tags[]" class="hidden-xs-up color">
+								<i class="fa fa-circle" style="color:<?php echo $st_tag->color; ?>"><i class="fa fa-check"></i></i>
+								<input type="hidden" value="<?php echo $st_tag->tag_name; ?>" class="labels" name="labels[]"><?php echo $st_tag->tag_name; ?>
+								<a data-remove-tag="<?php echo $st_tag->tag_name; ?>" class="pull-sm-right remove-tag" href="#">
+									<i class="tf-icon circle-border">x</i>
+								</a>
+							</li>
+							<?php						
+						}
 					}
 				?>
 					
@@ -51,7 +55,7 @@
 						<?php 
 							foreach ($selected_tags as $st_tag) {
 								?>
-								<option value="<?php echo $st_tag->color; ?>"><?php echo $st_tag->name; ?></option>
+								<option value="<?php echo $st_tag->name; ?>"><?php echo $st_tag->name; ?></option>
 								<?php								
 							}
 						?>
@@ -65,9 +69,8 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep4Btns">
-				<div class="disclaimer"><button class="btn btn-sm btn-default skip_step" type="button">Skip this Step</button></div>
 				<button type="button" class="btn btn-sm btn-default close_brand"  data-step-no="4" >Cancel</button>
-				<button type="button" class="btn btn-sm btn-secondary pull-sm-right submit_tag" data-step-no="4">Save</button>
+				<button type="submit" class="btn btn-sm btn-secondary pull-sm-right" data-step-no="4">Save</button>
 			</div>
 			<div id="addTagBtns" class="hidden">
 				<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
@@ -88,3 +91,4 @@ if(isset($js_files))
     }
 }
 ?>
+<script type='text/javascript' src='<?php echo js_url(); ?>timeframe.js?ver=1.0.0'></script>
