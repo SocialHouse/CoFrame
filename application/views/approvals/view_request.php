@@ -74,27 +74,34 @@
 				</div>
 				<footer class="post-approval-btns post-actions clearfix">
 					<?php
-					$group = get_user_groups($this->user_id);
-					if($group == 'Creator')
+					if($post_details->user_id == $this->user_id)
 					{
 						?>
-						<div class="btn-group btn-thirds" role="group">
-							<button type="button" class="btn btn-xs btn-default">Edit</button>
-							<button type="button" class="btn btn-xs btn-default">Schedule</button>
-							<button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
-						</div>
-						<?php
-					}
-					elseif($group == 'Admin')
-					{
-						?>						
-						<a href="#" class="btn btn-secondary btn-xs pull-sm-left" style="margin-left: 40%;">Approve</a>
-						<br><br>
-						<div class="btn-group pull-sm-right" role="group">
-						  <button type="button" class="btn btn-xs btn-default">Edit</button>
-						  <button type="button" class="btn btn-xs btn-default">Schedule</button>
-						  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#postNow">Post Now</button>
-						</div>
+						<div class="btn-group pull-md-right" role="group">
+							<a href="#" class="btn btn-xs btn-default" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+							<?php
+							if($post_details->status == 'scheduled')
+							{
+								?>
+								<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>	
+								<button type="button" class="btn btn-xs btn-default">Post Now</button>
+								<?php
+							}
+							elseif($post_details->status == 'pending')
+							{
+								?>
+								<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
+								<button type="button" class="btn btn-xs btn-default">Post Now</button>
+								<?php
+							}
+							elseif($post_details->status == 'posted')
+							{
+								?>
+								<button type="button" class="btn btn-xs btn-default">Posted</button>
+								<?php
+							}
+							?>								  		
+					  	</div>
 						<?php
 					}
 					?>
@@ -107,6 +114,10 @@
 				<h4 class="text-xs-center">Approval Info</h4>
 				<?php
 				$i = 1;
+				// echo "<pre>";
+				// print_r($phases);
+				// echo "</pre>";
+				// die;
 				foreach($phases as $phase)
 				{
 					$active_class = '';
@@ -344,3 +355,20 @@
 		</div>
 	</div>
 </section>
+
+<!-- Blank Modal -->
+<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  </div>
+	  <div class="modal-body">
+	  </div>
+	</div>
+  </div>
+</div>
+<button type="button" class="modal-toggler">
+	<span class="sr-only">Toggle Modal</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</button>

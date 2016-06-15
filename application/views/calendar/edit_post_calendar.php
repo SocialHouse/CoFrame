@@ -3,7 +3,7 @@
 
 		<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">
 
-		<div class="row equal-cols">
+		<div class="row equal-cols create">
 			<div class="col-md-4">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
