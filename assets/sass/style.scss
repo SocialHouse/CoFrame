@@ -1611,7 +1611,7 @@ a {
 		right: 0;
 		top: 0;
 	}
-	.has-advanced-upload & {
+	.has-advanced-upload &, .has-advanced-upload {
 		.form__input {
 			border-radius: 100%;
 			color: #808080;

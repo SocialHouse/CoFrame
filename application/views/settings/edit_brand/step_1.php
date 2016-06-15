@@ -21,10 +21,10 @@
 					$cls_2 = '';
 				}
 			?> 
-				<div class="brand-logo">
-					<a href="#" class="pull-sm-right remove-brand-img <?php echo $cls_1; ?>">
+				<div class="brand-logo text-xs-center">
+					<a href="#" class="remove-brand-img <?php echo $cls_1; ?>">
 						<i class="tf-icon circle-border">x</i>
-					</a><br><br>
+					</a>
 					<label>
 					
 					<div class="form__input center-block brand-image  <?php echo $cls_2; ?>">

@@ -9692,7 +9692,7 @@ a {
     position: absolute;
     right: 0;
     top: 0; }
-  .has-advanced-upload .brand-step .form__input {
+  .has-advanced-upload .brand-step .form__input, .brand-step .has-advanced-upload .form__input {
     border-radius: 100%;
     color: #808080;
     background: #E6E6E6;
@@ -9701,7 +9701,7 @@ a {
     width: 200px;
     padding: 0;
     cursor: pointer; }
-    .has-advanced-upload .brand-step .form__input label {
+    .has-advanced-upload .brand-step .form__input label, .brand-step .has-advanced-upload .form__input label {
       padding: 0 1rem; }
   .js .brand-step .form__file-preview {
     height: 200px;
