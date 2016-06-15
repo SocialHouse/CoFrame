@@ -632,7 +632,7 @@ pre {
       max-width: 992px; } }
   @media (min-width: 1280px) {
     .container {
-      max-width: 1170px; } }
+      max-width: 94%; } }
   @media (min-width: 1820px) {
     .container {
       max-width: 1820px; } }
@@ -11293,9 +11293,6 @@ ul.actions {
 
 .margin-top-30 {
   margin-top: 30px !important; }
-
-.phase-time-input {
-  width: 100px; }
 
 .phase-timezone {
   margin-left: 5px !important; }
