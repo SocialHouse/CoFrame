@@ -783,9 +783,6 @@ jQuery(function($) {
 		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
-			if($toggler.hasClass('selected')) {
-				$('.qtip').qtip('hide');
-			}
 			if($toggler.hasClass('show-brands-toggler')) {
 				if($toggler.hasClass('animated')) {
 					$toggler.removeClass('animated pulse');
@@ -801,7 +798,16 @@ jQuery(function($) {
 				}
 			}
 			else {
-				$toggler.toggleClass('selected');
+				if(e.type === 'click') {
+					//remove selected class if user clicks from one toggler to another
+					$('.popover-toggle.selected').each(function() {
+						$(this).removeClass('selected');
+					});
+					$toggler.addClass('selected');
+				}
+				else {
+					$toggler.removeClass('selected');
+				}
 			}
 		});
 		$('.calendar-header a[class*="tf-icon"]').on('click blur', function() {
