@@ -27,6 +27,19 @@ $brand-warning: #F5DB12;
 $brand-danger: #C1272D;
 $brand-orange: #F58235;
 
+$blogger: #ff9334;
+$facebook: #547BBC;
+$google: #de5246;
+$instagram: #696969;
+$linkedin: #1384C7;
+$pinterest: #E95655;
+$tumblr: #5E8FAE;
+$twitter: #78CBEF;
+$youtube: #E9644A;
+$vimeo: #1DAD87;
+$vine: #1DAD87;
+$wordpress: #1e8cbe;
+
 $navbar-dark-color: #fff;
 $navbar-light-color: #000;
 $navbar-padding-vertical: 1.375rem;
@@ -54,7 +67,7 @@ $btn-link-disabled-color: $gray-lighter;
 $input-border: #000;
 $input-border-radius: 0;
 $input-border-radius-sm: 0;
-$input-border-color: #000;
+$input-border-color: transparent;
 $input-color: #000;
 $input-box-shadow: 0;
 $input-padding-y: 5px;
@@ -65,6 +78,12 @@ $input-color-placeholder: #ccc;
 $input-height: 22px;
 $input-height-sm: 25px;
 $form-group-margin-bottom: 2rem;
+
+$list-group-border-color: #000;
+$list-group-link-color: #000;
+$list-group-border-radius: $border-radius-sm;
+
+$table-bg-accent: $gray-lightest;
 
 //Fonts
 $bebas: 'Bebas', Arial, Helvetica, sans-serif;
@@ -95,21 +114,18 @@ $close-color: #fff;
 $close-text-shadow: none;
 
 $modal-content-border-color: transparent;
-$modal-backdrop-opacity: 0;
-$modal-sm: 480px;
-$modal-inner-padding: 2.1875rem 1.5rem 1.5rem;
-
-$popover-bg: #fff;
-$popover-border-width: 0;
-$popover-title-bg: $popover-bg;
-$popover-arrow-outer-color: $popover-bg;
-$popover-max-width: 300px;
+$modal-backdrop-bg: #fff;
+$modal-backdrop-opacity: .75;
+$modal-sm: 360px;
+$modal-md: 480px;
+$modal-lg: 1470px;
+$modal-inner-padding: 1rem;
 
 $container-max-widths: (
   sm: inherit,    // 480
   md: 992px,
   lg: 1170px,
-  xl: 1680px
+  xl: 1820px
 );
 
 $grid-gutter-width: 30px; // 30px
@@ -124,5 +140,5 @@ $grid-breakpoints: (
   // Large screen / desktop
   lg: 1280px,
   // Extra large screen / wide desktop
-  xl: 1680px
+  xl: 1820px
 );

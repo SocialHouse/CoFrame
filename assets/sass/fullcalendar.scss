@@ -1,12 +1,12 @@
 /*!
- * FullCalendar v2.6.1 Stylesheet
+ * FullCalendar v2.7.1 Stylesheet
  * Docs & License: http://fullcalendar.io/
- * (c) 2015 Adam Shaw
+ * (c) 2016 Adam Shaw
  */
-
+ 
 @import "vendor/bootstrap/variables";
 @import "vendor/bootstrap/custom";
-
+@import "vendor/font-awesome/variables";
 
 .fc {
 	direction: ltr;
@@ -31,6 +31,7 @@ body .fc { /* extra precedence to overcome jqui */
 .fc-unthemed tbody,
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-row,
+.fc-unthemed .fc-content, /* for gutter border */
 .fc-unthemed .fc-popover {
 	border-color: #ddd;
 }
@@ -75,7 +76,6 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-icon {
 	display: inline-block;
-	width: 1em;
 	height: 1em;
 	line-height: 1em;
 	font-size: 1em;
@@ -102,7 +102,6 @@ NOTE: use percentage font sizes or else old IE chokes
 
 .fc-icon:after {
 	position: relative;
-	margin: 0 -1em; /* ensures character will be centered, regardless of width */
 }
 
 .fc-icon-left-single-arrow:after {
@@ -110,7 +109,6 @@ NOTE: use percentage font sizes or else old IE chokes
 	font-weight: bold;
 	font-size: 200%;
 	top: -7%;
-	left: 3%;
 }
 
 .fc-icon-right-single-arrow:after {
@@ -118,7 +116,6 @@ NOTE: use percentage font sizes or else old IE chokes
 	font-weight: bold;
 	font-size: 200%;
 	top: -7%;
-	left: -3%;
 }
 
 .fc-icon-left-double-arrow:after {
@@ -137,14 +134,12 @@ NOTE: use percentage font sizes or else old IE chokes
 	content: "\25C4";
 	font-size: 125%;
 	top: 3%;
-	left: -2%;
 }
 
 .fc-icon-right-triangle:after {
 	content: "\25BA";
 	font-size: 125%;
 	top: 3%;
-	left: 2%;
 }
 
 .fc-icon-down-triangle:after {
@@ -365,6 +360,11 @@ hr.fc-divider {
 	bottom: 0; /* strech bg to bottom edge */
 }
 
+.fc-bg table {
+	height: 100%; /* strech bg to bottom edge */
+}
+
+
 /* Tables
 --------------------------------------------------------------------------------------------------*/
 
@@ -489,15 +489,15 @@ temporary rendered events).
 /* Scrolling Container
 --------------------------------------------------------------------------------------------------*/
 
-.fc-scroller { /* this class goes on elements for guaranteed vertical scrollbars */
-	overflow-y: auto;
-	overflow-x: hidden;
+.fc-scroller {
+	-webkit-overflow-scrolling: touch;
 }
 
-.fc-scroller > * { /* we expect an immediate inner element */
+/* TODO: move to agenda/basic */
+.fc-scroller > .fc-day-grid,
+.fc-scroller > .fc-time-grid {
 	position: relative; /* re-scope all positions */
 	width: 100%; /* hack to force re-sizing this inner element when scrollbars appear/disappear */
-	overflow: hidden; /* don't let negative margins or absolute positioning create further scroll */
 }
 
 
@@ -545,14 +545,72 @@ temporary rendered events).
 	z-index: 2;
 }
 
+/* resizer (cursor AND touch devices) */
+
 .fc-event .fc-resizer {
 	position: absolute;
-	z-index: 3;
+	z-index: 4;
+}
+
+/* resizer (touch devices) */
+
+.fc-touch .fc-event .fc-resizer {
+	display: none; /* only show when selected */
+}
+
+.fc-touch .fc-event.fc-selected .fc-resizer {
+	display: block;
+}
+
+
+/* Hit Area (for events and expander)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-expander { /* fc-event is already position:relative */
+	position: relative;
+}
+
+.fc-touch .fc-expander:before,
+.fc-touch .fc-event .fc-resizer:before {
+	/* 40x40 touch area */
+	content: "";
+	position: absolute;
+	z-index: 9999; /* user of this util can scope within a lower z-index */
+	top: 50%;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	margin-left: -20px;
+	margin-top: -20px;
+}
+
+
+/* Event Selection (only for touch devices)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-event.fc-selected {
+	z-index: 9999 !important; /* overcomes inline z-index */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fc-event.fc-selected.fc-dragging {
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
 }
 
 
 /* Horizontal Events
 --------------------------------------------------------------------------------------------------*/
+
+/* bigger touch area when selected */
+.fc-h-event.fc-selected:before {
+	content: "";
+	position: absolute;
+	z-index: 3; /* below resizers */
+	top: -10px;
+	bottom: -10px;
+	left: 0;
+	right: 0;
+}
 
 /* events that are continuing to/from another week. kill rounded corners and butt up against edge */
 
@@ -574,36 +632,56 @@ temporary rendered events).
 	border-bottom-right-radius: 0;
 }
 
-/* resizer */
-
-.fc-h-event .fc-resizer { /* positioned it to overcome the event's borders */
-	top: -1px;
-	bottom: -1px;
-	left: -1px;
-	right: -1px;
-	width: 5px;
-}
+/* resizer (cursor AND touch devices) */
 
 /* left resizer  */
 .fc-ltr .fc-h-event .fc-start-resizer,
-.fc-ltr .fc-h-event .fc-start-resizer:before,
-.fc-ltr .fc-h-event .fc-start-resizer:after,
-.fc-rtl .fc-h-event .fc-end-resizer,
-.fc-rtl .fc-h-event .fc-end-resizer:before,
-.fc-rtl .fc-h-event .fc-end-resizer:after {
-	right: auto; /* ignore the right and only use the left */
+.fc-rtl .fc-h-event .fc-end-resizer {
 	cursor: w-resize;
+	left: -1px; /* overcome border */
 }
 
 /* right resizer */
 .fc-ltr .fc-h-event .fc-end-resizer,
-.fc-ltr .fc-h-event .fc-end-resizer:before,
-.fc-ltr .fc-h-event .fc-end-resizer:after,
-.fc-rtl .fc-h-event .fc-start-resizer,
-.fc-rtl .fc-h-event .fc-start-resizer:before,
-.fc-rtl .fc-h-event .fc-start-resizer:after {
-	left: auto; /* ignore the left and only use the right */
+.fc-rtl .fc-h-event .fc-start-resizer {
 	cursor: e-resize;
+	right: -1px; /* overcome border */
+}
+
+/* resizer (cursor devices) */
+
+.fc-cursor .fc-h-event .fc-resizer {
+	width: 7px;
+	top: -1px; /* overcome top border */
+	bottom: -1px; /* overcome bottom border */
+}
+
+/* resizer (touch devices) */
+
+.fc-touch .fc-h-event .fc-resizer {
+	/* 8x8 little dot */
+	border-radius: 4px;
+	border-width: 1px;
+	width: 6px;
+	height: 6px;
+	border-style: solid;
+	border-color: inherit;
+	background: #fff;
+	/* vertically center */
+	top: 50%;
+	margin-top: -4px;
+}
+
+/* left resizer  */
+.fc-touch.fc-ltr .fc-h-event .fc-start-resizer,
+.fc-touch.fc-rtl .fc-h-event .fc-end-resizer {
+	margin-left: -4px; /* centers the 8x8 dot on the left edge */
+}
+
+/* right resizer */
+.fc-touch.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-touch.fc-rtl .fc-h-event .fc-start-resizer {
+	margin-right: -4px; /* centers the 8x8 dot on the right edge */
 }
 
 
@@ -618,6 +696,20 @@ be a descendant of the grid when it is being dragged.
 	padding: 0 1px;
 }
 
+.fc-day-grid-event.fc-selected:after {
+	content: "";
+	position: absolute;
+	z-index: 1; /* same z-index as fc-bg, behind text */
+	/* overcome the borders */
+	top: -1px;
+	right: -1px;
+	bottom: -1px;
+	left: -1px;
+	/* darkening effect */
+	background: #000;
+	opacity: .25;
+	filter: alpha(opacity=25); /* for IE */
+}
 
 .fc-day-grid-event .fc-content { /* force events to be one-line tall */
 	white-space: nowrap;
@@ -628,10 +720,18 @@ be a descendant of the grid when it is being dragged.
 	font-weight: bold;
 }
 
-.fc-day-grid-event .fc-resizer { /* enlarge the default hit area */
-	left: -3px;
-	right: -3px;
-	width: 7px;
+/* resizer (cursor devices) */
+
+/* left resizer  */
+.fc-cursor.fc-ltr .fc-day-grid-event .fc-start-resizer,
+.fc-cursor.fc-rtl .fc-day-grid-event .fc-end-resizer {
+	margin-left: -2px; /* to the day cell's edge */
+}
+
+/* right resizer */
+.fc-cursor.fc-ltr .fc-day-grid-event .fc-end-resizer,
+.fc-cursor.fc-rtl .fc-day-grid-event .fc-start-resizer {
+	margin-right: -2px; /* to the day cell's edge */
 }
 
 
@@ -677,6 +777,20 @@ a.fc-more:hover {
 .fc-now-indicator {
 	position: absolute;
 	border: 0 solid red;
+}
+
+
+/* Utilities
+--------------------------------------------------------------------------------------------------*/
+
+.fc-unselectable {
+	-webkit-user-select: none;
+	 -khtml-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 /* Toolbar
@@ -821,7 +935,11 @@ a.fc-more:hover {
 }
 
 .fc-day-number.fc-other-month {
-	color: $gray-light;
+	opacity: 0.3;
+	filter: alpha(opacity=30); /* for IE */
+	/* opacity with small font can sometimes look too faded
+	   might want to set the 'color' property instead
+	   making day-numbers bold also fixes the problem */
 }
 
 /* AgendaView all-day area
@@ -1025,6 +1143,20 @@ be a descendant of the grid when it is being dragged.
 	overflow: hidden; /* don't let the bg flow over rounded corners */
 }
 
+.fc-time-grid-event.fc-selected {
+	/* need to allow touch resizers to extend outside event's bounding box */
+	/* common fc-selected styles hide the fc-bg, so don't need this anyway */
+	overflow: visible;
+}
+
+.fc-time-grid-event.fc-selected .fc-bg {
+	display: none; /* hide semi-white background, to appear darker */
+}
+
+.fc-time-grid-event .fc-content {
+	overflow: hidden; /* for when .fc-selected */
+}
+
 .fc-time-grid-event .fc-time,
 .fc-time-grid-event .fc-title {
 	padding: 0 1px;
@@ -1066,9 +1198,9 @@ be a descendant of the grid when it is being dragged.
 	padding: 0; /* undo padding from above */
 }
 
-/* resizer */
+/* resizer (cursor device) */
 
-.fc-time-grid-event .fc-resizer {
+.fc-cursor .fc-time-grid-event .fc-resizer {
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -1081,8 +1213,26 @@ be a descendant of the grid when it is being dragged.
 	cursor: s-resize;
 }
 
-.fc-time-grid-event .fc-resizer:after {
+.fc-cursor .fc-time-grid-event .fc-resizer:after {
 	content: "=";
+}
+
+/* resizer (touch device) */
+
+.fc-touch .fc-time-grid-event .fc-resizer {
+	/* 10x10 dot */
+	border-radius: 5px;
+	border-width: 1px;
+	width: 8px;
+	height: 8px;
+	border-style: solid;
+	border-color: inherit;
+	background: #fff;
+	/* horizontally center */
+	left: 50%;
+	margin-left: -5px;
+	/* center on the bottom edge */
+	bottom: -5px;
 }
 
 
@@ -1117,7 +1267,7 @@ be a descendant of the grid when it is being dragged.
 	border-bottom-color: transparent;
 }
 
-.calendar-summary {
+.calendar-summary, .calendar-select-date, .archive-calendar {
 	padding: remCalc(22px);
 	height: 100%;
 	.fc-head {
@@ -1127,11 +1277,13 @@ be a descendant of the grid when it is being dragged.
 		border-width: 0;
 		border-radius: 8px;
 		vertical-align: middle;
-		padding-top: 6px;
-		padding-bottom: 6px;
 		&.ui-state-highlight {
 			background: $brand-primary;
 		}
+	}
+	.fc td.fc-day-number {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 	.fc-day-header {
 		color: $gray-light;
@@ -1141,6 +1293,10 @@ be a descendant of the grid when it is being dragged.
 	}
 	.fc-basic-view .fc-body .fc-row {
 		min-height: inherit;
+		height: auto !important;
+	}
+	.fc-row .fc-content-skeleton {
+		padding-bottom: 0;
 	}
 	button {
 		height: auto;
@@ -1149,6 +1305,381 @@ be a descendant of the grid when it is being dragged.
 		text-transform: none;
 		font-size: remCalc(20px);
 		border: 0;
+		letter-spacing: normal;
+	}
+}
+.calendar-select-date {
+	padding: 0;
+	.fc-head {
+		border-bottom: 1px solid $gray-lighter;
+	}
+	.fc-day-header {
+		color: $gray-lighter;
+	}
+	.fc-row {
+		border: 1px solid transparent;
+	}
+	.fc-day-number {
+		cursor: pointer;
+	}
+	.fc-day-number.fc-other-month {
+		color: $gray-lighter;
+	}
+	.fc td.ui-state-highlight {
+		background: #f4d3d5;
+		&.fc-today {
+			background: none;
+			.popover-date-filter & {
+				background: #f4d3d5;
+			}
+		}
+	}
+	.fc-highlight {
+		background: #f4d3d5;
+	}
+	.fc-bgevent {
+		opacity: 1;
+	}
+	h2 {
+		font-size: remCalc(17px);
+	}
+	hr {
+		margin-top: 0;
+		margin-bottom: 1rem;
+		border-color: $gray-lighter;
+	}
+	.selected-week {
+		border: 1px solid $brand-primary;
+		border-radius: 8px;
+	}
+}
+.future-dates-only {
+	.fc-past {
+		opacity: .3;
+		cursor: not-allowed;
+	}
+}
+.archive-calendar {
+	padding: 1.5rem 1.46667rem 1.46667rem;
+	h2 {
+		font-family: $futura;
+		padding: 0;
+		line-height: 30px;
+		font-size: remCalc(17px);
+	}
+	.fc {
+		font-family: $futura;
+		td.ui-state-highlight {
+			background: none;
+		}
+	}
+	.fc-day-header {
+		color: $gray-lighter;
+		font-family: $futura-light;
+	}
+	.fc-other-month {
+		opacity: 0;
+	}
+}
+#calendar-week {
+	margin-top: -26px;
+	.fc-row.fc-widget-header {
+		margin-bottom: 4px;
+	}
+	th {
+		padding-top: 10px;
+		&.fc-today-header {
+			padding: 0;
+		}
+		.fc-today-highlight {
+			padding: 8px 0;
+			border: 2px $brand-primary solid;
+			border-radius: 7px;
+			font-family: $futura-bold;
+		}
+	}
+	td {
+		&.fc-widget-content {
+			&:first-child {
+				border-width: 0;
+				border-top: 1px solid $gray-lighter;
+			}
+		}
+	}
+	.fc-content-skeleton {
+		> table > tbody > tr:first-child {
+			.fc-event {
+				border-top: 0;
+			}
+		}
+	}
+	.fc-today {
+		background: #fcf4f4;
+	}
+	.fc-event-container {
+		height: 90px;
+	}
+	.fc-event {
+		border: 0;
+		border-top: 1px solid $gray-lighter;
+		border-radius: 0;
+		padding-top: 8px;
+		padding-bottom: 10px;
+		background: none;
+		.fc-content {
+			overflow: visible;
+			.fc-time {
+				font-weight: normal;
+			}
+		}
+		&:before {
+			top: 15px;
+		}
+	}
+	.fc-day-grid-event .fc-content {
+		white-space: normal;
+	}
+	.fc-time {
+		display: block;
+		font-family: $futura-heavy;
+		padding-top: 5px;
+	}
+	.fc-title {
+		overflow: visible;
+		height: 45px;
+		display: inline-block;
+	}
+}
+#calendar-month {
+	margin-top: -1rem;
+	th {
+		padding: 0 0 1rem;
+	}
+	td {
+		&.fc-day-number {
+			font-family: $futura;
+			font-size: 12px;
+			padding-top: 8px;
+			padding-left: 8px;
+		}
+	}
+	.fc-body > tr > td.fc-widget-content {
+		border-left: 0;
+		border-right: 0;
+	}
+	&.fc-ltr .fc-basic-view .fc-day-number {
+		text-align: left;
+	}
+	.fc-day-grid-event {
+		margin-top: 0;
+		margin-left: 0;
+		.fc-time {
+			font-weight: normal;
+		}
+	}
+	.fc-bg {
+		.fc-today {
+			background: #fcf4f4;
+		}
+	}
+	.fc-event {
+		border: 0;
+		.fc-content {
+			line-height: 27px;
+			margin-bottom: 4px;
+			text-overflow: ellipsis;
+		}
+		&:before {
+			top: 7px;
+		}
+	}
+	.fc-more {
+		position: relative;
+		padding-left: 31px;
+		line-height: 27px;
+		font-size: 12px;
+		.bg-outlet {
+			top: 0px;
+			left: 4px;
+			&:before {
+				height: 19px;
+				width: 19px;
+			}
+			i {
+				position: absolute;
+				color: #fff;
+				font-size: 22px;
+				line-height: 16px;
+				top: 0;
+				left: 3px;
+				font-family: $futura-light;
+				font-style: normal;
+			}
+		}
+	}
+	.fc-more-popover {
+		box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+		width: 200px;
+		margin-left: -7px;
+		.fc-widget-header {
+			display: none;
+		}
+	}
+}
+
+#calendar-month, #calendar-week {
+	.fc-event,
+	.fc-event:hover,
+	.ui-widget .fc-event {
+		color: #000;
+	}
+	th {
+		font-size: 11px;
+		letter-spacing: .25em;
+		text-transform: uppercase;
+		border-color: transparent;
+	}
+	td {
+		border-color: $gray-lighter;
+		&.fc-widget-header {
+			border-width: 0;
+		}
+	}
+	.fc-highlight {
+		background: #fcf4f4;
+		opacity: 1;
+		filter: alpha(opacity=100);
+	}
+	.fc-event {
+		font-size: 12px;
+		cursor: pointer;
+		background: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		&.blogger {
+			&:before {
+				font-family: 'icomoon';
+				content: "\e901";
+			}
+			.fc-content:before {
+				background: $blogger;
+			}
+		}
+		&.facebook {
+			&:before {
+				content: $fa-var-facebook;
+			}
+			.fc-content:before {
+				background: $facebook;
+			}
+		}
+		&.google {
+			&:before {
+				content: $fa-var-google-plus;
+			}
+			.fc-content:before {
+				background: $google;
+			}
+		}
+		&.instagram {
+			&:before {
+				content: $fa-var-instagram;
+			}
+			.fc-content:before {
+				background: $instagram;
+			}
+		}
+		&.linkedin {
+			&:before {
+				content: $fa-var-linkedin;
+			}
+			.fc-content:before {
+				background: $linkedin;
+			}
+		}
+		&.pinterest {
+			&:before {
+				content: $fa-var-pinterest-p;
+			}
+			.fc-content:before {
+				background: $pinterest;
+			}
+		}
+		&.tumblr {
+			&:before {
+				content: $fa-var-tumblr;
+			}
+			.fc-content:before {
+				background: $tumblr;
+			}
+		}
+		&.twitter {
+			&:before {
+				content: $fa-var-twitter;
+			}
+			.fc-content:before {
+				background: $twitter;
+			}
+		}
+		&.youtube {
+			&:before {
+				content: $fa-var-youtube-play;
+			}
+			.fc-content:before {
+				background: $youtube;
+			}
+		}
+		&.vimeo {
+			&:before {
+				content: $fa-var-vimeo;
+			}
+			.fc-content:before {
+				background: $vimeo;
+			}
+		}
+		&.vine {
+			&:before {
+				content: $fa-var-vine;
+			}
+			.fc-content:before {
+				background: $vine;
+			}
+		}
+		&.wordpress {
+			&:before {
+				content: $fa-var-wordpress;
+			}
+			.fc-content:before {
+				background: $wordpress;
+			}
+		}
+		&:before {
+			font-family: "FontAwesome";
+			color: #fff;
+			position: absolute;
+			text-align: center;
+			z-index: 11;
+			width: 27px;
+			left: 2px;
+		}
+		.fc-content {
+			font-family: $futura-light;
+			padding-left: 32px;
+			&:before {
+				height: 19px;
+				width: 19px;
+				top: 4px;
+				left: 5px;
+				display: block;
+				content: "";
+				-webkit-transform: rotateZ(45deg);
+				transform: rotateZ(45deg);
+				position: absolute;
+				z-index:10;
+			}
+		}
 	}
 }
 
@@ -1159,16 +1690,29 @@ be a descendant of the grid when it is being dragged.
 	border: 0;
 	color: $gray-light;
 }
-.ui-button {
-	font-family: "FontAwesome";
-	&.fc-prev-button {
-		&:before {
-			content: "\f053"
+.fc {
+	.ui-button {
+		font-family: "FontAwesome";
+		font-size: 21px;
+		&.fc-prev-button {
+			&:before {
+				content: "\f104"
+			}
 		}
-	}
-	&.fc-next-button {
-		&:before {
-			content: "\f054"
+		&.fc-prevYear-button {
+			&:before {
+				content: "\f100"
+			}
+		}
+		&.fc-next-button {
+			&:before {
+				content: "\f105"
+			}
+		}
+		&.fc-nextYear-button {
+			&:before {
+				content: "\f101"
+			}
 		}
 	}
 }
