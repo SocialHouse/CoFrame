@@ -54,6 +54,20 @@ if(isset($css_files))
 		</div>
 	</div>
 
+	<!-- Blank Modal -->
+	<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-body">
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<button type="button" class="modal-toggler">
+		<span class="sr-only">Toggle Modal</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js'></script>

@@ -2133,7 +2133,7 @@ a {
 	margin-top: .75rem;
 }
 
-#post-details {
+#post-details, #edit-post-details {
 	text-transform: uppercase;
 	font-size: remCalc(10px);
 	letter-spacing: .25em;
@@ -2472,9 +2472,6 @@ a {
 			margin-bottom: .25rem;
 		}
 	}
-	.btn-menu {
-		margin-left: 1rem;
-	}
 }
 .post-actions {
 	text-align: center;
@@ -2485,6 +2482,7 @@ a {
 	.btn {
 		text-decoration: none;
 		font-size: 11px;
+		margin-right: 1rem;
 	}
 	.btn-secondary {
 		border: 0;
@@ -3161,8 +3159,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 .post-img {
-  max-height: 200px;
-  max-width: 100%;
   min-width: 150px;
 }
 .post_copy_text{text-transform: none !important;}
@@ -3567,11 +3563,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     margin:0;
     padding: 20px;
   }
-.day-image {
-  vertical-align: middle !important;
-}
 .day-image img{
-  max-height: 228px;
   width: 100%;
 }
 

@@ -11,8 +11,6 @@ jQuery(function($) {
 	var wh = $(window).height();
 	var ww = $(window).width();
 
-	var inlineTether, ajaxTether;
-
 	if($('#brand-manage').length) {
 		setUserTime();
 	}
@@ -488,9 +486,13 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var pconstrain = $target.data('popoverConstrain');
 			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
+			}
+			if(!pconstrain) {
+				pconstrain = '.page-main';
 			}
 			var tipW = 1;
 			var tipH = 1;
@@ -558,7 +560,8 @@ jQuery(function($) {
 					at: ptattachment,
 					my: pattachment,
 					container: $(pcontainer),
-					target: $target
+					target: $target,
+					viewport: $(pconstrain)
 				},
 				show: {
 					effect: function() {
@@ -580,7 +583,7 @@ jQuery(function($) {
 					tip: {
 						width: tipW,
 						height: tipH,
-						corner: arrowcorner,
+						corner: true,
 						mimic: 'center'
 					},
 					width: pwidth
@@ -602,9 +605,13 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
+			var pconstrain = $target.data('popoverConstrain');
 			var phide = $target.data('hide');
 			if(!pcontainer) {
 				pcontainer = '.page-main';
+			}
+			if(!pconstrain) {
+				pconstrain = '.page-main';
 			}
 			var tipW = 1;
 			var tipH = 1;
@@ -634,12 +641,13 @@ jQuery(function($) {
 					'position.my': pattachment,
 					'position.container': $(pcontainer),
 					'position.target': $target,
+					'position.viewport': $(pconstrain),
 					'overwrite': false,
 					'show.effect': function() { $(this).fadeIn(); },
 					'show.event': e.type,
 					'show.solo': true,
 					'style.classes': 'qtip-shadow ' + pclass,
-					'style.tip.corner': arrowcorner,
+					'style.tip.corner': true,
 					'style.tip.mimic': 'center',
 					'style.tip.height': tipH,
 					'style.tip.width': tipW,
@@ -762,7 +770,7 @@ jQuery(function($) {
 				style: {
 					classes: 'qtip-shadow ' + pclass,
 					tip: {
-						corner: arrowcorner,
+						corner: true,
 						mimic: 'center',
 						height: tipH,
 						width: tipW
