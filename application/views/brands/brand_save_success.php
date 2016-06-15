@@ -10,13 +10,15 @@
 
 						<?php
 						$image_path = img_url().'default_brand.png';
+						$image_class = 'center-block';
 						if(file_exists(upload_path().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png'))
 						{
 							$image_path = upload_url().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png';
+							$image_class = 'center-block circle-img';
 						}
 						?>
 
-						<img src="<?php echo $image_path ?>" alt="<?php echo $brand[0]->name; ?>" class="circle-img center-block">
+						<img src="<?php echo $image_path ?>" alt="<?php echo $brand[0]->name; ?>" class="<?php echo $image_class; ?>">
 					</div>
 					<div class="saved-items">
 						<ul class="text-xs-center">
@@ -87,6 +89,8 @@
 						<?php
 						if(!empty($brands_user))
 						{
+							$num_users = count($brands_user);
+							$u = 1;
 							foreach($brands_user as $user)
 							{
 								$image_path = img_url().'default_profile.jpg';
@@ -95,7 +99,7 @@
 									$image_path = upload_url().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png';
 								}
 								?>
-								<div class="table">
+								<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">
 									<div class="table-cell">
 										<div class="pull-sm-left"><img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>" class="circle-img"/></div>
 										<div class="pull-sm-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
@@ -162,6 +166,7 @@
 									</div>
 								</div>
 								<?php
+								$u++;
 							}
 						}
 						?>
