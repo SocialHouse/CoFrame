@@ -29,6 +29,7 @@
 			{ 
 				foreach($users as $user)
 				{ 
+					//echo '<pre>'; print_r($user);echo '</pre>';
 					?> 
 					<div class="table">
 						<div class="table-cell">

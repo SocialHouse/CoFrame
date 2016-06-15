@@ -1,3 +1,7 @@
+ if(typeof($)  === "undefined") {
+    var $ = jQuery;
+ }
+  
 $(document).ready(function(){
 
 	$('.default_phases').hide();
@@ -241,5 +245,34 @@ $(document).ready(function(){
 		});
     });
     
-    
+ 	$('body').on('click', '.tag', function() {
+		console.log($(this));
+		$(this).toggleClass('selected');
+		var checked = false;
+		var numTags = $('.tag-list .selected').length;
+		var tag = $(this).find('.fa');
+		var tagClass = tag.attr('class');
+		if($(this).hasClass('selected')) {
+			var newTag = tag.clone();
+			newTag.prependTo('.tag-select');
+			checked = true;
+		}
+		else {
+			$('.tag-select').find('.fa').each(function() {
+				if($(this).attr('class') === tagClass) {
+					$(this).remove();
+				}
+			});
+			checked = false;
+		}
+		if(numTags > 0) {
+			$('.tag-select .fa.color-gray-lighter').hide();
+		}
+		else {
+			$('.tag-select .fa.color-gray-lighter').show();
+		}
+		//set the input value
+		var $input = $(this).find('input');
+		$input.prop('checked', checked);
+	});   
 });
