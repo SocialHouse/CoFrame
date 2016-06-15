@@ -1511,6 +1511,7 @@ a {
 		width: 25px;
 		line-height: 20px;
 		margin-right: 6px;
+		text-transform: none;
 	}
 	.add-brand-details {
 		font-size: 1rem;
@@ -1602,6 +1603,12 @@ a {
 	}
 	.brand-logo {
 		margin-top: 120px;
+		position: relative;
+	}
+	.remove-brand-img {
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 	.has-advanced-upload & {
 		.form__input {
@@ -1612,6 +1619,7 @@ a {
 			height: 200px;
 			width: 200px;
 			padding: 0;
+			cursor: pointer;
 			label {
 				padding: 0 1rem;
 			}
@@ -3335,10 +3343,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .twitter-default-img {
   height:35px;width:35px;border-radius: 5px;
-}
-
-.backdrop-height {
-  height: 723px;
 }
 
 .brand-success-btn {

@@ -9627,7 +9627,8 @@ a {
     height: 25px;
     width: 25px;
     line-height: 20px;
-    margin-right: 6px; }
+    margin-right: 6px;
+    text-transform: none; }
   .brand-step .add-brand-details {
     font-size: 1rem; }
   .brand-step .add-link {
@@ -9684,7 +9685,12 @@ a {
   .success .brand-step .post-content-footer button, .success .brand-step .brand-fields {
     display: none; }
   .brand-step .brand-logo {
-    margin-top: 120px; }
+    margin-top: 120px;
+    position: relative; }
+  .brand-step .remove-brand-img {
+    position: absolute;
+    right: 0;
+    top: 0; }
   .has-advanced-upload .brand-step .form__input {
     border-radius: 100%;
     color: #808080;
@@ -9692,7 +9698,8 @@ a {
     min-height: inherit;
     height: 200px;
     width: 200px;
-    padding: 0; }
+    padding: 0;
+    cursor: pointer; }
     .has-advanced-upload .brand-step .form__input label {
       padding: 0 1rem; }
   .js .brand-step .form__file-preview {
@@ -11070,9 +11077,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   height: 35px;
   width: 35px;
   border-radius: 5px; }
-
-.backdrop-height {
-  height: 723px; }
 
 .brand-success-btn {
   position: relative !important; }

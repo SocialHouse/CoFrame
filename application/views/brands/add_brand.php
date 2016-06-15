@@ -12,10 +12,10 @@
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 1</h3>
 					<h4 class="text-xs-center">Add Brand</h4>					
-					<div class="brand-fields">						
+					<div class="brand-fields">
 						<div class="form-group">
-							<div class="brand-logo">
-								<a href="#" class="pull-sm-right remove-brand-img hide"><i class="tf-icon circle-border">x</i></a><br><br>
+							<div class="brand-logo text-xs-center">
+								<a href="#" class="remove-brand-img hide"><i class="tf-icon circle-border">x</i></a>
 								<label>
 								<div class="form__input center-block brand-image">								
 									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
@@ -39,9 +39,9 @@
 								<?php
 							    foreach($timezones as $timezone)
 							    {
-							    	?>
-							    	<option value="<?php echo $timezone->value ?>" ><?php echo $timezone->timezone; ?></option>
-							    	<?php
+								?>
+									<option value="<?php echo $timezone->value ?>" ><?php echo $timezone->timezone; ?></option>
+								<?php
 							    }
 							    ?>
 							</select>
@@ -51,7 +51,7 @@
 						<button type="reset" class="btn btn-sm btn-default">Cancel</button>
 						<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand" disabled="disabled">Next</button>
 
-						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="2"></button>
+						<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled btn-secondary pull-sm-right btn-next-step hide" data-next-step="2"></button>
 					</footer>
 				</div>
 			</div>
@@ -85,10 +85,9 @@
 										<?php
 									}
 								}
-								?>								
+								?>
 							</ul>
 							<input type="hidden" id="brandOutlet">
-							
 						</div>
 					</div>
 					<footer class="post-content-footer">
