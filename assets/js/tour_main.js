@@ -126,7 +126,7 @@ jQuery(function($) {
 			$('.section-content, .page-next-prev, .container-head').fadeOut();
 			$('.modal-toggler').fadeIn();
 			if(Modernizr.cssfilters) {
-				$('.page-section').wrap("<div class='blur' style='background-color: #000'></div>");
+				$('.page-section').wrap("<div class='blur' style='background-color: #000; height: 100%;'></div>");
 			}
 		}
 		else {

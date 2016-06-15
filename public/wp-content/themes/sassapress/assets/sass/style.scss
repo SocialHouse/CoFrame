@@ -1585,15 +1585,18 @@ p:empty {
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
 		/* SVG blur filter */
-		-webkit-filter: url(../images/blur.svg#blur);
-		-moz-filter: url(../images/blur.svg#blur);
-		filter: url(../images/blur.svg#blur);
+		-webkit-filter: url(/assets/images/blur.svg#blur);
+		-moz-filter: url(/assets/images/blur.svg#blur);
+		filter: url(/assets/images/blur.svg#blur);
 		/*CSS filter*/
 		filter: blur(35px) brightness(0.75);
 		-webkit-filter: blur(35px) brightness(0.75);
 		-moz-filter: blur(35px) brightness(0.75);
 		-ms-filter: blur(35px) brightness(0.75);
 		-o-filter: blur(35px) brightness(0.75);
+		&#get-started {
+			height: 100% !important;
+		}
  	}
 }
 .clear {
