@@ -27,11 +27,13 @@
 		<?php 
 			if(!empty($users))
 			{ 
+				$num_users = count($users);
+				$u = 1;
 				foreach($users as $user)
 				{ 
 					//echo '<pre>'; print_r($user);echo '</pre>';
 					?> 
-					<div class="table">
+					<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">
 						<div class="table-cell">
 							<?php
 								$path = img_url()."default_profile.jpg";
@@ -100,6 +102,7 @@
 						</div> 
 					</div> 
 					<?php
+					$u++;
 				} 
 			}
 		?>
