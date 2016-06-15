@@ -681,4 +681,50 @@ class Posts extends CI_Controller {
 			// $this->timeframe_model->update_data('posts',$array,$condition);
 		}
 	}
+
+	function change_post_status()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$approver_data = array(
+					'status' => $post_data['status']
+				);
+			$this->timeframe_model->update_data('phases_approver',$approver_data,array('phase_id'=>$post_data['phase_id'],'user_id' => $post_data['user_id']));
+
+			
+			if($post_data['status'] == 'pending')
+			{
+				$this->timeframe_model->update_data('phases',$approver_data,array('id'=>$post_data['phase_id']));
+				$post_update = array(
+							'status' => 'pending'
+						);
+				$this->timeframe_model->update_data('posts',$post_update,array('id'=>$post_data['post_id']));
+			}
+			else
+			{
+				$phase_user = $this->timeframe_model->get_data_by_condition('phases_approver',array('phase_id' => $post_data['phase_id']),'count(id) as count');
+
+				$approved_phase_user = $this->timeframe_model->get_data_by_condition('phases_approver',array('phase_id' => $post_data['phase_id'],'status' => 'approved'),'count(id) as count');
+
+				if($phase_user[0]->count == $approved_phase_user[0]->count)
+				{
+					$this->timeframe_model->update_data('phases',$approver_data,array('id'=>$post_data['phase_id']));
+					
+					$phases = $this->timeframe_model->get_data_by_condition('phases',array('post_id' => $post_data['post_id']),'count(id) as count');
+
+					$approved_phases = $this->timeframe_model->get_data_by_condition('phases',array('post_id' => $post_data['post_id'],'status' => 'approved'),'count(id) as count');
+
+					if($phases[0]->count == $approved_phases[0]->count)
+					{
+						$post_update = array(
+							'status' => 'scheduled'
+						);
+						$this->timeframe_model->update_data('posts',$post_update,array('id'=>$post_data['post_id']));
+					}
+				}
+			}
+			echo "1";
+		}
+	}
 }

@@ -11480,3 +11480,9 @@ footer.day-edit-post .btn-default{
   text-align: center;
   vertical-align: middle;
 }
+
+/*calender post info popup*/
+.small_font_size{
+  font-size: 8px !important;
+  margin-top:6px;
+}

@@ -46,8 +46,9 @@ class Approval_model extends CI_Model
 		if($query->num_rows() > 0)
 		{
 			$result = [];
-			$result['owner_id'] = $query->row()->created_by;
-			$this->db->select('phases_approver.user_id,first_name,last_name,phases_approver.status');
+			$result['owner_id'] = $query->row()->created_by;		
+
+			$this->db->select('phases.id as id,phases.phase,post_id,note,approve_by,phases_approver.user_id,first_name,last_name,phases_approver.status,phases.status as phase_status');
 			$this->db->join('phases','phases.id = phases_approver.phase_id');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 			$this->db->where('phases.post_id',$post_id);
@@ -56,9 +57,8 @@ class Approval_model extends CI_Model
 			if($query->num_rows() > 0)
 			{
 				$result['result'] = $query->result_array();
-				
-				return $result;
 			}
+			return $result;
 		}	
 		return FALSE;
 	}
@@ -98,7 +98,7 @@ class Approval_model extends CI_Model
 
 	function all_approval_phases($post_id)
 	{
-		$this->db->select('phases.id as id,phases.phase,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status');		
+		$this->db->select('phases.id as id,phases.phase,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status,phases_approver.user_id');		
 		$this->db->join('phases','phases_approver.phase_id = phases.id');
 		$this->db->where('post_id',$post_id);
 		$this->db->group_by('phase');

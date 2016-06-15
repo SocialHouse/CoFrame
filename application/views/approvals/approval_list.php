@@ -26,6 +26,8 @@
 			</div>
 		</div>
 	</header>
+
+	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-striped table-approvals">
@@ -120,8 +122,15 @@
 													?>
 													<ul class="timeframe-list approval-list">
 														<?php
+														$approver_status = '';
+														$phase_id = '';
 														foreach($approvers['result'] as $approver)
 														{
+															if($approver['user_id'] == $this->user_id)
+															{
+																$approver_status = $approver['status'];
+																$phase_id = $approver['id'];
+															}
 															$image_path = img_url().'default_profile.jpg';
 															if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
 															{
@@ -147,8 +156,23 @@
 												{
 													$btn_class = 'btn-secondary';
 												}
+
+												if($approver_status == 'approved')
+												{
+													?>
+													<a class="btn btn-xs btn-disabled btn-secondary">Approved</a>
+													<?php
+												}
+												else
+												{
+													?>													
+														<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" id="approval_list_btn" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</a>					
+														<a class="btn btn-xs btn-disabled btn-secondary hide">Approved</a>
+													<?php
+												}
+
 												?>
-												<a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a>
+												
 												<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
 										</tr>
 										<?php

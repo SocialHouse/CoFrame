@@ -72,15 +72,36 @@
 					</div>
 				</div>
 				<footer class="post-approval-btns post-actions clearfix">
-					<?php
-					if(!empty($phase['phase_users'][0]->phase_status) && $phase['phase_users'][0]->phase_status == 'accepted' ){
-						?>						
-						<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
-						<a href="#undoApproval" data-toggle="modal" data-target="#undoApproval">Undo</a>
+					<?php	
+					$phase_status = '';				
+					foreach($phase['phase_users'] as $phase_data)
+					{
+						if($phase_data->aauth_user_id == $this->user_id)
+						{
+							$phase_status = $phase_data->status;
+						}
+					}
+					if(!empty($phase_status) && $phase_status == 'approved' ){
+						?>
+						<div class="before-approve">						
+							<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
+							<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+						</div>
+						
+						<div class="after-approve hide">
+							<a href="#" class="btn btn-secondary btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+						</div>
+
 						<?php
 					}else{
 						?>
-						<a href="#" class="btn btn-secondary btn-xs pull-sm-left">Approve</a>
+						<div class="before-approve">
+							<a href="#" class="btn btn-secondary btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+						</div>
+						<div class="after-approve hide">
+							<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
+							<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
+						</div>
 						<?php
 					}
 					?>

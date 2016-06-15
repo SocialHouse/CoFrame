@@ -1665,6 +1665,45 @@ jQuery(function($) {
 
     });
 
+    $(document).on("click", ".change-approve-status", function(event){
+    	var phase_id = $(this).data('phase-id');
+    	var status = $(this).data('phase-status');
+    	var user_id = $('#user-id').val()
+    	var post_id = $(this).data('post-id');
+    	var btn = this;
+     	
+    	if(post_id){
+    		$.ajax({
+	    		'type':'POST',
+	    		dataType: 'json',
+	    		url: base_url+'posts/change_post_status',
+	    		data:{'phase_id':phase_id,'status':status,'user_id':user_id,'post_id':post_id},
+	            success: function(response)
+	            {
+	            	if($(btn).attr('id') == 'approval_list_btn')
+	            	{
+	            		$(btn).hide();
+	            		$(btn).parent().children('a:eq(1)')
+	            		$(btn).parent().children('a:eq(1)').show();
+	            	}
+	            	else
+	            	{
+	            		$(btn).parent().addClass('hide');
+	            		if($(btn).parent('.before-approve').length)
+	            		{
+		            		$(btn).parent().parent().children('div:last').removeClass('hide')
+		            	}
+		            	else
+		            	{
+		            		$(btn).parent().parent().children('div:first').removeClass('hide')
+		            	}
+	            	}            		
+	            }
+	    	});
+    	}   	
+
+    });
+
     $(document).on('click','.reset-request',function(){
     	$('#comment_copy').val('');
     	$('#attachment').remove();

@@ -136,6 +136,7 @@ class calendar extends CI_Controller {
 			if($path == 'edit_menu' || $path == 'edit_date' ){
 				$this->data['slug'] = $this->uri->segment(4);
 				$this->data['post_id'] = $this->uri->segment(5);
+				$this->data['user_is'] = $this->uri->segment(6) ? $this->uri->segment(6) : '';
 			}
 			$this->load->view('calendar/'.$path, $this->data);
 		}
