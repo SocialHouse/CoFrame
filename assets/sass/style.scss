@@ -1,13 +1,7 @@
 /*
-Theme Name: Sassapress
 Author: Blueshoon, Inc.
 Author URI: http://www.blueshoon.com
-Description: The "Sassapress" theme for WordPress uses SASS for syntactically awesome stylesheets.  It is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu.
 Version: 1.0
-Tags: one-column, two-columns, right-sidebar, custom-menu, featured-images, full-width-template, post-formats, sass, sticky-post, theme-options, translation-ready
-Text Domain: sassapress
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned with others.
 */
 
 @import "vendor/bootstrap/bootstrap";
@@ -3087,5 +3081,599 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	margin: 0 !important;
 }
 
-@import "partials/print";
+
+/*ADDITIONAL STYLES*/
+/*fb preview*/
+.post-container {
+  max-height: 500px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: sans-serif !important;
+  text-transform: capitalize !important;
+  color: #000 !important;
+  font-weight: normal !important;
+  letter-spacing: 0.2px !important;
+}
+
+.padding_5 {
+  padding: 5px 5px 5px 5px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.user-img-border {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-img {
+  height:25px;
+  width:25px;
+}
+
+.padding-left-5 {
+  padding-left: 5px;
+}
+
+.margin-left-15 {
+  margin-left: 15px;
+}
+
+.margin-left-5 {
+  margin-left: 5px;
+}
+
+.bottom-div {
+  height:20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+  font-size: 8px;
+}
+
+.post-user-name {
+  font-weight: bold;
+  font-size: 10px;
+  color:#365899;
+  letter-spacing: 0.2px !important;
+}
+
+.time-color {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: normal !important;
+  font-size: 8px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.img-div {
+  min-height: auto;
+}
+
+.post-img {
+  max-height: 200px;
+  max-width: 100%;
+  min-width: 150px;
+}
+.post_copy_text{text-transform: none !important;}
+
+.hide{
+  display: none;
+}
+
+.width_50 {
+  height: 135px;
+  width: 50%;
+  padding : 0.5px 0.5px 0.5px 0.5px;
+}
+
+.width_33 {
+  height: 75px;
+  width: 32%;
+  padding : 0.5px 0.5px 0.5px 0.5px;
+}
+
+.width_25 {
+  height: 75px;
+  width: 25%;
+  padding : 0.5px 0.5px 0.5px 0.5px;
+}
+
+.more-images {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  margin-top: -50px;
+  margin-left: 75%;
+  font-weight: bold;
+}
+
+.no-of-photos {
+  text-transform: none;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.photos_count {
+  color:#365899 !important;
+}
+
+.insta-profile {
+  width:25px !important;
+  height:25px !important;
+}
+
+.insta-username {
+  position: relative;
+  top: 45%;
+  transform: translateY(-50%);
+}
+
+.insta-time {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.insta-add-comment {
+  padding:6px 15px;
+  height: 30px;
+  color:#DB7093;
+}
+
+.insta-post-copy {
+  padding:8px 10px;
+  max-height: auto;font-family: "Proxima Nova", Helvetica, Helvetica Neue, Arial, sans-serif !important;
+}
+
+.insta-comment-user-name {
+  font-weight: bold;font-family: arial
+}
+
+.insta-comment-div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 5px;
+  height: auto;
+}
+
+.insta-img-div {
+  height:auto;
+  width:auto;
+  max-width: 300px
+}
+
+.insta-profile-div {
+  padding:14px 10px;
+  height: 55px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.insta-post-div {
+  border:1px solid #000;
+  max-width:300px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-transform: none !important;
+}
+/*Twitter*/
+.twitter_username {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 10px;
+}
+
+.twitter-user-info {
+  font-size: 10px;
+  min-height:40px;
+}
+
+.twitter-post {
+  max-height: 400px;
+  min-height: 50px;
+  padding: 15px 15px 15px 15px;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.twitter-post-img {
+  max-width:191px;max-height: 300px;height:auto;
+}
+
+.twitter-bottom-div {
+  height:20px;border:1px solid #1212;margin-top: 8px;color: rgba(0, 0, 0, 0.5);
+}
+
+.img-radious {
+  border-radius: 3px;
+}
+
+.img-radious-left {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.img-radious-right {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.img-radious-right-bottom {
+  border-bottom-right-radius: 3px;
+}
+
+.img-radious-right-top {
+  border-top-right-radius: 3px;
+}
+
+.width_30 {
+  width: 30%;
+}
+
+.width_70 {
+  width: 70%;
+  height:135px !important;
+  padding-right: 2px;
+}
+
+.padding_bottom {
+  padding-bottom: 2px;
+}
+
+.section_2_img {
+  height: 67.5px;
+}
+
+.section_3_img {
+  height: 45px;
+}
+
+.height_135 {
+  height:135px !important;
+}
+
+.section1{float: left;width: 65%;}
+.section2{float: left;width: 35%;}
+.section1 img,.section2 img{width: 100%;}
+
+.twitter-default-img {
+  height:35px;width:35px;border-radius: 5px;
+}
+
+.backdrop-height {
+  height: 723px;
+}
+
+.brand-success-btn {
+  position:relative !important;
+}
+
+.user-upload-img {
+  font-style: italic;
+}
+
+.anchor_color {
+  color:#0000EE;
+}
+
+#add-brand-details .error {
+  color:red;
+  text-transform: none !important;
+  clear: both
+}
+
+
+/* linkedin post preview */
+.linkedin-post{
+    font-family: Arial,sans-serif;
+  }
+  .linkedin-user-detail{
+    color: #008cc9;
+  }
+  .linkedin-user-detail p{
+    color: #66696a;
+    margin-bottom: 7px;
+    text-transform:none;
+  }
+  .linkedin-profile{
+    margin-right:5px;
+    float:left;
+  }
+  .linkedin-profile img{
+    width: 54px !important;
+  }
+  .linkedin-content{
+    width:78%;
+    float:left;
+    padding: 6px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+  }
+  .linkedin-content  .post_copy_text{
+    border-top: 2px solid #eee;
+      content: "";
+      display: block;
+      margin: 0 6px 10px;
+  }
+  .linkedin-content img {
+      display: block;
+      height: auto;
+      max-height: 400px;
+      max-width: 100%;
+      width: auto;
+  }
+  ul.actions{
+    list-style: outside none none ! important;
+    display: inline-block;
+      margin-left: 0px;
+      padding-left: 7px;
+      margin-top: 5px;
+  }
+  .actions li{
+    display: inline;
+      color: #008cc9;
+      font-weight: normal;
+      text-decoration: none;
+      cursor: pointer;
+  }
+  .actions li:hover{
+      text-decoration: underline;
+  }
+
+  /* vine post preview */
+  .vine-user-info{
+    width: 70%;
+    float: left;
+    color: #464646;
+  }
+  .vine-user-profile{
+    width: 20%;
+    float: left;
+    color: #00bf8f;
+      cursor: pointer;
+  }
+  .vine-user-info > span {
+    color: #b2b2b2;
+    font-size: 12px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+  .content{
+    padding-top: 8px;
+  }
+  .vine-comment-div .post_copy_text{
+    padding: 6px;
+    color: #464646;
+    font-weight: 300;
+    letter-spacing: 0.015em;
+      line-height:23px;
+  }
+  .vine-post{
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .vine-sharing-option{
+    padding: 8px;
+    color: #b2b2b2;
+    text-align: left;
+    font-size: 10px;
+  }
+  .vine-sharing-option > span{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .vine-comment-div > hr {
+    border-color: #d9d9d9 !important;
+    margin: 0;
+  }
+
+  /* vine post preview end*/
+
+  /* tumblr post preview */
+.content{
+  padding:8px;
+}
+.tumblr-sharing-option i{
+  padding-right: 8px;
+}
+
+.tumblr-post {
+  font-family: Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #444444
+}
+.tumblr-title{
+  padding:5px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tumblr-user-profile img{
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  height: 25px;
+  width: 25px;
+  margin:10px;
+}
+.tumblr-user-profile{
+  float: left;
+}
+.tumblr-user-info{
+  padding-top: 15px;
+  font-weight: 600;
+}
+.tumblr-img-div img{
+  padding-top: 2px;
+}
+.tumblr-sharing-option {
+  color: #b2b2b2;
+  font-size: 14px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  text-align: left;
+}
+
+/* tumblr post preview end*/
+
+/* youtube post preview */
+.youtube-post .content{
+    font-family: Roboto,arial,sans-serif;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+  }
+  .youtube-comment-div{
+    padding: 6px;
+  }
+  .youtube-comment-div .post_copy_text{
+    color: #1c8cd2;
+    font-weight: bold;
+    line-height: 1.3;
+    max-height: 32px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 280px;
+    cursor: pointer;
+    display: -webkit-inline-box ;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+  .youtube-comment-div .post_copy_text:hover {
+    text-decoration: underline;
+  }
+  .youtube-sharing-option {
+    padding-top: 10px;
+    color: #b2b2b2;
+  }
+  .youtube-sharing-option > span:first-child {
+      margin-left: 10px;
+  }
+  .youtube-sharing-option > span:last-child{
+      float: right;
+    margin-right: 10px;
+  }
+  /* youtube post preview end*/
+
+  .no-data{
+    width: 100%;
+    margin:0;
+    padding: 20px;
+  }
+.day-image {
+  vertical-align: middle !important;
+}
+.day-image img{
+  max-height: 228px;
+  width: 100%;
+}
+.post-content-footer > .save-draft-btn{
+  width: 98px !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.post-content-footer > .submit-approval{
+  width:180px !important;
+}
+
+.margin-top-30 {
+  margin-top:30px !important;
+}
+
+.phase-date-time-div {
+  width:65px !important;
+}
+
+.phase-date-time-input  {
+  width:70px !important;
+}
+
+.phase-time-input {
+  width:100px;
+}
+
+.phase-timezone {
+  margin-left:5px !important;
+}
+.post-summary{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 174px;
+    cursor: pointer;
+    display: -webkit-inline-box ;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+.width_100{
+  width:100%;
+}
+footer.day-edit-post .btn-default{
+  border: 1px solid #000 !important;
+  color: #000 !important;
+}
+
+/*drafts*/
+.post-copy-draft{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 350px;
+    cursor: pointer;
+    display: -webkit-inline-box ;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .height-999{
+    height: 999px !important;
+  }
+.remove_box{
+  box-shadow: none;
+}
+
+/*archives*/
+.export-format{
+  width:100px;
+}
+
+/*edit request*/
+.replay{
+  font-size: 13px !important;
+}
+
+/*for alignment in edit brand info (setting step 1 edit page)*/
+.pd-bot-15{
+  padding-bottom: 15px
+}
+
+.form__input.center-block.brand_image-uplaod {
+  border-radius: 100%;
+  padding-top: 40%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*calender post info popup*/
+.small_font_size{
+  font-size: 8px !important;
+  margin-top:6px;
+}
+
+#step_3_edit.has-advanced-upload .form__input{
+  background: #e6e6e6 none repeat scroll 0 0;
+  border-radius: 100%;
+  color: #808080;
+  min-height: inherit;
+  padding: 0;
+  height: 60px;
+  margin-top: 2rem;
+  width: 60px;
+}
+
 @import "partials/responsive";
