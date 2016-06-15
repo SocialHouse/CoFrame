@@ -28,10 +28,7 @@
 				<h5 class="border-title"><span>Select Tag Color</span></h5>
 				<div class="tag-list">
 					<ul class="tags-to-add">
-						<li class="tag" data-value="" data-color="#ef3c39" data-group="brand-tag">
-							<input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ef3c39">
-							<i class="fa fa-circle" style="color:#ef3c39;"></i>
-						</li>
+						<li class="tag" data-value="" data-color="#ef3c39" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ef3c39"><i class="fa fa-circle" style="color:#ef3c39;"></i></li>
 						<li class="tag" data-value="" data-color="#ff7bac" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ff7bac"><i class="fa fa-circle" style="color:#ff7bac;"></i></li>
 						<li class="tag" data-value="" data-color="#f7931e" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#f7931e"><i class="fa fa-circle" style="color:#f7931e;"></i></li>
 						<li class="tag" data-value="" data-color="#ffdf7f" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#ffdf7f"><i class="fa fa-circle" style="color:#ffdf7f;"></i></li>
@@ -68,8 +65,9 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep4Btns">
-				<button type="button" class="btn btn-sm btn-default close_brand" >Cancel</button>
-				<button type="button" class="btn btn-sm btn-secondary pull-sm-right submit_tag">Done</button>
+				<div class="disclaimer"><button class="btn btn-sm btn-default skip_step" type="button">Skip this Step</button></div>
+				<button type="button" class="btn btn-sm btn-default close_brand"  data-step-no="4" >Cancel</button>
+				<button type="button" class="btn btn-sm btn-secondary pull-sm-right submit_tag" data-step-no="4">Save</button>
 			</div>
 			<div id="addTagBtns" class="hidden">
 				<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>

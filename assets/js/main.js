@@ -882,6 +882,7 @@ jQuery(function($) {
 
 		//assign tags to post
 		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
+			console.log($(this));
 			$(this).toggleClass('selected');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
@@ -980,7 +981,9 @@ jQuery(function($) {
 			newModal.on('hide.bs.modal', function () {
 				$('.modal-toggler').fadeOut();
 			});
-			$target.attr('data-toggle', 'modal-ajax-inline');
+			if($target.data('clear') == 'no'){
+				$target.attr('data-toggle', 'modal-ajax-inline');
+			}
 
 			$('#approvalPhase1').find('ul').trigger('click');
 			setTimeout(function() {
@@ -1016,7 +1019,11 @@ jQuery(function($) {
 	$('.modal-toggler').on('click', function() {
 		if($(".content-container").hasClass('height-999')){
 			$(".content-container").removeClass('height-999');
-			console.log('removed');
+			var edit_modal =$('#edit-post-details').parent().parent().parent().parent();
+			current_modal_id = edit_modal.attr('id');
+			$('#edit-post-details').parent().empty();
+			console.log(current_modal_id);
+			$(edit_modal).attr('id', 'emptyModal');
 			equalColumns();
 		}		
 		$('.modal').modal('hide');
@@ -1617,11 +1624,6 @@ jQuery(function($) {
 	    }    	
     });
 
-     $(document).on("click", ".close_brand", function(event){
-     	event.preventDefault();
-    	location.reload();
-    });
-
     $(document).on("click", "#submitDeleteDrafts", function(event){
     	var postsTotDelete = [];
     	$.each($(".select-box"),function(a,b){
@@ -1865,9 +1867,10 @@ jQuery(function($) {
 	    		'type':'POST',
 	    		dataType: 'html',
 	    		url: base_url+'settings/edit_step',
-	    		data:{'step_no':step_no,'brand_slug':brand_slug,},
+	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'false'},
 	            success: function(response){
 	            	if(response != 'false'){
+	            		toggleBtnClass('btn-secondary','btn-disabled',$('.edit-brands-info'),true);
 	            		$('#brandStep'+step_no).empty();
 	            		$('#brandStep'+step_no).addClass('active');
 	            		$('#brandStep'+step_no).html(response);
@@ -1911,14 +1914,20 @@ jQuery(function($) {
 		e.preventDefault();
 		var form = $(this);
 		$.ajax({
-    		'type':'POST',
+    		type: form.attr("method"),
     		'dataType':'json',
     		url: form.attr('action'),
-    		data:form.serialize(),
+    		data: new FormData(form[0]),
+    		processData: false,
+       		contentType: false,
             success: function(result){
             	console.log(result.response);
             	if(result.response == 'success'){
-            		location.reload();
+            		window.location.reload();
+            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+            		// $('#brandStep1').empty();
+            		// $('#brandStep1').removeClass('active');
+            		// $('#brandStep1').html(response);
             	}
             }
     	});
@@ -1935,11 +1944,79 @@ jQuery(function($) {
             success: function(result){
             	console.log(result.response);
             	if(result.response == 'success'){
-            		location.reload();
+            		window.location.reload();
+            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+            		// $('#brandStep2').empty();
+            		// $('#brandStep2').removeClass('active');
+            		// $('#brandStep2').html(response);
             	}
             }
     	});
 	});
+
+	$(document).on('submit','#step_3_edit',function(e){
+		e.preventDefault();
+		var form = $(this);
+		$.ajax({
+    		'type':'POST',
+    		'dataType':'json',
+    		url: form.attr('action'),
+    		data:form.serialize(),
+            success: function(result){
+            	console.log(result.response);
+            	if(result.response == 'success'){
+            		window.location.reload();
+            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+            		// $('#brandStep3').empty();
+            		// $('#brandStep3').removeClass('active');
+            		// $('#brandStep3').html(response);
+            	}
+            }
+    	});
+	});
+
+	$(document).on('submit','#step_4_edit',function(e){
+		e.preventDefault();
+		var form = $(this);
+		$.ajax({
+    		'type':'POST',
+    		'dataType':'json',
+    		url: form.attr('action'),
+    		data:form.serialize(),
+            success: function(result){
+            	console.log(result.response);
+            	if(result.response == 'success'){
+            		window.location.reload();
+            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+            		// $('#brandStep4').empty();
+            		// $('#brandStep4').removeClass('active');
+            		// $('#brandStep4').html(response);
+            	}
+            }
+    	});
+	});
+
+	$(document).on("click", ".close_brand", function(event){
+     	event.preventDefault();
+		var step_no = $(this).data('step-no');
+		var brand_slug = $('#brand_slug').val();
+		if(brand_slug){
+	    	$.ajax({
+	    		'type':'POST',
+	    		dataType: 'html',
+	    		url: base_url+'settings/edit_step',
+	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
+	            success: function(response){
+	            	if(response != 'false'){
+	            		toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+	            		$('#brandStep'+step_no).empty();
+	            		$('#brandStep'+step_no).removeClass('active');
+	            		$('#brandStep'+step_no).html(response);
+	            	}
+	            }
+	    	});
+    	}
+    });
 
 
 });

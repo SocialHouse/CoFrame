@@ -51,7 +51,7 @@ class Settings extends CI_Controller {
 			$timezone_str = $this->brand_model->get_brand_timezone_string($brand_id);
 			$this->data['timezone'] = $timezone_str[0]->timezone; 
 			$this->data['selected_outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
-			
+			$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);			
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['view'] = 'settings/settings';
@@ -68,14 +68,21 @@ class Settings extends CI_Controller {
 		$this->data = array();
 		$slug = $this->input->post('brand_slug');
 		$step_number = $this->input->post('step_no');
+		$is_load = $this->input->post('reload');
+
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+		$this->data['brand_id'] = $brand[0]->id;
 		$this->data['brand'] = $brand[0];
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
+		$this->data['users'] = $this->brand_model->get_brand_users( $brand[0]->id);
+
+
+
 		if(!empty($step_number) && !empty($slug)){
+
 			if($step_number == 1 ){
-			$timezone_str = $this->brand_model->get_brand_timezone_string($brand[0]->id);
-			$this->data['timezone'] = $timezone_str[0]->timezone; 
-			$this->data['timezones_list'] = $this->user_model->get_timezones();
+				$timezone_str = $this->brand_model->get_brand_timezone_string($brand[0]->id);
+				$this->data['timezone'] = $timezone_str[0]->timezone; 
+				$this->data['timezones_list'] = $this->user_model->get_timezones();
 			}
 
 			if($step_number == 2 ){
@@ -85,17 +92,24 @@ class Settings extends CI_Controller {
 			}
 
 			if($step_number == 3 ){
-				$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+				$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);
 			} 
 
 			if($step_number == 4 ){
-				$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+				$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);
 			}
 			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
-	    	echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);			
+
+			if($is_load == 'true'){
+				echo $this->load->view('settings/step_'.$step_number,$this->data,true);	
+			}else{
+				
+				$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
+				echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);
+			}
 		}else{
 			echo 'false';
 		}
-		
 	}
+
 }

@@ -19,7 +19,7 @@
 								<label>
 								<div class="form__input center-block brand-image">								
 									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
-									<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></span></label>
+									<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>
 									<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
 								</div>
 								</label>

@@ -77,8 +77,8 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep2Btns">
-				<button type="button" class="btn btn-sm btn-default close_brand">Cancel</button>
-				<button type="submit" id="save_outlet" class="btn btn-sm btn-secondary pull-sm-right">Save</button>
+				<button type="button" class="btn btn-sm btn-default close_brand"  data-step-no="2">Cancel</button>
+				<button type="submit" id="save_outlet" class="btn btn-sm btn-secondary pull-sm-right"  data-step-no="2">Save</button>
 			</div>
 			<div class="hidden" id="addOutletBtns">
 				<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addOutletBtns, #brandOutlets" data-show="#outletStep2Btns, #addOutletLink, #selectedOutlets">Cancel</button>
