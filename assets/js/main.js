@@ -492,7 +492,10 @@ jQuery(function($) {
 				pcontainer = '.page-main';
 			}
 			if(!pconstrain) {
-				pconstrain = '.page-main';
+				pconstrain = false;
+			}
+			else {
+				pconstrain = $(pconstrain);
 			}
 			var tipW = 1;
 			var tipH = 1;
@@ -561,7 +564,7 @@ jQuery(function($) {
 					my: pattachment,
 					container: $(pcontainer),
 					target: $target,
-					viewport: $(pconstrain)
+					viewport: pconstrain
 				},
 				show: {
 					effect: function() {
@@ -611,7 +614,10 @@ jQuery(function($) {
 				pcontainer = '.page-main';
 			}
 			if(!pconstrain) {
-				pconstrain = '.page-main';
+				pconstrain = false;
+			}
+			else {
+				pconstrain = $(pconstrain);
 			}
 			var tipW = 1;
 			var tipH = 1;
@@ -641,7 +647,7 @@ jQuery(function($) {
 					'position.my': pattachment,
 					'position.container': $(pcontainer),
 					'position.target': $target,
-					'position.viewport': $(pconstrain),
+					'position.viewport': pconstrain,
 					'overwrite': false,
 					'show.effect': function() { $(this).fadeIn(); },
 					'show.event': e.type,
