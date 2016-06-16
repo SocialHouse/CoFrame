@@ -176,7 +176,7 @@
 									if($post_details->user_id == $this->user_id)
 									{
 										?>
-										<button type="button" class="btn btn-xs btn-default">View Edit Requests</button>
+										<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
 										<?php
 									}
 								  	if($user_is == 'approver')
