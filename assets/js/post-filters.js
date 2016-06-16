@@ -204,7 +204,8 @@ jQuery(function($) {
 			            brand_id:$('#brand_id').val(),
 			            outlets:$('#outlet_ids').val(),
 			            statuses:$('#statuses').val(),
-			            tags:$('#tags').val()
+			            tags:$('#tags').val(),
+		                view_type:$('#calendar_type').val()
 			        }
 		        };
 

@@ -2,6 +2,8 @@
 <form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">
 
 		<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">
+		<input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>" id="redirect_url">
+		
 
 		<div class="row equal-cols create">
 			<div class="col-md-4">
@@ -414,7 +416,7 @@
 						<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
 						<?php 
 							if($phase_count > 0){
-								echo '<button type="button" class="btn btn-sm btn-default pull-sm-right">Resubmit to Phases</button>';
+								echo '<button type="submit" class="btn btn-sm btn-default pull-sm-right" name="resubmit" value="resubmit" >Resubmit to Phases</button>';
 							}
 						?>
 					</footer>

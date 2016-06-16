@@ -4,6 +4,7 @@
 <input type="hidden" id="outlet_ids">
 <input type="hidden" id="statuses">
 <input type="hidden" id="tags">
+<input type="hidden" id="calendar_type" value="week">
 
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">

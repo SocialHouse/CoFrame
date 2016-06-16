@@ -40,6 +40,7 @@ class calendar extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id,$this->user_id);
+			$this->data['view_type'] = 'day_view';
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
@@ -61,6 +62,7 @@ class calendar extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['slug'] = $slug;
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
+			$this->data['view_type'] = 'month_view';
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
 			$this->data['view'] = 'calendar/month_view';
@@ -82,7 +84,7 @@ class calendar extends CI_Controller {
 			$this->data['slug'] = $slug;
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
-
+			$this->data['view_type'] = 'week_view';
 			$this->data['view'] = 'calendar/week_view';
 	        _render_view($this->data);
 	    }
@@ -95,6 +97,7 @@ class calendar extends CI_Controller {
     	$statuses = $this->input->post('statuses');
     	$start_date = $this->input->post('start');
     	$end_date = $this->input->post('end');
+    	$tags =  $this->input->post('tags');
     	$tags =  $this->input->post('tags');
     	$posts = $this->post_model->get_posts_by_time($brand_id,$start_date,$end_date,$outlets,$statuses,$tags);
     	echo json_encode($posts);    	
@@ -146,9 +149,21 @@ class calendar extends CI_Controller {
 	} 
 
 	public function edit_post_calendar()
-	{		
-		$this->data['slug'] = $this->uri->segment(3);
-		$this->data['post_id'] = $this->uri->segment(4);
+	{	
+		$redirect_url = $this->uri->segment(3);
+		if($redirect_url == 'drafts'){
+			$this->data['redirect_url'] = 'approvals';
+		}
+		else if($redirect_url == 'day'){
+			$this->data['redirect_url'] = 'calendar/day';
+		}
+		else if($redirect_url == 'view_request'){
+			$this->data['redirect_url'] = 'view-request';
+		}else{
+			$this->data['redirect_url'] = 'calendar/'.$redirect_url;
+		}
+		$this->data['slug'] = $this->uri->segment(4);
+		$this->data['post_id'] = $this->uri->segment(5);
 
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
 		if(!empty($brand))
@@ -171,7 +186,6 @@ class calendar extends CI_Controller {
 						$this->data['phases'][$phase->phase][] = $phase;
 					}
 				}
-
 				
 			}
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
@@ -253,7 +267,8 @@ class calendar extends CI_Controller {
 		$error = '';
 		$uploaded_files = array();
 		$post_data = $this->input->post();
-		echo '<pre>'; print_r($post_data);echo '</pre>';
+		
+		echo '<pre>'; print_r($post_data );echo '</pre>';
 		if(!empty($post_data['post_id'])){
 			$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
 		    $slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
@@ -261,8 +276,9 @@ class calendar extends CI_Controller {
     		{*/
 				$condition = array('id' => $post_data['post_outlet']);
 				$post_condition = array('id' => $post_data['post_id']);
-				$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
+				//$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
 				
+				//  updates tags of posts (Add and delete tags )
 				if(!empty($post_data['post_tag'])){
 
 					$selected_tags = $this->post_model->get_post_tags($post_data['post_id']);
@@ -296,6 +312,7 @@ class calendar extends CI_Controller {
 
 				}
 
+				//  updates images of post (Add new images )
 				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
 				{
 					$files = json_decode($post_data['uploaded_files'][0])->success;
@@ -315,16 +332,149 @@ class calendar extends CI_Controller {
 	    			}
 	    		}
 				
-	        	
+	        	// update the post data like contect and start date
 				$post = array(
     						'content' => $this->input->post('post_copy'),
     						'slate_date_time' => $slate_date_time,
     					);
 
+				//  fetch all phases of post
+				$post_phases = $this->post_model->get_post_phases($post_data['post_id']);
+				if(!empty($post_phases))
+				{
+					foreach($post_phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase->user_id;
+					}
+				}
+
+				$ph_number;
+				if(!empty($post_data['phase'])){
+				
+					foreach($post_data['phase'] as $ph => $new_phase){
+						$ph_number = $ph+1;
+						$user_to_add = '';
+						$user_to_delete = '';
+						$current_phase_id= '';
+						if(!empty($new_phase['approver'])){
+							
+							if(!empty($this->data['phases'][$ph_number])){
+								$user_to_add = array_diff($new_phase['approver'],$this->data['phases'][$ph_number]); 
+								$current_phase_id = $new_phase['phase_id'];
+								$user_to_delete = array_diff($this->data['phases'][$ph_number], $new_phase['approver']); // old tags that we want to remove 
+
+								// Insert new phase 
+								if(!empty($user_to_add)){
+									foreach ($user_to_add as $newuser) {
+										$phasesdata = '';
+										$phasesdata = array(
+		    										'phase_id' => $current_phase_id,
+		    										'user_id' => $newuser
+		    									);
+										$this->timeframe_model->insert_data('phases_approver',$phasesdata);
+									}
+								}
+
+								// delete old pahse  
+								if(!empty($user_to_delete)){
+									foreach ($user_to_delete as $olduser) {
+										$phasesdata = '';
+										$phasescondition= array(
+		    										'phase_id' => $current_phase_id,
+		    										'user_id' => $olduser
+		    									);
+										$this->timeframe_model->delete_data('phases_approver',$phasescondition);
+									}
+								}
+							}
+							else
+							{
+								// add new phase and users  
+								$phase_data = '';
+								$hour = !empty($new_phase['approve_hour'])? $new_phase['approve_hour'] :'';
+								$minute = !empty($new_phase['approve_minute'])? $new_phase['approve_minute'] :'';
+								$ampm = !empty($new_phase['approve_ampm'])? $new_phase['approve_ampm'] :'am';
+								$date_time = !empty($new_phase['approve_date'])? $new_phase['approve_date'] :'';
+								$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+
+								$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+								// insert new phase 
+								$phase_data = array(
+		    										'phase' => $ph_number,
+		    										'brand_id' => $post_data['brand_id'],
+		    										'post_id' =>$post_data['post_id'],
+		    										'approve_by' => $approve_date_time,
+			    									'note' => $new_phase['note']
+		    									);
+		    					$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+
+		    					// add users to newly added phase 
+								foreach ($new_phase['approver'] as $value) {
+									$phasesdata = '';
+									$phasesdata = array(
+		    										'phase_id' => $phase_insert_id,
+		    										'user_id' => $value
+		    									);
+								$this->timeframe_model->insert_data('phases_approver',$phasesdata);
+								}
+							}
+
+							// update the pahse information 
+
+							$phase_data = '';
+							$hour = !empty($new_phase['approve_hour'])? $new_phase['approve_hour'] :'';
+							$minute = !empty($new_phase['approve_minute'])? $new_phase['approve_minute'] :'';
+							$ampm = !empty($new_phase['approve_ampm'])? $new_phase['approve_ampm'] :'am';
+							$date_time = !empty($new_phase['approve_date'])? $new_phase['approve_date'] :'';
+							$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+
+							$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+							if(!empty($post_data['resubmit'])){								
+								$phase_data = array(
+	    										'status' => 'pending',
+	    									);
+								$this->timeframe_model->update_data('phases_approver',$phase_data,array('phase_id'=>$new_phase['phase_id']));
+								$this->timeframe_model->update_data('posts',$phase_data,array('id'=>$post_data['post_id']));
+							}
+							
+							if(!empty($new_phase['phase_id'])){
+								$ph_condition ='';
+								$ph_condition = array('id' =>$new_phase['phase_id'] );	
+								$phase_data['approve_by'] = $approve_date_time;
+			    				$phase_data['note'] = $new_phase['note'];
+								
+		    					$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);								
+							}
+							
+
+						}else{
+							if(!empty($new_phase['phase_id'])){
+								$phasescondition = '';
+								$phasescondition = array(
+		    										'id' => $new_phase['phase_id'],
+		    									);
+								$this->timeframe_model->delete_data('phases',$phasescondition);
+								if(!empty($new_phase['approver'])){
+									$phasescondition = '';
+									$phasescondition = array(
+			    										'phase_id' => $new_phase['phase_id'],
+			    									);
+									$this->timeframe_model->delete_data('phases_approver',$phasescondition);
+								}
+							}
+						}
+					}					
+				}
+
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');
-	    		redirect(base_url().'calendar/day/'.$post_data['brand_slug']);
 
+				if($post_data['redirect_url']== 'view-request' ){
+					redirect(base_url().$post_data['redirect_url'].'/'.$post_data['post_id']);
+				}else{
+					redirect(base_url().$post_data['redirect_url'].'/'.$post_data['brand_slug']);
+				}
 		}
 	}
 
