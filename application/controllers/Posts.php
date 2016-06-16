@@ -745,4 +745,35 @@ class Posts extends CI_Controller {
 			echo "0";
 		}
 	}
+
+	function search()
+	{
+		$this->data = array();
+		$get_data = $this->input->get();
+		if(isset($get_data))
+		{
+			$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$get_data['slug']);			
+
+			if(!empty($brand))
+			{
+				$this->data['search'] = $get_data['search'];
+				$brand_id = $brand[0]->id;				
+				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+    			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+
+    			$this->data['posts'] = $this->post_model->get_posts($brand_id,$get_data['search']);
+
+				$this->data['brand_id'] = $brand_id;
+				$this->data['brand'] = $brand[0];
+				$this->data['view'] = 'posts/search';
+				$this->data['layout'] = 'layouts/new_user_layout';		
+				
+				$this->data['background_image'] = 'bg-brand-management.jpg';			
+		
+				$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
+
+				_render_view($this->data);
+			}
+		}
+	}
 }

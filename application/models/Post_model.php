@@ -51,9 +51,15 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_posts($brand_id)
+	public function get_posts($brand_id,$search='')
 	{
-		$query = $this->db->get_where('posts',array('brand_id' => $brand_id));
+		$this->db->where('brand_id',$brand_id);
+		if(!empty($search))
+		{
+			$this->db->like('content',$search);
+		}
+		
+		$query = $this->db->get('posts');
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

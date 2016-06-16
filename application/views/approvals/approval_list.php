@@ -8,7 +8,7 @@
 			<h2 class="date-header pull-xs-left"> -->
 
 			<div class="pull-md-right toolbar">
-				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+				<?php $this->load->view('partials/search_form'); ?>				
 				<a href="#" class="tf-icon-circle pull-xs-left  post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/post_filters/'.$brand_id; ?>" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70" data-hide="false"><i class="tf-icon-filter"></i></a>
 				<a href="#" class="tf-icon-circle pull-xs-left post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/print_posts/'.$brand_id; ?>" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20" data-hide="false"><i class="tf-icon-print"></i></a>
 
@@ -40,7 +40,7 @@
 
 	</header>
 
-	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
+	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />	
 	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
 
 	<div class="row">

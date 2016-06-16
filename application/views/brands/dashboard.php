@@ -3,7 +3,12 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header">
 		<h1 class="center-title section-title">Brand Dashboard</h1>
-		<h2 class="date-header"><strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+		<div class="date-header header-w-search clearfix">
+			<h2 class="pull-md-left"><strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
+			<div class="pull-md-right toolbar">
+				<?php $this->load->view('partials/search_form'); ?>
+			</div>
+		</div>
 	</header>
 	<div class="row equal-cols">
 		<div class="col-md-6">

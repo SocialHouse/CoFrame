@@ -139,7 +139,7 @@
 											{
 												if (!file_exists(upload_path().$all_phases['owner_id'].'/users/'.$details->user_id.'.png')) 
 												{
-													$user_img = '../../assets/images/default_profile.jpg';
+													$user_img = img_url().'default_profile.jpg';
 												}
 												else
 												{

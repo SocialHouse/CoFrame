@@ -3,8 +3,9 @@
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
 			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
+			
 			<div class="pull-md-right toolbar">
-				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
+				<?php $this->load->view('partials/search_form') ?>
 			</div>
 		</div>
 	</header>
