@@ -2073,26 +2073,41 @@ jQuery(function($) {
     	}
 	});
 
+
 	$(document).on('submit','#step_4_edit',function(e){
 		e.preventDefault();
 		var form = $(this);
-		$.ajax({
-    		'type':'POST',
-    		'dataType':'json',
-    		url: form.attr('action'),
-    		data:form.serialize(),
+		var brand_id = $('#brand_id').val();
+		var slug = $('#slug').val();
+		var selected_labels = $('.labels');
+
+		var tags = [];
+		$('input[name="selected_tags[]"]:checked').each(function(i) {
+			tags[i] = this.value;
+		});
+		var labels = []
+
+		$.each(selected_labels,function(i,value){            
+			labels[i] = $(value).val();
+		});
+ 
+         $.ajax({
+            url: form.attr('action'),
+            data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug},
+            type:'POST',
+            dataType: 'json',
             success: function(result){
-            	console.log(result.response);
-            	if(result.response == 'success'){
-            		window.location.reload();
-            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
-            		// $('#brandStep3').empty();
-            		// $('#brandStep3').removeClass('active');
-            		// $('#brandStep3').html(response);
-            	}
+                if(result.response == 'success'){
+					window.location.reload();
+					// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+					// $('#brandStep4').empty();
+					// $('#brandStep4').removeClass('active');
+					// $('#brandStep4').html(response);
+				}
             }
-    	});
-	});
+        });
+    });
+
 
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
