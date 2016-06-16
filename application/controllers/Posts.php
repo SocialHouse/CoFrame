@@ -430,7 +430,7 @@ class Posts extends CI_Controller {
 			    										'mime' => $file['mime']
 			    									);
 
-			    				$this->timeframe_model->insert_data('post_media',$post_media_data);
+			    				$this->timeframe_model->insert_data('post_media',$post_media_data); 
 			    			}
 			    		}
 
@@ -515,6 +515,7 @@ class Posts extends CI_Controller {
 	public function upload()
 	{
 		$post_data = $this->input->post();
+		//echo '<pre>'; print_r( $_FILES['file']);echo '</pre>';
 		if(isset($_FILES['file']['name'][0]))
 		{
 			$files = $_FILES['file'];
@@ -538,7 +539,7 @@ class Posts extends CI_Controller {
 				      
 				        if(array_key_exists("upload_errors",$status))
 				        {
-				        	$error =  $status['upload_errors'];				        	
+				        	$error =  $status['upload_errors'];
 				        	break;
 				        }
 				        else
