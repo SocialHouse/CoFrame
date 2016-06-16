@@ -59,7 +59,7 @@
 								</td>
 								<td> <div class="post-copy-draft"><?php echo $draft->content; ?></div></td>
 								<td class="text-xs-center">
-									<a href="#" class="btn btn-xs btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
+									<a href="#" class="btn btn-xs btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/drafts/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
 								</td>
 								<td class="text-xs-center"><a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a></td>
 							</tr>

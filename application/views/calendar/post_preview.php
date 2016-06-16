@@ -19,6 +19,9 @@
 				}
 			}
 		}
+		if(empty($view_type)){
+			$view_type = 'week';
+		}
 
 
 ?>	
@@ -81,7 +84,7 @@
 								{
 									?>
 									<div class="btn-group pull-md-right" role="group">
-										<a href="#" data-clear="yes" class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+										<a href="#" data-clear="yes" class="btn btn-xs btn-default" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $view_type.'/'.$post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
 										<?php
 										if($post_details->status == 'scheduled')
 										{

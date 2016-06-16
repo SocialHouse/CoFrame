@@ -1556,7 +1556,7 @@ jQuery(function($) {
 			content: {
 				text: 'Loading...',
 				ajax: {
-					url: base_url+"posts/get_post_info/"+id,
+					url: base_url+"posts/get_post_info/"+id+'/'+$('#calendar_type').val(),
 					type: 'GET',
 					once: true
 				}
