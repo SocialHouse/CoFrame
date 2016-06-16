@@ -29,7 +29,7 @@
 			?>
 			<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 
-			<div  data-filters="<?php echo $outlet_name.' '.$tag_list.' '.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
+			<div  data-filters="<?php echo 'f-'.$outlet_name.' '.$tag_list.' '.'f-'.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
 				<div class="col-md-5 post-img day-image">
 					<?php 
 					$display_img = 'false';

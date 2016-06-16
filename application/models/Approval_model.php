@@ -7,16 +7,22 @@ class Approval_model extends CI_Model
 		parent::__construct();
 	}
 
-	function get_approvals($user_id,$brand_id)
+	function get_approvals($user_id,$brand_id,$date='')
 	{
 		$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
 		$this->db->join('posts','posts.id = phases.post_id');
 		$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 		$this->db->where('posts.brand_id',$brand_id);
+
+		if(!empty($date))
+		{
+			$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
+		}	
+
 		if($user_id)
 			$this->db->where('phases_approver.user_id',$user_id);
 		$this->db->order_by('slate_date_time','ASC');
-		$query = $this->db->get('phases');
+		$query = $this->db->get('phases');		
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

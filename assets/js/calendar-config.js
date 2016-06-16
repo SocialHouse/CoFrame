@@ -534,14 +534,20 @@ jQuery(function($) {
 		});
 
 		$('body').on('click', '#calendar-change-day #getPostsByDate', function() {
-			// $('#calendarCurrentdate').text(daySelectedDate);
-			// $('#calendarCurrentMonth').text(daySelectedDate);
 			var date = moment(daySelectedDate);
 			selectedmonth = moment(daySelectedDate).format('MMM');
 			selectedday = moment(daySelectedDate).format('DD \, YYYY');
 			$('#calendarCurrentdate').text(selectedday);
 			$('#calendarCurrentMonth').text(selectedmonth);
-			findPostbyDate(daySelectedDate)
+			console.log(daySelectedDate);
+			if($(this).hasClass('approval-date-filter'))
+			{
+				findApprovalsbyDate(daySelectedDate);
+			}
+			else
+			{
+				findPostbyDate(daySelectedDate);
+			}
 		});
 		$('body').on('click', '#calendar-change-week #getPostsByDate', function() {
 			$('#calendar-week').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
@@ -812,24 +818,6 @@ jQuery(function($) {
 				}
 			}
 		});
-	};
-
-
-	window.findPostbyDate = function findPostbyDate(date) {
-		$.ajax({
-	            url: base_url+'calendar/get_post_by_date',
-	            dataType: 'html',
-	            method:'POST',
-	            data: {
-	                // our hypothetical feed requires UNIX timestamps
-	                sdate: date,
-	                brand_id:$('#brand_id').val(),
-	            },
-	            success: function(doc) {
-	            	$('.calendar-day').empty();
-	            	$('.calendar-day').html(doc);	            	
-	            }
-	        });
 	};
 
 });

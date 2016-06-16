@@ -4,6 +4,16 @@ jQuery(function($) {
 		itemSelector: '.post-day'
 	});
 
+	var $containerApp = $('.calendar-app').isotope({
+		itemSelector: '.post-approver'
+	});
+
+	setTimeout(function() {		
+		 $containerApp.find('tr').attr('style','');
+	},200);
+	// $containerApp.attr('style','');
+
+
 	$('body').on('click', '.filter', function() {
 		var $filter = $(this);
 		var filterVal = $filter.attr('data-value');
@@ -118,12 +128,21 @@ jQuery(function($) {
 		});	
 
 		// combine inclusive filters
-		var filterValue = inclusives.length ? inclusives.join(', ') : '*';
+		var filterValue = inclusives.length ? inclusives.join(', ') : '*';		
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
 		console.log(filterValue);
-		$container.isotope({ filter: filterValue });
+		// console.log($container);
+		if($container.length)
+			$container.isotope({ filter: filterValue });
+		if($containerApp.length)
+		{
+			console.log($(filterValue));
+			$containerApp.isotope({ filter: filterValue });
+		}
+
+
 		if(inclusives.length) {
 			$('#selectedFilters').slideDown(function() {
 				equalColumns();
@@ -193,4 +212,46 @@ jQuery(function($) {
 
 		
 	}
+
+	window.findApprovalsbyDate = function findApprovalsbyDate(date) {
+		$.ajax({
+            url: base_url+'approvals/get_approvals_by_date',
+            dataType: 'html',
+            method:'POST',
+            data: {
+                date: date,
+                brand_id: $('#brand-id').val()
+            },
+            success: function(doc) {
+            	if(doc)
+            	{
+	            	var $items = $(doc);
+	            	$('.calendar-app').empty();
+	            	$('.calendar-app').append( $items ).isotope( 'addItems', $items );
+	            	setTimeout(function() {		
+						$containerApp.find('tr').attr('style','');
+						$containerApp.attr('style','');
+					},200);
+	            }
+            }
+        });
+	};
+
+	window.findPostbyDate = function findPostbyDate(date) {
+		$.ajax({
+	            url: base_url+'calendar/get_post_by_date',
+	            dataType: 'html',
+	            method:'POST',
+	            data: {
+	                // our hypothetical feed requires UNIX timestamps
+	                sdate: date,
+	                brand_id:$('#brand_id').val(),
+	            },
+	            success: function(doc) {
+	            	var $items = $(doc);	            	
+	            	$('.calendar-day').empty();
+	            	$('.calendar-day').append( $items ).isotope( 'addItems', $items );
+	            }
+	        });
+	};	
 });

@@ -203,4 +203,24 @@ class Approvals extends CI_Controller {
 				echo "0";
 		}
 	}
+
+	function get_approvals_by_date()
+	{
+		$this->data = array();
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$approvals = $this->approval_model->get_approvals($this->user_id,$post_data['brand_id'],$post_data['date']);
+				
+			$this->data['approval_list'] = array();
+			if(!empty($approvals))
+			{
+				foreach($approvals as $approval)
+				{
+					$this->data['approval_list'][date('D m/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;
+				}
+			}
+			echo $this->load->view('approvals/approval_table_html',$this->data,true);
+		}		
+	}
 }

@@ -60,6 +60,8 @@ $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";
 
 $route['approvals/change_comment_status'] = "approvals/change_comment_status";
+$route['approvals/get_approvals_by_date'] = "approvals/get_approvals_by_date";
+
 $route['approvals/(:any)'] = "approvals/index/$1";
 $route['reminders/(:any)'] = "reminders/index/$1";
 

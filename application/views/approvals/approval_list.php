@@ -2,13 +2,16 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
-			<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-date-approvals" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
+			<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-day" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
 			<h2 class="date-header pull-xs-left">Approvals</h2>
+			<!-- <a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-day" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
+			<h2 class="date-header pull-xs-left"> -->
 
 			<div class="pull-md-right toolbar">
 				<a href="#" class="tf-icon-circle pull-xs-left"><i class="tf-icon-search"></i></a>
-				<a href="#" class="tf-icon-circle pull-xs-left post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/post_filters/'.$brand_id; ?>" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70"><i class="tf-icon-filter"></i></a>
-				<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-ajax" data-content-src="lib/print-posts.php" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20"><i class="tf-icon-print"></i></a>
+				<a href="#" class="tf-icon-circle pull-xs-left  post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/post_filters/'.$brand_id; ?>" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70" data-hide="false"><i class="tf-icon-filter"></i></a>
+				<a href="#" class="tf-icon-circle pull-xs-left post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/print_posts/'.$brand_id; ?>" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20" data-hide="false"><i class="tf-icon-print"></i></a>
+
 			</div>
 		</div>
 		<div id="selectedFilters" class="clearfix border-top border-black hidden">
@@ -17,21 +20,33 @@
 			</ul>
 			<button type="button" class="btn btn-sm btn-secondary reset-filter pull-sm-right" data-filter="*">Reset Filters</button>
 		</div>
-		<div id="calendar-change-date-approvals" class="hidden calendar-select-date">
+		<!-- <div id="calendar-change-date-approvals" class="hidden calendar-select-date">
 			<div class="date-select-calendar"></div>
 			<div class="text-xs-center">
 				<hr>
 				<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
 				<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide" disabled>Apply</button>
 			</div>
+		</div> -->
+
+		<div id="calendar-change-day" class="hidden calendar-select-date">
+			<div class="date-select-calendar"></div>
+			<div class="text-xs-center">
+				<hr>
+				<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
+				<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide approval-date-filter" disabled>Apply</button>
+			</div>
 		</div>
+
 	</header>
 
 	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
+	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
+
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-striped table-approvals">
-				<tbody>
+				<thead>
 					<tr>
 						<th>Post Day</th>
 						<th>Post Time</th>
@@ -42,6 +57,8 @@
 						<th>Approvals</th>
 						<th>Schedule / View Edit Requests</th>
 					</tr>
+				</thead>
+				<tbody class="calendar-app">
 					<?php
 					if(!empty($approval_list))
 					{
@@ -68,8 +85,26 @@
 
 									foreach($approval as $post)
 									{
+										$outlet = get_outlet_by_id($post->outlet_id);
+
+										$tags = get_post_tags($post->id);
+										$tag_list = '';
+										if(!empty($tags))
+										{
+											foreach ($tags as $tag) 
+											{
+												if(empty($tag_list))
+												{
+													$tag_list = ''.strtolower($tag['tag_name']);
+												}
+												else
+												{
+													$tag_list .= ' '.strtolower($tag['tag_name']);
+												}
+											}
+										}
 										?>
-										<tr>
+										<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
 											<?php
 											if($show_date == 1)
 											{
@@ -89,8 +124,7 @@
 
 											<td class="text-xs-center">
 												<div class="post-tags">
-													<?php
-													$tags = get_post_tags($post->id);
+													<?php													
 													if(!empty($tags))
 													{
 														foreach($tags as $tag)
@@ -105,9 +139,6 @@
 											</td>
 
 											<td class="text-xs-center outlet-list">
-												<?php
-												$outlet = get_outlet_by_id($post->outlet_id);
-												?>
 												<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
 											</td>
 											
@@ -190,7 +221,7 @@
 						</tr>
 						<?php
 					}
-					?>					
+					?>
 				</tbody>
 			</table>
 		</div>
