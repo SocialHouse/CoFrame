@@ -207,7 +207,7 @@ class Posts extends CI_Controller {
 		    			
 		    		}
 	    			$this->session->set_flashdata('message','Post has been saved successfuly');
-	    			redirect(base_url().'posts/index/'.$post_data['brand_id']);
+	    			redirect(base_url().'brands/dashboard/'.$post_data['slug']);
 	    		}		    		
 		    }
 		}

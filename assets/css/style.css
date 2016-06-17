@@ -11228,8 +11228,11 @@ ul.actions {
   padding-top: 15px;
   font-weight: 600; }
 
+.tumblr-img-div{
+  text-align: center; }
 .tumblr-img-div img {
-  padding-top: 2px; }
+  padding-top: 2px;
+  max-height: 170px; }
 
 .tumblr-sharing-option {
   color: #b2b2b2;

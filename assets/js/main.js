@@ -2144,6 +2144,11 @@ jQuery(function($) {
     	}
     });
 
+    $(document).on("click", ".edit_post", function(event){
+	//.qtip is my qtip element from the parent page and then I hide it.
+		$('.qtip', window.parent.document).qtip("hide");
+	});
+
 });
 
 	function convertToLink(text) {

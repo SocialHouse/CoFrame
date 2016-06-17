@@ -212,6 +212,7 @@ class Post_model extends CI_Model
 		$this->db->join('phases','phases.id = phases_approver.phase_id');
 		// $this->db->where('brand_id',$brand_id);
 		$this->db->where('post_id',$post_id);
+		$this->db->order_by('phases.phase');
 		$query = $this->db->get('phases_approver');
 		if($query->num_rows() > 0)
 		{
