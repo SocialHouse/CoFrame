@@ -229,6 +229,7 @@ class Post_model extends CI_Model
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		$this->db->where('posts.status != "delete"');
+		$this->db->where('posts.status != "draft"');
 		if($outlets)
 		{
 			$outlets = explode(',', $outlets);
@@ -289,6 +290,8 @@ class Post_model extends CI_Model
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
+		$this->db->where('posts.status != "delete"');
+		$this->db->where('posts.status != "draft"');
 		if(empty($date)){
 			$date = date("Y-m-d");
 		}
