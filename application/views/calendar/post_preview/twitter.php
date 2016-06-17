@@ -46,7 +46,6 @@ if(!empty($post_images)){
 										<p><a href="/media/video.oga">Download this video file.</a></p>
 									</object>
 								</video>';
-								break;
 						}
 						if($img_count == 1 && $post_images[0]->type == 'images'){
 							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_images[0]->name)){
