@@ -33,8 +33,21 @@ if(!empty($post_images)){
 					$class = 1;
 					foreach ($post_images as $key) {
 						if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-	                    	echo '<img class="'.$class.'" src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
-	                    	break;
+							if($key->type == 'images'){
+	                    		echo '<img class="'.$class.'" src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
+	                    		break;
+	                    	}elseif ($key->type == 'video') {
+								echo '<video autobuffer autoloop loop controls width="100%" >
+									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'">
+									<object type="'.$key->mime.'">
+										<param name="src" value="/media/video.oga">
+										<param name="autoplay" value="false">
+										<param name="autoStart" value="0">
+										<p><a href="/media/video.oga">Download this video file.</a></p>
+									</object>
+								</video>';
+								break;
+							}
 	                    }
 					}
 				}

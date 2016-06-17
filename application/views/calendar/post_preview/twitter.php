@@ -36,7 +36,18 @@ if(!empty($post_images)){
 					$i = 1;
 					$more_div = '';
 					if(!empty($post_images)){
-						if($img_count == 1 ){
+						if($img_count == 1 && $post_images[0]->type == 'video'){
+							echo '<video autobuffer autoloop loop controls width="100%" >
+									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'">
+									<object type="'.$post_images[0]->mime.'">
+										<param name="src" value="/media/video.oga">
+										<param name="autoplay" value="false">
+										<param name="autoStart" value="0">
+										<p><a href="/media/video.oga">Download this video file.</a></p>
+									</object>
+								</video>';
+						}
+						if($img_count == 1 && $post_images[0]->type == 'images'){
 							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_images[0]->name)){
 								echo '<div class="pull-left">';
 	                        		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'"  class="img-radious" />';

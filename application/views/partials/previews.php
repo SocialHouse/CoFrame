@@ -135,10 +135,6 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="content">
-				<video autobuffer autoloop loop ontrols="true" width="100%">
-					<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4">
-				</video>
-
 				<div class="vine-comment-div">
 					<div class="post_copy_text">
 					</div>
