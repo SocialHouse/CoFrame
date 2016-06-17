@@ -24,7 +24,7 @@
 		$premiere = 'active-plan';
 		break;
 }
-echo '<pre>'; print_r($user_details);echo '</pre>';
+//echo '<pre>'; print_r($user_details);echo '</pre>';
 ?>
 	<div class="row table">
 		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $start_up; ?>">
@@ -38,9 +38,23 @@ echo '<pre>'; print_r($user_details);echo '</pre>';
 				<li>Adipiscing elit sed do euis</li>
 				<li>Mod tempor incididunt</li>
 			</ul>
-			<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Start-Up" data-price="$99.00">Select</a>
+			<?php 
+				if(!empty($start_up))
+				{
+					?>
+					<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="Start-Up" data-price="$99.00">Active</a>
+					<?php
+				}
+				else
+				{
+					?>
+					<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Start-Up" data-price="$99.00">Select</a>
+					<?php
+				}
+			?>
 		</div>
-		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $business; ?>">
+		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $business; ?>">	
+
 			<header class="price-title">
 				<h2>Business</h2>
 				<h3>$199 <small>per month</small></h3>
@@ -52,7 +66,21 @@ echo '<pre>'; print_r($user_details);echo '</pre>';
 				<li>Mod tempor incididunt</li>
 				<li>Ut labore et dolore magn</li>
 			</ul>
-			<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="Business" data-price="$199.00">Active</a>
+
+			<?php 
+				if(!empty($business))
+				{
+					?>
+					<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="Business" data-price="$199.00">Active</a>
+					<?php
+				}
+				else
+				{
+					?>
+						<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Business" data-price="$199.00">Select</a>
+					<?php
+				}
+			?>	
 		</div>
 		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $corporate; ?>">
 			<header class="price-title">
@@ -67,7 +95,20 @@ echo '<pre>'; print_r($user_details);echo '</pre>';
 				<li>ut labore et dolore magn</li>
 				<li>aliqua ut enim ad minim</li>
 			</ul>
-			<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Corporate" data-price="$299.00">Select</a>
+			<?php 
+				if(!empty($corporate))
+				{
+					?>
+					<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="Corporate" data-price="$299.00">Active</a>
+					<?php
+				}
+				else
+				{
+					?>
+						<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Corporate" data-price="$299.00">Select</a>
+					<?php
+				}
+			?>
 		</div>
 		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $premiere; ?>">
 			<header class="price-title">
@@ -83,7 +124,21 @@ echo '<pre>'; print_r($user_details);echo '</pre>';
 				<li>aliqua ut enim ad minim</li>
 				<li>veniam quis nostrud</li>
 			</ul>
-			<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Premiere" data-price="$499.00">Select</a>
+
+			<?php 
+				if(!empty($corporate))
+				{
+					?>
+					<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="Premiere" data-price="$499.00">Active</a>
+					<?php
+				}
+				else
+				{
+					?>
+						<a class="btn btn-secondary btn-sm btn-choose-plan" data-plan="Premiere" data-price="$499.00">Select</a>
+					<?php
+				}
+			?>
 		</div>
 	</div>
 
