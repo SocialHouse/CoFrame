@@ -129,7 +129,7 @@
 				</ul>
 
 				<?php 
-					if(!empty($corporate))
+					if(!empty($premiere))
 					{
 						?>
 						<a class="btn btn-secondary btn-sm btn-choose-plan btn-disabled" data-plan="PREMIERE" data-price="$499.00">Active</a>
