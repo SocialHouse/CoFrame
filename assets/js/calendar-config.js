@@ -28,6 +28,10 @@ jQuery(function($) {
 				$('#calendar-month').fullCalendar( 'today' );
 				$('#calendar-change-month .date-select-calendar').fullCalendar('destroy');
 			}
+			else
+			{				
+				findPostbyDate(new Date().toJSON().slice(0,10));
+			}
 		});
 		//print & export functions
 		$('body').on('change', '#startDateType', function() {
@@ -431,7 +435,6 @@ jQuery(function($) {
 				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 				endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 				$activePhase = $(this).parent().parent().parent().parent();
-				console.log($activePhase);					
 				setTimeout(function() {
 
 					var phase_num = $activePhase.data('id') + 1;

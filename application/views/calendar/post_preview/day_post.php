@@ -206,16 +206,16 @@
 									if($post->status == 'pending')
 									{
 										?>
-										<button class="btn btn-approved btn-sm btn-secondary">Schedule</button>
+										<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post->id; ?>">Schedule</button>
 										<?php
 									}
-									if($post->status == 'posted')
+									elseif($post->status == 'posted')
 									{
 										?>
 										<button class="btn btn-approved btn-sm btn-default">View Live</button>
 										<?php 
 									}
-									if($post->status == 'scheduled')
+									elseif($post->status == 'scheduled')
 									{
 										?>
 										<button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button>
