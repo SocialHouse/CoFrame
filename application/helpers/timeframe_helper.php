@@ -326,15 +326,15 @@ if(!function_exists('get_phase_users'))
     }
 }
 
-// if(!function_exists('all_approval_phases'))
-// {
-//     function all_approval_phases($post_id)
-//     {
-//         $CI = & get_instance();   
-//         $CI->load->model('approval_model');     
-//         return $CI->approval_model->all_approval_phases($post_id);
-//     }
-// }
+if(!function_exists('get_summary'))
+{
+    function get_summary($brand_id)
+    {
+        $CI = & get_instance();   
+        $CI->load->model('post_model');     
+        return $CI->post_model->post_by_status($brand_id,'scheduled');
+    }
+}
 
 
 

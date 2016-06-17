@@ -7,8 +7,7 @@ if(!empty($post_id) && !empty($slug)){
 		{
 			?>
 			<ul class="list-group-item">
-				<li><a href="#" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/day/<?php echo $slug.'/'.$post_id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_id; ?>" data-modal-size="lg">Edit</a></li>
-				<li><a href="#">Schedule</a></li>
+				<li><a href="#" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/day/<?php echo $slug.'/'.$post_id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_id; ?>" data-modal-size="lg">Edit</a></li>				
 				<li><a href="#">Post Now</a></li>
 			</ul>
 		<?php

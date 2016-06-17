@@ -474,10 +474,7 @@ class Brands extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->load->model('reminder_model');
-			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id);
-
-			$this->load->model('post_model');
-			$this->data['summary_posts'] =  $this->post_model->post_by_status($brand[0]->id,'sceduled');		
+			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id);				
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
  			$this->data['css_files'] = array(css_url().'fullcalendar.css');

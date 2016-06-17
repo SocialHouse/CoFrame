@@ -3,9 +3,7 @@
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
 			<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-day" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
-			<h2 class="date-header pull-xs-left">Approvals</h2>
-			<!-- <a href="#" class="tf-icon-circle pull-xs-left" data-toggle="popover-calendar" data-popover-id="calendar-change-day" data-popover-class="popover-clickable popover-sm popover-date-filter" data-attachment="top left" data-target-attachment="bottom center" data-popover-width="300" data-popover-arrow="true" data-arrow-corner="top left" data-offset-x="-19" data-offset-y="5"><i class="tf-icon-calendar"></i></a>
-			<h2 class="date-header pull-xs-left"> -->
+			<h2 class="date-header pull-xs-left">Approvals</h2>		
 
 			<div class="pull-md-right toolbar">
 				<?php $this->load->view('partials/search_form'); ?>				
@@ -20,14 +18,6 @@
 			</ul>
 			<button type="button" class="btn btn-sm btn-secondary reset-filter pull-sm-right" data-filter="*">Reset Filters</button>
 		</div>
-		<!-- <div id="calendar-change-date-approvals" class="hidden calendar-select-date">
-			<div class="date-select-calendar"></div>
-			<div class="text-xs-center">
-				<hr>
-				<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
-				<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide" disabled>Apply</button>
-			</div>
-		</div> -->
 
 		<div id="calendar-change-day" class="hidden calendar-select-date">
 			<div class="date-select-calendar"></div>
@@ -104,7 +94,7 @@
 											}
 										}
 										?>
-										<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
+										<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');" data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
 											<?php
 											if($show_date == 1)
 											{

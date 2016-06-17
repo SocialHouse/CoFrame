@@ -162,10 +162,9 @@ jQuery(function($) {
 
 		//temp nav activation
 		var pathname = location.pathname;
-		var pagename = pathname.replace('/static/', '');
 		$('.navbar-brand-manage .nav-link').each(function() {
-			var href = $(this).attr('href');
-			if(href === pagename) {
+			var href = $(this).attr('href');			
+			if(href.indexOf(pathname) > -1) {
 				$(this).addClass('active');
 			}
 		});
