@@ -76,8 +76,12 @@
 								if(!empty($post_images)){
 									$class = 1;
 									foreach ($post_images as $key) {
-										echo '<img src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview delete-img " data-delete="'.$class.'" />';
-										$class++;									
+										if($key->type =='images'){
+											echo '<img src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview delete-img " data-delete="'.$class.'" />';
+											$class++;
+										}else if($key->type =='video'){
+											echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';
+										}										
 		                            }
 		                            echo '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>';
 								}else{?>
