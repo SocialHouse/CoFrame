@@ -28,10 +28,26 @@ if(!empty($post_images)){
 	</div>
 	<div class="clearfix"></div>
 	<div class="content">
-		<video autobuffer autoloop loop ontrols="true" width="100%">
-			<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4">
-		</video>
-
+		<?php
+			if(!empty($post_images)){
+				foreach ($post_images as $key) {
+					if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+						if ($key->type == 'video') {
+							echo '<video autobuffer autoloop loop controls width="100%" >
+								<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'">
+								<object type="'.$key->mime.'">
+									<param name="src" value="/media/video.oga">
+									<param name="autoplay" value="false">
+									<param name="autoStart" value="0">
+									<p><a href="/media/video.oga">Download this video file.</a></p>
+								</object>
+							</video>';
+							break;
+						}
+	                }
+				}
+			}
+		?>
 		<div class="vine-comment-div">
 			<div class="post_copy_text">
 				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>

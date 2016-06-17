@@ -76,7 +76,20 @@ if(!empty($post_images)){
 								}
 								if($i < 5){
 									if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-	                                	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" />';
+										if($key->type == 'images'){
+	                                		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" />';
+	                                	}elseif ($key->type == 'video') {
+											echo '<video autobuffer autoloop loop controls width="100%" class="'. $cls .'" >
+												<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'">
+												<object type="'.$key->mime.'">
+													<param name="src" value="/media/video.oga">
+													<param name="autoplay" value="false">
+													<param name="autoStart" value="0">
+													<p><a href="/media/video.oga">Download this video file.</a></p>
+												</object>
+											</video>';
+											break;
+										}
 	                                }
 								}else{
 									echo $more_txt ;

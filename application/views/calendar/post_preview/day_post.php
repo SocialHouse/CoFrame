@@ -1,3 +1,4 @@
+<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 <?php 
 
 	if(!empty($post_details))
@@ -27,7 +28,7 @@
 			}
 
 			?>
-			<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
+			
 
 			<div  data-filters="<?php echo 'f-'.$outlet_name.' '.$tag_list.' '.'f-'.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
 				<div class="col-md-5 post-img day-image">
@@ -39,9 +40,25 @@
 							{
 								if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$img->name)) 
 								{
-									$display_img = 'true';
-			                    	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'"  width="228px"/> ';
-			                    	break;
+									if($img->type == 'images'){
+										
+										echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'"  class="default-img reblog-avatar-image-thumb" width="228px"/> ';
+										$display_img = 'true';
+										break;
+									}elseif ($img->type == 'video') {
+										echo '<video autobuffer autoloop loop controls width="100%" >
+												<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'">
+												<object type="'.$img->mime.'">
+													<param name="src" value="/media/video.oga">
+													<param name="autoplay" value="false">
+													<param name="autoStart" value="0">
+													<p><a href="/media/video.oga">Download this video file.</a></p>
+												</object>
+											</video>';
+											$display_img = 'true';
+											break;
+									}
+									
 			                    }
 							}
 						}

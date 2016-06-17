@@ -252,6 +252,9 @@ jQuery(function($) {
 	            	var $items = $(doc);	            	
 	            	$('.calendar-day').empty();
 	            	$('.calendar-day').append( $items ).isotope( 'addItems', $items );
+	            	setTimeout(function() {		
+						$container.find('.post-day').attr('style','');
+					},200);
 	            }
 	        });
 	};	
