@@ -122,7 +122,7 @@ class User_preferences extends CI_Controller {
 			$select =array('stripe_customer_id','stripe_subscription_id');
 			$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
 			$last_transaction = $this->user_model->get_last_transaction($this->user_id);
-			echo '<pre>'; print_r($last_transaction);echo '</pre>';
+			
 			if(!empty($last_transaction))
 			{
 				try
@@ -131,7 +131,7 @@ class User_preferences extends CI_Controller {
 					$subscription = $cu->subscriptions->retrieve($strip_info[0]->stripe_subscription_id);
 					$subscription->plan = $this->input->post('plan');
 					$response = $subscription->save();
-					$response = $response->__toArray(true);
+					$response = $response->__toArray(true);				
 					
 					$card_id = $last_transaction->card_id;
 					$subscription_key_id = $response['id'];
@@ -154,6 +154,12 @@ class User_preferences extends CI_Controller {
 										'user_id' => $this->user_id
 									);
 						$this->timeframe_model->insert_data('transactions',$transaction_data);
+
+						$user_info = array(								
+										'plan' => $subscription_info['plan']['id']									
+									);						
+
+						$this->timeframe_model->update_data('user_info',$user_info,array('id' => $this->user_data['user_info_id']));
 
 						$this->session->set_flashdata('message','Plan changed successfully');
 		            }
