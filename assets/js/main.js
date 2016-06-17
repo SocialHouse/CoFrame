@@ -1955,6 +1955,8 @@ jQuery(function($) {
 	            	{
 		            	$(btn).html('Scheduled');
 		            	$(btn).prop('disabled',true);
+		            	$(btn).addClass('btn-disabled');
+		            	$(btn).removeClass('btn-default');
 		            }
 		            else
 		            {
