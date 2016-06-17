@@ -14,10 +14,10 @@
 	case 'business':
 		$business = 'active-plan';
 		break;
-	case 'corporate':
+	case 'start-up':
 		$start_up = 'active-plan';
 		break;
-	case 'start-up':
+	case 'corporate':
 		$corporate = 'active-plan';
 		break;
 	default:
