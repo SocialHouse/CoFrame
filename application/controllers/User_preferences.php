@@ -144,7 +144,7 @@ class User_preferences extends CI_Controller {
 										'plan' => $subscription_info['plan']['id'],
 										'amount' => $subscription_info['plan']['amount'],
 										'current_period_start' => $subscription_info['current_period_start'],
-										'current_period_end' => $subscription_info['current_period_end'],								
+										'current_period_end' => $subscription_info['current_period_end'],
 										'stripe_customer_id' => $customer_stripe_key,
 										'subscription_id' => $subscription_key_id,
 										'card_id' => $card_id,
