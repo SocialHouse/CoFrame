@@ -8,9 +8,9 @@
 	$corporate = '';
 	$premiere = '';
 	if(!empty($user_details)){
-		$selected_plan = $user_details->plan;
+		$selected_plan = strtolower($user_details->plan);
 	}
-	switch (strtolower($selected_plan)) {
+	switch ($selected_plan) {
 	case 'business':
 		$business = 'active-plan';
 		break;
@@ -24,6 +24,7 @@
 		$premiere = 'active-plan';
 		break;
 }
+echo '<pre>'; print_r($user_details);echo '</pre>';
 ?>
 	<div class="row table">
 		<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $start_up; ?>">

@@ -312,4 +312,32 @@ jQuery(document).ready(function(){
 			});	
         }
     });
+
+    jQuery('#edit_user_info').validate({
+    	onkeyup: false,
+        rules: {
+        	first_name: {required: true},
+        	last_name: {required: true},
+        	phone:{phone_num: true},
+        	timezone: {required: true},
+        	password :{ minlength:6 },
+        	company_name: {required: true},
+            company_email :{email: true},
+            company_url:{domain:true}
+        },
+        messages :{
+        	first_name: {required: "Please enter first name"},
+        	last_name: {required: "Please enter last name"},
+        	phone:{phone_num: 'Please enter valid phone number'},
+        	timezone: {required: "Please select timezone"},
+        	password :{ minlength:"Minimum 6 character required" },
+            company_email :{email:'Please enter valid email address'},
+            company_url:{domain: "Please enter valid url eg. www.example.com"}
+        },
+        submitHandler: function(form, event) {
+        	jQuery('#loading_main').show();
+            event.preventDefault();
+            form.submit();
+        }
+    });
 });

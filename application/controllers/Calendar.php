@@ -152,7 +152,7 @@ class calendar extends CI_Controller {
 	{	
 		$redirect_url = $this->uri->segment(3);
 		if($redirect_url == 'drafts'){
-			$this->data['redirect_url'] = 'approvals';
+			$this->data['redirect_url'] = 'drafts';
 		}
 		else if($redirect_url == 'day'){
 			$this->data['redirect_url'] = 'calendar/day';
