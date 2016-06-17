@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once('vendor/autoload.php');
 class User_preferences extends CI_Controller {
 
 	/**
@@ -52,6 +52,12 @@ class User_preferences extends CI_Controller {
 		{
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);
 		}
+
+		if($page == 'billing_info')
+		{
+			$this->data['countries'] = $this->timeframe_model->get_table_data('countries');
+			//echo '<pre>'; print_r($this->data['countries'] );echo '</pre>'; die;
+		}
 		$this->data['css_files'] = array(css_url().'fullcalendar.css');
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js', js_url().'reorder-brands.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'user_preference.js?ver=2.11.0');
         _render_view($this->data);
@@ -83,10 +89,89 @@ class User_preferences extends CI_Controller {
             
             redirect(base_url().'user_preferences/user_info');
 		}
-		else
-		{
-
-		}
 	}
+
+	function change_plan()
+	{
+		$this->data = array();		
+        $this->form_validation->set_rules('plan','plan','required',                                            
+                                            array('required' => 'Plan is required')
+                                        );
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            redirect(base_url().'user_preferences/user_plan');
+        }
+        else
+        {
+        	$this->stripe_test_mode = $this->config->item('stripe_test_mode');
+	    	if($this->stripe_test_mode == TRUE)
+	    	{
+	      		$this->stripe_public_key = $this->config->item('stripe_key_test_public');
+	      		$this->stripe_secret_key = $this->config->item('stripe_key_test_secret');
+	        }
+		    else
+		    {
+		    	$this->stripe_public_key = $this->config->item('stripe_key_live_public'); 
+		      	$this->stripe_secret_key = $this->config->item('stripe_key_live_secret');
+		    }
+
+		    \Stripe\Stripe::setApiKey($this->stripe_secret_key);
+
+        	$condition = array('id' => $this->user_data['user_info_id']);
+			$select =array('stripe_customer_id','stripe_subscription_id');
+			$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
+			$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+			echo '<pre>'; print_r($last_transaction);echo '</pre>';
+			if(!empty($last_transaction))
+			{
+				try
+				{
+					$cu = \Stripe\Customer::retrieve($strip_info[0]->stripe_customer_id);
+					$subscription = $cu->subscriptions->retrieve($strip_info[0]->stripe_subscription_id);
+					$subscription->plan = $this->input->post('plan');
+					$response = $subscription->save();
+					$response = $response->__toArray(true);
+					
+					$card_id = $last_transaction->card_id;
+					$subscription_key_id = $response['id'];
+					$customer_stripe_key = $response['customer'];
+					$subscription_info = $response;
+
+					if(!empty($response))
+					{
+						$transaction_data = array(								
+										'plan' => $subscription_info['plan']['id'],
+										'amount' => $subscription_info['plan']['amount'],
+										'current_period_start' => $subscription_info['current_period_start'],
+										'current_period_end' => $subscription_info['current_period_end'],								
+										'stripe_customer_id' => $customer_stripe_key,
+										'subscription_id' => $subscription_key_id,
+										'card_id' => $card_id,
+										'transaction_status' => $subscription_info['status'],
+										'paid_date' => date('Y-m-d H:i:s',$subscription_info['start']),
+										'response' => json_encode($response),
+										'user_id' => $this->user_id
+									);
+						$this->timeframe_model->insert_data('transactions',$transaction_data);
+
+						$this->session->set_flashdata('message','Plan changed successfully');
+		            }
+		            else
+		            {
+		            	$this->session->set_flashdata('error','Unable to change plan, Please try again');
+		            }
+		            redirect(base_url().'user_preferences/user_plan');
+		        }
+		        catch(Exception $ex){
+					$this->session->set_flashdata('error', 'Problem encountered while processing payment, please try again');
+
+					redirect(base_url().'user_preferences/user_plan');
+				}
+			}
+
+        }
+	}
+
 
 }

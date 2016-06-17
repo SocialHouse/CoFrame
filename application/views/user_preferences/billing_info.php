@@ -13,7 +13,7 @@
 			<div class="field-group clearfix">
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="ccNumber">Credit Card Number</label>
-					<input type="number" class="form-control" id="ccNumber" placeholder="**** **** **** 1235" name="ccNumber">
+					<input type="text" class="form-control" id="ccNumber" placeholder="**** **** **** 1235" name="ccNumber">
 				</fieldset>
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="cvv">CVV</label>
@@ -30,6 +30,12 @@
 						<option value="04">April</option>
 						<option value="05">May</option>
 						<option value="06">June</option>
+						<option value="07">July</option>
+						<option value="08">August</option>
+						<option value="09">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
 					</select>
 				</fieldset>
 				<fieldset class="form-group float-md">
@@ -50,9 +56,17 @@
 					<input type="text" class="form-control" id="zip" placeholder="11111" name="zip">
 				</fieldset>
 				<fieldset class="form-group float-md">
-					<label class="section-label" for="expYear">Country</label>
-					<select class="form-control" id="expYear" name="expYear">
-						<option value="usa">United States</option>
+					<label class="section-label" for="country">Country</label>
+					<select class="form-control" id="country" name="country>
+						<option value="">-- Select Country --</option>
+						<?php 
+						if(!empty($countries))
+						{
+							foreach ($countries as $country) {
+								echo '<option value="'.$country->id.'">'.$country->name.'</option>';
+							}
+						}
+						?>
 					</select>
 				</fieldset>
 			</div>
