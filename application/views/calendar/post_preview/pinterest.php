@@ -31,7 +31,11 @@ if(!empty($post_details)){
 		<div style="border-radius: 15px; border-color: #777;">
 			<div class="pinterest-comment-div">
 				<p class="post_copy_text">
-					<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
+					<?php 
+						$content = $post_details->content;
+						$content = replace_with_expression($content);
+						echo (!empty($content)) ? $content : '';
+					?>
 				</p>
 			</div>
 			<div class="pinterest-sharing-option">

@@ -36,7 +36,11 @@ if(!empty($post_images)){
 
 		<div class="youtube-comment-div">
 			<div class="post_copy_text">
-				<?php echo (!empty($post_details->content)) ? $post_details->content : '';?>
+				<?php 
+					$content = $post_details->content;
+					$content = replace_with_expression($content);
+					echo (!empty($content)) ? $content : '';
+				?>
 			</div>
 			<div class="youtube-sharing-option">
 				<span>21 views</span>

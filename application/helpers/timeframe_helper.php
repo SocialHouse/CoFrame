@@ -336,6 +336,42 @@ if(!function_exists('get_summary'))
     }
 }
 
+if(!function_exists('replace_with_expression'))
+{
+    function replace_with_expression($string)
+    {
+        preg_match_all('/[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/',$string,$output, PREG_PATTERN_ORDER);
+
+        if(!empty($output))
+        {
+            foreach($output[0] as $out)
+            {
+                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+            }
+        }
+
+        preg_match_all("/(#\w+)/",$string,$output, PREG_PATTERN_ORDER);
+        if(!empty($output))
+        {
+            foreach($output[0] as $out)
+            {
+                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+            }
+        }
+
+        preg_match_all("/(@\w+)/",$string,$output, PREG_PATTERN_ORDER);
+        if(!empty($output))
+        {
+            foreach($output[0] as $out)
+            {
+                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+            }
+        }
+
+        return $string;
+    }
+}
+
 
 
 
