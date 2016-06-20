@@ -462,6 +462,7 @@ jQuery(function($) {
     	
     });
 
+   	 $(document).on('keyup blur','#userEmail',function(){
     	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
     	{
     		if(!$('#addRole').hasClass('btn-secondary'))
