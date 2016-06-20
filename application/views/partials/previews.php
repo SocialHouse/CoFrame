@@ -183,4 +183,21 @@
 		</div>
 	</div>
 
+	<div id="outlet_youtube"  style="width:100%">
+		<div class="youtube-post" style="width:100%">
+			<div class="clearfix"></div>
+			<div class="content">
+				<div class="youtube-comment-div">
+					<div class="post_copy_text">
+					</div>
+					<div class="youtube-sharing-option">
+						<span>21 views</span>
+						<span>1 week ago</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
