@@ -199,5 +199,36 @@
 		</div>
 	</div>
 
+	<div id="outlet_pinterest"  style="width:100%">
+		<div class="pinterest-post>
+		
+		<div class="clearfix"></div>
+		<div class="content">
+			<div class="pinterest-img-div">
+			</div>
+				<div class="pintereat-comment">
+					<div class="pinterest-comment-div">
+						<p class="post_copy_text">
+							
+						</p>
+					</div>
+					<div class="pinterest-sharing-option">
+						<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+						<i class="fa fa-thumb-tack fa-rotate-180" aria-hidden="true"></i>&nbsp;4.5k
+						<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;969
+					</div>
+					<div class="pull-left">
+						<img class="default-img img-circle" src="<?php echo img_url(); ?>default_profile.jpg" width="40">
+					</div>
+					<div class="clearfix pinterest-userinfo ">
+							<div class="creditTitle">Saved by</div>
+							<div  class="creditTitle" id="pinterest_user_name"></div>				
+					</div>
+					
+				</div>
+					
+			</div>
+		</div>		
+	</div>
 
 </div>

@@ -94,3 +94,50 @@
   text-transform: none !important;
   font-size: 12px;
   clear: both; }
+
+/*
+  pinterest preview 
+*/
+.pinterest-img-div img{
+    border-radius: 14px  14px 0 0;
+  }
+  .pinterest-post{
+    color: #777;
+    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
+    font-size: 12px;
+  }
+
+  .pinterest-post .post_copy_text{
+    color: #333;
+    font-size: 13px;
+    line-height: 17px;
+    word-wrap: break-word
+  }
+  .creditItem{
+    color: #777;
+    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
+    font-weight: bold;
+  }
+  .creditTitle {
+    color: #777;
+    font-size: 8px;
+    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
+  } 
+  .pinterest-comment-div{
+    padding: 15px 15px 0px 15px;
+    border-bottom: 1px solid #333;
+  }
+  .pinterest-sharing-option{
+    padding: 5px 15px 5px 15px;
+    border-top-color: #e7e7e7;
+      border-top-style: solid;
+      border-top-width: 1px;
+  }
+  .pinterest-userinfo {
+      padding-left: 50px;
+      padding-top: 5px;
+  }
+  .pintereat-comment {
+    border-radius: 15px;
+    border-color: #777;
+  }

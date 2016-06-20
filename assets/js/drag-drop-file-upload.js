@@ -794,4 +794,13 @@
 	            jQuery('#live-post-preview .content').append(preview_img);	
             }	
 		}
+		console.log(selected_outlet);
+		if(selected_outlet == 'outlet_pinterest')
+		{
+			if(file_type == 'images'){
+	            var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+	            jQuery('.pinterest-img-div').empty();
+	            jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
+	        }
+		}
 	}
