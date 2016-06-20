@@ -51,12 +51,13 @@
 
 			// automatically submit the form on file select
 			$(document).on( 'change','input[type="file"]', function( e ){
+				var $fileDiv = $(this).parents('.form__input');
+				$fileDiv.parent().find('.upload-error').addClass('hide');
 				var fileInput = this;
 				var error = 'false';
 				showFiles( e.target.files,this);
-					droppedFiles = e.target.files; // the files that were dropped
-					
-					var $fileDiv = $(this).parents('.form__input');
+					droppedFiles = e.target.files; // the files that were dropped					
+								
 					$.each(droppedFiles, function (index, file) {
 						var file_type = file.type.split('/');
 						if( file_type[0]== 'image'){
@@ -96,7 +97,7 @@
 							}
 							//for show preview
 							changePreview(file,'image');
-						}else if(file_type[0]== 'video'){
+						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 												
 							if($('.form__file-preview').length >= 1){
 								
@@ -140,6 +141,9 @@
 								changePreview(file,'video');								
 							}							
 						}
+						else{
+							$fileDiv.parent().find('.upload-error').removeClass('hide');
+						}
 					});
 			});
 
@@ -158,65 +162,72 @@
 				.on( 'dragleave dragend drop', function(){
 					$form.removeClass( 'is-dragover' );
 				})
-				.on( 'drop', function( e ){
-					var target_file_input = e.target;
-					droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
-					var $fileDiv = $('.form__input');
-					var error ='false';
-					$.each(droppedFiles, function (index, file) {
-						var file_type = file.type.split('/');
-						if( file_type[0]== 'image'){
-							if($('.form__file-preview').src=='video'){
-								alert('Invalid file extention');
-								return false;
-							}
-							if($(target_file_input).hasClass('brand-image').length)
-							{
-								allFiles = [];
-								$(target_file_input).children('.form__file-preview').remove();
-								$('.remove-brand-img').show();
-							}
-							if($(target_file_input).hasClass('user_upload_img_div').length)
-							{
-								allFiles = [];
-								$(target_file_input).children('.form__file-preview').remove();
-								$('.remove-user-img').show();
-							}
-							allFiles.push(file);
-							var img = document.createElement('img');
-							img.onload = function () {
-								window.URL.revokeObjectURL(this.src);
-							};
-							img.className = 'form__file-preview';
-							img.src = window.URL.createObjectURL(file);
-							$(target_file_input).prepend(img).addClass('has-files');
-							//for show preview
-							changePreview(file,'image');
-						}else if( file_type[0]== 'video'){
-
-							if($('.form__file-preview').length >= 1){
-								console.log($('.form__file-preview').src);
-								if($('.form__file-preview').src =='video'){
-									alert('You can\'t add more than 1 video');	
-								}else{
+				.on( 'drop', function( e ){	
+				
+					var target_file_input = $(e.target).closest('.form__input');					
+					if(target_file_input.length > 0)
+					{
+						console.log($(target_file_input));
+						droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
+						var $fileDiv = $('.form__input');
+						$fileDiv.parent().find('.upload-error').addClass('hide');
+						var error ='false';
+						$.each(droppedFiles, function (index, file) {
+							var file_type = file.type.split('/');							
+							if( file_type[0]== 'image'){
+								if($('.form__file-preview').src=='video'){
 									alert('Invalid file extention');
+									return false;
 								}
-								return false;
-							}else{
-
-								var video = document.createElement('video');
-								video.onload = function () {
+								if($(target_file_input).hasClass('brand-image'))
+								{
+									allFiles = [];
+									$(target_file_input).children('.form__file-preview').remove();							
+									$('.remove-brand-img').show();
+								}
+								if($(target_file_input).hasClass('user_upload_img_div'))
+								{
+									allFiles = [];
+									$(target_file_input).children('.form__file-preview').remove();
+									$('.remove-user-img').show();
+								}
+								allFiles.push(file);
+								var img = document.createElement('img');
+								img.onload = function () {
 									window.URL.revokeObjectURL(this.src);
 								};
-								video.className = 'form__file-preview';
-								video.src = window.URL.createObjectURL(file);
-								$(target_file_input).prepend(video).addClass('has-files');
+								img.className = 'form__file-preview';
+								img.src = window.URL.createObjectURL(file);
+								$(target_file_input).prepend(img).addClass('has-files');
 								//for show preview
-								changePreview(file,'video');
-							}							
-						}
-					});
-					
+								changePreview(file,'image');
+							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
+
+								if($('.form__file-preview').length >= 1){
+									console.log($('.form__file-preview').src);
+									if($('.form__file-preview').src =='video'){
+										alert('You can\'t add more than 1 video');	
+									}else{
+										alert('Invalid file extention');
+									}
+									return false;
+								}else{
+
+									var video = document.createElement('video');
+									video.onload = function () {
+										window.URL.revokeObjectURL(this.src);
+									};
+									video.className = 'form__file-preview';
+									video.src = window.URL.createObjectURL(file);
+									$(target_file_input).prepend(video).addClass('has-files');
+									//for show preview
+									changePreview(file,'video');
+								}							
+							}else{
+								$fileDiv.parent().find('.upload-error').removeClass('hide');
+							}
+						});
+					}
 					//$form.trigger( 'submit' ); // automatically submit the form on file drop
 				});
 			}
@@ -331,11 +342,13 @@
 							ajaxData.append( 'file['+i+']', file,file.name);
 						});
 					}
-					else
-					{
-						var img_html = '<img class="form__file-preview default-img" src="'+base_url+'assets/images/default_brand.png" >';
-						$('.brand-image').prepend(img_html);
-						$('.brand-image').addClass('has-files');
+					else{
+						if(!$('.brand-image').children('.form__file-preview').length)
+						{
+							var img_html = '<img class="form__file-preview default-img" src="'+base_url+'assets/images/default_brand.png" >';							
+							$('.brand-image').prepend(img_html);
+							$('.brand-image').addClass('has-files');
+						}
 					}
 				
 
@@ -397,12 +410,13 @@
 				if( isAdvancedUpload ) {
 					e.preventDefault();
 
+
 					// gathering the form data
-					var ajaxData = new FormData();				
+					var ajaxData = new FormData();
 					$.each( allFiles, function( i, file ){
 						ajaxData.append( 'file['+i+']', file,file.name);
-					});	
-
+					});
+					
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
 						if(input.name == 'brand_id' || input.name== 'user_id')
@@ -463,7 +477,7 @@
 									    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
 									    	$('.user_upload_img_div').html('');
 									    	$('.user_upload_img_div').removeClass('has-files');
-									    	var html = '<input id="userFile" class="form__file" type="file" multiple="" data-multiple-caption="{count} files selected" name="files[]">';
+									    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
 											html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
 											html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
 											$('.user_upload_img_div').html('');
@@ -530,6 +544,12 @@
 		    $('.remove-brand-img').click(function(){
 		    	$('.brand-image').removeClass('has-files');
 		    	$('.brand-image').children('.form__file-preview').remove();
+
+		    	var html = '<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" accept="image/*">';
+				html += '<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>';
+				html += '<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>';
+				$('.brand-image').html('');
+		    	$('.brand-image').html(html);
 		    	allFiles = [];
 		    
 		    	$(this).hide();
@@ -538,6 +558,11 @@
 		    $('.remove-user-img').click(function(){
 		    	$('.user_upload_img_div').removeClass('has-files');
 		    	$('.user_upload_img_div').children('.form__file-preview').remove();
+		    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
+				html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
+				html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+				$('.user_upload_img_div').html('');
+		    	$('.user_upload_img_div').html(html);
 		    	allFiles = [];
 		    	$(this).hide();
 		    });
