@@ -440,11 +440,9 @@ jQuery(function($) {
     	
     });
 
-    $(document).on('keyup blur','#lastName',function(){
-    	if($('#firstName').val() && $('#userEmail').val() && validateEmail($(this).val()) && $(this).val())
+    $(document).on('keyup blur','#lastName',function(){    	
+    	if($('#firstName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $(this).val())
     	{
-    		// $('#emailValid').hide()
-
     		if(!$('#addRole').hasClass('btn-secondary'))
     			$('#addRole').addClass('btn-secondary');
     		$('#addRole').removeClass('btn-disabled');    		
@@ -464,11 +462,8 @@ jQuery(function($) {
     	
     });
 
-    $(document).on('keyup blur','#userEmail',function(){    	
     	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
     	{
-    		// $('#emailValid').hide()
-
     		if(!$('#addRole').hasClass('btn-secondary'))
     			$('#addRole').addClass('btn-secondary');
     		$('#addRole').removeClass('btn-disabled');    		
@@ -571,6 +566,37 @@ jQuery(function($) {
     	});
     });
 
+    //step3 cancel btn
+  	$(document).on('click','.btn-cancel',function(){
+    	$('#firstName').val('');
+		$('#lastName').val('');
+		$('#userTitle').val('');
+		$('#userEmail').val('');
+		$('#userOutlet').val('');
+		$('#userRoleSelect').val('');
+		$('#userRoleSelect').trigger('change');
+
+		$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
+		$('.user_upload_img_div').html('');
+		$('.user_upload_img_div').removeClass('has-files');
+		var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
+		html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
+		html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+		$('.user_upload_img_div').html('');
+		$('.user_upload_img_div').html(html);
+		$('.remove-user-img').hide();
+		allFiles = [];
+		$('.user-upload-img').hide();
+		$('.user-img-preview').show();
+
+		if($('#add_user_next').hasClass('btn-disabled'))
+		{
+			$('#add_user_next').removeClass('btn-disabled');
+		}
+		$('#add_user_next').addClass('btn-secondary');
+		$('#add_user_next').prop('disabled',false);
+    });
+
     $('#firstName').keyup(function(){
     	$('.user-name-role').html($(this).val()+' '+$('#lastName').val());
     });
@@ -583,7 +609,7 @@ jQuery(function($) {
     {
     	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
     }
-	}
+}
 
 	function validateEmail(email) {
 	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

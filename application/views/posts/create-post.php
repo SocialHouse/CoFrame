@@ -68,6 +68,7 @@
 							<label for="postFile" id="postFileLabel" class="file-upload-label"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>
 							<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
 						</div>
+						<div class="upload-error error hide">Wrong file type uploaded</div>
 						<div class="form__uploading">Uploading ...</div>
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>

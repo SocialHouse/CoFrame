@@ -18,10 +18,11 @@
 								<a href="#" class="remove-brand-img hide"><i class="tf-icon circle-border">x</i></a>
 								<label>
 								<div class="form__input center-block brand-image">								
-									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
+									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" accept="image/*">
 									<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>
 									<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
 								</div>
+								<div class="upload-error error hide">Wrong file type uploaded</div>
 								</label>
 								<div class="form__uploading">Uploading ...</div>
 								<div class="form__success">Done!</div>
@@ -121,7 +122,7 @@
 						</div>
 						<div class="hidden" id="addUserBtns">
 							<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
-							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
+							<button type="button" class="btn btn-sm btn-disabled pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
 						</div>
 						<div class="hidden" id="userRoleBtns">
 							<p class="disclaimer">Upon clicking ‘Add,’ a registration link will be sent to this user.</p>

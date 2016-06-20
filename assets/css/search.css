@@ -88,3 +88,9 @@
     border-radius: 8px !important;
     background: #dedede  !important; 
 }
+
+#post-details .error {
+  color: red;
+  text-transform: none !important;
+  font-size: 12px;
+  clear: both; }
