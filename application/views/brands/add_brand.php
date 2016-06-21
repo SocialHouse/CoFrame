@@ -5,7 +5,7 @@
 	<input type="hidden" name="brand_id" id="brand_id" />
 	<input type="hidden" name="slug" id="slug" />
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo $this->user_id; ?>" >
-
+	<input type="hidden" name="is_brand_image" id="is_brand_image" value="no" >
 	<div class="row row-sm-12 equal-cols relative-wrapper">
 		<div class="brand-steps col-xl-11 center-block">
 			<div class="col-md-3 col-sm-6 brand-step active" id="brandStep1">
@@ -16,17 +16,14 @@
 						<div class="form-group">
 							<div class="brand-logo text-xs-center">
 								<a href="#" class="remove-brand-img hide"><i class="tf-icon circle-border">x</i></a>
-								<label>
-								<div class="form__input center-block brand-image">								
-									<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" accept="image/*">
-									<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>
-									<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
+								<div class="form__input center-block brand-image"  id="img_div" >
+									<input type='file' id='fileInput' name='files' accept='image/*'>
+									<div class="cropme" id="add_brand_img" style="width: 200px; height: 200px;"></div>
 								</div>
 								<div class="upload-error error hide">Wrong file type uploaded</div>
-								</label>
 								<div class="form__uploading">Uploading ...</div>
 								<div class="form__success">Done!</div>
-								<div class="form__error">Error! <span></span></div>
+								<div class="form__error"></div>
 							</div>
 						</div>
 						<div class="form-group">

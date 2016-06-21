@@ -1,7 +1,9 @@
-<form id="step_1_edit" class="file-upload clearfix has-advanced-upload" method="POST" action="<?php echo base_url()?>brands/save_brand" enctype="multipart/form-data">
+<form id="step_1_edit" class="clearfix file-upload" method="POST" action="<?php echo base_url()?>brands/save_brand">
 
 <input type="hidden" name="brand_id" value="<?php echo $brand->id; ?>">
 <input type="hidden" name="slug" value="<?php echo $brand->slug; ?>">
+<input type="hidden" id="base64" name="base64" value="">
+
 	<div class="container-brand-step">	
 		<h3 class="text-xs-center">Step 1</h3>
 		<h4 class="text-xs-center">Add Brand</h4>
@@ -10,34 +12,33 @@
 			<?php
 				$image = '';
 				$cls_1 = 'hide';
+				$is_img='no';
 
 				if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png'))
 				{
 					$image_path = upload_url().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png';
-					$image = '<img class="form__file-preview" src="'.$image_path.'">';
+					$image ='<img src="'.$image_path.'" id="photo">';
 					$cls_1 = '';
-					$cls_2 = 'has-files';
-				}else{
-					$cls_2 = '';
+					$is_img='yes';
 				}
 			?> 
+			<input type="hidden" name="is_brand_image" id="is_brand_image" value="<?php echo $is_img; ?>" >
 				<div class="brand-logo text-xs-center">
 					<a href="#" class="remove-brand-img <?php echo $cls_1; ?>">
 						<i class="tf-icon circle-border">x</i>
 					</a>
-					<label>
-					
-					<div class="form__input center-block brand-image  <?php echo $cls_2; ?>">
-						<?php echo $image; ?>
-						<input type="file" name="file[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected">
-						<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>
-						<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
+					<div class="form__input center-block brand-image"  id="img_div" >
+						<input type='file' id='fileInput' name='files' accept='image/*'>
+						<div class="cropme" id="add_brand_img" style="width: 200px; height: 200px;">
+							<?php echo $image; ?>
+						</div>
 					</div>
-					</label>
+					<div class="upload-error error hide">Wrong file type uploaded</div>
 					<div class="form__uploading">Uploading ...</div>
 					<div class="form__success">Done!</div>
-					<div class="form__error">Error! <span></span></div>
+					<div class="form__error"></div>
 				</div>
+				
 			</div>
 			<div class="form-group">
 				<label for="brandName">Brand Name:</label>
@@ -65,7 +66,7 @@
 		</div>
 		<footer class="post-content-footer">
 			<button type="button" class="btn btn-sm btn-default close_brand" data-step-no="1">Cancel</button>
-			<button type="submit" class="btn btn-sm btn-default pull-sm-right save_brand" data-step-no="1">Save</button>
+			<button type="submit" class="btn btn-sm btn-default pull-sm-right" data-step-no="1">Save</button>
 		</footer>
 	</div>
 </form>

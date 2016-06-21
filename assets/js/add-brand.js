@@ -1,6 +1,9 @@
 jQuery(function($) {
 
 	$(document).ready(function() {
+
+		$('.cropme').simpleCropper();
+		
 		$('#brandOutlets.outlet-list li').on('click', function() {
 			if(!$(this).hasClass('saved')) {
 				$(this).toggleClass('disabled selected');

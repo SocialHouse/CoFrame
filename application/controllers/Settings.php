@@ -57,7 +57,9 @@ class Settings extends CI_Controller {
 			$this->data['view'] = 'settings/settings';
 			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
 			$this->data['layout'] = 'layouts/new_user_layout';
-			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
+			$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
+			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'facebook.js');
+			
 			$this->data['background_image'] = 'bg-brand-management.jpg';  
 
 			_render_view($this->data);
@@ -102,8 +104,8 @@ class Settings extends CI_Controller {
 			if($is_load == 'true'){
 				echo $this->load->view('settings/step_'.$step_number,$this->data,true);	
 			}else{
-				
-				$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
+				$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
+				$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
 				echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);
 			}
 		}else{

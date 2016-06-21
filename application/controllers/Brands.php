@@ -48,7 +48,8 @@ class Brands extends CI_Controller {
 		$this->data['groups'] = $this->aauth->list_groups();
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'facebook.js');
+		$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
 
         $this->data['layout'] = 'layouts/new_user_layout';
 
@@ -60,7 +61,9 @@ class Brands extends CI_Controller {
 	{
 		$brand_id = $this->input->post('brand_id');
 		$slug = $this->input->post('slug');
-		
+		$base64_image = $this->input->post('base64_image');
+		$is_brand_image_save = $this->input->post('is_brand_image');
+
 		$brand_data = array(
     						'name' => $this->input->post('name'),    						
     						'created_by' => $this->user_id,
@@ -80,34 +83,50 @@ class Brands extends CI_Controller {
     		$this->timeframe_model->update_data('brands',$brand_data,$condition);
     	}
 
-    	if(isset($_FILES['file']) && !empty( $_FILES['file']['name'][0]) )
-		{			
-			$_FILES['file']['name'] = $_FILES['file']['name'][0];
-			if(!empty($_FILES['file']['name'])){
+    	if(isset($base64_image) && !empty( $base64_image ) && $base64_image != 'undefined')
+    	{
+
+    		if(!empty($base64_image)){
 				$filename = $brand_id.'.png';
 			}
-	        $_FILES['file']['type'] = $_FILES['file']['type'][0];
-	        $_FILES['file']['tmp_name'] = $_FILES['file']['tmp_name'][0];
-	        $_FILES['file']['error'] = $_FILES['file']['error'][0];
-	        $_FILES['file']['size'] = $_FILES['file']['size'][0];
-	        if(isset($filename))
+			if(isset($filename))
 			{
 				//helper function to delete files
-				if(file_exists(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename)){
+				if(file_exists(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename))
+				{
 					delete_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename);
 				}
+
+				if($is_brand_image_save == 'yes')
+				{
+					$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+		        	//decode base64 string
+			        $decoded = base64_decode($base64_str);
+
+			        //create jpeg from decoded base 64 string and save the image in the parent folder
+			        if(!is_dir(upload_path().$this->user_id.'/brands/'.$brand_id)){
+			        	mkdir(upload_path().$this->user_id.'/brands/'.$brand_id);
+			        }
+			        $url = upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png';
+			        $result = file_put_contents($url, $decoded);
+
+			        $source_url = imagecreatefrompng($url);
+			       // $source_url = imagecreatefromstring(file_get_contents($url));
+			        
+			        header('Content-Type: image/png');
+			        imagepng($source_url, $url, '8');
+			        
+			        if(!$result)
+			        {
+			        	$error = 'Failed to upload the file, Please try again !';
+			        }
+				}			
 			}
-
-	        $status = upload_file('file',$filename,$this->user_id.'/brands/'.$brand_id);
-
-	        if(array_key_exists("upload_errors",$status))
-	        {
-	        	$error = $status['upload_errors'];	        	
-	        }
-	        else
-	        {
-	        	$filename = $status['file_name'];	        	
-	        }
+    	}
+    	if($is_brand_image_save == 'no')
+		{
+			delete_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
 		}
 		if(!isset($error))
 		{
