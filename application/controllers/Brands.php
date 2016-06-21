@@ -63,12 +63,22 @@ class Brands extends CI_Controller {
 		$slug = $this->input->post('slug');
 		$base64_image = $this->input->post('base64_image');
 		$is_brand_image_save = $this->input->post('is_brand_image');
+		$is_hidden = 1;
+		if($brand_id)
+		{
+			$users = $this->brand_model->get_brand_users($brand_id);
+			if(!empty($users))
+			{
+				$is_hidden = 0;
+			}
+		}
+		
 
 		$brand_data = array(
     						'name' => $this->input->post('name'),    						
     						'created_by' => $this->user_id,
     						'timezone' => $this->input->post('timezone'),
-    						'is_hidden' => 1
+    						'is_hidden' => $is_hidden
     					);
 		
     	if(empty($brand_id))
