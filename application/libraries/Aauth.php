@@ -771,10 +771,10 @@ class Aauth {
 
 		$valid = TRUE;
 		
-		if ($this->user_exist_by_email($email)) {
-			$this->error('Email address already exists on the system. If you forgot your password, you can click the link below.');
-			$valid = FALSE;
-		}
+		// if ($this->user_exist_by_email($email)) {
+		// 	$this->error('Email address already exists on the system. If you forgot your password, you can click the link below.');
+		// 	$valid = FALSE;
+		// }
 		$valid_email = (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
 		if (!$valid_email){
 			$this->error('Invalid e-mail address');

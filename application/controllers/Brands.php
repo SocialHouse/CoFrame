@@ -68,7 +68,7 @@ class Brands extends CI_Controller {
     						'name' => $this->input->post('name'),    						
     						'created_by' => $this->user_id,
     						'timezone' => $this->input->post('timezone'),
-    						'is_hidden' => $this->input->post('is_hidden') ? $this->input->post('is_hidden') : 0
+    						'is_hidden' => 1
     					);
 		
     	if(empty($brand_id))
@@ -254,6 +254,14 @@ class Brands extends CI_Controller {
             	$group_id = $this->aauth->get_group_id($post_data['role']);
             	if($inserted_id)
             	{
+            		$brand_status = array(
+            							'is_hidden' => 0            							
+            						);
+                    $condition = array(
+                    				'id' => $post_data['brand_id']
+                    			);                 
+                    $this->timeframe_model->update_data('brands',$brand_status,$condition);
+
                 	$this->aauth->add_member($inserted_id,$group_id);
                 	//add permission to user
                 	if(!empty($post_data['permissions']))
