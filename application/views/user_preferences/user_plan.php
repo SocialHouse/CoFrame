@@ -1,5 +1,6 @@
 <form id="payment_form" method="post" action="<?php echo base_url();?>user_preferences/change-plan">
-<input type="hidden" name="plan" id="selected_plan">
+	<input type="hidden" name="plan" id="selected_plan">
+	<input type="hidden" id="billing_id" name="billing_id" value="<?php echo set_value('billing_id') ? set_value('billing_id') : (isset($billing_details->id) ? $billing_details->id : '' ); ?>">
 	<div class="col-lg-8 col-sm-10 center-block text-xs-center">
 		<?php 
 			$this->load->view('user_preferences/preference_nav');
@@ -51,7 +52,7 @@
 					else
 					{
 						?>
-						<a class="btn btn-secondary btn-sm btn-choose-plan make_payment" data-plan="START-UP" data-price="$99.00">Select</a>
+						<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="START-UP" data-price="$99.00">Select</a>
 						<?php
 					}
 				?>
@@ -80,7 +81,7 @@
 					else
 					{
 						?>
-							<a class="btn btn-secondary btn-sm btn-choose-plan make_payment" data-plan="BUSINESS" data-price="$199.00">Select</a>
+							<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="BUSINESS" data-price="$199.00">Select</a>
 						<?php
 					}
 				?>	
@@ -108,7 +109,7 @@
 					else
 					{
 						?>
-							<a class="btn btn-secondary btn-sm btn-choose-plan make_payment" data-plan="CORPORATE" data-price="$299.00">Select</a>
+							<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="CORPORATE" data-price="$299.00">Select</a>
 						<?php
 					}
 				?>
@@ -138,7 +139,7 @@
 					else
 					{
 						?>
-							<a class="btn btn-secondary btn-sm btn-choose-plan make_payment" data-plan="PREMIERE" data-price="$499.00">Select</a>
+							<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="PREMIERE" data-price="$499.00">Select</a>
 						<?php
 					}
 				?>

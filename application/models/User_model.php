@@ -112,8 +112,7 @@ class User_model extends CI_Model
     public function get_current_plan($user_id)
     {
     	$this->db->select('plan');
-    	$this->db->order_by('id','desc');
-    	$query = $this->db->get_where('transactions',array('user_id' => $user_id));
+    	$query = $this->db->get_where('user_info',array('aauth_user_id' => $user_id));
     	if($query->num_rows() > 0)
     	{
     		return $query->row()->plan;

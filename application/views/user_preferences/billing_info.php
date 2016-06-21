@@ -3,74 +3,108 @@
 		<?php 
 			$this->load->view('user_preferences/preference_nav');
 		?>
-		<form action="" id="billing" novalidate>
+		<div class="alert alert-danger payment-errors">
+		    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>    
+		</div>
+		<form action="<?php echo base_url().'user_preferences/save_payment'; ?>" id="payment-form" method="post">
+			<input type="hidden" name="plan" value="<?php echo $plan; ?>">
+			<input type="hidden" name="email" value="<?php echo $this->email; ?>" >
+			<input type="hidden" name="billing_id" value="<?php echo set_value('billing_id') ? set_value('billing_id') : (isset($billing_details->id) ? $billing_details->id : '' ); ?>">
+			
 			<div class="field-group">
 				<label class="section-label" for="fullName">Full Name</label>
 				<fieldset class="form-group">
-					<input type="text" class="form-control" id="fullName" placeholder="Full Name" name="fullName">
+					<input type="text" class="form-control" id="fullName" placeholder="Full Name" name="name" data-stripe="name" value="<?php echo set_value('name') ? set_value('name') : (isset($billing_details->name) ? $billing_details->name : '' ); ?>">
 				</fieldset>
 			</div>
 			<div class="field-group clearfix">
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="ccNumber">Credit Card Number</label>
-					<input type="text" class="form-control" id="ccNumber" placeholder="**** **** **** 1235" name="ccNumber">
+					<input type="text" class="form-control" data-stripe="number" id="ccNumber" placeholder="**** **** **** 1235" name="cc_number" value="<?php echo set_value('cc_number') ? set_value('cc_number') : (isset($billing_details->cc_number) ? "************".$billing_details->cc_number : '' ); ?>">
 				</fieldset>
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="cvv">CVV</label>
-					<input type="number" id="cvv" class="form-control" placeholder="***" name="cvv">
+					<input type="text" id="cvv" class="form-control" placeholder="***" name="cvc" data-stripe="cvc" value="<?php echo set_value('cvc') ? set_value('cvc') : (isset($billing_details->cvc) ? $billing_details->cvc : '' ); ?>">
 				</fieldset>
 			</div>
 			<div class="field-group clearfix">
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="expMonth">Expiration Month</label>
-					<select class="form-control" id="expMonth" name="expMonth">
-						<option value="01">January</option>
-						<option value="02">February</option>
-						<option value="03">March</option>
-						<option value="04">April</option>
-						<option value="05">May</option>
-						<option value="06">June</option>
-						<option value="07">July</option>
-						<option value="08">August</option>
-						<option value="09">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
+					<select class="form-control" data-stripe="exp-month" name="expiry_month">
+						<option value="">Month</option>
+		                <?php
+		                for($i=1; $i<=12; $i++)
+		                {	                	
+
+		                	$month = $i;                	
+
+		                	$selected = '';
+		                	if(isset($billing_details->exp_month) AND $billing_details->exp_month == $i)
+		                	{
+		                		$selected = 'selected="selected"';
+		                	}
+		                  	if($month < 10)
+		                  	{
+		                    	$month = "0".$month;
+		                  	}
+		                  	?>
+		                  	<option <?php echo set_select("expiry_month", $month) ? set_select("expiry_month", $month): $selected; ?> value="<?php echo $month ?>"><?php echo $month ?></option>
+		                  	<?php
+		                }
+		                ?>
 					</select>
 				</fieldset>
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="expYear">Expiration Year</label>
-					<select class="form-control" id="expYear" name="expYear">
-						<option value="2016">2016</option>
-						<option value="2017">2017</option>
-						<option value="2018">2018</option>
-						<option value="2019">2019</option>
-						<option value="2020">2020</option>
-						<option value="2021">2021</option>
+					<select class="form-control" id="expYear" name="expiry_year" data-stripe="exp-year">
+						<option value="">Year</option>
+						<?php
+		                for($i=0; $i<12; $i++)
+		                {
+			                $year = date('Y', strtotime('+'.$i.' years'));
+			                
+			                $selected = '';
+		                	if(isset($billing_details->exp_year) AND $billing_details->exp_year == $year)
+		                	{
+		                		$selected = 'selected="selected"';
+		                	}
+			               	?>		               	
+			               	<option <?php echo set_select("expiry_year", $year) ? set_select("expiry_year", $year) : $selected; ?> value="<?php echo $year ?>"><?php echo $year ?></option>
+			                <?php
+		                }
+		                ?>
 					</select>
 				</fieldset>
 			</div>
 			<div class="field-group clearfix">
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="zip">Zip/Postal Code</label>
-					<input type="text" class="form-control" id="zip" placeholder="11111" name="zip">
+					<input type="text" class="form-control" id="zip" placeholder="11111" name="zip" data-stripe="address-zip" value="<?php echo set_value('zip') ? set_value('zip') : (isset($billing_details->zip) ? $billing_details->zip : '' ); ?>">
 				</fieldset>
 				<fieldset class="form-group float-md">
 					<label class="section-label" for="country">Country</label>
-					<select class="form-control" id="country" name="country>
+					<select class="form-control" id="country" data-stripe="country" name="country">
 						<option value="">-- Select Country --</option>
 						<?php 
 						if(!empty($countries))
 						{
-							foreach ($countries as $country) {
-								echo '<option value="'.$country->id.'">'.$country->name.'</option>';
+							foreach ($countries as $country) 
+							{
+								$selected = '';
+				        		if(isset($billing_details->country) AND ($country->name == $billing_details->country))
+				        		{
+				        			$selected = 'selected="selected"';
+				        		}
+				        		?>
+								<option value="<?php echo $country->name; ?>"><?php echo $country->name; ?></option>;
+								<?php
 							}
 						}
 						?>
 					</select>
 				</fieldset>
 			</div>
-			<button type="submit" class="btn btn-secondary btn-sm">Save Changes</button>
+			<button id="make_payment" type="button" class="btn btn-secondary btn-sm">Save Changes</button>
 		</form>
 	</div>
 </div>

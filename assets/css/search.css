@@ -95,6 +95,13 @@
   font-size: 12px;
   clear: both; }
 
+#payment-form .error {
+  color: red;
+  float:left;
+  text-transform: none !important;
+  font-size: 12px;
+  clear: both; }
+
 /*
   pinterest preview 
 */
