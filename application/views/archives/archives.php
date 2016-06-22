@@ -1,13 +1,15 @@
 <?php $this->load->view('partials/brand_nav'); ?>
 <section id="brand-manage" class="page-main bg-white col-sm-10">
-<header class="page-main-header">
-	<h1 class="center-title section-title">Archive</h1>
-</header>
-<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="archive-export">	
-	<div class="col-sm-12 archives">
+	<header class="page-main-header">
+		<h1 class="center-title section-title">Archive</h1>
+	</header>
+
+	<form id="archive-export" method="POST" action="<?php echo base_url();?>archives/export_post/<?php echo $brand->slug?>" >
+		<div class="col-sm-12 archives">
 			<div class="col-md-9 col-sm-12">
 				<div class="container-archive">
 					<h2 class="text-xs-center">Date Selection</h2>
+					<input type="hidden" name="brand_id" value="<?php echo $brand->id ?>">
 					<div class="row">
 						<div class="col-sm-4 archive-calendar calendar-select-date equal-section">
 							<div id="calendar-archive-1"></div>
@@ -19,8 +21,14 @@
 							<div class="bg-gray-lightest export-options equal-section">
 								<div class="radio form-inline radio-w-inputs">
 									<label>
-									<input type="radio" name="exportDate" value="daterange">
-									<div class="hide-top-bx-shadow"><input type="text" class="form-control popover-toggle" name="start-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-start-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300"></div> <span>To</span> <div class="hide-top-bx-shadow"><input type="text" class="form-control popover-toggle" name="end-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-end-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300"></div>
+										<input type="radio" name="exportDate" value="daterange">
+										<div class="hide-top-bx-shadow">
+											<input type="text" class="form-control popover-toggle" name="start-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-start-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300">
+										</div>
+										<span>To</span> 
+										<div class="hide-top-bx-shadow">
+											<input type="text" class="form-control popover-toggle" name="end-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-end-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300">
+										</div>
 									</label>
 								</div>
 								<div class="radio">
@@ -66,7 +74,6 @@
 						<div class="date-select-calendar"></div>
 					</div>
 				</div>
-
 			</div>
 			<div class="col-md-3 col-sm-12">
 				<div class="container-archive">
@@ -88,9 +95,12 @@
 						</div>
 					</div>
 					<footer class="post-content-footer">
-						<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right">Export</button>
+						<button type="submit" class="btn btn-sm btn-secondary pull-sm-right">Export</button>
 					</footer>
 				</div>
 			</div>
-	</div>
-</form>
+		</div>
+
+	</form>
+
+</section>

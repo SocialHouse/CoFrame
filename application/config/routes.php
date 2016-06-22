@@ -70,6 +70,7 @@ $route['brands/save-existing-user'] = "brand_users/save_existing_user";
 
 $route['drafts/(:any)'] = "drafts/index/$1";
 $route['approvals/(:any)'] = "approvals/index/$1";
+$route['archives/export_post/(:any)'] = "archives/export_post/$1";
 $route['archives/(:any)'] = "archives/index/$1";
 
 

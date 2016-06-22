@@ -265,7 +265,8 @@ class Post_model extends CI_Model
 		$this->db->where('brand_id',$brand_id);
 		$query = $this->db->get('posts');
 
-
+		echo $this->db->last_query();
+		
 		if($query->num_rows() > 0)
 		{
 			return $query->result();
@@ -325,7 +326,7 @@ class Post_model extends CI_Model
 				}
 				return $result;
 			}
-			return FALSE;			
+			return FALSE;
 		}
 		return FALSE;
 	}
@@ -343,6 +344,72 @@ class Post_model extends CI_Model
 		if($query->num_rows() > 0)
 		{
 			return $query->result();
+		}
+		return FALSE;
+	}
+
+
+	public function export_post($brand_id,$start_date,$end_date,$type){
+		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id');
+		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
+		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
+		$this->db->join('brands','brands.id = posts.brand_id','left');
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') >= "'.date("Y-m-d",strtotime($start_date)).'")');
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') <= "'.date("Y-m-d",strtotime($end_date)).'")');
+		if(!empty($brand_id))
+		{
+			$this->db->where('posts.brand_id',$brand_id);
+		}
+		
+		$query = $this->db->get('posts');
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+			if(!empty($result))
+			{
+				if($type == 'CSV')
+				{
+					$post_images = array();
+					$post_tags = array();
+					foreach ($result as $key => $post) 
+					{
+						$post_images = $this->get_images($post->id);
+						$post_tags = $this->get_post_tags($post->id);
+						$created_by = $post->created_by;
+						unset($post->created_by);
+						unset($post->outlet_id);
+						unset($post->user_id);
+						unset($post->brand_id);
+						if(!empty($post_images))
+						{
+							foreach ($post_images as $obj => $value)
+							{
+								if(!empty($result[$key]->media))
+								{
+									$result[$key]->media .= ', '.upload_path().$created_by.'/brands/'.$brand_id.'/'.$value->name ;
+								}
+								else
+								{
+									$result[$key]->media =upload_path().$created_by.'/brands/'.$brand_id.'/'. $value->name ;
+								}
+							}
+						}
+						if(!empty($post_tags))
+						{
+							$result[$key]->post_tags = (implode(',',array_column($post_tags, 'name')));
+						}
+					}
+				}
+				if($type == 'PDF')
+				{
+					foreach ($result as $key => $post) {
+						$result[$key]->post_images = $this->get_images($post->id);
+						$result[$key]->post_tags = $this->get_post_tags($post->id);
+					}
+				}
+				return $result;
+			}
+			return FALSE;			
 		}
 		return FALSE;
 	}
