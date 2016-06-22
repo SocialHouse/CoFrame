@@ -1,5 +1,5 @@
 <section id="overview" class="page-main bg-white col-sm-12">
-	<form action="" id="add-brand-details" class="file-upload clearfix row-sm-12">	
+	<form action="" class="file-upload clearfix row-sm-12">	
 	<div class="row row-sm-12 equal-cols relative-wrapper">
 		<div class="brand-steps col-xl-11 center-block">
 			<div class="col-md-3 col-sm-6 brand-step brand-steps-success" id="brandStep1">

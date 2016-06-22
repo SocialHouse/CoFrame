@@ -1,8 +1,11 @@
 jQuery(function($) {
 
 	$(document).ready(function() {
+		if($("#add-brand-details").length || $("#step_1_edit").length )
+		{
+			$('.cropme').simpleCropper();
+		}
 
-		$('.cropme').simpleCropper();
 		
 		$('#brandOutlets.outlet-list li').on('click', function() {
 			if(!$(this).hasClass('saved')) {

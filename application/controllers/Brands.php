@@ -49,7 +49,7 @@ class Brands extends CI_Controller {
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
 
         $this->data['layout'] = 'layouts/new_user_layout';
 
@@ -116,7 +116,7 @@ class Brands extends CI_Controller {
 
 			        //create jpeg from decoded base 64 string and save the image in the parent folder
 			        if(!is_dir(upload_path().$this->user_id.'/brands/'.$brand_id)){
-			        	mkdir(upload_path().$this->user_id.'/brands/'.$brand_id);
+			        	mkdir(upload_path().$this->user_id.'/brands/'.$brand_id,0755,true);
 			        }
 			        $url = upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png';
 			        $result = file_put_contents($url, $decoded);
@@ -125,7 +125,7 @@ class Brands extends CI_Controller {
 			       // $source_url = imagecreatefromstring(file_get_contents($url));
 			        
 			        header('Content-Type: image/png');
-			        imagepng($source_url, $url, '8');
+			        imagepng($source_url, $url, 8);
 			        
 			        if(!$result)
 			        {

@@ -12,7 +12,7 @@
 		// applying the effect for every form
 		
 		$( 'form.file-upload' ).each( function(){
-			
+
 			var $form		 = $( this ),
 				$input		 = $form.find( 'input[type="file"]' ),
 				$label		 = $form.find( '.file-upload-label' ),
@@ -22,6 +22,7 @@
 				allFiles = [],
 				outlet = $form.find('#postOutlet').val(),
 				showFiles	 = function( files , control){
+
 					$(control).parents('.file-upload-label').text( files.length > 1 ? ( $(control).parents('input[type="file"]').attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
 				};
 
@@ -51,67 +52,26 @@
 
 			// automatically submit the form on file select
 			$(document).on( 'change','input[type="file"]', function( e ){
-				var $fileDiv = $(this).parents('.form__input');
-				$fileDiv.parent().find('.upload-error').addClass('hide');
-				var fileInput = this;
-				var error = 'false';
-				showFiles( e.target.files,this);
-					droppedFiles = e.target.files; // the files that were dropped					
-								
-					$.each(droppedFiles, function (index, file) {
-						var file_type = file.type.split('/');
-						if( file_type[0]== 'image'){
-							if($fileDiv.find('video').length > 0){
-								alert('Invalid file extention');
-								return false;
-							}				
-							if($(fileInput).parents('.brand-image').length)
-							{
-								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
-								$('.remove-brand-img').show();
-								allFiles = [];
-							}
-							if($(fileInput).parents('.user_upload_img_div').length)
-							{
-								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
-								$('.remove-user-img').show();
-								allFiles =[];
-							}
-							allFiles.push(file)
 
-							var img = document.createElement('img');
-							//for live review fb
-							var preview_img = document.createElement('img');
-							img.onload = function () {
-								window.URL.revokeObjectURL(this.src);
-							};
-							img.className = 'form__file-preview';
-							img.src = window.URL.createObjectURL(file);						
-							
-							$fileDiv.prepend(img).addClass('has-files');					
-
-							//to sho user uploded img on add role page
-							if($('.user-img-preview').length)
-							{
-								$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
-							}
-							//for show preview
-							changePreview(file,'image');
-						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-												
-							if($('.form__file-preview').length >= 1){
-								
-								if(file_type[0] =='video'){
-									alert('You can\'t add more than 1 video');
-								}else{
+				if( $(this).attr('id') != 'fileInput')
+				{
+					var $fileDiv = $(this).parents('.form__input');
+					$fileDiv.parent().find('.upload-error').addClass('hide');
+					var fileInput = this;
+					var error = 'false';
+					showFiles( e.target.files,this);
+						droppedFiles = e.target.files; // the files that were dropped					
+									
+						$.each(droppedFiles, function (index, file) {
+							var file_type = file.type.split('/');
+							if( file_type[0]== 'image'){
+								if($fileDiv.find('video').length > 0){
 									alert('Invalid file extention');
-								}
-								return false;
-							}else{
+									return false;
+								}				
 								if($(fileInput).parents('.brand-image').length)
 								{
 									$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
-									$('.remove-brand-img').show();
 									allFiles = [];
 								}
 								if($(fileInput).parents('.user_upload_img_div').length)
@@ -120,31 +80,75 @@
 									$('.remove-user-img').show();
 									allFiles =[];
 								}
-								allFiles.push(file);
-								var video = document.createElement('video');
+								allFiles.push(file)
+
+								var img = document.createElement('img');
 								//for live review fb
-								video.onload = function () {
+								var preview_img = document.createElement('img');
+								img.onload = function () {
 									window.URL.revokeObjectURL(this.src);
 								};
-
-								video.className = 'form__file-preview';
-								video.src = window.URL.createObjectURL(file);
+								img.className = 'form__file-preview';
+								img.src = window.URL.createObjectURL(file);						
 								
-								$fileDiv.prepend(video).addClass('has-files');
+								$fileDiv.prepend(img).addClass('has-files');					
 
-								//to show user uploded img on add role page
+								//to sho user uploded img on add role page
 								if($('.user-img-preview').length)
 								{
 									$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
 								}
-								//for show preview								
-								changePreview(file,'video');								
-							}							
-						}
-						else{
-							$fileDiv.parent().find('.upload-error').removeClass('hide');
-						}
-					});
+								//for show preview
+								changePreview(file,'image');
+							}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
+													
+								if($('.form__file-preview').length >= 1){
+									
+									if(file_type[0] =='video'){
+										alert('You can\'t add more than 1 video');
+									}else{
+										alert('Invalid file extention');
+									}
+									return false;
+								}else{
+									if($(fileInput).parents('.brand-image').length)
+									{
+										$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+										allFiles = [];
+									}
+									if($(fileInput).parents('.user_upload_img_div').length)
+									{
+										$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+										$('.remove-user-img').show();
+										allFiles =[];
+									}
+									allFiles.push(file);
+									var video = document.createElement('video');
+									//for live review fb
+									video.onload = function () {
+										window.URL.revokeObjectURL(this.src);
+									};
+
+									video.className = 'form__file-preview';
+									video.src = window.URL.createObjectURL(file);
+									
+									$fileDiv.prepend(video).addClass('has-files');
+
+									//to show user uploded img on add role page
+									if($('.user-img-preview').length)
+									{
+										$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
+									}
+									//for show preview								
+									changePreview(file,'video');								
+								}							
+							}
+							else{
+								$fileDiv.parent().find('.upload-error').removeClass('hide');
+							}
+						});
+				
+				}
 			});
 
 			// drag&drop files if the feature is available
@@ -183,7 +187,7 @@
 								{
 									allFiles = [];
 									$(target_file_input).children('.form__file-preview').remove();							
-									$('.remove-brand-img').show();
+									
 								}
 								if($(target_file_input).hasClass('user_upload_img_div'))
 								{
@@ -319,6 +323,9 @@
 					});
 				}
 			});
+
+
+
 
 			//add user to brand
 			$(document).on( 'click','.addUserToBrand', function( e ){
@@ -462,21 +469,6 @@
 					});
 				}
 			});
-
-			 //remove brand img when click on this btn
-		    $('.remove-brand-img').click(function(){
-		    	$('.brand-image').removeClass('has-files');
-		    	$('.brand-image').children('.form__file-preview').remove();
-
-		    	var html = '<input type="file" name="files[]" id="brandFile" class="form__file" data-multiple-caption="{count} files selected" accept="image/*">';
-				html += '<label for="brandFile" id="brandFileLabel" class="file-upload-label">Click to upload <span class="form__dragndrop">or drag &amp drop here</span></label>';
-				html += '<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>';
-				$('.brand-image').html('');
-		    	$('.brand-image').html(html);
-		    	allFiles = [];
-		    
-		    	$(this).hide();
-		    });
 
 		    $('.remove-user-img').click(function(){
 		    	$('.user_upload_img_div').removeClass('has-files');
