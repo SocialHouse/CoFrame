@@ -9688,6 +9688,9 @@ a {
   .brand-step .brand-logo {
     margin-top: 120px;
     position: relative; }
+    .brand-step .brand-logo .cropme {
+      float: none;
+      margin: 0px auto; }
   .brand-step .remove-brand-img {
     position: absolute;
     right: 0;
@@ -11228,8 +11231,9 @@ ul.actions {
   padding-top: 15px;
   font-weight: 600; }
 
-.tumblr-img-div{
+.tumblr-img-div {
   text-align: center; }
+
 .tumblr-img-div img {
   padding-top: 2px;
   max-height: 170px; }

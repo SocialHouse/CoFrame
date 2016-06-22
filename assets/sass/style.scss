@@ -1605,6 +1605,10 @@ a {
 	.brand-logo {
 		margin-top: 120px;
 		position: relative;
+		.cropme {
+			float: none;
+			margin: 0px auto;
+		}
 	}
 	.remove-brand-img {
 		position: absolute;
@@ -3503,8 +3507,12 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   padding-top: 15px;
   font-weight: 600;
 }
+.tumblr-img-div {
+	text-align: center;
+}
 .tumblr-img-div img{
-  padding-top: 2px;
+	padding-top: 2px;
+	max-height:170px;
 }
 .tumblr-sharing-option {
   color: #b2b2b2;
