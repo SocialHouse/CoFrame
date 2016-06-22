@@ -595,13 +595,15 @@ jQuery(function($) {
 		allFiles = [];
 		$('.user-upload-img').hide();
 		$('.user-img-preview').show();
-
-		if($('#add_user_next').hasClass('btn-disabled'))
-		{
-			$('#add_user_next').removeClass('btn-disabled');
-		}
-		$('#add_user_next').addClass('btn-secondary');
-		$('#add_user_next').prop('disabled',false);
+		
+		if($('#userPermissionsList').children('.table').length)
+	    {    	
+	    	toggleBtnClass('btn-disabled','btn-secondary','#add_user_next',false);
+	    }
+	    else
+	    {
+	    	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
+	    }
     });
 
     $('#firstName').keyup(function(){
@@ -612,7 +614,11 @@ jQuery(function($) {
     	$('.user-name-role').html($('#firstName').val().toUpperCase()+' '+$(this).val().toUpperCase());
     });
 
-    if($('#userPermissionsList').children('.table'))
+    if($('#userPermissionsList').children('.table').length)
+    {    	
+    	toggleBtnClass('btn-disabled','btn-secondary','#add_user_next',false);
+    }
+    else
     {
     	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
     }

@@ -545,7 +545,7 @@ class Aauth {
 			$this->aauth_db->where('email', $email);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$this->CI->email->from( $this->CI->config->item('from_mail'), $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject('Reset Password');
 			$this->CI->email->message("To reset your password click on (or copy and paste in your browser address bar) the link below:\n\n" . site_url() . $this->config_vars['reset_password_link'] . $row->id . '/' . $ver_code );
@@ -588,7 +588,7 @@ class Aauth {
 			$this->aauth_db->where('id', $user_id);
 			$this->aauth_db->update($this->config_vars['users'] , $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$this->CI->email->from( $this->CI->config->item('from_mail'), $this->config_vars['name']);
 			$this->CI->email->to($email);
 			$this->CI->email->subject('Successful Pasword Reset');
 			$this->CI->email->message('Your password has successfully been reset. Your new password is : ' . $pass);
@@ -1014,7 +1014,7 @@ class Aauth {
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
 			$config = $this->CI->config->item('smtp_config');
-	        $from = $this->config_vars['email'];
+	        $from = $this->CI->config->item('from_mail');
 	        $this->CI->load->library('email',$config);
 	        $this->CI->email->initialize($config);
 
@@ -1047,7 +1047,7 @@ class Aauth {
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
 			$config = $this->CI->config->item('smtp_config');
-	        $from = $this->config_vars['email'];
+	        $from = $this->CI->config->item('from_mail');
 	        $this->CI->load->library('email',$config);
 	        $this->CI->email->initialize($config);
 

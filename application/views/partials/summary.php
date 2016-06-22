@@ -15,7 +15,7 @@ $summary_posts = get_summary($brand_id,'scheduled');
 				foreach($summary_posts as $post)
 				{
 					?>
-					<li class="post-summary"><i class="fa fa-<?php echo $post->outlet_name; ?>"><span class="bg-outlet bg-<?php echo $post->outlet_name; ?>"></span></i><?php echo date('H:i A',strtotime($post->slate_date_time)); ?><span class="excerpt-summary"><?php echo $post->content; ?></span></li>
+					<li class="post-summary"><a href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>"><i class="fa fa-<?php echo $post->outlet_name; ?>"><span class="bg-outlet bg-<?php echo $post->outlet_name; ?>"></span></i><?php echo date('H:i A',strtotime($post->slate_date_time)); ?><span class="excerpt-summary"><?php echo $post->content; ?></span></a></li>
 					<?php
 				}
 				?>
