@@ -67,8 +67,7 @@
 					</div>
 					<div class="form-group">
 						<label for="postCopy">Post Copy</label>
-						<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here...">
-						<?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
+						<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
 					</div>
 					<div class="form-group">
 						<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
