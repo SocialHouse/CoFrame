@@ -8872,12 +8872,28 @@ a {
 .page-main-header h1 {
   border-bottom: 2px solid #000;
   padding-bottom: 1.73333rem; }
+.page-main-header .title-search {
+  border: 0;
+  font-size: 25px;
+  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  line-height: 40px; }
 #brand-manage .page-main-header {
   padding: 4rem 0 2rem; }
 #overview .page-main-header {
   padding: 1.73333rem 0; }
 #user-preferences .page-main-header {
   padding: 1.73333rem 0 0.75rem; }
+.page-main-header .tf-icon-circle {
+  background: #dedede;
+  height: 40px;
+  width: 40px;
+  line-height: 52px; }
+  .page-main-header .tf-icon-circle:hover, .page-main-header .tf-icon-circle.active {
+    background: #c0c0c0; }
+.page-main-header .toolbar .tf-icon-circle {
+  margin-left: 10px; }
 
 .date-header {
   font-size: 1.66667rem;
@@ -8886,8 +8902,20 @@ a {
   padding-bottom: 0;
   margin-bottom: 0;
   letter-spacing: normal; }
+  .date-header h2 {
+    font-size: 1.66667rem;
+    line-height: 60px;
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    letter-spacing: normal; }
   .date-header strong {
     text-transform: uppercase; }
+  .date-header .tf-icon-circle {
+    margin-top: 8px;
+    margin-bottom: 9px; }
+  .date-header .form-search {
+    margin-top: 6px; }
 
 /*animated sections*/
 .animate-delay-300 {
@@ -9365,6 +9393,7 @@ a {
 [class*="tf-icon"] {
   font-style: normal;
   font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   letter-spacing: normal;
   display: inline-block;
   background-size: contain;
@@ -9388,8 +9417,14 @@ a {
   height: 17px;
   width: 17px;
   background-size: 17px; }
-  a:hover .tf-icon-search, .active .tf-icon-search {
+  a:hover .tf-icon-search {
     background-position: 0 -17px; }
+
+#showSearch.tf-icon-circle {
+  transition: all 500ms; }
+  #showSearch.tf-icon-circle.active {
+    border-radius: 8px;
+    background: #dedede; }
 
 .tf-icon-filter {
   background-image: url(../images/icons/filter.png);
@@ -10241,27 +10276,21 @@ a {
   color: #bfbfbf; }
 
 /*Calendar Stuff*/
-.calendar-header {
+.calendar-header, .search-header {
   border-bottom: 1px solid #000;
   margin-bottom: 2rem;
   position: relative; }
-  #brand-manage .calendar-header {
+  #brand-manage .calendar-header, #brand-manage .search-header {
     padding: 10px 0; }
-  .calendar-header .date-header {
+  .calendar-header .date-header, .search-header .date-header {
     border: 0;
     line-height: 40px;
     margin: 0 6.66667rem 0 10px; }
-  .calendar-header .tf-icon-circle {
-    background: #dedede;
-    height: 40px;
-    width: 40px;
-    line-height: 52px; }
-    .calendar-header .tf-icon-circle:hover, .calendar-header .tf-icon-circle.active {
-      background: #c0c0c0; }
-  .calendar-header .toolbar .tf-icon-circle {
-    margin-left: 10px; }
-  .calendar-header .btn-xs {
+  .calendar-header .btn-xs, .search-header .btn-xs {
     margin-top: 10px; }
+
+.search-header {
+  margin-bottom: 0; }
 
 #selectedFilters {
   padding-top: 1.33333rem;
@@ -10291,6 +10320,20 @@ a {
     display: none; }
   #selectedFilters .tf-icon-close {
     margin-left: 10px; }
+
+.search-filters {
+  margin-top: 60px; }
+  .search-filters h2 {
+    border-bottom: 0;
+    border-top: 1px solid #000;
+    padding-top: 2rem;
+    padding-bottom: 0;
+    margin-bottom: 0; }
+  .search-filters h4 {
+    margin-top: 2rem;
+    border-top: 2px solid #000;
+    padding-top: 1.25rem;
+    padding-bottom: 1rem; }
 
 .btn-group-calendar, .btn-group {
   background: #c0c0c0;
@@ -10604,6 +10647,27 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
       .form-control-sm.time-select .incrementer .fa:first-child {
         margin-bottom: 0; }
 
+.form-search {
+  position: relative;
+  width: 0px;
+  overflow: hidden;
+  right: -50px; }
+  .form-search input[type="text"].form-control {
+    background: #dedede;
+    border-radius: 8px;
+    border: 0;
+    outline: 0;
+    height: 40px;
+    font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+    width: 0; }
+  .form-search .btn {
+    position: absolute;
+    right: 11px;
+    top: 12px;
+    padding: 0;
+    background: 0;
+    transition: all 500ms; }
+
 .form-inline .time-select {
   display: block; }
 .time-select input {
@@ -10856,6 +10920,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 
 .no-margin {
   margin: 0 !important; }
+
+.shrink {
+  transform: scale(0); }
 
 /*ADDITIONAL STYLES*/
 /*fb preview*/
