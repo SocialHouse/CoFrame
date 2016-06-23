@@ -9898,6 +9898,8 @@ a {
   min-height: 100%; }
 .equal-cols .container-post-approval-preview {
   padding-bottom: 1.5rem; }
+.equal-cols #step_1_edit {
+  height: 100%; }
 
 .equalSections {
   height: 100%;
