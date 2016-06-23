@@ -95,11 +95,15 @@ class Archives extends CI_Controller {
 
 			if($type == 'PDF')
 			{
-				$this->data['brand_id'] = $brand_id;
-				$this->data['post_details'] = $posts;
-				// $this->load->view('archives/pdf_export', $this->data);
-				$html = $this->load->view('archives/pdf_export', $this->data, true);
-				$this->pdf_create( $html,$brand_id.'.pdf');
+				if(!empty($posts))
+				{
+					$this->data['brand_id'] = $brand_id;
+					$this->data['post_details'] = $posts;
+					// $this->load->view('archives/pdf_export', $this->data);
+					$html = $this->load->view('archives/pdf_export', $this->data, true);
+					$this->pdf_create( $html,$brand_id.'.pdf');
+				}
+				
 			}
 			else if($type == 'CSV')
 			{
@@ -166,10 +170,13 @@ class Archives extends CI_Controller {
     	// Load dompdf and create object
     	
     	$options = new Options();
-
     	$options->set('isRemoteEnabled', TRUE);
     	$options->set('debugKeepTemp', TRUE);
 	    $options->set('isHtml5ParserEnabled', true);
+	    $options->set('DEBUGCSS', true);
+	    $options->set('DEBUG_LAYOUT', true);
+	    $options->set('DEBUGKEEPTEMP', false);
+	    $options->set('DOMPDF_TEMP_DIR', 'tmp' );
 	    $options->setIsRemoteEnabled(true);
 	    $dompdf = new Dompdf($options);
 
@@ -184,7 +191,9 @@ class Archives extends CI_Controller {
 	    // If destination is the browser
 	    if( $output_type == 'stream' )
 	    {
-	    	$dompdf->stream($filename);
+	    	// $dompdf->stream($filename);
+	    	// 0 = open in tab, 1 = download pdf file
+	    	$dompdf->stream($filename, array('Attachment'=>0));
 	    }
 	    // Return PDF as a string (useful for email attachments)
 	    else if( $output_type == 'string' )

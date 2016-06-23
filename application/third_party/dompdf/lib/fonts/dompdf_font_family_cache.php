@@ -101,4 +101,19 @@
   'glyphicons halflings' => array(
     'normal' => $fontDir . '\6ed5261475a72ba92983868bca0014c4',
   ),
+  'give you glory' => array(
+    'normal' => $fontDir . '\f3e9cf17e356116bf84868b48a4fe23f',
+  ),
+  'wallpoet' => array(
+    'normal' => $fontDir . '\b104354f66ead576679600d46ed1a27d',
+  ),
+  'love ya like a sister' => array(
+    'normal' => $fontDir . '\2328b2ffd55ffbee320919432cfdd18e',
+  ),
+  'source sans pro' => array(
+    'normal' => $fontDir . '\ae5a6682ce41cdcc85b983a086005a03',
+    'bold' => $fontDir . '\7c2e436fd2a061fbe436f908569a93f0',
+    'italic' => $fontDir . '\e1cb1acd2044df6e5a28e4042fa8afeb',
+    'bold_italic' => $fontDir . '\0953a86d915a6c7318559ad9c2e80a95',
+  ),
 ) ?>
