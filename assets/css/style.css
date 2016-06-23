@@ -8619,6 +8619,11 @@ h5, .qtip-titlebar {
   color: #808080;
   border-color: #808080; }
 
+.btn-group .btn {
+  border-left: 0; }
+  .btn-group .btn:first-child {
+    border-left: 1px solid; }
+
 /* Anchor Link */
 a {
   -webkit-transition: 500ms;
@@ -10342,16 +10347,16 @@ a {
     padding-top: 1.25rem;
     padding-bottom: 1rem; }
 
-.btn-group-calendar, .btn-group {
+.btn-group-calendar {
   background: #c0c0c0;
   border-radius: 9px;
   padding: 4px;
   margin-right: 1rem; }
-  .btn-group-calendar .btn, .btn-group .btn {
+  .btn-group-calendar .btn {
     font-size: 11px;
     color: #fff;
     background: #c0c0c0; }
-    .btn-group-calendar .btn:hover, .btn-group-calendar .btn.active, .btn-group .btn:hover, .btn-group .btn.active {
+    .btn-group-calendar .btn:hover, .btn-group-calendar .btn.active {
       background: #fff;
       color: #000; }
 
@@ -10406,6 +10411,8 @@ a {
   .post-actions a {
     font-size: 10px;
     text-decoration: underline; }
+  .post-actions .btn-group .btn {
+    margin: 0; }
   .post-actions .btn {
     text-decoration: none;
     font-size: 11px;

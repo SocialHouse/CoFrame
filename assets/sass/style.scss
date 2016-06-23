@@ -283,7 +283,14 @@ h5 {
 	color: #808080;
 	border-color: #808080;
 }
-
+.btn-group {
+	.btn {
+		border-left: 0;
+		&:first-child {
+			border-left: 1px solid;
+		}
+	}
+}
 /* Anchor Link */
 a {
 	-webkit-transition: 500ms;
@@ -2457,7 +2464,7 @@ a {
 		padding-bottom: 1rem;
 	}
 }
-.btn-group-calendar, .btn-group {
+.btn-group-calendar {
 	background: #c0c0c0;
 	border-radius: 9px;
 	padding: 4px;
@@ -2543,6 +2550,11 @@ a {
 	a {
 		font-size: 10px;
 		text-decoration: underline;
+	}
+	.btn-group {
+		.btn {
+			margin: 0;
+		}
 	}
 	.btn {
 		text-decoration: none;
