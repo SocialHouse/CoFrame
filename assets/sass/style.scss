@@ -2655,14 +2655,13 @@ a {
 
 /*Archive*/
 .archives {
-	box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.5);
-	margin-top: remCalc(90px);
-	padding-top: 2.5rem;
+	h2 {
+		margin-bottom: remCalc(90px);
+	}
 	.radio {
-		margin-bottom: 1.75rem;
+		margin-bottom: 0;
 	}
 	.radio-w-inputs {
-		margin-bottom: 1rem;
 		input[type="radio"] {
 			margin-top: 14px;
 		}
@@ -2687,10 +2686,57 @@ a {
 	.form-control.popover-toggle {
 		max-width: remCalc(105px);
 	}
-}
-.container-archive {
-	padding-bottom: 100px;
-	position: relative;
+	.timeframe-list {
+		border-bottom: 1px solid #000;
+		li {
+			padding: 4px 0 4px 8px;
+			display: block;
+			cursor: inherit;
+			&.radio-w-inputs {
+				padding-top: 12px;
+			}
+			.check-box  {
+				height: 25px;
+				width: 25px;
+				line-height: normal;
+				margin: 5px 1rem 5px 0;
+				.fa {
+					font-size: 1rem;
+					line-height: 21px;
+					float: none;
+					margin-right: 0;
+					display: block;
+					visibility: hidden;
+				}
+				&.selected {
+					margin-bottom:0;
+					.fa {
+						visibility: visible;
+					}
+				}
+			}
+			.fa-circle {
+				float: left;
+			}
+			.tag-title {
+				margin-top: 2px;
+				display: inline-block;
+			}
+		}
+	}
+	.outlet-list {
+		.check-box  {
+			.fa {
+				color: #000;
+				width: auto;
+			}
+		}
+	}
+	.post-content-footer {
+		position: relative;
+		bottom: inherit;
+		margin-top: 2rem;
+	}
 }
 
 /*User Prefs*/
