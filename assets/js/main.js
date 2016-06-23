@@ -1513,7 +1513,6 @@ jQuery(function($) {
 				magicNum = 30;
 			}
 			if(!$(this).hasClass('brand-steps')) {
-			console.log('head: ' + headhH + ' dashH: ' + dashboardH + ' colsH: ' + colsH);
 				if(newColsH >= colsH) {
 					$(this).css('height', newColsH - magicNum);
 				}
