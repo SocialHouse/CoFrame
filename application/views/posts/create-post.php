@@ -73,29 +73,30 @@
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>
 					</div>					
-					
-					<div class="form-group form-inline pull-sm-left">
-						<label>Slate Post:</label><br>
-						<div class="hide-top-bx-shadow">
-							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
-						</div>
-					</div>
-					<div class="form-group pull-sm-left">
-						<div class="pull-xs-left">
-							<label class="invisible">Post Time</label>
-							<div class="time-select form-control">
-								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
-								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
-								<input type="text" class="time-input amselect" name="post-ampm" value="am">
+					<div class="clearfix">
+						<div class="form-group form-inline pull-sm-left">
+							<label>Slate Post:</label><br>
+							<div class="hide-top-bx-shadow">
+								<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
 							</div>
 						</div>
-						<span class="timezone pull-xs-right margin-top-30">PST</span>
-					</div>
-					<div class="form-group form-inline pull-xl-right">						
-						<label>Tags:</label><br>
-						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
-								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+						<div class="form-group pull-sm-left">
+							<div class="pull-xs-left">
+								<label class="invisible">Post Time</label>
+								<div class="time-select form-control">
+									<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
+									<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
+									<input type="text" class="time-input amselect" name="post-ampm" value="am">
+								</div>
+							</div>
+							<span class="timezone pull-xs-right margin-top-30">PST</span>
+						</div>
+						<div class="form-group form-inline pull-xl-right">						
+							<label>Tags:</label><br>
+							<div class="hide-top-bx-shadow">
+								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+									<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+								</div>
 							</div>
 						</div>
 					</div>
