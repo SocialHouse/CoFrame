@@ -1,8 +1,7 @@
 
 	<div class="container-brand-step">
 	<form id="step_2_edit" method="POST" action="<?php echo base_url()?>brands/save_outlet" enctype="multipart/form-data">
-		<h3 class="text-xs-center">Step 2</h3>
-		<h4 class="text-xs-center">Brand Outlets</h4>
+		<h4 class="text-xs-center">Social Outlets</h4>
 		<div class="add-brand-details brand-fields border-bottom border-black">
 		<input type="hidden" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" name="slug" value="<?php echo $brand->slug; ?>">

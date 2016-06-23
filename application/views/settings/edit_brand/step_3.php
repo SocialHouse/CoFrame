@@ -1,6 +1,5 @@
 <div class="container-brand-step">
 	<form id="step_3_edit" method="POST" class="file-upload clearfix has-advanced-upload" action="<?php echo base_url()?>brands/save_tags" enctype="multipart/form-data">
-		<h3 class="text-xs-center">Step 3</h3>
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $this->user_id; ?>">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
