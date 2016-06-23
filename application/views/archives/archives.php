@@ -33,7 +33,7 @@
 								</div>
 								<div class="radio">
 									<label>
-									<input type="radio" name="exportDate" value="7days">
+									<input type="radio" name="exportDate" value="7days" checked>
 									Last 7 Days
 									</label>
 								</div>
@@ -82,13 +82,13 @@
 						<div class="col-md-3 col-sm-6 center-block equal-section export-format">
 							<div class="radio">
 								<label>
-								<input type="radio" name="exportType" value="CSV" checked>
+								<input type="radio" name="exportType" value="CSV" >
 								.CSV
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-								<input type="radio" name="exportType" value="PDF">
+								<input type="radio" name="exportType" value="PDF" checked>
 								.PDF
 								</label>
 							</div>
