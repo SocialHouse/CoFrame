@@ -49,7 +49,7 @@ class Brands extends CI_Controller {
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
-		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
+		$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js',js_url().'twitter.js?ver=1.0.0');
 
         $this->data['layout'] = 'layouts/new_user_layout';
 
@@ -170,7 +170,7 @@ class Brands extends CI_Controller {
 
 	        		if(!empty($outlet_info))
 	        		{
-	        			$data = array('brand_outlet_id' => $outlet_info[0]->id);
+	        			$data = array('outlet_id' => $outlet,'brand_id' => $post_data['brand_id']);
 	        			$this->timeframe_model->delete_data('social_media_keys',$data);
 	        		}
 	        	}
@@ -188,14 +188,32 @@ class Brands extends CI_Controller {
         			$data = array(
 						'access_token' => $token_response->authResponse->accessToken,
 						'social_media_id' => $token_response->authResponse->userID,
-						'user_id' => $this->user_id,
-						'brand_outlet_id' => $brand_outlet_id,
+						'user_id' => $this->user_id,					
 						'response' => json_encode($token_response),
-						'type' => 'facebook'
+						'type' => 'facebook',
+						'brand_id' => $post_data['brand_id'],
+						'outlet_id' => $post_data['outlet_id']
 					);
 					$this->timeframe_model->insert_data('social_media_keys',$data);
 				}
 			}
+			$all_outlets = $this->timeframe_model->get_table_data_array('outlets');
+			$brand_outlets = $this->timeframe_model->get_data_array_by_condition('brand_outlets',array('brand_id' => $post_data['brand_id']));
+			//access token that need to be deleted
+			
+			$outlet_ids = array_column($all_outlets,'id');	
+			$brand_outlet_ids = array_column($brand_outlets,'outlet_id');		
+			$access_token_delete = array_diff($outlet_ids,$outlets_to_add);		
+			if(!empty($access_token_delete))
+			{
+				foreach($access_token_delete as $outlet_id)
+				{
+					$data = array('outlet_id' => $outlet_id,'brand_id' => $post_data['brand_id']);
+        			$this->timeframe_model->delete_data('social_media_keys',$data);
+				}
+			}
+
+
 			echo json_encode(array('response'=>'success'));
 		}
     	else

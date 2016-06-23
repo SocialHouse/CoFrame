@@ -32,21 +32,21 @@ class Social_media extends CI_Controller {
         
         //for twittr
         $this->load->library('twitteroauth');
-        if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
-		{
+  //       if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
+		// {
 			// If user already logged in
-			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
-		}
-		elseif($this->session->userdata('request_token') && $this->session->userdata('request_token_secret'))
-		{
-			// If user in process of authentication
-			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('request_token'), $this->session->userdata('request_token_secret'));
-		}
-		else
-		{
-			// Unknown user
-			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
-		}
+			// $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
+		// }
+		// elseif($this->session->userdata('request_token') && $this->session->userdata('request_token_secret'))
+		// {
+		// 	// If user in process of authentication
+		// 	$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('request_token'), $this->session->userdata('request_token_secret'));
+		// }
+		// else
+		// {
+		// 	// Unknown user
+		// 	$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
+		// }
 
 		//for linkedin
 		$this->load->config('linkedin');       
@@ -144,7 +144,7 @@ class Social_media extends CI_Controller {
 
 	public function twitter()
 	{
-		$condition = array('user_id' => $this->user_data['user_id'],'type' => 'twitter');
+		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 		
 		if(!empty($is_key_exist))
@@ -202,12 +202,12 @@ class Social_media extends CI_Controller {
 						'access_token' => $access_token['oauth_token'],
 						'access_token_secret' => $access_token['oauth_token_secret'],
 						'social_media_id' => $access_token['user_id'],
-						'user_id' => $this->user_data['user_id'],
+						'user_id' => $this->user_id,
 						'response' => json_encode($access_token),
 						'type' => 'twitter'
 					);
 
-				$condition = array('user_id' => $this->user_data['user_id'],'type' => 'twitter');
+				$condition = array('user_id' => $this->user_id,'type' => 'twitter');
 				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 
 				if(!empty($is_key_exist))
@@ -231,73 +231,96 @@ class Social_media extends CI_Controller {
 		}
 	}
 	
-	// public function post($in_reply_to='')
-	// {
-	// 	$condition = array('user_id' => $this->user_data['user_id'],'type' => 'twitter');
-	// 	$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
-	// 	if(!empty($is_key_exist))
-	// 	{
-	// 		$this->session->set_userdata('access_token', $is_key_exist[0]->access_token);
-	// 		$this->session->set_userdata('access_token_secret', $is_key_exist[0]->access_token_secret);
-	// 		$this->session->set_userdata('twitter_user_id', $is_key_exist[0]->social_media_id);
-	// 	}
+	public function post($in_reply_to='')
+	{
+		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
+		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+		if(!empty($is_key_exist))
+		{
+			$this->session->set_userdata('access_token', $is_key_exist[0]->access_token);
+			$this->session->set_userdata('access_token_secret', $is_key_exist[0]->access_token_secret);
+			$this->session->set_userdata('twitter_user_id', $is_key_exist[0]->social_media_id);
+		}
 		
-	// 	$message = 'message';
-	// 	if(!$message || mb_strlen($message) > 140 || mb_strlen($message) < 1)
-	// 	{
-	// 		echo "d";
-	// 		die;
-	// 		// Restrictions error. Notification here.
-	// 		redirect(base_url('/social_media/twitter'));
-	// 	}
-	// 	else
-	// 	{
-	// 		if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
-	// 		{
-	// 			$content = $this->connection->get('account/verify_credentials');
-	// 			echo "<pre>";
-	// 			print_r($content);
-	// 			if(isset($content->errors))
-	// 			{
-	// 				echo "test";
-	// 				die;
-	// 				// Most probably, authentication problems. Begin authentication process again.
-	// 				$this->reset_session();
-	// 				redirect(base_url('/social_media/twitter'));
-	// 			}
-	// 			else
-	// 			{
-	// 				$data = array(
-	// 					'status' => $message,
-	// 					// 'in_reply_to_status_id' => $in_reply_to
-	// 				);
-	// 				$result = $this->connection->post('statuses/update', $data);
+		$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
 
-	// 				if(!isset($result->errors))
-	// 				{
-	// 					echo "ok";
-	// 					die;
-	// 					// Everything is OK
-	// 					redirect(base_url('/'));
-	// 				}
-	// 				else
-	// 				{
-	// 					echo "wrong";
-	// 					die;
-	// 					// Error, message hasn't been published
-	// 					redirect(base_url('/'));
-	// 				}
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			echo "else";
-	// 			die;
-	// 			// User is not authenticated.
-	// 			redirect(base_url('/social_media/twitter'));
-	// 		}
-	// 	}
-	// }
+		$message = 'messageasdas';
+		if(!$message || mb_strlen($message) > 140 || mb_strlen($message) < 1)
+		{
+			echo "d";
+			die;
+			// Restrictions error. Notification here.
+			redirect(base_url('/social_media/twitter'));
+		}
+		else
+		{
+			if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
+			{
+				$content = $this->connection->get('account/verify_credentials');
+				echo "<pre>";
+				// print_r($content);
+				if(isset($content->errors))
+				{
+					echo "test";
+					die;
+					// Most probably, authentication problems. Begin authentication process again.
+					$this->reset_session();
+					redirect(base_url('/social_media/twitter'));
+				}
+				else
+				{
+					// $data = array(
+					// 	'status' => $message,
+					// 	// 'in_reply_to_status_id' => $in_reply_to
+					// );
+					// $result = $this->connection->post('statuses/update', $data);
+					$data = array(
+						'media' => upload_path().'1/brands/1/1.png',
+						// 'in_reply_to_status_id' => $in_reply_to
+					);
+					print_r($data);
+					$file = file_get_contents(upload_path().'1/brands/1/1.png');
+			-        $base = base64_encode($file);
+					$data = array(
+								'media' => $base
+								// 'in_reply_to_status_id' => $in_reply_to
+					);
+					$result = $this->connection->post('media/upload', $data);
+
+					echo "<pre>";
+					print_r($result);
+					$parameters = [
+					    'status' => 'Meow Meow Meow',
+					    'media_ids' => $result->media_id_string
+					];
+					$result = $this->connection->post('statuses/update', $parameters);
+					die;
+
+					if(!isset($result->errors))
+					{
+						echo "ok";
+						die;
+						// Everything is OK
+						redirect(base_url('/'));
+					}
+					else
+					{
+						echo "wrong";
+						die;
+						// Error, message hasn't been published
+						redirect(base_url('/'));
+					}
+				}
+			}
+			else
+			{
+				echo "else";
+				die;
+				// User is not authenticated.
+				redirect(base_url('/social_media/twitter'));
+			}
+		}
+	}
 	
 	/**
 	 * Reset session data
@@ -406,7 +429,7 @@ class Social_media extends CI_Controller {
 
 	public function tumblr()
 	{
-		$condition = array('user_id' => $this->user_data['user_id'],'type' => 'tumblr');
+		$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 		
 		if(!empty($is_key_exist))
@@ -465,7 +488,7 @@ class Social_media extends CI_Controller {
 						'type' => 'tumblr'
 					);
 
-				$condition = array('user_id' => $this->user_data['user_id'],'type' => 'tumblr');
+				$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
 				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 
 				if(!empty($is_key_exist))

@@ -287,14 +287,15 @@ class Post_model extends CI_Model
 	}
 
 
-	public function get_post_by_date($brand_id,$user_id, $date=''){
+	public function get_post_by_date($brand_id='',$user_id='', $date='',$status = ''){
 		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
 		$this->db->where('posts.status != "delete"');
 		$this->db->where('posts.status != "draft"');
-		if(empty($date)){
+		if(empty($date))
+		{
 			$date = date("Y-m-d");
 		}
 		$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
@@ -302,6 +303,11 @@ class Post_model extends CI_Model
 		if(!empty($brand_id))
 		{
 			$this->db->where('posts.brand_id',$brand_id);
+		}
+
+		if(empty($date))
+		{
+			$this->db->where('posts.status',$status);
 		}
 		
 		$query = $this->db->get('posts');
@@ -410,6 +416,22 @@ class Post_model extends CI_Model
 				return $result;
 			}
 			return FALSE;			
+		}
+		return FALSE;
+	}
+
+	function get_posts_with_outlet($date)
+	{
+		$this->db->select('posts.id,content,slate_date_time,status,user_id,brands.created_by,outlet_constant,posts.brand_id');
+		$this->db->join('brands','brands.id = posts.brand_id');
+		$this->db->join('outlets','outlets.id = posts.outlet_id');
+		$this->db->where('posts.status','scheduled');
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.date("Y-m-d",strtotime($date)).'")');
+		$this->db->order_by('created_by','asc');
+		$query = $this->db->get('posts');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
 		}
 		return FALSE;
 	}

@@ -336,3 +336,7 @@ ALTER TABLE `post_comments` ADD `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_
 ALTER TABLE `post_comments` ADD `status` VARCHAR(10) NULL DEFAULT NULL AFTER `comment`;
 ALTER TABLE `post_comments` ADD `parent_id` INT NULL AFTER `status`;
 ALTER TABLE `post_comments` ADD `media` VARCHAR(20) NULL AFTER `comment`;
+
+ALTER TABLE `social_media_keys` CHANGE `brand_outlet_id` `brand_id` INT(11) NOT NULL;
+ALTER TABLE `social_media_keys` ADD `outlet_id` INT NULL AFTER `brand_id`;
+

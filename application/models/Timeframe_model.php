@@ -40,6 +40,20 @@ class Timeframe_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_table_data_array($table,$select = '')
+	{
+		if(!empty($select))
+		{
+			$this->db->select($select);
+		}
+		$query = $this->db->get($table);
+		if($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+		return FALSE;
+	}
+
 	public function get_data_by_condition($table,$condition,$select = '')
 	{
 		if(!empty($select))
