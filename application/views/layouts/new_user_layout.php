@@ -71,7 +71,6 @@ if(isset($css_files))
 	</button>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.qtip.min.js'></script>
-	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=4.0.0'></script>	
 	<?php       
     if(isset($js_files))
