@@ -411,64 +411,74 @@ jQuery(function($) {
 		});
 		
 		//popover triggers
-		$('[data-toggle="popover"]').qtip({
-			content: {
-				attr: 'data-content'
-			},
-			position: {
-				my: 'top center',
-				at: 'bottom center'
-			},
-			show: {
-				effect: function() {
-					$(this).fadeIn();
+		$('body').on('click', '[data-toggle="popover"]', function(e) {
+			var $target=$(this);
+			var pcontent = $target.data('content');
+			$target.qtip({
+				content: {
+					text: pcontent
 				},
-				event: 'click'
-			},
-			hide: {
-				effect: function() {
-					$(this).fadeOut();
+				position: {
+					my: 'top center',
+					at: 'bottom center'
 				},
-				event: 'click unfocus'
-			},
-			style: {
-				classes: 'qtip-shadow',
-				tip: {
-					width: 20,
-					height: 10
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
 				},
-				width: 280
-			}
+				hide: {
+					effect: function() {
+						$(this).fadeOut();
+					},
+					event: 'click unfocus'
+				},
+				style: {
+					classes: 'qtip-shadow',
+					tip: {
+						width: 20,
+						height: 10
+					},
+					width: 280
+				}
+			}, e);
 		});
 		//load popover on page load
-		$('[data-toggle="popover-onload"]').qtip({
-			content: {
-				attr: 'data-content'
-			},
-			position: {
-				my: 'top center',
-				at: 'bottom center'
-			},
-			show: {
-				effect: function() {
-					$(this).fadeIn();
+		$('body').on('click', '[data-toggle="popover-onload"]', function(e) {
+			var $target=$(this);
+			var pcontent = $target.data('content');
+			$target.qtip({
+				content: {
+					text: pcontent
 				},
-				ready: true
-			},
-			hide: {
-				effect: function() {
-					$(this).fadeOut();
+				position: {
+					my: 'top center',
+					at: 'bottom center'
 				},
-				event: 'unfocus'
-			},
-			style: {
-				classes: 'qtip-shadow text-xs-center',
-				tip: {
-					width: 20,
-					height: 10
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
 				},
-				width: 320
-			}
+				hide: {
+					effect: function() {
+						$(this).fadeOut();
+					},
+					event: 'unfocus'
+				},
+				style: {
+					classes: 'qtip-shadow text-xs-center',
+					tip: {
+						width: 20,
+						height: 10
+					},
+					width: 320
+				}
+			}, e);
 		});
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {		
