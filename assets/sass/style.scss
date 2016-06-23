@@ -592,7 +592,7 @@ a {
 		line-height: 40px;
 	}
 	#brand-manage & {
-		padding: remCalc(60px) 0 2rem;
+		padding: remCalc(45px) 0 2rem;
 	}
 	#overview & {
 		padding: remCalc(26px)  0;
@@ -638,7 +638,10 @@ a {
 		margin-bottom: 9px;
 	}
 	.form-search {
-		margin-top: 6px;
+		margin-top: 0;
+		.btn {
+			top: 20px;
+		}
 	}
 }
 /*animated sections*/
@@ -1515,6 +1518,13 @@ a {
 .brand-steps {
 	padding-top: 2rem;
 	padding-bottom: 2rem;
+	&.brand-settings {
+		padding-top: 0;
+	}
+	> .row {
+		margin-left: -2rem;
+		margin-right: -2rem;
+	}
 }
 .brand-step {
 	padding: 2rem 2rem 0;

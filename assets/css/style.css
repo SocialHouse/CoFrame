@@ -8880,7 +8880,7 @@ a {
   margin: 0;
   line-height: 40px; }
 #brand-manage .page-main-header {
-  padding: 4rem 0 2rem; }
+  padding: 3rem 0 2rem; }
 #overview .page-main-header {
   padding: 1.73333rem 0; }
 #user-preferences .page-main-header {
@@ -8915,7 +8915,9 @@ a {
     margin-top: 8px;
     margin-bottom: 9px; }
   .date-header .form-search {
-    margin-top: 6px; }
+    margin-top: 0; }
+    .date-header .form-search .btn {
+      top: 20px; }
 
 /*animated sections*/
 .animate-delay-300 {
@@ -9630,6 +9632,11 @@ a {
 .brand-steps {
   padding-top: 2rem;
   padding-bottom: 2rem; }
+  .brand-steps.brand-settings {
+    padding-top: 0; }
+  .brand-steps > .row {
+    margin-left: -2rem;
+    margin-right: -2rem; }
 
 .brand-step {
   padding: 2rem 2rem 0;

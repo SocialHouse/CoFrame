@@ -1,6 +1,5 @@
 <div class="container-brand-step">
-	<h3 class="text-xs-center">Step 1</h3>
-	<h4 class="text-xs-center">Add Brand</h4>
+	<h4 class="text-xs-center">General Settings</h4>
 	<div class="brand-logo text-xs-center">
 		<?php
 		$image_path = img_url().'default_brand.png';

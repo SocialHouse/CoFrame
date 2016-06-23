@@ -1,6 +1,5 @@
 <div class="container-brand-step">
-	<h3 class="text-xs-center">Step 2</h3>
-	<h4 class="text-xs-center">Brand Outlets</h4>
+	<h4 class="text-xs-center">Social Outlets</h4>
 	<div class="outlet-list saved-items">
 		<ul>
 		<?php			

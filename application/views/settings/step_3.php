@@ -1,5 +1,4 @@
 <div class="container-brand-step">
-	<h3 class="text-xs-center">Step 3</h3>
 	<h4 class="text-xs-center">Users &amp; Permissions</h4>
 	<div class="user-permissions-list">
 		<div class="clearfix">

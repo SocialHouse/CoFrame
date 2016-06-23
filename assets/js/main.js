@@ -225,7 +225,7 @@ jQuery(function($) {
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);					
 					$btn.attr('data-linked-phase', activePhaseId);
-					console.log($activePhase);
+					//console.log($activePhase);
 					$activePhase.parent().children('div:eq(1)').find('.user-list').append('<li class="pull-sm-left pending"></li>')
 					$activePhase.parent().children('div:eq(1)').find('.user-list li:last').append(newImage);
 					
@@ -815,7 +815,7 @@ jQuery(function($) {
 				}
 			}
 		});
-		$('.calendar-header a[class*="tf-icon"]').on('click blur', function() {
+		$('.page-main-header a[class*="tf-icon"]').on('click blur', function() {
 			$(this).toggleClass('active');
 		});
 		//hide visible tooltips when body is clicked
@@ -902,7 +902,7 @@ jQuery(function($) {
 
 		//assign tags to post
 		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
-			console.log($(this));
+			//console.log($(this));
 			$(this).toggleClass('selected');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
@@ -1031,7 +1031,7 @@ jQuery(function($) {
 			$('#approvalPhase1').find('ul').trigger('click');
 			setTimeout(function() {
 				$('#approvalPhase1').find('ul').trigger('click');
-				console.log($('#approvalPhase1'));
+				//console.log($('#approvalPhase1'));
 			},300)			
 		});
 	});
@@ -1065,7 +1065,7 @@ jQuery(function($) {
 			var edit_modal =$('#edit-post-details').parent().parent().parent().parent();
 			current_modal_id = edit_modal.attr('id');
 			$('#edit-post-details').parent().empty();
-			console.log(current_modal_id);
+			//console.log(current_modal_id);
 			$(edit_modal).attr('id', 'emptyModal');
 			equalColumns();			
 		}
@@ -1182,7 +1182,7 @@ jQuery(function($) {
 	});
 
 	$(document).on('keyup blur','.approvalNotes',function(){		
-		console.log($(this).parent().parent().parent().children('div:last').find('.approval-note'));
+		//console.log($(this).parent().parent().parent().children('div:last').find('.approval-note'));
 		$(this).parent().parent().parent().children('div:last').find('.approval-note').html('NOTE: '+$(this).val().replace(/\r?\n/g,'<br/>'));
 	});
 
@@ -1487,36 +1487,38 @@ jQuery(function($) {
 
 	window.equalColumns = function equalColumns() {
 		var dashboardH = $('.page-main').outerHeight();
+		var newColsH = dashboardH;
 		var headhH = $('.page-main-header').outerHeight(true);
 		var colsH = $('.equal-cols').outerHeight(true);
-		var newColsH = dashboardH - headhH;
+		if(headhH){
+			newColsH = dashboardH - headhH;
+		}
 		var magicNum = 0;
 		//equal column heights v2
 		//use this for everything once integration starts
 		$('.equal-cols-cal .equal-height').each(function() {
 				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - 2);
+					$(this).css('height', dashboardH - headhH);
 				}
 				else {
 					$(this).css('height', colsH);
 				}
 		});
+		
 		$('.equal-cols [class*=col-]').each(function() {
 			if($(this).parent().hasClass('brand-steps')) {
 				magicNum = 60;
 			}
+			if($(this).parents().hasClass('brand-settings')) {
+				magicNum = 30;
+			}
 			if(!$(this).hasClass('brand-steps')) {
-
-				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - magicNum);
+			console.log('head: ' + headhH + ' dashH: ' + dashboardH + ' colsH: ' + colsH);
+				if(newColsH >= colsH) {
+					$(this).css('height', newColsH - magicNum);
 				}
 				else {
-					if($(this).parent().hasClass('create'))
-					{
-						$(this).css('height', 862);
-					}
-					else
-						$(this).css('height', colsH);
+					$(this).css('height', colsH);
 				}
 			}
 		});
@@ -1643,7 +1645,6 @@ jQuery(function($) {
 	            		alert('Your post has been update successfully. ');
 	            	}
 	            	$('.calendar-day').empty();
-	            	console.log(response);
 	            	$('.calendar-day').html(response);
 	            }
 	    	});
@@ -1705,7 +1706,7 @@ jQuery(function($) {
 	    		data:{'post_id':post_id,'user_id':user_id,},
 	            success: function(response)
 	            {
-	            	console.log(response);
+	            	//console.log(response);
 	            	//location.reload();
 	            }
 	    	});
@@ -2000,7 +2001,7 @@ jQuery(function($) {
     		url: form.attr('action'),
     		data:form.serialize(),
             success: function(result){
-            	console.log(result.response);
+            	//console.log(result.response);
             	if(result.response == 'success'){
             		window.location.reload();
             		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);

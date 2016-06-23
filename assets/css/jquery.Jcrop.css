@@ -245,25 +245,6 @@ img.jcrop-preview {
   clear: both;
 }
 
-h1{
-  display: block;
-  font-family: arial;
-  font-size: 35px;
-  color: #39acac;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-h2{
-  display: block;
-  clear: both;
-  font-family: arial;
-  font-size: 25px;
-  color: #39acac;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
 .simple-cropper-images{
   width: 820px;
   margin: 0 auto 20px;

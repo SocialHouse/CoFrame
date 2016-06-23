@@ -1,5 +1,4 @@
 <div class="container-brand-step">
-	<h3 class="text-xs-center">Step 4</h3>
 	<h4 class="text-xs-center">Post Tags</h4>
 	<div class="tag-list saved-items" >
 		<ul>
