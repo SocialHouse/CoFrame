@@ -35,13 +35,27 @@
 					<h1 class="center-title section-title">Archive</h1>
 				</header>
 				<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="archive-export">	
-					<div class="col-sm-12 archives">
-							<div class="col-md-9 col-sm-12">
-								<?php include("lib/archive-date-select.php"); ?>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<?php include("lib/archive-export.php"); ?>
-							</div>
+					<div class="row equal-cols-cal relative-wrapper archives">
+						<div class="col-md-3 col-sm-6 equal-height">
+							<?php include("lib/archive-date-select.php"); ?>
+						</div>
+						<div class="col-md-3 col-sm-6 equal-height">
+							<?php include("lib/archive-outlet-select.php"); ?>
+						</div>
+						<div class="col-md-3 col-sm-6 equal-height">
+							<?php include("lib/archive-tag-select.php"); ?>
+						</div>
+						<div class="col-md-3 col-sm-6 equal-height">
+							<?php include("lib/archive-export.php"); ?>
+						</div>
+					</div>
+					<div class="row archives">
+						<div class="col-sm-12">
+							<footer class="post-content-footer">
+							<button type="reset" class="btn btn-sm btn-default">Reset</button>
+							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right">Export</button>
+							</footer>
+						</div>
 					</div>
 				</form>
 			</section>
