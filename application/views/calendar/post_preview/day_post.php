@@ -247,7 +247,7 @@
 	}
 	else
 	{
-		echo '<div class="row bg-white clearfix post-day no-data">No data found </div>';
+		echo '<div class="row bg-white post-day no-data"><div class="col-sm-12">No data found</div></div>';
 	}
 
 ?>

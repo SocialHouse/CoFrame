@@ -3665,8 +3665,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
   /* youtube post preview end*/
 
   .no-data{
-    width: 100%;
-    margin:0;
+    width: calc(100% - 15px);
     padding: 20px;
   }
 .day-image img{

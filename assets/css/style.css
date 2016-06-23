@@ -11370,8 +11370,7 @@ ul.actions {
 
 /* youtube post preview end*/
 .no-data {
-  width: 100%;
-  margin: 0;
+  width: calc(100% - 15px);
   padding: 20px; }
 
 .day-image img {
