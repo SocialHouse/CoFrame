@@ -1,6 +1,17 @@
 <?php
 namespace Dompdf;
-define("DOMPDF_ENABLE_REMOTE", false);
+define("DOMPDF_ENABLE_REMOTE", TRUE);
+define('DOMPDF_ENABLE_CSS_FLOAT', TRUE);
+define('DOMPDF_ENABLE_JAVASCRIPT', TRUE);
+define('isHtml5ParserEnabled', TRUE);
+define('DOMPDF_ENABLE_FONTSUBSETTING', TRUE);
+define('DOMPDF_ENABLE_PHP', FALSE);
+define('DOMPDF_LOG_OUTPUT_FILE', 'temp');
+define('DEBUGCSS', TRUE);
+define('DOMPDF_PDF_BACKEND', TRUE);
+define('DEBUG_LAYOUT', TRUE);
+define('DEBUGKEEPTEMP', TRUE);
+define('DOMPDF_TEMP_DIR', TRUE );
 
 
 /**

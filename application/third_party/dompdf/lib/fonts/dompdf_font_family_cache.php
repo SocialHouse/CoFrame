@@ -116,4 +116,7 @@
     'italic' => $fontDir . '\e1cb1acd2044df6e5a28e4042fa8afeb',
     'bold_italic' => $fontDir . '\0953a86d915a6c7318559ad9c2e80a95',
   ),
+  'fa' => array(
+    'normal' => $fontDir . '\79b165604c2795cff5e31845780a7600',
+  ),
 ) ?>

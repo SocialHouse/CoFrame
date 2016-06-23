@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH .'third_party/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Dompdf\Frame\FrameTree;
+use Dompdf\Css\Stylesheet;
+use Dompdf\Autoloader;
 
 class Archives extends CI_Controller {
 
@@ -171,17 +174,13 @@ class Archives extends CI_Controller {
     	
     	$options = new Options();
     	$options->set('isRemoteEnabled', TRUE);
-    	$options->set('debugKeepTemp', TRUE);
-	    $options->set('isHtml5ParserEnabled', true);
-	    $options->set('DEBUGCSS', true);
-	    $options->set('DEBUG_LAYOUT', true);
-	    $options->set('DEBUGKEEPTEMP', false);
-	    $options->set('DOMPDF_TEMP_DIR', 'tmp' );
-	    $options->setIsRemoteEnabled(true);
+    	$options->set('isJavascriptEnabled', TRUE);
 	    $dompdf = new Dompdf($options);
-
+	    
 	    // Loads an HTML string
-	    $dompdf->loadHtml( $html );
+
+        $dompdf->loadHtml( $html,'UTF-8' );
+
 
 	    // Create the PDF
 	    $dompdf->render();

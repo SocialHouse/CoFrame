@@ -1,15 +1,30 @@
+
 <!doctype html>
 <html class="no-js">
 <head>
 	<meta charset="utf-8">
 	<title>Timeframe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="all">
-	<link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>style.css" media="all">
-	<link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="<?php echo css_url(); ?>bootstrap.min.css"> 
+	<link rel="stylesheet" href="<?php echo css_url(); ?>style.css"/>
+	<link rel="stylesheet" href="<?php echo css_url(); ?>search.css"/>
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css"/>
+	  <style type="text/css">
+	  .fa {
+	    display: inline;
+	    font-style: normal;
+	    font-variant: normal;
+	    font-weight: normal;
+	    font-size: 14px
+	    line-height: 1;
+	    font-family: FontAwesome;
+	    font-size: inherit;
+	    text-rendering: auto;
+	    -webkit-font-smoothing: antialiased;
+	    -moz-osx-font-smoothing: grayscale;
+	  }
+	  </style>
 </head>
 
 	<body class="page-global">
@@ -47,52 +62,22 @@
 					}
 					?>
 					<div  class="row bg-white clearfix post-day" <?php echo $style; ?> >
-						<div class="col-md-5 post-img day-image">
-							<?php 
-							$display_img = 'false';
-							if(!empty($post->post_images))
-							{
-								foreach ($post->post_images as $img) 
-								{
-									if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$img->name)) 
-									{
-										if($img->type == 'images'){
-
-											echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'" style="width:200px" /> ';
-											$display_img = 'true';
-											break;
-										}elseif ($img->type == 'video') {
-											echo '<video autobuffer autoloop loop controls width="100%" >
-											<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name.'">
-												<object type="'.$img->mime.'">
-													<param name="src" value="/media/video.oga">
-													<param name="autoplay" value="false">
-													<param name="autoStart" value="0">
-													<p><a href="/media/video.oga">Download this video file.</a></p>
-												</object>
-											</video>';
-											$display_img = 'true';
-											break;
-										}
-
-									}
-								}
-							}
-							if($display_img == 'false')
-							{
-								echo '<img class="default-img reblog-avatar-image-thumb" src="'.img_url().'post-img-3.jpg"  width="228px"  >';
-							}
-							?>
-						</div>
-						<div class="col-md-7 post-content">
+						<div class="col-md-7" style="float: right; width:45%;margin:0px;padding-top:0px;">
 							<div class="row">
-								<div class="col-md-2 outlet-list text-xs-center outlet-list">
-									<i class="fa fa-<?php echo $outlet_name; ?>"><span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span></i>
+								<div class="col-md-12 outlet-list outlet-list">
+									<i class="fa fa-<?php echo $outlet_name; ?>">
+										<span class="bg-outlet rotate bg-<?php echo $outlet_name; ?>"></span>
+										<?php echo $outlet_name; ?>
+									</i>
 								</div>
-								<div class="col-md-10 post-meta">
-									<span class="post-author"><?php echo $outlet_name; ?> Post By <?php echo (!empty($post->user))?$post->user :'';?>:</span>
-									<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST 
-									</span>
+								<br/>
+								<div class="col-md-12 post-meta">
+									<div class="post-author">
+										<br/>Post By <?php echo (!empty($post->user))?$post->user :'';?>:
+									</div>
+									<div class="post-date">
+										<?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST 
+									</div>
 									<?php 
 									if($post->status == 'scheduled')
 									{
@@ -108,8 +93,7 @@
 									{
 										?>
 										<span class="post-approval">
-											<strong>Pending Approvals <i class="icon-clock2 color-danger post-filter-popup" data-hide="false"  data-popover-id="approvals-postid-<?php echo $post->id; ?>" data-toggle="popover-ajax" data-content-src="<?php echo base_url()?>calendar/approval_list/<?php echo $post->id; ?>" data-popover-class="popover-sm popover-post-approvals" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day"></i>
-											</strong>
+											<strong>Pending Approvals</strong>
 										</span>
 										<?php
 									}
@@ -127,34 +111,19 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-<?php echo $post->id; ?>" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
+								<div class="col-md-2" >
 									<?php 
 									if(!empty($post->post_tags))
 									{
 										foreach ($post->post_tags as $key_1 => $val) 
 										{
-											echo '<i class="fa fa-circle '.strtolower($val["tag_name"]).'" style="color:'.$val["tag_color"].'"></i>';
+											?>
+											<i class="fa fa-circle" style="color:<?php echo $val["tag_color"]; ?>">  <?php echo $val["name"];?></i><br/>
+											<?php
 										}
 										
 									}
 									?>
-									<i class="fa fa-circle color-gray-lighter" style="display: none;"></i>
-									<div class="hidden">
-										<div class="tag-list">
-											<ul>
-												<?php 
-												if(!empty($post->post_tags))
-												{
-													foreach ($post->post_tags as $key_1 => $val) 
-													{
-														echo '<li class="tag"><i class="fa fa-circle '.strtolower($val["tag_name"]).'" style="color:'.$val["tag_color"].'"></i>'.$val["name"].'</li>';
-													}
-													
-												}
-												?>
-											</ul>
-										</div>
-									</div>
 								</div>
 								<div class="col-md-10">
 									<h6>POST COPY</h6>
@@ -164,8 +133,28 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-5" style="width:45%;" >
+							<?php 
+								$img_src = base_url().'assets/images/post-img-3.jpg';
+								if(!empty($post->post_images))
+								{
+									foreach ($post->post_images as $img) 
+									{
+										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$img->name)) 
+										{
+											if($img->type == 'images'){
+												$img_src = base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name;
+												break;
+											}
+										}
+									}
+								}
+							?>
+							<img style="width:300px;display: inline; display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
+						</div>
 					</div>
 					<?php
+					$count++;
 				}
 			}
 			?>
