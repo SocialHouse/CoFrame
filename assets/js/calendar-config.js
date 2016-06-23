@@ -626,6 +626,9 @@ jQuery(function($) {
 			}
 		});
 		//render previously selected dates on display
+		if(endDate === undefined || endDate === "") {
+			endDate = today;
+		}
 		if(startDate !== undefined && endDate !== undefined) {
 			var savedEvent = {
 				allDay: true,
