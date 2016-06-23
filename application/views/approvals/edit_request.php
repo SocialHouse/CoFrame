@@ -89,14 +89,14 @@
 						</div>
 						
 						<div class="after-approve hide">
-							<a href="#" class="btn btn-secondary btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+							<a href="#" class="btn btn-default color-success btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
 						</div>
 
 						<?php
 					}else{
 						?>
 						<div class="before-approve">
-							<a href="#" class="btn btn-secondary btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+							<a href="#" class="btn btn-default color-success btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
 						</div>
 						<div class="after-approve hide">
 							<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>

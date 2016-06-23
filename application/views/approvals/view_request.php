@@ -90,7 +90,7 @@
 							elseif($post_details->status == 'pending')
 							{
 								?>
-								<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
+								<button class="btn btn-xs btn-default color-success schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
 								<button type="button" class="btn btn-xs btn-default">Post Now</button>
 								<?php
 							}
