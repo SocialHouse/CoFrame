@@ -622,6 +622,19 @@ jQuery(function($) {
     {
     	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
     }
+
+    $('[data-id="connect"]').click(function(){    	
+    	var outlet = $(this).data('outlet-const');
+    	var path = base_url+outlet.toLowerCase()+'_connect/'+outlet.toLowerCase()+'/'+$('#brand_id').val()+'/'+$(this).data('selected-outlet-id');
+    	if(!$(this).hasClass('selected'))
+    	{
+	        $.oauthpopup({
+	            path: path,
+	            callback: function(){            
+	            }
+	        });
+	    }
+    });
 }
 
 	function validateEmail(email) {

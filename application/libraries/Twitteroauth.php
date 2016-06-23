@@ -20,6 +20,7 @@ class TwitterOAuth {
 	public $url;
 	/* Set up the API root URL. */
 	public $host = "https://api.twitter.com/1.1/";
+	public $upload_host = 'https://upload.twitter.com/1.1/';
 	/* Set timeout default. */
 	public $timeout = 30;
 	/* Set connect timeout. */
@@ -176,7 +177,13 @@ class TwitterOAuth {
 	 * Format and sign an OAuth / API request
 	 */
 	function oAuthRequest($url, $method, $parameters) {
-		if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
+		if($url == 'media/upload')		
+		{
+			if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
+				$url = "{$this->upload_host}{$url}.{$this->format}";
+			}
+		}
+		elseif (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
 			$url = "{$this->host}{$url}.{$this->format}";
 		}
 		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);

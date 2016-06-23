@@ -76,6 +76,10 @@
 										{
 											$event = 'onclick="login(this)"';
 										}
+										else
+										{
+											$event = 'data-id="connect"';
+										}
 										?>
 
 										<li class="disabled" <?php echo $event; ?>  data-outlet-const="<?php echo $outlet->outlet_constant; ?>" data-selected-outlet-id="<?php echo strtolower($outlet->id); ?>" data-selected-outlet="<?php echo strtolower($outlet->outlet_name); ?>"><i class="fa fa-<?php echo strtolower($outlet->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span></i></li>	
