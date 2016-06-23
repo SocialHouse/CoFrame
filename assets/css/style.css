@@ -10485,34 +10485,62 @@ a {
     top: 0; }
 
 /*Archive*/
-.archives {
-  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.5);
-  margin-top: 6rem;
-  padding-top: 2.5rem; }
-  .archives .radio {
-    margin-bottom: 1.75rem; }
-  .archives .radio-w-inputs {
-    margin-bottom: 1rem; }
-    .archives .radio-w-inputs input[type="radio"] {
-      margin-top: 14px; }
-  .archives label {
-    font-size: 12px; }
-    .archives label span {
-      display: inline-block;
-      position: relative;
-      top: -12px; }
-  .archives .export-options {
-    padding: 2rem; }
-  .archives .table-cell {
-    vertical-align: top; }
-  .archives .equal-section {
-    margin-bottom: 1.46667rem; }
-  .archives .form-control.popover-toggle {
-    max-width: 7rem; }
-
-.container-archive {
-  padding-bottom: 100px;
-  position: relative; }
+.archives h2 {
+  margin-bottom: 6rem; }
+.archives .radio {
+  margin-bottom: 0; }
+.archives .radio-w-inputs input[type="radio"] {
+  margin-top: 14px; }
+.archives label {
+  font-size: 12px; }
+  .archives label span {
+    display: inline-block;
+    position: relative;
+    top: -12px; }
+.archives .export-options {
+  padding: 2rem; }
+.archives .table-cell {
+  vertical-align: top; }
+.archives .equal-section {
+  margin-bottom: 1.46667rem; }
+.archives .form-control.popover-toggle {
+  max-width: 7rem; }
+.archives .timeframe-list {
+  border-bottom: 1px solid #000; }
+  .archives .timeframe-list li {
+    padding: 4px 0 4px 8px;
+    display: block;
+    cursor: inherit; }
+    .archives .timeframe-list li.radio-w-inputs {
+      padding-top: 12px; }
+    .archives .timeframe-list li .check-box {
+      height: 25px;
+      width: 25px;
+      line-height: normal;
+      margin: 5px 1rem 5px 0; }
+      .archives .timeframe-list li .check-box .fa {
+        font-size: 1rem;
+        line-height: 21px;
+        float: none;
+        margin-right: 0;
+        display: block;
+        visibility: hidden; }
+      .archives .timeframe-list li .check-box.selected {
+        margin-bottom: 0; }
+        .archives .timeframe-list li .check-box.selected .fa {
+          visibility: visible; }
+    .archives .timeframe-list li .fa-circle, .archives .timeframe-list.approval-list li li {
+      float: left; }
+    .archives .timeframe-list li .tag-title {
+      margin-top: 2px;
+      display: inline-block; }
+.archives .outlet-list .check-box .fa {
+  color: #000;
+  width: auto; }
+.archives .post-content-footer {
+  position: relative;
+  bottom: inherit;
+  margin-top: 2rem; }
 
 /*User Prefs*/
 #user-preferences .user-info {
