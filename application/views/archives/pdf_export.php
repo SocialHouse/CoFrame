@@ -40,21 +40,6 @@
 					$outlet_name = strtolower($post->outlet_name);
 					$brand_onwer = $post->created_by;
 					$brand_id = $post->brand_id;
-					$tag_list = '' ;
-					if(!empty($post->post_tags))
-					{
-						foreach ($post->post_tags as $key_1 => $val) 
-						{
-							if(empty($tag_list))
-							{
-								$tag_list = ''.strtolower($val['tag_name']);
-							}
-							else
-							{
-								$tag_list .= ' '.strtolower($val['tag_name']);
-							}
-						}				
-					}
 					$style = '';
 					if($count > 1)
 					{
@@ -118,7 +103,7 @@
 										foreach ($post->post_tags as $key_1 => $val) 
 										{
 											?>
-											<i class="fa fa-circle" style="color:<?php echo $val["tag_color"]; ?>">  <?php echo $val["name"];?></i><br/>
+											<i class="fa fa-circle" style="color:<?php echo $val["tag_color"]; ?>"></i> <?php echo $val["name"];?><br/>
 											<?php
 										}
 										
