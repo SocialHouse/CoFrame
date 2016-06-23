@@ -196,5 +196,4 @@
 <!-- Select Date Calendar -->
 <?php
 $this->load->view('partials/previews');
-$this->load->view('partials/modals');
 ?>

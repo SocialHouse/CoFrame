@@ -429,6 +429,3 @@
 			</div>
 		</div>
 	</form>
-<?php 
-$this->load->view('partials/modals');
-?>

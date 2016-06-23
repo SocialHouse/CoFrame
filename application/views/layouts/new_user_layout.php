@@ -64,6 +64,7 @@ if(isset($css_files))
 		</div>
 	  </div>
 	</div>
+	<?php $this->load->view('partials/modals'); ?>
 	<button type="button" class="modal-toggler">
 		<span class="sr-only">Toggle Modal</span>
 		<span class="icon-bar"></span>
