@@ -3111,9 +3111,26 @@ textarea.form-control {
 	height: 64px;
 	width: 64px;
 	display: inline-block;
+}
+.js .form__preview-wrapper {
+	position: relative;
 	float: left;
 	margin-bottom: 10px;
-	margin-right: 10px;
+	margin-right: 9px;
+	.remove-upload {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%,-50%);
+		transform: translate(-50%,-50%);
+		height: 23px;
+		width: 23px;
+		color: #fff;
+		background: rgba(0,0,0,.75);
+		cursor: pointer;
+		font-size: 18px;
+		line-height: 20px;
+	}
 }
 .js .file-upload-label {
 	cursor: pointer;

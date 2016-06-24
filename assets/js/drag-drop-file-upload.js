@@ -89,9 +89,13 @@
 									window.URL.revokeObjectURL(this.src);
 								};
 								img.className = 'form__file-preview';
-								img.src = window.URL.createObjectURL(file);						
-								
-								$fileDiv.prepend(img).addClass('has-files');					
+								img.src = window.URL.createObjectURL(file);					
+								var imgDiv = document.createElement('div');
+								imgDiv.className = 'form__preview-wrapper';
+								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+								$(imgDiv).append(img);
+							
+								$fileDiv.prepend(imgDiv).addClass('has-files');				
 
 								//to sho user uploded img on add role page
 								if($('.user-img-preview').length)
@@ -202,7 +206,11 @@
 								};
 								img.className = 'form__file-preview';
 								img.src = window.URL.createObjectURL(file);
-								$(target_file_input).prepend(img).addClass('has-files');
+								var imgDiv = document.createElement('div');
+								imgDiv.className = 'form__preview-wrapper';
+								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+								$(imgDiv).append(img);
+								$(target_file_input).prepend(imgDiv).addClass('has-files');
 								//for show preview
 								changePreview(file,'image');
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
@@ -485,6 +493,21 @@
 		    	$(this).hide();
 		    });
 
+			//remove post media upload on icon click
+		    $('body').on('click', '.form__input .remove-upload', function(){
+				var $uploader = $(this).closest('.form__input');
+				var imgSrc = $(this).next('img').attr('src');
+				console.log(imgSrc);
+				$(this).parent('.form__preview-wrapper').fadeOut(function() {
+					$(this).remove();
+					removeFromPreview(imgSrc);
+					var $uploads = $uploader.find('.form__preview-wrapper');
+					if(!$uploads.length) {
+						$uploader.removeClass('has-files');	
+					}
+				});
+		    });
+
 
 			// restart the form if has a state of error/success
 
@@ -721,4 +744,7 @@
 	            jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
 	        }
 		}
+	}
+
+	function removeFromPreview(file) {
 	}
