@@ -2918,6 +2918,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		}
 	}
 }
+textarea.form-control {
+	resize: none;
+}
 .form-inline .form-control + .form-control {
 	@media (min-width: 1281px) {
 		margin-left: 3px;

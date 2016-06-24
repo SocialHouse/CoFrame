@@ -10682,6 +10682,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     .form-control.time-select input {
       font-size: 1.33333rem; }
 
+textarea.form-control {
+  resize: none; }
+
 @media (min-width: 1281px) {
   .form-inline .form-control + .form-control {
     margin-left: 3px; } }
