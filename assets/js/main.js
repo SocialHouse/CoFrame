@@ -22,7 +22,14 @@ jQuery(function($) {
 
 
 	$(document).ready(function() {
-
+		// Prevent enter key from submitting forms.
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+			  event.preventDefault();
+			  return false;
+			}
+		});
+		  
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
 		var outlet_const = $('.outlet_ul li:first').data('outlet-const');
 		$('.outlet_ul li:first').toggleClass('disabled');

@@ -221,7 +221,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
 	        <div class="modal-body text-center bg-white">
-			  	<h5>Password Recovery</h5>
+			  	<h5>Create Your Account</h5>
 				<hr>
 		        <form id="registerSubUser">
 		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo !empty ($verification_code)? $verification_code:'' ; ?>" />

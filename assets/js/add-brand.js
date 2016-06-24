@@ -124,6 +124,17 @@ jQuery(function($) {
 			hideNoLength($(this));
 		});		
 
+        // Remove selected class from social icons when adding a second.
+        $('#addUserLink').on('click', function() {
+            $('.brand-step .outlet-list li').removeClass('selected');
+            $('.brand-step .outlet-list li').addClass('disabled');
+        })
+
+        // Clear tag field when adding a second tag.
+        $('#addTagLink').on('click', function() {
+            $('#newLabel').val("");
+        })
+
 		$('#userRoleSelect').on('change', function() {
 			var selectedRole = $(this).val();
 			if(selectedRole)
