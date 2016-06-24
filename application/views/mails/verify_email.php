@@ -12,7 +12,7 @@
     <div id="wrapper">
       <div class="content">
         <p><i>Hi <?php echo $user->name;?>,</i></p>
-        <a href="<?php echo base_url();?>welcome/verify_user/<?php echo $user->login_verify_token;?>">Click on link to veryfy user</a>
+        <a href="<?php echo base_url();?>tour/verify_user/<?php echo $user->login_verify_token;?>">Click on link to veryfy user</a>
       </div>
       
     </div>

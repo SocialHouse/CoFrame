@@ -120,68 +120,166 @@ class Me extends CI_Controller {
 	public function save_billing_details()
 	{
 		$user_id = $this->user_id;
-		// $user_token =  $this->input->post('stripe_token');
+		$user_token =  $this->input->post('stripe_token');
 
 		if(!empty($user_id))
-		{
-			// $this->stripe_test_mode = $this->config->item('stripe_test_mode');
-	  //   	if($this->stripe_test_mode == TRUE)
-	  //   	{
-	  //     		$this->stripe_public_key = $this->config->item('stripe_key_test_public');
-	  //     		$this->stripe_secret_key = $this->config->item('stripe_key_test_secret');
-	  //       }
-		 //    else
-		 //    {
-		 //    	$this->stripe_public_key = $this->config->item('stripe_key_live_public'); 
-		 //      	$this->stripe_secret_key = $this->config->item('stripe_key_live_secret');
-		 //    }
-
-	  //   	\Stripe\Stripe::setApiKey($this->stripe_secret_key);
-
-			// $condition = array('id' => $this->user_data['user_info_id']);
-			// $select =array('stripe_customer_id');
-			// $strip_token = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
-			
-
-			// $customer = \Stripe\Customer::retrieve($strip_token[0]->stripe_customer_id);
-
-			// $card_id = $this->user_model->get_last_transaction($this->user_id);
-			
-			// $card = $customer->sources->retrieve($card_id->card_id);
-
-			// $card->name = $this->input->post('name_on_card');
-			// $card->exp_month = $this->input->post('expiry_month');
-			// $card->exp_year = $this->input->post('expiry_year');
-			// $card->zip = $this->input->post('zip');
-			// $card->country = $this->input->post('country');
-			// $card->save();
-
-			$billing_data = array(
-									'cc_number' => substr($this->input->post('cc_number'), -4),
-									'cvc' => '***',
-									'user_id' => $user_id,
-									'name' => $this->input->post('name'),
-									'zip' => $this->input->post('zip'),
-									'country' => $this->input->post('country'),
-									'email' => $this->input->post('email'),
-									'exp_month' => $this->input->post('expiry_month'),
-									'exp_year' => $this->input->post('expiry_year')
-								);
-
-			$billing_id = $this->input->post('billing_id');	
-
-			if(!empty($billing_id))
+		{			
+			try
 			{
-				$condition = array('id' => $billing_id);
-				$this->timeframe_model->update_data('billing_details',$billing_data,$condition);
-			}
-			else
-			{
-	    		$this->timeframe_model->insert_data('billing_details',$billing_data);
-	    	}
+				$this->stripe_test_mode = $this->config->item('stripe_test_mode');
+		    	if($this->stripe_test_mode == TRUE)
+		    	{
+		      		$this->stripe_public_key = $this->config->item('stripe_key_test_public');
+		      		$this->stripe_secret_key = $this->config->item('stripe_key_test_secret');
+		        }
+			    else
+			    {
+			    	$this->stripe_public_key = $this->config->item('stripe_key_live_public'); 
+			      	$this->stripe_secret_key = $this->config->item('stripe_key_live_secret');
+			    }
+
+			    \Stripe\Stripe::setApiKey($this->stripe_secret_key);
+
+		    	\Stripe\Stripe::setApiKey($this->stripe_secret_key);
+
+				$condition = array('id' => $this->user_data['user_info_id']);
+				$select =array('stripe_customer_id');
+				$stripe_token = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
+				
+				$customer = \Stripe\Customer::retrieve($stripe_token[0]->stripe_customer_id);
+				$customer->sources->create(array("source" => $user_token));
+
+				// $customer = \Stripe\Customer::retrieve($strip_token[0]->stripe_customer_id);
+
+				// $card_id = $this->user_model->get_last_transaction($this->user_id);
+				
+				// $card = $customer->sources->retrieve($card_id->card_id);
+
+				// $card->name = $this->input->post('name_on_card');
+				// $card->exp_month = $this->input->post('expiry_month');
+				// $card->exp_year = $this->input->post('expiry_year');
+				// $card->zip = $this->input->post('zip');
+				// $card->country = $this->input->post('country');
+				// $card->save();
+
+				$billing_data = array(
+										'cc_number' => substr($this->input->post('cc_number'), -4),
+										'cvc' => '***',
+										'user_id' => $user_id,
+										'name' => $this->input->post('name'),
+										'zip' => $this->input->post('zip'),
+										'country' => $this->input->post('country'),
+										'email' => $this->input->post('email'),
+										'exp_month' => $this->input->post('expiry_month'),
+										'exp_year' => $this->input->post('expiry_year')
+									);
+
+				$billing_id = $this->input->post('billing_id');	
+
+				$this->timeframe_model->insert_data('billing_details',$billing_data);
+				
+		    	$this->session->set_flashdata('message','Billing details added successfully');
+		   	}
+		   	catch(Exception $e)
+		   	{
+		   		$this->session->set_flashdata('message','Unable to add belling detaild, Please try again');
+		   	}
 	    	redirect(base_url().'me/edit_billing_details');
 		}
 	}
 
+	
+
+	public function plan()
+	{
+		$this->data = array();
+		$this->data['current_plan'] = $this->user_model->get_current_plan($this->user_id);
+
+		$this->data['view'] = 'me/change_plan';
+		_render_view($this->data);
+	}
+
+	public function change_plan()
+	{
+		$this->data = array();
+        $this->form_validation->set_rules('plan','plan','required',                                            
+                                            array('required' => 'Plan is required')
+                                        );
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->data['current_plan'] = $this->user_model->get_current_plan($this->user_id);			
+
+			$this->data['view'] = 'me/change_plan';
+			_render_view($this->data);
+        }
+        else
+        {
+        	$this->stripe_test_mode = $this->config->item('stripe_test_mode');
+	    	if($this->stripe_test_mode == TRUE)
+	    	{
+	      		$this->stripe_public_key = $this->config->item('stripe_key_test_public');
+	      		$this->stripe_secret_key = $this->config->item('stripe_key_test_secret');
+	        }
+		    else
+		    {
+		    	$this->stripe_public_key = $this->config->item('stripe_key_live_public'); 
+		      	$this->stripe_secret_key = $this->config->item('stripe_key_live_secret');
+		    }
+
+		    \Stripe\Stripe::setApiKey($this->stripe_secret_key);
+
+        	$condition = array('id' => $this->user_data['user_info_id']);
+			$select =array('stripe_customer_id','stripe_subscription_id');
+			$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
+			$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+			if(!empty($last_transaction))
+			{
+				try
+				{
+					$cu = \Stripe\Customer::retrieve($strip_info[0]->stripe_customer_id);
+					$subscription = $cu->subscriptions->retrieve($strip_info[0]->stripe_subscription_id);
+					$subscription->plan = $this->input->post('plan');
+					$response = $subscription->save();
+					$response = $response->__toArray(true);
+					
+					$card_id = $last_transaction->card_id;
+					$subscription_key_id = $response['id'];
+					$customer_stripe_key = $response['customer'];
+					$subscription_info = $response;
+
+					if(!empty($response))
+					{
+						$transaction_data = array(								
+										'plan' => $subscription_info['plan']['id'],
+										'amount' => $subscription_info['plan']['amount'],
+										'current_period_start' => $subscription_info['current_period_start'],
+										'current_period_end' => $subscription_info['current_period_end'],								
+										'stripe_customer_id' => $customer_stripe_key,
+										'subscription_id' => $subscription_key_id,
+										'card_id' => $card_id,
+										'transaction_status' => $subscription_info['status'],
+										'paid_date' => date('Y-m-d H:i:s',$subscription_info['start']),
+										'response' => json_encode($response),
+										'user_id' => $this->user_id
+									);
+						$this->timeframe_model->insert_data('transactions',$transaction_data);
+
+						$this->session->set_flashdata('message','Plan changed successfully');
+		            }
+		            else
+		            {
+		            	$this->session->set_flashdata('error','Unable to change plan, Please try again');
+		            }
+		            redirect(base_url().'me/plan');
+		        }
+		        catch(Exception $ex){
+					$this->session->set_flashdata('error', 'Problem encountered while processing payment, please try again');
+					redirect(base_url().'me/plan');
+				}
+			}
+
+        }
+	}
 
 }

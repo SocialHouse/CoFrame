@@ -147,14 +147,14 @@ class Aauth {
 
 			if( !$identifier OR strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
 			{
-				$this->error('Username and Password do not match');
+				$this->error('The email and/or password you entered did not match our records. Please try again.');
 				return FALSE;
 			}
 			$db_identifier = 'name';
  		}else{
 			if( !valid_email($identifier) OR strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
 			{
-				$this->error('E-mail Address and Password do not match.');
+				$this->error('The email and/or password you entered did not match our records. Please try again.');
 				return FALSE;
 			}
 			$db_identifier = 'email';
@@ -348,7 +348,7 @@ class Aauth {
 		}
 		// if not matches
 		else {
-			$this->error('Username or Password do not match.');
+			$this->error('The email and/or password you entered did not match our records. Please try again.');
 			return FALSE;
 		}
 	}
@@ -545,7 +545,7 @@ class Aauth {
 			$this->aauth_db->where('email', $email);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$this->CI->email->from( $this->CI->config->item('from_mail'), $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject('Reset Password');
 			$this->CI->email->message("To reset your password click on (or copy and paste in your browser address bar) the link below:\n\n" . site_url() . $this->config_vars['reset_password_link'] . $row->id . '/' . $ver_code );
@@ -588,7 +588,7 @@ class Aauth {
 			$this->aauth_db->where('id', $user_id);
 			$this->aauth_db->update($this->config_vars['users'] , $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$this->CI->email->from( $this->CI->config->item('from_mail'), $this->config_vars['name']);
 			$this->CI->email->to($email);
 			$this->CI->email->subject('Successful Pasword Reset');
 			$this->CI->email->message('Your password has successfully been reset. Your new password is : ' . $pass);
@@ -752,6 +752,69 @@ class Aauth {
 
 				// sends verifition ( !! e-mail settings must be set)
 				$this->send_verification($user_id);
+			}
+
+			// Update to correct salted password
+			$data = null;
+			$data['pass'] = $this->hash_password($pass, $user_id);
+			$this->aauth_db->where('id', $user_id);
+			$this->aauth_db->update($this->config_vars['users'], $data);
+
+			return $user_id;
+
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function create_user_without_name($email, $pass, $name = FALSE,$user_data = []) {
+
+		$valid = TRUE;
+		
+		// if ($this->user_exist_by_email($email)) {
+		// 	$this->error('Email address already exists on the system. If you forgot your password, you can click the link below.');
+		// 	$valid = FALSE;
+		// }
+		$valid_email = (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+		if (!$valid_email){
+			$this->error('Invalid e-mail address');
+			$valid = FALSE;
+		}
+		if ( strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] ){
+			$this->error('Invalid password');
+			$valid = FALSE;
+		}
+		if ($name != FALSE && !ctype_alnum(str_replace($this->config_vars['valid_chars'], '', $name))){
+			$this->error('Invalid Username');
+			$valid = FALSE;
+		}
+		if (!$valid) {
+			return FALSE; 
+		}
+
+		$data = array(
+			'email' => $email,
+			'pass' => $this->hash_password($pass, 0), // Password cannot be blank but user_id required for salt, setting bad password for now
+			'name' => (!$name) ? '' : $name ,
+		);
+		$data = array_merge($data,$user_data);		
+		if ( $this->aauth_db->insert($this->config_vars['users'], $data )){
+
+			$user_id = $this->aauth_db->insert_id();
+
+			// set default group
+			// $this->add_member($user_id, $this->config_vars['default_group']);
+
+			// if verification activated
+			if($this->config_vars['verification']){
+				$data = null;
+				$data['banned'] = 1;
+
+				$this->aauth_db->where('id', $user_id);
+				$this->aauth_db->update($this->config_vars['users'], $data);
+
+				// sends verifition ( !! e-mail settings must be set)
+				$this->send_registartion_link($user_id);
 			}
 
 			// Update to correct salted password
@@ -950,11 +1013,53 @@ class Aauth {
 			$this->aauth_db->where('id', $user_id);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
+			$config = $this->CI->config->item('smtp_config');
+	        $from = $this->CI->config->item('from_mail');
+	        $this->CI->load->library('email',$config);
+	        $this->CI->email->initialize($config);
+
+			$this->CI->email->from($from, $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject('Account Verification');
-			$this->CI->email->message('Your verification code is: ' . $ver_code .
-				" You can also click on (or copy and paste) the following link\n\n" . site_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code );
+
+			$this->CI->data['user'] = $row;
+			$this->CI->data['url'] =  base_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code ;
+
+			$message = $this->CI->load->view('mails/verify_register',$this->CI->data,true);
+			$this->CI->email->message($message);
+			$this->CI->email->send();
+		}
+	}
+
+	public function send_registartion_link($user_id){
+
+		$query = $this->aauth_db->where( 'id', $user_id );
+		$query = $this->aauth_db->get( $this->config_vars['users'] );
+
+		if ($query->num_rows() > 0){
+			$row = $query->row();
+
+			$ver_code = random_string('alnum', 16);
+
+			$data['verification_code'] = $ver_code;
+
+			$this->aauth_db->where('id', $user_id);
+			$this->aauth_db->update($this->config_vars['users'], $data);
+
+			$config = $this->CI->config->item('smtp_config');
+	        $from = $this->CI->config->item('from_mail');
+	        $this->CI->load->library('email',$config);
+	        $this->CI->email->initialize($config);
+
+			$this->CI->email->from($from, $this->config_vars['name']);
+			$this->CI->email->to($row->email);
+			$this->CI->email->subject('Registeration link');
+
+			$this->CI->data['user'] = $row;
+			$this->CI->data['url'] =  base_url() .'tour/register_sub_user/'. $user_id . '/' . $ver_code ;
+
+			$message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
+			$this->CI->email->message($message);
 			$this->CI->email->send();
 		}
 	}
@@ -2308,6 +2413,34 @@ class Aauth {
 	public function generate_totp_qrcode($secret){
 		$ga = new PHPGangsta_GoogleAuthenticator();
 		return $ga->getQRCodeGoogleUrl($this->config_vars['name'], $secret);
+	}
+
+	//get matching permission by given string
+	function get_matching_perms($keyword)
+	{
+		$this->aauth_db->select('id');
+		$this->aauth_db->like('name',$keyword.'.');
+		$query = $this->aauth_db->get($this->config_vars['perms']);
+		// if not inserted before
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+		return TRUE;
+	}
+
+	//get matching permission by given string
+	function check_user_perm($user_id,$perm)
+	{
+		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");
+		$this->aauth_db->like('name',$perm);
+		$this->aauth_db->where('user_id', $user_id);
+		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
+		
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 } // end class

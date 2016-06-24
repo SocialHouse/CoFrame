@@ -21,6 +21,7 @@
 							<td>
 								<a href="<?php echo base_url().'brands/edit/'.$brand->id; ?>">Edit</a> | 
 								<a href="<?php echo base_url().'brand_users/add_user/'.$brand->id; ?>">Add user</a> | 
+								<a href="<?php echo base_url().'brands/add-existing-user/'.$brand->id; ?>">Add existing user</a> | 
 								<a href="<?php echo base_url().'brand_users/index/'.$brand->id; ?>">Show users</a> | 
 								<a href="<?php echo base_url().'outlets/add_outlet/'.$brand->id; ?>">Outlets</a> | 
 								<a href="<?php echo base_url().'tags/index/'.$brand->id; ?>">Tags</a> | 

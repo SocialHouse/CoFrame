@@ -96,7 +96,7 @@ $config_aauth["default"] = array(
 
 	'valid_chars'                    => array(),
 
-	'ddos_protection'                => true,
+	'ddos_protection'                => false,
 
 	'recaptcha_active'               => false,
 	'recaptcha_login_attempts'       => 0,
@@ -107,17 +107,17 @@ $config_aauth["default"] = array(
 	'totp_only_on_ip_change'         => false,
 	'totp_reset_over_reset_password' => false,
 
-	'max_login_attempt'              => 30,
+	'max_login_attempt'              => 100,
 
 	'login_with_name'                => true,
 
 	'use_cookies'                    => false,
 
 	'email'                          => 'deepakb@techfivesystems.com',
-	'name'                           => 'Emre Akay',
+	'name'                           => 'Timeframe',
 
-	'verification'                   => false,
-	'verification_link'              => '/account/verification/',
+	'verification'                   => true,
+	'verification_link'              => 'tour/verify_user_email/',
 	'reset_password_link'            => '/account/reset_password/',
 
 	'hash'							 =>	'sha256'

@@ -38,7 +38,7 @@
 		    foreach($permissions as $permission)
 		    {
 		    	?>
-		    	<option value="<?php echo $permission->id ?>" <?php echo set_select('permission', $permission->id); ?>><?php echo $permission->name; ?></option>m
+		    	<option value="<?php echo $permission->id ?>" <?php echo set_select('permission', $permission->id); ?>><?php echo $permission->name; ?></option>
 		    	<?php
 		    }
 		    ?>
@@ -51,6 +51,28 @@
 		<input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?php echo set_value('username') ? set_value('username') : (isset($user->username) ? $user->username : '' ); ?>" >
 		<?php echo form_error('username', '<div class="text-danger">', '</div>'); ?>
     </div>
+
+    <?php
+    if(!empty($brand_outlets))
+    {
+	    ?>
+	    <div class="form-group danger">
+			<label for="Username">Outlets</label><br/>
+			<?php
+	    	foreach($brand_outlets as $outlet)
+	    	{
+	    		?>
+	    		<label class="checkbox-inline">
+	      			<input type="checkbox" name="outlets[]" value="<?php echo $outlet->outlet_id; ?>"><?php echo $outlet->outlet_name; ?>
+			    </label>
+	    		<?php
+	    	}
+	    	?>
+		    	<?php echo form_error('outlets[]', '<div class="text-danger">', '</div>'); ?>
+	    </div>
+	<?php
+	}
+	?>
 
     <button type="submit" class="btn btn-primary">Add</button>    
 

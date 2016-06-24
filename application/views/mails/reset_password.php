@@ -12,7 +12,7 @@
     <div id="wrapper">
       <div class="content">
         <p><i>Hi <?php echo $user->name;?>,</i></p>
-        <a href="<?php echo base_url();?>welcome/set_password/<?php echo $token;?>">Click on link to reset password.</a>
+        <a href="<?php echo base_url();?>set-password/<?php echo $token;?>">Click on link to reset password.</a>
       </div>      
     </div>
   </body>

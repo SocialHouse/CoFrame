@@ -1,16 +1,16 @@
 <?php echo form_open(base_url().'brand_users/update_user',array('method'=>'post','enctype' => 'multipart/form-data')); ?>
 
 	<input type="hidden" name="brand_map_id" value="<?php echo set_value('brand_map_id') ? set_value('brand_map_id') : (isset($brand_map_id) ? $brand_map_id : '' ); ?>">
-	<input type="hidden" name="user_id" value="<?php echo set_value('user_id') ? set_value('user_id') : (isset($user->id) ? $user->id : '' ); ?>">
+	<input type="hidden" name="user_id" value="<?php echo set_value('user_id') ? set_value('user_id') : (isset($user->aauth_user_id) ? $user->aauth_user_id : '' ); ?>">
 
 	<div class="form-group">
 	    <label for="profile_pic">Upload photo</label>
 	    <?php
-		if((isset($user->id) AND file_exists(upload_path().'users/'.$user->id.'.png')) OR (set_value('id') AND file_exists(upload_path().'users/'.set_value('id').'.png')))
+		if((isset($user->aauth_user_id) AND file_exists(upload_path().'users/'.$user->aauth_user_id.'.png')) OR (set_value('id') AND file_exists(upload_path().'users/'.set_value('id').'.png')))
 		{
 			?>
 			<div class="">
-				<img height="70" width="50" src="<?php echo upload_url().'users/'.(set_value('id')?set_value('id'):$user->id).'.png'; ?>">
+				<img height="70" width="50" src="<?php echo upload_url().'users/'.(set_value('id')?set_value('id'):$user->aauth_user_id).'.png'; ?>">
 			</div>
 			<?php
 		}		
@@ -66,7 +66,34 @@
 		<label for="Username">Username</label>
 		<input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?php echo set_value('username') ? set_value('username') : (isset($user->name) ? $user->name : '' ); ?>" readonly>
 		<?php echo form_error('username', '<div class="text-danger">', '</div>'); ?>
-	</div>  
+	</div>
+
+	<?php
+    if(!empty($brand_outlets))
+    {
+	    ?>
+	    <div class="form-group danger">
+			<label for="Username">Outlets</label><br/>
+			<?php
+	    	foreach($brand_outlets as $outlet)
+	    	{
+	    		$checked = '';
+	    		if(in_array($outlet->outlet_id,$selected_outlets))
+	    		{
+	    			$checked = 'checked="checked"';
+	    		}
+	    		?>
+	    		<label class="checkbox-inline">
+	      			<input type="checkbox" name="outlets[]" <?php echo $checked; ?> value="<?php echo $outlet->outlet_id; ?>"><?php echo $outlet->outlet_name; ?>
+			    </label>
+	    		<?php
+	    	}
+	    	?>
+		    	<?php echo form_error('outlets[]', '<div class="text-danger">', '</div>'); ?>
+	    </div>
+	<?php
+	}
+	?>
     
     <button type="submit" class="btn btn-primary">Update</button>    
 <?php echo form_close(); ?>

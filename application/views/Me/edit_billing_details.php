@@ -103,6 +103,6 @@
 	    </div>    
 	    
 	    <div class="form-group">
-	  		<button id="make_payment" class="btn btn-primary" type="button">Update</button>
+	  		<button id="make_payment" class="btn btn-primary" type="button">Save</button>
 	  	</div>
 </form>

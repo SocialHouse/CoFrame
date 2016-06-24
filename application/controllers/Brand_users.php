@@ -60,6 +60,7 @@ class Brand_users extends CI_Controller {
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['brand_name'] = $brand[0]->name;
 				$this->data['permissions'] = $this->aauth->list_groups();
+				$this->data['brand_outlets'] = $this->brand_model->get_brand_outlets($brand[0]->id);
 
 				$this->data['view'] = 'brand_users/add_user';
 		        _render_view($this->data);
@@ -82,14 +83,24 @@ class Brand_users extends CI_Controller {
 		$brand_map_id = $this->uri->segment(3);
 		$this->data = array();
 		$user_id = $this->user_id;
-		$brands_user = $this->brand_model->check_brand_owner($brand_map_id,$user_id);
+		$brands_user = $this->brand_model->check_brand_owner($brand_map_id,$user_id);		
 		if(!empty($brands_user))
 		{
 			$this->data['brand_map_id'] = $brand_map_id;
 			$this->load->model('user_model');
 			$this->data['user'] =$this->user_model->get_user($brands_user->access_user_id);
 			$this->data['permissions'] = $this->aauth->list_groups();
-			$this->data['current_perm'] = $this->aauth->get_user_groups($brands_user->access_user_id);			
+			$this->data['current_perm'] = $this->aauth->get_user_groups($brands_user->access_user_id);
+
+			$this->data['brand_outlets'] = $this->brand_model->get_brand_outlets($brands_user->brand_id);
+			$condition = array('user_id' => $brands_user->access_user_id);
+			$selected_outlets = $this->timeframe_model->get_data_array_by_condition('user_outlets',$condition);
+			
+			$this->data['selected_outlets'] = array();
+			if(!empty($selected_outlets))
+			{
+				$this->data['selected_outlets'] = array_column($selected_outlets,'outlet_id');
+			}
 
 			$this->data['view'] = 'brand_users/edit_user';
 	        _render_view($this->data);
@@ -191,6 +202,17 @@ class Brand_users extends CI_Controller {
 	                    							'access_user_id' => $inserted_id
 	                    						);
 	                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+
+	                    foreach($this->input->post('outlets') as $outlet)
+	                    {
+		                    $user_outlets = array(
+		                    							'outlet_id' => $outlet,
+		                    							'user_id' => $inserted_id
+		                    						);
+		                    $this->timeframe_model->insert_data('user_outlets',$user_outlets);
+		                }
+
+
 	                    $this->session->set_flashdata('message','User has been saved successfully'.$error_message);
 	                    redirect(base_url().'brand_users/index/'.$brand_id);
 	                }
@@ -210,6 +232,59 @@ class Brand_users extends CI_Controller {
 		{
 			$this->session->set_flashdata('error','Unable to add user, please try again');
 			redirect(base_url().'brands');
+		}
+	}
+
+	public function add_existing_user()
+	{
+		$this->data = array();
+		$brand_id = $this->uri->segment(3);
+		$brand = get_users_brand($brand_id);
+
+		if(!empty($brand))
+		{
+			//get all user who are under the current master users
+			$this->data['existing_users'] = $this->brand_model->get_all_sub_users($this->user_id,$brand_id);
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['brand_name'] = $brand[0]->name;
+
+			$this->data['view'] = 'brand_users/add_existing_user';
+			_render_view($this->data);
+
+		}
+
+	}
+
+	public function save_existing_user()
+	{
+		$brand_id = $this->input->post('brand_id');
+
+		$this->form_validation->set_rules('user','user','required',                                            
+	                                            array('required' => 'User is required')
+	                                        );
+
+		if($this->form_validation->run() === FALSE)
+        {
+        	$brand = get_users_brand($brand_id);
+        	if(!empty($brand))
+        	{
+        		//get all user who are under the current master users
+				$this->data['existing_users'] = $this->brand_model->get_all_sub_users($this->user_id);
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand_name'] = $brand[0]->name;
+
+				$this->data['view'] = 'brand_users/add_existing_user';
+				_render_view($this->data);
+        	}
+        }
+        else
+        {
+        	$data = array(
+        				'brand_id' => $brand_id,
+        				'access_user_id' => $this->input->post('user'),
+        			);
+			$inserted_id = $this->timeframe_model->insert_data('brand_user_map',$data);
+			redirect(base_url().'brand_users/index/'.$brand_id);
 		}
 	}
 
@@ -257,7 +332,7 @@ class Brand_users extends CI_Controller {
 	        					'company_email' => $this->user_data['company_email'],
 	        					'company_url' =>  $this->user_data['company_url']
 	        				);
-	            $condition = array('id' => $this->input->post('user_id'));
+	            $condition = array('aauth_user_id' => $this->input->post('user_id'));
                 $this->timeframe_model->update_data('user_info',$user_data,$condition);
 
                 $error_message = '';
@@ -288,6 +363,29 @@ class Brand_users extends CI_Controller {
                 //remove previous permission and add new                
                 $this->aauth->remove_member($brands_user->access_user_id,$current_perm[0]->group_id);
                 $this->aauth->add_member($brands_user->access_user_id,$this->input->post('permission'));
+
+                $outlets_to_add = $this->input->post('outlets');
+                $condition = array('user_id' => $this->input->post('user_id'));
+	        	$user_outlets = $this->timeframe_model->get_data_array_by_condition('user_outlets',$condition);
+
+	        	if(!empty($user_outlets))
+	        	{
+		        	$outlet_ids = array_column($user_outlets,'outlet_id');
+		        	$outlets_to_add = array_diff($this->input->post('outlets'),$outlet_ids);
+		        	$outlets_to_delete = array_diff($outlet_ids,$this->input->post('outlets'));
+
+		        	foreach ($outlets_to_delete as $outlet)
+		        	{
+		        		$data = array('user_id' => $this->input->post('user_id'),'outlet_id' => $outlet);
+		        		$this->timeframe_model->delete_data('user_outlets',$data);
+		        	}
+		        }
+
+		        foreach ($outlets_to_add as $outlet)
+	        	{
+	        		$data = array('user_id' => $this->input->post('user_id'),'outlet_id' => $outlet);
+	        		$this->timeframe_model->insert_data('user_outlets',$data);
+	        	}
 
                 $this->session->set_flashdata('message','User has been updated successfully'.$error_message);
 	                       

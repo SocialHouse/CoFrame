@@ -49,10 +49,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'tour';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['approver/add-phase/(:num)'] = "approver/add_phase/$1";
-$route['approver/save-phase'] = "approver/save_phase";
-$route['approver/edit-phase/(:num)'] = "approver/edit_phase/$1";
+$route['edit-request/(:any)'] = "approvals/edit_request/(:any)";
+$route['view-request/(:any)'] = "approvals/view_request/(:any)";
+
+$route['approvals/save_edit_request'] = "approvals/save_edit_request";
+$route['approvals/save_reply'] = "approvals/save_reply";
+
+$route['approvals/change_comment_status'] = "approvals/change_comment_status";
+$route['approvals/get_approvals_by_date'] = "approvals/get_approvals_by_date";
+
+$route['approvals/(:any)'] = "approvals/index/$1";
+$route['reminders/(:any)'] = "reminders/index/$1";
+
+$route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
+$route['brands/save-existing-user'] = "brand_users/save_existing_user";
+
+$route['drafts/(:any)'] = "drafts/index/$1";
+$route['approvals/(:any)'] = "approvals/index/$1";
+$route['archives/export_post/(:any)'] = "archives/export_post/$1";
+$route['archives/(:any)'] = "archives/index/$1";
+
+
+
+$route['set-password/(:any)'] = "tour/set_password/$1";
+// $route['register_user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";
+$route['user_preferences/change-plan'] = "user_preferences/change_plan";
+$route['user_preferences/save_payment'] = "user_preferences/save_payment";
+
+$route['user_preferences/(:any)'] = "user_preferences/index/$1";
+

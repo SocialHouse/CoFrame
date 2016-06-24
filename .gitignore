@@ -4,8 +4,8 @@ application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
 
-application/config/database.php
-application/config/config.php
+/application/config/database.php
+/application/config/config.php
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
@@ -15,6 +15,7 @@ user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
+pma/
 
 # IDE Files
 #-------------------------
@@ -104,3 +105,8 @@ static/assets/css/*
 # track these mu-plugins, plugins, and themes
 # add your own entries here
 !public/wp-content/themes/sassapress/
+
+/application/config/database.php
+/application/config/config.php
+/assets/uploads/*
+uploads/*
