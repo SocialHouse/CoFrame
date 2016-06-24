@@ -85,111 +85,6 @@ jQuery(function($) {
 	    	
 	    });
 
-		// $('#brandStep2 .outlet-list li').on('click', function() {
-		// 	if(!$(this).hasClass('saved')) {
-		// 		$(this).toggleClass('disabled selected');
-		// 		$(this).siblings().each(function() {
-		// 			if(!$(this).hasClass('saved')) {
-		// 				$(this).addClass('disabled');
-		// 			}
-		// 		});
-		// 		if(!$(this).hasClass('disabled')) {
-		// 			$('#addOutlet').removeClass('btn-disabled').prop("disabled", false);
-		// 		}
-		// 		else {
-		// 			$('#addOutlet').addClass('btn-disabled').prop("disabled", true);
-		// 		}
-		// 	}
-		// });
-		// $('#brandStep3 .outlet-list li').on('click', function() {
-		// 	var savedOutlets = $('#userOutlet').val();
-		// 	var newOutlets = [];
-		// 	var thisOutlet = $(this).data('selectedOutlet');
-		// 	$(this).toggleClass('disabled selected');
-		// 	if($(this).hasClass('selected')) {
-		// 		if(savedOutlets !== '') {
-		// 			newOutlets.push(savedOutlets);
-		// 		}
-		// 		newOutlets.push(thisOutlet);
-		// 	}
-		// 	else {
-		// 		savedOutlets = savedOutlets.split(',');
-		// 		var index = savedOutlets.indexOf(thisOutlet);
-		// 		savedOutlets.splice(index, 1);
-		// 		newOutlets.push(savedOutlets);
-		// 	}
-		// 	$('#userOutlet').val(newOutlets);
-		// });
-		// //add brand outlet to list
-		// $('#addOutlet').on('click', function() {
-		// 	var $selectedItem = $('#brandOutlets .selected');
-		// 	var numberSelected =  $selectedItem.length;
-		// 	var savedOutlets = [];
-		// 	var outletsVal = $('#brandOutlet').val();
-		// 	if(numberSelected > 0) {
-		// 		var $selectedList = $('#selectedOutlets ul');
-		// 		var $listItem = $(document.createElement('li'));
-		// 		if(outletsVal !== '') {
-		// 			savedOutlets.push(outletsVal);
-		// 		}
-		// 		savedOutlets.push($selectedItem.data('selectedOutlet'));
-		// 		var outletHtml = $selectedItem.html();
-		// 		var outletTitle = $selectedItem.data('selectedOutlet');
-		// 		var removeOutlet = '<a href="#" class="pull-sm-right remove-outlet" data-remove-outlet="' + outletTitle + '"><i class="tf-icon circle-border">x</i></a>';
-		// 		$listItem.append(outletHtml + outletTitle + removeOutlet).attr('data-outlet', outletTitle);
-		// 		$selectedItem.addClass('saved').removeClass('selected');
-		// 		//set input field value
-		// 		$('#brandOutlet').val(savedOutlets);
-		// 		$selectedList.append($listItem);
-		// 	}
-		// 	else {
-		// 		return;
-		// 	}
-		// });
-		// //remove brand outlet to list
-		// $('body').on('click', '.remove-outlet', function() {
-		// 	var savedOutlets = $('#brandOutlet').val().split(',');
-		// 	var removeOutlet = $(this).data('remove-outlet');
-		// 	$('#selectedOutlets li[data-outlet="' + removeOutlet + '"]').slideUp(function() {
-		// 		var index = savedOutlets.indexOf(removeOutlet);
-		// 		$(this).remove();
-		// 		savedOutlets.splice(index, 1);
-		// 		$('#brandOutlet').val(savedOutlets);
-		// 	});
-		// 	$('#brandOutlets li[data-selected-outlet="' + removeOutlet + '"]').removeClass('saved').addClass('disabled');
-		// });
-
-		// $('#userRoleSelect').on('change', function() {
-		// 	var selectedRole = $(this).val();
-		// 	var $actPermissions = $('.permission-details:visible');
-		// 	if($actPermissions.length) {
-		// 		$actPermissions.fadeOut(function() {
-		// 			$('#' + selectedRole + 'Permissions').slideDown();
-		// 		});
-		// 	}
-		// 	else {
-		// 		$('#' + selectedRole + 'Permissions').slideDown();
-		// 	}
-		// });
-
-		// $('.edit-permissions').on('click', function() {
-		// 	var section = $(this).data('section');
-		// 	var $sectionList = $('#' + section).find('.permissions-list');
-		// 	$(this).toggleClass('btn-disabled');
-		// 	$sectionList.toggleClass('view');
-		// 	if($(this).hasClass('btn-disabled')) {
-		// 		$sectionList.find('li').css('display', 'block');
-		// 	}
-		// 	else {
-		// 		$sectionList.find('li.hidden').css('display', 'none');
-		// 	}
-		// });
-		// $('.permissions-list .radio-button').on('click', function() {
-		// 	var $parent = $(this).parent('li');
-		// 	$parent.toggleClass('hidden');
-		// });
-		
-
 		//temp nav activation
 		var pathname = location.pathname;
 		$('.navbar-brand-manage .nav-link').each(function() {
@@ -207,11 +102,6 @@ jQuery(function($) {
 				var $chk_box ='';
 				if($btn.data('value')=='check-all'){
 					$chk_box =$btn.parent().parent().parent().children('li').find('input');
-					// if( $btn.hasClass('selected')){
-					// 	$$chk_box.removeAttr('checked');
-					// }else{
-					// 	$$chk_box.attr('checked','checked');
-					// }
 					$.each($chk_box,function(a,input_btn){
 						if( $btn.hasClass('selected')){
 							$(input_btn).removeAttr('checked');
@@ -466,6 +356,32 @@ jQuery(function($) {
 	    	}
 		});
 		
+		//different media uploads for facebook
+		$('body').on('click', '#facebookMediaUpload .media-item', function() {
+			var mediaType = $(this).data('value');
+			$('input[value="' + mediaType + '"]').prop('checked', true);
+			$('#facebookMediaUpload').slideUp(function() {
+				if(mediaType === "Album") {
+					$('#mediaUpload').addClass('photo-album-upload');
+				}
+				$('#mediaUpload').slideDown(function() {
+					if(mediaType === "Album") {
+						$('#albumType').show();
+					}
+				});
+			});
+		});
+		$('#albumName').on('keyup', function() {
+			if($(this).val() !== "") {
+				$('input[value="newAlbum"]').prop('checked', true);
+			}
+		});
+		$('#existingAlbum').on('change', function() {
+			if($(this).val() !== "") {
+				$('input[value="existingAlbum"]').prop('checked', true);
+			}
+		});
+
 		//popover triggers
 		$('body').on('click', '[data-toggle="popover"]', function(e) {
 			var $target=$(this);
