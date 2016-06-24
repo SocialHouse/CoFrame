@@ -116,7 +116,7 @@ if(!function_exists('rename_file'))
 {
     function rename_file($old_path,$new_path) 
     {
-        rename($old_path,$new_path);
+        @rename($old_path,$new_path);
     }
 }
 

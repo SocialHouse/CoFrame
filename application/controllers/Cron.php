@@ -29,10 +29,12 @@ class Cron extends CI_Controller {
         $this->load->model('timeframe_model');
         $this->load->model('post_model');
         $this->load->config('twitter');
+        $this->load->config('tumblr');
         $this->user_data = $this->session->userdata('user_info');
         $this->user_id = $this->session->userdata('id');
         $this->load->library('twitteroauth');
-        ini_set('max_execution_time', 1000);
+        $this->load->library('tblr');
+        ini_set('max_execution_time', 2000);
     }
 
     function index()
@@ -68,24 +70,116 @@ class Cron extends CI_Controller {
         if(!empty($posts))
         {
             $previous_owner = '';
+            $previous_outlet = '';
             foreach($posts as $post)
             {
                 $flag = 0;
-                if(empty($previous_owner))
+                if(empty($previous_owner) AND empty($previous_outlet))
                 {
                     $previous_owner = $post->created_by;
+                    $previous_outlet = $post->outlet_constant;
                     $flag = 1;
                 }
 
-                if($previous_owner != $post->created_by)
+                if($previous_owner != $post->created_by OR $previous_outlet != $post->outlet_constant)
                 {
                     $previous_owner = $post->created_by;
+                    $previous_outlet = $post->outlet_constant;
                     $flag = 1;
                 }
-                if($post->outlet_constant)
+                if($post->outlet_constant == "TWITTER")
                 {
                     $this->twitter_post($post,$flag);
                 }
+                if($post->outlet_constant == "TUMBLR")
+                {
+                    $this->tumblr_post($post,$flag);
+                }
+            }
+        }
+    }
+
+    function tumblr_post($post_data,$flag)
+    {
+        $upload = 0;
+        $condition = array('user_id' => $post_data->created_by,'type' => 'tumblr');
+        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);     
+        if(!empty($is_key_exist))
+        {
+            if($is_key_exist[0]->access_token && $is_key_exist[0]->access_token_secret)
+            {
+                if($flag == 1)
+                {
+                    $this->tumblr_connection = $this->tblr->create($this->config->item('tumblr_consumer_key'), $this->config->item('tumblr_secret_key'), $is_key_exist[0]->access_token,  $is_key_exist[0]->access_token_secret);
+
+                    
+                    $user_info = $user_info = $this->tumblr_connection->get('user/info');                   
+                        
+                    if(!isset($user_info->errors))
+                    {                           
+                        $upload = 1;    
+                    }                    
+                }
+                else
+                {
+                    $user_info = $user_info = $this->tumblr_connection->get('user/info');
+                    $upload = 1;                    
+                }
+
+                if($upload == 1)
+                {
+                    echo "<pre>";
+                    $media = $this->post_model->get_images($post_data->id);                    
+                    
+                    if (is_object($user_info->response)) 
+                    {
+                        //array of all users blogs
+                        $blogs = $user_info->response->user->blogs;
+                        foreach ($blogs as $blog) 
+                        {
+                            $str_user_blog = trim(str_replace('/', '', str_replace('http://', '', $blog->url)));
+                        }
+                    }
+                    if(!empty($str_user_blog))
+                    {
+                        $post_message = array('type' => 'regular', 'title' => $post_data->content, 'format' => 'html');
+                        // $post_message = array('type' => 'regular', 'title' => $post_data->content, 'format' => 'html');
+                        $is_video = 0;
+                        if(!empty($media))
+                        {                        
+                            if(!empty($media))
+                            {
+                                $post_message = array('type' => 'photo', 'caption' => $post_data->content,'format' => 'html');
+                                foreach($media as $file)
+                                {
+                                    if($file->type == 'images')
+                                    {
+                                        $post_message['data'] = file_get_contents(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$file->name);
+                                    }
+                                    else
+                                    {
+                                        $post_message['type'] = 'video';
+                                        $post_message['data'] = file_get_contents(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$file->name);                             
+                                    }
+                                }                       
+                            }
+                        }
+
+                        $post_status = $this->tumblr_connection->post('blog/'.$str_user_blog.'/post', $post_message);
+                        if(!empty($post_message))
+                        {
+                            if(isset($post_status->meta->status) AND $post_status->meta->status == 201)
+                            {                           
+                                $status_data = array(
+                                                'status' => 'posted'
+                                            );
+                                $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                            }
+                        }
+                    }                    
+                }
+                return;
+
             }
         }
     }
@@ -103,7 +197,7 @@ class Cron extends CI_Controller {
                 {
                     $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $is_key_exist[0]->access_token,  $is_key_exist[0]->access_token_secret);                   
                     
-                    $content = $this->connection->get('account/verify_credentials');  
+                    $content = $this->connection->get('account/verify_credentials'); 
                         
                     if(!isset($content->errors))
                     {                           
@@ -114,7 +208,7 @@ class Cron extends CI_Controller {
                 {
                     $upload = 1;                    
                 }
-                echo $upload;
+
                 if($upload == 1)
                 {
                     $media = $this->post_model->get_images($post_data->id);
@@ -187,7 +281,7 @@ class Cron extends CI_Controller {
                                       'status'    => $post_data->content,
                                       'media_ids' => $media_id
                                     ]);
-                                    print_r($reply);
+
                                     if(!isset($reply->errors))
                                     {                           
                                         $status_data = array(
@@ -199,9 +293,7 @@ class Cron extends CI_Controller {
                             }                       
                         }
                     }
-                    echo "<pre>";
-                    print_r($media_ids);
-                    echo "</pre>";
+                   
                     if($is_video == 0)
                     {
                         $parameters = [
@@ -213,10 +305,7 @@ class Cron extends CI_Controller {
                             unset($parameters['media_ids']);
                         } 
 
-                        $reply = $this->connection->post('statuses/update', $parameters);
-                        echo "<pre>";
-                        print_r($reply);
-                        echo "</pre>";
+                        $reply = $this->connection->post('statuses/update', $parameters);                       
                         if(!isset($reply->errors))
                         {                           
                             $status_data = array(

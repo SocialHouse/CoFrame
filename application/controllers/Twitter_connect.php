@@ -47,8 +47,9 @@ class Twitter_connect extends CI_Controller {
 
 	public function twitter($brand_id,$outlet_id)
 	{
-		$this->session->set_userdata('brand_id',$brand_id);
-		$this->session->set_userdata('outlet_id',$outlet_id);
+		$this->reset_session();
+		echo $this->session->set_userdata('brand_id',$brand_id);
+		echo $this->session->set_userdata('outlet_id',$outlet_id);
 		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 		
@@ -131,7 +132,7 @@ class Twitter_connect extends CI_Controller {
 				$this->reset_session();
 
 				
-				$this->load->view('social_media/twitter_success');
+				echo "Access token has been saved successfully";
 				
 			}
 			else
