@@ -3110,9 +3110,8 @@ textarea.form-control {
 	width: 64px;
 	display: inline-block;
 	float: left;
-	+ .form__file-preview {
-		margin-left: 10px;
-	}
+	margin-bottom: 10px;
+	margin-right: 10px;
 }
 .js .file-upload-label {
 	cursor: pointer;
