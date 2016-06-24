@@ -8,21 +8,21 @@
 	<form id="archive-export" method="POST" action="<?php echo base_url();?>archives/export_post/<?php echo $brand->slug?>" >
 
 		<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
-		<div class="row equal-cols-cal relative-wrapper archives">
+		<div class="row equal-columns relative-wrapper archives">
 			<!-- archive-date-select -->
-			<div class="col-md-3 col-sm-6 ">
+			<div class="col-md-3 col-sm-6 equal-height">
 				<?php $this->load->view('archives/date_select'); ?>
 			</div>
 			<!-- archive-outlet-select -->
-			<div class="col-md-3 col-sm-6">
+			<div class="col-md-3 col-sm-6 equal-height">
 				<?php $this->load->view('archives/outlet_select'); ?>
 			</div>
 			<!-- archive-tag-select -->
-			<div class="col-md-3 col-sm-6 ">
+			<div class="col-md-3 col-sm-6 equal-height">
 				<?php $this->load->view('archives/tag_select'); ?>
 			</div>
 			<!-- archive-export -->
-			<div class="col-md-3 col-sm-6 ">
+			<div class="col-md-3 col-sm-6 equal-height">
 				<div class="container-archive">
 					<h2 class="text-xs-center">Export Foramt</h2>
 					<ul class="timeframe-list">
@@ -39,13 +39,13 @@
 							</label>
 						</li>
 					</ul>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<?php
 	        $message = $this->session->flashdata('message');
 	        if(!empty($message)){
-	           echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>'; 
+	           echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>';
 	        }
 	    ?>
 		<div class="row archives">

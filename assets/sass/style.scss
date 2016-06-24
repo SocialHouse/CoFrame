@@ -789,14 +789,14 @@ a {
 		}
 		> .qtip-content {
 			padding: 0;
-			.equal-cols {
+			.equal-columns {
 				margin: 0;
 			}
 			[class*="col-"] {
 				padding-top: 15px;
 			}
 		}
-		.equal-cols [class*="container-"] {
+		.equal-columns [class*="container-"] {
 			padding-bottom: 62px;
 		}
 		.post-content-footer {
@@ -1559,7 +1559,7 @@ a {
 		font-family: $bebas-book;
 		font-size: remCalc(30px);
 	}
-	.equal-cols & {
+	.equal-columns & {
 		[class*="container-"] {
 			padding-bottom: 75px;
 		}
@@ -1884,7 +1884,7 @@ a {
 		margin-bottom: 1rem;
 	}
 }
-.equal-cols {
+.equal-columns {
 	[class*="container-"] {
 		height: 100%;
 		position: relative;

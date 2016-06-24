@@ -9020,11 +9020,11 @@ a {
     margin-left: 24px; }
   .qtip.qtip-calendar-post > .qtip-content {
     padding: 0; }
-    .qtip.qtip-calendar-post > .qtip-content .equal-cols {
+    .qtip.qtip-calendar-post > .qtip-content .equal-columns {
       margin: 0; }
     .qtip.qtip-calendar-post > .qtip-content [class*="col-"] {
       padding-top: 15px; }
-  .qtip.qtip-calendar-post .equal-cols [class*="container-"] {
+  .qtip.qtip-calendar-post .equal-columns [class*="container-"] {
     padding-bottom: 62px; }
   .qtip.qtip-calendar-post .post-content-footer {
     border: 0;
@@ -9665,7 +9665,7 @@ a {
   .brand-step .brand-title {
     font-family: "Bebas Book", Arial, Helvetica, sans-serif;
     font-size: 2rem; }
-  .equal-cols .brand-step [class*="container-"] {
+  .equal-columns .brand-step [class*="container-"] {
     padding-bottom: 75px; }
   .brand-step label {
     font-size: 0.8rem; }
@@ -9885,20 +9885,20 @@ a {
 .brand-link img {
   margin-bottom: 1rem; }
 
-.equal-cols [class*="container-"] {
+.equal-columns [class*="container-"] {
   height: 100%;
   position: relative;
   padding-bottom: 100px; }
-  .equal-cols [class*="container-"] [class*="container-"] {
+  .equal-columns [class*="container-"] [class*="container-"] {
     height: auto;
     min-height: 100%; }
-.equal-cols .container-post-discussion, .equal-cols .container-view-approvals {
+.equal-columns .container-post-discussion, .equal-columns .container-view-approvals {
   padding-bottom: 0;
   height: auto;
   min-height: 100%; }
-.equal-cols .container-post-approval-preview {
+.equal-columns .container-post-approval-preview {
   padding-bottom: 1.5rem; }
-.equal-cols #step_1_edit {
+.equal-columns #step_1_edit {
   height: 100%; }
 
 .equalSections {

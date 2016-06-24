@@ -1,8 +1,8 @@
 <section id="overview" class="page-main bg-white col-sm-12">
 	<form action="" class="file-upload clearfix row-sm-12">	
-	<div class="row row-sm-12 equal-cols relative-wrapper">
+	<div class="row row-sm-12 equal-columns relative-wrapper">
 		<div class="brand-steps col-xl-11 center-block">
-			<div class="col-md-3 col-sm-6 brand-step brand-steps-success" id="brandStep1">
+			<div class="col-md-3 col-sm-6 brand-step equal-height brand-steps-success" id="brandStep1">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 1</h3>
 					<h4 class="text-xs-center">Add Brand</h4>
@@ -30,7 +30,7 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 brand-step" id="brandStep2">
+			<div class="col-md-3 col-sm-6 equal-height brand-step" id="brandStep2">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 2</h3>
 					<h4 class="text-xs-center">Brand Outlets</h4>
@@ -59,7 +59,7 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 brand-step" id="brandStep3">
+			<div class="col-md-3 col-sm-6 equal-height brand-step" id="brandStep3">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 3</h3>
 					<h4 class="text-xs-center">Users &amp; Permissions</h4>
@@ -175,7 +175,7 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 brand-step" id="brandStep4">
+			<div class="col-md-3 col-sm-6 equal-height brand-step" id="brandStep4">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 4</h3>
 					<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>

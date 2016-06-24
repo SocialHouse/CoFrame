@@ -1,4 +1,4 @@
-<?php $this->load->view('partials/brand_nav'); ?>	
+<?php $this->load->view('partials/brand_nav'); ?>
 
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header">
@@ -10,11 +10,11 @@
 			</div>
 		</div>
 	</header>
-	<div class="row equal-cols">
-		<div class="col-md-6">
+	<div class="row equal-columns">
+		<div class="col-md-6 equal-height">
 			<div class="container-reminder-list">
 				<h3>Reminders <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
-				
+
 				<ul class="reminder-list timeframe-list">
 					<?php
 					if(!empty($reminders))
@@ -31,11 +31,11 @@
 							}
 							?>
 							<li>
-								<?php 
+								<?php
 									$date = !empty($reminder->approve_by) ? date('m/d',strtotime($reminder->approve_by)): date('m/d',strtotime($reminder->created_at));
 									echo $reminder->text." ".$date.$symbol;
-							 	?>
-							</li>											
+								?>
+							</li>
 							<?php
 						}
 					}
@@ -49,10 +49,10 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 equal-height">
 			<div class="container-summary-list border-top border-gray-lighter bg-gray-lightest padding-2rem">
 				<h3>Total Summary <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
-				
+
 				<ul class="summary-list timeframe-list">
 					<li><i class="fa fa-check-circle color-info"></i>Scheduled Posts <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'scheduled'); ?></div></li>
 					<li><i class="fa fa-check-circle color-success"></i>Posted <div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'posted'); ?></div></li>
@@ -61,7 +61,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 equal-height">
 			<?php
 			$this->load->view('partials/summary');
 			?>

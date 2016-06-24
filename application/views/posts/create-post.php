@@ -12,8 +12,8 @@
 
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
-		<div class="row equal-cols create">
-			<div class="col-md-4">
+		<div class="row equal-columns create">
+			<div class="col-md-4 equal-height">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
 					<div id="live-post-preview">
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-4 equal-height">
 				<div class="container-post-details post-content">
 					<h4 class="text-xs-center">Post Details</h4>
 					<div class="form-group">
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-4 equal-height">
 				<div class="container-approvals">
 					<div class="dafault-phase">
 						<div>

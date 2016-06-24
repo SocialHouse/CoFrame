@@ -10,8 +10,8 @@
 	<input type="hidden" name="post_id" id="post-id" value="<?php echo $post_id; ?>" />
 	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
 
-	<div class="row equal-cols">
-		<div class="col-md-4">
+	<div class="row equal-columns">
+		<div class="col-md-4 equal-height">
 			<div class="container-post-approval-preview post-content">
 				<h4 class="text-xs-center">Post</h4>
 				<div id="live-post-preview-approver">
@@ -109,7 +109,7 @@
 			</div>
 		</div>
 		
-		<div class="col-md-4">
+		<div class="col-md-4 equal-height">
 			<div class="bg-gray-lightest border-gray-lighter border-all padding-22px container-view-approvals">
 				<h4 class="text-xs-center">Approval Info</h4>
 				<div class="bg-white approval-phase animated fadeIn active" id="approvalPhase1">
@@ -148,7 +148,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-4 equal-height">
 			<div class="container-post-discussion post-content">
 				<div class="padding-22px">
 					<h4 class="text-xs-center">Edit Requests</h4>

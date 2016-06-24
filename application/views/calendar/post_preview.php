@@ -1,9 +1,9 @@
-<?php 
+<?php
 	if(!empty($post_details))
 	{
 		$outlet_name = $post_details->outlet_name;
 
-		$all_phases = get_post_approvers($post_details->id);								
+		$all_phases = get_post_approvers($post_details->id);
 		$user_is = '';
 		$approver_stats = '';
 		$phase_id = '';
@@ -22,19 +22,17 @@
 		if(empty($view_type)){
 			$view_type = 'week';
 		}
-
-
-?>	
+?>
 		<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 		<input type="hidden" name="outlet_id" id="postOutlet" value="<?php echo $post_details->user_id; ?>" />
-		
-		<div class="row equal-cols">
+
+		<div class="row equal-columns">
 			<div class="col-md-6 bg-white equal-height">
 				<div class="container-post-preview">
 					<div id="live-post-preview-approver">
 						<?php
 						if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($outlet_name).".php")){
-						 	$this->load->view('calendar/post_preview/'.strtolower($outlet_name));
+							$this->load->view('calendar/post_preview/'.strtolower($outlet_name));
 						}
 						?>
 					</div>
@@ -61,12 +59,12 @@
 								{
 									?>
 									<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>
-									<?php 
+									<?php
 								}
 								elseif($approver_status == 'approved')
 								{
 									?>
-									<div class="before-approve">	
+									<div class="before-approve">
 										<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
 										<a  class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
 									</div>
@@ -106,22 +104,22 @@
 											<button type="button" class="btn btn-xs btn-default">Posted</button>
 											<?php
 										}
-										?>								  		
+										?>
 								  	</div>
 									<?php
 								}
 							}
 							?>
-						</span>						
+						</span>
 					</footer>
 				</div>
 			</div>
 			
 				<?php 
-					if(!empty($phases)){ 
-					?> 
+					if(!empty($phases)){
+					?>
 					<div class="col-md-6 bg-gray-lightest equal-height">
-						<div class="container-phases">							
+						<div class="container-phases">
 							<?php
 								foreach ($phases as $phase_no => $obj) {
 									?>
@@ -182,15 +180,15 @@
 										<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
 										<?php
 									}
-								  	if($user_is == 'approver')
+									if($user_is == 'approver')
 								  	{
-									  	?>
-									  	<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'edit-request/'.$post_details->id; ?>">Suggest an Edit</a>
-									  	<?php
+										?>
+										<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'edit-request/'.$post_details->id; ?>">Suggest an Edit</a>
+										<?php
 									}
 									?>
 								</div>
-							</footer>							
+							</footer>
 						</div>
 					</div>
 					<?php
