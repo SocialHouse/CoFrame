@@ -19,7 +19,7 @@
 		  		<a class="nav-link" href="<?php echo base_url().'approvals/'.$brand->slug; ?>">Approvals</a>
 			</li>
 			<li class="nav-item">
-	  			<a class="nav-link" href="cocreate.php">Co-Create</a>
+	  			<a class="nav-link" href="<?php echo base_url().'co_create/create/'.$brand->slug; ?>">Co-Create</a>
 			</li>
 			<li class="nav-item">
 		  		<a class="nav-link" href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>">Calendar</a>

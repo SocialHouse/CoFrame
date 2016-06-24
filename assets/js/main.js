@@ -2097,6 +2097,11 @@ jQuery(function($) {
 		var h = today.getHours();
 		var m = today.getMinutes();
 		var s = today.getSeconds();
+		// add leading 0
+		if (s < 10){
+			s = "0"+s;
+		}
+
 		h = checkHours(h);
 		m = checkMinutes(m);
 		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
