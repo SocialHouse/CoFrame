@@ -22,7 +22,14 @@ jQuery(function($) {
 
 
 	$(document).ready(function() {
-
+		// Prevent enter key from submitting forms.
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+			  event.preventDefault();
+			  return false;
+			}
+		});
+		  
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
 		var outlet_const = $('.outlet_ul li:first').data('outlet-const');
 		$('.outlet_ul li:first').toggleClass('disabled');
@@ -2089,9 +2096,10 @@ jQuery(function($) {
 		var today = new Date();
 		var h = today.getHours();
 		var m = today.getMinutes();
+		var s = today.getSeconds();
 		h = checkHours(h);
 		m = checkMinutes(m);
-		document.getElementById('userTime').innerHTML = h + ":" + m;
+		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
 		var t = setTimeout(setUserTime, 500);
 	}
 	function checkMinutes(i) {

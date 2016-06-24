@@ -409,7 +409,16 @@ class Brands extends CI_Controller {
     	$this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);
     	if(!empty($this->data['brand']))
     	{
-    		$brand_id = $this->data['brand'][0]->id;
+    		// Check if user has added brands previously
+            $existing_brands = $this->brand_model->get_users_brand($this->user_id);
+            if (count($existing_brands > 1)){
+                $this->data['isFirstBrand'] = FALSE;
+            }
+            else{
+                $this->data['isFirstBrand'] = TRUE;
+            }
+
+            $brand_id = $this->data['brand'][0]->id;
 			$condition = array('brand_id' => $brand_id);
 			$this->data['brand_tags'] = $this->timeframe_model->get_data_by_condition('brand_tags',$condition);
 			$this->load->model('post_model');
@@ -529,7 +538,7 @@ class Brands extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->load->model('reminder_model');
-			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id);				
+			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id,0,'reminder');				
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
  			$this->data['css_files'] = array(css_url().'fullcalendar.css');

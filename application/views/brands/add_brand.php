@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<footer class="post-content-footer">
-							<button type="reset" class="btn btn-sm btn-default">Cancel</button>
+							<button type="button" class="btn btn-sm btn-default" onclick="window.location='/brands/overview';">Cancel</button>
 							<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand" disabled="disabled">Next</button>
 	
 							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled btn-secondary pull-sm-right btn-next-step hide" data-next-step="2"></button>

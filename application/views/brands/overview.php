@@ -39,7 +39,7 @@
 							<h3>Reminders <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
 							<ul class="reminder-list timeframe-list">
 								<?php 
-									$reminders = get_brand_reminders($this->user_id,$brand->id,4);
+									$reminders = get_brand_reminders($this->user_id, $brand->id, 4, 'reminder');
 									if(!empty($reminders))
 									{
 										foreach($reminders as $reminder)
@@ -56,7 +56,7 @@
 											<li>
 												<?php 
 													$date = !empty($reminder->approve_by) ? date('m/d',strtotime($reminder->approve_by)): date('m/d',strtotime($reminder->created_at));
-													echo $reminder->text." ".$date.$symbol;
+													echo '<a href="#">'.$reminder->text." ".$date.$symbol."</a>";
 											 	?>
 											</li>											
 											<?php
