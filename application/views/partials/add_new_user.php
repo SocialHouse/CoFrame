@@ -1,6 +1,6 @@
 
-<div id="addNewUser" class="outlet-list hidden">
-	<h5 class="text-xs-center border-bottom border-black ">Add a User</h5>
+<div id="addNewUser" class="hidden">
+	<h5 class="text-xs-center border-bottom border-black ">Add a User<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="User Images...Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h5>
 	<div class="form-group">
 		<a href="#" class="pull-sm-right remove-user-img hide" style="display: none !important;"><i class="tf-icon circle-border">x</i></a>
 		<div class="form__input center-block user_upload_img_div">
@@ -23,7 +23,7 @@
 	</div>
 	
 	<h5 class="border-title"><span>Permitted Outlets</span></h5>
-	<ul>
+	<div class="outlet-list">
 		<ul>
 			<?php
 			if(!empty($outlets))
@@ -36,7 +36,7 @@
 				}
 			}
 			?>								
-		</ul>		
-	</ul>
+		</ul>
+	</div>
 	<input type="hidden" id="userOutlet">
 </div>

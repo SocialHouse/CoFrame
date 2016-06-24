@@ -955,13 +955,14 @@ jQuery(function($) {
 	var brandStepH;
 	$('#addNewUser').on('contentSlidDown', function(event, element) {
 		parentH = $(this).parents('.brand-step').prop('style')['height'];
-		if(parentH !== 'auto') {
+		contentH = $(this).parents('.container-brand-step').height();
+		if(parentH !== 'auto' && contentH > parentH) {
 			brandStepH = parentH;
-			$(this).parents('.brand-step').css('height', 'auto');
+			$(this).parents('.brand-step').css({'height': 'auto'});
 		}
 	});
 	$('#addNewUser').on('contentSlidUp', function(event, element) {
-		$(this).parents('.brand-step').css('height', brandStepH);
+		$(this).parents('.brand-step').css({'height': brandStepH, 'min-height': ''});
 	});
 
 	$('.commentReply').on('contentSlidDown', function(event, element) {
