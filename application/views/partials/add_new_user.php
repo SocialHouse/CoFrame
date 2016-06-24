@@ -17,7 +17,7 @@
 		<label for="firstName">User Info:</label>
 		<input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name" autocomplete="off">
 		<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name" autocomplete="off">
-		<input type="text" class="form-control" id="userTitle" placeholder="Title (Optional)">
+		<input type="text" class="form-control" id="userTitle" placeholder="Title">
 		<input type="email" class="form-control" id="userEmail" placeholder="Email" name="email" autocomplete="off">
 		<div id="emailValid" class="error hide">Please enter valid email</div>
 	</div>
