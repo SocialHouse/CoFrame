@@ -441,15 +441,14 @@ a {
 		}
 	}
 }
-.modal-toggler {
+.modal-toggler, .cancel-icon {
+	position: absolute;
 	padding: 0;
 	background: none;
 	border: 0;
 	height: 34px;
 	width: 34px;
 	outline: none;
-	display: none;
-	position: fixed;
 	z-index: 1050;
 	left: 1.5rem;
 	top: 1.5rem;
@@ -477,7 +476,10 @@ a {
 		}
 	}
 }
-
+.modal-toggler {
+	position: fixed;
+	display: none;
+}
 .brand-navigation {
 	height: 100%;
 	padding-left: remCalc(30px);

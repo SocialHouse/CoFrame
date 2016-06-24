@@ -198,4 +198,9 @@
 		<div class="hidden" id="addBrandSuccess"><a href="dashboard.php" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 	</div>
 	</form>
+	<button type="button" class="cancel-icon">
+		<span class="sr-only">Toggle Modal</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
 </section>
