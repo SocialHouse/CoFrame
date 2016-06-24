@@ -439,6 +439,7 @@ class Post_model extends CI_Model
 		$this->db->where('posts.status','scheduled');
 		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.date("Y-m-d",strtotime($date)).'")');
 		$this->db->order_by('created_by','asc');
+		$this->db->order_by('outlet_constant','asc');
 		$query = $this->db->get('posts');
 		if($query->num_rows() > 0)
 		{
