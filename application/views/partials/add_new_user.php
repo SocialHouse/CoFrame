@@ -1,6 +1,6 @@
 
-<div id="addNewUser" class="outlet-list hidden">
-	<h5 class="text-xs-center border-bottom border-black ">Add a User</h5>
+<div id="addNewUser" class="hidden">
+	<h5 class="text-xs-center border-bottom border-black ">Add a User<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="User Images...Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h5>
 	<div class="form-group">
 		<a href="#" class="pull-sm-right remove-user-img hide" style="display: none !important;"><i class="tf-icon circle-border">x</i></a>
 		<div class="form__input center-block user_upload_img_div">
@@ -15,15 +15,15 @@
 	</div>
 	<div class="form-group input-margin">
 		<label for="firstName">User Info:</label>
-		<input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name" autocomplete="off">
-		<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name" autocomplete="off">
-		<input type="text" class="form-control" id="userTitle" placeholder="Title (Optional)">
-		<input type="email" class="form-control" id="userEmail" placeholder="Email" name="email" autocomplete="off">
+		<input type="text" class="form-control" id="firstName" placeholder="First Name *" name="first_name" autocomplete="off">
+		<input type="text" class="form-control" id="lastName" placeholder="Last Name *" name="last_name" autocomplete="off">
+		<input type="text" class="form-control" id="userTitle" placeholder="Title">
+		<input type="email" class="form-control" id="userEmail" placeholder="Email *" name="email" autocomplete="off">
 		<div id="emailValid" class="error hide">Please enter valid email</div>
 	</div>
 	
 	<h5 class="border-title"><span>Permitted Outlets</span></h5>
-	<ul>
+	<div class="outlet-list">
 		<ul>
 			<?php
 			if(!empty($outlets))
@@ -36,7 +36,7 @@
 				}
 			}
 			?>								
-		</ul>		
-	</ul>
+		</ul>
+	</div>
 	<input type="hidden" id="userOutlet">
 </div>

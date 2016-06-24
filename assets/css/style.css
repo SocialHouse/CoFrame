@@ -8751,19 +8751,18 @@ a {
         -webkit-transform: rotate(-45deg);
         transform: rotate(-45deg); }
 
-.modal-toggler {
+.modal-toggler, .cancel-icon {
+  position: absolute;
   padding: 0;
   background: none;
   border: 0;
   height: 34px;
   width: 34px;
   outline: none;
-  display: none;
-  position: fixed;
   z-index: 1050;
   left: 1.5rem;
   top: 1.5rem; }
-  .modal-toggler .icon-bar {
+  .modal-toggler .icon-bar, .cancel-icon .icon-bar {
     display: block;
     width: 34px;
     height: 2px;
@@ -8772,14 +8771,18 @@ a {
     position: absolute;
     right: 0;
     top: 15px; }
-    .modal-toggler .icon-bar:nth-child(2) {
+    .modal-toggler .icon-bar:nth-child(2), .cancel-icon .icon-bar:nth-child(2) {
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg); }
-    .modal-toggler .icon-bar:nth-child(3) {
+    .modal-toggler .icon-bar:nth-child(3), .cancel-icon .icon-bar:nth-child(3) {
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
-  .modal-toggler:hover .icon-bar {
+  .modal-toggler:hover .icon-bar, .cancel-icon:hover .icon-bar {
     background: #000; }
+
+.modal-toggler {
+  position: fixed;
+  display: none; }
 
 .brand-navigation {
   height: 100%;

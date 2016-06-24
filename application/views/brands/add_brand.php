@@ -12,7 +12,7 @@
 				<div class="col-md-3 col-sm-6 equal-height brand-step active" id="brandStep1">
 					<div class="container-brand-step">
 						<h3 class="text-xs-center">Step 1</h3>
-						<h4 class="text-xs-center">Add Brand</h4>					
+						<h4 class="text-xs-center">Add Brand<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Brand Images... Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>					
 						<div class="brand-fields">
 							<div class="form-group">
 								<div class="brand-logo text-xs-center">
@@ -169,6 +169,8 @@
 								<div class="form-group">
 									<select class="form-control" name="tagLabel" id="tagLabel">								
 										<option value="">Select Label</option>
+										<option value="Marketing">Marketing</option>
+										<option value="E-Commerce">E-Commerce</option>
 										<option value="other">+ Add Label</option>
 									</select>
 								</div>
@@ -196,4 +198,9 @@
 		<div class="hidden" id="addBrandSuccess"><a href="dashboard.php" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 	</div>
 	</form>
+	<button type="button" class="cancel-icon">
+		<span class="sr-only">Toggle Modal</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
 </section>
