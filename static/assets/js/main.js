@@ -128,6 +128,31 @@ jQuery(function($) {
 				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
 			}
 		});
+
+		$('body').on('click', '#facebookMediaUpload .media-item', function() {
+			var mediaType = $(this).data('value');
+			$('input[value="' + mediaType + '"]').prop('checked', true);
+			$('#facebookMediaUpload').slideUp(function() {
+				if(mediaType === "Album") {
+					$('#mediaUpload').addClass('photo-album-upload');
+				}
+				$('#mediaUpload').slideDown(function() {
+					if(mediaType === "Album") {
+						$('#albumType').show();
+					}
+				});
+			});
+		});
+		$('#albumName').on('keyup', function() {
+			if($(this).val() !== "") {
+				$('input[value="newAlbum"]').prop('checked', true);
+			}
+		});
+		$('#existingAlbum').on('change', function() {
+			if($(this).val() !== "") {
+				$('input[value="existingAlbum"]').prop('checked', true);
+			}
+		});
 		//popover triggers
 		$('[data-toggle="popover"]').qtip({
 			content: {

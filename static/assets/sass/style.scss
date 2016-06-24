@@ -1862,10 +1862,6 @@ a {
 		height: 100%;
 		position: relative;
 		padding-bottom: 100px;
-		[class*="container-"] {
-			height: auto;
-			min-height: 100%;
-		}
 	}
 	.container-post-discussion, .container-view-approvals {
 		padding-bottom: 0;
@@ -2178,6 +2174,9 @@ a {
 	font-size: remCalc(10px);
 	letter-spacing: .25em;
 	padding-top: 2rem;
+}
+#albumType {
+	position: relative;
 }
 .post-content-footer {
 	position: absolute;
@@ -2838,6 +2837,13 @@ label {
 	font-size: 10px;
 	letter-spacing: .25em;
 }
+.or-label {
+	position: absolute;
+	top: 0;
+	text-align: center;
+	width: 100%;
+	line-height:2.5em;
+}
 select.form-control {
 	height: 36px;
 	padding: 5px 3px;
@@ -2965,24 +2971,29 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 /*drag & drop styles*/
-.has-advanced-upload .form__input {
-	background: $gray-lightest;
-	color: $gray-lighter;
-	font-size: remCalc(18px);
-	padding: 1rem;
-	min-height: remCalc(240px);
-	position: relative;
-	letter-spacing: normal;
-	text-transform: none;
-	-webkit-transition: background-color .15s linear;
-	transition: background-color .15s linear;
-	.tf-icon {
-		height: 22px;
-		width: 22px;
-		border-color: $gray-lighter;
-		font-size: 22px;
-		line-height: 18px;
-		margin-right: 10px;
+.has-advanced-upload {
+	.form__input {
+		background: $gray-lightest;
+		color: $gray-lighter;
+		font-size: remCalc(18px);
+		padding: 1rem;
+		min-height: remCalc(240px);
+		position: relative;
+		letter-spacing: normal;
+		text-transform: none;
+		-webkit-transition: background-color .15s linear;
+		transition: background-color .15s linear;
+		.tf-icon {
+			height: 22px;
+			width: 22px;
+			border-color: $gray-lighter;
+			font-size: 22px;
+			line-height: 18px;
+			margin-right: 10px;
+		}
+	}
+	.photo-album-upload .form__input {
+		min-height: 8rem;
 	}
 }
 .is-dragover .form__input {
@@ -3114,17 +3125,32 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 }
 
 .media-type {
-	background: #f7f7f7;
-	padding: 1rem;
 	text-transform: none;
 	font-size: 13px;
+	line-height: 16px;
 	color: #808080;
 	letter-spacing: normal;
+	font-family: $futura-light;
+	margin-left: -.75rem;
+	[class*="col-"] {
+		padding: 0;
+		+ [class*="col-"] {
+		}
+	}
 	h5 {
 		color: #000;
 		font-size: 10px;
+		line-height: 14px;
+	}
+	.media-item {
+		box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.4); 
+		padding: .75rem;
+		margin-left: .75rem;
+		min-height: 103px;
+		cursor: pointer;
 	}
 	.media-caption {
+		margin: .25rem 0 0 102px;
 	}
 }
 
