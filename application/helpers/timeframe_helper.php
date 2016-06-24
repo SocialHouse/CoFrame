@@ -200,12 +200,12 @@ if(!function_exists('get_user_groups'))
 
 if(!function_exists('get_brand_reminders'))
 {
-    function get_brand_reminders($user_id,$brand_id,$limit = 0)
+    function get_brand_reminders($user_id,$brand_id,$limit = 0,$type = 'all')
     {
         $CI = & get_instance();
 
         $CI->load->model('reminder_model');
-        $reminders = $CI->reminder_model->get_brand_reminders($user_id,$brand_id,$limit);
+        $reminders = $CI->reminder_model->get_brand_reminders($user_id,$brand_id,$limit,$type);
         if($reminders)
         {
             return $reminders;

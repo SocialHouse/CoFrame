@@ -33,7 +33,7 @@
 							<li>
 								<?php
 									$date = !empty($reminder->approve_by) ? date('m/d',strtotime($reminder->approve_by)): date('m/d',strtotime($reminder->created_at));
-									echo $reminder->text." ".$date.$symbol;
+									echo '<a href="">'.$reminder->text." ".$date.$symbol.'</a>';
 								?>
 							</li>
 							<?php
