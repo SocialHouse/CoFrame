@@ -169,6 +169,8 @@
 								<div class="form-group">
 									<select class="form-control" name="tagLabel" id="tagLabel">								
 										<option value="">Select Label</option>
+										<option value="Marketing">Marketing</option>
+										<option value="E-Commerce">E-Commerce</option>
 										<option value="other">+ Add Label</option>
 									</select>
 								</div>
