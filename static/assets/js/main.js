@@ -769,31 +769,19 @@ jQuery(function($) {
 	window.equalColumns = function equalColumns() {
 		var dashboardH = $('.page-main').outerHeight();
 		var headhH = $('.page-main-header').outerHeight(true);
-		var colsH = $('.equal-cols').outerHeight(true);
+		var colsH = $('.equal-columns').outerHeight(true);
 		var newColsH = dashboardH - headhH;
 		var magicNum = 0;
-		//equal column heights v2
-		//use this for everything once integration starts
-		$('.equal-cols-cal .equal-height').each(function() {
-				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - 2);
+		$('.equal-columns .equal-height').each(function() {
+				if($(this).parent().hasClass('brand-steps')) {
+					magicNum = 60;
 				}
-				else {
-					$(this).css('height', colsH);
-				}
-		});
-		$('.equal-cols [class*=col-]').each(function() {
-			if($(this).parent().hasClass('brand-steps')) {
-				magicNum = 60;
-			}
-			if(!$(this).hasClass('brand-steps')) {
 				if(newColsH > colsH) {
 					$(this).css('height', dashboardH - headhH - magicNum);
 				}
 				else {
 					$(this).css('height', colsH);
 				}
-			}
 		});
 		var colHs = [];
 		$('.equal-section').each(function() {
@@ -806,7 +794,7 @@ jQuery(function($) {
 	};
 	window.qtipEqualColumns = function qtipEqualColumns() {
 		var colsH = $('.equal-cols').outerHeight(true);
-		$('.equal-cols .equal-height').each(function() {
+		$('.equal-columns .equal-height').each(function() {
 			$(this).css('height', colsH);
 		});
 	};

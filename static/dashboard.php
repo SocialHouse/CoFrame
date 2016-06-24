@@ -44,14 +44,14 @@
 						</div>
 					</div>
 				</header>
-				<div class="row equal-cols">
-					<div class="col-md-6">
+				<div class="row equal-columns">
+					<div class="col-md-6 equal-height">
 						<?php include("lib/reminder-list.php"); ?>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 equal-height">
 						<?php include("lib/summary-list.php"); ?>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 equal-height">
 						<?php include("lib/calendar-today-summary.php"); ?>
 					</div>
 				</div>

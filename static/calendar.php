@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				</header>
-				<div class="row equal-cols-cal">
+				<div class="row equal-columns">
 					<div class="col-md-9 equal-height">
 						<?php include("lib/calendar-day-posts.php"); ?>
 					</div>

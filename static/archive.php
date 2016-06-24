@@ -35,7 +35,7 @@
 					<h1 class="center-title section-title">Archive</h1>
 				</header>
 				<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="archive-export">	
-					<div class="row equal-cols-cal relative-wrapper archives">
+					<div class="row equal-columns relative-wrapper archives">
 						<div class="col-md-3 col-sm-6 equal-height">
 							<?php include("lib/archive-date-select.php"); ?>
 						</div>

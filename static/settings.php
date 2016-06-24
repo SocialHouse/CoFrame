@@ -31,18 +31,18 @@
 			</section>
 			<section id="brand-manage" class="page-main bg-white col-sm-10">
 				<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="add-brand-details" class="file-upload clearfix row-sm-12">	
-				<div class="row row-sm-12 equal-cols relative-wrapper">
+				<div class="row row-sm-12 equal-columns relative-wrapper">
 					<div class="brand-steps col-xl-11 center-block">
-						<div class="col-md-3 col-sm-6 brand-step" id="brandStep1">
+						<div class="col-md-3 col-sm-6 brand-step equal-height" id="brandStep1">
 							<?php include("lib/add-brand-step-1-complete.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step" id="brandStep2">
+						<div class="col-md-3 col-sm-6 brand-step equal-height" id="brandStep2">
 							<?php include("lib/add-brand-step-2-complete.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step" id="brandStep3">
+						<div class="col-md-3 col-sm-6 brand-step equal-height" id="brandStep3">
 							<?php include("lib/add-brand-step-3-complete.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step" id="brandStep4">
+						<div class="col-md-3 col-sm-6 brand-step equal-height" id="brandStep4">
 							<?php include("lib/add-brand-step-4-complete.php"); ?>
 						</div>
 					</div>

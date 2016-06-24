@@ -34,14 +34,14 @@
 				<header class="page-main-header">
 					<h1 class="center-title section-title">Post Approval</h1>
 				</header>
-					<div class="row equal-cols">
-						<div class="col-md-4">
+					<div class="row equal-columns">
+						<div class="col-md-4 equal-height">
 							<?php include("lib/post-preview-approval.php"); ?>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4 equal-height">
 							<?php include("lib/post-approval-view-phases.php"); ?>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4 equal-height">
 							<?php include("lib/edit-requests.php"); ?>
 						</div>
 					</div>

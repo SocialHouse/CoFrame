@@ -35,14 +35,14 @@
 					<h1 class="center-title section-title">New Post</h1>
 				</header>
 					<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
-						<div class="row equal-cols">
-							<div class="col-md-4">
+						<div class="row equal-columns">
+							<div class="col-md-4 equal-height">
 								<?php include("lib/post-preview.php"); ?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 equal-height">
 								<?php include("lib/add-post-details.php"); ?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 equal-height">
 								<?php include("lib/add-post-approvals.php"); ?>
 							</div>
 						</div>

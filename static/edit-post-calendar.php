@@ -1,12 +1,12 @@
 					<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
-						<div class="row equal-cols">
-							<div class="col-md-4">
+						<div class="row equal-columns">
+							<div class="col-md-4 equal-height">
 								<?php include("lib/post-preview.php"); ?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 equal-height">
 								<?php include("lib/add-post-details.php"); ?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 equal-height">
 								<div class="container-phases">
 									<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
 										<?php include("lib/view-approval-phases.php"); ?>

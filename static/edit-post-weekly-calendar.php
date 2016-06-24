@@ -1,4 +1,4 @@
-						<div class="row equal-cols">
+						<div class="row equal-columns">
 							<div class="col-md-6 bg-white equal-height">
 								<?php include("lib/post-preview-2.php"); ?>
 							</div>

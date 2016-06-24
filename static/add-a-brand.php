@@ -18,18 +18,18 @@
 		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main bg-white col-sm-12">
 				<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="add-brand-details" class="file-upload clearfix row-sm-12">	
-				<div class="row row-sm-12 equal-cols relative-wrapper">
+				<div class="row row-sm-12 equal-columns relative-wrapper">
 					<div class="brand-steps col-xl-11 center-block">
-						<div class="col-md-3 col-sm-6 brand-step active" id="brandStep1">
+						<div class="col-md-3 col-sm-6 brand-step active equal-height" id="brandStep1">
 							<?php include("lib/add-brand-step-1.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step inactive" id="brandStep2">
+						<div class="col-md-3 col-sm-6 brand-step inactive equal-height" id="brandStep2">
 							<?php include("lib/add-brand-step-2.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step inactive" id="brandStep3">
+						<div class="col-md-3 col-sm-6 brand-step inactive equal-height" id="brandStep3">
 							<?php include("lib/add-brand-step-3.php"); ?>
 						</div>
-						<div class="col-md-3 col-sm-6 brand-step inactive" id="brandStep4">
+						<div class="col-md-3 col-sm-6 brand-step inactive equal-height" id="brandStep4">
 							<?php include("lib/add-brand-step-4.php"); ?>
 						</div>
 					</div>
