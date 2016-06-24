@@ -45,7 +45,7 @@
 											$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
 										}
 									?>
-									<div class="pull-sm-left"><img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/></div>
+									<div class="pull-sm-left post-approver-img"><img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/><i class="tf-icon-circle remove-item remove-user" title="Remove User">x</i></div>
 									<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
