@@ -12,7 +12,7 @@
 				<div class="col-md-3 col-sm-6 equal-height brand-step active" id="brandStep1">
 					<div class="container-brand-step">
 						<h3 class="text-xs-center">Step 1</h3>
-						<h4 class="text-xs-center">Add Brand</h4>					
+						<h4 class="text-xs-center">Add Brand<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Brand Images... Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>					
 						<div class="brand-fields">
 							<div class="form-group">
 								<div class="brand-logo text-xs-center">
