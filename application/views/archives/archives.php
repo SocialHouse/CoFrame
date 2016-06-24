@@ -1,106 +1,61 @@
 <?php $this->load->view('partials/brand_nav'); ?>
 <section id="brand-manage" class="page-main bg-white col-sm-10">
+
 	<header class="page-main-header">
 		<h1 class="center-title section-title">Archive</h1>
 	</header>
 
 	<form id="archive-export" method="POST" action="<?php echo base_url();?>archives/export_post/<?php echo $brand->slug?>" >
-		<div class="col-sm-12 archives">
-			<div class="col-md-9 col-sm-12">
-				<div class="container-archive">
-					<h2 class="text-xs-center">Date Selection</h2>
-					<input type="hidden" name="brand_id" value="<?php echo $brand->id ?>">
-					<div class="row">
-						<div class="col-sm-4 archive-calendar calendar-select-date equal-section">
-							<div id="calendar-archive-1"></div>
-						</div>
-						<div class="col-sm-4 archive-calendar calendar-select-date equal-section">
-							<div id="calendar-archive-2"></div>
-						</div>
-						<div class="col-sm-4">
-							<div class="bg-gray-lightest export-options equal-section">
-								<div class="radio form-inline radio-w-inputs">
-									<label>
-										<input type="radio" name="exportDate" value="daterange">
-										<div class="hide-top-bx-shadow">
-											<input type="text" class="form-control popover-toggle" name="start-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-start-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300">
-										</div>
-										<span>To</span> 
-										<div class="hide-top-bx-shadow">
-											<input type="text" class="form-control popover-toggle" name="end-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-end-date" data-popover-class="popover-clickable popover-sm" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300">
-										</div>
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-									<input type="radio" name="exportDate" value="7days" checked>
-									Last 7 Days
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-									<input type="radio" name="exportDate" value="30days">
-									Last 30 Days
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-									<input type="radio" name="exportDate" value="month">
-									Last Month
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-									<input type="radio" name="exportDate" value="3months">
-									Last 3 Months
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-									<input type="radio" name="exportDate" value="year">
-									Last Year
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<footer class="post-content-footer">
-						<button type="reset" class="btn btn-sm btn-default">Reset</button>
-					</footer>
-					<div id="calendar-start-date" class="hidden calendar-select-date">
-						<div class="date-select-calendar"></div>
-					</div>
-					<div id="calendar-end-date" class="hidden calendar-select-date">
-						<div class="date-select-calendar"></div>
-					</div>
-				</div>
+
+		<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
+		<div class="row equal-cols-cal relative-wrapper archives">
+			<!-- archive-date-select -->
+			<div class="col-md-3 col-sm-6 ">
+				<?php $this->load->view('archives/date_select'); ?>
 			</div>
-			<div class="col-md-3 col-sm-12">
+			<!-- archive-outlet-select -->
+			<div class="col-md-3 col-sm-6">
+				<?php $this->load->view('archives/outlet_select'); ?>
+			</div>
+			<!-- archive-tag-select -->
+			<div class="col-md-3 col-sm-6 ">
+				<?php $this->load->view('archives/tag_select'); ?>
+			</div>
+			<!-- archive-export -->
+			<div class="col-md-3 col-sm-6 ">
 				<div class="container-archive">
 					<h2 class="text-xs-center">Export Foramt</h2>
-					<div class="row">
-						<div class="col-md-3 col-sm-6 center-block equal-section export-format">
-							<div class="radio">
-								<label>
-								<input type="radio" name="exportType" value="CSV" >
-								.CSV
-								</label>
-							</div>
-							<div class="radio">
-								<label>
-								<input type="radio" name="exportType" value="PDF" checked>
-								.PDF
-								</label>
-							</div>
-						</div>
-					</div>
-					<footer class="post-content-footer">
-						<button type="submit" class="btn btn-sm btn-secondary pull-sm-right">Export</button>
-					</footer>
-				</div>
+					<ul class="timeframe-list">
+						<li class="radio">
+							<label>
+							<input type="radio" name="exportType" value="CSV" checked>
+							.CSV
+							</label>
+						</li>
+						<li class="radio">
+							<label>
+							<input type="radio" name="exportType" value="PDF">
+							.PDF
+							</label>
+						</li>
+					</ul>
+				</div>				
 			</div>
 		</div>
-
+		<?php
+	        $message = $this->session->flashdata('message');
+	        if(!empty($message)){
+	           echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>'; 
+	        }
+	    ?>
+		<div class="row archives">
+			<div class="col-sm-12">
+				<footer class="post-content-footer">
+				<button type="reset" class="btn btn-sm btn-default">Reset</button>
+				<button type="submit" class="btn btn-sm btn-disabled pull-sm-right" disabled="disabled" >Export</button>
+				</footer>
+			</div>
+		</div>
 	</form>
 
 </section>

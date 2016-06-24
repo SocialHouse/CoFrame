@@ -98,7 +98,6 @@ class Calendar extends CI_Controller {
     	$start_date = $this->input->post('start');
     	$end_date = $this->input->post('end');
     	$tags =  $this->input->post('tags');
-    	$tags =  $this->input->post('tags');
     	$posts = $this->post_model->get_posts_by_time($brand_id,$start_date,$end_date,$outlets,$statuses,$tags);
     	echo json_encode($posts);    	
     }

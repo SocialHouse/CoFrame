@@ -355,19 +355,30 @@ class Post_model extends CI_Model
 	}
 
 
-	public function export_post($brand_id,$start_date,$end_date,$type){
+	public function export_post($brand_id,$start_date,$end_date,$type, $tags, $outlets){
 		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
-		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
-		$this->db->join('brands','brands.id = posts.brand_id','left');
+		$this->db->join('outlets','outlets.id = posts.outlet_id','LEFT');
+		$this->db->join('brands','brands.id = posts.brand_id','LEFT');
+		$this->db->join('post_tags','post_tags.post_id = posts.id','LEFT');
+		$this->db->join('brand_tags','brand_tags.id = post_tags.brand_tag_id ','LEFT');
+
 		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') >= "'.date("Y-m-d",strtotime($start_date)).'")');
 		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') <= "'.date("Y-m-d",strtotime($end_date)).'")');
-		if(!empty($brand_id))
-		{
-			$this->db->where('posts.brand_id',$brand_id);
-		}
 		
+		if(!empty($outlets))
+		{
+			$this->db->where_in('outlets.outlet_constant',$outlets);
+		}
+		if(!empty($tags))
+		{
+			$this->db->where_in('brand_tags.id',$tags);
+		}
+
+
+		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
+		//echo $this->db->last_query();	
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result();
@@ -406,7 +417,7 @@ class Post_model extends CI_Model
 						}
 					}
 				}
-				if($type == 'PDF')
+				else
 				{
 					foreach ($result as $key => $post) {
 						$result[$key]->post_images = $this->get_images($post->id);

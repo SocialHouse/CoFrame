@@ -45,11 +45,15 @@ class Archives extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 
+			$this->data['selected_outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
+    		$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+
 			$this->data['view'] = 'archives/archives';
 			$this->data['layout'] = 'layouts/new_user_layout';
 
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
+			
+			$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
 
 	        _render_view($this->data);
 	    }
@@ -59,10 +63,26 @@ class Archives extends CI_Controller {
 	{
 
 		$post_data = $this->input->post();
+		
 		if(isset($post_data) && !empty($post_data))
 		{
 			$brand_id = $post_data['brand_id'];
 			$type = strtoupper($post_data['exportType']);
+			$tags ='';
+			$outlets = '';
+			
+			if(!empty($post_data['post-outlet']))
+			{
+				$outlets =$post_data['post-outlet'];
+			
+			}
+			
+			if(!empty($post_data['post-tag']))
+			{
+				$tags = $post_data['post-tag'];
+			}
+
+
 			$daterange =[];			
 			switch ($post_data['exportDate']) {
 				case '7days':
@@ -94,27 +114,45 @@ class Archives extends CI_Controller {
 					$daterange['end_date']= date('Y-m-d', strtotime($post_data['end-date']));
 					break;
 			}
-			$posts = $this->post_model->export_post($brand_id,$daterange['start_date'],$daterange['end_date'],$type);
 
-			if($type == 'PDF')
+			/*
+			*  function export_post($brand_id,$start_date,$end_date,$type, $tags,$outlets)
+			*  parameters 1 brand id, start date, end date,
+			*  type (PDF, CSV, PRINT)  
+			*  tags ids with comma seperated straing like ( 1,2,3,4,5 ) 
+			*  outlets list with comma seperated straing like (facebook,twitter,instagram,linkedin) 
+			*/
+
+			$posts = $this->post_model->export_post($brand_id,$daterange['start_date'],$daterange['end_date'],$type,$tags, $outlets);
+			//echo '<pre>'; print_r($posts);echo '</pre>'; die;
+			if(!empty($posts))
 			{
-				if(!empty($posts))
+				if($type == 'PDF')
 				{
-					$this->data['brand_id'] = $brand_id;
-					$this->data['post_details'] = $posts;
-					// $this->load->view('archives/pdf_export', $this->data);
-					$html = $this->load->view('archives/pdf_export', $this->data, true);
-					$this->pdf_create( $html,$brand_id.'.pdf');
+					if(!empty($posts))
+					{
+						$this->data['brand_id'] = $brand_id;
+						$this->data['post_details'] = $posts;
+						//$this->load->view('archives/pdf_export', $this->data);
+						$html = $this->load->view('archives/pdf_export', $this->data, true);
+						$this->pdf_create( $html,$brand_id.'.pdf');
+					}
+					
+				}
+				else if($type == 'CSV')
+				{
+					if(!empty($daterange['start_date']) && !empty($daterange['end_date']))
+					{
+						$posts = $this->object_to_array($posts);
+						$this->outputCSV($posts);
+					}
 				}
 				
 			}
-			else if($type == 'CSV')
+			else
 			{
-				if(!empty($daterange['start_date']) && !empty($daterange['end_date']))
-				{
-					$posts = $this->object_to_array($posts);
-					$this->outputCSV($posts);
-				}
+				$this->session->set_flashdata('message', 'No result found.');
+				redirect(base_url().'archives/'.$slug);
 			}
 		}
 		else
@@ -192,7 +230,7 @@ class Archives extends CI_Controller {
 	    {
 	    	// $dompdf->stream($filename);
 	    	// 0 = open in tab, 1 = download pdf file
-	    	$dompdf->stream($filename, array('Attachment'=>0));
+	    	$dompdf->stream($filename, array('Attachment'=>1));
 	    }
 	    // Return PDF as a string (useful for email attachments)
 	    else if( $output_type == 'string' )

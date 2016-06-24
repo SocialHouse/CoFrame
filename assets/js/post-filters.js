@@ -132,13 +132,11 @@ jQuery(function($) {
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
-		console.log(filterValue);
-		// console.log($container);
+		
 		if($container.length)
 			$container.isotope({ filter: filterValue });
 		if($containerApp.length)
 		{
-			console.log($(filterValue));
 			$containerApp.isotope({ filter: filterValue });
 		}
 

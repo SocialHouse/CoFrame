@@ -20,6 +20,7 @@ jQuery(function($) {
 		ww = $(window).width();
 	});
 
+
 	$(document).ready(function() {
 
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
@@ -54,6 +55,35 @@ jQuery(function($) {
 			}
 		});
 
+
+		$(".alert").fadeTo(5000, 500).slideUp(500, function(){
+	       // $(".alert").alert('close');
+	    });
+
+	    $(document).on('click','.has-archive, .category_date', function(event){
+	    	var $btn_enable = false;
+	    	$.each($('.has-archive') ,function(a,controler){
+	    		if($(controler).hasClass('selected')){
+	    			if( $("input[name='exportDate']:checked").val() == 'daterange' ){
+	    				if($('#start_date').val()!='' && $('#end_date').val()!=''){
+		    				$btn_enable = true;	
+		    			}else{
+		    				
+		    				$btn_enable = false;
+		    			}
+	    			}else{
+	    				$btn_enable = true;	
+	    			}
+			    }
+	    	});
+			if(!$btn_enable)
+			{	
+				toggleBtnClass('btn-secondary','btn-disabled',$("#archive-export button[type=submit]"),true);
+			}else{
+				toggleBtnClass('btn-disabled','btn-secondary',$("#archive-export button[type=submit]"),false);
+			}
+	    	
+	    });
 
 		// $('#brandStep2 .outlet-list li').on('click', function() {
 		// 	if(!$(this).hasClass('saved')) {
@@ -173,6 +203,32 @@ jQuery(function($) {
 		var btnClicks = 0;
 		$('body').on('click', '.check-box', function() {
 			var $btn = $(this);
+			if($btn.hasClass('has-archive') ){
+				var $chk_box ='';
+				if($btn.data('value')=='check-all'){
+					$chk_box =$btn.parent().parent().parent().children('li').find('input');
+					// if( $btn.hasClass('selected')){
+					// 	$$chk_box.removeAttr('checked');
+					// }else{
+					// 	$$chk_box.attr('checked','checked');
+					// }
+					$.each($chk_box,function(a,input_btn){
+						if( $btn.hasClass('selected')){
+							$(input_btn).removeAttr('checked');
+						}else{
+							$(input_btn).attr('checked','checked');
+						}
+			    	});					
+				}else{
+					$chk_box = $btn.parent().children('input');
+					if($btn.hasClass('selected')){						
+						$chk_box.removeAttr('checked');
+					}else{
+						$chk_box.attr('checked','checked');
+					}
+				}
+				
+			}
 			if($btn.hasClass('disabled')){
 				return;
 			}

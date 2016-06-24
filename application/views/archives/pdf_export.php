@@ -24,6 +24,12 @@
 	    -webkit-font-smoothing: antialiased;
 	    -moz-osx-font-smoothing: grayscale;
 	  }
+	  .bg-outlet {
+			left: -9px;
+			position: absolute;
+			top: -0.667rem;
+			z-index: 0;
+		}
 	  </style>
 </head>
 
@@ -41,22 +47,30 @@
 					$brand_onwer = $post->created_by;
 					$brand_id = $post->brand_id;
 					$style = '';
+					$style_prop = '';
 					if($count > 1)
 					{
-						$style= 'style="page-break-before:always;"';
+						// send page
+						$style .= ' page-break-before:always;';
+						$style_prop = ' transform: rotate(140deg);margin-top: 3.6%; left: 1px;';
+					}
+					else
+					{
+						// first page
+						$style_prop = 'transform: rotate(140deg); margin-top: 2.06%; left: -13px;';
 					}
 					?>
-					<div  class="row bg-white clearfix post-day" <?php echo $style; ?> >
-						<div class="col-md-7" style="float: right; width:45%;margin:0px;padding-top:0px;">
-							<div class="row">
+					<div  class="row bg-white clearfix post-day" style="margin:2rem 10px 0; <?php echo $style?>" >
+						<div class="col-md-7" style="float: right; width:45%;margin:0px;padding:0px;"">
+							<div class="row clearfix" style="margin:0px;padding:0px;"">
 								<div class="col-md-12 outlet-list outlet-list">
 									<i class="fa fa-<?php echo $outlet_name; ?>">
-										<span class="bg-outlet rotate bg-<?php echo $outlet_name; ?>"></span>
+										<span class="bg-outlet bg-<?php echo $outlet_name; ?>" style="<?php echo $style_prop; ?>"></span>
 										<?php echo $outlet_name; ?>
 									</i>
 								</div>
 								<br/>
-								<div class="col-md-12 post-meta">
+								<div class="col-md-12 post-meta" style="padding-top:5px">
 									<div class="post-author">
 										<br/>Post By <?php echo (!empty($post->user))?$post->user :'';?>:
 									</div>
@@ -95,8 +109,8 @@
 									?>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-2" >
+							<div class="row" >
+								<div class="col-md-2" style="margin:0px;padding-top:0px;" >
 									<?php 
 									if(!empty($post->post_tags))
 									{
@@ -110,7 +124,7 @@
 									}
 									?>
 								</div>
-								<div class="col-md-10">
+								<div class="col-md-10" style="padding-top:10px">
 									<h6>POST COPY</h6>
 									<div class="post-body">
 										<p><?php echo (!empty($post->content))? $post->content:'&nbsp;';?></p>
