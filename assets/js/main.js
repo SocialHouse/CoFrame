@@ -22,6 +22,14 @@ jQuery(function($) {
 
 
 	$(document).ready(function() {
+		if(selected_day)
+		{
+			var date_on_cal = $.fullCalendar.moment(selected_day).format('YYYY-MM-DD');
+			$('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('ui-state-highlight');
+			$('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('fc-today');
+			$('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('ui-state-highlight');
+			$('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('fc-today');
+		}
 		// Prevent enter key from submitting forms.
 
 		jQuery('.txt-disable').bind('keypress', function(e) {

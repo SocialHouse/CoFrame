@@ -153,6 +153,7 @@
 								$user_is = '';
 								$approver_stats = '';
 								$phase_id = '';
+								$phase_status = '';
 								if(isset($all_phases['result']) and !empty($all_phases['result']))
 								{
 									foreach($all_phases['result'] as $phase)
@@ -161,6 +162,7 @@
 										{
 											$user_is = 'approver';
 											$approver_status = $phase['status'];
+											$phase_status = $phase['phase_status'];
 											$phase_id = $phase['id'];
 										}
 									}
@@ -192,7 +194,14 @@
 										?>
 										<div class="before-approve">	
 											<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
-											<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+											<?php
+											if($phase_status == 'pending' AND $post->status == 'pending')
+											{
+												?>
+												<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+												<?php
+											}
+											?>
 										</div>
 
 										<div class="after-approve hide">

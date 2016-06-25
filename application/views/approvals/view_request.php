@@ -83,7 +83,7 @@
 							if($post_details->status == 'scheduled')
 							{
 								?>
-								<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>	
+								<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>
 								<button type="button" class="btn btn-xs btn-default">Post Now</button>
 								<?php
 							}

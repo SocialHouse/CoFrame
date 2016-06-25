@@ -24,7 +24,8 @@ jQuery(function($) {
 				}
 			}
 		});
-		$('#addNewUser.outlet-list li').on('click', function() {
+
+		$('.sub-user-outlet').on('click', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
 			var thisOutlet = $(this).data('selectedOutlet');
@@ -128,11 +129,14 @@ jQuery(function($) {
         $('#addUserLink').on('click', function() {
             $('.brand-step .outlet-list li').removeClass('selected');
             $('.brand-step .outlet-list li').addClass('disabled');
+            $('#nameValid').addClass('hide');
+            $('#emailValid').addClass('hide');
         })
 
         // Clear tag field when adding a second tag.
         $('#addTagLink').on('click', function() {
             $('#newLabel').val("");
+            $('#tagLabel').val("");
         })
 
 		$('#userRoleSelect').on('change', function() {
@@ -184,6 +188,7 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('body').on('click', '#selectBrandTags .tag', function() {
+			alert('test');
 			if($(this).hasClass('saved')) {
 				return;
 			}
@@ -233,10 +238,36 @@ jQuery(function($) {
 				{
 					$('#otherTagLabel').hide();
 					$tag.attr('data-value', label);
-					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					// toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					var selected_tag = $('#selectedTags').children('ul').children('li');
+					console.log(selected_tag);
+					var add_flag = 1;
+					var control = this;
+					$.each(selected_tag,function(a,b){
+						console.log($(control).val());
+						console.log($(b).data('value'));
+						if($(b).data('value') == $(control).val())
+						{
+							add_flag = 0;
+							$('#labelSelectValid').removeClass('hide');
+						}
+					});
+
+					if(add_flag == 1)
+					{
+						$('#labelSelectValid').addClass('hide');
+						if($(this).val())
+						{
+							toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+						}				
+					}
+					else
+					{
+						toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+					}
 				}
 				else {
-
+					$('#labelSelectValid').addClass('hide');
 					$('#otherTagLabel').show(function(){
 						$(this).find('input').focus();
 					});
@@ -258,9 +289,26 @@ jQuery(function($) {
 		});
 
 		$(document).on('keyup blur','#newLabel',function(){
-			if($(this).val())
+			var selected_tag = $('#selectedTags').children('ul').children('li');
+			var add_flag = 1;
+			var control = this;
+			$.each(selected_tag,function(a,b){
+				console.log($(control).val());
+				console.log($(b).data('value'));
+				if($(b).data('value') == $(control).val())
+				{
+					add_flag = 0;
+					$('#labelValid').removeClass('hide');
+				}
+			});
+
+			if(add_flag == 1)
 			{
-				toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+				$('#labelValid').addClass('hide');
+				if($(this).val())
+				{
+					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+				}				
 			}
 			else
 			{
@@ -348,6 +396,16 @@ jQuery(function($) {
 			hideNoLength($(this));
 		});
 
+		var selected_tag = $('#selectedTags').find('li');
+		$.each(selected_tag,function(a,b){
+			$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
+				if($(d).data('color') == $(b).find('input').val())
+				{
+					$(d).addClass('saved');
+				}
+			});
+		});
+
 		$('#add-brand-details').on('submit', function(){
 			$(this).addClass('success');
 			//show dashboard button and tooltip
@@ -360,6 +418,41 @@ jQuery(function($) {
 		$('body').on('click', '.btn-next-step', function() {
 			var next = $(this).data('nextStep');
 			nextStep(next);
+		});
+
+		$(document).on('blur keyup','#firstName,#lastName',function()
+		{
+			$.ajax({
+				url: base_url+'brands/is_name_exist',
+				type:'POST',
+				data: {'first_name':$('#firstName').val(),'last_name':$('#lastName').val()},
+				success:function(data){
+					if(data == 0)
+					{
+						$('#nameValid').addClass('hide');
+						if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val())
+				    	{
+				    		if(!$('#addRole').hasClass('btn-secondary'))
+				    			$('#addRole').addClass('btn-secondary');
+				    		$('#addRole').removeClass('btn-disabled');    		
+				    		$('#addRole').prop('disabled',false);
+				    	}
+				    	else
+				    	{
+				    		if(!$('#addRole').hasClass('btn-disabled'))
+				    			$('#addRole').addClass('btn-disabled');
+
+				    		$('#addRole').removeClass('btn-secondary');
+				    		$('#addRole').prop('disabled',true); 
+				    	}
+					}
+					else
+					{
+						$('#nameValid').removeClass('hide');
+						toggleBtnClass('btn-secondary','btn-disabled','#addRole',true);
+					}
+				}
+			});
 		});
 	});
 
@@ -489,21 +582,31 @@ jQuery(function($) {
     	}
     	else
     	{
-    		// if($(this).val() && !validateEmail($(this).val()))
-    		// {
-    		// 	$('#emailValid').show();
-    		// }
-    		// else
-    		// {
-    		// 	$('#emailValid').hide();
-    		// }
-
     		if(!$('#addRole').hasClass('btn-disabled'))
     			$('#addRole').addClass('btn-disabled');
 
     		$('#addRole').removeClass('btn-secondary');
     		$('#addRole').prop('disabled',true); 
     	}
+
+    	if(!validateEmail($(this).val()))
+		{
+			if($(this).val().length > 4)
+			{
+				$('#emailValid').html('This is not a valid email.');
+				$('#emailValid').show();
+			}
+
+			if(!$(this).val())
+			{
+				$('#emailValid').hide();
+			}
+		}
+		else
+		{
+			$('#emailValid').html('Vaild email address.');
+			$('#emailValid').show();
+		}
     	
     });
 
@@ -586,6 +689,8 @@ jQuery(function($) {
 
     //step3 cancel btn
   	$(document).on('click','.btn-cancel',function(){
+  		$('#emailValid').addClass('hide');
+  		$('#nameValid').addClass('hide');
     	$('#firstName').val('');
 		$('#lastName').val('');
 		$('#userTitle').val('');

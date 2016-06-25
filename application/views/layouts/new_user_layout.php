@@ -18,10 +18,12 @@ if(isset($css_files))
         <?php
     }
 }
+
 ?>
 
 <script type="text/javascript">
     var base_url = "<?php echo base_url(); ?>";
+    var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 </script>
 
 <script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
