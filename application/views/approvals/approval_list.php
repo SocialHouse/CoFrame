@@ -93,12 +93,12 @@
 											}
 										}
 										?>
-										<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');" data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
+										<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
 											<?php
 											if($show_date == 1)
 											{
 												?>
-												<td><?php echo $key; ?></td>
+												<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo $key; ?></td>
 												<?php
 												$show_date = 0;
 											}
@@ -109,9 +109,9 @@
 												<?php
 											}
 											?>										
-											<td><?php echo date('h:i A',strtotime($post->slate_date_time)); ?></td>
+											<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo date('h:i A',strtotime($post->slate_date_time)); ?></td>
 
-											<td class="text-xs-center">
+											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 												<div class="post-tags">
 													<?php													
 													if(!empty($tags))
@@ -127,14 +127,14 @@
 												</div>									
 											</td>
 
-											<td class="text-xs-center outlet-list">
+											<td class="text-xs-center outlet-list" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 												<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
 											</td>
 											
-											<td class="text-xs-center"><?php echo ucfirst($post->status); ?></td>
+											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo ucfirst($post->status); ?></td>
 
-											<td><?php echo read_more($post->content,35); ?></td>
-											<td class="text-xs-center">
+											<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
+											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 												<?php 
 												$approvers = get_post_approvers($post->id);
 												if($approvers)
@@ -143,12 +143,14 @@
 													<ul class="timeframe-list approval-list">
 														<?php
 														$approver_status = '';
+														$phase_status = '';
 														$phase_id = '';
 														foreach($approvers['result'] as $approver)
 														{
 															if($approver['user_id'] == $this->user_id)
 															{
 																$approver_status = $approver['status'];
+																$phase_status = $approver['phase_status'];
 																$phase_id = $approver['id'];
 															}
 															$image_path = img_url().'default_profile.jpg';
@@ -177,17 +179,29 @@
 													$btn_class = 'btn-secondary';
 												}
 
-												if($approver_status == 'approved')
+												if($approver_status == 'approved' AND $post->status != 'scheduled')
 												{
 													?>
 													<a class="btn btn-xs btn-disabled btn-secondary">Approved</a>
 													<?php
 												}
-												else
+												elseif($phase_status == 'pending' AND $post->status == 'pending')
 												{
 													?>													
 														<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" id="approval_list_btn" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</a>					
 														<a class="btn btn-xs btn-disabled btn-secondary hide">Approved</a>
+													<?php
+												}
+												elseif($post->status == 'scheduled')
+												{
+													?>
+													<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>
+													<?php
+												}
+												elseif($post->status == 'posted')
+												{
+													?>
+													<button class="btn btn-approved btn-sm btn-default">View Live</button>
 													<?php
 												}
 

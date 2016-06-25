@@ -5,7 +5,8 @@
 
 		$all_phases = get_post_approvers($post_details->id);
 		$user_is = '';
-		$approver_stats = '';
+		$approver_status = '';
+		$phase_status = '';
 		$phase_id = '';
 		if(isset($all_phases['result']) and !empty($all_phases['result']))
 		{
@@ -15,6 +16,7 @@
 				{
 					$user_is = 'approver';
 					$approver_status = $phase['status'];
+					$phase_status = $phase['phase_status'];
 					$phase_id = $phase['id'];
 				}
 			}
@@ -42,7 +44,7 @@
 							<?php
 							if($user_is == 'approver')
 							{
-								if($approver_status == 'pending')
+								if($approver_status == 'pending' AND $post_details->status != 'scheduled')
 								{
 									?>
 									<div class="before-approve">
@@ -55,23 +57,36 @@
 									</div>
 									<?php
 								}
-								elseif($approver_status == 'posted')
+								elseif($phase_status == 'posted')
 								{
 									?>
 									<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>
 									<?php
 								}
-								elseif($approver_status == 'approved')
+								elseif($approver_status == 'approved' AND $post_details->status != 'scheduled')
 								{
 									?>
 									<div class="before-approve">
 										<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
-										<a  class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+										<?php
+										if($phase_status == 'pending')
+										{
+											?>											
+											<a  class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+											<?php
+										}
+										?>
 									</div>
 
 									<div class="after-approve hide">
 										<button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size" data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</button>
 									</div>
+									<?php
+								}
+								elseif($post_details->status == 'scheduled')
+								{
+									?>
+									<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>
 									<?php
 								}
 							}

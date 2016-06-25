@@ -73,19 +73,28 @@
 				</div>
 				<footer class="post-approval-btns post-actions clearfix">
 					<?php	
-					$phase_status = '';				
+					$approver_status = '';	
+					$phase_status = '';		
 					foreach($phase['phase_users'] as $phase_data)
 					{
 						if($phase_data->aauth_user_id == $this->user_id)
 						{
-							$phase_status = $phase_data->status;
+							$approver_status = $phase_data->status;
+							$phase_status = $phase_data->phase_status;
 						}
 					}
-					if(!empty($phase_status) && $phase_status == 'approved' ){
+					if(!empty($approver_status) && $approver_status == 'approved' ){
 						?>
 						<div class="before-approve">						
 							<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
-							<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+							<?php
+							if($phase_status == 'pending' AND $post_details->status == 'pending')
+							{
+								?>
+								<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+								<?php
+							}
+							?>
 						</div>
 						
 						<div class="after-approve hide">
@@ -94,15 +103,33 @@
 
 						<?php
 					}else{
-						?>
-						<div class="before-approve">
-							<a href="#" class="btn btn-default color-success btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
-						</div>
-						<div class="after-approve hide">
-							<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
-							<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
-						</div>
-						<?php
+						if($post_details->status == 'pending')
+						{
+							?>
+							<div class="before-approve">
+								<a href="#" class="btn btn-default color-success btn-xs pull-sm-left change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+							</div>
+							<div class="after-approve hide">
+								<a href="#" class="btn btn-secondary btn-xs btn-disabled">Approved</a>
+								<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phase['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
+							</div>
+							<?php
+						}
+						else
+						{
+							if($post_details->status == 'posted')
+							{
+								?>
+								<button class="btn btn-approved btn-sm btn-default">View Live</button>
+								<?php
+							}
+							else
+							{
+								?>
+								<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>	
+								<?php
+							}
+						}
 					}
 					?>
 				</footer>
