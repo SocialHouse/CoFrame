@@ -136,6 +136,7 @@ jQuery(function($) {
         // Clear tag field when adding a second tag.
         $('#addTagLink').on('click', function() {
             $('#newLabel').val("");
+            $('#tagLabel').val("");
         })
 
 		$('#userRoleSelect').on('change', function() {
@@ -187,6 +188,7 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('body').on('click', '#selectBrandTags .tag', function() {
+			alert('test');
 			if($(this).hasClass('saved')) {
 				return;
 			}
@@ -236,10 +238,36 @@ jQuery(function($) {
 				{
 					$('#otherTagLabel').hide();
 					$tag.attr('data-value', label);
-					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					// toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					var selected_tag = $('#selectedTags').children('ul').children('li');
+					console.log(selected_tag);
+					var add_flag = 1;
+					var control = this;
+					$.each(selected_tag,function(a,b){
+						console.log($(control).val());
+						console.log($(b).data('value'));
+						if($(b).data('value') == $(control).val())
+						{
+							add_flag = 0;
+							$('#labelSelectValid').removeClass('hide');
+						}
+					});
+
+					if(add_flag == 1)
+					{
+						$('#labelSelectValid').addClass('hide');
+						if($(this).val())
+						{
+							toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+						}				
+					}
+					else
+					{
+						toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+					}
 				}
 				else {
-
+					$('#labelSelectValid').addClass('hide');
 					$('#otherTagLabel').show(function(){
 						$(this).find('input').focus();
 					});
@@ -261,9 +289,26 @@ jQuery(function($) {
 		});
 
 		$(document).on('keyup blur','#newLabel',function(){
-			if($(this).val())
+			var selected_tag = $('#selectedTags').children('ul').children('li');
+			var add_flag = 1;
+			var control = this;
+			$.each(selected_tag,function(a,b){
+				console.log($(control).val());
+				console.log($(b).data('value'));
+				if($(b).data('value') == $(control).val())
+				{
+					add_flag = 0;
+					$('#labelValid').removeClass('hide');
+				}
+			});
+
+			if(add_flag == 1)
 			{
-				toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+				$('#labelValid').addClass('hide');
+				if($(this).val())
+				{
+					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+				}				
 			}
 			else
 			{
@@ -349,6 +394,16 @@ jQuery(function($) {
 
 		$('#selectedTags').on('contentSlidDown', function() {
 			hideNoLength($(this));
+		});
+
+		var selected_tag = $('#selectedTags').find('li');
+		$.each(selected_tag,function(a,b){
+			$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
+				if($(d).data('color') == $(b).find('input').val())
+				{
+					$(d).addClass('saved');
+				}
+			});
 		});
 
 		$('#add-brand-details').on('submit', function(){
@@ -634,6 +689,8 @@ jQuery(function($) {
 
     //step3 cancel btn
   	$(document).on('click','.btn-cancel',function(){
+  		$('#emailValid').addClass('hide');
+  		$('#nameValid').addClass('hide');
     	$('#firstName').val('');
 		$('#lastName').val('');
 		$('#userTitle').val('');

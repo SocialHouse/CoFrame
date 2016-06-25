@@ -55,8 +55,10 @@ class Posts extends CI_Controller {
 		if(!empty($brand))
 		{
 			$brand_id = $brand[0]->id;
-			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			//get user who as permission to approve
+			$this->data['users'] = $this->brand_model->get_approvers($brand_id);			
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
 			
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
@@ -459,7 +461,7 @@ class Posts extends CI_Controller {
 
 	public function tag_list($brand_id)
 	{
-		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);		
+		$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
 		echo $this->load->view('partials/tag_list',$this->data,true);
 	}
 

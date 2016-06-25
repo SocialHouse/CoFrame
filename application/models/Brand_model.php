@@ -80,6 +80,27 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
+	//get user assosiate who have approve permission
+	public function get_approvers($brand_id)
+	{
+		$this->db->where('name', 'approve.approve_post');
+		$query = $this->db->get('aauth_perms');
+		if($query->num_rows() > 0)
+		{
+			$this->db->select('user_info.aauth_user_id,first_name,last_name,perm_id,aauth_perm_to_user.user_id');
+			$this->db->join('user_info','user_info.aauth_user_id = access_user_id');
+			$this->db->join('aauth_perm_to_user','aauth_perm_to_user.user_id = access_user_id');
+			$this->db->where('perm_id',$query->row()->id);
+			$this->db->where('brand_id',$brand_id);
+			$query = $this->db->get('brand_user_map');			
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+		return FALSE;
+	}
+
 	public function check_brand_owner($brand_map_id,$user_id)
 	{
 		$this->db->select('brand_user_map.access_user_id,brand_id,name');

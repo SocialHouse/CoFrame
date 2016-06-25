@@ -173,9 +173,11 @@
 										<option value="E-Commerce">E-Commerce</option>
 										<option value="other">+ Add Label</option>
 									</select>
+									<div id="labelSelectValid" class="error hide">This label is already been used.</div>
 								</div>
 								<div class="form-group hidden" id="otherTagLabel">
 									<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
+									<div id="labelValid" class="error hide">This label is already been used.</div>
 								</div>
 							</div>
 						</div>

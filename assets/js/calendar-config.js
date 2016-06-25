@@ -81,6 +81,22 @@ jQuery(function($) {
 				center: 'title',
 				right: 'next'
 			},
+			color: '#f4d3d5',
+			rendering: 'background',
+			dayClick: function(date) {
+				var eventData = {
+					allDay: true,
+					start: $.fullCalendar.moment(date),					
+					rendering: 'background',
+					color: '#f4d3d5'
+				};
+				$('.calendar-summary #calendar').fullCalendar('renderEvent', eventData, true);
+				$("#selected_date").val($.fullCalendar.moment(date));
+				setTimeout(function() {
+					$('#summary-form').submit();
+				},500);
+
+			},
 			theme: true,
 			themeButtonIcons: false
     	});
@@ -458,6 +474,12 @@ jQuery(function($) {
 				findPostbyDate(daySelectedDate);
 			}
 		});
+
+		if(selected_day)
+		{
+			findPostbyDate(selected_day);
+		}
+
 		$('body').on('click', '#calendar-change-week #getPostsByDate', function() {
 			$('#calendar-week').fullCalendar('gotoDate', $.fullCalendar.moment(firstEventDay));
 		});

@@ -102,6 +102,17 @@
   font-size: 12px;
   clear: both; }
 
+#step_4_edit .error {
+  color: red;
+  text-transform: none !important;
+  clear: both; }
+
+#step_3_edit .error {
+  color: red;
+  text-transform: none !important;
+  clear: both; }
+  
+
 /*
   pinterest preview 
 */

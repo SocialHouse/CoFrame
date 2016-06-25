@@ -7,8 +7,10 @@
 			<div id="selectedTags" class="tag-list selected-items hidden" style="display: block;">
 				<ul>
 				<?php 
-					if(!empty($selected_tags)){
-						foreach ($selected_tags as $st_tag) {
+					if(!empty($selected_tags))
+					{
+						foreach ($selected_tags as $st_tag) 
+						{
 							?>
 							<li data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag" data-tag="<?php echo $st_tag->tag_name; ?>">
 								<input type="checkbox" value="<?php echo $st_tag->color; ?>" checked="checked" name="selected_tags[]" class="hidden-xs-up color">
@@ -58,11 +60,13 @@
 								<?php								
 							}
 						?>
-						<option value="other">+ Add Label</option>
+						<option value="other">+ Add Label</option>						
 					</select>
+					<div id="labelSelectValid" class="error hide">This label is already been used.</div>
 				</div>
 				<div class="form-group hidden" id="otherTagLabel">
 					<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
+					<div id="labelValid" class="error hide">This label is already been used.</div>
 				</div>
 			</div>
 		</div>

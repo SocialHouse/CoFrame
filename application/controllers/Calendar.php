@@ -35,8 +35,15 @@ class Calendar extends CI_Controller {
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+		$post_data = $this->input->post();
 		if(!empty($brand))
 		{
+			$this->data['selected_date'] = '';
+			if(isset($post_data) AND !empty($post_data))
+			{
+				$this->data['selected_date'] = $post_data['selected_date'];
+			}
+
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id,$this->user_id);

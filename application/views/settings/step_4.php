@@ -3,8 +3,10 @@
 	<div class="tag-list saved-items" >
 		<ul>
 			<?php 
-			if(!empty($selected_tags)){
-				foreach ($selected_tags as $st_tag) {
+			if(!empty($selected_tags))
+			{
+				foreach ($selected_tags as $st_tag) 
+				{
 					?>
 					<li class="tag" data-value="<?php echo $st_tag->tag_name; ?>" data-group="brand-tag" data-tag="<?php echo $st_tag->tag_name; ?>">
 						<i class="fa fa-circle" style="color:<?php echo $st_tag->color; ?>">
