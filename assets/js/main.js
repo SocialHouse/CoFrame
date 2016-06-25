@@ -23,6 +23,12 @@ jQuery(function($) {
 
 	$(document).ready(function() {
 		// Prevent enter key from submitting forms.
+
+		jQuery('.txt-disable').bind('keypress', function(e) {
+		    e.stopPropagation(); 
+		    return false;
+		});
+	
 		$(window).keydown(function(event){
 			if(event.keyCode == 13) {
 			  event.preventDefault();
@@ -49,8 +55,14 @@ jQuery(function($) {
 				$(this).toggleClass('disabled');
 				$(this).siblings().addClass('disabled');
 				$('#postOutlet').val(outlet);
-				$('#postOutlet').attr('data-outlet-const',outlet_const);
+				if(outlet_const=='twitter'){
+					$("#postCopy").val('');
+					$("#postCopy").attr("maxlength",10);
+				}else{
+					$('#postCopy').removeAttr('maxlength');
+				}
 
+				$('#postOutlet').attr('data-outlet-const',outlet_const);
 				var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
 				upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
 				upload_element += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
@@ -2048,6 +2060,25 @@ jQuery(function($) {
     });
 
 
+    $(document).on({
+		    keypress: 	function(){ create_post_validation(); },
+		    blur: 		function(){ create_post_validation(); },
+		   	click:  	function(){ create_post_validation(); }
+		}, '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border');
+
+    $(document).on( 'change','input[type="file"]', function( e ){
+    	e.preventDefault();
+    	if( $(this).attr('id') != 'fileInput'){
+	    	create_post_validation();
+	    }
+     })
+
+	// $(document).on('keypress, blur, click ','#postCopy, .single-date-select, .hour-select,.minute-select ',function(){
+	// 	create_post_validation();
+	// });
+
+
+
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
 		var step_no = $(this).data('step-no');
@@ -2134,6 +2165,60 @@ jQuery(function($) {
 			jQuery(btnClass).addClass(newClass);
 		}
 		jQuery(btnClass).removeClass(oldClass);
+	}
+
+	function create_post_validation(){
+		var $ = jQuery;
+		var submit_btn_enable = false;
+		$('.error').hide();
+		var post_copy_error = $('#post_copy_error'),
+			img_error = $('#img_error'),
+			date_error = $('#date_error');
+			hm_error = $('#hm_error');
+
+		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
+			if($('.single-date-select').val() !=''){
+				if( $('.hour-select').val() != '' && $('.minute-select').val() != '' ){
+					if($(".check-box.circle-border").hasClass('selected')){
+						if($('input[name="phase[0][approve_date]').val()!=''){
+							if($('input[name="phase[0][approve_hour]"]').val()!='' && $('input[name="phase[0][approve_minute]"]').val()!=''){
+								submit_btn_enable = true;
+							}
+						}
+					}else{
+						submit_btn_enable = true;
+					}
+				}
+				else{
+					hm_error.text('Plesase enter hour and minutes');
+					hm_error.show();
+				}
+			}else{
+				date_error.text('Plesase select date ');
+				date_error.show();
+			}	
+		}else{
+			var error_disp = false;
+			if($('#postCopy').val()==''){
+				post_copy_error.text('Plesase enter post post content');
+				post_copy_error.show();
+				error_disp = true;
+			}
+			if(!error_disp){
+				img_error.text('Plesase select images or video');
+				img_error.show();				
+			}
+		}
+		
+		if(submit_btn_enable)
+		{
+			toggleBtnClass('btn-disabled','btn-secondary',$("#submit-approval"),false);
+			toggleBtnClass('btn-disabled','btn-secondary',$("#draft"),false);
+		}else{
+			// disabled btn 
+			toggleBtnClass('btn-secondary', 'btn-disabled', $("#submit-approval"),true);
+			toggleBtnClass('btn-secondary', 'btn-disabled', $("#draft"),true);
+		}
 	}
 	
 	

@@ -52,7 +52,6 @@
 
 			// automatically submit the form on file select
 			$(document).on( 'change','input[type="file"]', function( e ){
-
 				if( $(this).attr('id') != 'fileInput')
 				{
 					var $fileDiv = $(this).parents('.form__input');
@@ -537,6 +536,7 @@
 			video.src = window.URL.createObjectURL(file);
 			
 		}
+
 		var selected,selected_outlet ='' ;
 		var preview_img = '<img class="post-img" src="'+window.URL.createObjectURL(file)+'" >';
 		// preview_img.src = window.URL.createObjectURL(file);
@@ -544,7 +544,6 @@
 		var outlet_id = jQuery('#postOutlet').val();
 		selected = jQuery('#postOutlet').attr('data-outlet-const');		
 		selected_outlet = 'outlet_'+ selected;
-		
 		if(selected_outlet == 'outlet_facebook')
 		{
 			if(file_type == 'video'){
@@ -565,16 +564,23 @@
 				}
 				if(no_of_img == 2) 
 				{
-					jQuery('#live-post-preview .img-div img:first').addClass('post-img');
-					jQuery('#live-post-preview .img-div img:first').removeClass('width_50');
-					var preview_img = '<img class="width_50" src="'+window.URL.createObjectURL(file)+'" >';
-					jQuery('#live-post-preview .img-div').append(preview_img);
-					jQuery('.no-of-photos').html('added <span class="photos_count">3 new photos</span>');
+					jQuery('#live-post-preview .img-div').addClass('clearfix');
+					jQuery('#live-post-preview .img-div').append('<div class="pull-left section1"></div>');
+					jQuery('#live-post-preview .img-div').append('<div class="pull-left width_50 section2"></div>');
+					var img_1 = jQuery('#live-post-preview .img-div img:eq(1)');
+					var img_2 = jQuery('#live-post-preview .img-div img:eq(0)');
+					jQuery('#live-post-preview .img-div .section1').append(img_1);
+					img_1.removeClass('width_50');
+					jQuery('#live-post-preview .img-div .section2').append(img_2);
+					var preview_img = '<img class="section_2_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
+					jQuery('#live-post-preview .img-div .section2').append(preview_img);
+					jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
 				}
 
 				if(no_of_img == 3)
 				{
-					jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_33');
+					jQuery('#live-post-preview .img-div .section2 img').removeClass('width_50');
+					jQuery('#live-post-preview .img-div .section2').addClass('width_33');
 					jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_50');
 					jQuery('#live-post-preview .img-div img:eq(2)').addClass('width_33');
 					jQuery('#live-post-preview .img-div img:eq(2)').removeClass('width_50');
@@ -735,7 +741,6 @@
 	            jQuery('#live-post-preview .content').append(preview_img);	
             }	
 		}
-		console.log(selected_outlet);
 		if(selected_outlet == 'outlet_pinterest')
 		{
 			if(file_type == 'images'){
@@ -747,4 +752,13 @@
 	}
 
 	function removeFromPreview(file) {
+		var $ = jQuery, imgTag;
+		imgTag = $('#live-post-preview').find('img');
+		$.each(imgTag, function(i, img){
+			if($(this).attr('src') == file ){
+				console.log('img removed');
+			}
+		})
 	}
+
+	

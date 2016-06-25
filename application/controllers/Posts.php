@@ -102,6 +102,7 @@ class Posts extends CI_Controller {
 	    						'slate_date_time' => $slate_date_time,
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status
 	    					);

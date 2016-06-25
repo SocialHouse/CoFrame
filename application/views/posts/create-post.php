@@ -60,6 +60,7 @@
 					<div class="form-group">
 						<label for="postCopy">Post Copy</label>
 						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..." name="post_copy"></textarea>
+						<div id="post_copy_error" class="error "></div>
 					</div>
 					<div class="form-group" id="mediaUpload">
 						<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Images (jpg,gif,png) should be less than 2MB in size, and videos (.mp4) should be less than 100MB in size." data-popover-arrow="true"></i></label>
@@ -72,6 +73,7 @@
 						<div class="form__uploading">Uploading ...</div>
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>
+						<div id="img_error" class="error "></div>
 					</div>					
 					<div class="media-type clearfix hidden" id="facebookMediaUpload">
 						<div class="clearfix">
@@ -148,31 +150,51 @@
 						</div>
 					</div>
 					<div class="clearfix">
-						<div class="form-group form-inline pull-sm-left">
-							<label>Slate Post:</label><br>
-							<div class="hide-top-bx-shadow">
-								<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
-							</div>
-						</div>
-						<div class="form-group pull-sm-left">
-							<div class="pull-xs-left">
-								<label class="invisible">Post Time</label>
-								<div class="time-select form-control">
-									<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH">
-									<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM">
-									<input type="text" class="time-input amselect" name="post-ampm" value="am">
+					<div>
+						<div id="hm_error" class="error"></div>
+						<div id="date_error" class="error"></div>
+							<div class="form-group form-inline pull-sm-left">
+								<label>Slate Post:</label><br>
+								<div class="hide-top-bx-shadow">
+									<input  type="text" class="form-control popover-toggle single-date-select txt-disable txt-disable" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
 								</div>
+								
 							</div>
-							<span class="timezone pull-xs-right margin-top-30">PST</span>
-						</div>
-						<div class="form-group form-inline pull-xl-right">						
-							<label>Tags:</label><br>
-							<div class="hide-top-bx-shadow">
+							<div class="form-group pull-sm-right">
+								<div class="pull-xs-left">
+									<label class="invisible">Post Time</label>
+									<div class="time-select form-control">
+										<input type="text" class="time-input hour-select txt-disable" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
+										<input type="text" class="time-input minute-select txt-disable" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
+										<input type="text" class="time-input amselect" name="post-ampm" value="am">
+									</div>
+								</div>
+								<span class="timezone pull-xs-right margin-top-30">PST</span>
+							</div>
+
+							
+
+							<div class="form-group form-inline pull-sm-left">
+								<label>Tags:</label><br>
 								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
 									<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
 								</div>
+								
 							</div>
-						</div>
+							<div class="form-group form-inline pull-sm-left">
+								<label class="radio-inline">
+									<input type="radio" class="radio" checked name="time_zone" value="me">Your time zone
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="time_zone" value="brand">Brand time zone
+								</label>
+							</div>
+
+					</div>
+						
+						<!-- <div class="form-group form-inline pull-xl-right">						
+							
+						</div> -->
 					</div>
 
 					<footer class="post-content-footer">
@@ -234,14 +256,14 @@
 							<div class="clearfix">
 								<div class="form-group form-inline pull-sm-left">
 									<div class="hide-top-bx-shadow">
-										<input type="text" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
+										<input type="text" class="form-control form-control-sm popover-toggle single-date-select txt-disable" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
 									</div>
 								</div>
 								<div class="form-group pull-sm-left">
 									<div class="pull-xs-left">
 										<div class="time-select form-control form-control-sm default_approver_time">
-											<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
-											<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
+											<input type="text" class="time-input hour-select txt-disable" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
+											<input type="text" class="time-input minute-select txt-disable" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
 											<input type="text" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
 										</div>
 									</div>
@@ -258,8 +280,8 @@
 							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
-						<button class="btn btn-sm save-draft-btn submit-btn btn-default"  id="draft">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn "  id="submit-approval">Submit for Approval</button>
+						<button class="btn btn-sm save-draft-btn submit-btn btn-disabled" disabled id="draft">Save Draft</button>
+						<button type="submit" class="btn btn-sm btn-disabled submit-approval submit-btn " id="submit-approval" disabled >Submit for Approval</button>
 						</footer>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-
+<link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>post_preview.css" media="all">
 <form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">
 
 		<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">

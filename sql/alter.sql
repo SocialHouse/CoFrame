@@ -340,3 +340,7 @@ ALTER TABLE `post_comments` ADD `media` VARCHAR(20) NULL AFTER `comment`;
 ALTER TABLE `social_media_keys` CHANGE `brand_outlet_id` `brand_id` INT(11) NOT NULL;
 ALTER TABLE `social_media_keys` ADD `outlet_id` INT NULL AFTER `brand_id`;
 
+
+--- 25-06-2016 ---
+ALTER TABLE `posts` ADD `time_zone` VARCHAR(20) NULL AFTER `created_at`;
+

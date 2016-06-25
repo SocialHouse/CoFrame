@@ -55,9 +55,9 @@ if(!empty($post_images)){
 								}
 								if($img_count == 3 ){
 									if($i < 1){
-										$cls = 'post-img';
+										$cls = 'width_50';
 									}else{
-										$cls = 'width_50';	
+										$cls = 'post-img';	
 									}
 								}
 								if($img_count == 4 ){
