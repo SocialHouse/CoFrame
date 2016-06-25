@@ -321,7 +321,6 @@ jQuery(document).ready(function(){
         	phone:{phone_num: true},
         	timezone: {required: true},
         	password :{ minlength:6 },
-        	company_name: {required: true},
             company_email :{email: true},
             company_url:{domain:true}
         },

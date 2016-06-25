@@ -57,7 +57,8 @@ class Tour extends CI_Controller {
                             'timezone' => $user->timezone,
                             'company_name' => $user->company_name,
                             'company_email' => $user->company_email,
-                            'company_url' => $user->company_url
+                            'company_url' => $user->company_url,
+                            'user_group' => (get_user_groups($user_id)) ? get_user_groups($user_id) : 'Master admin'
                         );
 
                 $this->session->set_userdata('user_info',$user_info);

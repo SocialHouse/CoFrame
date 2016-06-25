@@ -570,4 +570,21 @@ class Brands extends CI_Controller {
 		$this->data['brand'] =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
 		echo $this->load->view('partials/user_list',$this->data,true);
 	}
+
+	public function is_name_exist()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data))
+		{
+			$is_exist = $this->timeframe_model->get_data_by_condition('user_info',array('first_name' => $post_data['first_name'],'last_name' => $post_data['last_name']));
+			if($is_exist)
+			{
+				echo "1";
+			}
+			else
+			{
+				echo "0";
+			}
+		}
+	}
 }

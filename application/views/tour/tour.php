@@ -401,7 +401,7 @@
 
 				if(verify && verify == 'success')
 				{
-					jQuery('#responseHeader').html('Verification successfull');
+					jQuery('#responseHeader').html('Verification successful');
 					jQuery('#responseMessage').html('You account is verified successfully.');
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').html('Go To Login');

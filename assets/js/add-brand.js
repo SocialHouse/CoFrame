@@ -24,7 +24,8 @@ jQuery(function($) {
 				}
 			}
 		});
-		$('#addNewUser.outlet-list li').on('click', function() {
+
+		$('.sub-user-outlet').on('click', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
 			var thisOutlet = $(this).data('selectedOutlet');
@@ -128,6 +129,8 @@ jQuery(function($) {
         $('#addUserLink').on('click', function() {
             $('.brand-step .outlet-list li').removeClass('selected');
             $('.brand-step .outlet-list li').addClass('disabled');
+            $('#nameValid').addClass('hide');
+            $('#emailValid').addClass('hide');
         })
 
         // Clear tag field when adding a second tag.
@@ -361,6 +364,41 @@ jQuery(function($) {
 			var next = $(this).data('nextStep');
 			nextStep(next);
 		});
+
+		$(document).on('blur keyup','#firstName,#lastName',function()
+		{
+			$.ajax({
+				url: base_url+'brands/is_name_exist',
+				type:'POST',
+				data: {'first_name':$('#firstName').val(),'last_name':$('#lastName').val()},
+				success:function(data){
+					if(data == 0)
+					{
+						$('#nameValid').addClass('hide');
+						if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val())
+				    	{
+				    		if(!$('#addRole').hasClass('btn-secondary'))
+				    			$('#addRole').addClass('btn-secondary');
+				    		$('#addRole').removeClass('btn-disabled');    		
+				    		$('#addRole').prop('disabled',false);
+				    	}
+				    	else
+				    	{
+				    		if(!$('#addRole').hasClass('btn-disabled'))
+				    			$('#addRole').addClass('btn-disabled');
+
+				    		$('#addRole').removeClass('btn-secondary');
+				    		$('#addRole').prop('disabled',true); 
+				    	}
+					}
+					else
+					{
+						$('#nameValid').removeClass('hide');
+						toggleBtnClass('btn-secondary','btn-disabled','#addRole',true);
+					}
+				}
+			});
+		});
 	});
 
 	window.successTip = function successTip() {
@@ -489,21 +527,31 @@ jQuery(function($) {
     	}
     	else
     	{
-    		// if($(this).val() && !validateEmail($(this).val()))
-    		// {
-    		// 	$('#emailValid').show();
-    		// }
-    		// else
-    		// {
-    		// 	$('#emailValid').hide();
-    		// }
-
     		if(!$('#addRole').hasClass('btn-disabled'))
     			$('#addRole').addClass('btn-disabled');
 
     		$('#addRole').removeClass('btn-secondary');
     		$('#addRole').prop('disabled',true); 
     	}
+
+    	if(!validateEmail($(this).val()))
+		{
+			if($(this).val().length > 4)
+			{
+				$('#emailValid').html('This is not a valid email.');
+				$('#emailValid').show();
+			}
+
+			if(!$(this).val())
+			{
+				$('#emailValid').hide();
+			}
+		}
+		else
+		{
+			$('#emailValid').html('Vaild email address.');
+			$('#emailValid').show();
+		}
     	
     });
 
