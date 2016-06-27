@@ -46,7 +46,7 @@
 			<div class="col-md-5">Current Brand Time </div>
 			<div class="col-md-7 text-md-right current-time">
 				<strong id="userTime"></strong><br>
-				<?php echo date('a T'); ?>
+				<span id="userTimeZone"></span>
 			</div>
 		</div>
 	</div>

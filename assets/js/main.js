@@ -2147,6 +2147,12 @@ jQuery(function($) {
 		h = checkHours(h);
 		m = checkMinutes(m);
 		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
+		//set timezone
+		var tz = moment.tz.guess();
+		var zoneAbbr = moment.tz(tz).zoneAbbr();
+		var ampm = moment().format('a');
+		document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
+		//realtime time updates
 		var t = setTimeout(setUserTime, 500);
 	}
 	function checkMinutes(i) {
@@ -2157,7 +2163,6 @@ jQuery(function($) {
 		if (i > 12) {i = i-12}; //12 hour format
 		return i;
 	}
-
 	function showContent(obj) {
 		obj.fadeIn(function() {
 			obj.trigger('contentShown');
