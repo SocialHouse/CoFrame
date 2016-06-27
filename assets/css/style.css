@@ -10623,6 +10623,8 @@ a {
   padding-left: 5px; }
 
 /*forms*/
+.slate-post .form-group {
+  margin-bottom: 0; }
 .container-approvals .form-group {
   margin-bottom: 1.33333rem; }
 .container-phases .form-group {
@@ -10631,6 +10633,8 @@ a {
     margin-bottom: .5rem; }
 .form-group:last-child {
   margin-bottom: 0; }
+.form-group.slate-post-tz {
+  margin-bottom: 1rem; }
 .form-group .timezone {
   font-family: "Bebas", Arial, Helvetica, sans-serif;
   font-size: 1.33333rem;
@@ -10965,6 +10969,8 @@ textarea.form-control {
   .post-content .hide-top-bx-shadow {
     padding: 2px 20px 20px;
     margin: -2px -20px 0; }
+  .slate-post .hide-top-bx-shadow {
+    margin-bottom: -10px; }
   .archives .hide-top-bx-shadow {
     padding: 2px 20px 20px;
     margin: -2px -20px -20px; }

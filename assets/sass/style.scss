@@ -2840,6 +2840,9 @@ a {
 
 /*forms*/
 .form-group {
+	.slate-post & {
+		margin-bottom: 0;
+	}
 	.container-approvals & {
 		margin-bottom: remCalc(20px);
 	}
@@ -2851,6 +2854,9 @@ a {
 	}
 	&:last-child {
 		margin-bottom: 0;
+	}
+	&.slate-post-tz {
+		margin-bottom: 1rem;
 	}
 	.timezone {
 		font-family: $bebas;
@@ -3243,6 +3249,9 @@ textarea.form-control {
 	.post-content & {
 		padding: 2px 20px 20px;
 		margin: -2px -20px 0;
+	}
+	.slate-post & {
+		margin-bottom: -10px;
 	}
 	.archives & {
 		padding: 2px 20px 20px;

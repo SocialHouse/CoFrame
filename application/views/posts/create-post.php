@@ -150,43 +150,29 @@
 						</div>
 					</div>
 					<div class="clearfix">
-					<div>
 						<div id="hm_error" class="error"></div>
 						<div id="date_error" class="error"></div>
-							<div class="form-group form-inline pull-sm-left">
-								<label>Slate Post:</label><br>
-								<div class="hide-top-bx-shadow">
-									<input  type="text" class="form-control popover-toggle single-date-select txt-disable txt-disable" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
-								</div>
-								
-							</div>
-							<div class="form-group pull-sm-right">
-								<div class="pull-xs-left">
-									<label class="invisible">Post Time</label>
-									<div class="time-select form-control">
-										<input type="text" class="time-input hour-select txt-disable" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
-										<input type="text" class="time-input minute-select txt-disable" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
-										<input type="text" class="time-input amselect" name="post-ampm" value="am">
+						<div class="pull-sm-left">
+								<label>Slate Post:</label>
+							<div class="clearfix slate-post">
+								<div class="form-group form-inline pull-sm-left">
+									<div class="hide-top-bx-shadow">
+										<input  type="text" class="form-control popover-toggle single-date-select txt-disable txt-disable" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
 									</div>
 								</div>
-								<span class="timezone pull-xs-right margin-top-30">PST</span>
-							</div>
-
-							<div class="form-group form-inline pull-sm-left">
-								<label>Tags:</label><br>
-								<?php
-								$title = "You have not set up any tags";
-								if(!empty($tags))
-								{
-									$title = "Select all that apply:";
-								}
-								?>
-								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="<?php echo $title; ?>" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
-									<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+								<div class="form-group pull-sm-left">
+									<div class="pull-xs-left">
+										<label class="hidden">Post Time</label>
+										<div class="time-select form-control">
+											<input type="text" class="time-input hour-select txt-disable" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
+											<input type="text" class="time-input minute-select txt-disable" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
+											<input type="text" class="time-input amselect" name="post-ampm" value="am">
+										</div>
+									</div>
+									<span class="timezone pull-xs-right">PST</span>
 								</div>
-								
 							</div>
-							<div class="form-group form-inline pull-sm-left">
+							<div class="form-group form-inline slate-post-tz">
 								<label class="radio-inline">
 									<input type="radio" class="radio" checked name="time_zone" value="me">Your time zone
 								</label>
@@ -194,12 +180,21 @@
 									<input type="radio" name="time_zone" value="brand">Brand time zone
 								</label>
 							</div>
+						</div>
 
-					</div>
-						
-						<!-- <div class="form-group form-inline pull-xl-right">						
-							
-						</div> -->
+						<div class="form-group form-inline pull-sm-right">
+							<label>Tags:</label><br>
+							<?php
+							$title = "You have not set up any tags";
+							if(!empty($tags))
+							{
+								$title = "Select all that apply:";
+							}
+							?>
+							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'posts/tag_list/'.$brand_id; ?>" data-title="<?php echo $title; ?>" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-offset-x="0" data-offset-y="-2">
+								<i class="fa fa-circle color-gray-lighter"></i> | <i class="fa fa-caret-down color-black"></i>
+							</div>
+						</div>
 					</div>
 
 					<footer class="post-content-footer">
@@ -285,8 +280,8 @@
 							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
-						<button class="btn btn-sm save-draft-btn submit-btn btn-disabled" disabled id="draft">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-disabled submit-approval submit-btn " id="submit-approval" disabled >Submit for Approval</button>
+						<button class="btn btn-sm save-draft-btn btn-default btn-disabled submit-btn" disabled id="draft">Save Draft</button>
+						<button type="submit" class="btn btn-sm btn-secondary btn-disabled submit-approval submit-btn pull-sm-right" id="submit-approval" disabled>Submit for Approval</button>
 						</footer>
 					</div>
 				</div>
