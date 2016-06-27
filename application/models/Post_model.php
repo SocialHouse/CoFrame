@@ -275,7 +275,7 @@ class Post_model extends CI_Model
 	}
 
 	public function get_images($post_id){
-		$this->db->select('post_media.name, post_media.type, post_media.mime');
+		$this->db->select('post_media.id,post_media.name, post_media.type, post_media.mime');
 		$this->db->where('post_media.post_id',$post_id);
 		$query = $this->db->get('post_media');
 

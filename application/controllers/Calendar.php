@@ -272,9 +272,8 @@ class Calendar extends CI_Controller {
 		$this->data = array();
 		$error = '';
 		$uploaded_files = array();
-		$post_data = $this->input->post();
+		$post_data = $this->input->post();	
 		
-		echo '<pre>'; print_r($post_data );echo '</pre>';
 		if(!empty($post_data['post_id'])){
 			$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
 		    $slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
@@ -306,15 +305,15 @@ class Calendar extends CI_Controller {
 					}
 					
 					foreach($tags_to_add as $tag)
-		    			{
+	    			{
 
-		    				$post_tag_data = array(
-		    										'post_id' => $post_data['post_id'],
-		    										'brand_tag_id' => $tag
-		    									);
-		    			
-		    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
-		    			}
+	    				$post_tag_data = array(
+	    										'post_id' => $post_data['post_id'],
+	    										'brand_tag_id' => $tag
+	    									);
+	    			
+	    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+	    			}
 
 				}
 
@@ -323,6 +322,16 @@ class Calendar extends CI_Controller {
 				{
 					$files = json_decode($post_data['uploaded_files'][0])->success;
 				}
+
+				if(!empty($post_data['delete_img']))
+				{
+					$delete_image_array = explode(',', $post_data['delete_img']);
+					foreach($delete_image_array as $img)
+					{
+						$this->timeframe_model->delete_data('post_media',array('id' => $img));
+					}
+				}
+
 	    		if(isset($files) AND !empty($files))
 	    		{
 	    			foreach($files as $file)

@@ -59,13 +59,13 @@ if(!empty($post_images)){
 	                        }
 						}
 						if($img_count == 2 ){
-							foreach ($post_images as $key) {
-								if($i == 0) {
+							foreach ($post_images as $key) {								
+								if($i == 1 OR $i == 2) {
 									$type = 'left' ;
 								}else{
 									$type = 'right' ;
 								}
-
+								
 								echo '<div class="pull-'.$type.'  width_50">';
 								if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
 	                            	echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"  class=" height_135 img-radious-'.$type.'" />';

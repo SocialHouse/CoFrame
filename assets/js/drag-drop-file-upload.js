@@ -66,7 +66,7 @@
 
 					showFiles( e.target.files,this);
 						droppedFiles = e.target.files; // the files that were dropped				
-						var reader = new FileReader();
+						
 						$.each(droppedFiles, function (index, file) {
 							
 							var file_type = file.type.split('/');
@@ -93,18 +93,17 @@
 									$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
 									$('.remove-user-img').show();
 									allFiles =[];
-								}
-								allFiles.push(file)
+								}							
 
 								var img = document.createElement('img');
 								//for live review fb
 								var preview_img = document.createElement('img');
-								img.onload = function () {
-									window.URL.revokeObjectURL(this.src);
-								};
+								// img.onload = function () {
+								// 	window.URL.revokeObjectURL(this.src);
+								// };
 								img.className = 'form__file-preview';
 
-								img.src = window.URL.createObjectURL(file);
+								// img.src = window.URL.createObjectURL(file);
 								var imgDiv = document.createElement('div');
 								imgDiv.className = 'form__preview-wrapper';
 								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
@@ -115,11 +114,13 @@
 								// set  data (data-preview-number) to image tag for deleting image 
 								total_images = $('img.form__file-preview').length;
 								$(img).attr('data-preview-number',total_images);
-
+								var reader = new FileReader();
 								reader.readAsDataURL(file);
 								reader.onload = function (e) {
 									img.src = e.target.result;
-				                }
+									file.img_src = e.target.result;
+				                	allFiles.push(file);				                	
+				                }				                
 
 								//to sho user uploded img on add role page
 								if($('.user-img-preview').length)
@@ -240,9 +241,9 @@
 								}
 								allFiles.push(file);
 								var img = document.createElement('img');
-								img.onload = function () {
-									window.URL.revokeObjectURL(this.src);
-								};
+								// img.onload = function () {
+								// 	window.URL.revokeObjectURL(this.src);
+								// };
 
 								img.className = 'form__file-preview';
 								img.src = window.URL.createObjectURL(file);
@@ -436,7 +437,6 @@
 			    	var selectedPermissions = [];
 			    	var image_name = '';
 			    	var user_pic = '';
-			    	console.log($('#user_pic_base64').val());
 			    	if($('#user_pic_base64').val() != ''){
 			    		user_pic = $('#user_pic_base64').attr('value');
 			    	}
@@ -532,12 +532,34 @@
 
 			//remove post media upload on icon click
 		    $('body').on('click', '.form__input .remove-upload', function(){
+
 				var $uploader = $(this).closest('.form__input');
-				var imgSrc = $(this).next('img').attr('src');
-				console.log(imgSrc);
+				var control = $(this).parent().find('img');	
+				if($(this).data('delete-id'))
+				{
+					var deleted = $('#delete_img').val()
+					if(deleted)
+					{
+						$('#delete_img').val(deleted+','+$(this).data('delete-id'));
+					}
+					else
+					{
+						$('#delete_img').val($(this).data('delete-id'));
+					}
+				}
+				else
+				{
+					$.each(allFiles,function(a,b){					
+						if(b.img_src == $(control).attr('src'))
+						{
+						    allFiles.splice(a, 1);
+						}
+					});
+				}
+
 				$(this).parent('.form__preview-wrapper').fadeOut(function() {
 					$(this).remove();
-					removeFromPreview(imgSrc);
+					removeFromPreview();
 					var $uploads = $uploader.find('.form__preview-wrapper');
 					if(!$uploads.length) {
 						$uploader.removeClass('has-files');	
@@ -697,6 +719,7 @@
 					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('img-radious-right');
 
 					var preview_img = '<img class="width_30 section_2_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
+					console.log(jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)'));
 					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
 				}
 
@@ -789,14 +812,211 @@
 		}
 	}
 
-	function removeFromPreview(file) {
+	function removePreview(){
+		var $ = jQuery;
+		$('#live-post-preview').empty();
+		$('.no-of-photos').html('');
+    	var outlet_id = $('#postOutlet').val();
+    	var selected_outlet = $('#postOutlet').attr('data-outlet-const');
+    	var post_copy;
+    	if($('#postCopy').val())
+    		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
+    	$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
+    	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());    	
+    }
+
+	function removeFromPreview() {
 		var $ = jQuery, imgTag;
-		imgTag = $('#live-post-preview').find('img');
-		$.each(imgTag, function(i, img){
-			if($(this).attr('src') == file ){
-				console.log('img removed');
-			}
-		})
+		var imgTags = $('.form__preview-wrapper').find('img');
+		var videoTags = $('.form__preview-wrapper').find('video');
+		removePreview()
+
+		if(videoTags.length)
+		{
+
+		}
+		else
+		{
+			$.each(imgTags,function(a,b){			
+				var selected,selected_outlet ='' ;
+				var preview_img = '<img class="post-img" src="'+$(b).attr('src')+'" >';
+				// preview_img.src = window.URL.createObjectURL(file);
+				var no_of_img = jQuery('#live-post-preview .img-div img').length;
+				var outlet_id = jQuery('#postOutlet').val();
+				selected = jQuery('#postOutlet').attr('data-outlet-const');		
+				selected_outlet = 'outlet_'+ selected;
+				if(selected_outlet == 'outlet_facebook')
+				{
+					if(no_of_img == 0)
+					{
+						jQuery('#live-post-preview .img-div').append(preview_img);
+					}
+					if(no_of_img == 1) 
+					{
+						jQuery('#live-post-preview .img-div img:first').addClass('width_50');
+						jQuery('#live-post-preview .img-div img:first').removeClass('post-img');
+						var preview_img = '<img class="width_50" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div').append(preview_img);
+						jQuery('.no-of-photos').html('added <span class="photos_count">2 new photos</span>');
+					}
+					if(no_of_img == 2) 
+					{
+						jQuery('#live-post-preview .img-div').addClass('clearfix');
+						jQuery('#live-post-preview .img-div').append('<div class="pull-left section1"></div>');
+						jQuery('#live-post-preview .img-div').append('<div class="pull-left width_50 section2"></div>');
+						var img_1 = jQuery('#live-post-preview .img-div img:eq(1)');
+						var img_2 = jQuery('#live-post-preview .img-div img:eq(0)');
+						jQuery('#live-post-preview .img-div .section1').append(img_1);
+						img_1.removeClass('width_50');
+						jQuery('#live-post-preview .img-div .section2').append(img_2);
+						var preview_img = '<img class="section_2_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div .section2').append(preview_img);
+						jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
+					}
+
+					if(no_of_img == 3)
+					{
+						jQuery('#live-post-preview .img-div .section2 img').removeClass('width_50');
+						jQuery('#live-post-preview .img-div .section2').addClass('width_33');
+						jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_50');
+						jQuery('#live-post-preview .img-div img:eq(2)').addClass('width_33');
+						jQuery('#live-post-preview .img-div img:eq(2)').removeClass('width_50');
+						var preview_img = '<img class="width_33" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div').append(preview_img);
+						jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
+					}
+
+					if(no_of_img == 4)
+					{
+						jQuery('#live-post-preview .img-div img:eq(0)').addClass('width_50');
+						jQuery('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
+
+						jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_50');
+						jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_33');
+						var preview_img = '<img class="width_33" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div').append(preview_img);
+						jQuery('.no-of-photos').html('added <span class="photos_count">5 new photos</span>');
+					}
+
+					if(no_of_img >= 5)
+					{
+						if(jQuery('.more-images').length >= 1)
+						{
+							var more_count = jQuery('.more-images').attr('id');
+							more_count++;
+							jQuery('.more-images').attr('id',more_count);
+							jQuery('.more-images').html('+'+more_count);
+							jQuery('.no-of-photos').html('added <span class="photos_count">'+more_count+' new photos</span>');
+						}
+						else
+						{
+							var preview_img = '<div class="more-images" id="1"> +1</div>';
+							jQuery('#live-post-preview .img-div').append(preview_img);
+							jQuery('.no-of-photos').html('added <span class="photos_count">6 new photos</span>');
+						}
+					}
+					
+				}
+				//for twitter
+				if(selected_outlet == 'outlet_twitter')
+				{
+					if(no_of_img == 0)
+					{
+						var preview_img = '<div class="pull-left"><img class="img-radious" src="'+$(b).attr('src')+'" ></div>';
+						jQuery('.twitter-img-div').empty();
+						jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+					}
+
+					if(no_of_img == 1) 
+					{
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('width_50');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('height_135');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('img-radious-left');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').removeClass('img-radious');
+
+						var preview_img = '<div class="pull-left width_50"><img class="img-radious-right height_135" src="'+$(b).attr('src')+'" ></div>';
+						jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+					}
+
+					if(no_of_img == 2) 
+					{
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first').removeClass('width_50');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('section1');
+
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').addClass('section2');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('img-radious-right-top');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('width_30');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_2_img');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('padding_bottom');	
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('height_135');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('img-radious-right');
+
+						var preview_img = '<img class="width_30 section_2_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+					}
+
+					if(no_of_img == 3) 
+					{
+						jQuery('#live-post-preview .twitter-img-div .pull-left:first').css('width','75%');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').css('width','25%');
+
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('section_2_img');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_3_img');
+
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('section_2_img');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('section_3_img');
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('img-radious-right-bottom');				
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('padding_bottom');
+
+						var preview_img = '<img class="width_30 section_3_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+					}
+					
+				}
+				//for insta
+				if( selected_outlet == 'outlet_instagram')
+				{
+					var preview_img = '<img src="'+$(b).attr('src')+'" >';
+					jQuery('.insta-img-div').empty();
+					jQuery('#live-post-preview .insta-img-div').append(preview_img);
+				}
+				
+				//for linkedin
+				if(selected_outlet == 'outlet_linkedin')
+				{
+		            var preview_img = '<img src="'+$(b).attr('src')+'" >';
+		            jQuery('.likedin-img-div').empty();
+		            jQuery('#live-post-preview .likedin-img-div').append(preview_img);
+				}
+
+				//for tumblr
+				if(selected_outlet == 'outlet_tumblr')
+				{
+					var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
+					jQuery('#live-post-preview .tumblr-img-div').append(preview_img);
+				}
+
+				//for vine
+				if(selected_outlet == 'outlet_vine')
+				{
+					var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
+		            jQuery('.vine-img-div').empty();
+		            jQuery('#live-post-preview .content').append(preview_img);
+				}
+				if(selected_outlet == 'outlet_youtube')
+				{
+					var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
+		            jQuery('.vine-img-div').empty();
+		            jQuery('#live-post-preview .content').append(preview_img);
+				}
+				if(selected_outlet == 'outlet_pinterest')
+				{
+		            var preview_img = '<img src="'+$(b).attr('src')+'" >';
+		            jQuery('.pinterest-img-div').empty();
+		            jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
+				}
+			});
+		}		
 	}
 
 	
