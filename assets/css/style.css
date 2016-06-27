@@ -8761,7 +8761,8 @@ a {
   outline: none;
   z-index: 1050;
   left: 1.5rem;
-  top: 1.5rem; }
+  top: 1.5rem;
+  cursor: pointer; }
   .modal-toggler .icon-bar, .cancel-icon .icon-bar {
     display: block;
     width: 34px;
