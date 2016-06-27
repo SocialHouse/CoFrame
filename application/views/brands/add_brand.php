@@ -97,7 +97,7 @@
 						<footer class="post-content-footer">
 							<div id="outletStep2Btns">
 								<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
-								<button type="button" id="save_outlet" class="btn btn-sm btn-disabled pull-sm-right" disabled="disabled">Next</button>
+								<button type="button" id="save_outlet" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled="disabled">Next</button>
 	
 								<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled pull-sm-right btn-next-step hide" data-active-class="btn-secondary" data-next-step="3"></button>
 							</div>
