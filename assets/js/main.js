@@ -2075,7 +2075,7 @@ jQuery(function($) {
 		    keypress: 	function(){ create_post_validation(); },
 		    blur: 		function(){ create_post_validation(); },
 		   	click:  	function(){ create_post_validation(); }
-		}, '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border');
+		}, '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border,.incrementer i');
 
     $(document).on( 'change','input[type="file"]', function( e ){
     	e.preventDefault();
