@@ -11275,8 +11275,11 @@ textarea.form-control {
 
 #add-brand-details .error {
   color: red;
-  text-transform: none !important;
-  clear: both; }
+  text-transform: none;
+  clear: both;
+  letter-spacing: normal;
+  margin-top: -.75rem;
+  margin-bottom: 0.75rem; }
 
 /* linkedin post preview */
 .linkedin-post {

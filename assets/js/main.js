@@ -978,20 +978,6 @@ jQuery(function($) {
 			}, 400);
 		});
 	});
-	
-	var brandStepH;
-	$('#addNewUser').on('contentSlidDown', function(event, element) {
-		var parentInlineH = $(this).parents('.brand-step').prop('style')['height'];
-		var parentH = $(this).parents('.brand-step').height();
-		var contentH = $(this).parents('.container-brand-step').outerHeight();
-		if(parentH !== 'auto' && contentH >= parentH) {
-			brandStepH = parentInlineH;
-			$(this).parents('.brand-step').css({'height': 'auto'});
-		}
-	});
-	$('#addNewUser').on('contentSlidUp', function(event, element) {
-		$(this).parents('.brand-step').css({'height': brandStepH});
-	});
 
 	$('.commentReply').on('contentSlidDown', function(event, element) {
 		if($(this).is(':visible')) {

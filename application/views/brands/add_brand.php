@@ -50,7 +50,7 @@
 						</div>
 						<footer class="post-content-footer">
 							<button type="button" class="btn btn-sm btn-default" onclick="window.location='<?php echo base_url(); ?>brands/overview';">Cancel</button>
-							<button type="button" class="btn btn-sm btn-disabled pull-sm-right save_brand" disabled="disabled">Next</button>
+							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right save_brand" disabled="disabled">Next</button>
 	
 							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled btn-secondary pull-sm-right btn-next-step hide" data-next-step="2"></button>
 						</footer>
@@ -125,12 +125,12 @@
 							</div>
 							<div class="hidden" id="addUserBtns">
 								<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
-								<button type="button" class="btn btn-sm btn-disabled pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
+								<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
 							</div>
 							<div class="hidden" id="userRoleBtns">
 								<p class="disclaimer">Upon clicking ‘Add,’ a registration link will be sent to this user.</p>
 								<button type="button" class="btn btn-sm btn-default btn-cancel show-hide go-to-userlist" data-hide="#addUserRole, #userRoleBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
-								<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide addUserToBrand" disabled id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
+								<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide addUserToBrand" disabled id="addUser" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole">Add</button>
 							</div>
 						</footer>
 					</div>

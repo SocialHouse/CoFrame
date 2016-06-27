@@ -15,8 +15,16 @@
 		<div class="form__success">Done!</div>
 		<div class="form__error">Error! <span></span></div>
 	</div>
+	<div class="form-group input-margin" id="userSelect">
+		<select class="form-control" name="userSelect">
+			<option value="">Select User</option>
+			<!-- Loop through all users from the master account -->
+			<option value="Roy Palondikar">Roy Palondikar</option>
+			<option value="Add New">Add New User</option>
+		</select>
+	</div>
 
-	<div class="form-group input-margin">
+	<div class="form-group input-margin hidden" id="addUserInfo">
 		<label for="firstName">User Info:</label>
 		<input type="text" class="form-control" id="firstName" placeholder="First Name *" name="first_name" autocomplete="off">
 		<input type="text" class="form-control" id="lastName" placeholder="Last Name *" name="last_name" autocomplete="off">
