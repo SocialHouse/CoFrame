@@ -21,10 +21,10 @@
 					{
 						foreach($reminders as $reminder)
 						{
-							$symbol = '';
-							if(!empty($reminder->approve_by))
+							$symbol = '';						
+							if(!empty($reminder->due_date))
 							{
-								if(date('Y-m-d',strtotime('-12 hours')) <= date('Y-m-d',strtotime($reminder->approve_by)) AND date('Y-m-d') >= date('Y-m-d',strtotime($reminder->approve_by)))
+								if(date('Y-m-d H:i') <= date('Y-m-d H:i',strtotime($reminder->due_date)) AND date('Y-m-d H:i',strtotime('12 hours')) >= date('Y-m-d H:i',strtotime($reminder->due_date)))
 								{
 									$symbol = '<div class="pull-sm-right"><i class="fa fa-exclamation-circle color-danger"></i></div>';
 								}
@@ -32,8 +32,7 @@
 							?>
 							<li>
 								<?php
-									$date = !empty($reminder->approve_by) ? date('m/d',strtotime($reminder->approve_by)): date('m/d',strtotime($reminder->created_at));
-									echo '<a href="">'.$reminder->text." ".$date.$symbol.'</a>';
+								echo '<a href="">'.$reminder->text." ".$symbol.'</a>';
 								?>
 							</li>
 							<?php

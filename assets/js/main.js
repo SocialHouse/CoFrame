@@ -1776,7 +1776,10 @@ jQuery(function($) {
 			
 			jQuery.each($('input'), function(i, control) {
 				if(control.name == 'brand_owner' || control.name == 'phase_id' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
-			    	data.append(control.name, control.value);
+				{
+					if(control.value)
+			    		data.append(control.name, control.value);
+				}
 			});
 
 	    	$.ajax({

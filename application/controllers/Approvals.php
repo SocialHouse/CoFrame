@@ -128,23 +128,22 @@ class Approvals extends CI_Controller {
 		    	}
 		    	else
 		    	{
-		    		$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id');
+		    		$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id,slate_date_time,outlet_id');
 
-		    		$user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
-
-		    		$remoinder_data = array(
+		    		$reminder_data = array(
 				    				'type' => 'notification',
-				    				'text' => ucfirst($user_info[0]->first_name).' '.ucfirst($user_info[0]->last_name).' has commented on your post',
+				    				'text' => 'Review feedback from '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' on '.date('m/d',strtotime($post[0]->slate_date_time)).' '.get_outlet_by_id($post[0]->outlet_id).' post',
 				    				'brand_id' => $post[0]->brand_id,
 				    				'user_id' => $post[0]->user_id,
 				    				'post_id' => $post_data['post_id']
 				    			);
-		    		$this->timeframe_model->insert_data('reminders',$remoinder_data);
+		    		$this->timeframe_model->insert_data('reminders',$reminder_data);
 		    	}
 
 		    	$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
 
-		    	$this->data['comment'] = $this->approval_model->get_comment($inserted_id);		    	
+		    	$this->data['comment'] = $this->approval_model->get_comment($inserted_id);
+
 		    	$this->data['brand_owner'] = $post_data['brand_owner'];
 		    	$this->data['post_id'] = $post_data['post_id'];
 		    	$this->data['brand_id'] = $post_data['brand_id'];
