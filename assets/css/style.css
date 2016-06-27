@@ -8522,7 +8522,8 @@ h5, .qtip-titlebar {
     border-color: #000; }
     .bg-white .btn-default:hover, .bg-gray-lightest .btn-default:hover {
       color: #fff;
-      border-color: #C71F2A; }
+      background: #000;
+      border-color: #000; }
     .bg-white .btn-default.color-success, .bg-gray-lightest .btn-default.color-success {
       color: #009245;
       border-color: #009245; }
@@ -8566,19 +8567,19 @@ h5, .qtip-titlebar {
 
 .btn-disabled, .btn-disabled:hover {
   opacity: 1;
-  color: #bfbfbf;
-  border-color: #bfbfbf;
-  background: none;
+  color: !important;
+  border-color: #bfbfbf !important;
+  background: none !important;
   cursor: not-allowed; }
   .btn-disabled.btn-default, .btn-disabled.btn-icon, .btn-disabled:hover.btn-default, .btn-disabled:hover.btn-icon {
-    color: #bfbfbf;
-    border-color: #bfbfbf; }
+    color: #bfbfbf !important;
+    border-color: #bfbfbf !important; }
   .btn-disabled.btn-secondary, .btn-disabled:hover.btn-secondary {
-    background: #bfbfbf;
-    color: #fff; }
+    background: #bfbfbf !important;
+    color: #fff !important; }
     .post-actions .btn-disabled.btn-secondary, .post-actions .btn-disabled:hover.btn-secondary {
-      background: #e5e5e5;
-      color: #999999; }
+      background: #e5e5e5 !important;
+      color: #999999 !important; }
 
 .btn-login {
   margin-top: 19px; }
