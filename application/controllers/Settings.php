@@ -58,7 +58,7 @@ class Settings extends CI_Controller {
 			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
 			$this->data['layout'] = 'layouts/new_user_layout';
 			$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
-			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'facebook.js');
+			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'facebook.js',js_url().'vendor/moment.min.js?ver=2.11.0');
 			
 			$this->data['background_image'] = 'bg-brand-management.jpg';  
 
