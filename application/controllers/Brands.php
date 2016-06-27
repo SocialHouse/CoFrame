@@ -602,4 +602,19 @@ class Brands extends CI_Controller {
 			}
 		}
 	}
+
+	public function delete_user()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data['aauth_user_id']))
+		{
+			$this->aauth->delete_user($post_data['aauth_user_id']);
+			$this->timeframe_model->delete_data('user_info',array('aauth_user_id' => $post_data['aauth_user_id']));
+			echo 'success';
+			return;
+		}else{
+			echo 'fail';
+			return;
+		}
+	}
 }

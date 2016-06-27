@@ -751,6 +751,33 @@ jQuery(function($) {
 	        });
 	    }
     });
+
+     $('body').on('click', '#userPermissionsList .remove-user', function(event){
+     	event.preventDefault();
+     	// if(!($('#userPermissionsList .table').length > 1)){
+     	// 	return false;
+     	// }
+    	if(confirm("Are you sure, you want to delete this user?"))
+        {
+
+			var aauth_user_id = $(this).data('user-id');
+			$.ajax({
+				url: base_url+'brands/delete_user',
+				type:'POST',
+				data: {'aauth_user_id':aauth_user_id},
+				success:function(data){
+					if(data=='success'){
+						$('#table_id_'+aauth_user_id).fadeOut(function() {
+							$('#table_id_'+aauth_user_id).remove();
+						});
+					}else{
+
+					}
+				}
+			});
+		}
+		
+    });
 }
 
 	function validateEmail(email) {
