@@ -67,7 +67,6 @@
 							</div>
 							<a href="#brandOutlets" id="addOutletLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addOutletLink, #outletStep2Btns, #selectedOutlets" data-show="#brandOutlets, #addOutletBtns"><i class="tf-icon circle-border">+</i>Add Outlet</a>
 							<div id="brandOutlets" class="outlet-list hidden">
-								<h5 class="text-xs-center border-bottom border-black ">Add an Outlet</h5>
 								<ul>
 									<?php
 									if(!empty($outlets))

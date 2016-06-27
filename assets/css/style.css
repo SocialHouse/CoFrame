@@ -8567,7 +8567,7 @@ h5, .qtip-titlebar {
 
 .btn-disabled, .btn-disabled:hover {
   opacity: 1;
-  color: !important;
+  color: #bfbfbf !important;
   border-color: #bfbfbf !important;
   background: none !important;
   cursor: not-allowed; }
@@ -9703,7 +9703,7 @@ a {
   .brand-step#brandStep3 .add-link {
     margin-top: 0; }
   .brand-step#brandStep2 .outlet-list ul {
-    margin: 5.33333rem 0 0; }
+    margin: 120px 0 0; }
   .brand-step .outlet-list li {
     padding: 0 10px 12px; }
   .brand-step .outlet-list.selected-items .tf-icon, .brand-step .outlet-list.saved-items .tf-icon {
