@@ -21,7 +21,7 @@
 						
 					</div>
 					<footer class="post-content-footer">
-						<a href="#" class="btn btn-default btn-xs">Delete</a>
+					<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
 					</footer>
 				</div>
 			</div>
