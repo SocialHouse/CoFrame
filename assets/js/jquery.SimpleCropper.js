@@ -37,28 +37,39 @@
         //add click to element
         this.click(function (e) {
             e.preventDefault();
+
             aspX = $(this).width();
             aspY = $(this).height();
             file_display_area = $(this);
-            $('#fileInput').click();
+            if(e.target.id == 'new_user_pic'){
+                $('#userfileInput').click();    
+            }else{
+                $('#fileInput').click();
+            }
+            
         });
 
         $(document).ready(function () {
-
-            var obj = $("#add_brand_img");
-
-            obj.on('dragenter', function (e) {
+            var userfile_obj = $("#new_user_pic");
+            var add_brand_obj = $("#add_brand_img");
+            var obj;
+            console.log(userfile_obj);
+            console.log(add_brand_obj);
+            add_brand_obj.on('dragenter', function (e) {
+                //console.log(e);
                 e.stopPropagation();
                 e.preventDefault();
                 $(this).css('border', '2px solid #0B85A1');
             });
             
-            obj.on('dragover', function (e) {
+            add_brand_obj.on('dragover', function (e) {
+                //console.log(e);
                 e.stopPropagation();
                 e.preventDefault();
             });
 
-            obj.on('drop', function (e) {
+            add_brand_obj.on('drop', function (e) {
+                obj = 'add_brand_obj';
                 $(this).css('border', '2px dotted #0B85A1');
                 e.preventDefault();
                 var files = e.originalEvent.dataTransfer.files[0];
@@ -74,18 +85,64 @@
             //capture selected filename
             $('#fileInput').change(function (click) {
                 click.preventDefault();
+                obj = 'add_brand_obj';
                 imageUpload($('#preview').get(0),$("#fileInput").get(0).files[0]); //$("#fileInput").get(0).files[0]
                 // Reset input value
                 $(this).val("");
             });
 
+            userfile_obj.on('dragenter', function (e) {
+                
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).css('border', '2px solid #0B85A1');
+            });
+            
+            userfile_obj.on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            userfile_obj.on('drop', function (e) {
+                e.preventDefault();
+                obj = 'userfile_obj';
+                $(this).css('border', '2px dotted #0B85A1');
+                var files = e.originalEvent.dataTransfer.files[0];
+                file_display_area = $(this);
+                aspX = $(this).width();
+                aspY = $(this).height();
+                file_display_area = $(this);
+                $('#userfileInput').click();
+                //We need to send dropped files to Server
+                imageUpload($('#preview').get(0),files); 
+            });
+
+            //capture selected filename
+            $('#userfileInput').change(function (click) {
+                click.preventDefault();
+                obj = 'userfile_obj';
+                console.log(obj);
+                imageUpload($('#preview').get(0),$("#userfileInput").get(0).files[0]); //$("#fileInput").get(0).files[0]
+                // Reset input value
+                $(this).val("");
+            });
+
+
             //ok listener
             $('.ok').click(function () {
-                preview();
+                preview(obj);
                 $('#preview').delay(100).hide();
                 $('#modal').hide();
                 jcrop_api.destroy();
-                $('.remove-brand-img').removeClass('hide');
+                console.log(obj);
+                if(obj== 'userfile_obj'){
+                    $('.remove-user-img').removeClass('hide');
+                    $('.remove-user-img').show();
+                    
+                }else{
+                    $('.remove-brand-img').removeClass('hide');
+                    console.log($('.remove-user-img').attr('class'));
+                }
                 reset();
             });
 
@@ -97,13 +154,22 @@
                 reset();
             });
 
-            $('.remove-brand-img').click(function(){
+            $('.remove-brand-img .remove-upload').click(function(){
+                 console.log($(this));
                 $('.brand-image').removeClass('has-files');
                 $('#add_brand_img').children('img').remove();
-                 $('#is_brand_image').val('no');
+                $('#is_brand_image').val('no');
                 $('#base64').val('');
                 brand_logo = [];            
-                $(this).addClass('hide');
+                $('.remove-brand-img ').addClass('hide');
+            });
+
+            $('.remove-user-img .remove-upload').click(function(){
+                $('.new-user-pic').removeClass('has-files');
+                $('#new_user_pic').children('img').remove();
+                $('#user_pic_base64').val('');
+                $('.user-img-preview').attr('src','');
+                $('.remove-user-img').addClass('hide');
             });
 
         });
@@ -126,6 +192,10 @@
         function imageUpload(dropbox, file) {
             var imageType = /image.*/;
             brand_logo = [];
+            if(file.size > 2000000){
+                alert("File size should be lass than 2 MB ");
+                return false;
+            }
             brand_logo.push(file);
             if (file.type.match(imageType)) {
                 var reader = new FileReader();
@@ -226,7 +296,7 @@
             y2 = c.y2;
         }
 
-        function preview() {
+        function preview(obj) {
             // Set canvas
             var canvas = document.getElementById('myCanvas');
             var context = canvas.getContext('2d');
@@ -254,8 +324,15 @@
 
             // Convert canvas image to normal img
             dataUrl = canvas.toDataURL();
-            $('#base64').val(dataUrl);
-            $('#is_brand_image').val('yes');
+            if(obj == 'userfile_obj'){
+                //$('#user_pic_base64').val(dataUrl);
+                $('#user_pic_base64').attr('value',dataUrl);
+                $('.user-img-preview').attr('src',dataUrl);
+            }else{
+                 $('#base64').val(dataUrl);
+                $('#is_brand_image').val('yes');   
+            }
+           
             var imageFoo = document.createElement('img');
             imageFoo.src = dataUrl;
             

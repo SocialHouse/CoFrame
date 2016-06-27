@@ -255,7 +255,7 @@ class Brands extends CI_Controller {
     public function add_user()
     {
     	$post_data = $this->input->post();
-
+    	
     	if(!empty($post_data))
     	{
     		$password = uniqid();
@@ -274,7 +274,7 @@ class Brands extends CI_Controller {
         	$this->load->helper('email');
 
         	$this->data['user'] = $user_data;
-          
+        	
             try
             {
                 
@@ -304,12 +304,27 @@ class Brands extends CI_Controller {
                 		}
                 	}
 
-                	if(!empty($post_data['image_name']))
-                	{
-                		$old_path = upload_path().$this->user_id.'/users/'.$post_data['image_name'];
-		        		$new_path = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';		        		
-		        		rename_file($old_path, $new_path);
-                	}
+                	if(isset($post_data['file']) && !empty($post_data['file'])){
+                		$base64_image = $post_data['file'];
+	        		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+			        	//decode base64 string
+				        $decoded = base64_decode($base64_str);
+
+				        //create jpeg from decoded base 64 string and save the image in the parent folder
+
+				        if(!is_dir(upload_path().$this->user_id.'/users/')){
+				        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+				        }
+				        $url = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';	
+				        $result = file_put_contents($url, $decoded);
+
+				        $source_url = imagecreatefrompng($url);
+				       // $source_url = imagecreatefromstring(file_get_contents($url));
+				        
+				        header('Content-Type: image/png');
+				        imagepng($source_url, $url, 8);
+		        	}
 
                 	unset($user_data['password']);
                 	unset($user_data['username']);

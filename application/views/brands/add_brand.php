@@ -16,7 +16,9 @@
 						<div class="brand-fields">
 							<div class="form-group">
 								<div class="brand-logo text-xs-center">
-									<a href="#" class="remove-brand-img hide"><i class="tf-icon circle-border">x</i></a>
+									<a href="#" class="remove-brand-img hide">
+										<i class="tf-icon-circle remove-upload">x</i>
+									</a>
 									<div class="center-block brand-image"  id="img_div" >
 										<input type='file' id='fileInput' name='files' accept='image/*'>
 										<div class="cropme" id="add_brand_img" style="width: 200px; height: 200px;"></div>

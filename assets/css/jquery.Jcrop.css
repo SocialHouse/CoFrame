@@ -171,6 +171,13 @@ img.jcrop-preview {
   overflow:hidden;
 }
 
+
+#userfileInput{
+  width:0;
+  height:0;
+  overflow:hidden;
+}
+
 #modal{
   z-index: 10;
   position: fixed;
@@ -206,7 +213,7 @@ img.jcrop-preview {
 }
 
 #preview .buttons .ok{
-  border: 4px solid #F5F5F5;
+  border: 5px solid #F5F5F5;
   border-radius: 4px;
   width: 36px;
   height: 36px;
@@ -221,7 +228,7 @@ img.jcrop-preview {
 
 #preview .buttons .cancel{
   margin-bottom: 4px;
-  border: 4px solid #F5F5F5;
+  border: 5px solid #F5F5F5;
   border-radius: 4px;
   width: 36px;
   height: 36px;
@@ -269,6 +276,7 @@ img.jcrop-preview {
   background-repeat: no-repeat;
   cursor: pointer;
   border-radius: 100%;
+  background-size: 70.7% auto;
 }
 
 .cropme:hover{
@@ -289,4 +297,15 @@ img.jcrop-preview {
   margin-bottom: 20px;
   background-color: #f1f1f1;
   padding: 10px;
+}
+
+.new-user-pic .cropme {
+  float: none;
+  margin-left: 100px;
+}
+
+.remove-user-img .remove-upload{
+  top: 30%;
+  left: 52%;
+  z-index: 999999;
 }

@@ -18,8 +18,10 @@
 				$label		 = $form.find( '.file-upload-label' ),
 				$errorMsg	 = $form.find( '.form__error span' ),
 				$restart	 = $form.find( '.form__restart' ),
+				supported_files = ['gif','png','jpg','jpeg','mp4'],
 				droppedFiles = false,
 				allFiles = [],
+				total_images = '',
 				outlet = $form.find('#postOutlet').val(),
 				showFiles	 = function( files , control){
 
@@ -52,18 +54,31 @@
 
 			// automatically submit the form on file select
 			$(document).on( 'change','input[type="file"]', function( e ){
-				if( $(this).attr('id') != 'fileInput')
+
+				if( $(this).attr('id') != 'fileInput' && $(this).attr('id') != 'userfileInput')
 				{
 					var $fileDiv = $(this).parents('.form__input');
 					$fileDiv.parent().find('.upload-error').addClass('hide');
 					var fileInput = this;
 					var error = 'false';
+
+
+
 					showFiles( e.target.files,this);
-						droppedFiles = e.target.files; // the files that were dropped					
-									
+						droppedFiles = e.target.files; // the files that were dropped				
+						var reader = new FileReader();
 						$.each(droppedFiles, function (index, file) {
+							
 							var file_type = file.type.split('/');
+							if($.inArray(file_type[1] ,supported_files) == -1){
+								alert('Invalid file extention');
+								return false;
+							};
 							if( file_type[0]== 'image'){
+								if( file.size > 2000000){
+									alert('Image size should be less than 2 MB');
+									return false;
+								}
 								if($fileDiv.find('video').length > 0){
 									alert('Invalid file extention');
 									return false;
@@ -88,23 +103,37 @@
 									window.URL.revokeObjectURL(this.src);
 								};
 								img.className = 'form__file-preview';
-								img.src = window.URL.createObjectURL(file);					
+
+								img.src = window.URL.createObjectURL(file);
 								var imgDiv = document.createElement('div');
 								imgDiv.className = 'form__preview-wrapper';
 								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
 								$(imgDiv).append(img);
-							
-								$fileDiv.prepend(imgDiv).addClass('has-files');				
+								
+								$fileDiv.prepend(imgDiv).addClass('has-files');
+
+								// set  data (data-preview-number) to image tag for deleting image 
+								total_images = $('img.form__file-preview').length;
+								$(img).attr('data-preview-number',total_images);
+
+								reader.readAsDataURL(file);
+								reader.onload = function (e) {
+									img.src = e.target.result;
+				                }
 
 								//to sho user uploded img on add role page
 								if($('.user-img-preview').length)
 								{
 									$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
 								}
+
 								//for show preview
 								changePreview(file,'image');
 							}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-													
+								if( file.size > 209715200){
+									alert('Video size should be less than 2 MB');
+									return false;
+								}
 								if($('.form__file-preview').length >= 1){
 									
 									if(file_type[0] =='video'){
@@ -136,6 +165,9 @@
 									video.src = window.URL.createObjectURL(file);
 									
 									$fileDiv.prepend(video).addClass('has-files');
+
+									total_images = $('video.form__file-preview').length;
+									$(video).attr('data-preview-number',total_images);
 
 									//to show user uploded img on add role page
 									if($('.user-img-preview').length)
@@ -174,14 +206,22 @@
 					var target_file_input = $(e.target).closest('.form__input');					
 					if(target_file_input.length > 0)
 					{
-						console.log($(target_file_input));
+						
 						droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 						var $fileDiv = $('.form__input');
 						$fileDiv.parent().find('.upload-error').addClass('hide');
 						var error ='false';
 						$.each(droppedFiles, function (index, file) {
-							var file_type = file.type.split('/');							
+							var file_type = file.type.split('/');
+							if($.inArray(file_type[1] ,supported_files) == -1){
+								alert('Invalid file extention');
+								return false;
+							};
 							if( file_type[0]== 'image'){
+								if( file.size > 2000000){
+									alert('Image size should be less than 200 MB');
+									return false;
+								}
 								if($('.form__file-preview').src=='video'){
 									alert('Invalid file extention');
 									return false;
@@ -203,6 +243,7 @@
 								img.onload = function () {
 									window.URL.revokeObjectURL(this.src);
 								};
+
 								img.className = 'form__file-preview';
 								img.src = window.URL.createObjectURL(file);
 								var imgDiv = document.createElement('div');
@@ -210,12 +251,26 @@
 								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
 								$(imgDiv).append(img);
 								$(target_file_input).prepend(imgDiv).addClass('has-files');
+
+								// set  data (data-preview-number) to image tag for deleting image 
+								total_images = $('img.form__file-preview').length;
+								$(img).attr('data-preview-number',total_images);
+
+								var reader = new FileReader();
+			                    reader.onload = function (e) {
+			                       $(img).attr("src", e.target.result);
+			                    }
 								//for show preview
 								changePreview(file,'image');
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
+								if( file.size > 209715200){
+									alert('video size should be less than 200 Mb');
+									return false;
+								}
+
 								if($('.form__file-preview').length >= 1){
-									console.log($('.form__file-preview').src);
+									
 									if($('.form__file-preview').src =='video'){
 										alert('You can\'t add more than 1 video');	
 									}else{
@@ -232,6 +287,11 @@
 									video.src = window.URL.createObjectURL(file);
 									$(target_file_input).prepend(video).addClass('has-files');
 									//for show preview
+
+									// set  data (data-preview-number) to video element for deleting video 
+									total_images = $('video.form__file-preview').length;
+									$(video).attr('data-preview-number',total_images);
+
 									changePreview(file,'video');
 								}							
 							}else{
@@ -350,9 +410,9 @@
 
 					// gathering the form data
 					var ajaxData = new FormData();
-					$.each( allFiles, function( i, file ){
-						ajaxData.append( 'file['+i+']', file,file.name);
-					});
+					// $.each( allFiles, function( i, file ){
+					// 	ajaxData.append( 'file['+i+']', file,file.name);
+					// });
 					
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
@@ -364,103 +424,81 @@
 				    });
 
 					// ajax request
-					$.ajax({
-						url: 			base_url+'brands/upload_profile_pic',
-						type:			$form.attr( 'method' ),
-						data: 			ajaxData,
-						dataType:		'json',
-						cache:			false,
-						contentType:	false,
-						processData:	false,
-						complete: function(){
-							$form.removeClass( 'is-uploading' );
-						},
-						success: function( data ){
-							if(data.response == 'success')
-							{
-								var brand_id = $('#brand_id').val();
-						    	var fname = $('#firstName').val();
-						    	var lname = $('#lastName').val();
-						    	var title = $('#userTitle').val();
-						    	var email = $('#userEmail').val();
-						    	var selectedOutlets = $('#userOutlet').val();
-						    	var userRoleSelect = $('#userRoleSelect :selected').val();
-						    	var selectedPermissions = [];
-						    	var image_name = '';
-						    	if(data.file)
-						    	{
-						    		image_name = data.file
-						    	}
-						    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
-								   selectedPermissions[i] = this.value;
-								});
-
-						    	$.ajax({
-						    		url: base_url+'brands/add_user',    		
-						    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name},
-						    		type: 'POST',
-						    		dataType: 'json',
-						    		success: function(data)
-						    		{
-						    			if(data.response == "success")
-						    			{
-						    				$('#userPermissionsList').append(data.html);
-						    				$('.go-to-userlist').trigger('click');
-						    				$('#firstName').val('');
-									    	$('#lastName').val('');
-									    	$('#userTitle').val('');
-									    	$('#userEmail').val('');
-									    	$('#userOutlet').val('');
-									    	$('#userRoleSelect').val('');
-									    	$('#userRoleSelect').trigger('change');
-
-									    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
-									    	$('.user_upload_img_div').html('');
-									    	$('.user_upload_img_div').removeClass('has-files');
-									    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
-											html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
-											html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
-											$('.user_upload_img_div').html('');
-									    	$('.user_upload_img_div').html(html);
-									    	$('.remove-user-img').hide();
-									    	allFiles = [];
-									    	$('.user-upload-img').hide();
-									    	$('.user-img-preview').show();
-
-									    	if($('#add_user_next').hasClass('btn-disabled'))
-									    	{
-									    		$('#add_user_next').removeClass('btn-disabled');
-									    	}
-									    	$('#add_user_next').addClass('btn-secondary');
-									    	$('#add_user_next').prop('disabled',false);
-						    			}
-						    			else
-						    			{
-						    				$('.user-upload-img').hide();
-											$('.user-img-preview').show();
-											if(!$('#add_user_next').hasClass('btn-disabled'))
-									    	{
-									    		$('#add_user_next').addClass('btn-disabled');
-									    	}
-									    	$('#add_user_next').removeClass('btn-secondary');
-									    	$('#add_user_next').prop('disabled',true);
-											alert('Unable to add user.');
-						    			}
-						    		}
-
-						    	});
-							}
-							else
-							{
-								$('.user-upload-img').hide();
-								$('.user-img-preview').show();
-								alert('Unable to upload image please try again.')
-							}
-						},
-						error: function(){
-							alert( 'There was a problem with your upload.  Please try again.' );
-						}
+					
+					var brand_id = $('#brand_id').val();
+			    	var fname = $('#firstName').val();
+			    	var lname = $('#lastName').val();
+			    	var title = $('#userTitle').val();
+			    	var email = $('#userEmail').val();
+			    	var selectedOutlets = $('#userOutlet').val();
+			    	var userRoleSelect = $('#userRoleSelect :selected').val();
+			    	var user_id = $('#post_user_id :selected').val();
+			    	var selectedPermissions = [];
+			    	var image_name = '';
+			    	var user_pic = '';
+			    	console.log($('#user_pic_base64').val());
+			    	if($('#user_pic_base64').val() != ''){
+			    		user_pic = $('#user_pic_base64').attr('value');
+			    	}
+			    	
+			    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
+					   selectedPermissions[i] = this.value;
 					});
+			    	$.ajax({
+			    		url: base_url+'brands/add_user',    		
+			    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id },
+			    		type: 'POST',
+			    		dataType: 'json',
+			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+			    		success: function(data)
+			    		{
+			    			if(data.response == "success")
+			    			{
+			    				$('#userPermissionsList').append(data.html);
+			    				$('.go-to-userlist').trigger('click');
+			    				$('#firstName').val('');
+						    	$('#lastName').val('');
+						    	$('#userTitle').val('');
+						    	$('#userEmail').val('');
+						    	$('#userOutlet').val('');
+						    	$('#userRoleSelect').val('');
+						    	$('#userRoleSelect').trigger('change');
+
+						    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
+						    	$('.user_upload_img_div').html('');
+						    	$('.user_upload_img_div').removeClass('has-files');
+						    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
+								html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
+								html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+								$('.user_upload_img_div').html('');
+						    	$('.user_upload_img_div').html(html);
+						    	$('.remove-user-img').hide();
+						    	allFiles = [];
+						    	$('.user-upload-img').hide();
+						    	$('.user-img-preview').show();
+
+						    	if($('#add_user_next').hasClass('btn-disabled'))
+						    	{
+						    		$('#add_user_next').removeClass('btn-disabled');
+						    	}
+						    	$('#add_user_next').addClass('btn-secondary');
+						    	$('#add_user_next').prop('disabled',false);
+			    			}
+			    			else
+			    			{
+			    				$('.user-upload-img').hide();
+								$('.user-img-preview').show();
+								if(!$('#add_user_next').hasClass('btn-disabled'))
+						    	{
+						    		$('#add_user_next').addClass('btn-disabled');
+						    	}
+						    	$('#add_user_next').removeClass('btn-secondary');
+						    	$('#add_user_next').prop('disabled',true);
+								alert('Unable to add user.');
+			    			}
+			    		}
+
+			    	});
 				}
 
 				// fallback Ajax solution upload for older browsers
