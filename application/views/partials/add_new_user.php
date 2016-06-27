@@ -5,11 +5,6 @@
 		<a href="#" class="remove-user-img hide">
 			<i class="tf-icon-circle remove-upload">x</i>
 		</a>
-		<!-- <div class="form__input center-block user_upload_img_div">
-			<input type="file" name="files[]" id="userFile" class="form__file" data-multiple-caption="{count} files selected" accept="image/*">
-			<label for="userFile" id="userFileLabel" class="file-upload-label">Upload photo</label>
-			<button type="submit" class="form__button btn btn-sm btn-default">Upload</button>
-		</div> -->
 		<div class="center-block new-user-pic"  id="img_div" >
 			<input type='file' id='userfileInput' name='files' accept='image/*'>
 			<div class="cropme" id="new_user_pic" style="width: 70px; height: 70px;"></div>
@@ -20,20 +15,6 @@
 		<div class="form__success">Done!</div>
 		<div class="form__error">Error! <span></span></div>
 	</div>
-<!-- 
-	<div class="form-group">
-		<div class="brand-logo text-xs-center">
-			<a href="#" class="pull-sm-right remove-user-img hide" style="display: none !important;"><i class="tf-icon circle-border">x</i></a>
-			<div class="center-block brand-image"  id="img_div" >
-				<input type='file' id='fileInput' name='files' accept='image/*'>
-				<div class="cropme" id="add_brand_img" style="width: 100px; height: 100px;"></div>
-			</div>
-			<div class="upload-error error hide">Wrong file type uploaded</div>
-			<div class="form__uploading">Uploading ...</div>
-			<div class="form__success">Done!</div>
-			<div class="form__error"></div>
-		</div>
-	</div> -->
 
 	<div class="form-group input-margin">
 		<label for="firstName">User Info:</label>

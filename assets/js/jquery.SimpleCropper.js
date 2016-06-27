@@ -53,8 +53,6 @@
             var userfile_obj = $("#new_user_pic");
             var add_brand_obj = $("#add_brand_img");
             var obj;
-            console.log(userfile_obj);
-            console.log(add_brand_obj);
             add_brand_obj.on('dragenter', function (e) {
                 //console.log(e);
                 e.stopPropagation();
@@ -121,7 +119,7 @@
             $('#userfileInput').change(function (click) {
                 click.preventDefault();
                 obj = 'userfile_obj';
-                console.log(obj);
+                //console.log(obj);
                 imageUpload($('#preview').get(0),$("#userfileInput").get(0).files[0]); //$("#fileInput").get(0).files[0]
                 // Reset input value
                 $(this).val("");
@@ -134,14 +132,14 @@
                 $('#preview').delay(100).hide();
                 $('#modal').hide();
                 jcrop_api.destroy();
-                console.log(obj);
+               // console.log(obj);
                 if(obj== 'userfile_obj'){
                     $('.remove-user-img').removeClass('hide');
                     $('.remove-user-img').show();
                     
                 }else{
                     $('.remove-brand-img').removeClass('hide');
-                    console.log($('.remove-user-img').attr('class'));
+                    //console.log($('.remove-user-img').attr('class'));
                 }
                 reset();
             });
@@ -155,7 +153,7 @@
             });
 
             $('.remove-brand-img .remove-upload').click(function(){
-                 console.log($(this));
+                //console.log($(this));
                 $('.brand-image').removeClass('has-files');
                 $('#add_brand_img').children('img').remove();
                 $('#is_brand_image').val('no');

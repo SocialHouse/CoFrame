@@ -301,11 +301,15 @@ img.jcrop-preview {
 
 .new-user-pic .cropme {
   float: none;
-  margin-left: 100px;
+  margin: 0 auto;
 }
 
 .remove-user-img .remove-upload{
   top: 30%;
   left: 52%;
   z-index: 999999;
+}
+
+#step_3_edit .remove-user-img .remove-upload{
+  top:22% !important ;
 }

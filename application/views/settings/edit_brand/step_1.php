@@ -24,7 +24,7 @@
 			<input type="hidden" name="is_brand_image" id="is_brand_image" value="<?php echo $is_img; ?>" >
 				<div class="brand-logo text-xs-center">
 					<a href="#" class="remove-brand-img <?php echo $cls_1; ?>">
-						<i class="tf-icon circle-border">x</i>
+						<i class="tf-icon-circle remove-upload">x</i>
 					</a>
 					<div class="form__input center-block brand-image"  id="img_div" >
 						<input type='file' id='fileInput' name='files' accept='image/*'>

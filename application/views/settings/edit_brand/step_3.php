@@ -1,9 +1,10 @@
 <div class="container-brand-step">
-	<form id="step_3_edit" method="POST" class="file-upload clearfix has-advanced-upload" action="<?php echo base_url()?>brands/save_tags" enctype="multipart/form-data">
+	<form id="step_3_edit" method="POST" class="file-upload clearfix has-advanced-upload " action="<?php echo base_url()?>brands/save_tags" enctype="multipart/form-data">
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $this->user_id; ?>">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<h4 class="text-xs-center">Users &amp; Permissions</h4>
+		<div class="brand-image"></div>
 		<div class="brand-fields">
 			<div id="userPermissionsList" class="user-permissions-list">
 				<div class="clearfix">
