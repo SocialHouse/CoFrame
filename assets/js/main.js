@@ -105,14 +105,14 @@ jQuery(function($) {
 	    	});
 			if(!$btn_enable)
 			{	
-				toggleBtnClass('btn-secondary','btn-disabled',$("#archive-export button[type=submit]"),true);
+				toggleBtnClass($("#archive-export button[type=submit]"),true);
 			}else{
-				toggleBtnClass('btn-disabled','btn-secondary',$("#archive-export button[type=submit]"),false);
+				toggleBtnClass($("#archive-export button[type=submit]"),false);
 			}
 	    	
 	    });
 
-		//temp nav activation
+		//nav activation
 		var pathname = location.pathname;
 		$('.navbar-brand-manage .nav-link').each(function() {
 			var href = $(this).attr('href');			
@@ -210,11 +210,11 @@ jQuery(function($) {
 								var btn_num = 0;
 								if($activePhase.find('[data-new-phase]').length > 1)
 									btn_num = 1;
-								toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+								toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 								
 								if($activePhase.data('id') == 0)
 								{
-									toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+									toggleBtnClass($('.save-phases'),false);
 								}
 							}							
 						}
@@ -223,11 +223,11 @@ jQuery(function($) {
 							var btn_num = 0;
 							if($activePhase.find('[data-new-phase]').length > 1)
 								btn_num = 1;
-							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+							toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
 
 							if($activePhase.data('id') == 0)
 							{
-								toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+								toggleBtnClass($('.save-phases'),true);
 							}
 						}						
 					},100);
@@ -246,10 +246,10 @@ jQuery(function($) {
 								var btn_num = 0;
 								if($activePhase.find('[data-new-phase]').length > 1)
 									btn_num = 1;
-								toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+								toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 								if($activePhase.data('id') == 0)
 								{
-									toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+									toggleBtnClass($('.save-phases'),false);
 								}
 							}
 						}
@@ -258,11 +258,11 @@ jQuery(function($) {
 							var btn_num = 0;
 							if($activePhase.find('[data-new-phase]').length > 1)
 								btn_num = 1;
-							toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+							toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
 
 							if($activePhase.data('id') == 0)
 							{
-								toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+								toggleBtnClass($('.save-phases'),true);
 							}
 						}
 					},100);
@@ -374,12 +374,12 @@ jQuery(function($) {
 	    	if(postsTotDelete.length)
 	    	{
 	    		$('.delete-draft').attr('data-toggle','modal');
-	    		toggleBtnClass('btn-disabled','btn-secondary',$('.delete-draft'),false);		    	
+	    		toggleBtnClass($('.delete-draft'),false);		    	
 	    	}
 	    	else
 	    	{
 	    		$('.delete-draft').attr('data-toggle','');
-	    		toggleBtnClass('btn-secondary','btn-disabled',$('.delete-draft'),true);	
+	    		toggleBtnClass($('.delete-draft'),true);	
 	    	}
 		});
 		
@@ -1240,11 +1240,11 @@ jQuery(function($) {
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
 
-				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 
 				if($activePhase.data('id') == 0)
 				{
-					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+					toggleBtnClass($('.save-phases'),false);
 				}
 			}
 			else
@@ -1252,11 +1252,11 @@ jQuery(function($) {
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+				toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
 
 				if($activePhase.data('id') == 0)
 				{
-					toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+					toggleBtnClass($('.save-phases'),true);
 				}
 			}
 		}
@@ -1265,11 +1265,11 @@ jQuery(function($) {
 			var btn_num = 0;
 			if($activePhase.find('[data-new-phase]').length > 1)
 				btn_num = 1;
-			toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+			toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
 
 			if($activePhase.data('id') == 0)
 			{
-				toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+				toggleBtnClass($('.save-phases'),true);
 			}
 		}
 	}
@@ -1318,11 +1318,11 @@ jQuery(function($) {
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 
 				if($activePhase.data('id') == 0)
 				{
-					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+					toggleBtnClass($('.save-phases'),false);
 				}
 			}
 			else
@@ -1330,11 +1330,11 @@ jQuery(function($) {
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+				toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
 
 				if($activePhase.data('id') == 0)
 				{
-					toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+					toggleBtnClass($('.save-phases'),true);
 				}
 			}			
 		}
@@ -1343,11 +1343,11 @@ jQuery(function($) {
 			var btn_num = 0;
 			if($activePhase.find('[data-new-phase]').length > 1)
 				btn_num = 1;
-			toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+			toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
 
 			if($activePhase.data('id') == 0)
 			{
-				toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+				toggleBtnClass($('.save-phases'),true);
 			}
 		}
 	}
@@ -1379,11 +1379,11 @@ jQuery(function($) {
 					var btn_num = 0;
 					if($activePhase.find('[data-new-phase]').length > 1)
 						btn_num = 1;
-					toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+					toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 					
 					if($activePhase.data('id') == 0)
 					{
-						toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+						toggleBtnClass($('.save-phases'),false);
 					}	
 				}
 				
@@ -1443,11 +1443,11 @@ jQuery(function($) {
 				var btn_num = 0;
 				if($activePhase.find('[data-new-phase]').length > 1)
 					btn_num = 1;
-				toggleBtnClass('btn-disabled','btn-secondary',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
 				
 				if($activePhase.hasClass('edit-phase-div'))
 				{
-					toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+					toggleBtnClass($('.save-phases'),false);
 				}
 			}
 		}
@@ -1496,6 +1496,8 @@ jQuery(function($) {
 	addIncrements();
 
 	window.equalColumns = function equalColumns() {
+		//reset heights to default to get appropriate calculation
+		$('.equal-height').css('height', '');
 		var dashboardH = $('.page-main').outerHeight();
 		var newColsH = dashboardH;
 		var headhH = $('.page-main-header').outerHeight(true);
@@ -1755,7 +1757,7 @@ jQuery(function($) {
     	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
 		$('.attachment').prepend(attachment_html);
 		
-		toggleBtnClass('btn-secondary','btn-disabled',$(this).parent().children('.save-edit-req'),true);
+		toggleBtnClass($(this).parent().children('.save-edit-req'),true);
     });
     
     //to save edit request
@@ -1812,11 +1814,11 @@ jQuery(function($) {
     $(document).on('keyup blur','#comment_copy',function(){
     	if($(this).val())
     	{
-    		toggleBtnClass('btn-disabled','btn-secondary','.save-edit-req',false);
+    		toggleBtnClass('.save-edit-req',false);
     	}
     	else
     	{
-    		toggleBtnClass('btn-secondary','btn-disabled','.save-edit-req',true);
+    		toggleBtnClass('.save-edit-req',true);
     	}
     })
 
@@ -1850,11 +1852,11 @@ jQuery(function($) {
     	var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
     	if($(this).val())
     	{	    	
-	    	toggleBtnClass('btn-disabled','btn-secondary',btn,false);
+	    	toggleBtnClass(btn,false);
 	    }
 	    else
 	    {
-	    	toggleBtnClass('btn-secondary','btn-disabled',btn,true);
+	    	toggleBtnClass(btn,true);
 	    }
     });
 
@@ -1866,7 +1868,7 @@ jQuery(function($) {
     	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';	            		
     	$(parent_div).prepend(attachment_html);
     	$("textarea[name='comment"+parent_id+"']").val('');    	
-    	toggleBtnClass('btn-secondary','btn-disabled',$(this).parent().children('.save-reply'),true);
+    	toggleBtnClass($(this).parent().children('.save-reply'),true);
     });
 
     $(document).on('click','.save-reply',function(){
@@ -1981,7 +1983,7 @@ jQuery(function($) {
 	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'false'},
 	            success: function(response){
 	            	if(response != 'false'){
-	            		toggleBtnClass('btn-secondary','btn-disabled',$('.edit-brands-info'),true);
+	            		toggleBtnClass($('.edit-brands-info'),true);
 	            		$('#brandStep'+step_no).empty();
 	            		$('#brandStep'+step_no).addClass('active');
 	            		$('#brandStep'+step_no).html(response);
@@ -2003,7 +2005,7 @@ jQuery(function($) {
             	//console.log(result.response);
             	if(result.response == 'success'){
             		window.location.reload();
-            		// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+            		// toggleBtnClass($('.edit-brands-info'),false);
             		// $('#brandStep2').empty();
             		// $('#brandStep2').removeClass('active');
             		// $('#brandStep2').html(response);
@@ -2025,7 +2027,7 @@ jQuery(function($) {
 	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
 	            success: function(response){
 	            	if(response != 'false'){
-	            		toggleBtnClass('btn-disabled','btn-default',$('.edit-brands-info'),false);
+	            		toggleBtnClass($('.edit-brands-info'),false);
 	            		$('#brandStep'+step_no).empty();
 	            		$('#brandStep'+step_no).removeClass('active');
 	            		$('#brandStep'+step_no).html(response);
@@ -2061,7 +2063,7 @@ jQuery(function($) {
             success: function(result){
                 if(result.response == 'success'){
 					window.location.reload();
-					// toggleBtnClass('btn-disabled','btn-secondary',$('.edit-brands-info'),false);
+					// toggleBtnClass($('.edit-brands-info'),false);
 					// $('#brandStep4').empty();
 					// $('#brandStep4').removeClass('active');
 					// $('#brandStep4').html(response);
@@ -2070,25 +2072,19 @@ jQuery(function($) {
         });
     });
 
-
-    $(document).on({
-		    keypress: 	function(){ create_post_validation(); },
-		    blur: 		function(){ create_post_validation(); },
-		   	click:  	function(){ create_post_validation(); }
-		}, '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border,.incrementer i');
+    $(document).on('keypress blur', '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border,.incrementer i', function() {
+		create_post_validation($(this));
+	});
+    $(document).on('click', '.check-box.circle-border, .incrementer i', function() {
+		create_post_validation($(this));
+	});
 
     $(document).on( 'change','input[type="file"]', function( e ){
     	e.preventDefault();
     	if( $(this).attr('id') != 'fileInput'){
-	    	create_post_validation();
+	    	create_post_validation($(this));
 	    }
-     })
-
-	// $(document).on('keypress, blur, click ','#postCopy, .single-date-select, .hour-select,.minute-select ',function(){
-	// 	create_post_validation();
-	// });
-
-
+     });
 
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
@@ -2102,7 +2098,7 @@ jQuery(function($) {
 	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
 	            success: function(response){
 	            	if(response != 'false'){
-	            		toggleBtnClass('btn-disabled','btn-default',$('.edit-brands-info'),false);
+	            		toggleBtnClass($('.edit-brands-info'),false);
 	            		$('#brandStep'+step_no).empty();
 	            		$('#brandStep'+step_no).removeClass('active');
 	            		$('#brandStep'+step_no).html(response);
@@ -2117,6 +2113,15 @@ jQuery(function($) {
 		$('.qtip', window.parent.document).qtip("hide");
 	});
 
+	toggleBtnClass = function(btnClass, btnState){
+		$(btnClass).prop('disabled', btnState);
+		if(btnState) {
+			$(btnClass).addClass('btn-disabled');
+		}
+		else {
+			$(btnClass).removeClass('btn-disabled');
+		}
+	};
 });
 
 	function convertToLink(text) {
@@ -2183,59 +2188,54 @@ jQuery(function($) {
 		jQuery(btnClass).removeClass(oldClass);
 	}
 
-	function create_post_validation(){
+	function create_post_validation(field){
 		var $ = jQuery;
-		var submit_btn_enable = false;
-		$('.error').hide();
+		var disable_btn = true;
 		var post_copy_error = $('#post_copy_error'),
 			img_error = $('#img_error'),
 			date_error = $('#date_error');
 			hm_error = $('#hm_error');
 
+		if($(field).hasClass('single-date-select') && $(field).val() === "") {
+			date_error.text('Please select date');
+			date_error.show();
+		}
+		if($(field).hasClass('hour-select') && $(field).val() === "" || $(field).hasClass('minute-select') && $(field).val() === "") {
+			hm_error.text('Please enter hour and minutes');
+			hm_error.show();
+		}
 		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
+			post_copy_error.hide();			
 			if($('.single-date-select').val() !=''){
+				date_error.hide();
 				if( $('.hour-select').val() != '' && $('.minute-select').val() != '' ){
+					hm_error.hide();
+					disable_btn = false;
 					if($(".check-box.circle-border").hasClass('selected')){
 						if($('input[name="phase[0][approve_date]').val()!=''){
 							if($('input[name="phase[0][approve_hour]"]').val()!='' && $('input[name="phase[0][approve_minute]"]').val()!=''){
-								submit_btn_enable = true;
+								disable_btn = false;
 							}
 						}
-					}else{
-						submit_btn_enable = true;
+						else {
+							disable_btn = true;
+						}
 					}
 				}
-				else{
-					hm_error.text('Plesase enter hour and minutes');
-					hm_error.show();
-				}
-			}else{
-				date_error.text('Plesase select date ');
-				date_error.show();
-			}	
+			}
 		}else{
 			var error_disp = false;
 			if($('#postCopy').val()==''){
-				post_copy_error.text('Plesase enter post post content');
+				post_copy_error.text('Please enter post content');
 				post_copy_error.show();
 				error_disp = true;
 			}
 			if(!error_disp){
-				img_error.text('Plesase select images or video');
-				img_error.show();				
+				img_error.text('Please select images or video');
+				img_error.show();
 			}
 		}
-		
-		if(submit_btn_enable)
-		{
-			toggleBtnClass('btn-disabled','btn-secondary',$("#submit-approval"),false);
-			toggleBtnClass('btn-disabled','btn-secondary',$("#draft"),false);
-		}else{
-			// disabled btn 
-			toggleBtnClass('btn-secondary', 'btn-disabled', $("#submit-approval"),true);
-			toggleBtnClass('btn-secondary', 'btn-disabled', $("#draft"),true);
-		}
+		equalColumns();
+		toggleBtnClass("#submit-approval", disable_btn);
+		toggleBtnClass("#draft", disable_btn);
 	}
-	
-	
-	

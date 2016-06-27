@@ -191,7 +191,7 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('body').on('click', '#selectBrandTags .tag', function() {
-			alert('test');
+			//alert('test');
 			if($(this).hasClass('saved')) {
 				return;
 			}
@@ -241,14 +241,14 @@ jQuery(function($) {
 				{
 					$('#otherTagLabel').hide();
 					$tag.attr('data-value', label);
-					// toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					// toggleBtnClass('#addTag',false);
 					var selected_tag = $('#selectedTags').children('ul').children('li');
-					console.log(selected_tag);
+					//console.log(selected_tag);
 					var add_flag = 1;
 					var control = this;
 					$.each(selected_tag,function(a,b){
-						console.log($(control).val());
-						console.log($(b).data('value'));
+						//console.log($(control).val());
+						//console.log($(b).data('value'));
 						if($(b).data('value') == $(control).val())
 						{
 							add_flag = 0;
@@ -261,12 +261,12 @@ jQuery(function($) {
 						$('#labelSelectValid').addClass('hide');
 						if($(this).val())
 						{
-							toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+							toggleBtnClass('#addTag',false);
 						}				
 					}
 					else
 					{
-						toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+						toggleBtnClass('#addTag',true);
 					}
 				}
 				else {
@@ -277,11 +277,11 @@ jQuery(function($) {
 
 					if(!$('#newLabel').val())
 					{
-						toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+						toggleBtnClass('#addTag',true);
 					}
 					else
 					{
-						toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);						
+						toggleBtnClass('#addTag',false);						
 					}
 				}
 			}
@@ -296,8 +296,8 @@ jQuery(function($) {
 			var add_flag = 1;
 			var control = this;
 			$.each(selected_tag,function(a,b){
-				console.log($(control).val());
-				console.log($(b).data('value'));
+				//console.log($(control).val());
+				//console.log($(b).data('value'));
 				if($(b).data('value') == $(control).val())
 				{
 					add_flag = 0;
@@ -310,12 +310,12 @@ jQuery(function($) {
 				$('#labelValid').addClass('hide');
 				if($(this).val())
 				{
-					toggleBtnClass('btn-disabled','btn-secondary','#addTag',false);
+					toggleBtnClass('#addTag',false);
 				}				
 			}
 			else
 			{
-				toggleBtnClass('btn-secondary','btn-disabled','#addTag',true);
+				toggleBtnClass('#addTag',true);
 			}
 		});	
 
@@ -361,7 +361,7 @@ jQuery(function($) {
 					$selectedItem.addClass('saved').removeClass('selected');
 					$selectedList.append($listItem);					
 				}, 200);
-				toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
+				toggleBtnClass('.submit_tag',false);
 				$('.submit_tag').prop('disabled',false);
 			}
 			else {
@@ -386,11 +386,11 @@ jQuery(function($) {
 			});
 			if(selected > 0)
 			{
-				toggleBtnClass('btn-disabled','btn-secondary','.submit_tag',false);
+				toggleBtnClass('.submit_tag',false);
 			}
 			else
 			{
-				toggleBtnClass('btn-secondary','btn-disabled','.submit_tag',true);
+				toggleBtnClass('.submit_tag',true);
 			}
 			$(this).parents('li').remove();
 		});
@@ -452,7 +452,7 @@ jQuery(function($) {
 					else
 					{
 						$('#nameValid').removeClass('hide');
-						toggleBtnClass('btn-secondary','btn-disabled','#addRole',true);
+						toggleBtnClass('#addRole',true);
 					}
 				}
 			});
@@ -607,8 +607,7 @@ jQuery(function($) {
 		}
 		else
 		{
-			$('#emailValid').html('Vaild email address.');
-			$('#emailValid').show();
+			$('#emailValid').hide();
 		}
     	
     });
@@ -717,11 +716,11 @@ jQuery(function($) {
 		
 		if($('#userPermissionsList').children('.table').length)
 	    {    	
-	    	toggleBtnClass('btn-disabled','btn-secondary','#add_user_next',false);
+	    	toggleBtnClass('#add_user_next',false);
 	    }
 	    else
 	    {
-	    	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
+	    	toggleBtnClass('#add_user_next',true);
 	    }
     });
 
@@ -735,11 +734,11 @@ jQuery(function($) {
 
     if($('#userPermissionsList').children('.table').length)
     {    	
-    	toggleBtnClass('btn-disabled','btn-secondary','#add_user_next',false);
+    	toggleBtnClass('#add_user_next',false);
     }
     else
     {
-    	toggleBtnClass('btn-secondary','btn-disabled','#add_user_next',true);
+    	toggleBtnClass('#add_user_next',true);
     }
 
     $('[data-id="connect"]').click(function(){    	
@@ -809,12 +808,4 @@ jQuery(function($) {
 		}
 	}
 
-	toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
-		$(btnClass).attr('disabled',btnState);
-		if(!$(btnClass).hasClass(newClass))
-		{
-			$(btnClass).addClass(newClass);
-		}
-		$(btnClass).removeClass(oldClass);
-	}
 });
