@@ -170,14 +170,17 @@ jQuery(function($) {
 
 		$('.edit-permissions').on('click', function() {
 			var section = $(this).data('section');
+			var $sectionLabel = $('#' + section).find('.permissions-label');
 			var $sectionList = $('#' + section).find('.permissions-list');
 			$(this).toggleClass('btn-disabled');
 			$sectionList.toggleClass('view');
 			if($(this).hasClass('btn-disabled')) {
 				$sectionList.find('li').css('display', 'block');
+				$sectionLabel.text('Modify Permissions');
 			}
 			else {
 				$sectionList.find('li.hidden').css('display', 'none');
+				$sectionLabel.text('Default Permissions');
 			}
 		});
 		$('.permissions-list .check-box').on('click', function() {

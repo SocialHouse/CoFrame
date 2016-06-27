@@ -24,7 +24,7 @@
 		</select>
 	</div>
 	<div id="adminPermissions" class="permission-details hidden">
-		<p class="clearfix">Permissions: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="adminPermissions"><i class="fa fa-pencil"></i></button></p>
+		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="adminPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -37,7 +37,7 @@
 		</ul>
 	</div>
 	<div id="managerPermissions" class="permission-details hidden">
-		<p class="clearfix">Permissions: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="managerPermissions"><i class="fa fa-pencil"></i></button></p>
+		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="managerPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Edit <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -48,7 +48,7 @@
 		</ul>
 	</div>
 	<div id="creatorPermissions" class="permission-details hidden">
-		<p class="clearfix">Permissions: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="creatorPermissions"><i class="fa fa-pencil"></i></button></p>
+		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="creatorPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Edit <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -59,7 +59,7 @@
 		</ul>
 	</div>
 	<div id="approverPermissions" class="permission-details hidden">
-		<p class="clearfix">Permissions: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="approverPermissions"><i class="fa fa-pencil"></i></button></p>
+		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="approverPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Edit <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -70,7 +70,7 @@
 		</ul>
 	</div>
 	<div id="billingPermissions" class="permission-details hidden">
-		<p class="clearfix">Permissions: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="billingPermissions"><i class="fa fa-pencil"></i></button></p>
+		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="billingPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li class="hidden">Create <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="create"><i class="tf-icon check-box circle-border pull-sm-right" data-value="create" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Edit <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="edit"><i class="tf-icon check-box circle-border pull-sm-right" data-value="edit" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
