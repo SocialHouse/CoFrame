@@ -409,6 +409,25 @@ jQuery(function($) {
 		});
 
 		//popover triggers
+		$('[data-toggle="popover-hover"]').qtip({
+			content: {
+				text: function(event, api) {
+					return $(this).attr('data-content');
+				}
+			},
+			position: {
+				my: 'top center',
+				at: 'bottom center'
+			},
+			style: {
+				classes: 'qtip-shadow',
+				tip: {
+					width: 20,
+					height: 10
+				}
+			}
+		});
+
 		$('body').on('click', '[data-toggle="popover"]', function(e) {
 			var $target=$(this);
 			var pcontent = $target.data('content');

@@ -108,7 +108,7 @@
 											}
 											?>
 											<li class="<?php echo $approver['status']; ?>">
-												<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img">
+												<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img" data-toggle="popover-hover" data-content="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>">
 											</li>
 											<?php
 										}
