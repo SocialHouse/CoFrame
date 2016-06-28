@@ -1124,6 +1124,10 @@ be a descendant of the grid when it is being dragged.
 
 .calendar-select-date {
   padding: 0; }
+  .calendar-select-date .fc-toolbar > * > * {
+    margin-left: 0; }
+  .calendar-select-date .fc-toolbar button {
+    padding: 0 6px; }
   .calendar-select-date .fc-head {
     border-bottom: 1px solid #bfbfbf; }
   .calendar-select-date .fc-day-header {

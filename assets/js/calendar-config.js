@@ -577,7 +577,9 @@ jQuery(function($) {
 		$('#' + id + ' .date-select-calendar').fullCalendar({
 			buttonText: {
 				prev: '',
-				next: ''
+				prevYear: '',
+				next: '',
+				nextYear: ''
 			},
 			contentHeight: 280,
 			dayNamesShort: [
@@ -586,9 +588,9 @@ jQuery(function($) {
 			eventOverlap: false,
 			fixedWeekCount: false,
 			header: {
-				left: 'prev',
+				left: 'prevYear prev',
 				center: 'title',
-				right: 'next'
+				right: 'next nextYear'
 			},
 			dayClick: function(date) {
 				//for date range
