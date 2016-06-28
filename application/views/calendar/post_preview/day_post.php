@@ -62,10 +62,6 @@
 			                    }
 							}
 						}
-						if($display_img == 'false')
-						{
-							echo '<img class="default-img reblog-avatar-image-thumb" src="'.img_url().'post-img-3.jpg"  width="228px"  >';
-						}
 					?>
 				</div>
 				<div class="col-md-7 post-content">
