@@ -92,7 +92,8 @@ class Settings extends CI_Controller {
 
 			if($step_number == 3 ){
 				$this->data['groups'] = $this->aauth->list_groups();
-				$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+				// $this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');
+				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
 				$this->data['users'] = $this->brand_model->get_brand_users( $brand[0]->id);
 			} 
 
