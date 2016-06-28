@@ -44,7 +44,7 @@
 						<th>Status</th>
 						<th>Post Copy</th>
 						<th>Approvals</th>
-						<th>Approve / View Edit Requests</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody class="calendar-app">
