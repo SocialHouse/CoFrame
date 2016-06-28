@@ -237,48 +237,71 @@
 				<section id="get-started" class="page-section" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/bg-start.jpg);">
 					<div class="section-content">
 						<div class="row bg-white get-started-detail animated register_form_height" data-animation="fadeInUp">
-							<div class="col-md-4 " data-animation=""></p>
-								<h1>Start your free 30-day trial</h1>
+							<div class="col-md-4 " data-animation="">
+								<h1>Start your free<br>
+								30-day trial</h1>
 								<hr />
 								<div>Selected Plan:</div>
 								<div id="selected-plan"><span class="highlight">None</span></div>
 								<p>Accounts can be upgraded,<br />
 								downgraded or canceled<br />
 								at any time.</p>
-								<p><a class="btn btn-default btn-sm" href="#pricing">Change</a></p><p>
+								<p><a class="btn btn-default btn-sm" href="#pricing">Change</a></p>
 							</div>
 							<div class="col-md-4 " data-animation="">
 								<div class="hide register-response"></div>
 								<form action="" id="register_form">
-									<div class="field-group">
+									<div class="field-group clearfix">
 										<fieldset class="form-group float-md">
-											<label class="sr-only" for="firstName">First Name</label>
-										 	<input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name">
+											<label class="sr-only" for="firstName">First Name*</label>
+										 	<input type="text" class="form-control" id="firstName" placeholder="First Name*" name="first_name">
 										</fieldset>
 
 										<fieldset class="form-group float-md">
-											<label class="sr-only" for="lastName">Last Name</label>
-											<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name">
-										</fieldset>
-									</div>
-
-									<div class="field-group clear">
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="emailAddress">Email address</label>
-											<input type="email" class="form-control" id="emailAddress" placeholder="Email" name="email">
-										</fieldset>
-
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="phoneNumber">Phone Number</label>
-											<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
+											<label class="sr-only" for="lastName">Last Name*</label>
+											<input type="text" class="form-control" id="lastName" placeholder="Last Name*" name="last_name">
 										</fieldset>
 									</div>
 
 									<div class="field-group clear">
 										<fieldset class="form-group">
-											<label class="sr-only" for="timeZone">Time Zone</label>
+											<label class="sr-only" for="companyName">Company Name</label>
+											<input type="text" class="form-control" id="companyName" placeholder="Company Name" name="company_name">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="title">Title</label>
+											<input type="text" class="form-control" id="title" placeholder="Title" name="title">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="emailAddress">Email address*</label>
+											<input type="email" class="form-control" id="emailAddress" placeholder="Email*" name="email">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="password">Create A Password*</label>
+											<input type="password" class="form-control" id="password" placeholder="Create A Password*" name="password">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="confirmPassword">Confirm Password*</label>
+											<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password*" name="confirm_password">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="phoneNumber">Phone Number</label>
+											<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="plan">Plan*</label>
+											<select class="form-control" id="plan" name="plan">
+												<option value="">Plan*</option>
+												<option data-price="$99" value="START-UP">START-UP</option>
+												<option data-price="$199" value="BUSINESS">BUSINESS</option>
+												<option data-price="$299" value="CORPORATE">CORPORATE</option>
+												<option data-price="$499" value="PREMIERE">PREMIERE</option>
+											</select>
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="sr-only" for="timeZone">Time Zone*</label>
 											<select class="form-control" id="timeZone" name="timezone">
-												<option value="">Time Zone</option>
+												<option value="">Time Zone*</option>
 												<?php
 											    foreach($timezones as $timezone)
 											    {
@@ -289,47 +312,8 @@
 											    ?>
 											</select>
 										</fieldset>
-
-										<fieldset class="form-group">
-											<label class="sr-only" for="plan">Plan</label>
-											<select class="form-control" id="plan" name="plan">
-												<option value="">Plan</option>
-												<option data-price="$99" value="START-UP">START-UP</option>
-												<option data-price="$199" value="BUSINESS">BUSINESS</option>
-												<option data-price="$299" value="CORPORATE">CORPORATE</option>
-												<option data-price="$499" value="PREMIERE">PREMIERE</option>
-											</select>
-										</fieldset>
 									</div>
 
-									<div class="field-group clear">
-										<fieldset class="form-group">
-											<label class="sr-only" for="userName">User Name</label>
-											<input type="text" class="form-control" id="userName" placeholder="User Name" name="username">
-										</fieldset>
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="password">Password</label>
-											<input type="password" class="form-control" id="password" placeholder="Password" name="password">
-										</fieldset>
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="confirmPassword">Confirm Password</label>
-											<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" name="confirm_password">
-										</fieldset>
-									</div>
-									<div class="field-group clear">
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="companyName">Company Name</label>
-											<input type="text" class="form-control" id="companyName" placeholder="Company Name" name="company_name">
-										</fieldset>
-										<fieldset class="form-group float-md">
-											<label class="sr-only" for="companyEmail">Company Email</label>
-											<input type="email" class="form-control" id="companyEmail" placeholder="Company Email" name="company_email">
-										</fieldset>
-										<fieldset class="form-group clear">
-											<label class="sr-only" for="companyURL">Company URL</label>
-											<input type="text" class="form-control" id="companyURL" placeholder="Company URL" name="company_url">
-										</fieldset>
-									</div>
 									<p class="disclaimer">Your 30-day free trial lasts until midnight on <?php echo date('M d Y',strtotime('+30 days')); ?>. By clicking the button BELOW, you are agreeing to the Terms of Service and Privacy Policy.</p>
 									<div class="text-center">
 										<button type="submit" class="btn btn-primary">Submit</button>
@@ -343,7 +327,7 @@
 								<p><strong>Need help signing up?</strong><br />
 								If you have any questions please email us at: <a href="mailto:support@timeframe.com">support@TIMEFRAME.com</a>.</p>
 								<hr />
-								<p>At TIMEFRAME, we value your privacy and will never share your personal data with any 3rd parties. 
+								<p>At Timeframe, we value your privacy and will never share your personal data with any 3rd parties. 
 							</div>
 						</div>
 					</div>
@@ -369,6 +353,7 @@
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.scrollify.min.js?ver=0.1.12'></script>
+		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/intlTelInput.min.js?ver=9.0.2'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>jquery.validate.min.js'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>tour_main.js?ver=1.0.0'></script>

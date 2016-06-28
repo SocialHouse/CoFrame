@@ -13,6 +13,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "vendor/bootstrap/bootstrap";
 @import "vendor/animate/animate";
 @import "vendor/font-awesome/font-awesome";
+@import "vendor/intltel/intlTelInput";
 @import "partials/fonts";
 
 * {
@@ -404,6 +405,7 @@ a {
 	}
 	&#get-started {
 		height: auto !important;
+		min-height: 100%;
 		.section-content {
 			position: relative;
 			top: inherit;
@@ -886,9 +888,6 @@ a {
 }
 
 /*Forms*/
-.field-group {
-	margin-bottom: 2.75rem;
-}
 .input-group {
 	width: 100%;
 }
@@ -911,8 +910,24 @@ a {
 		}
 	}
 }
-@media (min-width: 48em) and (max-width: 1439px) {
-	 .form-group.float-md {
+.intl-tel-input {
+	font-size: 1.6875rem;
+	font-family: $futura-light;
+	display: block;
+	.selected-flag .iti-flag,
+	.country-list .flag-box, .country-list .country-name,
+	.country-list .divider {
+		display: none;
+	}
+	&.allow-dropdown.separate-dial-code .selected-dial-code {
+		padding-left: 0;
+	}
+	.highlight {
+		font-family: $futura-light;
+	}
+}
+@media (min-width: 48em) {
+	.form-group.float-md {
 		 width: 50%;
 		 float: left;
 		 + .form-group.float-md {
@@ -920,7 +935,7 @@ a {
 				 border-left: 0;
 			 }
 		 }
-	 }
+	}
 }
 ::-webkit-input-placeholder {
 	color: rgba(0,0,0,.5);

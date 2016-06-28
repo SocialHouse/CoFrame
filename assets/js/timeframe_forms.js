@@ -165,6 +165,9 @@ jQuery(document).ready(function(){
 
    
     jQuery('#register_form').validate({
+		errorPlacement: function(error, element) {
+			error.appendTo(element.closest('.form-group'));
+		},
     	onkeyup: false,
         rules: {
         	first_name: {required: true},

@@ -169,6 +169,9 @@ jQuery(function($) {
 		}, 500);
 	});
 	
+	//international phone drop-down
+	$("#phone").intlTelInput({separateDialCode: true});
+	
 	//animated content
 	// test for css animation support with fallback
 	if(Modernizr.cssanimations) {
