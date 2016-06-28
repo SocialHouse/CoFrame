@@ -6,8 +6,8 @@
 		<?php
 		
 		if(!empty($user_details)){
-			echo '<pre>'; print_r($user_details);echo '</pre>'; die;
-			echo '<pre>'; print_r(get_my_brand($user_details->id));echo '</pre>'; die;
+			// echo '<pre>'; print_r($user_details);echo '</pre>'; die;
+			// echo '<pre>'; print_r(get_my_brand($user_details->id));echo '</pre>'; die;
 
 
 			$path = img_url()."default_profile.jpg";
