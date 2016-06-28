@@ -314,3 +314,9 @@ img.jcrop-preview {
   top:17% !important;
   left: 95%;
 }
+
+.user-preference .remove-upload {
+  left: 68%;
+  top: 12%;
+  z-index: 999;
+}

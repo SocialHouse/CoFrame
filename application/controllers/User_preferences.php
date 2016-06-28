@@ -39,8 +39,8 @@ class User_preferences extends CI_Controller {
 			$page = 'user_info';
 		}
 
-		$this->data['css_files'] = array(css_url().'fullcalendar.css');
-		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js', js_url().'reorder-brands.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'user_preference.js?ver=2.11.0');
+		$this->data['css_files'] = array(css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css');
+		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js', js_url().'reorder-brands.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'user_preference.js?ver=2.11.0');
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
 		$this->data['view_name'] = $page;
@@ -81,6 +81,7 @@ class User_preferences extends CI_Controller {
 	function edit_my_info()
 	{
 		$post_data = $this->input->post();
+		//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
 		if(!empty($post_data['aauth_user_id']))
 		{
 			if(!empty($post_data['password']))
@@ -88,7 +89,7 @@ class User_preferences extends CI_Controller {
 				 $status = $this->aauth->update_user($this->user_id,'',$post_data['password'],'');
 			}
 			
-			$condition = array('aauth_user_id'=>$this->user_id	);
+			$condition = array('aauth_user_id'=>$this->user_id);
 			
 			$user_data = array(
 							'first_name' => $post_data['first_name'],
@@ -100,8 +101,27 @@ class User_preferences extends CI_Controller {
 							'company_url' => $post_data['company_url'],
 						);
             $this->timeframe_model->update_data('user_info',$user_data,$condition);
-            
-            redirect(base_url().'user_preferences/user_info');
+           
+            if(!empty($post_data['user_pic_base64'])){
+        		$base64_image = $post_data['user_pic_base64'];
+    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+	        	//decode base64 string
+		        $decoded = base64_decode($base64_str);
+
+		        //create jpeg from decoded base 64 string and save the image in the parent folder
+
+		        if(!is_dir(upload_path().$this->user_id.'/users/')){
+		        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+		        }
+		        $url = upload_path().$this->user_data['created_by'].'/users/'.$this->user_id.'.png';
+		        $result = file_put_contents($url, $decoded);
+		        $source_url = imagecreatefrompng($url);
+
+		        header('Content-Type: image/png');
+		        imagepng($source_url, $url, 8);
+        	}
+        	redirect(base_url().'user_preferences/user_info');
 		}
 	}
 

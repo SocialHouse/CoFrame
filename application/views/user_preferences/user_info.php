@@ -1,25 +1,40 @@
 <div class="col-md-4 col-md-offset-4 text-xs-center">
 	<div class="user-info">
 		<?php 
-			$this->load->view('user_preferences/preference_nav');
-		?>
-		<?php
-		
+		$this->load->view('user_preferences/preference_nav');
+	
 		if(!empty($user_details)){
-			// echo '<pre>'; print_r($user_details);echo '</pre>'; die;
-			// echo '<pre>'; print_r(get_my_brand($user_details->id));echo '</pre>'; die;
 
-
-			$path = img_url()."default_profile.jpg";
-			
-			// if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
-			// {
-			// 	$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
-			// }
-			?>
+			$image ='';
+			$cls= 'hide';
+			if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$user_details->id.'.png'))
+			{
+				$path = upload_url().$this->user_data['created_by'].'/users/'.$user_details->id.'.png?'.uniqid();
+				$image = '<img src="'.$path.'">';
+				$cls ='';
+			}
+		?>
 			<form action="<?php echo base_url();?>User_preferences/edit_my_info" method="post" id="edit_user_info">
+			
 			<input type="hidden" name="aauth_user_id" id="aauth_user_id" value="<?php echo $user_details->id ?>">
-			<img src="<?php echo img_url()?>fpo/norel.jpg" alt="Norel Mancuso" class="circle-img user-img">
+			
+			<div class="form-group brand-image">
+				<a href="#" class="user-preference remove-user-img <?php echo $cls; ?>">
+					<i class="tf-icon-circle remove-upload">x</i>
+				</a>
+				<div class="center-block new-user-pic"  id="img_div" >
+					<input type='file' id='userfileInput' name='files' accept='image/*'>
+					<div class="cropme" id="new_user_pic" style="width: 70px; height: 70px;">
+						<?php echo $image; ?>
+					</div>
+					<input type="hidden" name="user_pic_base64" value="" id="user_pic_base64">
+				</div>
+				<div class="upload-error error hide" style="margin-left: 15%;">Wrong file type uploaded</div>
+				<div class="form__uploading">Uploading ...</div>
+				<div class="form__success">Done!</div>
+				<div class="form__error">Error! <span></span></div>
+			</div>
+
 			<label class="section-label">Personal Info</label>
 			<div class="field-group">
 				<div class="clearfix">

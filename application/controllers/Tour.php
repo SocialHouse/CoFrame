@@ -48,7 +48,22 @@ class Tour extends CI_Controller {
             // $is_exists = $this->user_model->check_login_attempt($user_id);
             // if($is_exists)
             // {
+                
                 $user = $this->user_model->get_user($user_id);
+
+                // get brand id to find my brand owner  
+                // if $my_brand_id (in else case ) id null then me as brand owner 
+                $my_brand_id = get_my_brand($user->id);
+                if(empty($my_brand_id)){
+                   // get_my_brand
+                    $create_by = $user->id;
+                }else{
+                    $select ='created_by';
+                    $table = 'brands';
+                    $condition= array('id'=>$my_brand_id);
+                    $create_by = $this->timeframe_model->get_data_by_condition($table,$condition,$select);
+                }
+
                 $user_info = array(
                             'user_info_id' => $user->id,
                             'first_name' => $user->first_name,
@@ -58,12 +73,12 @@ class Tour extends CI_Controller {
                             'company_name' => $user->company_name,
                             'company_email' => $user->company_email,
                             'company_url' => $user->company_url,
+                            'created_by' => $create_by,
                             'user_group' => (get_user_groups($user_id)) ? get_user_groups($user_id) : 'Master admin'
                         );
 
                 $this->session->set_userdata('user_info',$user_info);
-
-
+                
                 $remember_me = isset($post_data['remember_me']) ? $post_data['remember_me'] : '';
                 if(isset($remember_me) AND !empty($remember_me))
                 {
