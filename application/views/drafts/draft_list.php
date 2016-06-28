@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-striped table-approvals">
-				<tbody>
+				<thead>
 					<tr>
 						<th>
 							<div class="select-box" data-value="check-all" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></div>
@@ -21,9 +21,10 @@
 						<th>Tags</th>
 						<th>Outlet</th>
 						<th>Post Copy</th>
-						<th>Edit</th>
-						<th>Duplicate</th>
-					</tr>					
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
 					<?php
 					if(!empty($drafts))
 					{
@@ -60,8 +61,8 @@
 								<td> <div class="post-copy-draft"><?php echo $draft->content; ?></div></td>
 								<td class="text-xs-center">
 									<a href="#" class="btn btn-xs btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/drafts/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
+									<a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a>
 								</td>
-								<td class="text-xs-center"><a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a></td>
 							</tr>
 							<?php
 						}
