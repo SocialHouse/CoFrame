@@ -15,7 +15,7 @@ echo form_open(base_url().'welcome',array('method'=>'post'));
 	<h1>Login here</h1>
     <div class="form-group danger">
 		<label for="Username">Username</label>
-		<input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?php echo set_value('username')? set_value('username') : $username; ?>" >
+		<input type="text" id="username" name="username" class="form-control" placeholder="Email Address" value="<?php echo set_value('username')? set_value('username') : $username; ?>" >
 		<?php echo form_error('username', '<div class="text-danger">', '</div>'); ?>
     </div>
     <div class="form-group">

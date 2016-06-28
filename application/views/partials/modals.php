@@ -26,7 +26,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 			<div class="form-group">
 				<label class="sr-only" for="username">Username</label>
 
-				<input type="username" class="form-control" id="username" placeholder="Username" name="username" value="<?php echo set_value('username',$username); ?>">
+				<input type="username" class="form-control" id="username" placeholder="Email Address" name="username" value="<?php echo set_value('username',$username); ?>">
 			</div>
 			<div class="form-group">
 				<label class="sr-only" for="password">Password</label>
@@ -228,7 +228,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 		        	<input type="hidden" name="sub_user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
 					<div class="form-group">
 						<label class="sr-only" for="username_reg">Username</label>
-						<input type="text" class="form-control" id="username_reg" placeholder="Username" name="username" >
+						<input type="text" class="form-control" id="username_reg" placeholder="Email Address" name="username" >
 					</div>
 
 					<div class="form-group">
@@ -243,8 +243,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					
 					<hr>
 					<div class="clearfix">
-						<a href="#" class="btn btn-default btn-sm pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-						<button type="submit" 	id="save_pass" class="btn btn-primary btn-sm pull-right">Submit</button>
+						<button type="submit" id="save_pass" class="btn btn-primary btn-sm pull-right">Submit</button>
 						<a href="#loginModal" type="button" id="loginSuccess" class="hide" data-backdrop="static" data-toggle="modal"></a>
 					</div>
 				</form>
