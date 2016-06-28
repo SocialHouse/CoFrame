@@ -204,9 +204,8 @@
 													<button class="btn btn-approved btn-sm btn-default">View Live</button>
 													<?php
 												}
-
-												?>
 												
+												?>												
 												<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
 										</tr>
 										<?php

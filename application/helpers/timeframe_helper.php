@@ -375,12 +375,12 @@ if(!function_exists('replace_with_expression'))
 
 if(!function_exists('check_access'))
 {
-    function check_access($perm,$brand)
+    function check_access($perm,$brand,$additional_group = '')
     {
         $CI = & get_instance();      
         $group = get_user_groups($CI->user_id);
         $has_perm = $CI->aauth->check_user_perm($CI->user_id,$perm);
-        if(!$has_perm AND !empty($group))
+        if(!$has_perm AND !empty($group) AND !$additional_group)
         {
             $CI->data['brand_id'] = $brand[0]->id;
             $CI->data['brand'] = $brand[0];

@@ -190,7 +190,7 @@
 						</div>
 						<div class="pull-sm-right">
 							<button type="button" class="btn btn-default btn-sm reset-request">Clear</button>
-							<button type="button" class="btn btn-disabled btn-sm save-edit-req" disabled="disabled">Submit</button>
+							<button type="button" class="btn btn-secondary btn-sm save-edit-req" disabled="disabled">Submit</button>
 						</div>
 					</div>
 					<ul class="timeframe-list comment-list clearfix">

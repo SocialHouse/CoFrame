@@ -28,6 +28,8 @@ class Approvals extends CI_Controller {
 		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+		$user_group = get_user_groups($this->user_id);
+		$this->user_group = !empty($user_group) ? $user_group : "Master admin";
 	}
 
 	function index()
@@ -35,14 +37,18 @@ class Approvals extends CI_Controller {
 		$this->data = array();		
 		$slug = $this->uri->segment(2);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-		check_access('approve',$brand);
+		$additional_group = '';
+		if($this->user_group == 'Creator')
+		{
+			$additional_group = $this->user_group;
+		}
+		check_access('approve',$brand,$additional_group);
 		if(!empty($brand))
 		{
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
-
-			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id);
 			
+			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->user_group);			
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))
 			{
@@ -73,7 +79,6 @@ class Approvals extends CI_Controller {
 		$this->data['post_images'] = $this->post_model->get_images($post_id);
 		$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
 		$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
-
 		if(!empty($brand))
 		{
 			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
@@ -83,6 +88,7 @@ class Approvals extends CI_Controller {
 				$this->data['brand'] = $brand[0];
 				$this->data['view'] = 'approvals/edit_request';
 				$this->data['layout'] = 'layouts/new_user_layout';
+				$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
 
 		        _render_view($this->data);
 		    }
@@ -210,7 +216,7 @@ class Approvals extends CI_Controller {
 		$post_data = $this->input->post();
 		if(!empty($post_data))
 		{
-			$approvals = $this->approval_model->get_approvals($this->user_id,$post_data['brand_id'],$post_data['date']);
+			$approvals = $this->approval_model->get_approvals($this->user_id,$post_data['brand_id'],$this->user_group,$post_data['date']);
 				
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))

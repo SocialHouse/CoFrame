@@ -7,7 +7,7 @@ class Approval_model extends CI_Model
 		parent::__construct();
 	}
 
-	function get_approvals($user_id,$brand_id,$date='')
+	function get_approvals($user_id,$brand_id,$user_group,$date='')
 	{
 		$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
 		$this->db->join('posts','posts.id = phases.post_id');
@@ -18,9 +18,22 @@ class Approval_model extends CI_Model
 		{
 			$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
 		}	
-
-		if($user_id)
+		
+		if($user_id AND $user_group != 'Master admin' AND $user_group != 'Manager' AND $user_group != 'Creator')
+		{
 			$this->db->where('phases_approver.user_id',$user_id);
+		}
+		elseif($user_group == 'Creator')
+		{
+			$this->db->where('posts.user_id',$user_id);
+			$this->db->where('posts.status','pending');
+		}
+		elseif($user_group == 'Master admin' AND $user_group == 'Manager')
+		{
+			echo "test";
+			$this->db->where('posts.status','pending');
+		}
+
 		$this->db->order_by('slate_date_time','ASC');
 		$query = $this->db->get('phases');		
 		if($query->num_rows() > 0)
