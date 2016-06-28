@@ -52,7 +52,7 @@
 			<div class="col-sm-12">
 				<footer class="post-content-footer">
 				<button type="reset" class="btn btn-sm btn-default">Reset</button>
-				<button type="submit" class="btn btn-sm btn-disabled pull-sm-right" disabled="disabled" >Export</button>
+				<button type="submit" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled="disabled" >Export</button>
 				</footer>
 			</div>
 		</div>

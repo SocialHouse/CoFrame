@@ -198,7 +198,6 @@ jQuery(function($) {
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);					
 					$btn.attr('data-linked-phase', activePhaseId);
-					//console.log($activePhase);
 					$activePhase.parent().children('div:eq(1)').find('.user-list').append('<li class="pull-sm-left pending"></li>')
 					$activePhase.parent().children('div:eq(1)').find('.user-list li:last').append(newImage);
 					
@@ -2166,14 +2165,14 @@ jQuery(function($) {
 		});
 	}
 
-	toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
-		jQuery(btnClass).attr('disabled',btnState);
-		if(!jQuery(btnClass).hasClass(newClass))
-		{
-			jQuery(btnClass).addClass(newClass);
-		}
-		jQuery(btnClass).removeClass(oldClass);
-	}
+	// toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
+	// 	jQuery(btnClass).attr('disabled',btnState);
+	// 	if(!jQuery(btnClass).hasClass(newClass))
+	// 	{
+	// 		jQuery(btnClass).addClass(newClass);
+	// 	}
+	// 	jQuery(btnClass).removeClass(oldClass);
+	// }
 
 	function create_post_validation(field){
 		var $ = jQuery;
