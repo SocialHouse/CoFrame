@@ -11114,7 +11114,7 @@ textarea.form-control {
 .width_33 {
   height: 75px;
   width: 32%;
-  padding: 0.5px 0.5px 0.5px 0.5px; }
+  padding: 1px 0 0 1px; }
 
 .width_25 {
   height: 75px;
@@ -11125,7 +11125,7 @@ textarea.form-control {
   position: absolute;
   color: white;
   font-size: 16px;
-  margin-top: -50px;
+  margin-top: 158px;
   margin-left: 75%;
   font-weight: bold; }
 
@@ -11258,6 +11258,8 @@ textarea.form-control {
 
 .section1 img, .section2 img {
   width: 100%; }
+.section1 img:nth-child(2){
+    padding-top: 1px;}
 
 .twitter-default-img {
   height: 35px;

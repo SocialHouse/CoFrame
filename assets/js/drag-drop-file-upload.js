@@ -630,9 +630,14 @@
 					var img_1 = jQuery('#live-post-preview .img-div img:eq(1)');
 					var img_2 = jQuery('#live-post-preview .img-div img:eq(0)');
 					jQuery('#live-post-preview .img-div .section1').append(img_1);
+
+					var img_height =jQuery('#live-post-preview .img-div .section1 img').height();
 					img_1.removeClass('width_50');
+					img_1.height(img_height);
+					img_2.height(img_height/2);
 					jQuery('#live-post-preview .img-div .section2').append(img_2);
-					var preview_img = '<img class="section_2_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
+					jQuery('#live-post-preview .img-div .section2').append(img_2);
+					var preview_img = '<img class="width_50" style="height:'+img_height/2+'px" src="'+window.URL.createObjectURL(file)+'" >';
 					jQuery('#live-post-preview .img-div .section2').append(preview_img);
 					jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
 				}
@@ -640,24 +645,25 @@
 				if(no_of_img == 3)
 				{
 					jQuery('#live-post-preview .img-div .section2 img').removeClass('width_50');
-					jQuery('#live-post-preview .img-div .section2').addClass('width_33');
-					jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_50');
-					jQuery('#live-post-preview .img-div img:eq(2)').addClass('width_33');
-					jQuery('#live-post-preview .img-div img:eq(2)').removeClass('width_50');
+					jQuery('#live-post-preview .img-div .section2').removeClass('width_50');
+					jQuery('#live-post-preview .img-div .section2 img').addClass('width_33');
 					var preview_img = '<img class="width_33" src="'+window.URL.createObjectURL(file)+'" >';
-					jQuery('#live-post-preview .img-div').append(preview_img);
+					jQuery('#live-post-preview .img-div .section2').append(preview_img);
+					var  img_height = jQuery('#live-post-preview .img-div .section2').height();
+					jQuery('#live-post-preview .img-div .section1 img').height(img_height);
 					jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
 				}
 
 				if(no_of_img == 4)
 				{
-					jQuery('#live-post-preview .img-div img:eq(0)').addClass('width_50');
-					jQuery('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
-
-					jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_50');
-					jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_33');
-					var preview_img = '<img class="width_33" src="'+window.URL.createObjectURL(file)+'" >';
-					jQuery('#live-post-preview .img-div').append(preview_img);
+					// jQuery('#live-post-preview .img-div img:eq(0)').addClass('width_50');
+					// jQuery('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
+					// jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_50');
+					// jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_33');
+					var  img_height = jQuery('#live-post-preview .img-div .section1 img').height();
+					jQuery('#live-post-preview .img-div .section1 img').height(img_height/2);					
+					var preview_img = '<img style="height:'+img_height/2+'px" src="'+window.URL.createObjectURL(file)+'" >';
+					jQuery('#live-post-preview .img-div .section1').append(preview_img);
 					jQuery('.no-of-photos').html('added <span class="photos_count">5 new photos</span>');
 				}
 
@@ -666,6 +672,7 @@
 					if(jQuery('.more-images').length >= 1)
 					{
 						var more_count = jQuery('.more-images').attr('id');
+						console.log(more_count);
 						more_count++;
 						jQuery('.more-images').attr('id',more_count);
 						jQuery('.more-images').html('+'+more_count);
@@ -867,9 +874,14 @@
 						var img_1 = jQuery('#live-post-preview .img-div img:eq(1)');
 						var img_2 = jQuery('#live-post-preview .img-div img:eq(0)');
 						jQuery('#live-post-preview .img-div .section1').append(img_1);
+
+						var img_height =jQuery('#live-post-preview .img-div .section1 img').height();
 						img_1.removeClass('width_50');
+						img_1.height(img_height);
+						img_2.height(img_height/2);
 						jQuery('#live-post-preview .img-div .section2').append(img_2);
-						var preview_img = '<img class="section_2_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div .section2').append(img_2);
+						var preview_img = '<img class="width_50" style="height:'+img_height/2+'px" src="'+$(b).attr('src')+'" >';
 						jQuery('#live-post-preview .img-div .section2').append(preview_img);
 						jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
 					}
@@ -877,24 +889,25 @@
 					if(no_of_img == 3)
 					{
 						jQuery('#live-post-preview .img-div .section2 img').removeClass('width_50');
-						jQuery('#live-post-preview .img-div .section2').addClass('width_33');
-						jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_50');
-						jQuery('#live-post-preview .img-div img:eq(2)').addClass('width_33');
-						jQuery('#live-post-preview .img-div img:eq(2)').removeClass('width_50');
+						jQuery('#live-post-preview .img-div .section2').removeClass('width_50');
+						jQuery('#live-post-preview .img-div .section2 img').addClass('width_33');
 						var preview_img = '<img class="width_33" src="'+$(b).attr('src')+'" >';
-						jQuery('#live-post-preview .img-div').append(preview_img);
+						jQuery('#live-post-preview .img-div .section2').append(preview_img);
+						var  img_height = jQuery('#live-post-preview .img-div .section2').height();
+						jQuery('#live-post-preview .img-div .section1 img').height(img_height);
 						jQuery('.no-of-photos').html('added <span class="photos_count">4 new photos</span>');
 					}
 
 					if(no_of_img == 4)
 					{
-						jQuery('#live-post-preview .img-div img:eq(0)').addClass('width_50');
-						jQuery('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
-
-						jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_50');
-						jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_33');
-						var preview_img = '<img class="width_33" src="'+$(b).attr('src')+'" >';
-						jQuery('#live-post-preview .img-div').append(preview_img);
+						// jQuery('#live-post-preview .img-div img:eq(0)').addClass('width_50');
+						// jQuery('#live-post-preview .img-div img:eq(0)').removeClass('post-img');
+						// jQuery('#live-post-preview .img-div img:eq(1)').addClass('width_50');
+						// jQuery('#live-post-preview .img-div img:eq(1)').removeClass('width_33');
+						var  img_height = jQuery('#live-post-preview .img-div .section1 img').height();
+						jQuery('#live-post-preview .img-div .section1 img').height(img_height/2);					
+						var preview_img = '<img style="height:'+img_height/2+'px" src="'+$(b).attr('src')+'" >';
+						jQuery('#live-post-preview .img-div .section1').append(preview_img);
 						jQuery('.no-of-photos').html('added <span class="photos_count">5 new photos</span>');
 					}
 
