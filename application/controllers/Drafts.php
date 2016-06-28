@@ -35,6 +35,7 @@ class Drafts extends CI_Controller {
 		$this->data = array();
 		$slug = $this->uri->segment(2);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+		check_access('create',$brand);
 		if(!empty($brand))
 		{
 			$brand_id = $brand[0]->id;

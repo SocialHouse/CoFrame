@@ -49,7 +49,7 @@
 							</div>
 						</div>
 						<footer class="post-content-footer">
-							<button type="button" class="btn btn-sm btn-default" onclick="window.location='<?php echo base_url(); ?>brands/overview';">Cancel</button>
+							<button type="button" class="btn btn-sm btn-default" onclick="if(confirm('Are you sure you want to cancel?')){window.location='<?php echo base_url(); ?>brands/overview'; }">Cancel</button>
 							<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right save_brand" disabled="disabled">Next</button>
 	
 							<button type="button" id="btn-next-step" class="btn btn-sm btn-disabled btn-secondary pull-sm-right btn-next-step hide" data-next-step="2"></button>
@@ -201,7 +201,7 @@
 		<div class="hidden" id="addBrandSuccess"><a href="dashboard.php" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 	</div>
 	</form>
-	<a type="button" class="cancel-icon" onclick="window.location='<?php echo base_url(); ?>brands/overview';">
+	<a type="button" class="cancel-icon" onclick="if(confirm('Are you sure you want to cancel?')){window.location='<?php echo base_url(); ?>brands/overview'; }">
 		<span class="sr-only">Toggle Modal</span>
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>

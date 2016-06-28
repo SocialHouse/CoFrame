@@ -35,6 +35,7 @@ class Approvals extends CI_Controller {
 		$this->data = array();		
 		$slug = $this->uri->segment(2);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+		check_access('approve',$brand);
 		if(!empty($brand))
 		{
 			$this->data['brand_id'] = $brand[0]->id;

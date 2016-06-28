@@ -73,16 +73,13 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Admin","create.post");
         $a = $this->aauth->allow_group("Admin","create.slate_post");
         $a = $this->aauth->allow_group("Admin","create.schedule_post");
-        $a = $this->aauth->allow_group("Admin","create.submit_post");
-        $a = $this->aauth->allow_group("Admin","create.co_create");
+        $a = $this->aauth->allow_group("Admin","create.submit_post");       
 
-        $a = $this->aauth->allow_group("Admin","edit.post");
-        $a = $this->aauth->allow_group("Admin","edit.co_create");
+        $a = $this->aauth->allow_group("Admin","edit.post");       
         $a = $this->aauth->allow_group("Admin","edit.overview");
 
         $a = $this->aauth->allow_group("Admin","approve.approve_post");
-        $a = $this->aauth->allow_group("Admin","approve.retract_approve_post");
-        $a = $this->aauth->allow_group("Admin","approve.co_create");
+        $a = $this->aauth->allow_group("Admin","approve.retract_approve_post");       
         $a = $this->aauth->allow_group("Admin","approve.overview");
 
         $a = $this->aauth->allow_group("Admin","view.view_posts");
@@ -97,17 +94,14 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Manager","create.post");
         $a = $this->aauth->allow_group("Manager","create.slate_post");
         $a = $this->aauth->allow_group("Manager","create.schedule_post");
-        $a = $this->aauth->allow_group("Manager","create.submit_post");
-        $a = $this->aauth->allow_group("Manager","create.co_create");
+        $a = $this->aauth->allow_group("Manager","create.submit_post");        
 
-        $a = $this->aauth->allow_group("Manager","edit.post");
-        $a = $this->aauth->allow_group("Manager","edit.co_create");
+        $a = $this->aauth->allow_group("Manager","edit.post");        
         $a = $this->aauth->allow_group("Manager","edit.overview");
 
 
         $a = $this->aauth->allow_group("Manager","approve.approve_post");
-        $a = $this->aauth->allow_group("Manager","approve.retract_approve_post");
-        $a = $this->aauth->allow_group("Manager","approve.co_create");
+        $a = $this->aauth->allow_group("Manager","approve.retract_approve_post");        
         $a = $this->aauth->allow_group("Manager","approve.overview");
 
         $a = $this->aauth->allow_group("Manager","view.view_posts");
@@ -123,11 +117,9 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Creator","create.slate_post");
         $a = $this->aauth->allow_group("Creator","create.schedule_post");
         $a = $this->aauth->allow_group("Creator","create.submit_post");
-        $a = $this->aauth->allow_group("Creator","create.co_create");
 
 
         $a = $this->aauth->allow_group("Creator","edit.post");
-        $a = $this->aauth->allow_group("Creator","edit.co_create");
         $a = $this->aauth->allow_group("Creator","edit.overview");
 
 
@@ -137,7 +129,6 @@ class Example extends CI_Controller {
        
         $a = $this->aauth->allow_group("Approver","approve.approve_post");
         $a = $this->aauth->allow_group("Approver","approve.retract_approve_post");
-        $a = $this->aauth->allow_group("Approver","approve.co_create");
         $a = $this->aauth->allow_group("Approver","approve.overview");
 
 

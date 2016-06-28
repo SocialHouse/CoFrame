@@ -48,8 +48,9 @@ if(!function_exists('_render_view'))
             {
                 $CI->data['error'] = $data['error'];
             }
+
             $CI->data['yield'] = $CI->load->view($data['view'],$data,true);
-            $CI->load->view($data['layout'],$CI->data);
+            echo $CI->load->view($data['layout'],$CI->data,true);
         }
         else
         {
@@ -369,6 +370,25 @@ if(!function_exists('replace_with_expression'))
         }
 
         return $string;
+    }
+}
+
+if(!function_exists('check_access'))
+{
+    function check_access($perm,$brand)
+    {
+        $CI = & get_instance();      
+        $group = get_user_groups($CI->user_id);
+        $has_perm = $CI->aauth->check_user_perm($CI->user_id,$perm);
+        if(!$has_perm AND !empty($group))
+        {
+            $CI->data['brand_id'] = $brand[0]->id;
+            $CI->data['brand'] = $brand[0];
+            $CI->data['view'] = 'partials/no_permission';
+            $CI->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
+            _render_view($CI->data);
+            die;
+        }       
     }
 }
 

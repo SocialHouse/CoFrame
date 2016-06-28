@@ -1,5 +1,6 @@
 jQuery(function($) {
 	var validName = false;
+	var validEmail = false;
 	$(document).ready(function() {
 		if($("#add-brand-details").length || $("#step_1_edit").length  || $("#step_3_edit").length)
 		{
@@ -24,7 +25,7 @@ jQuery(function($) {
 			}
 		});
 
-		$('.sub-user-outlet').on('click', function() {
+		$(document).on('click','.sub-user-outlet', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
 			var thisOutlet = $(this).data('selectedOutlet');
@@ -133,6 +134,7 @@ jQuery(function($) {
             $('.brand-step .outlet-list li').addClass('disabled');
             $('#nameValid').addClass('hide');
             $('#emailValid').addClass('hide');
+            $('#emailUniqueValid').addClass('hide');
         })
 
         // Clear tag field when adding a second tag.
@@ -145,6 +147,15 @@ jQuery(function($) {
 			var selectedRole = $(this).val();
 			if(selectedRole)
 	    	{
+	    		if(selectedRole == 'billing')
+	    		{
+	    			$('.edit-permissions').hide();	
+	    		}
+	    		else
+	    		{
+	    			$('.edit-permissions').show();
+	    		}
+	    		
  				toggleBtnClass('.addUserToBrand',false);
 	    	}
 	    	else
@@ -433,33 +444,15 @@ jQuery(function($) {
 		});
 
 		$(document).on('blur keyup','#firstName,#lastName',function()
-		{
-			$.ajax({
-				url: base_url+'brands/is_name_exist',
-				type:'POST',
-				data: {'first_name':$('#firstName').val(),'last_name':$('#lastName').val()},
-				success:function(data){
-					if(data == 0)
-					{
-						validName = true;
-						$('#nameValid').addClass('hide');
-						if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val())
-				    	{
-							toggleBtnClass('#addRole',false);
-				    	}
-				    	else
-				    	{
-							toggleBtnClass('#addRole',true);
-				    	}
-					}
-					else
-					{
-						validName = false;
-						$('#nameValid').removeClass('hide');
-						toggleBtnClass('#addRole',true);
-					}
-				}
-			});
+		{			
+			if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val() && validEmail)
+	    	{
+				toggleBtnClass('#addRole',false);
+	    	}
+	    	else
+	    	{
+				toggleBtnClass('#addRole',true);
+	    	}
 		});
 	});
 
@@ -522,7 +515,7 @@ jQuery(function($) {
     });
 
    	 $(document).on('keyup blur','#userEmail',function(){
-    	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()) && validName)
+    	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
     	{
  			toggleBtnClass('#addRole',false);
     	}
@@ -533,20 +526,47 @@ jQuery(function($) {
 
     	if(!validateEmail($(this).val()))
 		{
-			if($(this).val().length > 4)
+			if($(this).val().length > 2)
 			{
 				$('#emailValid').html('This is not a valid email.');
-				$('#emailValid').show();
+				$('#emailValid').removeClass('hide');
+				$('#emailUniqueValid').addClass('hide');
 			}
 
 			if(!$(this).val())
-			{
-				$('#emailValid').hide();
+			{				
+				$('#emailValid').addClass('hide');
+				$('#emailUniqueValid').addClass('hide');
 			}
 		}
 		else
 		{
-			$('#emailValid').hide();
+			$('#emailValid').addClass('hide');
+			$.ajax({
+				url: base_url+'tour/check_email_exist',
+				type:'POST',
+				data: {'email':$('#userEmail').val()},
+				success:function(data){
+					if(data == 'true')
+					{
+						validEmail = false;
+						$('#emailUniqueValid').removeClass('hide');						
+					}
+					else
+					{
+						validEmail = true;
+						$('#emailUniqueValid').addClass('hide');
+					}
+					if($('#lastName').val() && $('#userEmail').val() && $('#firstName').val() && validEmail)
+			    	{
+						toggleBtnClass('#addRole',false);
+			    	}
+			    	else
+			    	{
+						toggleBtnClass('#addRole',true);
+			    	}
+				}
+			});
 		}
     	
     });
@@ -590,6 +610,10 @@ jQuery(function($) {
     			if(data.response == 'success')
     			{
     				$(control).parents().children('.btn-next-step').trigger('click');
+    				if(data.html)
+    				{
+    					$('#user-selected-outlet').html(data.html);
+    				}
     			}
     		}
     	});

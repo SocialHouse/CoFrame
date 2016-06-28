@@ -61,7 +61,7 @@
 	<div id="approverPermissions" class="permission-details hidden">
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="approverPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
-			<li>Create <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Create <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="create"><i class="tf-icon check-box circle-border pull-sm-right" data-value="create" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Edit <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Approve <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="approve" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="approve" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>

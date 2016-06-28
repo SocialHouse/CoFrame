@@ -213,8 +213,18 @@ class Brands extends CI_Controller {
 				}
 			}
 
-
-			echo json_encode(array('response'=>'success'));
+			$outlets = $this->brand_model->get_brand_outlets($post_data['brand_id']);
+			if(!empty($outlets))
+			{
+				$user_outlet_html = '';
+				$user_outlet_html .='<ul>';
+				foreach($outlets as $outlet)
+				{					
+					$user_outlet_html .='<li class="disabled sub-user-outlet" data-selected-outlet-name="'.strtolower($outlet->outlet_name).'" data-selected-outlet="'.strtolower($outlet->id).'"><i class="fa fa-'.strtolower($outlet->outlet_name).'"><span class="bg-outlet bg-'.strtolower($outlet->outlet_name).'"></span></i></li>';					
+				}
+				$user_outlet_html .='</ul>';
+			}
+			echo json_encode(array('response'=>'success','html' => $user_outlet_html));
 		}
     	else
     	{
@@ -292,11 +302,13 @@ class Brands extends CI_Controller {
 
                 	$this->aauth->add_member($inserted_id,$group_id);
                 	//add permission to user
+                	print_r($post_data['permissions']);
                 	if(!empty($post_data['permissions']))
                 	{
                 		foreach($post_data['permissions'] as $permission)
                 		{
-                			$matching_perms = $this->aauth->get_matching_perms($permission);                			
+                			$matching_perms = $this->aauth->get_matching_perms($permission);
+                			print_r($matching_perms);
                 			foreach($matching_perms as $perm)
                 			{
                 				$this->aauth->allow_user($inserted_id,$perm->id);
@@ -320,7 +332,6 @@ class Brands extends CI_Controller {
 				        $result = file_put_contents($url, $decoded);
 
 				        $source_url = imagecreatefrompng($url);
-				       // $source_url = imagecreatefromstring(file_get_contents($url));
 				        
 				        header('Content-Type: image/png');
 				        imagepng($source_url, $url, 8);
