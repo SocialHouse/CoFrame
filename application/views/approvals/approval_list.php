@@ -44,7 +44,7 @@
 						<th>Status</th>
 						<th>Post Copy</th>
 						<th>Approvals</th>
-						<th>Schedule / View Edit Requests</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody class="calendar-app">
@@ -179,7 +179,7 @@
 													$btn_class = 'btn-secondary';
 												}
 
-												if($approver_status == 'approved' AND $post->status != 'scheduled')
+												if($approver_status == 'approved')
 												{
 													?>
 													<a class="btn btn-xs btn-disabled btn-secondary">Approved</a>
