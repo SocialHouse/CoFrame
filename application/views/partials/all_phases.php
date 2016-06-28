@@ -33,7 +33,7 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
-			<button type="button" class="btn btn-xs pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" data-active-class="btn-default" disabled="disabled">Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" disabled="disabled">Next Phase</button>
 		</div>
 	</div>
 
@@ -81,7 +81,7 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
-			<button type="button" class="btn btn-xs pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" data-active-class="btn-default" disabled="disabled">Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" disabled="disabled">Next Phase</button>
 		</div>
 	</div>
 
@@ -148,14 +148,14 @@ if(!empty($post_details->brand_id)){
 <div>
 	<div>
 		<footer class="post-content-footer">
-			<button type="button" class="btn btn-sm btn-default cancel-phase" data-active-class="btn-default">Cancel</button>
-			<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled" data-active-class="btn-secondary" disabled="disabled">Save Phases</button>
+			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
+			<button type="button" class="btn btn-sm btn-secondary pull-sm-right save-phases btn-disabled" disabled="disabled">Save Phases</button>
 		</footer>
 	</div>
 	<div class="hide">
 		<footer class="post-content-footer">
-			<button class="btn btn-sm save-draft-btn submit-btn clear-phase" data-active-class="btn-default" id="draft">Save Draft</button>
-			<button type="button" class="btn btn-sm btn-secondary submit-approval submit-btn clear-phase" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
+			<button class="btn btn-sm btn-default save-draft-btn submit-btn clear-phase" id="draft">Save Draft</button>
+			<button type="button" class="btn btn-sm btn-secondary submit-approval submit-btn clear-phase" id="submit-approval">Submit for Approval</button>
 		</footer>
 	</div>
 </div>
