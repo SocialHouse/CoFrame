@@ -6,6 +6,16 @@
 		<?php
 		
 		if(!empty($user_details)){
+			echo '<pre>'; print_r($user_details);echo '</pre>'; die;
+			echo '<pre>'; print_r(get_my_brand($user_details->id));echo '</pre>'; die;
+
+
+			$path = img_url()."default_profile.jpg";
+			
+			// if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
+			// {
+			// 	$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
+			// }
 			?>
 			<form action="<?php echo base_url();?>User_preferences/edit_my_info" method="post" id="edit_user_info">
 			<input type="hidden" name="aauth_user_id" id="aauth_user_id" value="<?php echo $user_details->id ?>">
