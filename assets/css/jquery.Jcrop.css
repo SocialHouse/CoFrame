@@ -311,5 +311,6 @@ img.jcrop-preview {
 }
 
 #step_3_edit .remove-user-img .remove-upload{
-  top:22% !important ;
+  top:17% !important;
+  left: 92%;
 }

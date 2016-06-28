@@ -84,10 +84,12 @@ class Posts extends CI_Controller {
 		{
 			if(!empty($post_data['brand_id']))
 			{
-						
-		    	$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
-		    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));		    	
-
+				$slate_date_time = '';
+				if(!empty($post_data['post-date'])){
+					$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
+		    		$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));	
+				}
+		    	
 		    	if(!empty($post_data['post_outlet']))
 	    		{
     				$condition = array('id' => $post_data['post_outlet']);
@@ -101,13 +103,15 @@ class Posts extends CI_Controller {
 
     				$post = array(
 	    						'content' => $this->input->post('post_copy'),
-	    						'slate_date_time' => $slate_date_time,
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
 	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status
 	    					);
+    				if(!empty($slate_date_time)){
+    					$post['slate_date_time'] =  $slate_date_time;
+    				}
 
     				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
 

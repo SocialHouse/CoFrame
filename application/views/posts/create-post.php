@@ -280,7 +280,7 @@
 							<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 						</div>
 						<footer class="post-content-footer">
-						<button class="btn btn-sm save-draft-btn btn-default btn-disabled submit-btn" disabled id="draft">Save Draft</button>
+						<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
 						<button type="submit" class="btn btn-sm btn-secondary btn-disabled submit-approval submit-btn pull-sm-right" id="submit-approval" disabled>Submit for Approval</button>
 						</footer>
 					</div>
