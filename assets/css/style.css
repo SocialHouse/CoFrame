@@ -11099,6 +11099,11 @@ textarea.form-control {
 
 .post-img {
   min-width: 150px; }
+.post-img-3{
+  height: 135px!important ;
+  width: 100% !important;
+  padding-top: 1px;
+}
 
 .post_copy_text {
   text-transform: none !important; }
