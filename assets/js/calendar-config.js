@@ -680,7 +680,7 @@ jQuery(function($) {
 		var endMonth = $.fullCalendar.moment(view.end).subtract(1, 'days').format('MMMM');
 		var end = $.fullCalendar.moment(view.end).subtract(1, 'days').format('D');
 		if(startMonth !== endMonth) {
-			end = "<strong>" + endMonth + "</strong> " + end;
+			end = endMonth + " " + end;
 		}
 		var dates = start + "&#8211;" + end;
 		return dates;
