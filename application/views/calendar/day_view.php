@@ -24,15 +24,10 @@
 		</div>
 	</header>
 	<div class="row equal-columns">
-		<div class="col-md-9 equal-height">
+		<div class="col-xs-12 equal-height">
 			<div class="calendar-day">
 				<?php $this->load->view('calendar/post_preview/day_post'); ?>
 			</div>
-		</div>
-		<div class="col-md-3 equal-height">
-			<?php
-			$this->load->view('partials/summary');
-			?>			
 		</div>
 	</div>
 </section>

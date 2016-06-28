@@ -31,7 +31,7 @@
 			
 
 			<div  data-filters="<?php echo 'f-'.$outlet_name.' '.$tag_list.' '.'f-'.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
-				<div class="col-md-5 post-img day-image">
+				<div class="col-md-4 post-img day-image">
 					<?php 
 					$display_img = 'false';
 						if(!empty($post->post_images))
@@ -64,7 +64,7 @@
 						}
 					?>
 				</div>
-				<div class="col-md-7 post-content">
+				<div class="col-md-8 post-content">
 					<div class="row">
 						<div class="col-md-2 outlet-list text-xs-center outlet-list">
 							<i class="fa fa-<?php echo $outlet_name; ?>"><span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span></i>
