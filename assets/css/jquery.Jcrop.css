@@ -305,12 +305,12 @@ img.jcrop-preview {
 }
 
 .remove-user-img .remove-upload{
-  top: 30%;
-  left: 52%;
+  left: 95%;
+  top: 25%;
   z-index: 999999;
 }
 
 #step_3_edit .remove-user-img .remove-upload{
   top:17% !important;
-  left: 92%;
+  left: 95%;
 }

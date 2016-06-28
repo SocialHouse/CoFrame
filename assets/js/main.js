@@ -2223,5 +2223,5 @@ jQuery(function($) {
 		}
 		equalColumns();
 		toggleBtnClass("#submit-approval", disable_btn);
-		toggleBtnClass("#draft", disable_btn);
+		//toggleBtnClass("#draft", disable_btn);
 	}
