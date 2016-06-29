@@ -107,5 +107,6 @@ public/wp-content/themes/sassapress/style.css
 
 /application/config/database.php
 /application/config/config.php
+/application/config/mail.php
 /assets/uploads/*
 uploads/*
