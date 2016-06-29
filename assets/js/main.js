@@ -56,8 +56,7 @@ jQuery(function($) {
 		
 		$('#post-details .outlet-list li').on('click', function() {
 			var previous_outlet = $('#postOutlet').val();
-			var outlet = $(this).data('selectedOutlet');
-			var outlet_const = $(this).data('outlet-const');
+			var outlet = $(this).data('selectedOutlet');			
 			if(previous_outlet != outlet)
 			{
 				$(this).toggleClass('disabled');
@@ -70,15 +69,15 @@ jQuery(function($) {
 					$('#postCopy').removeAttr('maxlength');
 				}
 
-				$('#postOutlet').attr('data-outlet-const',outlet_const);
-				var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
-				upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
-				upload_element += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
-				$('.form__input').removeClass('has-files');
-				$('.form__input').empty();
-				$('.form__input').append(upload_element);
 				
-				createPreview();
+				// var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
+				// upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
+				// upload_element += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+				// $('.form__input').removeClass('has-files');
+				// $('.form__input').empty();
+				// $('.form__input').append(upload_element);
+				
+				// createPreview();
 			}
 		});
 
@@ -2116,6 +2115,13 @@ jQuery(function($) {
     $(document).on("click", ".edit_post", function(event){
 	//.qtip is my qtip element from the parent page and then I hide it.
 		$('.qtip', window.parent.document).qtip("hide");
+	});
+
+	$(document).on('click','.got-to-calender',function(e){
+		e.preventDefault();		
+		$('#selected_date').val($(this).data('post-date'));
+		$('#summary-form').submit();
+
 	});
 
 	toggleBtnClass = function(btnClass, btnState){

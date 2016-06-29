@@ -84,6 +84,7 @@ jQuery(function($) {
 			color: '#f4d3d5',
 			rendering: 'background',
 			dayClick: function(date) {
+				$('.calendar-summary #calendar').fullCalendar('removeEvents');
 				var eventData = {
 					allDay: true,
 					start: $.fullCalendar.moment(date),					
@@ -91,11 +92,30 @@ jQuery(function($) {
 					color: '#f4d3d5'
 				};
 				$('.calendar-summary #calendar').fullCalendar('renderEvent', eventData, true);
-				$("#selected_date").val($.fullCalendar.moment(date));
-				setTimeout(function() {
-					$('#summary-form').submit();
-				},500);
+				$("#selected_date").val($.fullCalendar.moment(date).format('YYYY-MM-DD'));
+				var date_on_cal = $.fullCalendar.moment(date).format('YYYY-MM-DD');
+				// console.log($('#calendar').children('div:last').find('table').find('td.fc-today'));
 
+				// $('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('ui-state-highlight');
+				// $('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('fc-today');
+				// console.log($('#calendar').children('div:last').find('table').find('td.fc-today'));
+				// $('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('ui-state-highlight');
+				// $('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('fc-today');
+			
+				$.ajax({
+					url:base_url+'brands/get_summary',
+					type:'POST',
+					data:{brand_id:$('#brand_id').val(),slug:$('#brand_slug').val(),selected_date:$("#selected_date").val()},
+					dataType:'JSON',
+					success:function(response)
+					{
+						if(response)
+						{
+							console.log(response.html);
+							$('.summary-posts').html(response.html);
+						}
+					}
+				});
 			},
 			theme: true,
 			themeButtonIcons: false
@@ -698,8 +718,7 @@ jQuery(function($) {
 		var start = $.fullCalendar.moment(view.intervalStart).format('YYYY');
 		return start;
 	};
-
-
+	
 	window.changeDateCalendar = function changeDateCalendar(id) {
 		$('#' + id + ' .date-select-calendar').fullCalendar({
 			buttonText: {
@@ -752,6 +771,30 @@ jQuery(function($) {
 				}
 			}
 		});
+
+		if(selected_day)
+		{
+			$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
+			var eventData = {
+				allDay: true,
+				start: $.fullCalendar.moment(selected_day),
+				end: $.fullCalendar.moment(selected_day).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
+				rendering: 'background',
+				color: '#f4d3d5'
+			};
+			$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
+			selected_day = '';
+		}
 	};
+
+	if(selected_day)
+	{
+		var date = moment(selected_day);
+		selectedmonth = moment(selected_day).format('MMM');
+		selectedday = moment(selected_day).format('DD \, YYYY');
+		$('#calendarCurrentdate').text(selectedday);
+		$('#calendarCurrentMonth').text(selectedmonth);
+		// $('#calendar-change-day #getPostsByDate').trigger('click');
+	}
 
 });
