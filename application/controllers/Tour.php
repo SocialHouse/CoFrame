@@ -327,18 +327,18 @@ class Tour extends CI_Controller {
         $this->form_validation->set_rules('timezone','timezone','required',
                                             array('required' => 'Timezone is required')
                                         );
-        $this->form_validation->set_rules('username','username','required|is_unique[aauth_users.name]',
-                                            array('required' => 'Username is required')
-                                        );
+        // $this->form_validation->set_rules('username','username','required|is_unique[aauth_users.name]',
+        //                                     array('required' => 'Username is required')
+        //                                 );
         $this->form_validation->set_rules('password','password','required',
                                             array('required' => 'Password is required')
                                         );
         $this->form_validation->set_rules('confirm_password','confirm password','required|matches[password]',
                                             array('required' => 'Confirm password is required','matches' => 'Password field and confirm password field does not match')
                                         );
-        $this->form_validation->set_rules('phone','phone','regex_match[/^[0-9().-]+$/]',
-                                            array('regex_match' => 'Please enter valid phone number')
-                                        );
+        // $this->form_validation->set_rules('phone','phone','regex_match[/^[0-9().-]+$/]',
+        //                                     array('regex_match' => 'Please enter valid phone number')
+        //                                 );
         $this->form_validation->set_rules('company_email','company_email','valid_email',
                                             array('valid_email' => 'Please enter valid email')
                                         );        
@@ -355,7 +355,7 @@ class Tour extends CI_Controller {
                             'phone' => $this->input->post('phone'),
                             'timezone' => $this->input->post('timezone'),
                             'company_name' => $this->input->post('company_name'),
-                            'company_email' => $this->input->post('company_email'),
+                            'title' => $this->input->post('title'),
                             'company_url' => $this->input->post('company_url'),
                             'created_at' => date('Y-m-d H:i:s'),
                             'plan' => $this->input->post('plan')

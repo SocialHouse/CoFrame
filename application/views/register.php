@@ -54,11 +54,6 @@
 		<input type="text" id="company_name" name="company_name" class="form-control" placeholder="Company name" value="<?php echo set_value('company_name'); ?>" >		
     </div>
     <div class="form-group">
-		<label for="companyEmail">Comapny email</label>
-		<input type="email" id="company_email" name="company_email" class="form-control" placeholder="Company email" value="<?php echo set_value('company_email'); ?>">		
-		<?php echo form_error('company_email', '<div class="text-danger">', '</div>'); ?>
-    </div>
-    <div class="form-group">
 		<label for="companyUrl">Comapny url</label>
 		<input type="url" id="company_url" name="company_url" class="form-control" placeholder="Company url" value="<?php echo set_value('company_url'); ?>" >		
     </div>

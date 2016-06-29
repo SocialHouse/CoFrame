@@ -186,7 +186,7 @@ jQuery(document).ready(function(){
 		                }
 	                }
         		},
-        	phone:{phone_num: true},
+        	phone:{phone_num: true,required: true},
         	timezone: {required: true},
         	plan: {required: true},
         	username: {required: true,
@@ -204,7 +204,7 @@ jQuery(document).ready(function(){
         	first_name: {required: "Please enter first name"},
         	last_name: {required: "Please enter last name"},
         	email: {required: 'Please enter email address',email: 'Please enter valid email address',remote: "This email is already in use"},
-        	phone:{phone_num: 'Please enter valid phone number'},
+        	phone:{required: "Please enter phone number", phone_num: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
         	plan: {required: "Please select plan"},
         	username: {required: "Please enter username",remote:'This username is already taken'},
@@ -225,13 +225,13 @@ jQuery(document).ready(function(){
             var password = jQuery('#password').val();
             var confirmPassword = jQuery('#confirmPassword').val();
             var companyName = jQuery('#companyName').val();
-            var companyEmail = jQuery('#companyEmail').val();
             var companyURL = jQuery('#companyURL').val();
             var plan = jQuery('#plan').val();
+            var title = jQuery('#title').val();
 
             jQuery.ajax({
 				"url": base_url+'tour/register',
-				"data":{"first_name":firstName,'last_name': lastName,'email':emailAddress,'phone':phoneNumber,'timezone':timeZone,'username':userName,'password':password,'confirm_password': confirmPassword,'company_name':companyName,'company_email':companyEmail,'company_url':companyURL,'plan':plan},
+				"data":{"first_name":firstName,'last_name': lastName,'email':emailAddress,'phone':phoneNumber,'timezone':timeZone,'username':userName,'password':password,'confirm_password': confirmPassword,'company_name':companyName,'company_url':companyURL,'plan':plan,'title':title},
 				"type":"POST",
 				success: function(response)
 		        {
