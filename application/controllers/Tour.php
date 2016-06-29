@@ -356,7 +356,7 @@ class Tour extends CI_Controller {
                             'timezone' => $this->input->post('timezone'),
                             'company_name' => $this->input->post('company_name'),
                             'title' => $this->input->post('title'),
-                            'company_url' => $this->input->post('company_url'),
+                            //'company_url' => $this->input->post('company_url'),
                             'created_at' => date('Y-m-d H:i:s'),
                             'plan' => $this->input->post('plan')
                         );
@@ -369,7 +369,7 @@ class Tour extends CI_Controller {
                 $this->timeframe_model->insert_data('user_info',$user_data);
                 $login_attempt = array(
                             'ip_address' => $_SERVER['REMOTE_ADDR'],
-                            'user_name' => $this->input->post('username'),
+                            'user_name' => $this->input->post('email'),
                             'user_id' => $inserted_id
                         );
                 $this->timeframe_model->insert_data('login_attempts',$login_attempt);                
