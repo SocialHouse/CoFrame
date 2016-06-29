@@ -36,6 +36,34 @@ jQuery(function($) {
 		    e.stopPropagation(); 
 		    return false;
 		});
+
+		// $.mask.definitions['H'] = "[0-1]";
+	 //    $.mask.definitions['h'] = "[0-9]";
+	 //    $.mask.definitions['M'] = "[0-5]";
+	 //    $.mask.definitions['m'] = "[0-9]";
+	 //    $.mask.definitions['P'] = "[AaPp]";
+	 //    $.mask.definitions['p'] = "[Mm]";
+
+	 	$("input[name='post-hour']").mask('Hh', {
+	 							translation: {
+									   'H': { pattern: /[0-1]/},
+									   'h': { pattern: /[0-9]/},
+								    }
+								});
+	 	$("input[name='post-minute']").mask('Mm', {
+	 							translation: {
+									   'M': { pattern: /[0-5]/},
+									   'm': { pattern: /[0-9]/},
+								    }
+								});
+	 	// $("input[name='post-date']").mask('Mm/Dd/YYYYY', {
+	 	// 						translation: {
+			// 						   'M': { pattern: /[0-5]/},
+			// 						   'm': { pattern: /[0-9]/},
+			// 					    }
+			// 					});
+		$("input[name='post-date']").mask('00/00/0000');
+		
 	
 		$(window).keydown(function(event){
 			if(event.keyCode == 13) {
