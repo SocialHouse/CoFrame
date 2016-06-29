@@ -140,17 +140,20 @@
 						<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 							<?php
 							$phase_users = get_phase_users($phase->id);
-							foreach($phase_users as $user)
+							if(!empty($phase_users))
 							{
-								$path = img_url()."default_profile.jpg";
-							
-								if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
+								foreach($phase_users as $user)
 								{
-									$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
+									$path = img_url()."default_profile.jpg";
+								
+									if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
+									{
+										$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
+									}
+									?>
+									<li class="pull-sm-left <?php echo $user->status; ?>"><img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" class="circle-img"/></li>
+									<?php
 								}
-								?>
-								<li class="pull-sm-left <?php echo $user->status; ?>"><img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" class="circle-img"/></li>
-								<?php
 							}
 							?>
 						</ul>

@@ -183,9 +183,15 @@
 												}
 												elseif($phase_status == 'pending' AND $post->status == 'pending')
 												{
-													?>													
-														<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" id="approval_list_btn" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</a>					
-														<a class="btn btn-xs btn-disabled btn-secondary hide">Approved</a>
+													?>	
+													<div class="before-approve">
+														<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</a>
+													</div>
+
+													<div class="after-approve hide">
+														<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
+														<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
+													</div>
 													<?php
 												}
 												elseif($post->status == 'scheduled')
@@ -202,12 +208,22 @@
 												}
 												else
 												{
-													?>
-													<button type="button" class="btn btn-xs btn-disabled">Pending</button>
-													<?php
+													if($this->user_group != 'Approver')
+													{
+														?>
+														<div class="before-approve">
+															<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schecdule</a>
+														</div>
+
+														<div class="after-approve hide">
+															<button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
+															<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
+														</div>
+														<?php
+													}
 												}
 												$is_edit_request = is_edit_request($post->id);
-												if($is_edit_request AND empty($approver_status))
+												if($is_edit_request AND empty($approver_status) AND $this->user_group != 'Approver')
 												{
 													?>
 													<a href="<?php echo base_url().'view-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>
