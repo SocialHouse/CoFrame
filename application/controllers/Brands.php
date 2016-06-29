@@ -302,13 +302,13 @@ class Brands extends CI_Controller {
 
                 	$this->aauth->add_member($inserted_id,$group_id);
                 	//add permission to user
-                	print_r($post_data['permissions']);
+                	
                 	if(!empty($post_data['permissions']))
                 	{
                 		foreach($post_data['permissions'] as $permission)
                 		{
                 			$matching_perms = $this->aauth->get_matching_perms($permission);
-                			print_r($matching_perms);
+                			
                 			foreach($matching_perms as $perm)
                 			{
                 				$this->aauth->allow_user($inserted_id,$perm->id);

@@ -454,6 +454,8 @@
 			    		{
 			    			if(data.response == "success")
 			    			{
+			    				$('#user_pic_base64').val('');
+			    				$('#new_user_pic img').attr('src','' );
 			    				$('#userPermissionsList').append(data.html);
 			    				$('.go-to-userlist').trigger('click');
 			    				$('#firstName').val('');

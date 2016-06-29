@@ -42,7 +42,7 @@ class Tour extends CI_Controller {
     {
         $this->data = array();
         $post_data = $this->input->post();
-        if($this->aauth->login($post_data['username'], $post_data['password']))
+        if($this->aauth->login($post_data['email'], $post_data['password']))
         {
             $user_id = $this->session->userdata('id');
             // $is_exists = $this->user_model->check_login_attempt($user_id);
@@ -434,10 +434,12 @@ class Tour extends CI_Controller {
     {
         $post_data = $this->input->post();
 
-        $status = $this->aauth->update_user($post_data['user_id'],'',$post_data['password'],$post_data['username']);
+        $status = $this->aauth->update_user($post_data['user_id'],$post_data['email'],$post_data['password'],'');
+        // echo '<pre>'; print_r($status);echo '</pre>'; die;
         if($status)
         {
             $verification_status = $this->aauth->verify_user($post_data['user_id'],$post_data['verification_code']);
+
             if($verification_status)
             {
                 $user = $this->aauth->get_user($post_data['user_id']);

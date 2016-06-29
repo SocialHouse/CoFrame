@@ -152,7 +152,7 @@ class Aauth {
 			}
 			$db_identifier = 'name';
  		}else{
-			if( !valid_email($identifier) OR strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
+			if(strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] )
 			{
 				$this->error('The email and/or password you entered did not match our records. Please try again.');
 				return FALSE;

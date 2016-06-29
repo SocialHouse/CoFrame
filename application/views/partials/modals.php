@@ -1,12 +1,12 @@
 <?php
 $checked = '';
 $password = '';
-$username = '';
+$email = '';
 echo $user_pass=$this->input->cookie('user_pass', TRUE);
 echo $user_name=$this->input->cookie('user_name', TRUE);
 if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($user_name))){
     $checked='checked="checked"';
-    $username = $user_name;
+    $email = $user_name;
     $password = $user_pass;
 }
 ?>
@@ -26,7 +26,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 			<div class="form-group">
 				<label class="sr-only" for="username">Username</label>
 
-				<input type="username" class="form-control" id="username" placeholder="Email Address" name="username" value="<?php echo set_value('username',$username); ?>">
+				<input type="email" class="form-control" id="email_id" placeholder="Email Address" name="email" value="<?php echo set_value('username',$email); ?>">
 			</div>
 			<div class="form-group">
 				<label class="sr-only" for="password">Password</label>
@@ -227,8 +227,8 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo !empty ($verification_code)? $verification_code:'' ; ?>" />
 		        	<input type="hidden" name="sub_user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
 					<div class="form-group">
-						<label class="sr-only" for="username_reg">Username</label>
-						<input type="text" class="form-control" id="username_reg" placeholder="Email Address" name="username" >
+						<label class="sr-only" for="username_reg">Email Address</label>
+						<input type="text" class="form-control" id="email_reg" placeholder="Email Address" name="email" >
 					</div>
 
 					<div class="form-group">

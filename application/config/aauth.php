@@ -109,7 +109,7 @@ $config_aauth["default"] = array(
 
 	'max_login_attempt'              => 100,
 
-	'login_with_name'                => true,
+	'login_with_name'                => false,
 
 	'use_cookies'                    => false,
 

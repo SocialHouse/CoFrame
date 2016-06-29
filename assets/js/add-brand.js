@@ -25,25 +25,7 @@ jQuery(function($) {
 			}
 		});
 
-		$(document).on('click','.sub-user-outlet', function() {
-			var savedOutlets = $('#userOutlet').val();
-			var newOutlets = [];
-			var thisOutlet = $(this).data('selectedOutlet');
-			$(this).toggleClass('disabled selected');
-			if($(this).hasClass('selected')) {
-				if(savedOutlets !== '') {
-					newOutlets.push(savedOutlets);
-				}
-				newOutlets.push(thisOutlet);
-			}
-			else {
-				savedOutlets = savedOutlets.split(',');
-				var index = savedOutlets.indexOf(thisOutlet);
-				savedOutlets.splice(index, 1);
-				newOutlets.push(savedOutlets);
-			}
-			$('#userOutlet').val(newOutlets);
-		});
+		
 		//add brand outlet to list
 		$('#addOutlet').on('click', function() {
 			var $selectedItem = $('#brandOutlets .selected');

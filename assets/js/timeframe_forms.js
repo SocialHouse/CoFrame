@@ -2,23 +2,23 @@ jQuery(document).ready(function(){
 
 	jQuery('#loginForm').validate({
         rules: {
-            username : { required: true},
+            email : { required: true, email:true},
             password : { required : true }
         },
         messages :{
-            username : { required : "Please enter username" },
+            email : { required : "Please enter email address" , email: "Please enter a valid email address",},
             password : { required : "Please enter password" }
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
             event.preventDefault();
-            var username = jQuery('#username').val();
+            var username = jQuery('#email_id').val();
 			var password = jQuery('#login_password').val();
 			var remember_me = jQuery('#remember_me:checked').val();
 			
 			jQuery.ajax({
 				"url": base_url+'tour/check_login',
-				"data":{"username":username,"password":password,'remember_me':remember_me},
+				"data":{"email":username,"password":password,'remember_me':remember_me},
 				"type":"POST",
 				success: function(response)
 		        {
@@ -262,7 +262,7 @@ jQuery(document).ready(function(){
     jQuery('#registerSubUser').validate({
     	onkeyup: false,
         rules: {        
-        	username: {required: true,
+        	email: {required: true,
         				remote: {
 		                    url: base_url+"tour/check_username_exist",
 		                    type: "post"
@@ -272,7 +272,7 @@ jQuery(document).ready(function(){
             confirm_password :{ required : true,equalTo: "#password_reg"},
         },
         messages :{        
-        	username: {required: "Please enter username",remote:'This username is already taken'},
+        	email: {required: "Please enter email address",remote:'This email address is already taken'},
         	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
             confirm_password :{ required : "Please re-enter password" },            
         },
@@ -282,13 +282,13 @@ jQuery(document).ready(function(){
 
             var user_id = jQuery('#user_id').val();
             var verification_code = jQuery('#verification_code').val();
-            var username = jQuery('#username_reg').val();
+            var email = jQuery('#email_reg').val();
             var password = jQuery('#password_reg').val();
             var confirmPassword = jQuery('#confirm_password_reg').val();
 
             jQuery.ajax({
 				"url": base_url+'tour/save_sub_user',
-				"data":{'user_id':user_id,'verification_code':verification_code,'username':username,'password':password,'confirm_password': confirmPassword},
+				"data":{'user_id':user_id,'verification_code':verification_code,'email':email,'password':password,'confirm_password': confirmPassword},
 				"type":"POST",
 				success: function(response)
 		        {

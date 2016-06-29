@@ -44,13 +44,13 @@ jQuery(function($) {
 	 //    $.mask.definitions['P'] = "[AaPp]";
 	 //    $.mask.definitions['p'] = "[Mm]";
 
-	 	$("input[name='post-hour']").mask('Hh', {
+	 	$(".hour-select").mask('Hh', {
 	 							translation: {
 									   'H': { pattern: /[0-1]/},
 									   'h': { pattern: /[0-9]/},
 								    }
 								});
-	 	$("input[name='post-minute']").mask('Mm', {
+	 	$(".minute-select").mask('Mm', {
 	 							translation: {
 									   'M': { pattern: /[0-5]/},
 									   'm': { pattern: /[0-9]/},
@@ -62,8 +62,27 @@ jQuery(function($) {
 			// 						   'm': { pattern: /[0-9]/},
 			// 					    }
 			// 					});
-		$("input[name='post-date']").mask('00/00/0000');
-		
+		$(".single-date-select").mask('00/00/0000');
+
+		$(document).on('click','.sub-user-outlet', function() {
+			var savedOutlets = $('#userOutlet').val();
+			var newOutlets = [];
+			var thisOutlet = $(this).data('selectedOutlet');
+			$(this).toggleClass('disabled selected');
+			if($(this).hasClass('selected')) {
+				if(savedOutlets !== '') {
+					newOutlets.push(savedOutlets);
+				}
+				newOutlets.push(thisOutlet);
+			}
+			else {
+				savedOutlets = savedOutlets.split(',');
+				var index = savedOutlets.indexOf(thisOutlet);
+				savedOutlets.splice(index, 1);
+				newOutlets.push(savedOutlets);
+			}
+			$('#userOutlet').val(newOutlets);
+		});		
 	
 		$(window).keydown(function(event){
 			if(event.keyCode == 13) {
