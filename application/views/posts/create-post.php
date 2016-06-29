@@ -172,13 +172,28 @@
 									<span class="timezone pull-xs-right">PST</span>
 								</div>
 							</div>
-							<div class="form-group form-inline slate-post-tz">
-								<label class="radio-inline">
-									<input type="radio" class="radio" checked name="time_zone" value="me">Your time zone
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="time_zone" value="brand">Brand time zone
-								</label>
+							<div class="form-group slate-post-tz">
+							<select class="form-control" name="time_zone">
+								<!--  By default brand_timezone is selcted  -->
+								<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>"><?php echo $brand_timezone['name']; ?></option>
+								<?php 
+									//  If brand time zone and  user time are not same 
+									if($brand_timezone['value'] != $user_timezone['value'] ){
+										?>
+										<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+										<?php 
+									}
+								?>
+								<?php 
+									// Display remaining timezones
+									foreach ($timezones as $key => $obj) {
+										?>
+										<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+										<?php
+									}
+								?>
+							</select>
+
 							</div>
 						</div>
 
