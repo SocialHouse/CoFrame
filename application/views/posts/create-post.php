@@ -157,28 +157,43 @@
 							<div class="clearfix slate-post">
 								<div class="form-group form-inline pull-sm-left">
 									<div class="hide-top-bx-shadow">
-										<input  type="text" class="form-control popover-toggle single-date-select txt-disable txt-disable" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+										<input  type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
 									</div>
 								</div>
 								<div class="form-group pull-sm-left">
 									<div class="pull-xs-left">
 										<label class="hidden">Post Time</label>
 										<div class="time-select form-control">
-											<input type="text" class="time-input hour-select txt-disable" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
-											<input type="text" class="time-input minute-select txt-disable" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
+											<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
+											<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
 											<input type="text" class="time-input amselect" name="post-ampm" value="am">
 										</div>
 									</div>
 									<span class="timezone pull-xs-right">PST</span>
 								</div>
 							</div>
-							<div class="form-group form-inline slate-post-tz">
-								<label class="radio-inline">
-									<input type="radio" class="radio" checked name="time_zone" value="me">Your time zone
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="time_zone" value="brand">Brand time zone
-								</label>
+							<div class="form-group slate-post-tz">
+							<select class="form-control" name="time_zone">
+								<!--  By default brand_timezone is selcted  -->
+								<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>"><?php echo $brand_timezone['name']; ?></option>
+								<?php 
+									//  If brand time zone and  user time are not same 
+									if($brand_timezone['value'] != $user_timezone['value'] ){
+										?>
+										<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+										<?php 
+									}
+								?>
+								<?php 
+									// Display remaining timezones
+									foreach ($timezones as $key => $obj) {
+										?>
+										<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+										<?php
+									}
+								?>
+							</select>
+
 							</div>
 						</div>
 
@@ -256,14 +271,14 @@
 							<div class="clearfix">
 								<div class="form-group form-inline pull-sm-left">
 									<div class="hide-top-bx-shadow">
-										<input type="text" class="form-control form-control-sm popover-toggle single-date-select txt-disable" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
+										<input type="text" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
 									</div>
 								</div>
 								<div class="form-group pull-sm-left">
 									<div class="pull-xs-left">
 										<div class="time-select form-control form-control-sm default_approver_time">
-											<input type="text" class="time-input hour-select txt-disable" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
-											<input type="text" class="time-input minute-select txt-disable" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
+											<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
+											<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
 											<input type="text" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
 										</div>
 									</div>
