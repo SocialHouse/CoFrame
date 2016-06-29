@@ -194,25 +194,35 @@
 													</div>
 													<?php
 												}
+												elseif($post->status == 'pending')
+												{
+													?>
+													<button class="btn btn-secondary btn-disabled btn-sm" disabled>Pending</button>
+													<?php
+												}
 												elseif($post->status == 'scheduled')
-												{
-													?>
-													<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>
-													<?php
-												}
-												elseif($post->status == 'posted')
-												{
-													?>
-													<button class="btn btn-approved btn-sm btn-default">View Live</button>
-													<?php
-												}
-												else
 												{
 													if($this->user_group != 'Approver')
 													{
 														?>
 														<div class="before-approve">
-															<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schecdule</a>
+															<button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
+															<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
+														</div>
+
+														<div class="after-approve hide">
+															<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schedule</a>
+														</div>
+														<?php
+													}
+												}
+												elseif($post->status == 'approved')
+												{
+													if($this->user_group != 'Approver')
+													{
+														?>
+														<div class="before-approve">
+															<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schedule</a>
 														</div>
 
 														<div class="after-approve hide">
@@ -221,6 +231,19 @@
 														</div>
 														<?php
 													}
+												}
+												elseif($post->status == 'posted')
+												{
+													?>
+													<button class="btn btn-approved btn-sm btn-default">View Live</button>
+													<?php
+												}
+												else
+												{													
+													?>
+														<button class="btn btn-secondary btn-disabled btn-sm" disabled>All phases approved</button>
+													</div>
+													<?php
 												}
 												$is_edit_request = is_edit_request($post->id);
 												if($is_edit_request AND empty($approver_status) AND $this->user_group != 'Approver')

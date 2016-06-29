@@ -767,7 +767,7 @@ class Aauth {
 		}
 	}
 
-	public function create_user_without_name($email, $pass, $name = FALSE,$user_data = []) {
+	public function create_user_without_email($email = FALSE, $pass, $name = FALSE,$to_email) {
 
 		$valid = TRUE;
 		
@@ -775,11 +775,11 @@ class Aauth {
 		// 	$this->error('Email address already exists on the system. If you forgot your password, you can click the link below.');
 		// 	$valid = FALSE;
 		// }
-		$valid_email = (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
-		if (!$valid_email){
-			$this->error('Invalid e-mail address');
-			$valid = FALSE;
-		}
+		// $valid_email = (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+		// if (!$valid_email){
+		// 	$this->error('Invalid e-mail address');
+		// 	$valid = FALSE;
+		// }
 		if ( strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] ){
 			$this->error('Invalid password');
 			$valid = FALSE;
@@ -797,7 +797,7 @@ class Aauth {
 			'pass' => $this->hash_password($pass, 0), // Password cannot be blank but user_id required for salt, setting bad password for now
 			'name' => (!$name) ? '' : $name ,
 		);
-		$data = array_merge($data,$user_data);		
+		
 		if ( $this->aauth_db->insert($this->config_vars['users'], $data )){
 
 			$user_id = $this->aauth_db->insert_id();
@@ -814,7 +814,7 @@ class Aauth {
 				$this->aauth_db->update($this->config_vars['users'], $data);
 
 				// sends verifition ( !! e-mail settings must be set)
-				$this->send_registartion_link($user_id);
+				$this->send_registartion_link($user_id,$to_email);
 			}
 
 			// Update to correct salted password
@@ -851,7 +851,7 @@ class Aauth {
 		}
 		
 		if ($email != FALSE) {
-			if ($this->user_exist_by_email($email)) {
+			if ($this->user_exist_by_email($email)) {				
 				$this->error('Email address already exists on the system.  Please enter a different email address.');
 				$valid = FALSE;
 			}
@@ -1031,7 +1031,7 @@ class Aauth {
 		}
 	}
 
-	public function send_registartion_link($user_id){
+	public function send_registartion_link($user_id,$to_email){
 
 		$query = $this->aauth_db->where( 'id', $user_id );
 		$query = $this->aauth_db->get( $this->config_vars['users'] );
@@ -1052,13 +1052,13 @@ class Aauth {
 	        $this->CI->email->initialize($config);
 
 			$this->CI->email->from($from, $this->config_vars['name']);
-			$this->CI->email->to($row->email);
+			$this->CI->email->to($to_email);
 			$this->CI->email->subject('Registeration link');
 
 			$this->CI->data['user'] = $row;
 			$this->CI->data['url'] =  base_url() .'tour/register_sub_user/'. $user_id . '/' . $ver_code ;
 
-			$message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
+			echo $message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
 			$this->CI->email->message($message);
 			$this->CI->email->send();
 		}

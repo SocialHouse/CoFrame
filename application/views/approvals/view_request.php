@@ -114,10 +114,6 @@
 				<h4 class="text-xs-center">Approval Info</h4>
 				<?php
 				$i = 1;
-				// echo "<pre>";
-				// print_r($phases);
-				// echo "</pre>";
-				// die;
 				foreach($phases as $phase)
 				{
 					$active_class = '';

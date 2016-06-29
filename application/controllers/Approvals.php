@@ -48,7 +48,8 @@ class Approvals extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			
-			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->user_group);			
+			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->user_group);
+			
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))
 			{

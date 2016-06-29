@@ -682,7 +682,7 @@ class Posts extends CI_Controller {
 			}
 			elseif($post_data['status'] == 'unschedule')
 			{
-				$approver_data['status'] = 'pending';
+				$approver_data['status'] = 'approved';
 				$this->timeframe_model->update_data('posts',$approver_data,array('id'=>$post_data['post_id']));
 			}
 			else
@@ -715,7 +715,7 @@ class Posts extends CI_Controller {
 						if($phases[0]->count == $approved_phases[0]->count)
 						{
 							$post_update = array(
-								'status' => 'scheduled'
+								'status' => 'approved'
 							);
 							$this->timeframe_model->update_data('posts',$post_update,array('id'=>$post_data['post_id']));
 						}

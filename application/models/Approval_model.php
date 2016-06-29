@@ -23,7 +23,7 @@ class Approval_model extends CI_Model
 		{
 			$this->db->where('posts.user_id',$user_id);			
 		}
-		$this->db->where('posts.status','pending');
+		// $this->db->where('posts.status','pending');
 
 		$this->db->order_by('slate_date_time','ASC');
 		$query = $this->db->get('phases');		

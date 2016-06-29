@@ -288,7 +288,7 @@ class Brands extends CI_Controller {
             try
             {
                 
-            	$inserted_id = $this->aauth->create_user_without_name($post_data['email'],$password,'');
+            	$inserted_id = $this->aauth->create_user_without_email('',$password,'',$post_data['email']);
             	$group_id = $this->aauth->get_group_id($post_data['role']);
             	if($inserted_id)
             	{
