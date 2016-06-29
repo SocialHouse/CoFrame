@@ -159,11 +159,18 @@ jQuery(function($) {
 	    });
 
 		//nav activation
-		var pathname = location.pathname;
+		var pathname = location.pathname;		
 		$('.navbar-brand-manage .nav-link').each(function() {
 			var href = $(this).attr('href');			
 			if(href.indexOf(pathname) > -1) {
 				$(this).addClass('active');
+			}
+			var sub_pages = $(this).data('sub_pages');
+			if(sub_pages != undefined)
+			{
+				if(pathname.indexOf(sub_pages) > -1) {					
+					$(this).addClass('active');
+				}
 			}
 		});
 

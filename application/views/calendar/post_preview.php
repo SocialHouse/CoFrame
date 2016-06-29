@@ -191,9 +191,13 @@
 									<?php
 									if($post_details->user_id == $this->user_id)
 									{
-										?>
-										<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
-										<?php
+										$is_edit_request = is_edit_request($post_details->id);
+										if($is_edit_request)
+										{
+											?>
+											<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
+											<?php
+										}
 									}
 									if($user_is == 'approver')
 								  	{
