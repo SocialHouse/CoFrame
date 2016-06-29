@@ -1,5 +1,7 @@
 <?php $this->load->view('partials/brand_nav'); ?>
 
+<input type="hidden" id="brand_id" value="<?php echo $brand_id; ?>">
+<input type="hidden" id="brand_slug" value="<?php echo $brand->slug; ?>">
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header">
 		<h1 class="center-title section-title">Brand Dashboard</h1>

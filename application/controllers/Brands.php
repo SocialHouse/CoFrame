@@ -301,14 +301,15 @@ class Brands extends CI_Controller {
                     $this->timeframe_model->update_data('brands',$brand_status,$condition);
 
                 	$this->aauth->add_member($inserted_id,$group_id);
+
                 	//add permission to user
-                	
+            
                 	if(!empty($post_data['permissions']))
                 	{
                 		foreach($post_data['permissions'] as $permission)
                 		{
                 			$matching_perms = $this->aauth->get_matching_perms($permission);
-                			
+
                 			foreach($matching_perms as $perm)
                 			{
                 				$this->aauth->allow_user($inserted_id,$perm->id);
@@ -369,9 +370,9 @@ class Brands extends CI_Controller {
 						$image_path = upload_url().$this->user_id.'/users/'.$inserted_id.'.png';
 					}
 
-                    $response = '<div class="table">';
+                    $response = '<div class="table" id="table_id_'.$inserted_id.'">';
 					$response .= '<div class="table-cell">';
-					$response .= '<div class="pull-sm-left"><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
+					$response .= '<div class="pull-sm-left post-approver-img"><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/><i title="Remove User" data-user-id="'.$inserted_id.'" class="tf-icon-circle remove-item remove-user">x</i></div>';
 					$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
 					$response .= '</div>';
 					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
@@ -626,6 +627,28 @@ class Brands extends CI_Controller {
 		}else{
 			echo 'fail';
 			return;
+		}
+	}
+
+	function get_summary()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$summary_posts = get_summary($post_data['brand_id'],$post_data['selected_date']); 			
+			$html = '<li class="post-summary">No summary on this date</li>';
+			if(!empty($summary_posts))
+			{
+				$html = '';
+				foreach($summary_posts as $post)
+				{
+					$html .= "<li class='post-summary'><a  class='got-to-calender' data-post-date='".date('Y-m-d',strtotime($post->slate_date_time))."' data-post_id='".$post->id."' href='".base_url().'calendar/day/'.$post_data['slug']."'>";
+					$html .= "<i class='fa fa-".$post->outlet_name."'><span class='bg-outlet bg-".$post->outlet_name."'></span></i>";
+					$html .= date('H:i A',strtotime($post->slate_date_time))."<span class='excerpt-summary'>".$post->content."</span>";
+					$html .= "</a></li>";
+				}				
+			}
+			echo json_encode(array('html'=>$html));
 		}
 	}
 }

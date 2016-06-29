@@ -337,14 +337,22 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
-	public function post_by_status($brand_id,$status)
+	public function post_by_status($brand_id,$status,$date = '')
 	{
 		$this->db->select('posts.id,posts.content,outlets.outlet_name,posts.slate_date_time');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->where('status',$status);
 		$this->db->where('brand_id',$brand_id);
 		$this->db->where('user_id',$this->user_id);
-		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') >= "'.date("Y-m-d").'")');
+		
+		if(empty($date))
+		{
+			$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.date("Y-m-d").'")');
+		}
+		else
+		{
+			$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.$date.'")');
+		}
 		$this->db->order_by('slate_date_time','desc');
 		$query = $this->db->get('posts');
 		if($query->num_rows() > 0)

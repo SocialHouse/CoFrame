@@ -31,9 +31,12 @@
 			$('#post-details .outlet-list li').on('click', function() {
 				var previous_outlet = $('#postOutlet').val();
 				var outlet = $(this).data('selectedOutlet');
+				var outlet_const = $(this).data('outlet-const');
+				$('#postOutlet').attr('data-outlet-const',outlet_const);
+
 				if(previous_outlet != outlet)
 				{
-					allFiles = [];
+					removeFromPreview();
 				}
 			});
 
@@ -96,11 +99,7 @@
 								}							
 
 								var img = document.createElement('img');
-								//for live review fb
-								var preview_img = document.createElement('img');
-								// img.onload = function () {
-								// 	window.URL.revokeObjectURL(this.src);
-								// };
+								var preview_img = document.createElement('img');								
 								img.className = 'form__file-preview';
 
 								// img.src = window.URL.createObjectURL(file);
@@ -155,22 +154,24 @@
 										$('.remove-user-img').show();
 										allFiles =[];
 									}
-									allFiles.push(file);
+
 									var video = document.createElement('video');
-									//for live review fb
-									video.onload = function () {
-										window.URL.revokeObjectURL(this.src);
-									};
-
-									video.className = 'form__file-preview';
-									video.src = window.URL.createObjectURL(file);
+									video.className = 'form__file-preview';									
+									var videoDiv = document.createElement('div');
+									videoDiv.className = 'form__preview-wrapper';
+									$(videoDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+									$(videoDiv).append(video);
 									
-									$fileDiv.prepend(video).addClass('has-files');
+									$fileDiv.prepend(videoDiv).addClass('has-files');
 
-									total_images = $('video.form__file-preview').length;
-									$(video).attr('data-preview-number',total_images);
+									var reader = new FileReader();
+									reader.readAsDataURL(file);
+									reader.onload = function (e) {
+										video.src = e.target.result;
+										file.img_src = e.target.result;
+					                	allFiles.push(file);				                	
+					                }
 
-									//to show user uploded img on add role page
 									if($('.user-img-preview').length)
 									{
 										$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
@@ -239,14 +240,11 @@
 									$(target_file_input).children('.form__file-preview').remove();
 									$('.remove-user-img').show();
 								}
-								allFiles.push(file);
-								var img = document.createElement('img');
-								// img.onload = function () {
-								// 	window.URL.revokeObjectURL(this.src);
-								// };
+
+								var img = document.createElement('img');							
 
 								img.className = 'form__file-preview';
-								img.src = window.URL.createObjectURL(file);
+								// img.src = window.URL.createObjectURL(file);
 								var imgDiv = document.createElement('div');
 								imgDiv.className = 'form__preview-wrapper';
 								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
@@ -258,9 +256,12 @@
 								$(img).attr('data-preview-number',total_images);
 
 								var reader = new FileReader();
+								reader.readAsDataURL(file);
 			                    reader.onload = function (e) {
-			                       $(img).attr("src", e.target.result);
-			                    }
+									img.src = e.target.result;
+									file.img_src = e.target.result;
+				                	allFiles.push(file);
+				                }
 								//for show preview
 								changePreview(file,'image');
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
@@ -281,12 +282,21 @@
 								}else{
 
 									var video = document.createElement('video');
-									video.onload = function () {
-										window.URL.revokeObjectURL(this.src);
-									};
-									video.className = 'form__file-preview';
-									video.src = window.URL.createObjectURL(file);
-									$(target_file_input).prepend(video).addClass('has-files');
+									video.className = 'form__file-preview';									
+									var videoDiv = document.createElement('div');
+									videoDiv.className = 'form__preview-wrapper';
+									$(videoDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+									$(videoDiv).append(video);
+									
+									$fileDiv.prepend(videoDiv).addClass('has-files');
+
+									var reader = new FileReader();
+									reader.readAsDataURL(file);
+									reader.onload = function (e) {
+										video.src = e.target.result;
+										file.img_src = e.target.result;
+					                	allFiles.push(file);				                	
+					                }
 									//for show preview
 
 									// set  data (data-preview-number) to video element for deleting video 
@@ -551,8 +561,8 @@
 				}
 				else
 				{
-					$.each(allFiles,function(a,b){					
-						if(b.img_src == $(control).attr('src'))
+					$.each(allFiles,function(a,img){					
+						if(img.img_src == $(control).attr('src'))
 						{
 						    allFiles.splice(a, 1);
 						}
@@ -838,22 +848,35 @@
 		var $ = jQuery, imgTag;
 		var imgTags = $('.form__preview-wrapper').find('img');
 		var videoTags = $('.form__preview-wrapper').find('video');
+		
 		removePreview()
 
 		if(videoTags.length)
 		{
+			$.each(videoTags,function(a,vodeoTag){
+				console(videoTag);
+				var video = document.createElement('video');
+				video.onload = function () {
+					window.URL.revokeObjectURL(this.src);
+				};
+				video.className = 'form__file-preview';
+				video.src = $(vodeoTag).attr('src');
 
+				jQuery('#live-post-preview .twitter-img-div').prepend(video);
+				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
+			});
 		}
 		else
 		{
 			$.each(imgTags,function(a,b){			
-				var selected,selected_outlet ='' ;
+				var selected,selected_outlet ='';
 				var preview_img = '<img class="post-img" src="'+$(b).attr('src')+'" >';
 				// preview_img.src = window.URL.createObjectURL(file);
 				var no_of_img = jQuery('#live-post-preview .img-div img').length;
 				var outlet_id = jQuery('#postOutlet').val();
 				selected = jQuery('#postOutlet').attr('data-outlet-const');		
 				selected_outlet = 'outlet_'+ selected;
+			
 				if(selected_outlet == 'outlet_facebook')
 				{
 					if(no_of_img == 0)

@@ -304,7 +304,7 @@ if(!function_exists('is_edit_request'))
     function is_edit_request($post_id)
     {
         $CI = & get_instance();        
-        return $CI->timeframe_model->get_data_by_condition('post_comments',array('post_id' => $post_id,'status !=' => 'accepted','status !=' => 'rejected'));
+        return $CI->timeframe_model->get_data_by_condition('post_comments',array('post_id' => $post_id,'status ' => NULL));
     }
 }
 
@@ -329,11 +329,11 @@ if(!function_exists('get_phase_users'))
 
 if(!function_exists('get_summary'))
 {
-    function get_summary($brand_id)
+    function get_summary($brand_id,$date = '')
     {
         $CI = & get_instance();   
         $CI->load->model('post_model');     
-        return $CI->post_model->post_by_status($brand_id,'scheduled');
+        return $CI->post_model->post_by_status($brand_id,'scheduled',$date);
     }
 }
 

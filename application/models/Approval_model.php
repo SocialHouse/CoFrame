@@ -17,22 +17,13 @@ class Approval_model extends CI_Model
 		if(!empty($date))
 		{
 			$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
-		}	
+		}		
 		
-		if($user_id AND $user_group != 'Master admin' AND $user_group != 'Manager' AND $user_group != 'Creator')
+		if($user_group == 'Creator')
 		{
-			$this->db->where('phases_approver.user_id',$user_id);
+			$this->db->where('posts.user_id',$user_id);			
 		}
-		elseif($user_group == 'Creator')
-		{
-			$this->db->where('posts.user_id',$user_id);
-			$this->db->where('posts.status','pending');
-		}
-		elseif($user_group == 'Master admin' AND $user_group == 'Manager')
-		{
-			echo "test";
-			$this->db->where('posts.status','pending');
-		}
+		$this->db->where('posts.status','pending');
 
 		$this->db->order_by('slate_date_time','ASC');
 		$query = $this->db->get('phases');		

@@ -145,24 +145,27 @@
 														$approver_status = '';
 														$phase_status = '';
 														$phase_id = '';
-														foreach($approvers['result'] as $approver)
+														if(!empty($approvers['result']))
 														{
-															if($approver['user_id'] == $this->user_id)
+															foreach($approvers['result'] as $approver)
 															{
-																$approver_status = $approver['status'];
-																$phase_status = $approver['phase_status'];
-																$phase_id = $approver['id'];
+																if($approver['user_id'] == $this->user_id)
+																{
+																	$approver_status = $approver['status'];
+																	$phase_status = $approver['phase_status'];
+																	$phase_id = $approver['id'];
+																}
+																$image_path = img_url().'default_profile.jpg';
+																if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
+																{
+																	$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
+																}
+																?>
+																<li class="<?php echo $approver['status']; ?>">
+																	<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img" data-toggle="popover-hover" data-content="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>">
+																</li>
+																<?php
 															}
-															$image_path = img_url().'default_profile.jpg';
-															if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
-															{
-																$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
-															}
-															?>
-															<li class="<?php echo $approver['status']; ?>">
-																<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img" data-toggle="popover-hover" data-content="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>">
-															</li>
-															<?php
 														}
 														?>
 													</ul>
@@ -171,14 +174,7 @@
 												?>	
 											</td>										
 											<td class="text-xs-center">
-												<?php 
-												$is_edit_request = is_edit_request($post->id);
-												$btn_class = 'btn-disabled';
-												if($is_edit_request)
-												{
-													$btn_class = 'btn-secondary';
-												}
-
+												<?php
 												if($approver_status == 'approved')
 												{
 													?>
@@ -204,9 +200,27 @@
 													<button class="btn btn-approved btn-sm btn-default">View Live</button>
 													<?php
 												}
-												
-												?>												
-												<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
+												else
+												{
+													?>
+													<button type="button" class="btn btn-xs btn-disabled">Pending</button>
+													<?php
+												}
+												$is_edit_request = is_edit_request($post->id);
+												if($is_edit_request AND empty($approver_status))
+												{
+													?>
+													<a href="<?php echo base_url().'view-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>
+													<?php
+												}
+												if(!empty($approver_status))
+												{
+													?>
+													<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>
+													<?php
+												}
+												?>
+												</td>											
 										</tr>
 										<?php
 									}
