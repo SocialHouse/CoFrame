@@ -91,7 +91,7 @@ class Tour extends CI_Controller {
 
                     $cookie = array(
                         'name'   => 'user_name',
-                        'value'  => $post_data['username'],
+                        'value'  => $post_data['email'],
                         'expire' => '0'
                     );
                     $this->input->set_cookie($cookie);
