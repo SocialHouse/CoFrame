@@ -186,7 +186,8 @@
 					<div class="form-group clearfix">
 						<div class="attachment pull-sm-left">
 							<input type="file" name="attachment" class="hidden" id="attachment">
-							<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>			
+							<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>
+							<img id="attached_img" accept="images/*" class="hide" height="25" width="25" src="<?php echo img_url().'default_profile.jpg'; ?>">
 						</div>
 						<div class="pull-sm-right">
 							<button type="button" class="btn btn-default btn-sm reset-request">Clear</button>

@@ -516,40 +516,69 @@ jQuery(function($) {
 			}, e);
 		});
 		//load popover on page load
-		$('body').on('click', '[data-toggle="popover-onload"]', function(e) {
-			var $target=$(this);
-			var pcontent = $target.data('content');
-			$target.qtip({
-				content: {
-					text: pcontent
+		$('[data-toggle="popover-onload"]').qtip({
+			content: {
+				attr: 'data-content'
+			},
+			position: {
+				my: 'top center',
+				at: 'bottom center'
+			},
+			show: {
+				effect: function() {
+					$(this).fadeIn();
 				},
-				position: {
-					my: 'top center',
-					at: 'bottom center'
+				ready: true
+			},
+			hide: {
+				effect: function() {
+					$(this).fadeOut();
 				},
-				show: {
-					effect: function() {
-						$(this).fadeIn();
-					},
-					event: e.type,
-					ready: true
+				event: 'unfocus'
+			},
+			style: {
+				classes: 'qtip-shadow text-xs-center',
+				tip: {
+					width: 20,
+					height: 10
 				},
-				hide: {
-					effect: function() {
-						$(this).fadeOut();
-					},
-					event: 'unfocus'
-				},
-				style: {
-					classes: 'qtip-shadow text-xs-center',
-					tip: {
-						width: 20,
-						height: 10
-					},
-					width: 320
-				}
-			}, e);
+				width: 320
+			}
 		});
+		// $('body').on('click', '[data-toggle="popover-onload"]', function(e) {
+		// 	var $target=$(this);
+		// 	var pcontent = $target.data('content');
+		// 	$target.qtip({
+		// 		content: {
+		// 			text: pcontent
+		// 		},
+		// 		position: {
+		// 			my: 'top center',
+		// 			at: 'bottom center'
+		// 		},
+		// 		show: {
+		// 			effect: function() {
+		// 				$(this).fadeIn();
+		// 			},
+		// 			event: e.type,
+		// 			ready: true
+		// 		},
+		// 		hide: {
+		// 			effect: function() {
+		// 				$(this).fadeOut();
+		// 			},
+		// 			event: 'unfocus'
+		// 		},
+		// 		style: {
+		// 			classes: 'qtip-shadow text-xs-center',
+		// 			tip: {
+		// 				width: 20,
+		// 				height: 10
+		// 			},
+		// 			width: 320
+		// 		}
+		// 	}, e);
+		// });
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {		
 			var $target=$(this);
@@ -2177,6 +2206,24 @@ jQuery(function($) {
 		$('#summary-form').submit();
 
 	});
+	
+	$(document).on('change','#attachment',function()
+	{
+		var supported_files = ['gif','png','jpg','jpeg'];
+		var reader = new FileReader();
+		var file = $(this)[0].files[0];
+		reader.readAsDataURL(file);
+		reader.onload = function (event) {
+			var file_type = file.type.split('/');
+			if($.inArray(file_type[1] ,supported_files) == -1){
+				alert('Invalid file extention');
+				return false;
+			};
+			$('#attached_img').attr('src',event.target.result);
+			$('#attached_img').removeClass('hide');
+
+        }
+	})
 
 	toggleBtnClass = function(btnClass, btnState){
 		$(btnClass).prop('disabled', btnState);

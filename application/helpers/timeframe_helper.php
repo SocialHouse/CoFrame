@@ -378,7 +378,7 @@ if(!function_exists('check_access'))
         $CI = & get_instance();      
         $group = get_user_groups($CI->user_id,$brand[0]->id);
         $has_perm = $CI->aauth->check_user_perm($CI->user_id,$perm,$brand[0]->id);
-        if(!$has_perm AND !empty($group) AND !$additional_group)
+        if(!$has_perm AND !empty($group) AND !$additional_group AND $group != 'Master admin')
         {
             $CI->data['user_group'] = $group;
             $CI->data['brand_id'] = $brand[0]->id;
