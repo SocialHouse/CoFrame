@@ -53,6 +53,7 @@
 		<label for="companyName">Company name</label>
 		<input type="text" id="company_name" name="company_name" class="form-control" placeholder="Company name" value="<?php echo set_value('company_name'); ?>" >		
     </div>
+    <input type="hidden" name="dialcode" value="" id="dialcode"> 
     <div class="form-group">
 		<label for="companyUrl">Comapny url</label>
 		<input type="url" id="company_url" name="company_url" class="form-control" placeholder="Company url" value="<?php echo set_value('company_url'); ?>" >		

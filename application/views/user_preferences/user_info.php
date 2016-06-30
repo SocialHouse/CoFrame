@@ -51,9 +51,17 @@
 					<label class="sr-only" for="emailAddress">Email address</label>
 					<input type="email" class="form-control"  readonly="readonly" id="emailAddress" placeholder="Email" name="email" value="<?php echo (!empty($user_details->email))? $user_details->email:''?>">
 				</fieldset>
+				<?php
+				 	$data_error = 'false';
+					if(!empty($user_details->phone))
+					{
+						$data_error = 'true';
+					}
+				?>
 				<fieldset class="form-group">
 					<label class="sr-only" for="phoneNumber">Phone Number</label>
-					<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone" value="<?php echo (!empty($user_details->phone))? $user_details->phone:''?>">
+					<input type="tel" id="phone" name="phone" data-error="<?php echo $data_error; ?>" class="form-control" value="<?php echo (!empty($user_details->phone))? $user_details->phone:''?>">
+					<input type="hidden" name="phoneNumber" id="phoneNumber" value="<?php echo (!empty($user_details->phone))? $user_details->phone:''?>"> 
 				</fieldset>
 				<fieldset class="form-group">
 					<label class="sr-only" for="timeZone">Time Zone</label>

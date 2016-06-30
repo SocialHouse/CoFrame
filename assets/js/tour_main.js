@@ -170,7 +170,47 @@ jQuery(function($) {
 	});
 	
 	//international phone drop-down
-	$("#phone").intlTelInput({separateDialCode: true});
+	$.fn.intlTelInput.loadUtils( base_url+"assets/js/vendor/utils.js");
+
+	var telInput = $("#phone");
+  	
+	telInput.intlTelInput({
+		allowDropdown: true,
+      	autoHideDialCode: true,
+		autoPlaceholder: true,
+		dropdownContainer: "body",
+		//excludeCountries: ["us"],
+		geoIpLookup: function(callback) {
+		$.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+		});
+		},
+		initialCountry: "auto",
+		nationalMode: true,
+		//numberType: "MOBILE",
+		//onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+		// preferredCountries: ['cn', 'jp'],
+		separateDialCode: true
+	});
+
+	
+	// initialise plugin
+
+	// on blur: validate
+	telInput.blur(function() {
+		if ($.trim(telInput.val())) {
+		    if (telInput.intlTelInput("isValidNumber")) {
+			    $(telInput).data('error','true');
+		    }else{
+		    	console.log($(telInput).data('error'));
+		    	$(telInput).data('error','false');	
+	    	}
+	  	}
+	});
+
+	// console.log(jQuery("#phone").intlTelInput("getNumber"));
+	//$.fn.intlTelInput.loadUtils( base_url+"assets/js/vendor/utils.js");
 	
 	//animated content
 	// test for css animation support with fallback
@@ -201,7 +241,7 @@ jQuery(function($) {
 			});
 		}
 	}
-	$('#phone').mask("000-000-0000", {placeholder: "Phone"});
+	//$('#phone').mask("000-000-0000", {placeholder: "Phone"});
 });
 
 //Youtube Iframe API
