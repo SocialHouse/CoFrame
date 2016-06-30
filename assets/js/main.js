@@ -1169,7 +1169,8 @@ jQuery(function($) {
 		$('.modal').modal('hide');
 	});
 
-	$(document).on('click','[data-toggle="addPhases"]',function() {		
+	$(document).on('click','[data-toggle="addPhases"]',function() {
+		
 		if($('.container-approvals').children('.add_phases_num'))
 		{			
 			$('.container-approvals').children('.add_phases_num').remove();			
@@ -2159,19 +2160,7 @@ jQuery(function($) {
         });
     });
 
-    $(document).on('keypress blur', '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border,.incrementer i', function() {
-		create_post_validation($(this));
-	});
-    $(document).on('click', '.check-box.circle-border, .incrementer i', function() {
-		create_post_validation($(this));
-	});
 
-    $(document).on( 'change','input[type="file"]', function( e ){
-    	e.preventDefault();
-    	if( $(this).attr('id') != 'fileInput'){
-	    	create_post_validation($(this));
-	    }
-     });
 
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
@@ -2204,7 +2193,6 @@ jQuery(function($) {
 		e.preventDefault();		
 		$('#selected_date').val($(this).data('post-date'));
 		$('#summary-form').submit();
-
 	});
 	
 	$(document).on('change','#attachment',function()
@@ -2234,6 +2222,7 @@ jQuery(function($) {
 			$(btnClass).removeClass('btn-disabled');
 		}
 	};
+
 });
 
 	function convertToLink(text) {
@@ -2300,54 +2289,6 @@ jQuery(function($) {
 	// 	jQuery(btnClass).removeClass(oldClass);
 	// }
 
-	function create_post_validation(field){
-		var $ = jQuery;
-		var disable_btn = true;
-		var post_copy_error = $('#post_copy_error'),
-			img_error = $('#img_error'),
-			date_error = $('#date_error');
-			hm_error = $('#hm_error');
 
-		if($(field).hasClass('single-date-select') && $(field).val() === "") {
-			date_error.text('Please select date');
-			date_error.show();
-		}
-		if($(field).hasClass('hour-select') && $(field).val() === "" || $(field).hasClass('minute-select') && $(field).val() === "") {
-			hm_error.text('Please enter hour and minutes');
-			hm_error.show();
-		}
-		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
-			post_copy_error.hide();			
-			if($('.single-date-select').val() !=''){
-				date_error.hide();
-				if( $('.hour-select').val() != '' && $('.minute-select').val() != '' ){
-					hm_error.hide();
-					disable_btn = false;
-					if($(".check-box.circle-border").hasClass('selected')){
-						if($('input[name="phase[0][approve_date]').val()!=''){
-							if($('input[name="phase[0][approve_hour]"]').val()!='' && $('input[name="phase[0][approve_minute]"]').val()!=''){
-								disable_btn = false;
-							}
-						}
-						else {
-							disable_btn = true;
-						}
-					}
-				}
-			}
-		}else{
-			var error_disp = false;
-			if($('#postCopy').val()==''){
-				post_copy_error.text('Please enter post content');
-				post_copy_error.show();
-				error_disp = true;
-			}
-			if(!error_disp){
-				img_error.text('Please select images or video');
-				img_error.show();
-			}
-		}
-		equalColumns();
-		toggleBtnClass("#submit-approval", disable_btn);
-		//toggleBtnClass("#draft", disable_btn);
-	}
+
+

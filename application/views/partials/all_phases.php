@@ -27,6 +27,7 @@ if(!empty($post_details->brand_id)){
 				<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
 			</div>
 		</div>
+		<label class="phase-one-error-all error hide clearfix"></label>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>

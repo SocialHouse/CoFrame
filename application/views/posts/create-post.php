@@ -269,7 +269,7 @@
 							?>
 							<label>Must approve by:</label>
 							<div class="clearfix">
-								<div class="form-group form-inline pull-sm-left">
+								<div class="form-group form-inline pull-sm-left" style="margin: 0px;">
 									<div class="hide-top-bx-shadow">
 										<input type="text" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
 									</div>
@@ -285,6 +285,7 @@
 									<span class="timezone pull-xs-right form-control-sm">PST</span>
 								</div>
 							</div>
+							<label class="phase-one-error error hide clearfix"></label>
 							<div class="form-group">
 								<label for="approvalNotes">Note to Approvers (optional):</label>
 								<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
@@ -296,7 +297,7 @@
 						</div>
 						<footer class="post-content-footer">
 						<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary btn-disabled submit-approval submit-btn pull-sm-right" id="submit-approval" disabled>Submit for Approval</button>
+						<button type="submit" class="btn btn-sm btn-secondary btn-disabled submit-approval submit-btn pull-sm-right" id="submit-approval" disabled> Slate Post </button>
 						</footer>
 					</div>
 				</div>
