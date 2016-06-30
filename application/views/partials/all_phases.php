@@ -34,7 +34,7 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" disabled="disabled">Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
 		</div>
 	</div>
 
@@ -76,13 +76,14 @@ if(!empty($post_details->brand_id)){
 				<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
 			</div>
 		</div>
+		<label class="phase-two-error error hide clearfix"></label>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[1][note]"></textarea>
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" disabled="disabled">Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" >Next Phase</button>
 		</div>
 	</div>
 
@@ -124,6 +125,7 @@ if(!empty($post_details->brand_id)){
 				<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
 			</div>
 		</div>
+		<label class="phase-three-error error hide clearfix"></label>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>

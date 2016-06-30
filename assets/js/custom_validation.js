@@ -30,22 +30,12 @@ jQuery(function($) {
 		var date_error = $('.phase-one-error');
 		var start_date = $('input[name="post-date"]').val();
 		var end_date = $(this).val();
-		if(start_date !== "") {
-			$('.single-date-select').fullCalendar('removeEvents');
-			var eventData = {
-				allDay: true,
-				start: $.fullCalendar.moment(start_date),
-				rendering: 'background',
-				color: '#f4d3d5'
-			};
-			$('.single-date-select').fullCalendar('renderEvent', eventData, true);
-		}
+
 		if($div.hasClass('phase-date-time-div')){
 			// if user click on (Add Approval Phase(s)) button
 			date_error =  $('.phase-one-error-all');
 		}
-		if( $('input[name="post-date"]').val() == '' ){
-
+		if( start_date == '' ){
 			date_error.text('Plaese select Sdate first');
 			date_error.show();
 		}else{			
@@ -63,13 +53,55 @@ jQuery(function($) {
 	});
 
 
-	$(document).on('blure','input[name="phase[1][approve_date]"]', function(){
-		// if($('input[name="post-date"]').val() == '' ){
-			
-		// }else{
-
-		// }
+	$(document).on('click, blur','input[name="phase[1][approve_date]"]', function(){
+		console.log('input[name="phase[1][approve_date]"]');
+		var $display_error = true;
+		var date_error = $('.phase-two-error');
+		var start_date = $('input[name="phase[0][approve_date]"]').val();
+		var end_date = $(this).val();
+		
+		if( start_date == '' ){
+			date_error.text('Plaese select date in Phase 1');
+			date_error.show();
+		}else{			
+			if(compareDate(start_date, end_date)){
+				$display_error = false;
+			}else{
+				date_error.text('Date must be grether than Phase 1');
+				date_error.show();
+			}
+		}
+		if(!$display_error){
+			date_error.empty();
+			date_error.hide();			
+		}
 	});
+
+
+
+	$(document).on('click, blur','input[name="phase[2][approve_date]"]', function(){
+		console.log('input[name="phase[2][approve_date]"]');
+		var $display_error = true;
+		var date_error = $('.phase-three-error');
+		var start_date = $('input[name="phase[1][approve_date]"]').val();
+		var end_date = $(this).val();
+		
+		if( start_date == '' ){
+			date_error.text('Plaese select date in Phase 2');
+			date_error.show();
+		}else{			
+			if(compareDate(start_date, end_date)){
+				$display_error = false;
+			}else{
+				date_error.text('Date must be grether than Phase 2');
+				date_error.show();
+			}
+		}
+		if(!$display_error){
+			date_error.empty();
+			date_error.hide();			
+		}
+	})
 
 	function create_post_validation(field){
 		var $ = jQuery;
