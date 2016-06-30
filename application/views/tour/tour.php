@@ -6,9 +6,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  	<title>Timeframe | Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
 	  	<link rel="profile" href="http://gmpg.org/xfn/11">
+
 		<link rel="shortcut icon" href="<?php echo img_url(); ?>ico/favicon.ico" ><meta name='robots' content='noindex,follow' />
 		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>tour_style.css?ver=1.0' type='text/css' media='all' />
-
+		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>intlTelInput.css?ver=1.0' type='text/css' media='all' />
 		<link rel='stylesheet' href='<?php echo css_url(); ?>custom.css?ver=1.0' type='text/css' media='all' />
 
 		<style id='style-inline-css' type='text/css'>
@@ -286,7 +287,8 @@
 										</fieldset>
 										<fieldset class="form-group">
 											<label class="sr-only" for="phoneNumber">Phone Number</label>
-											<input type="tel" id="phone" class="form-control" id="phoneNumber" placeholder="Phone" name="phone">
+											<input type="tel" id="phone" data-error='false' class="form-control" name="phone">
+											 <input type="hidden" name="dialcode" value="" id="dialcode"> 
 										</fieldset>
 										<fieldset class="form-group">
 											<label class="sr-only" for="plan">Plan*</label>

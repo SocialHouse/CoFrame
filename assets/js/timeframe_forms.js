@@ -159,9 +159,20 @@ jQuery(document).ready(function(){
 	  return this.optional(element) || /^\s*(http\:\/\/)?([a-z\d\-]{1,63}\.)*[a-z\d\-]{1,255}\.[a-z]{2,6}\s*$/.test(value);
 	});
 
-	 jQuery.validator.addMethod("phone_num", function(value, element) {
+	jQuery.validator.addMethod("phone_num", function(value, element) {
 	  return this.optional(element) ||  /^(?:\(\d{3}\)|\d{3}-)\d{3}-\d{4}$/.test(value);
 	});
+
+
+
+	jQuery.validator.addMethod('checkData',  function(value, element) {
+       	console.log('result '+jQuery(element).data('error'));
+       	if(jQuery(element).data('error') == 'false'){
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+    }, "Please enter valid phone number");
 
    
     jQuery('#register_form').validate({
@@ -186,7 +197,7 @@ jQuery(document).ready(function(){
 		                }
 	                }
         		},
-        	phone:{phone_num: true,required: true},
+        	phone:{checkData: true, required: true},
         	timezone: {required: true},
         	plan: {required: true},
         	username: {required: true,
@@ -204,7 +215,7 @@ jQuery(document).ready(function(){
         	first_name: {required: "Please enter first name"},
         	last_name: {required: "Please enter last name"},
         	email: {required: 'Please enter email address',email: 'Please enter valid email address',remote: "This email is already in use"},
-        	phone:{required: "Please enter phone number", phone_num: 'Please enter valid phone number'},
+        	phone:{required: "Please enter phone number",  checkData: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
         	plan: {required: "Please select plan"},
         	username: {required: "Please enter username",remote:'This username is already taken'},
@@ -219,7 +230,12 @@ jQuery(document).ready(function(){
             var firstName = jQuery('#firstName').val();
             var lastName = jQuery('#lastName').val();
             var emailAddress = jQuery('#emailAddress').val();
-            var phoneNumber = jQuery('#phoneNumber').val();
+            var phoneNumber = jQuery('#phone').val();
+            if(jQuery("#register_form").length)
+			{
+				phoneNumber = jQuery("#phone").intlTelInput("getNumber");
+			}
+
             var timeZone = jQuery('#timeZone').val();
             var userName = jQuery('#userName').val();
             var password = jQuery('#password').val();
@@ -321,7 +337,7 @@ jQuery(document).ready(function(){
         rules: {
         	first_name: {required: true},
         	last_name: {required: true},
-        	phone:{phone_num: true},
+        	phone:{checkData: true, required: true},
         	timezone: {required: true},
         	password :{ minlength:6 },
             company_email :{email: true},
@@ -330,16 +346,20 @@ jQuery(document).ready(function(){
         messages :{
         	first_name: {required: "Please enter first name"},
         	last_name: {required: "Please enter last name"},
-        	phone:{phone_num: 'Please enter valid phone number'},
+        	phone:{required: "Please enter phone number",  checkData: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
         	password :{ minlength:"Minimum 6 character required" },
             company_email :{email:'Please enter valid email address'},
             company_url:{domain: "Please enter valid url eg. www.example.com"}
         },
         submitHandler: function(form, event) {
-        	jQuery('#loading_main').show();
-            event.preventDefault();
-            form.submit();
+        	if(jQuery("#edit_user_info").length)
+			{
+				$('#phoneNumber').val(jQuery("#phone").intlTelInput("getNumber"));
+	        	jQuery('#loading_main').show();
+	            event.preventDefault();
+	            form.submit();
+			}
         }
     });
 });
