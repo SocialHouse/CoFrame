@@ -184,17 +184,15 @@ if(!function_exists('get_post_approvers'))
 
 if(!function_exists('get_user_groups')) 
 {
-    function get_user_groups($user_id) 
+    function get_user_groups($user_id,$brand_id) 
     {
-        $CI = & get_instance();
-
-        // $CI->load->('approval_model');
-        $user_group = $CI->aauth->get_user_groups($user_id);
+        $CI = & get_instance();            
+        $user_group = $CI->aauth->get_user_groups($user_id,$brand_id);
         if($user_group)
         {
             return $user_group[0]->name;
         }
-        return FALSE;
+        return 'Master admin';
 
     }
 }
@@ -234,10 +232,10 @@ if(!function_exists('get_time_zone'))
 
 if(!function_exists('check_user_perm'))
 {
-    function check_user_perm($permission,$perm)
+    function check_user_perm($permission,$perm,$brand_id)
     {
         $CI = & get_instance();        
-        return $CI->aauth->check_user_perm($permission,$perm);
+        return $CI->aauth->check_user_perm($permission,$perm,$brand_id);
     }
 }
 
@@ -378,10 +376,11 @@ if(!function_exists('check_access'))
     function check_access($perm,$brand,$additional_group = '')
     {
         $CI = & get_instance();      
-        $group = get_user_groups($CI->user_id);
-        $has_perm = $CI->aauth->check_user_perm($CI->user_id,$perm);
+        $group = get_user_groups($CI->user_id,$brand[0]->id);
+        $has_perm = $CI->aauth->check_user_perm($CI->user_id,$perm,$brand[0]->id);
         if(!$has_perm AND !empty($group) AND !$additional_group)
         {
+            $CI->data['user_group'] = $group;
             $CI->data['brand_id'] = $brand[0]->id;
             $CI->data['brand'] = $brand[0];
             $CI->data['view'] = 'partials/no_permission';

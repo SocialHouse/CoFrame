@@ -251,7 +251,7 @@
 												<strong>
 												<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
 												</strong>
-												<?php echo get_user_groups($user->aauth_user_id); ?>
+												<?php echo get_user_groups($user->aauth_user_id,$brand_id); ?>
 											</div>
 										</li>										
 										<?php									

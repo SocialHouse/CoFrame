@@ -24,7 +24,7 @@ if(!empty($users))
 			</div>
 			<div class="pull-sm-left post-approver-name">
 				<strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong>
-				<?php echo get_user_groups($user->aauth_user_id); ?>
+				<?php echo get_user_groups($user->aauth_user_id,$brand[0]->id); ?>
 			</div>
 		</li>
 		<?php

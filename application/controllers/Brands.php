@@ -45,6 +45,7 @@ class Brands extends CI_Controller {
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');		
+		$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id);	
 		$this->data['groups'] = $this->aauth->list_groups();
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
@@ -267,40 +268,45 @@ class Brands extends CI_Controller {
     	$post_data = $this->input->post();
     	
     	if(!empty($post_data))
-    	{
-    		$password = uniqid();
-        	$user_data = array(
-        					'first_name' => $this->input->post('first_name'),
-        					'last_name' => $this->input->post('last_name'),	        					
-        					'title' => $this->input->post('title'),	        					
-        					'company_name' => $this->user_data['company_name'],
-        					'company_email' => $this->user_data['company_email'],
-        					'company_url' =>  $this->user_data['company_url'],
-                            'created_at' => date('Y-m-d H:i:s'),
-                            'password' => $password,
-                            'username' => $this->input->post('first_name')
-        				);
-        	
-        	$this->load->helper('email');
-
-        	$this->data['user'] = $user_data;
-        	
+    	{        	
             try
             {
-                
-            	$inserted_id = $this->aauth->create_user_without_email('',$password,'',$post_data['email']);
+            	$inserted_id = $post_data['selected_user'];
+            	if($post_data['selected_user'] == 'Add New')
+            	{
+		    		$password = uniqid();
+		        	$user_data = array(
+		        					'first_name' => $this->input->post('first_name'),
+		        					'last_name' => $this->input->post('last_name'),	        					
+		        					'title' => $this->input->post('title'),	        					
+		        					'company_name' => $this->user_data['company_name'],
+		        					'company_email' => $this->user_data['company_email'],
+		        					'company_url' =>  $this->user_data['company_url'],
+		                            'created_at' => date('Y-m-d H:i:s'),
+		                            'password' => $password,
+		                            'username' => $this->input->post('first_name')
+		        				);
+
+		        	$this->load->helper('email');
+
+		        	$this->data['user'] = $user_data;
+	                
+	            	$inserted_id = $this->aauth->create_user_without_email('',$password,'',$post_data['email']);
+	            	unset($user_data['password']);
+                	unset($user_data['username']);
+	            }
             	$group_id = $this->aauth->get_group_id($post_data['role']);
             	if($inserted_id)
             	{
             		$brand_status = array(
-            							'is_hidden' => 0            							
+            							'is_hidden' => 0	
             						);
                     $condition = array(
                     				'id' => $post_data['brand_id']
                     			);                 
                     $this->timeframe_model->update_data('brands',$brand_status,$condition);
 
-                	$this->aauth->add_member($inserted_id,$group_id);
+                	$this->aauth->add_member($inserted_id,$group_id,$post_data['brand_id']);
 
                 	//add permission to user
             
@@ -312,7 +318,7 @@ class Brands extends CI_Controller {
 
                 			foreach($matching_perms as $perm)
                 			{
-                				$this->aauth->allow_user($inserted_id,$perm->id);
+                				$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
                 			}
                 		}
                 	}
@@ -337,12 +343,14 @@ class Brands extends CI_Controller {
 				        header('Content-Type: image/png');
 				        imagepng($source_url, $url, 8);
 		        	}
-
-                	unset($user_data['password']);
-                	unset($user_data['username']);
+                	
                 	$user_data['aauth_user_id'] = $inserted_id;
                 	
-                	$this->timeframe_model->insert_data('user_info',$user_data);
+                	if($post_data['selected_user'] == 'Add New')
+            		{
+                		$this->timeframe_model->insert_data('user_info',$user_data);
+                	}
+
                     $brand_user_map = array(
                     							'brand_id' => $post_data['brand_id'],
                     							'access_user_id' => $inserted_id
@@ -358,16 +366,17 @@ class Brands extends CI_Controller {
                     	{
                     		 $user_outlets = array(
 	                    							'outlet_id' => $outlet,
-	                    							'user_id' => $inserted_id
+	                    							'user_id' => $inserted_id,
+	                    							'brand_id' => $post_data['brand_id']
 	                    						);
 	                    	$this->timeframe_model->insert_data('user_outlets',$user_outlets);
                     	}
                     }
 
                     $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().$this->user_id.'/users/'.$inserted_id.'.png'))
+					if(file_exists(upload_path().$this->user_data['created_by'].'/users/'.$inserted_id.'.png'))
 					{
-						$image_path = upload_url().$this->user_id.'/users/'.$inserted_id.'.png';
+						$image_path = upload_url().$this->user_data['created_by'].'/users/'.$inserted_id.'.png';
 					}
 
                     $response = '<div class="table" id="table_id_'.$inserted_id.'">';
@@ -433,7 +442,8 @@ class Brands extends CI_Controller {
     {
     	$this->data = array();
     	$slug = $this->uri->segment(3);
-    	$this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+    	$this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);    	
+
     	if(!empty($this->data['brand']))
     	{
     		// Check if user has added brands previously
@@ -451,6 +461,9 @@ class Brands extends CI_Controller {
 			$this->load->model('post_model');
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);			
 			$this->data['brands_user'] = $this->brand_model->get_brand_users($brand_id);
+			// echo "<pre>";
+			// print_r($this->data['brands_user']);
+			// echo "</pre>";
 			$this->data['background_image'] = 'bg-admin-overview.jpg';
 			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
@@ -560,10 +573,10 @@ class Brands extends CI_Controller {
 		$this->load->model('user_model');		
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-		
-
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			
 			$this->load->model('reminder_model');
 			$this->data['reminders'] = $this->reminder_model->get_brand_reminders($this->user_id,$brand[0]->id,0,'reminder');				
 			$this->data['brand'] = $brand[0];

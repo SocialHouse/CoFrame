@@ -106,7 +106,7 @@ jQuery(function($) {
 		$('#addNewUser').on('contentSlidUp', function(event, element) {
 			$(this).parents('.brand-step').css({'height': brandStepH});
 			$('#userSelect, #addUserInfo').removeAttr('style');
-			$('#userSelect select').val('');
+			// $('#userSelect select').val('');
 			toggleBtnClass('#addRole', true);
 		});
 
@@ -644,6 +644,7 @@ jQuery(function($) {
 		$('#userEmail').val('');
 		$('#userOutlet').val('');
 		$('#userRoleSelect').val('');
+		$('#userSelect select').val('');
 		$('#userRoleSelect').trigger('change');
 
 		$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
@@ -688,15 +689,19 @@ jQuery(function($) {
 
     $('[data-id="connect"]').click(function(){    	
     	var outlet = $(this).data('outlet-const');
-    	var path = base_url+outlet.toLowerCase()+'_connect/'+outlet.toLowerCase()+'/'+$('#brand_id').val()+'/'+$(this).data('selected-outlet-id');
-    	if(!$(this).hasClass('selected'))
+    	var brand_id = $('#brand_id').val();
+    	if(brand_id)
     	{
-	        $.oauthpopup({
-	            path: path,
-	            callback: function(){            
-	            }
-	        });
-	    }
+	    	var path = base_url+outlet.toLowerCase()+'_connect/'+outlet.toLowerCase()+'/'+brand_id+'/'+$(this).data('selected-outlet-id');
+	    	if(!$(this).hasClass('selected'))
+	    	{
+		        $.oauthpopup({
+		            path: path,
+		            callback: function(){            
+		            }
+		        });
+		    }
+		}
     });
 
      $('body').on('click', '#userPermissionsList .remove-user', function(event){

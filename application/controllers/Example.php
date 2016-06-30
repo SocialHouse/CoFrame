@@ -146,7 +146,7 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Analyst","view.view_calendar");
        
        
-        $a = $this->aauth->allow_group("Billing","billing.view_billing");
+        $a = $this->aauth->allow_group("Billing","billing.billing");
     }
 
     function delete()

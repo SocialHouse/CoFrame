@@ -38,6 +38,7 @@ class Drafts extends CI_Controller {
 		check_access('create',$brand);
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];

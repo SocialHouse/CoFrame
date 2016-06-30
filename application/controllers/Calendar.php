@@ -38,6 +38,7 @@ class Calendar extends CI_Controller {
 		$post_data = $this->input->post();
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['selected_date'] = '';
 			if(isset($post_data) AND !empty($post_data))
 			{
@@ -65,6 +66,7 @@ class Calendar extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['slug'] = $slug;
@@ -86,6 +88,7 @@ class Calendar extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['slug'] = $slug;
@@ -174,6 +177,7 @@ class Calendar extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 
@@ -238,6 +242,7 @@ class Calendar extends CI_Controller {
 			}
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['current_phase'] = $phase_count;
+			$this->data['brand_id'] = $brand_id;
 			// echo '<pre>'; print_r($this->data);echo '</pre>'; 
 		}
 		echo $this->load->view('calendar/post_user_list',$this->data,true);

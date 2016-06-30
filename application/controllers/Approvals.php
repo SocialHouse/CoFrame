@@ -27,9 +27,7 @@ class Approvals extends CI_Controller {
 		$this->load->model('approval_model');
 		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
-		$this->user_data = $this->session->userdata('user_info');
-		$user_group = get_user_groups($this->user_id);
-		$this->user_group = !empty($user_group) ? $user_group : "Master admin";
+		$this->user_data = $this->session->userdata('user_info');		
 	}
 
 	function index()
@@ -37,18 +35,22 @@ class Approvals extends CI_Controller {
 		$this->data = array();		
 		$slug = $this->uri->segment(2);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-		$additional_group = '';
-		if($this->user_group == 'Creator')
-		{
-			$additional_group = $this->user_group;
-		}
-		check_access('approve',$brand,$additional_group);
+		
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+
+			$additional_group = '';
+			if($this->data['user_group'] == 'Creator')
+			{
+				$additional_group = $this->data['user_group'];
+			}
+			check_access('approve',$brand,$additional_group);
+
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			
-			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->user_group);
+			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->data['user_group']);
 			
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))
@@ -87,6 +89,7 @@ class Approvals extends CI_Controller {
 			{
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['brand'] = $brand[0];
+				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 				$this->data['view'] = 'approvals/edit_request';
 				$this->data['layout'] = 'layouts/new_user_layout';
 				$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
@@ -184,6 +187,7 @@ class Approvals extends CI_Controller {
 			{
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['brand'] = $brand[0];
+				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 
 				$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 				

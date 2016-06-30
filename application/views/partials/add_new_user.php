@@ -16,10 +16,20 @@
 		<div class="form__error">Error! <span></span></div>
 	</div>
 	<div class="form-group input-margin" id="userSelect">
-		<select class="form-control" name="userSelect">
+		<select class="form-control" name="user_select" id="user-select">
 			<option value="">Select User</option>
 			<!-- Loop through all users from the master account -->
-			<option value="Roy Palondikar">Roy Palondikar</option>
+			<?php
+			if(!empty($users))
+			{
+				foreach($users as $user)
+				{
+					?>
+					<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
+					<?php
+				}
+			}
+			?>
 			<option value="Add New">Add New User</option>
 		</select>
 	</div>
