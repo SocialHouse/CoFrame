@@ -1058,7 +1058,7 @@ class Aauth {
 			$this->CI->data['user'] = $row;
 			$this->CI->data['url'] =  base_url() .'tour/register_sub_user/'. $user_id . '/' . $ver_code ;
 
-			echo $message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
+			$message = $this->CI->load->view('mails/registration_link',$this->CI->data,true);
 			$this->CI->email->message($message);
 			$this->CI->email->send();
 		}
@@ -1214,7 +1214,7 @@ class Aauth {
 	 * @param int|bool $user_id User id to get or FALSE for current user
 	 * @return array Groups
 	 */
-	public function get_user_groups($user_id = FALSE){
+	public function get_user_groups($user_id = FALSE,$brand_id){
 
 		if ($user_id==FALSE) { $user_id = $this->CI->session->userdata('id'); }
 
@@ -1222,6 +1222,7 @@ class Aauth {
 		$this->aauth_db->from($this->config_vars['user_to_group']);
 		$this->aauth_db->join($this->config_vars['groups'], "id = group_id");
 		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->where('brand_id', $brand_id);
 
 		return $query = $this->aauth_db->get()->result();
 	}
@@ -1353,7 +1354,7 @@ class Aauth {
 	 * @param int|string $group_par Group id or name to add user to
 	 * @return bool Add success/failure
 	 */
-	public function add_member($user_id, $group_par) {
+	public function add_member($user_id, $group_par,$brand_id) {
 
 		$group_id = $this->get_group_id($group_par);
 
@@ -1370,7 +1371,8 @@ class Aauth {
 		if ($query->num_rows() < 1) {
 			$data = array(
 				'user_id' => $user_id,
-				'group_id' => $group_id
+				'group_id' => $group_id,
+				'brand_id' => $brand_id
 			);
 
 			return $this->aauth_db->insert($this->config_vars['user_to_group'], $data);
@@ -1676,7 +1678,7 @@ class Aauth {
 	 * @param int $perm_par Permission id or name to allow
 	 * @return bool Allow success/failure
 	 */
-	public function allow_user($user_id, $perm_par) {
+	public function allow_user($user_id, $perm_par,$brand_id) {
 
 		$perm_id = $this->get_perm_id($perm_par);
 
@@ -1685,6 +1687,7 @@ class Aauth {
 		}
 
 		$query = $this->aauth_db->where('user_id',$user_id);
+		$query = $this->aauth_db->where('brand_id',$brand_id);
 		$query = $this->aauth_db->where('perm_id',$perm_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
 
@@ -1693,7 +1696,8 @@ class Aauth {
 
 			$data = array(
 				'user_id' => $user_id,
-				'perm_id' => $perm_id
+				'perm_id' => $perm_id,
+				'brand_id' => $brand_id
 			);
 
 			return $this->aauth_db->insert($this->config_vars['perm_to_user'], $data);
@@ -2429,11 +2433,12 @@ class Aauth {
 	}
 
 	//get matching permission by given string
-	function check_user_perm($user_id,$perm)
+	function check_user_perm($user_id,$perm,$brand_id)
 	{
 		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");
 		$this->aauth_db->like('name',$perm);
 		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->where('brand_id', $brand_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
 		
 		if($query->num_rows() > 0)

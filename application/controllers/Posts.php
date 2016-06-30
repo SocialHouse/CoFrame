@@ -55,6 +55,7 @@ class Posts extends CI_Controller {
 		check_access('create',$brand);
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);		
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
 			$this->data['users'] = $this->brand_model->get_approvers($brand_id);

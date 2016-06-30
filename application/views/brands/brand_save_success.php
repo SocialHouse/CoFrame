@@ -102,11 +102,11 @@
 								<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">
 									<div class="table-cell">
 										<div class="pull-sm-left"><img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>" class="circle-img"/></div>
-										<div class="pull-sm-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
+										<div class="pull-sm-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand[0]->id); ?></div>
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'create.'))
+										if(check_user_perm($user->aauth_user_id,'create.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -116,7 +116,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'edit.'))
+										if(check_user_perm($user->aauth_user_id,'edit.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -126,7 +126,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'approve.'))
+										if(check_user_perm($user->aauth_user_id,'approve.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -136,7 +136,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'view.'))
+										if(check_user_perm($user->aauth_user_id,'view.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -146,7 +146,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'settings.'))
+										if(check_user_perm($user->aauth_user_id,'settings.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -156,7 +156,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'billing.'))
+										if(check_user_perm($user->aauth_user_id,'billing.',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>

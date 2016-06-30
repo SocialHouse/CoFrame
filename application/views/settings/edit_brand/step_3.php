@@ -30,9 +30,9 @@
 					</div>
 				</div>	
 				<?php 
-					if(!empty($users))
+					if(!empty($added_users))
 					{ 
-						foreach($users as $user)
+						foreach($added_users as $user)
 						{ 
 							//echo '<pre>'; print_r($user);echo '</pre>';
 							?> 
@@ -50,11 +50,11 @@
 										<img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/>
 										<i class="tf-icon-circle remove-item remove-user" data-user-id="<?php echo $user->aauth_user_id; ?>" title="Remove User">x</i>
 									</div>
-									<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id); ?></div>
+									<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand->id); ?></div>
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"create")) {
+										if (check_user_perm($user->aauth_user_id,"create",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php
@@ -63,7 +63,7 @@
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"edit")) {
+										if (check_user_perm($user->aauth_user_id,"edit",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php
@@ -72,7 +72,7 @@
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"approve")) {
+										if (check_user_perm($user->aauth_user_id,"approve",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php
@@ -81,7 +81,7 @@
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"view")) {
+										if (check_user_perm($user->aauth_user_id,"view",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php
@@ -90,7 +90,7 @@
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"settings")) {
+										if (check_user_perm($user->aauth_user_id,"settings",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php
@@ -99,7 +99,7 @@
 								</div>
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
-										if (check_user_perm($user->aauth_user_id,"billing")) {
+										if (check_user_perm($user->aauth_user_id,"billing",$brand->id)) {
 											?> 
 											<i class="fa fa-check"></i>
 											<?php

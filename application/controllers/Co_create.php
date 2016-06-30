@@ -38,6 +38,7 @@ class Co_create extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);

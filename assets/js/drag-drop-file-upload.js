@@ -444,6 +444,13 @@
 			    	var selectedOutlets = $('#userOutlet').val();
 			    	var userRoleSelect = $('#userRoleSelect :selected').val();
 			    	var user_id = $('#post_user_id :selected').val();
+			    	var selected_user = $('#user-select').val();
+			    	if(selected_user != 'Add New')
+			    	{
+			    		fname = $('#user-select option:selected').attr('data-fname');
+			    		lname = $('#user-select option:selected').attr('data-lname');
+			    	}
+
 			    	var selectedPermissions = [];
 			    	var image_name = '';
 			    	var user_pic = '';
@@ -456,7 +463,7 @@
 					});
 			    	$.ajax({
 			    		url: base_url+'brands/add_user',    		
-			    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id },
+			    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id,'selected_user':selected_user},
 			    		type: 'POST',
 			    		dataType: 'json',
 			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
@@ -475,6 +482,7 @@
 						    	$('#userOutlet').val('');
 						    	$('#userRoleSelect').val('');
 						    	$('#userRoleSelect').trigger('change');
+						    	$('#userSelect select').val('');
 
 						    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
 						    	$('.user_upload_img_div').html('');

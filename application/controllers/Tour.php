@@ -73,8 +73,7 @@ class Tour extends CI_Controller {
                             'company_name' => $user->company_name,
                             'company_email' => $user->company_email,
                             'company_url' => $user->company_url,
-                            'created_by' => $create_by,
-                            'user_group' => (get_user_groups($user_id)) ? get_user_groups($user_id) : 'Master admin'
+                            'created_by' => $create_by                            
                         );
 
                 $this->session->set_userdata('user_info',$user_info);

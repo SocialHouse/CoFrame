@@ -344,5 +344,10 @@ ALTER TABLE `social_media_keys` ADD `outlet_id` INT NULL AFTER `brand_id`;
 ALTER TABLE `posts` ADD `time_zone` VARCHAR(20) NULL AFTER `created_at`;
 
 --- 30-06-2016 ---
+ALTER TABLE `aauth_perm_to_user` ADD `brand_id` INT NOT NULL ;
+ALTER TABLE `aauth_user_to_group` ADD `brand_id` INT NOT NULL ;
+ALTER TABLE `user_outlets` ADD `brand_id` INT NOT NULL AFTER `outlet_id`;
+
 ALTER TABLE `timeframe`.`aauth_perm_to_user` DROP PRIMARY KEY, ADD PRIMARY KEY (`perm_id`, `user_id`, `brand_id`) USING BTREE;
 ALTER TABLE `timeframe`.`aauth_user_to_group` DROP PRIMARY KEY, ADD PRIMARY KEY (`user_id`, `group_id`, `brand_id`) USING BTREE;
+

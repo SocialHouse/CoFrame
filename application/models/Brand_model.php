@@ -91,7 +91,9 @@ class Brand_model extends CI_Model
 			$this->db->join('user_info','user_info.aauth_user_id = access_user_id');
 			$this->db->join('aauth_perm_to_user','aauth_perm_to_user.user_id = access_user_id');
 			$this->db->where('perm_id',$query->row()->id);
-			$this->db->where('brand_id',$brand_id);
+			$this->db->where('aauth_perm_to_user.user_id != ',$this->user_id);
+			$this->db->where('aauth_perm_to_user.brand_id',$brand_id);
+			$this->db->group_by('user_info.aauth_user_id');
 			$query = $this->db->get('brand_user_map');			
 			if($query->num_rows() > 0)
 			{
@@ -182,7 +184,25 @@ class Brand_model extends CI_Model
 		{
 			return $query->result();
 		}
-		return FALSE; 
+		return FALSE;
+	}
 
+	function get_users_sub_users($user_id,$brand_id = '',$user_ids = array())
+	{
+		$this->db->select('aauth_user_id,first_name,last_name');
+		$this->db->join('brands','brands.id = brand_user_map.brand_id');
+		$this->db->join('user_info','brand_user_map.access_user_id = user_info.aauth_user_id');
+		$this->db->where('created_by',$user_id);
+		if($brand_id)
+			$this->db->where('brands.id !=',$brand_id);
+		if(!empty($user_ids))
+			$this->db->where_not_in('aauth_user_id',$user_ids);
+		$this->db->group_by('aauth_user_id');
+		$query = $this->db->get('brand_user_map');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
 	}
 }

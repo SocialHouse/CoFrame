@@ -38,10 +38,7 @@
 		</ul>
 	</nav>
 	<div class="current-user-details">
-		<?php
-		$user_permission = get_user_groups($this->user_id);
-		?>
-		<div class="user-name"><?php echo !empty($user_permission) ? $user_permission : 'Master Admin';?></div>
+		<div class="user-name"><?php echo $user_group;?></div>
 		<div class="user-time row">
 			<div class="col-md-5">Current Brand Time </div>
 			<div class="col-md-7 text-md-right current-time">
