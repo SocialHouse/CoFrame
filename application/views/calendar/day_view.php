@@ -1,4 +1,12 @@
-<?php $this->load->view('partials/brand_nav'); ?>	
+<?php 
+	$this->load->view('partials/brand_nav'); 
+	if(!empty($filters))
+	{
+		?>
+		<input type="hidden" name="filter_id" id="filter-id" value="<?php echo $filters[0]->id; ?>">
+		<?php
+	}
+?>	
 <input type="hidden" value="<?php echo $brand_id; ?>" id="brand_id">
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
@@ -11,6 +19,55 @@
 		<div id="selectedFilters" class="clearfix border-top border-black hidden">
 			<strong class="uppercase">Filters: </strong>
 			<ul class="filter-list tag-list">
+				<?php 
+				if(!empty($filters))
+				{
+					if(!empty($filters[0]->outlets))
+					{
+						$outlet_ids = explode(',',$filters[0]->outlets);
+						foreach($outlet_ids as $id)
+						{
+							$outlet_name = strtolower(get_outlet_by_id($id));
+							?>
+							<li data-value="f-<?php echo $outlet_name; ?>" class="filter-remove-list outlet-list">
+								<i class="fa fa-<?php echo $outlet_name; ?>">
+									<span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span>
+								</i>
+							<i class="tf-icon-close"></i></li>
+							<?php
+						}
+					}
+					if(!empty($filters[0]->statuses))
+					{
+						$statuses = explode(',',$filters[0]->statuses);
+						foreach($statuses as $status)
+						{							
+							?>
+							<li data-value="f-<?php echo $status; ?>" class="filter-remove-list outlet-list">
+								<?php echo $status; ?>
+								<i class="tf-icon-close"></i>
+							</li>
+							<?php
+						}
+					}
+
+					if(!empty($filters[0]->tags))
+					{
+						$tags = explode(',',$filters[0]->tags);
+						foreach($tags as $tag)
+						{
+							$tag = explode('__',$tag);
+							?>
+							<li data-value="<?php echo $tag[1]; ?>" class="filter-remove-list outlet-list">
+								<i style="color:<?php echo $tag[0]; ?>" class="fa fa-circle tag-test"></i>
+								<span class="tag-title"><?php echo $tag[1]; ?></span>
+								<i class="tf-icon-close"></i>
+							</li>
+							<?php
+						}
+					}
+				}
+				?>
 			</ul>
 			<button type="button" class="btn btn-sm btn-secondary reset-filter pull-sm-right" data-filter="*">Reset Filters</button>
 		</div>

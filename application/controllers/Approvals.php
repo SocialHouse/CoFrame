@@ -51,6 +51,7 @@ class Approvals extends CI_Controller {
 			$this->data['brand'] = $brand[0];
 			
 			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,$this->data['user_group']);
+			$this->data['filters'] = $this->timeframe_model->get_data_by_condition('filters',array('user_id' => $this->user_id,'brand_id' => $brand[0]->id));
 			
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))

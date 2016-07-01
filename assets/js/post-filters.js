@@ -1,4 +1,4 @@
-jQuery(function($) {
+jQuery(function($) {	
 	// init Isotope
 	var $container = $('.calendar-day').isotope({
 		itemSelector: '.post-day'
@@ -11,8 +11,6 @@ jQuery(function($) {
 	setTimeout(function() {		
 		 $containerApp.find('tr').attr('style','');
 	},200);
-	// $containerApp.attr('style','');
-
 
 	$('body').on('click', '.filter', function() {
 		var $filter = $(this);
@@ -88,10 +86,129 @@ jQuery(function($) {
 		filterPosts();
 	});
 	
-	$('#selectedFilters').on('click', '.filter-remove', function() {
+	$('#selectedFilters').on('click', '.filter-remove', function() {		
 		var filterVal = $(this).data('value');
 		$('.post-filters').find('.filter[data-value="' + filterVal + '"]').click();
 	});
+
+	$(document).on('click','.save-filter',function(){
+		var inclusives = [];
+		var outlet_ids = [];
+		var statuses = [];
+		var tags = [];
+		var filter_id;
+		if($('#filter_id').val())
+			filter_id = $('#filter_id').val();
+
+		$('.filter').each( function() {
+			inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
+			//use value if checked
+			if ( $(this).hasClass('checked' )) {				
+				if($(this).data('id'))
+					outlet_ids.push( $(this).data('id') );
+				if($(this).data('status'))
+					statuses.push( $(this).data('status') );
+
+				if($(this).data('tag-id'))
+				{
+					tags.push($(this).data('color')+'__'+$(this).data('value'));
+				}
+
+			}
+			else {				
+				var index = inclusives.indexOf($(this).data('value'));
+				if( index > -1) {
+					inclusives.splice(index, 1);
+					outlet_ids.splice(index, 1);
+					statuses.splice(index, 1);
+					tags.splice(index, 1);
+				}
+			}
+		});
+
+		$.ajax({
+			url:base_url+'calendar/save_filters',
+			type:'POST',
+			data:{tags:tags,outlets:outlet_ids,statuses:statuses,brand_id:$('#filter_brand_id').val(),filter_id:filter_id},
+			success:function(response){
+
+			}
+		});
+	});
+
+	$('#selectedFilters').on('click', '.filter-remove-list', function() {
+		var filterVal = $(this).data('value');
+		$('.post-filters').find('.filter[data-value="' + filterVal + '"]').click();
+		$(this).fadeOut();
+		// applyFilter();
+	});
+
+	if($('#filter-id').val())
+	{
+		$('#selectedFilters').slideDown();
+		if(!$('#calendar_type').val() || $('#calendar_type').val() == 'day')
+			applyFilter();
+
+		setTimeout(function(){
+			jQuery('#show-filter-overlay').trigger('click');
+			setTimeout(function(){
+				$('.qtip-hide').trigger('click');
+			},100);
+		},50);
+	}
+
+	function applyFilter()
+	{
+		// map input values to an array
+		setTimeout(function(){
+			var inclusives = [];
+			var outlet_ids = [];
+			var statuses = [];
+			var tags = [];
+
+			$.each($('.filter-list').children('li'),function(index,li){
+				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
+
+				if($(this).data('id'))
+					outlet_ids.push( $(this).data('id') );
+
+				if($(this).data('status'))
+					statuses.push( $(this).data('status') );
+
+				if($(this).data('tag-id'))
+					tags.push($(this).data('color')+'__'+$(this).data('value'));
+			});
+
+			// combine inclusive filters
+			var filterValue = inclusives.length ? inclusives.join(', ') : '*';
+			$('#outlet_ids').val(outlet_ids.join());
+			$('#statuses').val(statuses.join());
+			$('#tags').val(tags.join());
+			console.log(filterValue);
+			if($container.length)
+				$container.isotope({ filter: filterValue });
+			if($containerApp.length)
+			{
+				$containerApp.isotope({ filter: filterValue });
+			}
+
+
+			if(inclusives.length) {
+				$('#selectedFilters').slideDown(function() {
+					equalColumns();
+				});
+			}
+			else {
+				$('#selectedFilters').slideUp(function() {
+					equalColumns();
+				});
+			}
+			setTimeout(function(){
+				rendercalendar();
+			},1000);
+			// rendercalendar();
+		},400);
+	}
 
 	function filterPosts() {
 		// map input values to an array
@@ -113,7 +230,7 @@ jQuery(function($) {
 					statuses.push( $(this).data('status') );
 
 				if($(this).data('tag-id'))
-					tags.push( $(this).data('tag-id') );
+					tags.push($(this).data('color')+'__'+$(this).data('value'));
 
 			}
 			else {
@@ -122,7 +239,7 @@ jQuery(function($) {
 					inclusives.splice(index, 1);
 					outlet_ids.splice(index, 1);
 					statuses.splice(index, 1);
-					//tags.splice(index, 1);
+					tags.splice(index, 1);
 				}
 			}
 		});	
@@ -131,7 +248,7 @@ jQuery(function($) {
 		var filterValue = inclusives.length ? inclusives.join(', ') : '*';		
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
-		$('#tags').val(tags.join());
+		$('#tags').val(tags.join());		
 		
 		if($container.length)
 			$container.isotope({ filter: filterValue });
@@ -206,7 +323,6 @@ jQuery(function($) {
 		                view_type:$('#calendar_type').val()
 			        }
 		        };
-
 		$(calendar_class).fullCalendar('addEventSource', $source);
 
 		
@@ -229,7 +345,7 @@ jQuery(function($) {
 	            	$('.calendar-app').append( $items ).isotope( 'addItems', $items );
 	            	setTimeout(function() {		
 						$containerApp.find('tr').attr('style','');
-						$containerApp.attr('style','');
+						$containerApp.attr('style','');						
 					},200);
 	            }
             }
@@ -251,8 +367,9 @@ jQuery(function($) {
 	            	$('.calendar-day').empty();
 	            	$('.calendar-day').append( $items ).isotope( 'addItems', $items );
 	            	setTimeout(function() {		
-						$container.find('.post-day').attr('style','');
+						$container.find('.post-day').attr('style','');						
 					},200);
+					applyFilter();
 	            }
 	        });
 	};	

@@ -160,7 +160,9 @@ jQuery(function($) {
 		                start: start.format('YYYY-MM-DD'),
 		                end: end.format('YYYY-MM-DD'),
 		                brand_id:$('#brand_id').val(),
-		                tags:$('#tags').val(),
+		                outlets:$('#outlet_ids').val(),
+			            statuses:$('#statuses').val(),
+			            tags:$('#tags').val(),
 		                view_type:'week'
 		            },
 		            success: function(doc) {

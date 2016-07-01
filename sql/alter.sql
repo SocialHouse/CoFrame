@@ -351,3 +351,22 @@ ALTER TABLE `user_outlets` ADD `brand_id` INT NOT NULL AFTER `outlet_id`;
 ALTER TABLE `timeframe`.`aauth_perm_to_user` DROP PRIMARY KEY, ADD PRIMARY KEY (`perm_id`, `user_id`, `brand_id`) USING BTREE;
 ALTER TABLE `timeframe`.`aauth_user_to_group` DROP PRIMARY KEY, ADD PRIMARY KEY (`user_id`, `group_id`, `brand_id`) USING BTREE;
 
+CREATE TABLE IF NOT EXISTS `filters` (
+`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `tags` int(11) DEFAULT NULL,
+  `outlets` int(11) DEFAULT NULL,
+  `statuses` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `filters`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `filters`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `filters` CHANGE `statuses` `statuses` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `filters` CHANGE `tags` `tags` VARCHAR(200) NULL DEFAULT NULL;
+ALTER TABLE `filters` CHANGE `outlets` `outlets` VARCHAR(200) NULL DEFAULT NULL;
+

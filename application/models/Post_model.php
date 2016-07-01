@@ -225,8 +225,7 @@ class Post_model extends CI_Model
 	{
 		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
-		$this->db->join('post_media','post_media.post_id = posts.id','left');
-		$this->db->join('brand_tags','brand_tags.brand_id = posts.brand_id','left');
+		$this->db->join('post_media','post_media.post_id = posts.id','left');		
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		$this->db->where('posts.status != "delete"');
@@ -238,8 +237,18 @@ class Post_model extends CI_Model
 		}
 		if($tags)
 		{
+			$this->db->join('post_tags','post_tags.post_id = posts.id','left');
+			$this->db->join('brand_tags','brand_tags.id = post_tags.brand_tag_id','left');
 			$tags = explode(',', $tags);
-			$this->db->where_in('brand_tags.id',$tags);
+			foreach($tags as $tag)
+			{
+				$tag = explode('__',$tag);
+				$this->db->where('brand_tags.color',$tag[0]);
+				$this->db->where('brand_tags.name',$tag[1]);
+				$this->db->where('brand_tags.color IS NOT NULL');
+				$this->db->where('brand_tags.name IS NOT NULL');
+			}
+			
 		}
 		if($statuses)
 		{

@@ -48,6 +48,7 @@ class Calendar extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['post_details'] = $this->post_model->get_post_by_date($brand[0]->id,$this->user_id);
+			$this->data['filters'] = $this->timeframe_model->get_data_by_condition('filters',array('user_id' => $this->user_id,'brand_id' => $brand[0]->id));
 			$this->data['view_type'] = 'day_view';
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
@@ -70,6 +71,9 @@ class Calendar extends CI_Controller {
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['slug'] = $slug;
+
+			$this->data['filters'] = $this->timeframe_model->get_data_by_condition('filters',array('user_id' => $this->user_id,'brand_id' => $brand[0]->id));
+
 			$this->data['css_files'] = array(css_url().'fullcalendar.css',css_url().'search.css');
 			$this->data['view_type'] = 'month_view';
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
@@ -92,6 +96,9 @@ class Calendar extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['slug'] = $slug;
+
+			$this->data['filters'] = $this->timeframe_model->get_data_by_condition('filters',array('user_id' => $this->user_id,'brand_id' => $brand[0]->id));
+			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
 			$this->data['view_type'] = 'week_view';
@@ -116,8 +123,10 @@ class Calendar extends CI_Controller {
     {
     	$this->data = array();
     	$brand_id = $this->uri->segment(3);
+    	$this->data['brand_id'] = $brand_id;
     	$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
     	$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+    	$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand_id,'user_id' => $this->user_id));
     	echo $this->load->view('partials/post_filters',$this->data,true);
     }
 
@@ -505,5 +514,35 @@ class Calendar extends CI_Controller {
 			$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
     		echo $this->load->view('calendar/selected_tag_list',$this->data,true);
 		}
-	}	
+	}
+
+	function save_filters()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$save_data = [];
+			if(!empty($post_data['tags']))
+				$save_data['tags'] = implode(',',$post_data['tags']);
+			if(!empty($post_data['outlets']))
+				$save_data['outlets'] = implode(',',$post_data['outlets']);
+			if(!empty($post_data['statuses']))
+				$save_data['statuses'] = implode(',',$post_data['statuses']);
+			if(!empty($save_data))
+			{
+				$save_data['brand_id'] = $post_data['brand_id'];
+				$save_data['user_id'] = $this->user_id;
+				if(!empty($post_data['filter_id']))
+				{
+					$this->timeframe_model->update_data('filters',$save_data,array('id' => $post_data['filter_id']));
+				}
+				else
+				{
+					$this->timeframe_model->insert_data('filters',$save_data);
+				}
+
+			}
+			echo "1";
+		}
+	}
 }
