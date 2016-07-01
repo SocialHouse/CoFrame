@@ -95,6 +95,7 @@
 							</div>
 						</div>
 						<footer class="post-content-footer">
+							<div class="disclaimer"><button class="btn btn-sm btn-default btn-next-step" type="button" data-next-step="3">Skip this Step</button></div>						
 							<div id="outletStep2Btns">
 								<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
 								<button type="button" id="save_outlet" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled="disabled">Next</button>
@@ -114,17 +115,18 @@
 						<h4 class="text-xs-center">Users &amp; Permissions</h4>
 						<div class="brand-fields">
 							<?php $this->load->view('partials/user_permission_list'); ?>
-							<a href="#addUser" id="addUserLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns"><i class="tf-icon circle-border">+</i>Add User</a>
+							<a href="#addUser" id="addUserLink" class="border-top border-bottom border-black add-link show-hide" data-hide="#addUserLink, #outletStep3Skip, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns"><i class="tf-icon circle-border">+</i>Add User</a>
 							<?php $this->load->view('partials/add_new_user'); ?>
 							<?php $this->load->view('partials/add_user_roles'); ?>
 						</div>
 						<footer class="post-content-footer">
+							<div id="outletStep3Skip" class="disclaimer"><button class="btn btn-sm btn-default btn-next-step" type="button" data-next-step="4">Skip this Step</button></div>						
 							<div id="outletStep3Btns">
 								<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="2">Back</button>
 								<button type="button" id="add_user_next" class="btn btn-sm pull-sm-right btn-next-step btn-secondary"  data-next-step="4">Next</button>
 							</div>
 							<div class="hidden" id="addUserBtns">
-								<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Btns, #userPermissionsList">Cancel</button>
+								<button type="button" class="btn btn-sm btn-default btn-cancel show-hide" data-hide="#addNewUser, #addUserBtns" data-show="#addUserLink, #outletStep3Skip, #outletStep3Btns, #userPermissionsList">Cancel</button>
 								<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right show-hide" id="addRole" data-hide="#addNewUser, #addUserBtns" data-show="#userRoleBtns, #addUserRole" disabled="disabled">Role</button>
 							</div>
 							<div class="hidden" id="userRoleBtns">
