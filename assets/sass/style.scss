@@ -537,11 +537,6 @@ a {
 	letter-spacing: .25rem;
 	font-family: $futura;
 	.user-name {
-		display: inline-block;
-		border: 1px solid #000;
-		font-family: $futura-light;
-		font-size: remCalc(12px);
-		padding: 0 .25rem;
 		margin-bottom: 1rem;
 	}
 	.current-time {
@@ -549,7 +544,7 @@ a {
 		border-left: 1px solid #000;
 		letter-spacing: 0;
 		strong {
-			font-size: remCalc(28px);
+			font-size: remCalc(24px);
 		}
 	}
 }

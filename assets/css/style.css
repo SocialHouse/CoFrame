@@ -8835,18 +8835,13 @@ a {
   letter-spacing: .25rem;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
   .current-user-details .user-name {
-    display: inline-block;
-    border: 1px solid #000;
-    font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    padding: 0 .25rem;
     margin-bottom: 1rem; }
   .current-user-details .current-time {
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
     border-left: 1px solid #000;
     letter-spacing: 0; }
     .current-user-details .current-time strong {
-      font-size: 1.86667rem; }
+      font-size: 1.6rem; }
 
 /*heights*/
 @media (min-width: 1024px) {
