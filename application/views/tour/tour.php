@@ -9,7 +9,6 @@
 
 		<link rel="shortcut icon" href="<?php echo img_url(); ?>ico/favicon.ico" ><meta name='robots' content='noindex,follow' />
 		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>tour_style.css?ver=1.0' type='text/css' media='all' />
-		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>intlTelInput.css?ver=1.0' type='text/css' media='all' />
 		<link rel='stylesheet' href='<?php echo css_url(); ?>custom.css?ver=1.0' type='text/css' media='all' />
 
 		<style id='style-inline-css' type='text/css'>

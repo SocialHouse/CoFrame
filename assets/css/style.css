@@ -10872,7 +10872,8 @@ textarea.form-control {
   cursor: pointer;
   font-size: 18px;
   line-height: 20px;
-  text-transform: none; }
+  text-transform: none;
+  z-index: 100; }
 
 .js .file-upload-label {
   cursor: pointer;
