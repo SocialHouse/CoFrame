@@ -282,7 +282,9 @@ img.jcrop-preview {
 .cropme:hover{
   background-image: url('../images/UploadDark.png');
 }
-
+.cropme.hasUpload {
+	background: none;
+}
 .text{
   font-family: arial;
   font-size: 14px;

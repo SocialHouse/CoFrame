@@ -136,9 +136,10 @@
                 if(obj== 'userfile_obj'){
                     $('.remove-user-img').removeClass('hide');
                     $('.remove-user-img').show();
-                    
+ 					$('#new_user_pic').addClass('hasUpload');                   
                 }else{
                     $('.remove-brand-img').removeClass('hide');
+					$('#add_brand_img').addClass('hasUpload');
                     //console.log($('.remove-user-img').attr('class'));
                 }
                 reset();
@@ -159,7 +160,8 @@
                 $('#is_brand_image').val('no');
                 $('#base64').val('');
                 brand_logo = [];            
-                $('.remove-brand-img ').addClass('hide');
+                $('.remove-brand-img').addClass('hide');
+				$('#add_brand_img').removeClass('hasUpload');
             });
 
             $('.remove-user-img .remove-upload').click(function(){
@@ -168,6 +170,7 @@
                 $('#user_pic_base64').val('');
                 $('.user-img-preview').attr('src','');
                 $('.remove-user-img').addClass('hide');
+				$('#new_user_pic').removeClass('hasUpload');
             });
 
         });
