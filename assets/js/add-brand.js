@@ -687,13 +687,14 @@ jQuery(function($) {
     	toggleBtnClass('#add_user_next',true);
     }
 
-    $('[data-id="connect"]').click(function(){    	
+    $(document).on('click','[data-id="connect"]',function(){      
     	var outlet = $(this).data('outlet-const');
-    	var brand_id = $('#brand_id').val();
+    	var brand_id = $('#brand_id').val();    	
     	if(brand_id)
     	{
+    		console.log($(this).hasClass('selected'));
 	    	var path = base_url+outlet.toLowerCase()+'_connect/'+outlet.toLowerCase()+'/'+brand_id+'/'+$(this).data('selected-outlet-id');
-	    	if(!$(this).hasClass('selected'))
+	    	if($(this).hasClass('selected'))
 	    	{
 		        $.oauthpopup({
 		            path: path,

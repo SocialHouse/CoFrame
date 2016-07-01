@@ -115,7 +115,7 @@ class Settings extends CI_Controller {
 				echo $this->load->view('settings/step_'.$step_number,$this->data,true);	
 			}else{
 				$this->data['css_files'] = array(css_url().'jquery.Jcrop.css');
-				$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js');
+				$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0',js_url().'facebook.js',js_url().'twitter.js?ver=1.0.0');
 				echo $this->load->view('settings/edit_brand/step_'.$step_number,$this->data,true);
 			}
 		}else{
