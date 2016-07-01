@@ -56,7 +56,9 @@ jQuery(function($) {
 									   'm': { pattern: /[0-9]/},
 								    }
 								});
-	 	// $("input[name='post-date']").mask('Mm/Dd/YYYYY', {
+
+
+	 	// $(".amselect").mask('Mm/Dd/YYYYY', {
 	 	// 						translation: {
 			// 						   'M': { pattern: /[0-5]/},
 			// 						   'm': { pattern: /[0-9]/},

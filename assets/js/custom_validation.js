@@ -7,6 +7,13 @@ jQuery(function($) {
 		create_post_validation($(this));
 	});
 
+	$(document).on('keypress', '.minute-select', function ( e ) {
+		return isValidNumber(e, 59,$(this));
+	});
+
+	$(document).on('keypress', '.hour-select', function ( e ) {
+		return isValidNumber(e, 12,$(this));
+	});
 
 	$(document).on('click', '.check-box.circle-border', function(){
 		if($('ul.timeframe-list.user-list.first-phase li div i.selected').length > 0){
@@ -24,86 +31,89 @@ jQuery(function($) {
 	});
 
 
-	$(document).on('click, blur','input[name="phase[0][approve_date]"]', function(){
-		var $display_error = true;
-		var $div = $(this).parents().parents('div.form-group');
-		var date_error = $('.phase-one-error');
-		var start_date = $('input[name="post-date"]').val();
-		var end_date = $(this).val();
+	$(document).on('click, blur, change','input[name="phase[0][approve_hour]"]', function( e ){
+		
+		var $div 		= $(this).parents().parents('div.form-group'),
+			date_error 	= $('.phase-one-error'),
+			start_date 	= $('input[name="post-date"]').val(),
+			end_date 	= $(this).val();
 
 		if($div.hasClass('phase-date-time-div')){
 			// if user click on (Add Approval Phase(s)) button
 			date_error =  $('.phase-one-error-all');
 		}
-		if( start_date == '' ){
-			date_error.text('Plaese select Sdate first');
+
+		if($('input[name="phase[0][approve_date]"]').val() === '' ){
+			date_error.text('please select date');
 			date_error.show();
-		}else{			
-			if(compareDate(start_date, end_date)){
-				$display_error = false;
-			}else{
-				date_error.text('Date must be grether than Sdate');
-				date_error.show();
-			}
-		}
-		if(!$display_error){
+			e.preventDefault();
+			return false;
+		}else{
 			date_error.empty();
-			date_error.hide();			
+			date_error.hide();
 		}
 	});
 
 
-	$(document).on('click, blur','input[name="phase[1][approve_date]"]', function(){
-		console.log('input[name="phase[1][approve_date]"]');
-		var $display_error = true;
-		var date_error = $('.phase-two-error');
-		var start_date = $('input[name="phase[0][approve_date]"]').val();
-		var end_date = $(this).val();
-		
-		if( start_date == '' ){
-			date_error.text('Plaese select date in Phase 1');
+	$(document).on('click, blur','input[name="phase[0][approve_date]"]', function(){
+		var $div 		= $(this).parents().parents('div.form-group'),
+			date_error 	= $('.phase-one-error'),
+			start_date 	= $('input[name="post-date"]').val(),
+			end_date 	= $(this).val(),
+			phase_no 	= 0 ;
+
+		if($div.hasClass('phase-date-time-div')){
+			// if user click on (Add Approval Phase(s)) button
+			date_error =  $('.phase-one-error-all');
+		}
+
+		if($('input[name="phase[0][approve_hour]"]').val() === '' && $('input[name="phase[0][approve_minute]"]').val() === '' ){
+			date_error.text('Please enter hour and minutes');
 			date_error.show();
-		}else{			
-			if(compareDate(start_date, end_date)){
-				$display_error = false;
-			}else{
-				date_error.text('Date must be grether than Phase 1');
-				date_error.show();
-			}
 		}
-		if(!$display_error){
-			date_error.empty();
-			date_error.hide();			
+
+		if($('input[name="post-hour"]').val() === '' && $('input[name="post-minute"]').val() ==='' ){
+			console.log('post-hour and post-minute');
+			$('#hm_error').text('Please enter hour and minutes');
+			$('#hm_error').show();
 		}
+
+		//comparePhases(start_date, end_date, date_error,phase_no);		
+	});
+
+
+	$(document).on('click, blur','input[name="phase[1][approve_date]"]', function(){
+		
+		var date_error 		= $('.phase-two-error'),
+			start_date 		= $('input[name="phase[0][approve_date]"]').val(),
+			end_date 		= $(this).val(),
+			phase_no 		= 1 ;
+
+
+		comparePhases(start_date, end_date, date_error,phase_no);
 	});
 
 
 
 	$(document).on('click, blur','input[name="phase[2][approve_date]"]', function(){
-		console.log('input[name="phase[2][approve_date]"]');
-		var $display_error = true;
-		var date_error = $('.phase-three-error');
-		var start_date = $('input[name="phase[1][approve_date]"]').val();
-		var end_date = $(this).val();
 		
-		if( start_date == '' ){
-			date_error.text('Plaese select date in Phase 2');
-			date_error.show();
-		}else{			
-			if(compareDate(start_date, end_date)){
-				$display_error = false;
-			}else{
-				date_error.text('Date must be grether than Phase 2');
-				date_error.show();
-			}
-		}
-		if(!$display_error){
-			date_error.empty();
-			date_error.hide();			
-		}
-	})
+		var date_error 		= $('.phase-three-error'),
+			start_date 		= $('input[name="phase[1][approve_date]"]').val(),
+			end_date 		= $(this).val(),
+			phase_no 		= 2 ;
 
-	function create_post_validation(field){
+		comparePhases(start_date, end_date, date_error,phase_no);
+	});
+
+
+	$(document).on('click','#submit-approval', function(){
+		// if(){
+
+		// }
+	});
+
+
+	create_post_validation = function(field){
 		var $ = jQuery;
 		var disable_btn = true;
 		var post_copy_error = $('#post_copy_error'),
@@ -184,13 +194,57 @@ jQuery(function($) {
 		}
 	};
 
-	compareTime = function(startTime, endTime){
-		startDate = moment(new Date (startDate)).format('YYYY-MM-DD');	
-		endDate = moment(new Date (endDate)).format('YYYY-MM-DD');
-		if (startDate <= endDate) {
-			return true;
-		}else {
-			return false;
+	isValidNumber = function(events ,limit, current_txt_box ) {
+		if(events.which === 13 || events.which === 8 || events.which === 0 ) {
+	    	return true
+	    };
+	    var currentChar = parseInt(String.fromCharCode(events.which), 10);
+	    if(!isNaN(currentChar)){
+	        var nextValue = current_txt_box.val() + currentChar; //It's a string concatenation, not an addition
+	        if(parseInt(nextValue, 10) <= limit) {
+	        	return true
+	        };
+	    }
+	    return false;
+	}
+
+	comparePhases = function(startDate, endDate, error_div, phase_no){
+		var $display_error 	= true,
+			$message 		='';
+
+		// start_date = moment(new Date (startDate)).format('YYYY-MM-DD');	
+		// end_date = moment(new Date (endDate)).format('YYYY-MM-DD');
+		
+		if( startDate == '' ){
+			if(phase_no == 0 ){
+				$message = 'Plaese select Sdate first';
+				console.log($message);
+			}
+			if(phase_no == 1 ){
+				$message = 'Plaese select date in Phase 1';
+			}
+			if(phase_no == 2 ){
+				$message = 'Plaese select date in Phase 2';
+			}
+			error_div.text($message);
+			error_div.show();
+		}else{
+			if(compareDate(startDate, endDate)){
+				$display_error = false;
+			}else{
+				if(phase_no == 0 ){
+					$message = 'Date must be grether than Sdate';
+				}
+				else{
+					$message = 'Date must be grether than Phase '+ phase_no;
+				}
+				error_div.text($message);
+				error_div.show();
+			}
+		}
+		if(!$display_error){
+			error_div.empty();
+			error_div.hide();
 		}
 	};
 
