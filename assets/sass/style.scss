@@ -339,6 +339,34 @@ a {
 		font-size: remCalc(12px);
 	}
 }
+.dropdown {
+	&:hover {
+		> .dropdown-menu {
+			display: block;
+		    animation: fadeInUp 300ms;
+		}
+	}
+}
+.dropdown-menu {
+	border-radius: 0;
+	margin-top: 0;
+	padding: 0;
+	.nav-link {
+		font-size: inherit;
+		text-transform: none;
+		letter-spacing: inherit;
+		.navbar-dark & {
+			color: #000;
+			&:hover {
+				color: #000;
+				background: #fff;
+			}
+		}
+	}
+	.nav-item + .nav-item {
+		margin-left: 0;
+	}
+}
 .navbar-brand {
 	display: block;
 	padding: 0;

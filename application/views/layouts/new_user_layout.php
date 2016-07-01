@@ -45,6 +45,18 @@ if(isset($css_files))
 		   		<li class="nav-item">
 		      		<a class="nav-link" href="<?php echo base_url()?>/user_preferences">User Preferences</a>
 		    	</li>
+		   		<li class="nav-item dropdown">
+		      		<a class="nav-link" href="#">Companies</a>
+					<!-- if multiple companies-->
+					<ul class="dropdown-menu">
+						<li class="nav-item">
+							<a class="nav-link" href="/brands/overview">Company Name 1</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/brands/overview">Company Name 2</a>
+						</li>
+					</ul>
+		    	</li>
 		    	<li class="nav-item">
 		      		<a class="btn btn-default btn-sm" href="<?php echo base_url().'tour/logout' ?>">Log out</a>
 		    	</li>
