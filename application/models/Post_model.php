@@ -223,7 +223,7 @@ class Post_model extends CI_Model
 
 	public function get_posts_by_time($brand_id, $start, $end, $outlets = '',$statuses = '',$tags)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className,IF(slate_date_time >= "'.date('Y-m-d H:i:s').'",("true" = "true"), ("true" = "false")) as editable');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->join('post_media','post_media.post_id = posts.id','left');		
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');

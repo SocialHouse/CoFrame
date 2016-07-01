@@ -539,25 +539,25 @@ jQuery(function($) {
 		});
 	});
 
-	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {
+	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {		
 		var newModal = $('#emptyModal').clone();
 		newModal.attr('id', '');
 		newModal.addClass('alert-modal modal-reschedule-post');
 		newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
-		$.get('lib/calendar-edit-date.php',function(data) {
+		$.get(base_url+'calendar/reschedule',function(data) {
 			newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
 			var newMonth = $.fullCalendar.moment(event.start).format('MM');
-			var newDay = $.fullCalendar.moment(event.start).format('D');
-			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
+			var newDay = $.fullCalendar.moment(event.start).format('DD');
+			var newYear = $.fullCalendar.moment(event.start).format('YYYY');			
 			var newHour = $.fullCalendar.moment(event.start).format('h');
 			var newMin = $.fullCalendar.moment(event.start).format('mm');
 			var newAmPm = $.fullCalendar.moment(event.start).format('a');
 			//set the form values
-			newModal.find('select[name="postMonth"]').val(newMonth);
-			newModal.find('select[name="postDay"]').val(newDay);
-			newModal.find('select[name="postYear"]').val(newYear);
-			newModal.find('input[name="postTime"]').val(newTime);
-			newModal.find('select[name="postAmPm"]').val(newAmPm);
+			newModal.find('input[name="post_date"]').val(newMonth + '/' + newDay + '/' + newYear);
+			newModal.find('input[name="post_hour"]').val(newHour);
+			newModal.find('input[name="post_minute"]').val(newMin);
+			newModal.find('input[name="post_ampm"]').val(newAmPm);
+			newModal.find('input[name="post_id"]').val(event.id);
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
@@ -576,21 +576,33 @@ jQuery(function($) {
 		});
 		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
 			e.preventDefault();
-			var postMonth = newModal.find('select[name="postMonth"]').val();
-			var postDay = newModal.find('select[name="postDay"]').val();
-			var postYear = newModal.find('select[name="postYear"]').val();
-			var postTime = newModal.find('input[name="postTime"]').val();
-			var postAmPm = newModal.find('select[name="postAmPm"]').val();
-			var postDate = postYear + "-" + postMonth + "-" + postDay + " " + postTime + " " + postAmPm;
-			event.start = $.fullCalendar.moment(postDate, 'YYYY-M-D h:mm a');
+			var newDate = newModal.find('input[name="post_date"]').val();
+			var newHour = newModal.find('input[name="post_hour"]').val();
+			var newMin = newModal.find('input[name="post_minute"]').val();
+			var newAmPm = newModal.find('input[name="post_ampm"]').val();
+			var postId = newModal.find('input[name="post_id"]').val();
+			var postDate = newDate + " " + newHour + ":" + newMin + " " + newAmPm;
+			event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
 			$(calendar).fullCalendar('updateEvent', event);
-			//insert ajax call to update database here
-			//run line below on ajax success
-			//$(calendar).fullCalendar( 'refetchEvents' );
-			newModal.modal('hide');
-			newModal.on('hidden.bs.modal', function () {
-				newModal.remove();
-			});
+			$.ajax({
+				url:base_url+'calendar/save_reschedule',
+				type:'post',
+				data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
+				success:function(response){
+					newModal.modal('hide');
+					newModal.on('hidden.bs.modal', function () {
+						newModal.remove();
+					});
+				}
+			});			
+		});
+
+		$(document).on('click','.save-reschedule',function(){
+			$('#reshedule-date').find('input[name="post-date"]')
+			$('#reshedule-date').find('input[name="post-hour"]]')
+			$('#reshedule-date').find('input[name="post-date"]')
+			$('#reshedule-date').find('input[name="post-date"]')
+			$('#reshedule-date').find('input[name="post-date"]')
 		});
 	};
 

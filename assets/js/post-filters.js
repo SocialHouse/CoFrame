@@ -140,20 +140,21 @@ jQuery(function($) {
 		var filterVal = $(this).data('value');
 		$('.post-filters').find('.filter[data-value="' + filterVal + '"]').click();
 		$(this).fadeOut();
-		// applyFilter();
+		$(this).remove();
+		applyFilter();
 	});
 
 	if($('#filter-id').val())
 	{
 		$('#selectedFilters').slideDown();
-		if(!$('#calendar_type').val() || $('#calendar_type').val() == 'day')
-			applyFilter();
+		if(!$('#calendar_type').val() || $('#calendar_type').val() == 'day')			
 
 		setTimeout(function(){
 			jQuery('#show-filter-overlay').trigger('click');
 			setTimeout(function(){
 				$('.qtip-hide').trigger('click');
-			},100);
+				applyFilter();
+			},150);
 		},50);
 	}
 
@@ -167,6 +168,7 @@ jQuery(function($) {
 			var tags = [];
 
 			$.each($('.filter-list').children('li'),function(index,li){
+				console.log(li);
 				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
 
 				if($(this).data('id'))
@@ -184,7 +186,6 @@ jQuery(function($) {
 			$('#outlet_ids').val(outlet_ids.join());
 			$('#statuses').val(statuses.join());
 			$('#tags').val(tags.join());
-			console.log(filterValue);
 			if($container.length)
 				$container.isotope({ filter: filterValue });
 			if($containerApp.length)
@@ -248,7 +249,8 @@ jQuery(function($) {
 		var filterValue = inclusives.length ? inclusives.join(', ') : '*';		
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
-		$('#tags').val(tags.join());		
+		$('#tags').val(tags.join());	
+		console.log($('#outlet_ids').val());	
 		
 		if($container.length)
 			$container.isotope({ filter: filterValue });

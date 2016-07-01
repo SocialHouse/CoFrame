@@ -116,6 +116,16 @@ class Calendar extends CI_Controller {
     	$end_date = $this->input->post('end');
     	$tags =  $this->input->post('tags');
     	$posts = $this->post_model->get_posts_by_time($brand_id,$start_date,$end_date,$outlets,$statuses,$tags);
+    	if(!empty($posts))
+    	{
+	    	foreach($posts as $key=>$post)
+	    	{
+	    		if(!is_bool($post->editable))
+	    		{
+	    			$posts[$key]->editable = (bool)$post->editable;
+	    		}
+	    	}
+	    }
     	echo json_encode($posts);    	
     }
 
@@ -543,6 +553,25 @@ class Calendar extends CI_Controller {
 
 			}
 			echo "1";
+		}
+	}
+
+	function reschedule()
+	{
+		echo $this->load->view('calendar/reschedule','',true);
+	}
+
+	function save_reschedule()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$date_time =  $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
+			
+			$save_data = array(
+							'slate_date_time' => date('Y-m-d H:i:s',strtotime($date_time))
+						);
+			$this->timeframe_model->update_data('posts',$save_data,array('id' => $post_data['post_id']));
 		}
 	}
 }

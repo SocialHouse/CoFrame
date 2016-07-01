@@ -36,7 +36,7 @@
 						{
 							$outlet_name = strtolower(get_outlet_by_id($id));
 							?>
-							<li data-value="f-<?php echo $outlet_name; ?>" class="filter-remove-list outlet-list">
+							<li data-id="<?php echo $id; ?>" data-value="f-<?php echo $outlet_name; ?>" class="filter-remove-list outlet-list">
 								<i class="fa fa-<?php echo $outlet_name; ?>">
 									<span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span>
 								</i>
@@ -50,7 +50,7 @@
 						foreach($statuses as $status)
 						{							
 							?>
-							<li data-value="f-<?php echo $status; ?>" class="filter-remove-list outlet-list">
+							<li data-status="<?php echo $status ?>" data-value="f-<?php echo $status; ?>" class="filter-remove-list outlet-list">
 								<?php echo $status; ?>
 								<i class="tf-icon-close"></i>
 							</li>
