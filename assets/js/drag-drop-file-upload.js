@@ -472,7 +472,8 @@
 			    			if(data.response == "success")
 			    			{
 			    				$('#user_pic_base64').val('');
-			    				$('#new_user_pic img').attr('src','' );
+			    				$('#new_user_pic img').remove();
+			    				$('#new_user_pic').removeClass('hasUpload');
 			    				$('#userPermissionsList').append(data.html);
 			    				$('.go-to-userlist').trigger('click');
 			    				$('#firstName').val('');

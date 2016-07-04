@@ -169,6 +169,7 @@
                 $('#new_user_pic').children('img').remove();
                 $('#user_pic_base64').val('');
                 $('.user-img-preview').attr('src','');
+                $('.user-img-preview img').remove();
                 $('.remove-user-img').addClass('hide');
 				$('#new_user_pic').removeClass('hasUpload');
             });
