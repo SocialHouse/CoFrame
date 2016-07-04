@@ -36,10 +36,10 @@ jQuery(function($) {
 			var $div 		= $(this).parents().parents('div.form-group'),
 				date_error 	= $('#date_error'),
 				phase_no 	= 0 ,
-				new_date 	= $('input[name="phase[0][approve_date]"]').val(),
-				new_hour 	= $('input[name="phase[0][approve_hour]"]').val(),
-				new_minute 	= $('input[name="phase[0][approve_minute]"]').val(),
-				new_ampm 	= $('input[name="phase[0][approve_ampm]"]').val(),
+				new_date 	= $('#only_ph_one_date').val(),
+				new_hour 	= $('#only_ph_one_hour').val(),
+				new_minute 	= $('#only_ph_one_minute').val(),
+				new_ampm 	= $('#only_ph_one_ampm').val();
 				old_date 	= $('input[name="post-date"]').val(),
 				old_hour 	= $('input[name="post-hour"]').val(),
 				old_minute 	= $('input[name="post-minute"]').val(), 
@@ -58,28 +58,26 @@ jQuery(function($) {
 	);
 
 
-	$(document).on( 'click, blur, change', 'input[name="phase[0][approve_date]"], input[name="phase[0][approve_hour]"], input[name="phase[0][approve_minute]"], input[name="phase[0][approve_ampm]"]',
+	$(document).on( 'click, blur, change', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm',
 		function( e )
 		{
 			var $div 		= $(this).parents().parents('div.form-group'),
-				date_error 	= $('.phase-one-error'),
+				date_error =  $('.phase-one-error-all'),
 				phase_no 	= 0 ,
-				new_date 	= $('input[name="phase[0][approve_date]"]').val(),
-				new_hour 	= $('input[name="phase[0][approve_hour]"]').val(),
-				new_minute 	= $('input[name="phase[0][approve_minute]"]').val(),
-				new_ampm 	= $('input[name="phase[0][approve_ampm]"]').val(),
 				old_date 	= $('input[name="post-date"]').val(),
 				old_hour 	= $('input[name="post-hour"]').val(),
 				old_minute 	= $('input[name="post-minute"]').val(),
-				old_ampm 	= $('input[name="post-ampm"]').val() ;
-
-			if($div.hasClass('phase-date-time-div')){
-				// if user click on (Add Approval Phase(s)) button
-				date_error =  $('.phase-one-error-all');
-			}
+				old_ampm 	= $('input[name="post-ampm"]').val(),
+				new_date 	= $('#ph_one_date').val(),
+				new_hour 	= $('#ph_one_hour').val(),
+				new_minute 	= $('#ph_one_minute').val(),
+				new_ampm 	= $('#ph_one_ampm').val();
+				
+			
 			if(old_date != ''){
 				console.log('old_date');
 				if(old_hour != '' && old_minute !='' ){
+					console.log([old_hour ,old_minute]);
 					console.log([new_minute ,new_hour]);
 					if( new_minute != '' &&  new_hour !='' ){
 						console.log('dsfdsfds');
@@ -110,6 +108,57 @@ jQuery(function($) {
 	);
 
 
+	$(document).on( 'click, blur, change', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm',
+		function( e )
+		{
+			var $div 		= $(this).parents().parents('div.form-group'),
+				date_error 	= $('.phase-one-error'),
+				phase_no 	= 0 ,
+				old_date 	= $('input[name="post-date"]').val(),
+				old_hour 	= $('input[name="post-hour"]').val(),
+				old_minute 	= $('input[name="post-minute"]').val(),
+				old_ampm 	= $('input[name="post-ampm"]').val(),
+				new_date 	= $('#only_ph_one_date').val(),
+				new_hour 	= $('#only_ph_one_hour').val(),
+				new_minute 	= $('#only_ph_one_minute').val(),
+				new_ampm 	= $('#only_ph_one_ampm').val();
+			
+			if(old_date != ''){
+				console.log('old_date');
+				if(old_hour != '' && old_minute !='' ){
+					if( new_minute != '' &&  new_hour !='' ){
+						console.log('dsfdsfds');
+						comparePhases(old_date, new_date, date_error,phase_no);
+
+						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+						if(compareDateTime(ed_date, st_date)){
+							date_error.text('Please enter valid date and time or Approval date must be less than Slate date');
+							date_error.show();
+						}else{
+							date_error.text();
+							date_error.hide();
+						}
+					}else{
+						date_error.text('Please enter hour and minutes');
+						date_error.show();
+					}
+				}else{
+					date_error.text('Please enter Slate date or hour and minutes');
+					date_error.show();
+					// $('#hm_error').text('Please enter hour and minutes');
+					// $('#hm_error').show();
+				}
+			}else{
+				date_error.text('Please enter Slate date');
+				date_error.show();
+				// $('#hm_error').text('Please enter Slate date');
+				// $('#hm_error').show();
+			}
+		}
+	);
+
+
 	$(document).on( 'click, blur, change', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"]',
 		function( e )
 		{
@@ -119,10 +168,10 @@ jQuery(function($) {
 				new_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
 				new_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
 				new_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),			
-				old_date 	= $('input[name="phase[0][approve_date]"]').val(),
-				old_hour 	= $('input[name="phase[0][approve_hour]"]').val(),
-				old_minute 	= $('input[name="phase[0][approve_minute]"]').val(),
-				old_ampm 	= $('input[name="phase[0][approve_ampm]"]').val();
+				old_date 	= $('#ph_one_date').val(),
+				old_hour 	= $('#ph_one_hour').val(),
+				old_minute 	= $('#ph_one_minute').val(),
+				old_ampm 	= $('#ph_one_ampm').val();
 
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !='' ){
@@ -214,10 +263,10 @@ jQuery(function($) {
 			img_error = $('#img_error'),
 			date_error = $('#date_error');
 			hm_error = $('#hm_error'),
-			approve_date = $('input[name="phase[0][approve_date]').val(),
-			approve_hour = $('input[name="phase[0][approve_hour]"]').val(),
-			approve_minute = $('input[name="phase[0][approve_minute]"]').val();
-			approve_ampm = $('input[name="phase[0][approve_ampm]"]').val();
+			approve_date = $('#ph_one_date').val(),
+			approve_hour = $('#ph_one_hour').val(),
+			approve_minute = $('#ph_one_minute').val(),
+			approve_ampm = $('#ph_one_ampm').val(),
 			old_date 	= $('input[name="post-date"]').val(),
 			old_hour 	= $('input[name="post-hour"]').val(),
 			old_minute 	= $('input[name="post-minute"]').val(),

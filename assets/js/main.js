@@ -1717,28 +1717,6 @@ jQuery(function($) {
     	$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
     });
 
-    $(document).on("submit", "#reschedule_post", function(event){
-	 	event.preventDefault();
-    	var post_url = $(this).attr('action');
-    	var selected_date = $('#selected_date').val();    	
-    	$.ajax({
-	    		'type':'POST',
-	    		'data':$(this).serialize()+'&selcted_data='+ selected_date,
-	    		dataType: 'html',
-	    		url: post_url,                 
-	            success: function(response)
-	            {
-	            	if(response  != 'false')
-	            	{
-	            		alert('Your post has been update successfully. ');
-	            	}
-	            	$('.calendar-day').empty();
-	            	$('.calendar-day').html(response);
-	            }
-	    	});
-    });
-
-
     $(document).on("click", ".delete_post", function(event){
     	event.preventDefault();
     	if(confirm("Are you sure, you want to delete it?"))

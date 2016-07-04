@@ -111,7 +111,13 @@
   color: red;
   text-transform: none !important;
   clear: both; }
-  
+
+#reschedule_post .error, #reshedule_date .error{
+  color: red;
+  text-transform: none !important;
+  clear: both;
+  text-decoration: none;
+}  
 
 /*
   pinterest preview 

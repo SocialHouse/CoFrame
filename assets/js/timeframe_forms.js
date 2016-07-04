@@ -362,4 +362,5 @@ jQuery(document).ready(function(){
 			}
         }
     });
-});
+
+  });

@@ -282,6 +282,7 @@ jQuery(function($) {
 				startDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
 				endDate = $.fullCalendar.moment(inputVal, 'MM/D/YYYY');
 			}
+			
 			if(!pcontainer) {
 				pcontainer = '.page-main';
 			}
@@ -343,6 +344,9 @@ jQuery(function($) {
 					width: pwidth
 				}
 			}, e);
+
+			
+			
 		});
 
 		//allow click on date select calendar without blurring date input and therefore closing calendar
@@ -371,7 +375,8 @@ jQuery(function($) {
 			}
 		});
 		//update single date calendar on input blur
-		$('body').on('blur', '.single-date-select', function() {			
+		$('body').on('blur', '.single-date-select', function() {
+
 			var inputVal = $(this).val();
 			if(inputVal !== "") {
 				startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
@@ -581,33 +586,73 @@ jQuery(function($) {
 			var newMin = newModal.find('input[name="post_minute"]').val();
 			var newAmPm = newModal.find('input[name="post_ampm"]').val();
 			var postId = newModal.find('input[name="post_id"]').val();
-			var postDate = newDate + " " + newHour + ":" + newMin + " " + newAmPm;
-			event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
-			$(calendar).fullCalendar('updateEvent', event);
-			$.ajax({
-				url:base_url+'calendar/save_reschedule',
-				type:'post',
-				data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
-				success:function(response){
-					newModal.modal('hide');
-					newModal.on('hidden.bs.modal', function () {
-						newModal.remove();
-					});
+			
+		 	
+		 	var message, error_div, error_display = false;
+		 	var today = moment().format("YYYY-MM-DD");
+			
+			error_div = $('#reschedule_error');
+
+			error_div.text(message);
+			error_div.hide();
+
+			if(newDate != ''){
+				// conveted in spefi dete format
+				newDate = moment(new Date (newDate)).format('YYYY-MM-DD');
+
+				if(newDate > today ){
+					if(newMin != '' && newHour != ''  && newAmPm != '' ){
+						error_display = false;
+					}else{
+						error_display = true;
+						message='Plaese enter hours and minute';
+					}
+				}else{
+					error_display = true;
+					message='Plaese select the valid date';
 				}
-			});			
+			}else{
+				error_display = true;
+				message='Plaese select the date';
+			}
+			if(!error_display){
+				
+				var postDate = newDate + " " + newHour + ":" + newMin + " " + newAmPm;
+				event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
+				$(calendar).fullCalendar('updateEvent', event);
+
+		    	$.ajax({
+					url:base_url+'calendar/save_reschedule',
+					type:'post',
+					data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
+					success:function(response){
+						newModal.modal('hide');
+						newModal.on('hidden.bs.modal', function () {
+							newModal.remove();
+						});
+					}
+				});	
+			}else{
+				console.log(message);
+				error_div.text(message);
+				error_div.show();
+				return false;
+			}
+				
 		});
 
 		$(document).on('click','.save-reschedule',function(){
-			$('#reshedule-date').find('input[name="post-date"]')
-			$('#reshedule-date').find('input[name="post-hour"]]')
-			$('#reshedule-date').find('input[name="post-date"]')
-			$('#reshedule-date').find('input[name="post-date"]')
-			$('#reshedule-date').find('input[name="post-date"]')
+			$('#reschedule_date').find('input[name="post-date"]')
+			$('#reschedule_date').find('input[name="post-hour"]]')
+			$('#reschedule_date').find('input[name="post-date"]')
+			$('#reschedule_date').find('input[name="post-date"]')
+			$('#reschedule_date').find('input[name="post-date"]')
 		});
 	};
 
-	window.showSelectCalendar = function showSelectCalendar(id) {
+	window.showSelectCalendar = function showSelectCalendar(id) {		
 		var exportStart, exportEnd;
+
 		$('#' + id + ' .date-select-calendar').fullCalendar({
 			buttonText: {
 				prev: '',
@@ -628,6 +673,7 @@ jQuery(function($) {
 			},
 			dayClick: function(date) {
 				//for date range
+
 				if(inputType === 'start-date' || inputType === 'end-date') {
 					//remove previously set dates
 					$('#' + id + ' .date-select-calendar').fullCalendar('removeEvents');
@@ -653,6 +699,12 @@ jQuery(function($) {
 					//don't allow dates earlier than today
 					var today = $.fullCalendar.moment().format('YYYYMMDD');
 					var selected = $.fullCalendar.moment(date).format('YYYYMMDD');
+					if(inputType == 'post_date') {
+						today_date = moment();
+						today_date = today_date.add('days', 1);
+						today =  moment(today_date).format("YYYYMMDD");
+						//startDate = moment().calendar(moment().add(1, 'day'));
+					}
 					if(selected < today) {
 						return;
 					}
@@ -662,8 +714,10 @@ jQuery(function($) {
 					}
 					startDate = date;
 					endDate = date;
+					
 					$('input[name="' + inputType + '"]').val($.fullCalendar.moment(date).format('M/D/YYYY'));
 				}
+				
 				var eventData = {
 					allDay: true,
 					start: $.fullCalendar.moment(startDate),
@@ -671,10 +725,12 @@ jQuery(function($) {
 					rendering: 'background',
 					color: '#f4d3d5'
 				};
+				
 				daySelectedDate = $.fullCalendar.moment(startDate);
 				if($('input[value="daterange"]').length) {
 					$('input[value="daterange"]').prop('checked', true);
 				}
+
 				$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
 			},
 			theme: true,
@@ -688,6 +744,7 @@ jQuery(function($) {
 			endDate = today;
 		}
 		if(startDate !== undefined && endDate !== undefined) {
+
 			var savedEvent = {
 				allDay: true,
 				start: $.fullCalendar.moment(startDate, 'M/D/YYYY'),
@@ -810,5 +867,144 @@ jQuery(function($) {
 		$('#calendarCurrentMonth').text(selectedmonth);
 		// $('#calendar-change-day #getPostsByDate').trigger('click');
 	}
+
+
+	$(document).on("change", "#edit_minute, #edit_ampm, #edit_hour, #reschedule_day", function(event){
+		event.preventDefault();
+		console.log('reschedule_error');
+		$('#reschedule_error').hide();
+		$('#reschedule_error').empty();
+	});
+
+
+
+	$(document).on("submit", "#reschedule_post", function(event){
+	 	event.preventDefault();
+	 	var edit_date, edit_minute, edit_ampm, edit_hour, message, error_div, rror_display = false;
+	 	var today = moment().format("YYYY-MM-DD");
+	 	var tomorrow = moment().format("YYYY-MM-DD");
+		
+		edit_date = $('#reschedule_day').val();
+		edit_minute = $('#edit_minute').val();
+		edit_ampm = $('#edit_ampm').val();
+		edit_hour = $('#edit_hour').val();
+		error_div = $('#reschedule_error');
+
+		error_div.text(message);
+		error_div.hide();
+
+		if(edit_date != ''){
+			// conveted in spefi dete format
+			edit_date = moment(new Date (edit_date)).format('YYYY-MM-DD');
+
+			if(edit_date > today ){
+				if(edit_minute != '' && edit_hour != ''  && edit_ampm != '' ){
+					error_display = false;
+				}else{
+					error_display = true;
+					message='Plaese enter hours and minute';
+				}
+			}else{
+				error_display = true;
+				message='Plaese select the valid date';
+			}
+		}else{
+			error_display = true;
+			message='Plaese select the date';
+		}
+		if(!error_display){
+			
+			var post_url = $(this).attr('action');
+	    	var selected_date = $('#selected_date').val();    	
+	    	$.ajax({
+	    		'type':'POST',
+	    		'data':$(this).serialize()+'&selcted_data='+ selected_date,
+	    		dataType: 'html',
+	    		url: post_url,                 
+	            success: function(response)
+	            {
+	            	if(response  != 'false')
+	            	{
+	            		alert('Your post has been update successfully. ');
+	            	}
+	            	$('.calendar-day').empty();
+	            	$('.calendar-day').html(response);
+	            }
+	    	});
+		}else{
+			console.log(message);
+			error_div.text(message);
+			error_div.show();
+			return false;
+		}
+	});
+
+
+
+	$(document).on("submit", "#reschedule_post", function(event){
+
+
+		var newDate = newModal.find('input[name="post_date"]').val();
+		var newHour = newModal.find('input[name="post_hour"]').val();
+		var newMin = newModal.find('input[name="post_minute"]').val();
+		var newAmPm = newModal.find('input[name="post_ampm"]').val();
+		var postId = newModal.find('input[name="post_id"]').val();
+		
+	 	event.preventDefault();
+	 	var edit_date, edit_minute, edit_ampm, edit_hour, message, error_div, error_display = false;
+	 	var today = moment().format("YYYY-MM-DD");
+		
+		edit_date = newDate;
+		edit_minute = newMin;
+		edit_ampm = newAmPm;
+		edit_hour = newHour;
+		error_div = $('#reschedule_error');
+
+		error_div.text(message);
+		error_div.hide();
+
+		if(edit_date != ''){
+			// conveted in spefi dete format
+			edit_date = moment(new Date (edit_date)).format('YYYY-MM-DD');
+
+			if(edit_date > today ){
+				if(edit_minute != '' && edit_hour != ''  && edit_ampm != '' ){
+					error_display = false;
+				}else{
+					error_display = true;
+					message='Plaese enter hours and minute';
+				}
+			}else{
+				error_display = true;
+				message='Plaese select the valid date';
+			}
+		}else{
+			error_display = true;
+			message='Plaese select the date';
+		}
+		if(!error_display){
+			
+			var postDate = newDate + " " + newHour + ":" + newMin + " " + newAmPm;
+			event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
+			$(calendar).fullCalendar('updateEvent', event);
+
+	    	$.ajax({
+				url:base_url+'calendar/save_reschedule',
+				type:'post',
+				data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
+				success:function(response){
+					newModal.modal('hide');
+					newModal.on('hidden.bs.modal', function () {
+						newModal.remove();
+					});
+				}
+			});	
+		}else{
+			console.log(message);
+			error_div.text(message);
+			error_div.show();
+			return false;
+		}
+	});
 
 });
