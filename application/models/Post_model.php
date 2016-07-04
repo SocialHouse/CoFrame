@@ -21,6 +21,20 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_user_outlets($brand_id,$user_id)
+	{
+		$this->db->select('outlets.id,outlet_name');
+		$this->db->join('outlets','outlets.id = user_outlets.outlet_id');
+		$this->db->where('user_outlets.brand_id',$brand_id);
+		$this->db->where('user_outlets.user_id',$user_id);
+		$query = $this->db->get('user_outlets');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 	public function get_brand_tags($brand_id)
 	{
 

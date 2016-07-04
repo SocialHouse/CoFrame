@@ -59,7 +59,7 @@ class Posts extends CI_Controller {
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
 			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
-			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+			$this->data['outlets'] = $this->post_model->get_user_outlets($brand_id,$this->user_id);
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
 			$this->data['timezones'] = $this->user_model->get_timezones();
 			

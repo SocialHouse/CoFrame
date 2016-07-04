@@ -41,7 +41,7 @@ class Co_create extends CI_Controller {
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
-			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+			$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
 			
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
