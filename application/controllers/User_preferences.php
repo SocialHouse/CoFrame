@@ -53,7 +53,7 @@ class User_preferences extends CI_Controller {
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
 		}
 				
-		if($this->user_data['user_group'] == 'Master admin')
+		if($this->user_id == $this->user_data['created_by'])
 		{
 			if($page == 'user_plan')
 			{

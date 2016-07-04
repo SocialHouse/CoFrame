@@ -21,7 +21,7 @@
 	?>
 	<a href="<?php echo base_url()?>user_preferences/user_info" class="btn btn-sm <?php echo $my_info; ?>">My Info</a>
 	<?php	
-	if($this->user_data['user_group'] == 'Master admin')
+	if($this->user_id == $this->user_data['created_by'])
 	{
 		?>
 		<a href="<?php echo base_url()?>user_preferences/user_plan" class="btn btn-sm <?php echo $plan; ?>">Plan</a>
