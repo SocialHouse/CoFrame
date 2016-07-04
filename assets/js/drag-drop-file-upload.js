@@ -78,7 +78,7 @@
 								return false;
 							};
 							if( file_type[0]== 'image'){
-								if( file.size > 2000000){
+								if( file.size > 1000000){
 									alert('Image size should be less than 2 MB');
 									return false;
 								}
@@ -130,8 +130,8 @@
 								//for show preview
 								changePreview(file,'image');
 							}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-								if( file.size > 209715200){
-									alert('Video size should be less than 2 MB');
+								if( file.size > 104857600){
+									alert('Video size should be less than 100 MB');
 									return false;
 								}
 								if($('.form__file-preview').length >= 1){
@@ -221,7 +221,7 @@
 							};
 							if( file_type[0]== 'image'){
 								if( file.size > 2000000){
-									alert('Image size should be less than 200 MB');
+									alert('Image size should be less than 2 MB');
 									return false;
 								}
 								if($('.form__file-preview').src=='video'){
@@ -266,7 +266,7 @@
 								changePreview(file,'image');
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
-								if( file.size > 209715200){
+								if( file.size > 104857600){
 									alert('video size should be less than 200 Mb');
 									return false;
 								}
