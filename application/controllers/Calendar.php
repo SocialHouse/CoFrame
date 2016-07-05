@@ -142,8 +142,8 @@ class Calendar extends CI_Controller {
 
     public function print_posts()
     {
-    	$brand_id = $this->uri->segment(3);
-    	$this->load->view('partials/print_posts');
+    	$this->data['brand_id'] =$this->uri->segment(3);
+    	$this->load->view('partials/print_posts',$this->data);
     }
 
 

@@ -2,8 +2,8 @@
 $checked = '';
 $password = '';
 $email = '';
-echo $user_pass=$this->input->cookie('user_pass', TRUE);
-echo $user_name=$this->input->cookie('user_name', TRUE);
+$user_pass=$this->input->cookie('user_pass', TRUE);
+$user_name=$this->input->cookie('user_name', TRUE);
 if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($user_name))){
     $checked='checked="checked"';
     $email = $user_name;

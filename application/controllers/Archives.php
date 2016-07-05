@@ -83,6 +83,7 @@ class Archives extends CI_Controller {
 				$tags = $post_data['post-tag'];
 			}
 
+			//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
 
 			$daterange =[];			
 			switch ($post_data['exportDate']) {
@@ -132,11 +133,13 @@ class Archives extends CI_Controller {
 				{
 					if(!empty($posts))
 					{
+						ob_start();
 						$this->data['brand_id'] = $brand_id;
 						$this->data['post_details'] = $posts;
 						//$this->load->view('archives/pdf_export', $this->data);
 						$html = $this->load->view('archives/pdf_export', $this->data, true);
 						$this->pdf_create( $html,$brand_id.'.pdf');
+						ob_end_flush();
 					}
 					
 				}
@@ -152,13 +155,17 @@ class Archives extends CI_Controller {
 			}
 			else
 			{
-				$this->session->set_flashdata('message', 'No result found.');
-				redirect(base_url().'archives/'.$slug);
+				if($slug != '_no'){
+					$this->session->set_flashdata('message', 'No result found.');
+					redirect(base_url().'archives/'.$slug);					
+				}
 			}
 		}
 		else
 		{
-			redirect(base_url().'archives/'.$slug);
+			if($slug != '_no'){
+				redirect(base_url().'archives/'.$slug);
+			}
 		}
 		
 	}
