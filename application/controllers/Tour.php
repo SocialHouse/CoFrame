@@ -418,7 +418,9 @@ class Tour extends CI_Controller {
         $this->data['user_id'] = $user_id;
         $this->data['verification_code'] = $verification_code;
         
-        $user = $this->timeframe_model->get_data_by_condition('aauth_users',array('id' => $user_id,'verification_code' => $verification_code));        
+        $user = $this->timeframe_model->get_data_by_condition('aauth_users',array('id' => $user_id,'verification_code' => $verification_code));  
+        // echo '<pre>'; print_r($user);echo '</pre>'; 
+        $this->data['user_email'] = $user[0]->email;
         $this->data['is_user'] = 'fail';
         if($user)
         {

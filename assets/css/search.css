@@ -165,3 +165,20 @@
     border-radius: 15px;
     border-color: #777;
   }
+  .add-phases-footer .btn-default,.post-content-footer .btn-default{
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  .add-phases-footer .btn-default:hover ,.post-content-footer .btn-default:hover{
+    background: #000 none repeat scroll 0 0;
+    border-color: #000;
+    color: #fff;
+  }
+
+  .error{
+    clear: both;
+    color: red;
+    font-size: 12px;
+    text-transform: none !important;
+  }

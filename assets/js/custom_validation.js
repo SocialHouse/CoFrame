@@ -75,12 +75,8 @@ jQuery(function($) {
 				
 			
 			if(old_date != ''){
-				console.log('old_date');
 				if(old_hour != '' && old_minute !='' ){
-					console.log([old_hour ,old_minute]);
-					console.log([new_minute ,new_hour]);
 					if( new_minute != '' &&  new_hour !='' ){
-						console.log('dsfdsfds');
 						comparePhases(old_date, new_date, date_error,phase_no);
 
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
@@ -89,7 +85,7 @@ jQuery(function($) {
 							date_error.text('Please enter valid date and time or Approval date must be less than Slate date');
 							date_error.show();
 						}else{
-							date_error.text();
+							date_error.empty();
 							date_error.hide();
 						}
 					}else{
@@ -124,10 +120,8 @@ jQuery(function($) {
 				new_ampm 	= $('#only_ph_one_ampm').val();
 			
 			if(old_date != ''){
-				console.log('old_date');
 				if(old_hour != '' && old_minute !='' ){
 					if( new_minute != '' &&  new_hour !='' ){
-						console.log('dsfdsfds');
 						comparePhases(old_date, new_date, date_error,phase_no);
 
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
@@ -136,7 +130,7 @@ jQuery(function($) {
 							date_error.text('Please enter valid date and time or Approval date must be less than Slate date');
 							date_error.show();
 						}else{
-							date_error.text();
+							date_error.empty();
 							date_error.hide();
 						}
 					}else{
@@ -229,7 +223,7 @@ jQuery(function($) {
 							date_error.text('Please enter valid date and time or date must be less than phase 2');
 							date_error.show();
 						}else{
-							date_error.text();
+							date_error.empty();
 							date_error.hide();
 						}
 					}else{
@@ -286,7 +280,7 @@ jQuery(function($) {
 				date_error.show();
 				disable_btn = true;
 			}else{
-				date_error.text('');
+				date_error.empty();
 				date_error.hide();				
 			}
 		}
@@ -444,8 +438,6 @@ jQuery(function($) {
 		$('.phase-one-error').hide();
 		$('#date_error').empty();
 		$('#date_error').hide();
-		$('.phase-one-error').empty();
-		$('.phase-one-error').hide();
 		$('.phase-one-error-all').empty();
 		$('.phase-one-error-all').hide();
 		$('.phase-two-error').empty();

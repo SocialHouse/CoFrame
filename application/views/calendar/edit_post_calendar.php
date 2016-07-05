@@ -4,7 +4,7 @@
 	<input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>" id="redirect_url">
 	
 
-	<div class="row equal-columns create">
+	<div  id="edit-post-manage" class="row equal-columns create">
 		<div class="col-md-4 equal-height">
 			<div class="container-post-preview post-content">
 				<h4 class="text-xs-center">Live Preview</h4>
@@ -149,7 +149,9 @@
 				</footer>
 			</div>			
 		</div>
-		
+		<?php if(empty($phases)){ 
+			$this->load->view('partials/default_phase');
+		} else{ ?>
 		<div class="col-md-4 equal-height">
 			<div class="container-phases">
 			<h4 class="text-xs-center">Post Details</h4>
@@ -158,7 +160,7 @@
 				//echo '<pre>'; print_r($phases);echo '</pre>';
 				?> 
 					<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
-						<div class="container-phases">
+						<div class="container-approvals">
 							<div id="phaseDetails" >
 								<?php
 									if(!empty($phases)){ 
@@ -310,10 +312,7 @@
 										if( $phase_count == 1 && $i == 1 ){
 											$inactive = '';
 										}
-										if($phase_count == 1){
-											$this->load->view('partials/all_phases');
-											break;
-										}else{
+										if($phase_count != 1){
 											?>
 											<div>
 												<div class="bg-white approval-phase animated fadeIn edit-phase-div  <?php echo $inactive ;?>" id="approvalPhase<?php echo $i?>" data-id="<?php echo $i -1 ?>">
@@ -427,6 +426,7 @@
 
 			</div>
 		</div>
+		<?php } ?>
 	</div>
 </form>
 <?php

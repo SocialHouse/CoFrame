@@ -767,7 +767,7 @@ class Aauth {
 		}
 	}
 
-	public function create_user_without_email($email = FALSE, $pass, $name = FALSE,$to_email) {
+	public function create_user_without_email($email = FALSE, $pass, $name = FALSE) {
 
 		$valid = TRUE;
 		
@@ -814,7 +814,7 @@ class Aauth {
 				$this->aauth_db->update($this->config_vars['users'], $data);
 
 				// sends verifition ( !! e-mail settings must be set)
-				$this->send_registartion_link($user_id,$to_email);
+				$this->send_registartion_link($user_id,$email);
 			}
 
 			// Update to correct salted password

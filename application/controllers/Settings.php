@@ -102,7 +102,7 @@ class Settings extends CI_Controller {
 					$brands_users = array_column($current_brand_users,'access_user_id');
 
 				$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
-				print_r($this->data['users']);
+				
 				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
 			} 
 

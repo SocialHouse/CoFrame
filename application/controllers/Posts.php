@@ -109,7 +109,7 @@ class Posts extends CI_Controller {
 			if(!empty($post_data['brand_id']))
 			{
 				$slate_date_time = '';
-				if(!empty($post_data['post-date'])){
+				if(!empty($post_data['post-date']) && !empty($post_data['post-hour']) && !empty($post_data['post-minute']) && !empty($post_data['post-ampm'])){
 					$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
 		    		$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));	
 				}

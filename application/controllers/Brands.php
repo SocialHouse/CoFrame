@@ -291,7 +291,7 @@ class Brands extends CI_Controller {
 
 		        	$this->data['user'] = $user_data;
 	                
-	            	$inserted_id = $this->aauth->create_user_without_email('',$password,'',$post_data['email']);
+	            	$inserted_id = $this->aauth->create_user_without_email($post_data['email'],$password);
 	            	unset($user_data['password']);
                 	unset($user_data['username']);
 	            }
@@ -442,6 +442,14 @@ class Brands extends CI_Controller {
     {
     	$this->data = array();
     	$slug = $this->uri->segment(3);
+
+    	$brand_data = array(
+								'is_hidden' => 0
+							);
+    	$condition = array('created_by' => $this->user_id,'slug'=>$slug);
+    	$this->timeframe_model->update_data('brands',$brand_data,$condition);
+
+
     	$this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);    	
 
     	if(!empty($this->data['brand']))

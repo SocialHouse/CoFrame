@@ -228,7 +228,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 		        	<input type="hidden" name="sub_user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
 					<div class="form-group">
 						<label class="sr-only" for="username_reg">Email Address</label>
-						<input type="text" class="form-control" id="email_reg" placeholder="Email Address" name="email" >
+						<input type="text" class="form-control" id="email_reg" placeholder="Email Address" name="email" value="<?php echo (!empty($user_email))? $user_email : ''; ?>" />
 					</div>
 
 					<div class="form-group">

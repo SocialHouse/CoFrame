@@ -205,4 +205,24 @@ class Brand_model extends CI_Model
 		}
 		return FALSE;
 	}
+
+	public function get_all_brand_by_slug($user_id, $slug = '')
+	{
+		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');
+		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
+		if($slug)
+			$this->db->where('brands.slug', $slug);
+
+		$this->db->group_start();
+		$this->db->where('created_by', $user_id);
+		$this->db->or_where('access_user_id',$user_id);
+		$this->db->group_end();
+		$this->db->group_by('brands.id');
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
 }
