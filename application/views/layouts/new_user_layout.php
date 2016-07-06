@@ -18,11 +18,11 @@ if(isset($css_files))
         <?php
     }
 }
-
 ?>
 
 <script type="text/javascript">
-    var base_url = "<?php echo base_url(); ?>";
+	var language_message = JSON.parse('<?php echo json_encode($this->lang->language); ?>');
+	var base_url = "<?php echo base_url(); ?>";
     var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 </script>
 

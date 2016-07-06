@@ -1,13 +1,16 @@
 jQuery(document).ready(function(){
-
+console.log(language_message);
 	jQuery('#loginForm').validate({
         rules: {
             email : { required: true, email:true},
             password : { required : true }
         },
         messages :{
-            email : { required : "Please enter email address" , email: "Please enter a valid email address",},
-            password : { required : "Please enter password" }
+            email : { 
+            	required :language_message.enter_email,
+            	email: language_message.valid_email
+            },
+            password : { required : language_message.enter_pass }
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
@@ -31,13 +34,13 @@ jQuery(document).ready(function(){
 		        	{
 		        		if(json.response == 'verify')
 		        		{
-		        			jQuery('#fail_msg_header').html('Verify account');
-		        			jQuery('#go_to_login').html('Go to login');
+		        			jQuery('#fail_msg_header').html(language_message.verify_account);
+		        			jQuery('#go_to_login').html(language_message.go_to_login);
 		        		}
 		        		else
 		        		{
-		        			jQuery('#fail_msg_header').html('Invalid Email or Password');
-		        			jQuery('#go_to_login').html('Try again');
+		        			jQuery('#fail_msg_header').html(language_message.invalid_email_password_title);
+		        			jQuery('#go_to_login').html(language_message.try_again);
 		        		}
 
 		        		jQuery('#login_fail_msg').html(json.message)	        		
@@ -61,9 +64,9 @@ jQuery(document).ready(function(){
         },
         messages :{
         	email: {
-            	required: "Please enter your email address",
-                email: "Please enter a valid email address",
-                remote: "The email you entered did not match our records"
+            	required: language_message.enter_email,
+                email: language_message.valid_email,
+                remote: language_message.email_not_match
             }
         },
         submitHandler: function(form, event) {
@@ -80,7 +83,7 @@ jQuery(document).ready(function(){
 		        	var json = jQuery.parseJSON(response);
 		        	if(json.response == 'success')
 		        	{
-		        		jQuery('#recovery_header').html('Password Recovery');
+		        		jQuery('#recovery_header').html(language_message.recovery);
 		        		jQuery('#recovery_message').html(json.message);
 		        		jQuery('#dismissBtn').show();
 		        		jQuery('#go_to_recover_pass').hide();	        		
@@ -88,8 +91,8 @@ jQuery(document).ready(function(){
 		        	}
 		        	else
 		        	{
-		        		jQuery('#recovery_header').html('Forgot password error');
-		        		jQuery('#recoverPassSuccessBtn').html('Try again');
+		        		jQuery('#recovery_header').html(language_message.forgot_pass_error);
+		        		jQuery('#recoverPassSuccessBtn').html(language_message.try_again);
 
 		        		jQuery('#go_to_recover_pass').show();
 		        		jQuery('#dismissBtn').hide();
@@ -109,8 +112,11 @@ jQuery(document).ready(function(){
             confirm_password :{ required : true,equalTo: "#newPass"},
         },
         messages :{
-        	password :{ required : "Please enter password",minlength:"Please enter minimum 6 character password" },
-            confirm_password :{ required : "Please re-enter password" },
+        	password :{ 
+        		required : language_message.enter_pass,
+        		minlength:language_message.mini_char_pass 
+        	},
+            confirm_password :{ required : language_message.re_enter_pass},
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
@@ -137,10 +143,10 @@ jQuery(document).ready(function(){
 		        	}
 		        	else
 		        	{
-		        		jQuery('#recovery_header').html('Forgot password error');
+		        		jQuery('#recovery_header').html(language_message.forgot_pass_error);
 		        		if(json.response == 'fail')
 		        		{	        			
-		        			jQuery('#recoverPassSuccessBtn').html('Try again');
+		        			jQuery('#recoverPassSuccessBtn').html(language_message.try_again);
 		        		}
 		        		jQuery('#go_login').hide();	
 		        		jQuery('#go_to_recover_pass').show();
@@ -172,7 +178,7 @@ jQuery(document).ready(function(){
 	 	}else{
 	 		return true;
 	 	}
-    }, "Please enter valid phone number");
+    }, language_message.valid_phone);
 
    
     jQuery('#register_form').validate({
@@ -212,17 +218,29 @@ jQuery(document).ready(function(){
             company_url:{domain:true}
         },
         messages :{
-        	first_name: {required: "Please enter first name"},
-        	last_name: {required: "Please enter last name"},
-        	email: {required: 'Please enter email address',email: 'Please enter valid email address',remote: "This email is already in use"},
-        	phone:{required: "Please enter phone number",  checkData: 'Please enter valid phone number'},
-        	timezone: {required: "Please select timezone"},
-        	plan: {required: "Please select plan"},
-        	username: {required: "Please enter username",remote:'This username is already taken'},
-        	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
-            confirm_password :{ required : "Please re-enter password" },
-            company_email :{email:'Please enter valid email address'},
-            company_url:{domain: "Please enter valid url eg. www.example.com"}
+        	first_name: {required: language_message.enter_fname},
+        	last_name: {required:language_message.enter_lname},
+        	email: {
+        		required: language_message.enter_email ,
+        		email: language_message.valid_fname,
+        		remote: language_message.email_used},
+        	phone:{
+        		required:language_message.enter_phone,
+        		checkData: language_message.valid_phone
+        	},
+        	timezone: { required: language_message.select_timezone},
+        	plan: { required: language_message.select_plan },
+        	username: {
+        		required: language_message.enter_username,
+        		remote:language_message.username_already_used
+        	},
+        	password :{ 
+        		required : language_message.enter_pass ,
+        		minlength:language_message.mini_char
+        	},
+            confirm_password :{ required : language_message.re_enter_pass  },
+            company_email :{ email:language_message.valid_email },
+            company_url:{domain: language_message.invalid_company_url }
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
@@ -356,15 +374,22 @@ jQuery(document).ready(function(){
             company_url:{domain:true}
         },
         messages :{
-        	first_name: {required: "Please enter first name"},
-        	last_name: {required: "Please enter last name"},
-        	phone:{required: "Please enter phone number",  checkData: 'Please enter valid phone number'},
-        	timezone: {required: "Please select timezone"},
-        	password :{ minlength:"Minimum 6 character required" },
-        	new_password :{ required: "Please enter new password", minlength:"Minimum 6 character required" },
-        	confirm_password :{ required: "Please enter confirm password",equalTo:"New password and confirm passsword must be same"},
-            company_email :{email:'Please enter valid email address'},
-            company_url:{domain: "Please enter valid url eg. www.example.com"}
+        	first_name: {required: language_message.enter_fname},
+        	last_name: {required: language_message.enter_lname},
+        	phone:{
+        		required: language_message.enter_phone, 
+        		checkData: language_message.valid_phone},
+        	timezone: {required: language_message.select_timezone },
+        	password :{ minlength:language_message.mini_char},
+        	new_password :{ 
+        		required:language_message.enter_new_pass, 
+        		minlength:language_message.mini_char},
+        	confirm_password :{ 
+        		required: language_message.re_enter_pass,
+        		equalTo:language_message.equal_to_pass
+        	},
+            company_email :{ email:language_message.valid_email},
+            company_url:{domain:language_message.invalid_company_url}
         },
         submitHandler: function(form, event) {
         	if(jQuery("#edit_user_info").length)

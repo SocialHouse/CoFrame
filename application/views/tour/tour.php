@@ -23,6 +23,8 @@
 		</style>
 		
 		<script type="text/javascript">
+			var language_message = JSON.parse('<?php echo json_encode($this->lang->language); ?>');
+	        
 		    var base_url = "<?php echo base_url(); ?>";
 		</script>
 
@@ -377,26 +379,26 @@
 				{
 					jQuery('#go_login').hide();
 					jQuery('#recovery_header').html('');
-	        		jQuery('#recoverPassSuccessBtn').html('Try again');
+	        		jQuery('#recoverPassSuccessBtn').html(language_message.try_again);
 	        		jQuery('#go_to_revover_pass').show();
 	        		jQuery('#dismissBtn').hide();
-	        		jQuery('#recovery_message').html('Link has been expired.');
+	        		jQuery('#recovery_message').html(language_message.link_expired);
 	        		jQuery('#savePassword').modal('hide');	        		
 	        		jQuery('#recoverPasswordSuccess').modal('show');
 				}
 
 				if(verify && verify == 'success')
 				{
-					jQuery('#responseHeader').html('Verification successful');
-					jQuery('#responseMessage').html('You account is verified successfully.');
+					jQuery('#responseHeader').html(language_message.successful);
+					jQuery('#responseMessage').html(language_message.verificatio_successful);
 					jQuery('#verifyResponse').modal('show');
-					jQuery('#verifyResponseBtn').html('Go To Login');
+					jQuery('#verifyResponseBtn').html(language_message.go_to_login);
 				}
 
 				if(verify && verify == 'fail')
 				{
-					jQuery('#responseHeader').html('Verification error');
-					jQuery('#responseMessage').html('Unable to verify your account.');
+					jQuery('#responseHeader').html(language_message.error);
+					jQuery('#responseMessage').html(language_message.unable_to_verify_account);
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').hide();
 				}
@@ -408,8 +410,8 @@
 
 				if(is_user == 'fail')
 				{
-					jQuery('#responseHeader').html('Register error');
-					jQuery('#responseMessage').html('This url seems to be wrong please check email and try again.');
+					jQuery('#responseHeader').html(language_message.error);
+					jQuery('#responseMessage').html(language_message.wrong_url);
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').hide();
 				}

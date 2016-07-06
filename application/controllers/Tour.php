@@ -215,22 +215,22 @@ class Tour extends CI_Controller {
                 $mail_send = email_send($email, $subject,$content);
                 if($mail_send)
                 {
-                    echo json_encode(array('response' => 'success','message' => 'We’ve sent an email to '.$email.' with instructions on resetting your password.'));
+                    echo json_encode(array('response' => 'success','message' => str_replace('%email%', $email ,$this->lang->line('reset_pass_msg'))));
                 }
                 else
                 {
-                    echo json_encode(array('response' => 'fail', 'message' => 'Mail could not be send'));
+                    echo json_encode(array('response' => 'fail', 'message' => $this->lang->line('mail_sending_fail')));
                 }
             }
             catch(Exception $ex)
             {
-                echo json_encode(array('response' => 'fail', 'message' => 'Mail could not be send'));
+                echo json_encode(array('response' => 'fail', 'message' => $this->lang->line('mail_sending_fail')));
             }
             $url = 'welcome';
         }
         else
         {
-             echo json_encode(array('response' => 'not_exist', 'message' => 'Email address does not exist'));
+             echo json_encode(array('response' => 'not_exist', 'message' => $this->lang->line('email_not_exist')));
         }
     }
 
@@ -272,16 +272,16 @@ class Tour extends CI_Controller {
             if($status)
             {
                 $this->update_token(NULL,$user->id);
-                echo json_encode(array('response' => 'success','message' => 'Your password has been reset successfully'));
+                echo json_encode(array('response' => 'success','message' => $this->lang->line('password_reset_success')));
             }
             else
             {
-                echo json_encode(array('response' => 'faile','message' => 'Error in reseting password please try to reset once again'));
+                echo json_encode(array('response' => 'faile','message' => $this->lang->line('password_reset_error')));
             }
         }
         else
         {
-            echo json_encode(array('response' => 'faile','message' => 'Error in reseting password please try to reset once again'));
+            echo json_encode(array('response' => 'faile','message' => $this->lang->line('password_reset_error')));
         }
     }
 
@@ -347,7 +347,7 @@ class Tour extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
-            echo json_encode(array('response' => 'fail','message' => 'Validation fails'));
+            echo json_encode(array('response' => 'fail','message' => $this->lang->line('validation_fails')));
         }
         else
         {
@@ -374,12 +374,12 @@ class Tour extends CI_Controller {
                             'user_name' => $this->input->post('email'),
                             'user_id' => $inserted_id
                         );
-                $this->timeframe_model->insert_data('login_attempts',$login_attempt);                
-                echo json_encode(array('response' => 'success','message' => 'You have registered successfully and verification link sent to your email address'));
+                $this->timeframe_model->insert_data('login_attempts',$login_attempt);
+                echo json_encode(array('response' => 'success','message' => $this->lang->line('registered_success_link')));
             }
             else
             {
-                echo json_encode(array('response' => 'fail','message' => 'Unable to register user, Please try again'));
+                echo json_encode(array('response' => 'fail','message' => $this->lang->line('unable_to_register_user')));
             }
         }
     }
@@ -457,16 +457,16 @@ class Tour extends CI_Controller {
                     $this->timeframe_model->insert_data('login_attempts',$login_attempt);
 
                 }
-                echo json_encode(array('response' => 'success','message'=>'You have registered successfully'));
+                echo json_encode(array('response' => 'success','message'=>$this->lang->line('registered_success')));
             }
             else
             {
-                echo json_encode(array('response' => 'fail','message','Unable to register please try again'));
+                echo json_encode(array('response' => 'fail','message'=>$this->lang->line('unable_to_register_user')));
             }
         }
         else
         {
-           echo json_encode(array('response' => 'fail','message','Unable to register please try again'));
+           echo json_encode(array('response' => 'fail','message'=>$this->lang->line('unable_to_register_user')));
         }
 
     }

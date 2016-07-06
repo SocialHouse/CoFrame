@@ -203,16 +203,16 @@ class User_preferences extends CI_Controller {
 
 							$this->timeframe_model->update_data('user_info',$user_info,array('id' => $this->user_data['user_info_id']));
 
-							$this->session->set_flashdata('message','Plan changed successfully');
+							$this->session->set_flashdata('message',$this->lang->line('unable_to_change_plan'));
 			            }
 			            else
 			            {
-			            	$this->session->set_flashdata('error','Unable to change plan, Please try again');
+			            	$this->session->set_flashdata('error',$this->lang->line('unable_to_change_plan'));
 			            }
 			            redirect(base_url().'user_preferences/user_plan');
 			        }
 			        catch(Exception $ex){
-						$this->session->set_flashdata('error', 'Problem encountered while processing payment, please try again');
+						$this->session->set_flashdata('error', $this->lang->line('payment_processing_error'));
 
 						redirect(base_url().'user_preferences/user_plan');
 					}
@@ -334,12 +334,12 @@ class User_preferences extends CI_Controller {
 		                    $this->timeframe_model->update_data('user_info',$stripe_info,$condition);
 				    	}					
 
-						$this->session->set_flashdata('message', 'Thank you for your Subscription');
+						$this->session->set_flashdata('message', $this->lang->line('subscription_thank_you'));
 						redirect(base_url()."user_preferences/billing_info");
 					}
 				}
 				catch(Exception $ex){
-					$this->session->set_flashdata('error', 'Problem encountered while processing payment, please try again');
+					$this->session->set_flashdata('error', $this->lang->line('payment_processing_error'));
 					redirect(base_url()."user_preferences/billing_info");
 				}
 
