@@ -27,7 +27,7 @@ class User_preferences extends CI_Controller {
         $this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->email = $this->session->userdata('email');
-		$this->user_data = $this->session->userdata('user_info');		
+		$this->user_data = $this->session->userdata('user_info');
 	}
 
 	function index()
@@ -90,7 +90,7 @@ class User_preferences extends CI_Controller {
 				if($user_info->pass == $old_hashed_pass ){
 					$status = $this->aauth->update_user($this->user_id,'',$post_data['new_password'],'');
 				}else{
-					$this->session->set_flashdata('message', 'Your current password dose not match');
+					$this->session->set_flashdata('message', $this->lang->line('wrong_current_pass'));
 					redirect(base_url().'user_preferences/user_info');
 				}
 			}
