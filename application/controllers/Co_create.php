@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once('vendor/autoload.php');
+use OpenTok\OpenTok;
 
 class Co_create extends CI_Controller {
 
@@ -26,6 +28,7 @@ class Co_create extends CI_Controller {
 		$this->load->model('timeframe_model');
 		$this->load->model('post_model');
 		$this->load->model('brand_model');
+		$this->load->config('opentok');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 	}	
@@ -43,14 +46,18 @@ class Co_create extends CI_Controller {
 			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
 			
+			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));
+	        $session = $opentok->createSession();
+	        $this->data['sessionId']= $session->getSessionId();
+	        $this->data['token']= $session->generateToken();
+
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
-			$this->data['view'] = 'posts/co-create';
-			$this->data['layout'] = 'layouts/new_user_layout';		
-			
+			$this->data['view'] = 'co_create/co-create';
+			$this->data['layout'] = 'layouts/new_user_layout';
 			$this->data['background_image'] = 'bg-brand-management.jpg';
-			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css');
-			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
+			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css', css_url().'chat.css');
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0','https://static.opentok.com/v2/js/opentok.js',js_url().'co-create.js?ver=1.0.0');
 
 			_render_view($this->data);
 		}

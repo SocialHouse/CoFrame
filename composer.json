@@ -13,8 +13,9 @@
 	"require": {
 		"php": ">=5.2.4",
 		"stripe/stripe-php": "^3.9",
-		"google/apiclient": "^1.1"
-	},
+		"google/apiclient": "^1.1",
+		"opentok/opentok": "2.2.*"
+	},	
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"
 	}
