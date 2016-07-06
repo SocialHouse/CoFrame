@@ -340,6 +340,18 @@ jQuery(document).ready(function(){
         	phone:{checkData: true, required: true},
         	timezone: {required: true},
         	password :{ minlength:6 },
+        	new_password: {
+		        required: function(element){
+		            return $("#current_password").val().length > 0;
+		        },
+		        minlength:6
+		    },
+		    confirm_password: {
+		        required: function(element){
+		            return $("#current_password").val().length > 0;
+		        },
+		        equalTo: "#new_password"
+		    },
             company_email :{email: true},
             company_url:{domain:true}
         },
@@ -349,6 +361,8 @@ jQuery(document).ready(function(){
         	phone:{required: "Please enter phone number",  checkData: 'Please enter valid phone number'},
         	timezone: {required: "Please select timezone"},
         	password :{ minlength:"Minimum 6 character required" },
+        	new_password :{ required: "Please enter new password", minlength:"Minimum 6 character required" },
+        	confirm_password :{ required: "Please enter confirm password",equalTo:"New password and confirm passsword must be same"},
             company_email :{email:'Please enter valid email address'},
             company_url:{domain: "Please enter valid url eg. www.example.com"}
         },

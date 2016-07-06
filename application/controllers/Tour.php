@@ -56,12 +56,15 @@ class Tour extends CI_Controller {
                 $my_brand_id = get_my_brand($user->id);
                 if(empty($my_brand_id)){
                    // get_my_brand
-                    $create_by = $user->id;
+                    $created_by = $user_id;
                 }else{
                     $select ='created_by';
                     $table = 'brands';
                     $condition= array('id'=>$my_brand_id);
-                    $create_by = $this->timeframe_model->get_data_by_condition($table,$condition,$select);
+                    $result= $this->timeframe_model->get_data_by_condition($table,$condition,$select);
+                    if(!empty($result)){
+                         $created_by = $result[0]->created_by;
+                    }
                 }
 
                 $user_info = array(
@@ -73,7 +76,7 @@ class Tour extends CI_Controller {
                             'company_name' => $user->company_name,
                             'company_email' => $user->company_email,
                             'company_url' => $user->company_url,
-                            'created_by' => $create_by                            
+                            'created_by' => $created_by                            
                         );
 
                 $this->session->set_userdata('user_info',$user_info);

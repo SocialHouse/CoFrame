@@ -210,47 +210,51 @@ class Archives extends CI_Controller {
 
     function pdf_create( $html, $filename, $output_type = 'stream' )
     {
-    	
-    	// Remove all previously created headers if streaming output
-    	if( $output_type == 'stream' )
-    	{
-    		header_remove();
-    	}
-    	// Load dompdf and create object
-    	
-    	$options = new Options();
-    	$options->set('isRemoteEnabled', TRUE);
-    	$options->set('isJavascriptEnabled', TRUE);
-	    $dompdf = new Dompdf($options);
-	    
-	    // Loads an HTML string
+    	try {
+	    	// Remove all previously created headers if streaming output
+	    	if( $output_type == 'stream' )
+	    	{
+	    		header_remove();
+	    	}
+	    	// Load dompdf and create object
+	    	
+	    	$options = new Options();
+	    	$options->set('isRemoteEnabled', TRUE);
+	    	$options->set('isJavascriptEnabled', TRUE);
+		    $dompdf = new Dompdf($options);
+		    
+		    // Loads an HTML string
 
-        $dompdf->loadHtml( $html,'UTF-8' );
+	        $dompdf->loadHtml( $html,'UTF-8' );
 
 
-	    // Create the PDF
-	    $dompdf->render();
+		    // Create the PDF
+		    $dompdf->render();
 
-	   // $dompdf->set_base_path( css_url().'/style.css');
+		   // $dompdf->set_base_path( css_url().'/style.css');
 
-	    // If destination is the browser
-	    if( $output_type == 'stream' )
-	    {
-	    	// $dompdf->stream($filename);
-	    	// 0 = open in tab, 1 = download pdf file
-	    	$dompdf->stream($filename, array('Attachment'=>1));
-	    }
-	    // Return PDF as a string (useful for email attachments)
-	    else if( $output_type == 'string' )
-	    {
-	    	return $dompdf->output(1);
-	    }
-	    // If saving to the server
-	    else 
-	    {
-	        // Save the file
-	    	write_file( $filename, $dompdf->output() );
-	    }
+		    // If destination is the browser
+		    if( $output_type == 'stream' )
+		    {
+		    	// $dompdf->stream($filename);
+		    	// 0 = open in tab, 1 = download pdf file
+		    	$dompdf->stream($filename, array('Attachment'=>1));
+		    }
+		    // Return PDF as a string (useful for email attachments)
+		    else if( $output_type == 'string' )
+		    {
+		    	return $dompdf->output(1);
+		    }
+		    // If saving to the server
+		    else 
+		    {
+		        // Save the file
+		    	write_file( $filename, $dompdf->output() );
+		    }
+	    } catch (Exception $e){
+	    	echo $e;
+		  // echo '<pre>'; print_r($e);echo '</pre>'; 
+		}
 	}
 
 }

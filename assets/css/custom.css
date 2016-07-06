@@ -28,3 +28,19 @@ body.modal-open {
     overflow: hidden !important;
     overflow-y:hidden !important;
 }
+
+.btn-group .btn:last-child,.btn-group .btn:first-child  {
+    border-left:none !important;
+    border-right:none !important;
+}
+.btn-group-calendar, .btn-group {
+    background: #c0c0c0 none repeat scroll 0 0;
+    border-radius: 9px;
+    margin-right: 1rem;
+    padding: 4px;
+}
+
+.btn-group-calendar .btn:hover, .btn-group-calendar .btn.active, .btn-group .btn:hover, .btn-group .btn.active {
+    background: #fff none repeat scroll 0 0;
+    color: #000;
+}
