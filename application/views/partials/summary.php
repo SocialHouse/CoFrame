@@ -2,9 +2,9 @@
 $summary_posts = get_summary($brand_id);
 
 ?>
-<form action="<?php echo base_url().'calendar/day/'.$brand->slug; ?>" id="summary-form" method="post">
-	<input type="hidden" name="selected_date" id="selected_date" value="">
 	<div class="calendar-summary bg-gray-dark">
+	<form action="<?php echo base_url().'calendar/day/'.$brand->slug; ?>" id="summary-form" method="post">
+		<input type="hidden" name="selected_date" id="selected_date" value="">
 		<div id="calendar"></div>
 		<div class="today-summary">
 			<h5 class="border-title"><span>Summary</span></h5>
@@ -28,5 +28,5 @@ $summary_posts = get_summary($brand_id);
 				?>
 			</ul>
 		</div>
+	</form>
 	</div>
-</form>

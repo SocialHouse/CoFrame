@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>style.css" media="all">
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
-<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <?php    
 if(isset($css_files))
 {

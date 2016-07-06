@@ -27,7 +27,7 @@ class User_preferences extends CI_Controller {
         $this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->email = $this->session->userdata('email');
-		$this->user_data = $this->session->userdata('user_info');		
+		$this->user_data = $this->session->userdata('user_info');
 	}
 
 	function index()
@@ -39,7 +39,7 @@ class User_preferences extends CI_Controller {
 			$page = 'user_info';
 		}
 
-		$this->data['css_files'] = array(css_url().'intlTelInput.css',css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css');
+		$this->data['css_files'] = array(css_url().'intlTelInput.css',css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css',css_url().'custom.css');
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js', js_url().'reorder-brands.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'vendor/intlTelInput.min.js?ver=9.0.2', js_url().'user_preference.js?ver=2.11.0');
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
@@ -81,12 +81,18 @@ class User_preferences extends CI_Controller {
 	function edit_my_info()
 	{
 		$post_data = $this->input->post();
-		//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
+		$old_hashed_pass = $this->aauth->hash_password($post_data['current_password'],$this->user_id);
+		$user_info = $this->aauth->get_user();	
 		if(!empty($post_data['aauth_user_id']))
 		{
-			if(!empty($post_data['password']))
+			if(!empty($post_data['current_password']))
 			{
-				 $status = $this->aauth->update_user($this->user_id,'',$post_data['password'],'');
+				if($user_info->pass == $old_hashed_pass ){
+					$status = $this->aauth->update_user($this->user_id,'',$post_data['new_password'],'');
+				}else{
+					$this->session->set_flashdata('message', $this->lang->line('wrong_current_pass'));
+					redirect(base_url().'user_preferences/user_info');
+				}
 			}
 			
 			$condition = array('aauth_user_id'=>$this->user_id);

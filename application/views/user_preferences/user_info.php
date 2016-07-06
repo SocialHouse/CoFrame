@@ -34,6 +34,12 @@
 				<div class="form__success">Done!</div>
 				<div class="form__error">Error! <span></span></div>
 			</div>
+			<?php
+			    $message = $this->session->flashdata('message');
+			    if(!empty($message)){
+			       echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>';
+			    }
+			?>
 
 			<label class="section-label">Personal Info</label>
 			<div class="field-group">
@@ -85,12 +91,16 @@
 			<label class="section-label">Login Info</label>
 			<div class="field-group">
 				<fieldset class="form-group">
-					<label class="sr-only" for="userName">User Name</label>
-					<input type="text" readonly="readonly" class="form-control" id="userName" placeholder="User Name" name="username" value="<?php echo (!empty($user_details->name))? $user_details->name:''?>">
+					<label class="sr-only" for="password">Current Password</label>
+					<input type="password" class="form-control" id="current_password" placeholder="Current Password" name="current_password">
 				</fieldset>
 				<fieldset class="form-group">
-					<label class="sr-only" for="password">Password</label>
-					<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+					<label class="sr-only" for="password">New Password</label>
+					<input type="password" class="form-control" id="new_password" placeholder="New Password" name="new_password">
+				</fieldset>
+				<fieldset class="form-group">
+					<label class="sr-only" for="password">Confirm new Password</label>
+					<input type="password" class="form-control" id="confirm_password" placeholder="Confirm new Password" name="confirm_password">
 				</fieldset>
 			</div>
 			<label class="section-label">Master Admin Info</label>
@@ -115,6 +125,7 @@
 		?>
 	</div>
 </div>
+
 <div class="page-divider" ></div>
 
 

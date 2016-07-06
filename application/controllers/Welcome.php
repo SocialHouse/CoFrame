@@ -23,7 +23,16 @@ class Welcome extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
-        $this->load->model('timeframe_model');        
+        $this->load->model('timeframe_model');
+        $this->load->helper('url');       
+    }
+
+
+    function switch_language($language = "") {
+        $language = ($language != "") ? $language : "english";
+        $this->session->set_userdata('site_lang', $language);
+        //redirect(base_url());
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     public function index()

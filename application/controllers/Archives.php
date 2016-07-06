@@ -83,6 +83,7 @@ class Archives extends CI_Controller {
 				$tags = $post_data['post-tag'];
 			}
 
+			//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
 
 			$daterange =[];			
 			switch ($post_data['exportDate']) {
@@ -132,11 +133,13 @@ class Archives extends CI_Controller {
 				{
 					if(!empty($posts))
 					{
+						ob_start();
 						$this->data['brand_id'] = $brand_id;
 						$this->data['post_details'] = $posts;
 						//$this->load->view('archives/pdf_export', $this->data);
 						$html = $this->load->view('archives/pdf_export', $this->data, true);
 						$this->pdf_create( $html,$brand_id.'.pdf');
+						ob_end_flush();
 					}
 					
 				}
@@ -152,13 +155,17 @@ class Archives extends CI_Controller {
 			}
 			else
 			{
-				$this->session->set_flashdata('message', 'No result found.');
-				redirect(base_url().'archives/'.$slug);
+				if($slug != '_no'){
+					$this->session->set_flashdata('message', 'No result found.');
+					redirect(base_url().'archives/'.$slug);					
+				}
 			}
 		}
 		else
 		{
-			redirect(base_url().'archives/'.$slug);
+			if($slug != '_no'){
+				redirect(base_url().'archives/'.$slug);
+			}
 		}
 		
 	}
@@ -203,47 +210,51 @@ class Archives extends CI_Controller {
 
     function pdf_create( $html, $filename, $output_type = 'stream' )
     {
-    	
-    	// Remove all previously created headers if streaming output
-    	if( $output_type == 'stream' )
-    	{
-    		header_remove();
-    	}
-    	// Load dompdf and create object
-    	
-    	$options = new Options();
-    	$options->set('isRemoteEnabled', TRUE);
-    	$options->set('isJavascriptEnabled', TRUE);
-	    $dompdf = new Dompdf($options);
-	    
-	    // Loads an HTML string
+    	try {
+	    	// Remove all previously created headers if streaming output
+	    	if( $output_type == 'stream' )
+	    	{
+	    		header_remove();
+	    	}
+	    	// Load dompdf and create object
+	    	
+	    	$options = new Options();
+	    	$options->set('isRemoteEnabled', TRUE);
+	    	$options->set('isJavascriptEnabled', TRUE);
+		    $dompdf = new Dompdf($options);
+		    
+		    // Loads an HTML string
 
-        $dompdf->loadHtml( $html,'UTF-8' );
+	        $dompdf->loadHtml( $html,'UTF-8' );
 
 
-	    // Create the PDF
-	    $dompdf->render();
+		    // Create the PDF
+		    $dompdf->render();
 
-	   // $dompdf->set_base_path( css_url().'/style.css');
+		   // $dompdf->set_base_path( css_url().'/style.css');
 
-	    // If destination is the browser
-	    if( $output_type == 'stream' )
-	    {
-	    	// $dompdf->stream($filename);
-	    	// 0 = open in tab, 1 = download pdf file
-	    	$dompdf->stream($filename, array('Attachment'=>1));
-	    }
-	    // Return PDF as a string (useful for email attachments)
-	    else if( $output_type == 'string' )
-	    {
-	    	return $dompdf->output(1);
-	    }
-	    // If saving to the server
-	    else 
-	    {
-	        // Save the file
-	    	write_file( $filename, $dompdf->output() );
-	    }
+		    // If destination is the browser
+		    if( $output_type == 'stream' )
+		    {
+		    	// $dompdf->stream($filename);
+		    	// 0 = open in tab, 1 = download pdf file
+		    	$dompdf->stream($filename, array('Attachment'=>1));
+		    }
+		    // Return PDF as a string (useful for email attachments)
+		    else if( $output_type == 'string' )
+		    {
+		    	return $dompdf->output(1);
+		    }
+		    // If saving to the server
+		    else 
+		    {
+		        // Save the file
+		    	write_file( $filename, $dompdf->output() );
+		    }
+	    } catch (Exception $e){
+	    	echo $e;
+		  // echo '<pre>'; print_r($e);echo '</pre>'; 
+		}
 	}
 
 }
