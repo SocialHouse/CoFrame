@@ -345,7 +345,7 @@ if(!function_exists('replace_with_expression'))
         {
             foreach($output[0] as $out)
             {
-                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+                $string = str_replace($out,'<a href="#">'.$out.'</a>',$string);
             }
         }
 
@@ -354,7 +354,7 @@ if(!function_exists('replace_with_expression'))
         {
             foreach($output[0] as $out)
             {
-                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+                $string = str_replace($out,'<a href="#">'.$out.'</a>',$string);
             }
         }
 
@@ -363,7 +363,7 @@ if(!function_exists('replace_with_expression'))
         {
             foreach($output[0] as $out)
             {
-                $string = str_replace($out,'<a class="anchor_color" href="#">'.$out.'</a>',$string);
+                $string = str_replace($out,'<a href="#">'.$out.'</a>',$string);
             }
         }
 

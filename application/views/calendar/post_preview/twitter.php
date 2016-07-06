@@ -11,14 +11,14 @@ if(!empty($post_images)){
 	}
 ?>
 <div id="outlet_2">
-	<div class="twitter-post">
+	<div class="clearfix">
 		<div class="pull-left" style="margin-right: 8px">
 			<?php 
 				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
-                }else{
-                	echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
-                }
+					echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
+				   }else{
+					echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
+				   }
 			?>
 		</div>
 		<div  class="pull-left" style="margin-bottom:2px">
@@ -42,7 +42,7 @@ if(!empty($post_images)){
 					if(!empty($post_images)){
 						if($img_count == 1 && $post_images[0]->type == 'video'){
 							echo '<video autobuffer autoloop loop controls width="100%" >
-									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'">
+								<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'">
 									<object type="'.$post_images[0]->mime.'">
 										<param name="src" value="/media/video.oga">
 										<param name="autoplay" value="false">
@@ -151,23 +151,6 @@ if(!empty($post_images)){
 					}
 				?>
 			</div>
-			<div class="clearfix"></div>
-			<div class="twitter-bottom-div">
-				<div class="pull-left">
-					<i class="fa fa-mail-reply"></i>
-					<span></span>
-				</div>
-				<div class="pull-left margin-left-15">
-					<i class="fa fa-refresh"></i>
-				</div>
-				<div class="pull-left margin-left-15">
-					<i class="fa fa-heart"></i>
-				</div>
-				<div class="pull-left margin-left-15">
-					<i class="fa fa-ellipsis-h"></i>
-				</div>
-			</div>
 		</div>
-		<div class="clearfix"></div>
 	</div>
 </div>

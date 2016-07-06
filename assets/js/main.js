@@ -98,7 +98,7 @@ jQuery(function($) {
 		$('.outlet_ul li:first').toggleClass('disabled');
 		$('.outlet_ul li:first').siblings().addClass('disabled');
 		$('#postOutlet').val(outlet_id);
-		$('#postOutlet').attr('data-outlet-const',outlet_const);		
+		$('#postOutlet').attr('data-outlet-const',outlet_const);
 		createPreview();
 
 		equalColumns();
@@ -117,16 +117,7 @@ jQuery(function($) {
 				}else{
 					$('#postCopy').removeAttr('maxlength');
 				}
-
-				
-				// var upload_element = '<input type="file" multiple="" data-multiple-caption="{count} files selected" class="form__file" id="postFile" name="files[]">';
-				// upload_element += '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>'
-				// upload_element += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
-				// $('.form__input').removeClass('has-files');
-				// $('.form__input').empty();
-				// $('.form__input').append(upload_element);
-				
-				// createPreview();
+				setOutletPreview(outlet);
 			}
 		});
 
@@ -1698,17 +1689,48 @@ jQuery(function($) {
 	};
 	//live preview		
 	function createPreview(){
+		var postOutletClass;
 		$('#live-post-preview').empty();
 		$('.no-of-photos').html('');
     	var outlet_id = $('#postOutlet').val();
     	var selected_outlet = $('#postOutlet').attr('data-outlet-const');
-    	var post_copy;
+
+		setOutletPreview(selected_outlet);
+    	
+		var post_copy;
     	if($('#postCopy').val())
     		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
     	$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
     	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());    	
     }
 
+	function setOutletPreview(outlet) {
+		if(outlet === "facebook") {
+			postOutletClass = 'fb_post';
+		}
+		else if(outlet === "instagram") {
+			postOutletClass = 'ig_post';
+		}
+		else if(outlet === "linkedin") {
+			postOutletClass = 'in_post';
+		}
+		else if(outlet === "pinterest") {
+			postOutletClass = 'pn_post';
+		}
+		else if(outlet === "tumbler") {
+			postOutletClass = 'tb_post';
+		}
+		else if(outlet === "twitter") {
+			postOutletClass = 'tw_post';
+		}
+		else if(outlet === "vine") {
+			postOutletClass = 'vn_post';
+		}
+		else if(outlet === "youtube") {
+			postOutletClass = 'yu_post';
+		}
+		$('#live-post-preview').attr('class', postOutletClass);
+	}
     $(document).on('keyup','#postCopy',function(){
     	var post_copy = $(this).val();
     	post_copy = convertToLink(post_copy);
@@ -2207,17 +2229,17 @@ jQuery(function($) {
 
 	function convertToLink(text) {
 		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
-		return text.replace(exp,"<a class='anchor_color' href='$1'>$1</a>");
+		return text.replace(exp,"<a href='$1'>$1</a>");
 	}
 
 	function hashtagToLink(text) {
 		var exp = /(?:^|\W)#(\w+)(?!\w)/g;
-		return text.replace(exp,"<a class='anchor_color' href='$1'> #$1</a>");
+		return text.replace(exp,"<a href='$1'> #$1</a>");
 	}
 
 	function atToLink(text) {
 		var exp = /(?:^|\W)@(\w+)(?!\w)/g;
-		return text.replace(exp,"<a class='anchor_color' href='$1'> @$1</a>");
+		return text.replace(exp,"<a href='$1'> @$1</a>");
 	}
 
 	function setUserTime() {

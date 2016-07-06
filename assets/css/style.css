@@ -3233,7 +3233,7 @@ button.close {
 @media (min-width: 1024px) {
   .modal-lg {
     width: 1470px; } }
-.clearfix::after {
+.clearfix::after, .img-div::after, .img-wrapper::after, .tw_post .img-div::after {
   content: "";
   display: table;
   clear: both; }
@@ -8502,6 +8502,108 @@ x:-o-prefocus, .qtip .qtip-tip {
   src: url("../fonts/bebasneue_thin-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/bebasneue_thin-webfont.woff2") format("woff2"), url("../fonts/bebasneue_thin-webfont.woff") format("woff"), url("../fonts/bebasneue_thin-webfont.ttf") format("truetype"), url("../fonts/bebasneue_thin-webfont.svg#bebas_neuethin") format("svg");
   font-weight: normal;
   font-style: normal; }
+/* Scss Document */
+.img-div, .img-wrapper {
+  position: relative;
+  overflow: hidden; }
+
+.more-images {
+  position: absolute;
+  color: #fff;
+  font-size: 35px;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center; }
+
+.post_copy_text {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word; }
+
+/*Facebook Post Styles*/
+.fb_post {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 14px;
+  padding: 12px; }
+  .fb_post .user-profile-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 8px; }
+  .fb_post .post-user-name {
+    font-weight: bold;
+    color: #365899;
+    display: block;
+    margin-bottom: 2px;
+    line-height: 1.38; }
+  .fb_post .time-color {
+    font-size: 12px;
+    color: #90949c;
+    display: block;
+    line-height: 1.34; }
+  .fb_post a {
+    color: #365899;
+    font-family: helvetica, arial, sans-serif; }
+  .fb_post .post_copy_text {
+    display: block;
+    margin: 11px 0; }
+  .fb_post .no-of-photos {
+    color: #90949c;
+    font-weight: normal; }
+  .fb_post .photos_count {
+    color: #365899; }
+  .fb_post .img-div {
+    margin: -1px; }
+    .fb_post .img-div .img-item {
+      float: left;
+      position: relative; }
+    .fb_post .img-div img {
+      border: 1px solid #fff; }
+
+/*Instagram Post Styles*/
+/*Linkedin Post Styles*/
+/*Pinterest Post Styles*/
+/*Tumblr Post Styles*/
+/*Twitter Post Styles*/
+.tw_post {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 9px 12px; }
+  .tw_post .user-profile-img {
+    width: 48px;
+    margin-right: 10px; }
+    .tw_post .user-profile-img img {
+      max-width: 100%; }
+  .tw_post .user-profile-details {
+    margin-left: 58px; }
+  .tw_post .post-user-name {
+    font-weight: bold;
+    display: block;
+    line-height: 1.38; }
+  .tw_post .time-color {
+    font-weight: normal;
+    font-size: 13px;
+    color: #8899a6;
+    line-height: 17px; }
+  .tw_post a {
+    color: #0084B4;
+    font-family: Arial, sans-serif; }
+  .tw_post .post_copy_text {
+    display: block;
+    font-size: 26px;
+    line-height: 32px; }
+  .tw_post .no-of-photos {
+    color: #8899a6;
+    font-weight: normal; }
+  .tw_post .photos_count {
+    color: #365899; }
+  .tw_post .img-div {
+    margin-top: 10px; }
+
+/*Vine Post Styles*/
+/*Youtube Post Styles*/
 * {
   backface-visibility: visible;
   -webkit-backface-visibility: visible; }
@@ -11179,28 +11281,15 @@ textarea.form-control {
   transform: scale(0); }
 
 /*ADDITIONAL STYLES*/
-/*fb preview*/
 .post-container {
-  max-height: 500px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  font-family: sans-serif !important;
-  text-transform: capitalize !important;
-  color: #000 !important;
-  font-weight: normal !important;
-  letter-spacing: 0.2px !important; }
+  text-transform: none;
+  letter-spacing: normal; }
 
 .padding_5 {
   padding: 5px 5px 5px 5px; }
 
 .margin-bottom-10 {
   margin-bottom: 10px; }
-
-.user-img-border {
-  border: 1px solid rgba(0, 0, 0, 0.1); }
-
-.user-profile-img {
-  height: 25px;
-  width: 25px; }
 
 .padding-left-5 {
   padding-left: 5px; }
@@ -11218,56 +11307,22 @@ textarea.form-control {
   font-weight: bold;
   font-size: 8px; }
 
-.post-user-name {
-  font-weight: bold;
-  font-size: 10px;
-  color: #365899;
-  letter-spacing: 0.2px !important; }
-
-.time-color {
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: normal !important;
-  font-size: 8px !important;
-  letter-spacing: 0.5px !important; }
-
-.img-div {
-  min-height: auto; }
-
 .post-img {
   min-width: 150px; }
-
-.post_copy_text {
-  text-transform: none !important; }
 
 .hide {
   display: none; }
 
 .width_50 {
-  height: 135px;
-  width: 50%;
-  padding: 0.5px 0.5px 0.5px 0.5px; }
+  width: 50%; }
 
 .width_33 {
-  height: 75px;
-  width: 32%;
-  padding: 0.5px 0.5px 0.5px 0.5px; }
+  width: 33.33333%; }
 
 .width_25 {
   height: 75px;
   width: 25%;
   padding: 0.5px 0.5px 0.5px 0.5px; }
-
-.more-images {
-  position: absolute;
-  color: white;
-  font-size: 16px;
-  margin-top: -50px;
-  margin-left: 75%;
-  font-weight: bold; }
-
-.no-of-photos {
-  text-transform: none;
-  color: rgba(0, 0, 0, 0.6); }
 
 .photos_count {
   color: #365899 !important; }
@@ -11320,49 +11375,22 @@ textarea.form-control {
   text-transform: none !important; }
 
 /*Twitter*/
-.twitter_username {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 10px; }
-
-.twitter-user-info {
-  font-size: 10px;
-  min-height: 40px; }
-
-.twitter-post {
-  max-height: 400px;
-  min-height: 50px;
-  padding: 15px 15px 15px 15px;
-  text-transform: none !important;
-  letter-spacing: 0.5px !important;
-  font-family: Arial, sans-serif !important; }
-
-.twitter-post-img {
-  max-width: 191px;
-  max-height: 300px;
-  height: auto; }
-
-.twitter-bottom-div {
-  height: 20px;
-  border: 1px solid #1212;
-  margin-top: 8px;
-  color: rgba(0, 0, 0, 0.5); }
-
 .img-radious {
-  border-radius: 3px; }
+  border-radius: 5px; }
 
 .img-radious-left {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px; }
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; }
 
 .img-radious-right {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px; }
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px; }
 
 .img-radious-right-bottom {
-  border-bottom-right-radius: 3px; }
+  border-bottom-right-radius: 5px; }
 
 .img-radious-right-top {
-  border-top-right-radius: 3px; }
+  border-top-right-radius: 5px; }
 
 .width_30 {
   width: 30%; }
@@ -11384,14 +11412,6 @@ textarea.form-control {
 .height_135 {
   height: 135px !important; }
 
-.section1 {
-  float: left;
-  width: 65%; }
-
-.section2 {
-  float: left;
-  width: 35%; }
-
 .section1 img, .section2 img {
   width: 100%; }
 
@@ -11405,9 +11425,6 @@ textarea.form-control {
 
 .user-upload-img {
   font-style: italic; }
-
-.anchor_color {
-  color: #0000EE; }
 
 #add-brand-details .error {
   color: red;

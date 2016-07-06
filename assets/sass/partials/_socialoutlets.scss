@@ -1,0 +1,145 @@
+/* Scss Document */
+.img-div, .img-wrapper {
+	@extend .clearfix;
+	position: relative;
+	overflow: hidden;
+}
+.more-images {
+  position: absolute;
+  color: #fff;
+  font-size: 35px;
+  background: rgba(0, 0, 0, .4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.post_copy_text {
+	-ms-word-break: break-all;
+    word-break: break-all;
+	word-break: break-word;
+}
+
+/*Facebook Post Styles*/
+.fb_post {
+	font-family: $fb-font;
+	font-size: 14px;
+	padding: 12px;
+	.user-profile-img {
+		height: 40px;
+		width: 40px;
+		margin-right: 8px;
+	}
+	.post-user-name {
+		font-weight: bold;
+		color: $fb-link;
+		display: block;
+		margin-bottom: 2px;
+		line-height: 1.38;
+	}
+	.time-color {
+		font-size: 12px;
+		color: $fb-light;
+		display: block;
+		line-height: 1.34;
+	}
+	a {
+		color: $fb-link;
+		font-family: $fb-font;
+	}
+	.post_copy_text {
+		display: block;
+		margin: 11px 0;
+	}
+	.no-of-photos {
+		color: $fb-light;
+		font-weight: normal;
+	}
+	.photos_count {
+		color: $fb-link;
+	}
+	.img-div {
+		margin: -1px;
+		.img-item {
+			float: left;
+			position: relative;
+		}
+		img {
+			border: 1px solid #fff;
+		}
+	}
+}
+
+/*Instagram Post Styles*/
+.ig_post {
+}
+
+/*Linkedin Post Styles*/
+.in_post {
+}
+
+/*Pinterest Post Styles*/
+.pn_post {
+}
+
+/*Tumblr Post Styles*/
+.tb_post {
+}
+
+/*Twitter Post Styles*/
+.tw_post {
+	font-family: $tw-font;
+	font-size: 14px;
+	padding: 9px 12px;
+	.user-profile-img {
+		width: 48px;
+		margin-right: 10px;
+		img {
+			max-width: 100%;
+		}
+	}
+	.user-profile-details {
+		margin-left: 58px;
+	}
+	.post-user-name {
+		font-weight: bold;
+		display: block;
+		line-height: 1.38;
+	}
+	.time-color {
+		font-weight: normal;
+		font-size: 13px;
+		color: $tw-light;
+		line-height: 17px;
+	}
+	a {
+		color: $tw-link;
+		font-family: $tw-font;
+	}
+	.post_copy_text {
+		display: block;
+		font-size: 26px;
+		line-height: 32px;
+	}
+	.no-of-photos {
+		color: $tw-light;
+		font-weight: normal;
+	}
+	.photos_count {
+		color: $fb-link;
+	}
+	.img-div {
+		margin-top: 10px;
+		@extend .clearfix;
+	}
+}
+
+/*Vine Post Styles*/
+.vn_post {
+}
+
+/*Youtube Post Styles*/
+.yu_post {
+}
