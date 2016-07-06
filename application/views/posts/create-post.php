@@ -53,17 +53,7 @@
 									</ul>
 									<?php
 								}
-							?>	
-<ul class="pull-sm-left outlet_ul">
-				<li class="disabled" data-selected-outlet="facebook" data-outlet-const="facebook"><i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i></li>
-				<li class="disabled" data-selected-outlet="twitter" data-outlet-const="twitter"><i class="fa fa-twitter"><span class="bg-outlet bg-twitter"></span></i></li>
-				<li class="disabled" data-selected-outlet="instagram" data-outlet-const="instagram"><i class="fa fa-instagram"><span class="bg-outlet bg-instagram"></span></i></li>
-				<li class="disabled" data-selected-outlet="linkedin" data-outlet-const="linkedin"><i class="fa fa-linkedin"><span class="bg-outlet bg-linkedin"></span></i></li>
-				<li class="disabled" data-selected-outlet="vimeo" data-outlet-const="vimeo"><i class="fa fa-vimeo"><span class="bg-outlet bg-vimeo"></span></i></li>
-				<li class="disabled" data-selected-outlet="pinterest" data-outlet-const="pinterest"><i class="fa fa-pinterest"><span class="bg-outlet bg-pinterest"></span></i></li>
-				<li class="disabled" data-selected-outlet="tumblr" data-outlet-const="tumblr"><i class="fa fa-tumblr"><span class="bg-outlet bg-tumblr"></span></i></li>
-				<li class="disabled" data-selected-outlet="youtube" data-outlet-const="youtube"><i class="fa fa-youtube-play"><span class="bg-outlet bg-youtube"></span></i></li>
-			</ul>														
+							?>								
 							<input type="hidden" id="postOutlet" name="post_outlet">
 						</div>
 					</div>
