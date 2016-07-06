@@ -28,7 +28,8 @@ console.log(language_message);
 		        	var json = jQuery.parseJSON(response);
 		        	if(json.response == 'success')
 		        	{
-		        		window.location.href = base_url+"brands/overview";
+						jQuery('#loginModal').modal('hide');
+						window.location.href = base_url+"brands/overview";
 		        	}
 		        	else
 		        	{
