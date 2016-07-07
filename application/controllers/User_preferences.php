@@ -81,6 +81,7 @@ class User_preferences extends CI_Controller {
 	function edit_my_info()
 	{
 		$post_data = $this->input->post();
+		$email_notification = $desktop_notification = $urgent_notification = 1 ;
 		$old_hashed_pass = $this->aauth->hash_password($post_data['current_password'],$this->user_id);
 		$user_info = $this->aauth->get_user();	
 		if(!empty($post_data['aauth_user_id']))
@@ -94,6 +95,19 @@ class User_preferences extends CI_Controller {
 					redirect(base_url().'user_preferences/user_info');
 				}
 			}
+
+			if(!empty($post_data['email_notification']) && $post_data['email_notification'] == 'yes' )
+			{
+				$email_notification = 0;
+			}
+			if(!empty($post_data['desktop_notification']) && $post_data['desktop_notification'] == 'yes' )
+			{
+				$desktop_notification = 0;
+			}
+			if(!empty($post_data['urgent_notification']) && $post_data['urgent_notification'] == 'yes' )
+			{
+				$urgent_notification = 0;
+			}
 			
 			$condition = array('aauth_user_id'=>$this->user_id);
 			
@@ -105,6 +119,9 @@ class User_preferences extends CI_Controller {
 							'company_name' => $post_data['company_name'],
 							'company_email' => $post_data['company_email'],
 							'company_url' => $post_data['company_url'],
+							'email_notification' =>$email_notification,
+							'desktop_notification' =>$desktop_notification,
+							'urgent_notification' =>$urgent_notification
 						);
             $this->timeframe_model->update_data('user_info',$user_data,$condition);
            

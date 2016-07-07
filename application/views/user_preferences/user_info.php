@@ -4,7 +4,6 @@
 		$this->load->view('user_preferences/preference_nav');
 	
 		if(!empty($user_details)){
-
 			$image ='';
 			$cls= 'hide';
 			if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$user_details->id.'.png'))
@@ -12,6 +11,19 @@
 				$path = upload_url().$this->user_data['created_by'].'/users/'.$user_details->id.'.png?'.uniqid();
 				$image = '<img src="'.$path.'">';
 				$cls ='';
+			}
+
+			$email_check = '';
+			$desktop_check = '';
+			$urgent_check = '';
+			if($user_details->email_notification == '0'){
+				$email_check = 'checked="checked"';
+			}
+			if($user_details->desktop_notification == '0'){
+				$desktop_check = 'checked="checked"';
+			}
+			if($user_details->urgent_notification == '0'){
+				$urgent_check = 'checked="checked"';
 			}
 		?>
 			<form action="<?php echo base_url();?>User_preferences/edit_my_info" method="post" id="edit_user_info">
@@ -103,6 +115,7 @@
 					<input type="password" class="form-control" id="confirm_password" placeholder="Confirm new Password" name="confirm_password">
 				</fieldset>
 			</div>
+
 			<label class="section-label">Master Admin Info</label>
 			<div class="field-group">
 				<fieldset class="form-group">
@@ -118,6 +131,21 @@
 					<input type="text" class="form-control" id="companyURL" placeholder="Company URL" name="company_url" value="<?php echo (!empty($user_details->company_url))? $user_details->company_url:''?>">
 				</fieldset>
 			</div>
+			<label class="section-label">Notification</label>
+			<div class="field-group" style="float:left">
+				<fieldset class="form-group">
+					<label>
+						<input type="checkbox" value="yes" <?php echo $email_check ?> name="email_notification" >&nbsp;Email &nbsp;
+					</label>
+					<label>
+						<input type="checkbox" value="yes" <?php echo $desktop_check ?> name="desktop_notification" >&nbsp;Desktop &nbsp;
+					</label>
+					<label>
+						<input type="checkbox" value="yes" <?php echo $urgent_check ?> name="urgent_notification" >&nbsp;Urgent &nbsp;
+					</label>
+				</fieldset>
+			</div>
+			<div class="clearfix" ></div>
 			<button type="submit" class="btn btn-secondary btn-sm">Save Changes</button>
 		</form>
 			<?php			

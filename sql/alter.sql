@@ -391,3 +391,7 @@ ALTER TABLE `co_create_requests` ADD `user_id` INT NOT NULL ;
 
 ALTER TABLE `timezone` ADD `abbreviation` VARCHAR(50) NULL AFTER `value`;
 
+ALTER TABLE `user_info` ADD `email_notification` TINYINT NOT NULL DEFAULT '0' AFTER `plan`, ADD `urgent_notification` TINYINT NOT NULL DEFAULT '0' AFTER `email_notification`, ADD `desktop_notification` TINYINT NOT NULL DEFAULT '0' AFTER `urgent_notification`;
+
+
+ALTER TABLE `user_info` CHANGE `email_notification` `email_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive', CHANGE `urgent_notification` `urgent_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive', CHANGE `desktop_notification` `desktop_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive';
