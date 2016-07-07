@@ -137,7 +137,7 @@ class Co_create extends CI_Controller {
 			if(!empty($post_data['selected_users']))
 			{
 				$subject = "Co create requst";
-				$message = "To join co create click below link <br/> <a href=".base_url()."tour/join-co-crate/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
+				$message = "To join co create click below link <br/> <a href=".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
 				foreach($post_data['selected_users'] as $email)
 				{
 					email_send($email,$subject,$message);
