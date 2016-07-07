@@ -97,7 +97,7 @@ $autoload['helper'] = array('url','timeframe','asset','form');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('asset','mail','stripe');
+$autoload['config'] = array('asset','mail','stripe','timeframe_config');
 
 /*
 | -------------------------------------------------------------------
