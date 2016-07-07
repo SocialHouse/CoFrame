@@ -32,7 +32,7 @@
 	var base_url = "<?php echo base_url(); ?>";
 	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 </script>
-<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json?ver=4.0.0'></script>
+<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
 <script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
