@@ -65,27 +65,81 @@
 					var fileInput = this;
 					var error = 'false';
 
-
-
 					showFiles( e.target.files,this);
-						droppedFiles = e.target.files; // the files that were dropped				
+					droppedFiles = e.target.files; // the files that were dropped
 						
-						$.each(droppedFiles, function (index, file) {
-							
-							var file_type = file.type.split('/');
-							if($.inArray(file_type[1] ,supported_files) == -1){
+					$.each(droppedFiles, function (index, file) {
+
+						var file_type = file.type.split('/');
+						if($.inArray(file_type[1] ,supported_files) == -1){
+							alert('Invalid file extention');
+							return false;
+						};
+						if( file_type[0]== 'image'){
+							if( file.size > 1000000){
+								alert('Image size should be less than 2 MB');
+								return false;
+							}
+							if($fileDiv.find('video').length > 0){
 								alert('Invalid file extention');
 								return false;
-							};
-							if( file_type[0]== 'image'){
-								if( file.size > 1000000){
-									alert('Image size should be less than 2 MB');
-									return false;
-								}
-								if($fileDiv.find('video').length > 0){
+							}				
+							if($(fileInput).parents('.brand-image').length)
+							{
+								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+								allFiles = [];
+							}
+							if($(fileInput).parents('.user_upload_img_div').length)
+							{
+								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+								$('.remove-user-img').show();
+								allFiles =[];
+							}							
+
+							var img = document.createElement('img');
+							var preview_img = document.createElement('img');					
+							img.className = 'form__file-preview';
+
+							var imgDiv = document.createElement('div');
+							imgDiv.className = 'form__preview-wrapper';
+							$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+							$(imgDiv).append(img);
+								
+							$fileDiv.prepend(imgDiv).addClass('has-files');
+
+							// set  data (data-preview-number) to image tag for deleting image 
+							total_images = $('img.form__file-preview').length;
+							$(img).attr('data-preview-number',total_images);
+							var reader = new FileReader();
+							reader.readAsDataURL(file);
+							reader.onload = function (e) {
+								img.src = e.target.result;
+								file.img_src = e.target.result;
+								allFiles.push(file);
+								changePreview(file,'image');
+			                };	                
+
+							//to sho user uploded img on add role page
+							if($('.user-img-preview').length)
+							{
+								$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
+							}
+
+						//for show preview
+						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
+							if( file.size > 104857600){
+								alert('Video size should be less than 100 MB');
+								return false;
+							}
+							if($('.form__file-preview').length >= 1){
+
+								if(file_type[0] =='video'){
+									alert('You can\'t add more than 1 video');
+								}else{
 									alert('Invalid file extention');
-									return false;
-								}				
+								}
+								return false;
+							}else{
 								if($(fileInput).parents('.brand-image').length)
 								{
 									$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
@@ -96,95 +150,37 @@
 									$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
 									$('.remove-user-img').show();
 									allFiles =[];
-								}							
+								}
 
-								var img = document.createElement('img');
-								var preview_img = document.createElement('img');					
-								img.className = 'form__file-preview';
+								var video = document.createElement('video');
+								video.className = 'form__file-preview';									
+								var videoDiv = document.createElement('div');
+								videoDiv.className = 'form__preview-wrapper';
+								$(videoDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+								$(videoDiv).append(video);
 
-								// img.src = window.URL.createObjectURL(file);
-								var imgDiv = document.createElement('div');
-								imgDiv.className = 'form__preview-wrapper';
-								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
-								$(imgDiv).append(img);
-								
-								$fileDiv.prepend(imgDiv).addClass('has-files');
+								$fileDiv.prepend(videoDiv).addClass('has-files');
 
-								// set  data (data-preview-number) to image tag for deleting image 
-								total_images = $('img.form__file-preview').length;
-								$(img).attr('data-preview-number',total_images);
 								var reader = new FileReader();
 								reader.readAsDataURL(file);
 								reader.onload = function (e) {
-									img.src = e.target.result;
+									video.src = e.target.result;
 									file.img_src = e.target.result;
-									allFiles.push(file);
-									changePreview(file,'image');
-				                }				                
+				                	allFiles.push(file);				                	
+									//for show preview								
+									changePreview(file,'video');								
+				                }
 
-								//to sho user uploded img on add role page
 								if($('.user-img-preview').length)
 								{
 									$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
 								}
-
-								//for show preview
-							}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-								if( file.size > 104857600){
-									alert('Video size should be less than 100 MB');
-									return false;
-								}
-								if($('.form__file-preview').length >= 1){
-									
-									if(file_type[0] =='video'){
-										alert('You can\'t add more than 1 video');
-									}else{
-										alert('Invalid file extention');
-									}
-									return false;
-								}else{
-									if($(fileInput).parents('.brand-image').length)
-									{
-										$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
-										allFiles = [];
-									}
-									if($(fileInput).parents('.user_upload_img_div').length)
-									{
-										$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
-										$('.remove-user-img').show();
-										allFiles =[];
-									}
-
-									var video = document.createElement('video');
-									video.className = 'form__file-preview';									
-									var videoDiv = document.createElement('div');
-									videoDiv.className = 'form__preview-wrapper';
-									$(videoDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
-									$(videoDiv).append(video);
-									
-									$fileDiv.prepend(videoDiv).addClass('has-files');
-
-									var reader = new FileReader();
-									reader.readAsDataURL(file);
-									reader.onload = function (e) {
-										video.src = e.target.result;
-										file.img_src = e.target.result;
-					                	allFiles.push(file);				                	
-										//for show preview								
-										changePreview(file,'video');								
-					                }
-
-									if($('.user-img-preview').length)
-									{
-										$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
-									}
-								}							
-							}
-							else{
-								$fileDiv.parent().find('.upload-error').removeClass('hide');
-							}
-						});
-				
+							}							
+						}
+						else{
+							$fileDiv.parent().find('.upload-error').removeClass('hide');
+						}
+					});
 				}
 			});
 
@@ -208,7 +204,6 @@
 					var target_file_input = $(e.target).closest('.form__input');					
 					if(target_file_input.length > 0)
 					{
-						
 						droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 						var $fileDiv = $('.form__input');
 						$fileDiv.parent().find('.upload-error').addClass('hide');
@@ -272,7 +267,6 @@
 								}
 
 								if($('.form__file-preview').length >= 1){
-									
 									if($('.form__file-preview').src =='video'){
 										alert(language_message.video_upload_error);	
 									}else{
@@ -280,7 +274,6 @@
 									}
 									return false;
 								}else{
-
 									var video = document.createElement('video');
 									video.className = 'form__file-preview';									
 									var videoDiv = document.createElement('div');
@@ -704,51 +697,43 @@
 			}else{
 				if(no_of_img == 1)
 				{
-					var preview_img = '<div class="pull-left"><img class="img-radious" src="'+window.URL.createObjectURL(file)+'" ></div>';
+					var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
 					jQuery('.twitter-img-div').empty();
 					jQuery('#live-post-preview .twitter-img-div').append(preview_img);
 				}
 	
-				if(no_of_img == 2) 
+				if(no_of_img == 2)
 				{
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('width_50');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('height_135');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('img-radious-left');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').removeClass('img-radious');
-					var preview_img = '<div class="pull-left width_50"><img class="img-radious-right height_135" src="'+window.URL.createObjectURL(file)+'" ></div>';
+					var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
 					jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+					jQuery('#live-post-preview .img-div img').wrap('<div class="width_50 img-item"></div>');
+					preview_img.load(function() {
+						getImgSizes('.img-div');
+					});
 				}
 	
 				if(no_of_img == 3) 
 				{
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first').removeClass('width_50');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('section1');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').addClass('section2');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('img-radious-right-top');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('width_30');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_2_img');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('padding_bottom');	
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('height_135');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('img-radious-right');
-	
-					var preview_img = '<img class="width_30 section_2_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
-					console.log(jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)'));
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+					jQuery('#live-post-preview .img-div img').unwrap();
+					var img_1 = jQuery('#live-post-preview .img-div img:eq(0)');
+					var img_2 = jQuery('#live-post-preview .img-div img:eq(1)');
+					jQuery('#live-post-preview .img-div').css('height', 'auto').append('<div class="section1 pull-left width_twothirds"></div><div class="section2 pull-left img-wrapper width_33"></div>');
+					jQuery('#live-post-preview .img-div .section1').append(img_1);
+					jQuery('#live-post-preview .img-div .section2').append(img_2);
+					var imgH = img_1.height();
+					jQuery('#live-post-preview .img-div').css('height', imgH);
+					var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
+					jQuery('#live-post-preview .img-div .section2').append(preview_img);
+					jQuery('#live-post-preview .img-div .section2 img').wrap('<div class="img-wrapper height_50"></div>');
 				}
 	
-				if(no_of_img == 4) 
+				if(no_of_img == 4)
 				{
-					jQuery('#live-post-preview .twitter-img-div .pull-left:first').css('width','75%');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').css('width','25%');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('section_2_img');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_3_img');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('section_2_img');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('section_3_img');
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('img-radious-right-bottom');				
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('padding_bottom');
-	
-					var preview_img = '<img class="width_30 section_3_img img-radious-right-bottom" src="'+window.URL.createObjectURL(file)+'" >';
-					jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+					jQuery('#live-post-preview .img-div .section2 img').unwrap();
+
+					var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
+					jQuery('#live-post-preview .img-div .section2').append(preview_img);
+					jQuery('#live-post-preview .img-div .section2 img').wrap('<div class="img-wrapper height_33"></div>');
 				}
 			}
 		}

@@ -12,7 +12,7 @@ if(!empty($post_images)){
 ?>
 <div id="outlet_2">
 	<div class="clearfix">
-		<div class="pull-left" style="margin-right: 8px">
+		<div class="pull-left user-profile-img">
 			<?php 
 				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
 					echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
@@ -21,12 +21,10 @@ if(!empty($post_images)){
 				   }
 			?>
 		</div>
-		<div  class="pull-left" style="margin-bottom:2px">
-			<div >
-				<div class="twitter-user-info">
-					<?php echo (!empty($post_details->user))? $post_details->user :''; ?> 
-					<span class="twitter_username"></span>
-				</div>
+		<div class="user-profile-details">
+			<div class="post-user-name">
+				<?php echo (!empty($post_details->user))? $post_details->user :''; ?> 
+				<span class="time-color"></span>
 			</div>
 			<div class="post_copy_text">
 				<?php 
@@ -35,7 +33,7 @@ if(!empty($post_images)){
 				echo (!empty($content)) ? $content : '';
 				?>
 			</div>
-			<div class="twitter-img-div twitter-post-img img-div">
+			<div class="twitter-img-div img-div">
 				<?php 
 					$i = 1;
 					$more_div = '';

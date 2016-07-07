@@ -60,7 +60,7 @@
 					<div class="post-user-name"><?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?> <span class="time-color">@ninadgaikwad - 1s</span></div>
 					<div class="post_copy_text">
 					</div>
-					<div class="twitter-img-div twitter-post-img img-div">			
+					<div class="twitter-img-div img-div">			
 					</div>
 				</div>
 			</div>

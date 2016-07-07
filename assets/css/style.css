@@ -8601,7 +8601,24 @@ x:-o-prefocus, .qtip .qtip-tip {
   .tw_post .photos_count {
     color: #365899; }
   .tw_post .img-div {
-    margin-top: 10px; }
+    margin-top: 10px;
+    margin: 9px 0 0 -1px;
+    border-radius: 5px; }
+    .tw_post .img-div .img-item {
+      float: left;
+      position: relative; }
+    .tw_post .img-div img {
+      border-top: 1px solid #fff;
+      border-left: 1px solid #fff;
+      max-height: 506px; }
+    .tw_post .img-div .section2 {
+      height: 100%; }
+      .tw_post .img-div .section2 img {
+        max-height: inherit;
+        height: 100%;
+        width: auto; }
+  .tw_post video {
+    display: block; }
 
 /*Vine Post Styles*/
 /*Youtube Post Styles*/
@@ -11317,8 +11334,17 @@ textarea.form-control {
 .width_50 {
   width: 50%; }
 
+.height_50 {
+  height: 50%; }
+
 .width_33 {
   width: 33.33333%; }
+
+.height_33 {
+  height: 33.33333%; }
+
+.width_twothirds {
+  width: 66.66666666666666%; }
 
 .width_25 {
   height: 75px;
