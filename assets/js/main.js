@@ -1,13 +1,5 @@
 jQuery(function($) {
 
-	// $('.container-approvals').click(function(){
-	// 	$(this).addClass('modal-backdrop');
-	// 	$(this).addClass('fade');
-	// 	$(this).addClass('in');
-	// 	$(this).addClass('modal-contain');
-	// 	return false;
-	// });
-
 	var wh = $(window).height();
 	var ww = $(window).width();
 
@@ -37,13 +29,6 @@ jQuery(function($) {
 		    return false;
 		});
 
-		// $.mask.definitions['H'] = "[0-1]";
-	 //    $.mask.definitions['h'] = "[0-9]";
-	 //    $.mask.definitions['M'] = "[0-5]";
-	 //    $.mask.definitions['m'] = "[0-9]";
-	 //    $.mask.definitions['P'] = "[AaPp]";
-	 //    $.mask.definitions['p'] = "[Mm]";
-
 	 	$(".hour-select").mask('Hh', {
 	 							translation: {
 									   'H': { pattern: /[0-1]/},
@@ -58,12 +43,6 @@ jQuery(function($) {
 								});
 
 
-	 	// $(".amselect").mask('Mm/Dd/YYYYY', {
-	 	// 						translation: {
-			// 						   'M': { pattern: /[0-5]/},
-			// 						   'm': { pattern: /[0-9]/},
-			// 					    }
-			// 					});
 		$(".single-date-select").mask('00/00/0000');
 
 		$(document).on('click','.sub-user-outlet', function() {
@@ -538,40 +517,6 @@ jQuery(function($) {
 				width: 320
 			}
 		});
-		// $('body').on('click', '[data-toggle="popover-onload"]', function(e) {
-		// 	var $target=$(this);
-		// 	var pcontent = $target.data('content');
-		// 	$target.qtip({
-		// 		content: {
-		// 			text: pcontent
-		// 		},
-		// 		position: {
-		// 			my: 'top center',
-		// 			at: 'bottom center'
-		// 		},
-		// 		show: {
-		// 			effect: function() {
-		// 				$(this).fadeIn();
-		// 			},
-		// 			event: e.type,
-		// 			ready: true
-		// 		},
-		// 		hide: {
-		// 			effect: function() {
-		// 				$(this).fadeOut();
-		// 			},
-		// 			event: 'unfocus'
-		// 		},
-		// 		style: {
-		// 			classes: 'qtip-shadow text-xs-center',
-		// 			tip: {
-		// 				width: 20,
-		// 				height: 10
-		// 			},
-		// 			width: 320
-		// 		}
-		// 	}, e);
-		// });
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {		
 			var $target=$(this);
@@ -2093,13 +2038,8 @@ jQuery(function($) {
     		url: form.attr('action'),
     		data:form.serialize(),
             success: function(result){
-            	//console.log(result.response);
             	if(result.response == 'success'){
             		window.location.reload();
-            		// toggleBtnClass($('.edit-brands-info'),false);
-            		// $('#brandStep2').empty();
-            		// $('#brandStep2').removeClass('active');
-            		// $('#brandStep2').html(response);
             	}
             }
     	});
@@ -2154,10 +2094,6 @@ jQuery(function($) {
             success: function(result){
                 if(result.response == 'success'){
 					window.location.reload();
-					// toggleBtnClass($('.edit-brands-info'),false);
-					// $('#brandStep4').empty();
-					// $('#brandStep4').removeClass('active');
-					// $('#brandStep4').html(response);
 				}
             }
         });
@@ -2316,16 +2252,4 @@ function hideContent(obj) {
 		obj.trigger('contentHidden');
 	});
 }
-
-	// toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
-	// 	jQuery(btnClass).attr('disabled',btnState);
-	// 	if(!jQuery(btnClass).hasClass(newClass))
-	// 	{
-	// 		jQuery(btnClass).addClass(newClass);
-	// 	}
-	// 	jQuery(btnClass).removeClass(oldClass);
-	// }
-
-
-
 
