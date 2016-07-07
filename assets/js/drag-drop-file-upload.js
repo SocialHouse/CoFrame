@@ -685,7 +685,6 @@
 					}
 				}
 				jQuery('.no-of-photos').html(' added <span class="photos_count">' + no_of_img + ' new ' + photoText + '</span>');
-				equalColumns();
 			}
 		}
 		//for twitter
@@ -806,6 +805,7 @@
 				jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
 			}
 		}
+		equalColumns();
 	}
 	
 	function getImgSizes(div) {
@@ -961,61 +961,66 @@
 				}
 
 				jQuery('.no-of-photos').html(' added <span class="photos_count">' + no_of_img + ' new ' + photoText + '</span>');
-				equalColumns();
 			}
 				//for twitter
 				if(selected_outlet == 'outlet_twitter')
 				{
 					if(no_of_img == 1)
 					{
-						var preview_img = '<div class="pull-left"><img class="img-radious" src="'+$(b).attr('src')+'" ></div>';
-						jQuery('.twitter-img-div').empty();
-						jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+						var preview_img = jQuery('<img/>', {src: allFiles[0].img_src});
+						jQuery('#live-post-preview .img-div').append(preview_img);
 					}
 
 					if(no_of_img == 2) 
 					{
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('width_50');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('height_135');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').addClass('img-radious-left');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first img:first').removeClass('img-radious');
-
-						var preview_img = '<div class="pull-left width_50"><img class="img-radious-right height_135" src="'+$(b).attr('src')+'" ></div>';
-						jQuery('#live-post-preview .twitter-img-div').append(preview_img);
+						$.each(allFiles,function(a,img){
+							var preview_img = jQuery('<img/>', {src: img.img_src});
+							jQuery('#live-post-preview .img-div').append(preview_img);
+							preview_img.load(function() {
+								getImgSizes('.img-div');
+							});
+						});
+						jQuery('#live-post-preview .img-div img').wrap('<div class="width_50 img-item"></div>');
 					}
 
 					if(no_of_img == 3) 
 					{
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first').removeClass('width_50');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first').addClass('section1');
-
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').addClass('section2');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('img-radious-right-top');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('width_30');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_2_img');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('padding_bottom');	
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('height_135');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('img-radious-right');
-
-						var preview_img = '<img class="width_30 section_2_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+						jQuery('#live-post-preview .img-div').append('<div class="section1 pull-left width_twothirds"></div><div class="section2 pull-left img-wrapper width_33"></div>');
+						$.each(allFiles,function(a,img){
+							var preview_img = jQuery('<img/>', {src: img.img_src});
+							jQuery('#live-post-preview .img-div').append(preview_img);
+							if(a === 1) {
+								jQuery('#live-post-preview .img-div .section1').append(preview_img);
+							}
+							else {
+								jQuery('#live-post-preview .img-div .section2').append(preview_img);
+							}
+						});
+						jQuery('#live-post-preview .img-div .section1 img').load(function() {
+							var imgH = jQuery(this).height();
+							jQuery('#live-post-preview .img-div').css('height', imgH);
+						});
+						jQuery('#live-post-preview .img-div .section2 img').wrap('<div class="img-wrapper height_50"></div>');
 					}
 
 					if(no_of_img == 4) 
 					{
-						jQuery('#live-post-preview .twitter-img-div .pull-left:first').css('width','75%');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').css('width','25%');
-
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').removeClass('section_2_img');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:first').addClass('section_3_img');
-
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('section_2_img');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('section_3_img');
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').removeClass('img-radious-right-bottom');				
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1) img:eq(1)').addClass('padding_bottom');
-
-						var preview_img = '<img class="width_30 section_3_img img-radious-right-bottom" src="'+$(b).attr('src')+'" >';
-						jQuery('#live-post-preview .twitter-img-div .pull-left:eq(1)').append(preview_img);
+						jQuery('#live-post-preview .img-div').append('<div class="section1 pull-left width_twothirds"></div><div class="section2 pull-left img-wrapper width_33"></div>');
+						$.each(allFiles,function(a,img){
+							var preview_img = jQuery('<img/>', {src: img.img_src});
+							jQuery('#live-post-preview .img-div').append(preview_img);
+							if(a === 1) {
+								jQuery('#live-post-preview .img-div .section1').append(preview_img);
+							}
+							else {
+								jQuery('#live-post-preview .img-div .section2').append(preview_img);
+							}
+						});
+						jQuery('#live-post-preview .img-div .section1 img').load(function() {
+							var imgH = jQuery(this).height();
+							jQuery('#live-post-preview .img-div').css('height', imgH);
+						});
+						jQuery('#live-post-preview .img-div .section2 img').wrap('<div class="img-wrapper height_33"></div>');
 					}
 					
 				}
@@ -1066,6 +1071,7 @@
 		            jQuery('.pinterest-img-div').empty();
 		            jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
 				}
+				equalColumns();
 		}		
 	}
 
