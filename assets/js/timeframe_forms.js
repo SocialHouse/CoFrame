@@ -18,10 +18,12 @@ console.log(language_message);
             var username = jQuery('#email_id').val();
 			var password = jQuery('#login_password').val();
 			var remember_me = jQuery('#remember_me:checked').val();
+			var slug = jQuery('#slug').val();
+			var request_string = jQuery('#request_string').val();
 			
 			jQuery.ajax({
 				"url": base_url+'tour/check_login',
-				"data":{"email":username,"password":password,'remember_me':remember_me},
+				"data":{"email":username,"password":password,'remember_me':remember_me,'slug':slug,'request_string':request_string},
 				"type":"POST",
 				success: function(response)
 		        {
@@ -29,7 +31,12 @@ console.log(language_message);
 		        	if(json.response == 'success')
 		        	{
 						jQuery('#loginModal').modal('hide');
-						window.location.href = base_url+"brands/overview";
+						if(json.slug && json.request_string)
+						{
+							window.location.href = base_url+"co_create/demo/"+json.slug+'/'+json.request_string;
+						}
+						else
+							window.location.href = base_url+"brands/overview";
 		        	}
 		        	else
 		        	{

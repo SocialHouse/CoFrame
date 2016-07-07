@@ -43,7 +43,7 @@ class Co_create extends CI_Controller {
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
-			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
 			$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
 			
 			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));
@@ -60,6 +60,88 @@ class Co_create extends CI_Controller {
 			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0','https://static.opentok.com/v2/js/opentok.js',js_url().'co-create.js?ver=1.0.0');
 
 			_render_view($this->data);
+		}
+	}
+
+	public function demo()
+	{		
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$request_string = $this->uri->segment(4);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+
+		if(!empty($brand))
+		{
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$brand_id = $brand[0]->id;
+
+			if(!empty($request_string))
+			{
+				$request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
+				if(!empty($request))
+				{
+					$this->data['sessionId'] = $request[0]->session_id;
+			        $this->data['token'] = $request[0]->token;
+			    }
+			}
+
+			if(empty($request))
+			{
+				$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
+				$is_request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('user_id' => $this->user_id,'brand_slug' => $slug));
+		        if(empty($is_request))
+		        {
+					$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));
+			        $session = $opentok->createSession();
+			        $this->data['sessionId'] = $session->getSessionId();
+			        $this->data['token'] = $session->generateToken();
+		        
+		       
+			        $request_data = array(
+			        		'session_id' => $this->data['sessionId'],
+			        		'token' => $this->data['token'],
+			        		'request_string' => uniqid(),
+			        		'brand_slug' => $slug,
+			        		'user_id' => $this->user_id
+			        	);
+
+			        $this->timeframe_model->insert_data('co_create_requests',$request_data);
+			        $this->data['request_string'] = $request_data['request_string'];
+			    }
+			    else
+			    {
+			    	$this->data['sessionId'] = $is_request[0]->session_id;
+			        $this->data['token'] = $is_request[0]->token;
+			    }
+		    }
+
+			$this->data['brand_id'] = $brand_id;
+			$this->data['brand'] = $brand[0];
+			$this->data['view'] = 'co_create/demo';
+			$this->data['layout'] = 'layouts/new_user_layout';
+			$this->data['background_image'] = 'bg-brand-management.jpg';
+			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css', css_url().'chat.css');
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0','https://static.opentok.com/v2/js/opentok.js',js_url().'co-create.js?ver=1.0.0');
+
+			_render_view($this->data);
+		}
+	}
+
+	public function send_join_request()
+	{
+		$post_data = $this->input->post();
+
+		if(!empty($post_data))
+		{
+			if(!empty($post_data['selected_users']))
+			{
+				$subject = "Co create requst";
+				$message = "To join co create click below link <br/> <a href=".base_url()."tour/join-co-crate/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
+				foreach($post_data['selected_users'] as $email)
+				{
+					email_send($email,$subject,$message);
+				}
+			}			
 		}
 	}
 

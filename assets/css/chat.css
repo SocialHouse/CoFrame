@@ -29,6 +29,16 @@
   padding: 0 10px 10px;
   max-height:300px;
   overflow-x:hidden;
+  overflow-y:scroll;
+  max-height: 500px;
+}
+
+.msg_container_footer{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height:300px;
+  overflow-x:hidden; 
 }
 .top-bar {
   background: #666;

@@ -369,6 +369,8 @@
 			var user_id = "<?php echo isset($user_id) ? $user_id : ''; ?>";
 			var verification_code = "<?php echo isset($verification_code) ? $verification_code : ''; ?>";
 			var is_user = "<?php echo isset($is_user) ? $is_user : ''; ?>";
+			var request_id = "<?php echo isset($request_id) ? $request_id : ''; ?>";request_error
+			var request_error = "<?php echo isset($request_error) ? $request_error : ''; ?>";
 
 			jQuery(document).ready(function(){
 				if(token)
@@ -414,6 +416,23 @@
 					jQuery('#responseMessage').html(language_message.wrong_url);
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').hide();
+				}
+
+				if(request_id)
+				{
+					jQuery('#loginModal').modal('show');
+				}
+
+				if(request_error == 'error')
+				{
+					jQuery('#go_login').hide();
+					jQuery('#recovery_header').html('');
+	        		jQuery('#recoverPassSuccessBtn').html(language_message.try_again);
+	        		jQuery('#go_to_revover_pass').show();
+	        		jQuery('#dismissBtn').hide();
+	        		jQuery('#recovery_message').html(language_message.link_expired);
+	        		jQuery('#savePassword').modal('hide');	        		
+	        		jQuery('#recoverPasswordSuccess').modal('show');
 				}
 				
 			});

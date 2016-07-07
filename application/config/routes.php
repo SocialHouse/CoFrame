@@ -76,6 +76,8 @@ $route['archives/(:any)'] = "archives/index/$1";
 
 
 $route['set-password/(:any)'] = "tour/set_password/$1";
+$route['join-co-create/(:any)/(:any)'] = "tour/join_co_create/$1/$2";
+
 // $route['register_user/(:any)/(:any)'] = "tour/register_sub_user/$1/$2";
 $route['user_preferences/change-plan'] = "user_preferences/change_plan";
 $route['user_preferences/save_payment'] = "user_preferences/save_payment";

@@ -70,9 +70,6 @@ function initializeSession(apiKey, sessionId,token) {
 	    msg_div += '</div>';
 	  	$('.panel-body').append(msg_div);
 	});
-
-	OT.on("getDevices", function(event){
-	});
 }
 
 function exceptionHandler(event) {

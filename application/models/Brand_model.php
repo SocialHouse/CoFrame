@@ -80,6 +80,22 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
+	//get user assosiate with brands except me
+	public function get_users_without_me($brand_id)
+	{
+		$this->db->select('brand_user_map.id,user_info.first_name,user_info.last_name,aauth_users.email,user_info.aauth_user_id');
+		$this->db->where('brand_id', $brand_id);
+		$this->db->where('user_info.aauth_user_id != ', $this->user_id);
+		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
+		$this->db->join('user_info','user_info.aauth_user_id = brand_user_map.access_user_id');
+		$query = $this->db->get('brand_user_map');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 	//get user assosiate who have approve permission
 	public function get_approvers($brand_id)
 	{

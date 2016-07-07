@@ -114,7 +114,12 @@ class Tour extends CI_Controller {
                         delete_cookie("user_name");
                     }
                 }
-                echo json_encode(array('response' => 'success'));                
+                if(!empty($post_data['slug']) AND !empty($post_data['request_string']))
+                {
+                    echo json_encode(array('response' => 'success','slug' => $post_data['slug'],'request_string' => $post_data['request_string']));
+                }
+                else
+                    echo json_encode(array('response' => 'success'));
             // }
             // else
             // {
@@ -258,6 +263,29 @@ class Tour extends CI_Controller {
         $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
     }
+
+    public function join_co_create()
+    {
+        $this->data = array();
+        $slug = $this->uri->segment(2);
+        $request_string = $this->uri->segment(3);
+        $request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
+       
+        if(!empty($request))
+        {
+            $this->data['slug'] = $slug;
+            $this->data['request_string'] = $request_string;
+            $this->data['request_id'] = $request[0]->id;
+        }
+        else
+        {
+            $this->data['request_error'] = "error";
+        }
+        $this->load->view('tour/tour',$this->data);
+        $this->load->view('partials/modals');
+    }
+
+
 
     public function save_password()
     {

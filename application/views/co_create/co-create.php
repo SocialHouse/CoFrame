@@ -186,10 +186,55 @@
 					<div class="dafault-phase">
 						<div>
 							<h4 class="text-xs-center">Collaborate</h4>
+								<?php 
+								if(!empty($users))
+								{
+									?>
+									<ul class="timeframe-list user-list first-phase">
+										<?php
+										foreach ($users as $user)
+										{
+											?>
+											<li>
+												<div class="pull-sm-left">
+													<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="join_req[]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="join_req[]"><i class="fa fa-check"></i></i>
+												</div>
+												<div class="pull-sm-left">
+													<?php
+													$path = img_url()."default_profile.jpg";
+													if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
+													{
+														$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
+													}
+													?>
+													<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
+												</div>
+												<div class="pull-sm-left post-approver-name">
+													<strong>
+													<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
+													</strong>
+													<?php echo get_user_groups($user->aauth_user_id,$brand_id); ?>
+												</div>
+											</li>										
+											<?php									
+										}
+										?>
+
+										<li class="option-all-users">
+											<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="join_req[]"><i class="fa fa-check"></i></i></div>
+											<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
+											<div class="pull-sm-left post-approver-name">Check<br>All</div>
+										</li>
+									</ul>
+									<?php
+								}
+								?>
+								<button id="send-join" class="btn btn-sm btn-secondary submit-approval submit-btn">Send join request</button>
 								<div id="videos">
 							        <div id="subscriber"></div>
 							        <div id="publisher"></div>
 								</div>
+
 								<br/>
 							
 								<!-- <div id="textchat">

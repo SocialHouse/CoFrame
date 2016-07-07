@@ -1705,31 +1705,34 @@ jQuery(function($) {
     }
 
 	function setOutletPreview(outlet) {
-		if(outlet === "facebook") {
-			postOutletClass = 'fb_post';
+		if($('#live-post-preview').length && $('#live-post-preview').children().length)
+		{
+			if(outlet === "facebook") {
+				postOutletClass = 'fb_post';
+			}
+			else if(outlet === "instagram") {
+				postOutletClass = 'ig_post';
+			}
+			else if(outlet === "linkedin") {
+				postOutletClass = 'in_post';
+			}
+			else if(outlet === "pinterest") {
+				postOutletClass = 'pn_post';
+			}
+			else if(outlet === "tumbler") {
+				postOutletClass = 'tb_post';
+			}
+			else if(outlet === "twitter") {
+				postOutletClass = 'tw_post';
+			}
+			else if(outlet === "vine") {
+				postOutletClass = 'vn_post';
+			}
+			else if(outlet === "youtube") {
+				postOutletClass = 'yu_post';
+			}
+			$('#live-post-preview').attr('class', postOutletClass);
 		}
-		else if(outlet === "instagram") {
-			postOutletClass = 'ig_post';
-		}
-		else if(outlet === "linkedin") {
-			postOutletClass = 'in_post';
-		}
-		else if(outlet === "pinterest") {
-			postOutletClass = 'pn_post';
-		}
-		else if(outlet === "tumbler") {
-			postOutletClass = 'tb_post';
-		}
-		else if(outlet === "twitter") {
-			postOutletClass = 'tw_post';
-		}
-		else if(outlet === "vine") {
-			postOutletClass = 'vn_post';
-		}
-		else if(outlet === "youtube") {
-			postOutletClass = 'yu_post';
-		}
-		$('#live-post-preview').attr('class', postOutletClass);
 	}
     $(document).on('keyup','#postCopy',function(){
     	var post_copy = $(this).val();
@@ -2224,6 +2227,30 @@ jQuery(function($) {
 			$(btnClass).removeClass('btn-disabled');
 		}
 	};
+
+	$('#send-join').click(function(){
+		var selected_users = [];
+		$('.check-box').each(function(){
+			if($(this).data('value') != 'check-all' && $(this).hasClass('selected'))
+			{
+				selected_users.push($(this).data('value'));
+			}
+		})
+		var request_string = $('#request-string').val();
+		var slug = $('#slug').val();
+		if(selected_users.length)
+		{
+			$.ajax({
+				url:base_url+'co_create/send_join_request',
+				type:'post',
+				data:{selected_users:selected_users,request_string: request_string,slug: slug},
+				success:function(response)
+				{
+
+				}
+			});
+		}
+	});
 
 });
 

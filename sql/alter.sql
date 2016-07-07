@@ -373,3 +373,17 @@ ALTER TABLE `filters` CHANGE `outlets` `outlets` VARCHAR(200) NULL DEFAULT NULL;
 --- 04-07-2016 ---
 ALTER TABLE `posts` ADD `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_at`;
 
+--- 07-07-2016
+CREATE TABLE IF NOT EXISTS `co_create_requests` (
+`id` int(11) NOT NULL,
+  `session_id` varchar(500) NOT NULL,
+  `token` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `co_create_requests`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `co_create_requests`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `co_create_requests` ADD `request_string` VARCHAR(100) NOT NULL , ADD `brand_slug` VARCHAR(100) NOT NULL ;
+ALTER TABLE `co_create_requests` ADD `user_id` INT NOT NULL ;
