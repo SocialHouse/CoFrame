@@ -3,7 +3,7 @@
 	var allFiles = [];
 
 	;( function( $, window, document, undefined ){
-
+		
 		window.fileDragNDrop = function fileDragNDrop() {
 		// feature detection for drag&drop upload
 		var isAdvancedUpload = function(){
@@ -118,7 +118,7 @@
 								reader.onload = function (e) {
 									img.src = e.target.result;
 									file.img_src = e.target.result;
-									allFiles.push(file);
+				                	allFiles.push(file);
 									changePreview(file,'image');
 				                }				                
 
@@ -444,7 +444,7 @@
 			    	if($('#user_pic_base64').val() != ''){
 			    		user_pic = $('#user_pic_base64').attr('value');
 			    	}
-
+			    	
 			    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
 					   selectedPermissions[i] = this.value;
 					});
@@ -841,8 +841,8 @@
     	var post_copy;
     	if($('#postCopy').val())
     		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
-		$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
-		$('#live-post-preview').append($('#outlet_'+selected_outlet).html());
+    	$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
+    	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());
     }
 
 	function removeFromPreview() {
@@ -892,7 +892,7 @@
 					});
 					jQuery('#live-post-preview .img-div img').wrap('<div class="width_50 img-item"></div>');
 				}
-				if(no_of_img == 3)
+				if(no_of_img == 3) 
 				{
 					jQuery('#live-post-preview .img-div').append('<div class="section1 img-wrapper"></div><div class="section2 img-wrapper"></div>');
 					$.each(allFiles,function(a,img){
@@ -929,7 +929,7 @@
 				}
 
 				if(no_of_img == 5)
-				{
+				{						
 					jQuery('#live-post-preview .img-div').append('<div class="section1 img-wrapper"></div><div class="section2 img-wrapper"></div>');
 					$.each(allFiles,function(a,img){
 						var preview_img = jQuery('<img/>', {src: img.img_src});
