@@ -112,6 +112,7 @@ class Co_create extends CI_Controller {
 			    {
 			    	$this->data['sessionId'] = $is_request[0]->session_id;
 			        $this->data['token'] = $is_request[0]->token;
+			        $this->data['request_string'] = $is_request[0]->request_string;
 			    }
 		    }
 
