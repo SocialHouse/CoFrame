@@ -2226,7 +2226,7 @@ jQuery(function($) {
 		}
 	};
 
-<<<<<<< HEAD
+
 	$('#send-join').click(function(){
 		var selected_users = [];
 		$('.check-box').each(function(){
@@ -2251,7 +2251,7 @@ jQuery(function($) {
 		}
 	});
 
-=======
+
 	$(document).on('change','select[name="time_zone"]',function(){
 		var selected_abb;
 		selected_abb =  $(this).find(':selected').data('abbreviation');
@@ -2259,64 +2259,63 @@ jQuery(function($) {
 	});
 
 	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
-
->>>>>>> dc7a9a5bf767eaf5bf045e61514b51e288f071af
 });
 
-	function convertToLink(text) {
-		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
-		return text.replace(exp,"<a href='$1'>$1</a>");
+
+function convertToLink(text) {
+	var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
+	return text.replace(exp,"<a href='$1'>$1</a>");
+}
+
+function hashtagToLink(text) {
+	var exp = /(?:^|\W)#(\w+)(?!\w)/g;
+	return text.replace(exp,"<a href='$1'> #$1</a>");
+}
+
+function atToLink(text) {
+	var exp = /(?:^|\W)@(\w+)(?!\w)/g;
+	return text.replace(exp,"<a href='$1'> @$1</a>");
+}
+
+function setUserTime() {
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	// add leading 0
+	if (s < 10){
+		s = "0"+s;
 	}
 
-	function hashtagToLink(text) {
-		var exp = /(?:^|\W)#(\w+)(?!\w)/g;
-		return text.replace(exp,"<a href='$1'> #$1</a>");
-	}
-
-	function atToLink(text) {
-		var exp = /(?:^|\W)@(\w+)(?!\w)/g;
-		return text.replace(exp,"<a href='$1'> @$1</a>");
-	}
-
-	function setUserTime() {
-		var today = new Date();
-		var h = today.getHours();
-		var m = today.getMinutes();
-		var s = today.getSeconds();
-		// add leading 0
-		if (s < 10){
-			s = "0"+s;
-		}
-
-		h = checkHours(h);
-		m = checkMinutes(m);
-		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
-		//set timezone
-		var tz = moment.tz.guess();
-		var zoneAbbr = moment.tz(tz).zoneAbbr();
-		var ampm = moment().format('a');
-		document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
-		//realtime time updates
-		var t = setTimeout(setUserTime, 500);
-	}
-	function checkMinutes(i) {
-		if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-		return i;
-	}
-	function checkHours(i) {
-		if (i > 12) {i = i-12}; //12 hour format
-		return i;
-	}
-	function showContent(obj) {
-		obj.fadeIn(function() {
-			obj.trigger('contentShown');
-		});
-	}
-	function hideContent(obj) {
-		obj.fadeOut(function() {
-			obj.trigger('contentHidden');
-		});
-	}
+	h = checkHours(h);
+	m = checkMinutes(m);
+	document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
+	//set timezone
+	var tz = moment.tz.guess();
+	var zoneAbbr = moment.tz(tz).zoneAbbr();
+	var ampm = moment().format('a');
+	document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
+	//realtime time updates
+	var t = setTimeout(setUserTime, 500);
+}
+function checkMinutes(i) {
+	if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+	return i;
+}
+function checkHours(i) {
+	if (i > 12) {i = i-12}; //12 hour format
+	return i;
+}
+function showContent(obj) {
+	obj.fadeIn(function() {
+		obj.trigger('contentShown');
+	});
+}
+function hideContent(obj) {
+	obj.fadeOut(function() {
+		obj.trigger('contentHidden');
+	});
+}
 
 	// toggleBtnClass = function(oldClass,newClass,btnClass,btnState){
 	// 	jQuery(btnClass).attr('disabled',btnState);
