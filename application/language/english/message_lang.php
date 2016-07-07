@@ -62,15 +62,15 @@
 	$lang['username_already_used'] = "This username is already in used";
 
 	
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
+	$lang['cancel_confirmation'] = "Are you sure, you want to cancel?";
+	$lang['delete_user'] = "Are you sure, you want to delete this user?";
+	$lang['delete_post'] = "Are you sure, you want to delete this post?";
+	$lang['unable_to_resubmit'] = "Unable to resubmit this approval phase";
+	$lang['edit_req_not_save'] = "Edit request has not been saved.";
+	$lang['unable_to_change_status'] = "Unable to change status.";
+	$lang['unable_to_save_reply'] = "Unable to save reply.";
+	$lang['unable_to_post'] = "Unable to scedule post.";
+	$lang['not_valid_email'] = "This is not a valid email.";
 	// $lang[''] = "";
 	// $lang[''] = "";
 	// $lang[''] = "";

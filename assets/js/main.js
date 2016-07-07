@@ -1557,7 +1557,7 @@ jQuery(function($) {
 	            	}
 	            	else
 	            	{
-	            		alert('Unable to resubmit this approval phase');
+	            		alert(language_message.unable_to_resubmit);
 	            	}
 	            }
 	    	});
@@ -1705,6 +1705,7 @@ jQuery(function($) {
     }
 
 	function setOutletPreview(outlet) {
+		var postOutletClass;
 		if(outlet === "facebook") {
 			postOutletClass = 'fb_post';
 		}
@@ -1741,7 +1742,7 @@ jQuery(function($) {
 
     $(document).on("click", ".delete_post", function(event){
     	event.preventDefault();
-    	if(confirm("Are you sure, you want to delete it?"))
+    	if(confirm(language_message.delete_post))
         {
         	var post_id = [];
         	post_id.push($(this).data('post-id'));
@@ -1894,7 +1895,7 @@ jQuery(function($) {
 	            	}
 	            	else
 	            	{
-	            		alert('Edit request has not been saved.');
+	            		alert(language_message.edit_req_not_save);
 	            	}
 			    }
 	    	});
@@ -1932,7 +1933,7 @@ jQuery(function($) {
 		    	}
 		    	else
 		    	{
-		    		alert('Unable to change status.');
+		    		alert(language_message.unable_to_change_status);
 		    	}
 		    }
     	});
@@ -2008,7 +2009,7 @@ jQuery(function($) {
 		    	}
 		    	else
 		    	{
-		    		alert('Unable to save reply.');
+		    		alert(language_message.unable_to_save_reply);
 		    	}
 		    }
     	});
@@ -2055,7 +2056,7 @@ jQuery(function($) {
 		            }
 		            else
 		            {
-		            	alert('Unable to scedule post.');
+		            	alert(language_message.unable_to_post);
 		            }
 	            }
 	    	});

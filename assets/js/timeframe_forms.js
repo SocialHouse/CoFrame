@@ -2,7 +2,10 @@ jQuery(document).ready(function(){
 console.log(language_message);
 	jQuery('#loginForm').validate({
         rules: {
-            email : { required: true, email:true},
+            email : { 
+            	required: true, 
+            	email:true
+            },
             password : { required : true }
         },
         messages :{
@@ -56,12 +59,14 @@ console.log(language_message);
 
     jQuery('#resetPassForm').validate({
         rules: {
-            email : { required: true, email:true,
-            		remote: {
-	                    url: base_url+"tour/check_email_exist",
-	                    type: "post"
-	                }
-	            }
+            email : { 
+            	required: true,
+            	email:true,
+        		remote: {
+                    url: base_url+"tour/check_email_exist",
+                    type: "post"
+                }
+            }
         },
         messages :{
         	email: {
@@ -127,7 +132,10 @@ console.log(language_message);
 			
 			jQuery.ajax({
 				"url": base_url+'tour/save_password',
-				"data":{"password":newPass,'token': token},
+				"data":{
+					"password":newPass,
+					'token': token
+				},
 				"type":"POST",
 				success: function(response)
 		        {		        	
@@ -266,7 +274,20 @@ console.log(language_message);
 
             jQuery.ajax({
 				"url": base_url+'tour/register',
-				"data":{"first_name":firstName,'last_name': lastName,'email':emailAddress,'phone':phoneNumber,'timezone':timeZone,'username':userName,'password':password,'confirm_password': confirmPassword,'company_name':companyName,'company_url':companyURL,'plan':plan,'title':title},
+				"data":{
+					"first_name":firstName,
+					'last_name': lastName,
+					'email':emailAddress,
+					'phone':phoneNumber,
+					'timezone':timeZone,
+					'username':userName,
+					'password':password,
+					'confirm_password': confirmPassword,
+					'company_name':companyName,
+					'company_url':companyURL,
+					'plan':plan,
+					'title':title
+				},
 				"type":"POST",
 				success: function(response)
 		        {
@@ -306,10 +327,14 @@ console.log(language_message);
             password :{ required : true,minlength:6 },
             confirm_password :{ required : true,equalTo: "#password_reg"},
         },
-        messages :{        
-        	email: {required: "Please enter email address",remote:'This email address is already taken'},
-        	password :{ required : "Please enter password",minlength:"Minimum 6 character required" },
-            confirm_password :{ required : "Please re-enter password" },            
+         messages :{
+        	email: {
+        		required: language_message.enter_email,
+        		remote:language_message.email_used},
+        	password :{ 
+        		required : language_message.enter_pass,
+        		minlength:language_message.mini_char },
+            confirm_password :{ required: language_message.re_enter_pass},
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
@@ -323,7 +348,13 @@ console.log(language_message);
 
             jQuery.ajax({
 				"url": base_url+'tour/save_sub_user',
-				"data":{'user_id':user_id,'verification_code':verification_code,'email':email,'password':password,'confirm_password': confirmPassword},
+				"data":{
+					'user_id':user_id,
+					'verification_code':verification_code,
+					'email':email,
+					'password':password,
+					'confirm_password': confirmPassword
+				},
 				"type":"POST",
 				success: function(response)
 		        {
@@ -403,4 +434,4 @@ console.log(language_message);
         }
     });
 
-  });
+});
