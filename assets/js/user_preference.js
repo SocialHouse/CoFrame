@@ -50,10 +50,10 @@ $(document).ready(function(){
 
 	$('.change_plan').click(function(event) {
 		event.preventDefault();
-		var message = 'Are you sure you want to change plan.';
+		var message = language_message.change_plan_confirmation;
 		if($('#brand_id').val())
 		{
-			alert('To cahnge plan first add billing details');
+			alert(language_message.change_plan_billing_details);
 		}
 		else
 		{

@@ -164,11 +164,11 @@ jQuery(function($) {
 			$sectionList.toggleClass('view');
 			if($(this).hasClass('btn-disabled')) {
 				$sectionList.find('li').css('display', 'block');
-				$sectionLabel.text('Modify Permissions');
+				$sectionLabel.text(language_message.modify_permissions);
 			}
 			else {
 				$sectionList.find('li.hidden').css('display', 'none');
-				$sectionLabel.text('Default Permissions');
+				$sectionLabel.text(language_message.default_permissions);
 			}
 		});
 		$('.permissions-list .check-box').on('click', function() {

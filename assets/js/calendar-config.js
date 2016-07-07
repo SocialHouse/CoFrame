@@ -344,8 +344,6 @@ jQuery(function($) {
 					width: pwidth
 				}
 			}, e);
-
-			
 			
 		});
 
@@ -605,15 +603,15 @@ jQuery(function($) {
 						error_display = false;
 					}else{
 						error_display = true;
-						message='Plaese enter hours and minute';
+						message=language_message.enter_hour_minutes;
 					}
 				}else{
 					error_display = true;
-					message='Plaese select the valid date';
+					message=language_message.enter_hour_minutes;
 				}
 			}else{
 				error_display = true;
-				message='Plaese select the date';
+				message=language_message.select_re_date;
 			}
 			if(!error_display){
 				
@@ -902,15 +900,15 @@ jQuery(function($) {
 					error_display = false;
 				}else{
 					error_display = true;
-					message='Plaese enter hours and minute';
+					message=language_message.enter_hour_minutes;
 				}
 			}else{
 				error_display = true;
-				message='Plaese select the valid date';
+				message=language_message.valid_date;
 			}
 		}else{
 			error_display = true;
-			message='Plaese select the date';
+			message=language_message.select_re_date;
 		}
 		if(!error_display){
 			
@@ -925,7 +923,7 @@ jQuery(function($) {
 	            {
 	            	if(response  != 'false')
 	            	{
-	            		alert('Your post has been update successfully. ');
+	            		alert(language_message.post_update_successful);
 	            	}
 	            	$('.calendar-day').empty();
 	            	$('.calendar-day').html(response);

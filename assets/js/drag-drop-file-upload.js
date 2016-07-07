@@ -216,16 +216,16 @@
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
 							if($.inArray(file_type[1] ,supported_files) == -1){
-								alert('Invalid file extention');
+								alert(language_message.invalid_extention);
 								return false;
 							};
 							if( file_type[0]== 'image'){
 								if( file.size > 2000000){
-									alert('Image size should be less than 2 MB');
+									alert(language_message.image_size_limit);
 									return false;
 								}
 								if($('.form__file-preview').src=='video'){
-									alert('Invalid file extention');
+									alert(language_message.invalid_extention);
 									return false;
 								}
 								if($(target_file_input).hasClass('brand-image'))
@@ -267,16 +267,16 @@
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
 								if( file.size > 104857600){
-									alert('video size should be less than 200 Mb');
+									alert(language_message.video_size_limit);
 									return false;
 								}
 
 								if($('.form__file-preview').length >= 1){
 									
 									if($('.form__file-preview').src =='video'){
-										alert('You can\'t add more than 1 video');	
+										alert(language_message.video_upload_error);	
 									}else{
-										alert('Invalid file extention');
+										alert(language_message.invalid_extention);
 									}
 									return false;
 								}else{
@@ -380,7 +380,7 @@
 							}
 						},
 						error: function(){
-							alert( 'There was a problem with your upload.  Please try again.' );
+							alert( language_message.upload_error );
 						}
 					});
 				}
