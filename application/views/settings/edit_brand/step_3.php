@@ -34,7 +34,6 @@
 					{ 
 						foreach($added_users as $user)
 						{ 
-							//echo '<pre>'; print_r($user);echo '</pre>';
 							?> 
 							<div class="table" id="table_id_<?php echo $user->aauth_user_id; ?>">
 								<div class="table-cell">
@@ -148,8 +147,3 @@ if(isset($js_files))
 <script type="text/javascript">
 	fileDragNDrop();
 </script>
-
-<style type="text/css" media="screen">
-
-	
-</style>

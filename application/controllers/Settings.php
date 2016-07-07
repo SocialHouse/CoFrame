@@ -101,7 +101,8 @@ class Settings extends CI_Controller {
 				if(!empty($current_brand_users))
 					$brands_users = array_column($current_brand_users,'access_user_id');
 
-				$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
+				//$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
+				$this->data['users'] = $this->brand_model->get_brand_users($brand[0]->id);
 				
 				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
 			} 
@@ -109,8 +110,7 @@ class Settings extends CI_Controller {
 			if($step_number == 4 ){
 				$this->data['selected_tags'] = $this->post_model->get_brand_tags($brand[0]->id);
 			}
-			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
-
+			
 			if($is_load == 'true'){
 				echo $this->load->view('settings/step_'.$step_number,$this->data,true);	
 			}else{
