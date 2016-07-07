@@ -3463,10 +3463,6 @@ textarea.form-control {
 
 .section1 img,.section2 img{width: 100%;}
 
-.twitter-default-img {
-  height:35px;width:35px;border-radius: 5px;
-}
-
 .brand-success-btn {
   position:relative !important;
 }
@@ -3483,64 +3479,6 @@ textarea.form-control {
   margin-top: -.75rem;
   margin-bottom: .75rem
 }
-
-
-/* linkedin post preview */
-.linkedin-post{
-    font-family: Arial,sans-serif;
-  }
-  .linkedin-user-detail{
-    color: #008cc9;
-  }
-  .linkedin-user-detail p{
-    color: #66696a;
-    margin-bottom: 7px;
-    text-transform:none;
-  }
-  .linkedin-profile{
-    margin-right:5px;
-    float:left;
-  }
-  .linkedin-profile img{
-    width: 54px !important;
-  }
-  .linkedin-content{
-    width:78%;
-    float:left;
-    padding: 6px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
-  }
-  .linkedin-content  .post_copy_text{
-    border-top: 2px solid #eee;
-      content: "";
-      display: block;
-      margin: 0 6px 10px;
-  }
-  .linkedin-content img {
-      display: block;
-      height: auto;
-      max-height: 400px;
-      max-width: 100%;
-      width: auto;
-  }
-  ul.actions{
-    list-style: outside none none ! important;
-    display: inline-block;
-      margin-left: 0px;
-      padding-left: 7px;
-      margin-top: 5px;
-  }
-  .actions li{
-    display: inline;
-      color: #008cc9;
-      font-weight: normal;
-      text-decoration: none;
-      cursor: pointer;
-  }
-  .actions li:hover{
-      text-decoration: underline;
-  }
-
   /* vine post preview */
   .vine-user-info{
     width: 70%;

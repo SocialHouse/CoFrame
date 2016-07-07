@@ -90,9 +90,6 @@
 			max-width: 100%;
 		}
 	}
-	.user-profile-details {
-		margin-left: 58px;
-	}
 	.post-user-name {
 		font-family: 'Proxima N W01 Bold','Helvetica Neue',Arial,Helvetica,sans-serif;
 	}
@@ -110,6 +107,53 @@
 
 /*Linkedin Post Styles*/
 .in_post {
+	font-family: $in-font;
+	font-size: 13px;
+	line-height: 17px;
+	padding: 10px;
+	.post-header {
+		padding: 12px 15px 0 15px;
+		margin-bottom: 11px;
+		min-height: 17px;
+		width: 100%;
+		overflow: hidden;
+	}
+	.user-profile-img {
+		width: 80px;
+		height: 80px;
+		box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+		img {
+			max-width: 100%;
+		}
+	}
+	.user-profile-details {
+		margin-left: 85px;
+	}
+	.post-user-name {
+		font-weight: bold;
+		color: $in-link;
+	}
+	.time-color {
+		color: $in-light;
+	}
+	a {
+		color: $in-link;
+		font-family: $ig-font;
+	}
+	.post_copy_text {
+		margin: 0 15px 10px;
+		color:#333;
+		overflow: hidden;
+		&:before {
+			content: '';
+			display: block;
+			border-top: 1px solid #eee;
+			margin: 0 -15px 10px;
+		}
+	}
+	.img-div {
+		margin: 0 15px 10px;
+	}
 }
 
 /*Pinterest Post Styles*/

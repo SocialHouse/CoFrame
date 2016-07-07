@@ -61,21 +61,17 @@
 
 	<div id="outlet_linkedin">		
 		<div class="post-container">
-			<div class="linkedin-post" >
-				<div class="linkedin-profile">
-					<img src="<?php echo img_url(); ?>default_profile_linkedin.png">
+			<div class="clearfix" >
+				<div class="pull-left">
+					<img src="<?php echo img_url(); ?>default_profile_linkedin.png" class="user-profile-img">
 				</div>
-				<div class="linkedin-content">
-					<div class="linkedin-user-detail">
-						<span>ninad g</span>
-						<p>Software Developer at Techfive</p>
+				<div class="user-profile-details">
+					<div class="post-header">
+						<div class="post-user-name pull-left">ninad g</div>
+						<span class="time-color pull-right">0s</span>
 					</div>
 					<div class="post_copy_text"></div>
-					<div class="likedin-img-div" ></div>
-					<ul class="actions">
-						<li>like</li>
-						<li>Comment</li>
-					</ul>
+					<div class="likedin-img-div img-div"></div>
 				</div>
 			</div>
 		</div>

@@ -8577,8 +8577,6 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: -1px 10px -1px -5px; }
     .ig_post .user-profile-img img {
       max-width: 100%; }
-  .ig_post .user-profile-details {
-    margin-left: 58px; }
   .ig_post .post-user-name {
     font-family: 'Proxima N W01 Bold','Helvetica Neue',Arial,Helvetica,sans-serif; }
   .ig_post .time-color {
@@ -8590,6 +8588,45 @@ x:-o-prefocus, .qtip .qtip-tip {
     padding: 20px 24px; }
 
 /*Linkedin Post Styles*/
+.in_post {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 17px;
+  padding: 10px; }
+  .in_post .post-header {
+    padding: 12px 15px 0 15px;
+    margin-bottom: 11px;
+    min-height: 17px;
+    width: 100%;
+    overflow: hidden; }
+  .in_post .user-profile-img {
+    width: 80px;
+    height: 80px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12); }
+    .in_post .user-profile-img img {
+      max-width: 100%; }
+  .in_post .user-profile-details {
+    margin-left: 85px; }
+  .in_post .post-user-name {
+    font-weight: bold;
+    color: #008cc9; }
+  .in_post .time-color {
+    color: #66696a; }
+  .in_post a {
+    color: #008cc9;
+    font-family: "Proxima Nova W08 Reg", "Helvetica Neue", Arial, Helvetica, sans-serif; }
+  .in_post .post_copy_text {
+    margin: 0 15px 10px;
+    color: #333;
+    overflow: hidden; }
+    .in_post .post_copy_text:before {
+      content: '';
+      display: block;
+      border-top: 1px solid #eee;
+      margin: 0 -15px 10px; }
+  .in_post .img-div {
+    margin: 0 15px 10px; }
+
 /*Pinterest Post Styles*/
 /*Tumblr Post Styles*/
 /*Twitter Post Styles*/
@@ -11409,11 +11446,6 @@ textarea.form-control {
 .section1 img, .section2 img {
   width: 100%; }
 
-.twitter-default-img {
-  height: 35px;
-  width: 35px;
-  border-radius: 5px; }
-
 .brand-success-btn {
   position: relative !important; }
 
@@ -11427,61 +11459,6 @@ textarea.form-control {
   letter-spacing: normal;
   margin-top: -.75rem;
   margin-bottom: 0.75rem; }
-
-/* linkedin post preview */
-.linkedin-post {
-  font-family: Arial,sans-serif; }
-
-.linkedin-user-detail {
-  color: #008cc9; }
-
-.linkedin-user-detail p {
-  color: #66696a;
-  margin-bottom: 7px;
-  text-transform: none; }
-
-.linkedin-profile {
-  margin-right: 5px;
-  float: left; }
-
-.linkedin-profile img {
-  width: 54px !important; }
-
-.linkedin-content {
-  width: 78%;
-  float: left;
-  padding: 6px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12); }
-
-.linkedin-content .post_copy_text {
-  border-top: 2px solid #eee;
-  content: "";
-  display: block;
-  margin: 0 6px 10px; }
-
-.linkedin-content img {
-  display: block;
-  height: auto;
-  max-height: 400px;
-  max-width: 100%;
-  width: auto; }
-
-ul.actions {
-  list-style: outside none none !important;
-  display: inline-block;
-  margin-left: 0px;
-  padding-left: 7px;
-  margin-top: 5px; }
-
-.actions li {
-  display: inline;
-  color: #008cc9;
-  font-weight: normal;
-  text-decoration: none;
-  cursor: pointer; }
-
-.actions li:hover {
-  text-decoration: underline; }
 
 /* vine post preview */
 .vine-user-info {
