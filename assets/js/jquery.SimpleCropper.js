@@ -195,7 +195,7 @@
             var imageType = /image.*/;
             brand_logo = [];
             if(file.size > 2000000){
-                alert("File size should be lass than 2 MB ");
+                alert(language_message.file_size_limit);
                 return false;
             }
             brand_logo.push(file);
@@ -292,12 +292,12 @@
                     $('#photo').remove();
                     console.log(file);
                    // dropbox.appendChild(file[0]);
-                     alert("This browser does not support FileReader.");
+                     alert(language_message.browser_not_supported);
                     return false;
                 }
 
             } else {
-                alert("File not supported!");
+                alert(language_message.invalid_extention);
             }
         }
 
@@ -408,7 +408,7 @@
                         }
                     },
                     error: function(){
-                        alert( 'There was a problem with your upload.  Please try again.' );
+                        alert( language_message.upload_error );
                     }
                 });
         });
@@ -446,7 +446,7 @@
                         }
                     },
                     error: function(){
-                        alert( 'There was a problem with your upload.  Please try again.' );
+                        alert( language_message.upload_error);
                     }
                 });
         });

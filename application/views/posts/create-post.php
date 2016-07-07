@@ -169,18 +169,18 @@
 											<input type="text" class="time-input amselect" name="post-ampm" value="am">
 										</div>
 									</div>
-									<span class="timezone pull-xs-right">PST</span>
+									<span class="timezone pull-xs-right" id="timezone_abbreviation"></span>
 								</div>
 							</div>
 							<div class="form-group slate-post-tz">
 								<select class="form-control" name="time_zone">
 									<!--  By default brand_timezone is selcted  -->
-									<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>"><?php echo $brand_timezone['name']; ?></option>
+									<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 									<?php 
 										//  If brand time zone and  user time are not same 
 										if($brand_timezone['value'] != $user_timezone['value'] ){
 											?>
-											<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+											<option  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
 											<?php 
 										}
 									?>
@@ -188,7 +188,7 @@
 										// Display remaining timezones
 										foreach ($timezones as $key => $obj) {
 											?>
-											<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+											<option data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 											<?php
 										}
 									?>

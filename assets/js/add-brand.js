@@ -164,11 +164,11 @@ jQuery(function($) {
 			$sectionList.toggleClass('view');
 			if($(this).hasClass('btn-disabled')) {
 				$sectionList.find('li').css('display', 'block');
-				$sectionLabel.text('Modify Permissions');
+				$sectionLabel.text(language_message.modify_permissions);
 			}
 			else {
 				$sectionList.find('li.hidden').css('display', 'none');
-				$sectionLabel.text('Default Permissions');
+				$sectionLabel.text(language_message.default_permissions);
 			}
 		});
 		$('.permissions-list .check-box').on('click', function() {
@@ -510,7 +510,7 @@ jQuery(function($) {
 		{
 			if($(this).val().length > 2)
 			{
-				$('#emailValid').html('This is not a valid email.');
+				$('#emailValid').html(language_message.not_valid_email);
 				$('#emailValid').removeClass('hide');
 				$('#emailUniqueValid').addClass('hide');
 			}
@@ -710,7 +710,7 @@ jQuery(function($) {
      	// if(!($('#userPermissionsList .table').length > 1)){
      	// 	return false;
      	// }
-    	if(confirm("Are you sure, you want to delete this user?"))
+    	if(confirm(language_message.delete_user))
         {
 
 			var aauth_user_id = $(this).data('user-id');

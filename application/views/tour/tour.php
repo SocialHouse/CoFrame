@@ -23,11 +23,10 @@
 		</style>
 		
 		<script type="text/javascript">
-			var language_message = JSON.parse('<?php echo json_encode($this->lang->language); ?>');
-	        
-		    var base_url = "<?php echo base_url(); ?>";
+			var base_url = "<?php echo base_url(); ?>";
 		</script>
-
+		
+		<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 		<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js?ver=4.4.2'></script>

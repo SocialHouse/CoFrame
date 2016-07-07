@@ -14,7 +14,7 @@ function initializeSession(apiKey, sessionId,token) {
 	OT.getDevices(function(error,devices){		
 		if(!devices.length)
 		{
-			alert('Video and audio not enabled, atleast enable one');
+			alert(language_message.video_audio_not_enabled);
 		}
 	});
 	// Subscribe to a newly created stream
@@ -27,7 +27,7 @@ function initializeSession(apiKey, sessionId,token) {
 	});
 
 	session.on('sessionDisconnected', function(event) {
-		console.log('You were disconnected from the session.', event.reason);
+		console.log(language_message.disconnected_from_session, event.reason);
 	});
 
 	// Connect to the session
@@ -43,7 +43,7 @@ function initializeSession(apiKey, sessionId,token) {
 
 		  session.publish(publisher);
 		} else {
-		  console.log('There was an error connecting to the session: ', error.code, error.message);
+		  console.log(language_message.connecting_error_session, error.code, error.message);
 		}
     });
 

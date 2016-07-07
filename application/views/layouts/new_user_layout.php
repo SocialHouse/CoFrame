@@ -9,23 +9,30 @@
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <?php    
-if(isset($css_files))
-{
-    foreach ($css_files as $css_src) 
-    {
-        ?>
-        <link href="<?php echo $css_src ?>" rel="stylesheet">
-        <?php
-    }
-}
+	if(isset($css_files))
+	{
+	    foreach ($css_files as $css_src) 
+	    {
+	        ?>
+	        <link href="<?php echo $css_src ?>" rel="stylesheet">
+	        <?php
+	    }
+	}
+	// create json messafe file
+	if($this->config->item('compile_json_message_js')){
+		$msg_file = $this->config->item('json_msg_file');
+		$json_message = $this->lang->language;
+		$json_str = 'var language_message = '.json_encode($json_message);
+		@unlink($msg_file);
+		file_put_contents($msg_file, $json_str);
+	}
 ?>
 
 <script type="text/javascript">
-	var language_message = JSON.parse('<?php echo json_encode($this->lang->language); ?>');
 	var base_url = "<?php echo base_url(); ?>";
-    var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
+	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 </script>
-
+<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
 <script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
@@ -87,6 +94,8 @@ if(isset($css_files))
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=4.0.0'></script>	
+	
+	
 	<?php       
     if(isset($js_files))
     {

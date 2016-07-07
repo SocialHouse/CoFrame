@@ -1557,7 +1557,7 @@ jQuery(function($) {
 	            	}
 	            	else
 	            	{
-	            		alert('Unable to resubmit this approval phase');
+	            		alert(language_message.unable_to_resubmit);
 	            	}
 	            }
 	    	});
@@ -1705,34 +1705,32 @@ jQuery(function($) {
     }
 
 	function setOutletPreview(outlet) {
-		if($('#live-post-preview').length && $('#live-post-preview').children().length)
-		{
-			if(outlet === "facebook") {
-				postOutletClass = 'fb_post';
-			}
-			else if(outlet === "instagram") {
-				postOutletClass = 'ig_post';
-			}
-			else if(outlet === "linkedin") {
-				postOutletClass = 'in_post';
-			}
-			else if(outlet === "pinterest") {
-				postOutletClass = 'pn_post';
-			}
-			else if(outlet === "tumbler") {
-				postOutletClass = 'tb_post';
-			}
-			else if(outlet === "twitter") {
-				postOutletClass = 'tw_post';
-			}
-			else if(outlet === "vine") {
-				postOutletClass = 'vn_post';
-			}
-			else if(outlet === "youtube") {
-				postOutletClass = 'yu_post';
-			}
-			$('#live-post-preview').attr('class', postOutletClass);
+		var postOutletClass;
+		if(outlet === "facebook") {
+			postOutletClass = 'fb_post';
 		}
+		else if(outlet === "instagram") {
+			postOutletClass = 'ig_post';
+		}
+		else if(outlet === "linkedin") {
+			postOutletClass = 'in_post';
+		}
+		else if(outlet === "pinterest") {
+			postOutletClass = 'pn_post';
+		}
+		else if(outlet === "tumbler") {
+			postOutletClass = 'tb_post';
+		}
+		else if(outlet === "twitter") {
+			postOutletClass = 'tw_post';
+		}
+		else if(outlet === "vine") {
+			postOutletClass = 'vn_post';
+		}
+		else if(outlet === "youtube") {
+			postOutletClass = 'yu_post';
+		}
+		$('#live-post-preview').attr('class', postOutletClass);
 	}
     $(document).on('keyup','#postCopy',function(){
     	var post_copy = $(this).val();
@@ -1744,7 +1742,7 @@ jQuery(function($) {
 
     $(document).on("click", ".delete_post", function(event){
     	event.preventDefault();
-    	if(confirm("Are you sure, you want to delete it?"))
+    	if(confirm(language_message.delete_post))
         {
         	var post_id = [];
         	post_id.push($(this).data('post-id'));
@@ -1897,7 +1895,7 @@ jQuery(function($) {
 	            	}
 	            	else
 	            	{
-	            		alert('Edit request has not been saved.');
+	            		alert(language_message.edit_req_not_save);
 	            	}
 			    }
 	    	});
@@ -1935,7 +1933,7 @@ jQuery(function($) {
 		    	}
 		    	else
 		    	{
-		    		alert('Unable to change status.');
+		    		alert(language_message.unable_to_change_status);
 		    	}
 		    }
     	});
@@ -2011,7 +2009,7 @@ jQuery(function($) {
 		    	}
 		    	else
 		    	{
-		    		alert('Unable to save reply.');
+		    		alert(language_message.unable_to_save_reply);
 		    	}
 		    }
     	});
@@ -2058,7 +2056,7 @@ jQuery(function($) {
 		            }
 		            else
 		            {
-		            	alert('Unable to scedule post.');
+		            	alert(language_message.unable_to_post);
 		            }
 	            }
 	    	});
@@ -2216,7 +2214,7 @@ jQuery(function($) {
 			$('#attached_img').removeClass('hide');
 
         }
-	})
+	});
 
 	toggleBtnClass = function(btnClass, btnState){
 		$(btnClass).prop('disabled', btnState);
@@ -2228,6 +2226,7 @@ jQuery(function($) {
 		}
 	};
 
+<<<<<<< HEAD
 	$('#send-join').click(function(){
 		var selected_users = [];
 		$('.check-box').each(function(){
@@ -2252,6 +2251,16 @@ jQuery(function($) {
 		}
 	});
 
+=======
+	$(document).on('change','select[name="time_zone"]',function(){
+		var selected_abb;
+		selected_abb =  $(this).find(':selected').data('abbreviation');
+		$('#timezone_abbreviation').text(selected_abb);	
+	});
+
+	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
+
+>>>>>>> dc7a9a5bf767eaf5bf045e61514b51e288f071af
 });
 
 	function convertToLink(text) {

@@ -157,7 +157,7 @@ $(document).ready(function(){
 
     $(document).on('click','.post-remove-phase',function(){
 
-    	if(confirm('Are you sure, you want to delete this phase?'))
+    	if(confirm(language_message.delete_phase_confirmation))
     	{    		
     		var div_to_delete = $(this).parents().parents('div:first');
     		var phase_id = $(this).attr('id');

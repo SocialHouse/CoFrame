@@ -62,37 +62,50 @@
 	$lang['username_already_used'] = "This username is already in used";
 
 	
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	// $lang[''] = "";
-	
+	$lang['cancel_confirmation'] = "Are you sure, you want to cancel?";
+	$lang['delete_user'] = "Are you sure, you want to delete this user?";
+	$lang['delete_post'] = "Are you sure, you want to delete this post?";
+	$lang['unable_to_resubmit'] = "Unable to resubmit this approval phase";
+	$lang['edit_req_not_save'] = "Edit request has not been saved.";
+	$lang['unable_to_change_status'] = "Unable to change status.";
+	$lang['unable_to_save_reply'] = "Unable to save reply.";
+	$lang['unable_to_post'] = "Unable to scedule post.";
+	$lang['not_valid_email'] = "This is not a valid email.";
+	$lang['modify_permissions'] = "Modify Permissions";
+	$lang['default_permissions'] = "Default Permissions";
+	$lang['change_plan_confirmation'] = "Are you sure you want to change plan.";
+	$lang['change_plan_billing_details'] = "To change plan first add billing details";
+	$lang['delete_phase_confirmation'] = "Are you sure, you want to delete this phase?";
+	$lang['image_size_limit'] = "Image size should be lass than 2 MB";
+	$lang['invalid_extention'] = "Invalid file extention";
+	$lang['browser_not_supported'] = "This browser does not support FileReader.";
+	$lang['upload_error'] = "There was a problem with your upload. Please try again.";
+	$lang['video_size_limit'] = "video size should be less than 200 Mb";
+	$lang['video_upload_error'] = "You can not add more than 1 video";
+	$lang['enter_valid_datetime_slate_greater_than_date_than_approval'] = "Please enter valid date and time or Slate date must be greater than date than Approval phase 1";
+	$lang['enter_valid_datetime_approval_than_date_than_slate_date'] = "Please enter valid date and time or Approval date must be less than Slate date";
+	$lang['enter_hour_minutes'] ="Please enter hour and minutes";
+	$lang['enter_slate_date'] ="Please enter Slate date";
+	$lang['enter_hour_minutes_slate_date'] ="Please enter Slate date or hour and minutes";
+	$lang['date_less_than_phase'] ="Please enter valid date and time or date must be less than phase ";
+	$lang['select_date'] ="Plaese select date in Phase ";
+	$lang['select_sdate'] ="Plaese select Sdate first";
+	$lang['phase_less_than'] ="Date must be less than Phase";
+	$lang['date_less_than_sdate'] ="Date must be less than Sdate";
+	$lang['select_image_video'] ="Please select images or video";	
+	$lang['enter_post_content'] ="Please enter post content";
+	$lang['date_greater_than_today'] ="Please select valid date Date must be grether than todays date";
+	$lang['video_audio_not_enabled'] ="Video and audio not enabled, atleast enable one";
+	$lang['disconnected_from_session'] ="You were disconnected from the session. ";
+	$lang['connecting_error_session'] ="There was an error connecting to the session: ";
+	$lang['valid_date'] ="Plaese select the valid date";
+	$lang['select_re_date'] ="Plaese select the date";
+	$lang['post_update_successful'] ="Your post has been update successfully";
 	
 
 	// Delete Draft
 	$lang['delete_draft'] = "Are you sure you want to delete these drafts? You cannot undo this action.";
 	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records. Please try again.";
-	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records. Please try again.";
-
-
-
 ?>
 
 

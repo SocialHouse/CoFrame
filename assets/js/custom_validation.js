@@ -47,7 +47,7 @@ jQuery(function($) {
 
 			if(new_date !== ''){
 				if(!compareDate(old_date,new_date)){
-					date_error.text('Please enter valid date and time or Slate date must be greater than date than Approval phase 1 ');
+					date_error.text(language_message.enter_valid_datetime_slate_greater_than_date_than_approval);
 					date_error.show();
 				}
 			}else{
@@ -82,22 +82,22 @@ jQuery(function($) {
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 						if(compareDateTime(ed_date, st_date)){
-							date_error.text('Please enter valid date and time or Approval date must be less than Slate date');
+							date_error.text(language_message.enter_valid_datetime_approval_than_date_than_slate_date);
 							date_error.show();
 						}else{
 							date_error.empty();
 							date_error.hide();
 						}
 					}else{
-						date_error.text('Please enter hour and minutes');
+						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
 				}else{
-					$('#hm_error').text('Please enter hour and minutes');
+					$('#hm_error').text(language_message.enter_hour_minutes);
 					$('#hm_error').show();
 				}
 			}else{
-				$('#hm_error').text('Please enter Slate date');
+				$('#hm_error').text(language_message.enter_slate_date);
 				$('#hm_error').show();
 			}
 		}
@@ -127,24 +127,24 @@ jQuery(function($) {
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 						if(compareDateTime(ed_date, st_date)){
-							date_error.text('Please enter valid date and time or Approval date must be less than Slate date');
+							date_error.text(language_message.enter_valid_datetime_approval_than_date_than_slate_date);
 							date_error.show();
 						}else{
 							date_error.empty();
 							date_error.hide();
 						}
 					}else{
-						date_error.text('Please enter hour and minutes');
+						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
 				}else{
-					date_error.text('Please enter Slate date or hour and minutes');
+					date_error.text(language_message.enter_hour_minutes_slate_date);
 					date_error.show();
 					// $('#hm_error').text('Please enter hour and minutes');
 					// $('#hm_error').show();
 				}
 			}else{
-				date_error.text('Please enter Slate date');
+				date_error.text(language_message.enter_slate_date);
 				date_error.show();
 				// $('#hm_error').text('Please enter Slate date');
 				// $('#hm_error').show();
@@ -176,22 +176,22 @@ jQuery(function($) {
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 						if(compareDateTime(ed_date, st_date)){
-							date_error.text('Please enter valid date and time or date must be less than phase 1');
+							date_error.text(language_message.date_less_than_phase+phase_no);
 							date_error.show();
 						}else{
 							date_error.text();
 							date_error.hide();
 						}
 					}else{
-						date_error.text('Please enter hour and minutes');
+						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
 				}else{
-					$('#hm_error').text('Please enter hour and minutes');
+					$('#hm_error').text(language_message.enter_hour_minutes);
 					$('#hm_error').show();
 				}
 			}else{
-				$('#hm_error').text('Please enter hour and minutes');
+				$('#hm_error').text(language_message.enter_hour_minutes);
 				$('#hm_error').show();
 			}
 		}
@@ -220,22 +220,22 @@ jQuery(function($) {
 						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 						if(compareDateTime(ed_date, st_date)){
-							date_error.text('Please enter valid date and time or date must be less than phase 2');
+							date_error.text( language_message.date_less_than_phase+'2');
 							date_error.show();
 						}else{
 							date_error.empty();
 							date_error.hide();
 						}
 					}else{
-						date_error.text('Please enter hour and minutes');
+						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
 				}else{
-					$('#hm_error').text('Please enter hour and minutes');
+					$('#hm_error').text(language_message.enter_hour_minutes);
 					$('#hm_error').show();
 				}
 			}else{
-				$('#hm_error').text('Please enter hour and minutes');
+				$('#hm_error').text(language_message.enter_hour_minutes);
 				$('#hm_error').show();
 			}
 		}
@@ -276,7 +276,7 @@ jQuery(function($) {
 			startDate = moment(new Date (startDate)).format('YYYY-MM-DD');
 			old_date = moment(new Date (old_date)).format('YYYY-MM-DD');
 			if(startDate >= old_date){
-				date_error.text('Please select valid date Date must be grether than today\'s date' );
+				date_error.text(language_message.date_greater_than_today );
 				date_error.show();
 				disable_btn = true;
 			}else{
@@ -287,11 +287,11 @@ jQuery(function($) {
 
 
 		if($(field).hasClass('hour-select') && $(field).val() === "" || $(field).hasClass('minute-select') && $(field).val() === "") {
-			hm_error.text('Please enter hour and minutes');
+			hm_error.text(language_message.enter_hour_minutes);
 			hm_error.show();
 		}
 		if($(field).hasClass('hour-select') && $(field).val() > 12 || $(field).hasClass('minute-select') && $(field).val() > 60) {
-			hm_error.text('Please enter valid hour and minutes');
+			hm_error.text(language_message.enter_hour_minutes);
 			hm_error.show();
 		}
 		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
@@ -324,12 +324,12 @@ jQuery(function($) {
 		}else{
 			var error_disp = false;
 			if($('#postCopy').val()==''){
-				post_copy_error.text('Please enter post content');
+				post_copy_error.text(language_message.enter_post_content);
 				post_copy_error.show();
 				error_disp = true;
 			}
 			if(!error_disp){
-				img_error.text('Please select images or video');
+				img_error.text(language_message.select_image_video);
 				img_error.show();
 			}
 		}
@@ -402,14 +402,14 @@ jQuery(function($) {
 		
 		if( startDate == '' ){
 			if(phase_no == 0 ){
-				$message = 'Plaese select Sdate first';
+				$message = language_messageselect_sdate;
 				console.log($message);
 			}
 			if(phase_no == 1 ){
-				$message = 'Plaese select date in Phase 1';
+				$message = language_message.select_date+phase_no;
 			}
 			if(phase_no == 2 ){
-				$message = 'Plaese select date in Phase 2';
+				$message = language_message.select_date+phase_no;
 			}
 			error_div.text($message);
 			error_div.show();
@@ -418,10 +418,10 @@ jQuery(function($) {
 				$display_error = false;
 			}else{
 				if(phase_no == 0 ){
-					$message = 'Date must be less than Sdate';
+					$message = language_message.date_less_than_sdate;
 				}
 				else{
-					$message = 'Date must be less than Phase '+ phase_no;
+					$message =language_message.phase_less_than+ phase_no;
 				}
 				error_div.text($message);
 				error_div.show();
