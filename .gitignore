@@ -4,8 +4,6 @@ application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
 
-application/config/database.php
-application/config/config.php
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
@@ -105,8 +103,8 @@ public/wp-content/themes/sassapress/style.css
 # add your own entries here
 !public/wp-content/themes/sassapress/
 
-/application/config/database.php
-/application/config/config.php
-/application/config/mail.php
-/assets/uploads/*
+application/config/database.php
+application/config/config.php
+application/config/mail.php
+assets/uploads/*
 uploads/*
