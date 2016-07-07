@@ -512,5 +512,5 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['compile_json_message_js'] = TRUE;//when you want to compile set true  or update messages
+$config['compile_json_message_js'] = FALSE; 	//when you want to compile set true  or update messages
 $config['json_msg_file'] = 'assets/js/json_message.json';
