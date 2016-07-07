@@ -9,24 +9,23 @@
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <?php    
-if(isset($css_files))
-{
-    foreach ($css_files as $css_src) 
-    {
-        ?>
-        <link href="<?php echo $css_src ?>" rel="stylesheet">
-        <?php
-    }
-}
-// create json messafe file
-if($this->config->item('compile_json_message_js')){
-	$msg_file = $this->config->item('json_msg_file');
-	$json_message = $this->lang->language;
-	$json_str = 'var language_message = '.json_encode($json_message);
-	@unlink($msg_file);
-	file_put_contents($msg_file, $json_str);
-}
-
+	if(isset($css_files))
+	{
+	    foreach ($css_files as $css_src) 
+	    {
+	        ?>
+	        <link href="<?php echo $css_src ?>" rel="stylesheet">
+	        <?php
+	    }
+	}
+	// create json messafe file
+	if($this->config->item('compile_json_message_js')){
+		$msg_file = $this->config->item('json_msg_file');
+		$json_message = $this->lang->language;
+		$json_str = 'var language_message = '.json_encode($json_message);
+		@unlink($msg_file);
+		file_put_contents($msg_file, $json_str);
+	}
 ?>
 
 <script type="text/javascript">
