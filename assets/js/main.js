@@ -2214,7 +2214,7 @@ jQuery(function($) {
 			$('#attached_img').removeClass('hide');
 
         }
-	})
+	});
 
 	toggleBtnClass = function(btnClass, btnState){
 		$(btnClass).prop('disabled', btnState);
@@ -2225,6 +2225,14 @@ jQuery(function($) {
 			$(btnClass).removeClass('btn-disabled');
 		}
 	};
+
+	$(document).on('change','select[name="time_zone"]',function(){
+		var selected_abb;
+		selected_abb =  $(this).find(':selected').data('abbreviation');
+		$('#timezone_abbreviation').text(selected_abb);	
+	});
+
+	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
 });
 

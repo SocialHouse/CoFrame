@@ -373,3 +373,5 @@ ALTER TABLE `filters` CHANGE `outlets` `outlets` VARCHAR(200) NULL DEFAULT NULL;
 --- 04-07-2016 ---
 ALTER TABLE `posts` ADD `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_at`;
 
+--- 07-07-2016 ---
+ALTER TABLE `timezone` ADD `abbreviation` VARCHAR(50) NULL AFTER `value`;

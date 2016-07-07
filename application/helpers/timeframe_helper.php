@@ -230,6 +230,22 @@ if(!function_exists('get_time_zone'))
     }
 }
 
+if(!function_exists('get_abbreviation'))
+{
+    function get_abbreviation($timezone)
+    {
+        $CI = & get_instance();
+        $condition = array('value' => $timezone);
+        $timezone = $CI->timeframe_model->get_data_by_condition('timezone',$condition);
+        if($timezone)
+        {
+            return $timezone[0]->abbreviation;
+        }
+        return FALSE;
+    }
+}
+
+
 if(!function_exists('check_user_perm'))
 {
     function check_user_perm($permission,$perm,$brand_id)

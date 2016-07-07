@@ -26,6 +26,7 @@ class Calendar extends CI_Controller {
 		$this->load->model('timeframe_model');
 		$this->load->model('brand_model');
 		$this->load->model('post_model');
+		$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 	}
@@ -192,6 +193,7 @@ class Calendar extends CI_Controller {
 		}
 		$this->data['slug'] = $this->uri->segment(4);
 		$this->data['post_id'] = $this->uri->segment(5);
+		$this->data['timezones'] = $this->user_model->get_timezones();
 
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
 		if(!empty($brand))
@@ -376,6 +378,7 @@ class Calendar extends CI_Controller {
 				$post = array(
     						'content' => $this->input->post('post_copy'),
     						'slate_date_time' => $slate_date_time,
+    						'time_zone' =>$post_data['time_zone']
     					);
 
 				//  fetch all phases of post

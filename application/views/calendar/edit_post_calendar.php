@@ -117,10 +117,25 @@
 							<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time))?>">
 						</div>
 					</div>
-					<span class="timezone pull-xs-right">
-						<label class="invisible">Post Timezone</label>
-						PST
+					<span class="timezone pull-xs-right"><label class="invisible">Post Timezone</label>
+						<span  id="timezone_abbreviation"><?php echo get_abbreviation($post_details->time_zone); ?></span>
 					</span>
+				</div>
+				<div class="form-group slate-post-tz">
+					<select class="form-control" name="time_zone">
+						<?php 
+							foreach ($timezones as $key => $obj) {
+								$selected_tz = '';
+								if( $obj->value == $post_details->time_zone ){
+									$selected_tz = 'selected="selected"';
+								}
+								?>
+								<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+								<?php
+							}
+						?>
+					</select>
+
 				</div>
 
 				<div class="form-group pull-xl-right">
