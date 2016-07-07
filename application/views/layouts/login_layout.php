@@ -35,9 +35,9 @@
         }
     </style> 
     <script type="text/javascript">
-        var language_message = JSON.parse('<?php echo json_encode($this->lang->language); ?>');
-        var base_url = "<?php echo base_url(); ?>";
+       var base_url = "<?php echo base_url(); ?>";
     </script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
   </head>
 
   <body>

@@ -110,7 +110,6 @@
     <script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>main.js?ver=1.0.0'></script>
     <script>
-    console.log(language_message);
     	if(typeof(fileDragNDrop) == 'function')
 		{
 			fileDragNDrop();
