@@ -744,7 +744,7 @@
 				jQuery('#live-post-preview .insta-img-div').prepend(video);
 				jQuery("#live-post-preview .insta-img-div video").css("width", "100%");
 			}else{
-				var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+				var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
 				jQuery('.insta-img-div').empty();
 				jQuery('#live-post-preview .insta-img-div').append(preview_img);
 			}
@@ -1022,24 +1022,29 @@
 				//for insta
 				if( selected_outlet == 'outlet_instagram')
 				{
-					var preview_img = '<img src="'+$(b).attr('src')+'" >';
-					jQuery('.insta-img-div').empty();
-					jQuery('#live-post-preview .insta-img-div').append(preview_img);
+					$.each(allFiles,function(a,img){
+						var preview_img = jQuery('<img/>', {src: img.img_src});
+						jQuery('.img-div').empty();
+						jQuery('#live-post-preview .img-div').append(preview_img);
+					});
 				}
-				
 				//for linkedin
 				if(selected_outlet == 'outlet_linkedin')
 				{
-		            var preview_img = '<img src="'+$(b).attr('src')+'" >';
-		            jQuery('.likedin-img-div').empty();
-		            jQuery('#live-post-preview .likedin-img-div').append(preview_img);
+					$.each(allFiles,function(a,img){
+						var preview_img = jQuery('<img/>', {src: img.img_src});
+						jQuery('.likedin-img-div').empty();
+						jQuery('#live-post-preview .img-div').append(preview_img);
+					});
 				}
 
 				//for tumblr
 				if(selected_outlet == 'outlet_tumblr')
 				{
-					var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
-					jQuery('#live-post-preview .tumblr-img-div').append(preview_img);
+					$.each(allFiles,function(a,img){
+						var preview_img = jQuery('<img/>', {src: img.img_src});
+						jQuery('#live-post-preview .tumblr-img-div').append(preview_img);
+					});
 				}
 
 				//for vine

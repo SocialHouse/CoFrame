@@ -1651,6 +1651,7 @@ jQuery(function($) {
 
 	function setOutletPreview(outlet) {
 		var postOutletClass;
+		console.log(outlet);
 		if(outlet === "facebook") {
 			postOutletClass = 'fb_post';
 		}

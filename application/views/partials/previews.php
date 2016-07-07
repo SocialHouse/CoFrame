@@ -23,29 +23,20 @@
 
 	<div id="outlet_instagram">
 		<div class="post-container">
-			<div class="insta-post-div">
-				<div class="insta-profile-div">		
-					<div class="pull-left">
-						<img src="<?php echo img_url().'default_profile.jpg'; ?>" class="img-circle insta-profile">
-					</div>
-					<div class="margin-left-5 insta-username pull-left"><b>Ninad</b></div>
-					<div class="pull-right insta-time insta-username">0m</div>
+			<div class="clearfix post-header">
+				<div class="pull-left">
+					<img src="<?php echo img_url().'default_profile.jpg'; ?>" class="img-circle user-profile-img">
 				</div>
-				<div class="clearfix"></div>
-	
-				<div class="insta-img-div">
-					<!-- <img src="<?php echo img_url().'1.jpg'; ?>" > -->
-				</div>	
+				<span class="post-user-name pull-left">Ninad</span>
+				<div class="pull-right time-color">0m</div>
+			</div>
+			<div class="insta-img-div img-div">
+				<!-- <img src="<?php echo img_url().'1.jpg'; ?>" > -->
+			</div>	
 				
-				<div class="insta-post-copy">		
-					<div class="insta-comment-div">
-						<span class="insta-comment-user-name">Ninad</span>
-						<span class="post_copy_text"></span>
-					</div>
-				</div>
-				<div class="insta-add-comment">
-					<i class="fa fa-heart-o" aria-hidden="true"></i><span class="margin-left-5 ">Add a comment...</span>		
-				</div>
+			<div class="insta-post-copy">
+				<span class="post-user-name">Ninad</span>
+				<span class="post_copy_text"></span>
 			</div>
 		</div>
 	</div>

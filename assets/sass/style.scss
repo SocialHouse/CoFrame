@@ -3385,10 +3385,6 @@ textarea.form-control {
   font-size: 8px;
 }
 
-.post-img {
-  min-width: 150px;
-}
-
 .hide{
   display: none;
 }
@@ -3416,64 +3412,6 @@ textarea.form-control {
   padding : 0.5px 0.5px 0.5px 0.5px;
 }
 
-.photos_count {
-  color:#365899 !important;
-}
-
-.insta-profile {
-  width:25px !important;
-  height:25px !important;
-}
-
-.insta-username {
-  position: relative;
-  top: 45%;
-  transform: translateY(-50%);
-}
-
-.insta-time {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-.insta-add-comment {
-  padding:6px 15px;
-  height: 30px;
-  color:#DB7093;
-}
-
-.insta-post-copy {
-  padding:8px 10px;
-  max-height: auto;font-family: "Proxima Nova", Helvetica, Helvetica Neue, Arial, sans-serif !important;
-}
-
-.insta-comment-user-name {
-  font-weight: bold;font-family: arial
-}
-
-.insta-comment-div {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 5px;
-  height: auto;
-}
-
-.insta-img-div {
-  height:auto;
-  width:auto;
-  max-width: 300px
-}
-
-.insta-profile-div {
-  padding:14px 10px;
-  height: 55px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.insta-post-div {
-  border:1px solid #000;
-  max-width:300px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  text-transform: none !important;
-}
 /*Twitter*/
 .img-radious {
   border-radius: 5px;

@@ -75,6 +75,37 @@
 
 /*Instagram Post Styles*/
 .ig_post {
+	font-family: $ig-font;
+	font-size: 15px;
+	line-height: 18px;
+	.post-header {
+		padding: 14px 20px;
+		line-height: 30px;
+	}
+	.user-profile-img {
+		width: 28px;
+		height: 28px;
+		margin: -1px 10px -1px -5px;
+		img {
+			max-width: 100%;
+		}
+	}
+	.user-profile-details {
+		margin-left: 58px;
+	}
+	.post-user-name {
+		font-family: 'Proxima N W01 Bold','Helvetica Neue',Arial,Helvetica,sans-serif;
+	}
+	.time-color {
+		color: $ig-light;
+	}
+	a {
+		color: $ig-link;
+		font-family: $ig-font;
+	}
+	.insta-post-copy {
+		padding: 20px 24px;
+	}
 }
 
 /*Linkedin Post Styles*/
@@ -123,13 +154,6 @@
 		display: block;
 		font-size: 26px;
 		line-height: 32px;
-	}
-	.no-of-photos {
-		color: $tw-light;
-		font-weight: normal;
-	}
-	.photos_count {
-		color: $fb-link;
 	}
 	.img-div {
 		margin-top: 10px;

@@ -8564,6 +8564,31 @@ x:-o-prefocus, .qtip .qtip-tip {
       max-height: 394px; }
 
 /*Instagram Post Styles*/
+.ig_post {
+  font-family: "Proxima Nova W08 Reg", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 18px; }
+  .ig_post .post-header {
+    padding: 14px 20px;
+    line-height: 30px; }
+  .ig_post .user-profile-img {
+    width: 28px;
+    height: 28px;
+    margin: -1px 10px -1px -5px; }
+    .ig_post .user-profile-img img {
+      max-width: 100%; }
+  .ig_post .user-profile-details {
+    margin-left: 58px; }
+  .ig_post .post-user-name {
+    font-family: 'Proxima N W01 Bold','Helvetica Neue',Arial,Helvetica,sans-serif; }
+  .ig_post .time-color {
+    color: #999; }
+  .ig_post a {
+    color: #003569;
+    font-family: "Proxima Nova W08 Reg", "Helvetica Neue", Arial, Helvetica, sans-serif; }
+  .ig_post .insta-post-copy {
+    padding: 20px 24px; }
+
 /*Linkedin Post Styles*/
 /*Pinterest Post Styles*/
 /*Tumblr Post Styles*/
@@ -8595,11 +8620,6 @@ x:-o-prefocus, .qtip .qtip-tip {
     display: block;
     font-size: 26px;
     line-height: 32px; }
-  .tw_post .no-of-photos {
-    color: #8899a6;
-    font-weight: normal; }
-  .tw_post .photos_count {
-    color: #365899; }
   .tw_post .img-div {
     margin-top: 10px;
     margin: 9px 0 0 -1px;
@@ -11325,9 +11345,6 @@ textarea.form-control {
   font-weight: bold;
   font-size: 8px; }
 
-.post-img {
-  min-width: 150px; }
-
 .hide {
   display: none; }
 
@@ -11350,56 +11367,6 @@ textarea.form-control {
   height: 75px;
   width: 25%;
   padding: 0.5px 0.5px 0.5px 0.5px; }
-
-.photos_count {
-  color: #365899 !important; }
-
-.insta-profile {
-  width: 25px !important;
-  height: 25px !important; }
-
-.insta-username {
-  position: relative;
-  top: 45%;
-  transform: translateY(-50%); }
-
-.insta-time {
-  color: rgba(0, 0, 0, 0.4); }
-
-.insta-add-comment {
-  padding: 6px 15px;
-  height: 30px;
-  color: #DB7093; }
-
-.insta-post-copy {
-  padding: 8px 10px;
-  max-height: auto;
-  font-family: "Proxima Nova", Helvetica, Helvetica Neue, Arial, sans-serif !important; }
-
-.insta-comment-user-name {
-  font-weight: bold;
-  font-family: arial; }
-
-.insta-comment-div {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 5px;
-  height: auto; }
-
-.insta-img-div {
-  height: auto;
-  width: auto;
-  max-width: 300px; }
-
-.insta-profile-div {
-  padding: 14px 10px;
-  height: 55px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-
-.insta-post-div {
-  border: 1px solid #000;
-  max-width: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  text-transform: none !important; }
 
 /*Twitter*/
 .img-radious {
