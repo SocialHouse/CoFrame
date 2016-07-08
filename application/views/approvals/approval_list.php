@@ -10,7 +10,7 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
-			<h2 class="date-header pull-xs-left">Approvals</h2>		
+			<h2 class="date-header pull-xs-left">My Approvals</h2>	
 
 			<div class="pull-md-right toolbar">
 				<?php $this->load->view('partials/search_form'); ?>				

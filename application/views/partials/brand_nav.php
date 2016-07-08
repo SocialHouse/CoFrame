@@ -16,7 +16,7 @@
 		  		<a class="nav-link" href="<?php echo base_url().'posts/create/'.$brand->slug; ?>">Create Post</a>
 			</li>
 			<li class="nav-item">
-		  		<a data-sub_pages="request" class="nav-link" href="<?php echo base_url().'approvals/'.$brand->slug; ?>">Approvals</a>
+		  		<a data-sub_pages="request" class="nav-link" href="<?php echo base_url().'approvals/'.$brand->slug; ?>">My Approvals</a>
 			</li>
 			<li class="nav-item">
 	  			<a class="nav-link" href="<?php echo base_url().'co_create/create/'.$brand->slug; ?>">Co-Create</a>
