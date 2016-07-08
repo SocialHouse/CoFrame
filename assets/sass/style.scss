@@ -281,6 +281,20 @@ h5 {
 		font-size: 6px;
 	}
 }
+[class*="btn-arrow-"] {
+	.fa {
+		line-height: .7;
+		font-size: 18px;
+	}
+	.fa-angle-left {
+		float: left;
+		padding-right: .75rem;
+	}
+	.fa-angle-right {
+		float: right;
+		padding-left: .75rem;
+	}
+}
 .btn-gray {
 	color: #808080;
 	border-color: #808080;

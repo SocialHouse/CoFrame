@@ -9087,6 +9087,16 @@ h5, .qtip-titlebar {
   .btn-menu .fa {
     font-size: 6px; }
 
+[class*="btn-arrow-"] .fa {
+  line-height: .7;
+  font-size: 18px; }
+[class*="btn-arrow-"] .fa-angle-left {
+  float: left;
+  padding-right: .75rem; }
+[class*="btn-arrow-"] .fa-angle-right {
+  float: right;
+  padding-left: .75rem; }
+
 .btn-gray {
   color: #808080;
   border-color: #808080; }
