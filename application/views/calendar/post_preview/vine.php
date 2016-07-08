@@ -10,24 +10,23 @@ if(!empty($post_images)){
 		$brand_id = $post_details->brand_id;
 	}
 ?>
-<div class="vine-post" style="width:100%">
-	<div style="padding: 8px">
-		<div class="vine-user-profile" >
+<div class="vine-post" class="vn_post">
+	<div class="user-profile-details clearfix">
+		<div class="pull-left">
 			<?php 
 				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-	            	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png"class="default-img img-circle" />';
+	            	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png"class="user-profile-img circle-img" />';
 	            }else{
-	            	echo '<img class="default-img img-circle" src="'.img_url().'default_profile.jpg" width="40">';	
+	            	echo '<img class="user-profile-img circle-img" src="'.img_url().'default_profile.jpg" width="40">';	
 	            }
 			?>
 		</div>
-		<div class="vine-user-info" >
-			<div>Tragic Tofu</div>
-			<span>May 5, 2016</span>
+		<div class="pull-left">
+			<div class="post-user-name">Tragic Tofu</div>
+			<div class="time-color">May 5, 2016</div>
 		</div>
 	</div>
-	<div class="clearfix"></div>
-	<div class="content">
+	<div class="video-div">
 		<?php
 			if(!empty($post_images)){
 				foreach ($post_images as $key) {
@@ -48,22 +47,12 @@ if(!empty($post_images)){
 				}
 			}
 		?>
-		<div class="vine-comment-div">
-			<div class="post_copy_text">
-				<?php 
-					$content = $post_details->content;
-					$content = replace_with_expression($content);
-					echo (!empty($content)) ? $content : '';
-				?>
-			</div>
-			<hr>
-			<div class="vine-sharing-option">
-				<span><i class="fa fa-heart" aria-hidden="true"></i></span>21
-				<span><i class="fa fa-refresh" aria-hidden="true"></i></span>32
-				<span><i class="fa fa-share-square-o" aria-hidden="true"></i></span>share
-				<span class="pull-right">654 Loops</span>
-			</div>
-			
-		</div>
+	</div>
+	<div class="post_copy_text">
+		<?php 
+			$content = $post_details->content;
+			$content = replace_with_expression($content);
+			echo (!empty($content)) ? $content : '';
+		?>
 	</div>
 </div>

@@ -8619,7 +8619,7 @@ x:-o-prefocus, .qtip .qtip-tip {
     color: #66696a; }
   .in_post a {
     color: #008cc9;
-    font-family: "Proxima Nova W08 Reg", "Helvetica Neue", Arial, Helvetica, sans-serif; }
+    font-family: Arial, Helvetica, sans-serif; }
   .in_post strong, .in_post b {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold; }
@@ -8739,7 +8739,52 @@ x:-o-prefocus, .qtip .qtip-tip {
     display: block; }
 
 /*Vine Post Styles*/
+.vn_post {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 17px;
+  color: #464646; }
+  .vn_post .post-header {
+    padding: 12px 15px 0 15px;
+    margin-bottom: 11px;
+    min-height: 17px;
+    width: 100%;
+    overflow: hidden; }
+  .vn_post .user-profile-img {
+    width: 38px;
+    height: 38px;
+    margin-right: 8px;
+    border: 0; }
+  .vn_post .user-profile-details {
+    padding: 13px 10px; }
+  .vn_post .post-user-name {
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 1px; }
+  .vn_post .time-color {
+    color: #b2b2b2;
+    font-size: 12px;
+    letter-spacing: .065em;
+    line-height: 18px; }
+  .vn_post a {
+    color: #81c4ff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .vn_post strong, .vn_post b {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold; }
+  .vn_post .post_copy_text {
+    margin-top: 15px;
+    padding: 0 15px 15px;
+    font-size: 20px;
+    letter-spacing: .015em;
+    line-height: 28px; }
+  .vn_post video {
+    display: block; }
+
 /*Youtube Post Styles*/
+.yu_post video {
+  display: block; }
+
 * {
   backface-visibility: visible;
   -webkit-backface-visibility: visible; }
@@ -11521,53 +11566,6 @@ textarea.form-control {
   margin-top: -.75rem;
   margin-bottom: 0.75rem; }
 
-/* vine post preview */
-.vine-user-info {
-  width: 70%;
-  float: left;
-  color: #464646; }
-
-.vine-user-profile {
-  width: 20%;
-  float: left;
-  color: #00bf8f;
-  cursor: pointer; }
-
-.vine-user-info > span {
-  color: #b2b2b2;
-  font-size: 12px;
-  font-weight: 300;
-  white-space: nowrap; }
-
-.content {
-  padding-top: 8px; }
-
-.vine-comment-div .post_copy_text {
-  padding: 6px;
-  color: #464646;
-  font-weight: 300;
-  letter-spacing: 0.015em;
-  line-height: 23px; }
-
-.vine-post {
-  font-size: 16px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
-
-.vine-sharing-option {
-  padding: 8px;
-  color: #b2b2b2;
-  text-align: left;
-  font-size: 10px; }
-
-.vine-sharing-option > span {
-  padding-left: 5px;
-  padding-right: 5px; }
-
-.vine-comment-div > hr {
-  border-color: #d9d9d9 !important;
-  margin: 0; }
-
-/* vine post preview end*/
 /* tumblr post preview */
 .content {
   padding: 8px; }

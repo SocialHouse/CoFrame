@@ -817,8 +817,8 @@
 		if(selected_outlet == 'outlet_vine')
 		{
 			if(file_type == 'video'){
-				jQuery('#live-post-preview .content').prepend(video);
-				jQuery("#live-post-preview .content video").css("width", "100%");
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview video").css("width", "100%");
 			}
 		}
 		if(selected_outlet == 'outlet_youtube')
@@ -1086,15 +1086,11 @@
 			//for vine
 			if(selected_outlet == 'outlet_vine')
 			{
-				var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
-	            jQuery('.vine-img-div').empty();
-	            jQuery('#live-post-preview .content').append(preview_img);
+				jQuery('.video-div').empty();
 			}
 			if(selected_outlet == 'outlet_youtube')
 			{
-				var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
-	            jQuery('.youtube-img-div').empty();
-	            jQuery('#live-post-preview .content').append(preview_img);
+				jQuery('.video-div').empty();
 			}
 			if(selected_outlet == 'outlet_pinterest')
 			{

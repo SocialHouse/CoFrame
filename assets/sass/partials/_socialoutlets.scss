@@ -145,7 +145,7 @@
 	}
 	a {
 		color: $in-link;
-		font-family: $ig-font;
+		font-family: $in-font;
 	}
 	strong, b {
 		font-family: $in-font;
@@ -304,8 +304,60 @@
 
 /*Vine Post Styles*/
 .vn_post {
+	font-family: $vn-font;
+	font-size: 13px;
+	line-height: 17px;
+	color: #464646;
+	.post-header {
+		padding: 12px 15px 0 15px;
+		margin-bottom: 11px;
+		min-height: 17px;
+		width: 100%;
+		overflow: hidden;
+	}
+	.user-profile-img {
+		width: 38px;
+		height: 38px;
+		margin-right: 8px;
+		border: 0;
+	}
+	.user-profile-details {
+		padding: 13px 10px;
+	}
+	.post-user-name {
+		font-size: 16px;
+		line-height: 18px;
+		margin-top: 1px;
+	}
+	.time-color {
+		color: $vn-light;
+		font-size: 12px;
+		letter-spacing: .065em;
+		line-height: 18px;
+	}
+	a {
+		color: $vn-link;
+		font-family: $vn-font;
+	}
+	strong, b {
+		font-family: $vn-font;
+		font-weight: bold;
+	}
+	.post_copy_text {
+		margin-top: 15px;
+		padding: 0 15px 15px;
+		font-size: 20px;
+		letter-spacing: .015em;
+		line-height:28px;
+	}
+	video {
+		display: block;
+	}
 }
 
 /*Youtube Post Styles*/
 .yu_post {
+	video {
+		display: block;
+	}
 }
