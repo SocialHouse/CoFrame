@@ -36,6 +36,7 @@
 						{ 
 							?> 
 							<div class="table" id="table_id_<?php echo $user->aauth_user_id; ?>">
+
 								<div class="table-cell">
 									<?php
 										$path = img_url()."default_profile.jpg";
@@ -46,11 +47,20 @@
 										}
 									?>
 									<div class="pull-sm-left post-approver-img">
+										<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="<?php echo $user->aauth_user_id; ?>" data-brand-id="<?php echo $brand->id; ?>">
+											<i class="fa fa-pencil"></i>
+										</a>
 										<img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/>
 										<i class="tf-icon-circle remove-item remove-user" data-user-id="<?php echo $user->aauth_user_id; ?>" title="Remove User">x</i>
 									</div>
-									<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand->id); ?></div>
+									<div class="pull-sm-left post-approver-name">
+										<strong>
+											<?php echo $user->first_name . " " . $user->last_name; ?>
+										</strong>
+										<?php echo get_user_groups($user->aauth_user_id,$brand->id); ?>
+									</div>
 								</div>
+
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
 										if (check_user_perm($user->aauth_user_id,"create",$brand->id)) {
@@ -104,7 +114,7 @@
 											<?php
 										}
 									?> 
-								</div> 
+								</div>
 							</div> 
 							<?php
 						} 

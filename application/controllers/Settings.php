@@ -123,4 +123,126 @@ class Settings extends CI_Controller {
 		}
 	}
 
+
+
+	public function get_user_info()
+	{
+		$aauth_user_id = $this->input->post('aauth_user_id');
+		$brand_id = $this->input->post('brand_id');
+		if(!empty($brand_id) && !empty($aauth_user_id)){
+			$this->data['user_details'] = $this->user_model->get_user($aauth_user_id);
+			$this->data['user_outlets'] = $this->post_model->get_user_outlets($brand_id,$aauth_user_id);
+			$this->data['user_role'] = strtolower(get_user_groups($aauth_user_id,$brand_id));
+			if(!empty($this->data)){
+				echo json_encode(array('status' => 'success' , 'result'=> $this->data));
+			}else{
+				echo json_encode(array('status' => 'fail' , 'result'=> 'Fail'));
+			}	
+		}else{
+			echo json_encode(array('status' => 'fail' , 'result'=> 'Fail'));			
+		}
+	}
+
+
+	public function edit_user()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data) && !empty($post_data['user_id'])){
+			$user_id = $post_data['user_id'];
+			$brand_id = $post_data['brand_id'];
+
+        	$old_outlets = object_to_array($this->post_model->get_user_outlets($brand_id,$user_id));
+        	if(!empty($old_outlets))
+        	{
+	        	$outlet_ids = array_column($old_outlets,'id');
+
+	        	$new_selected_outlets = explode(',', $post_data['outlets']);
+
+	        	$outlets_to_add = array_diff($new_selected_outlets,$outlet_ids); // outlets to add
+	        	
+	        	$outlets_to_delete = array_diff($outlet_ids,$new_selected_outlets); //outlets to delete
+
+	        	// echo '$new_selected_outlets <pre>'; print_r($new_selected_outlets );echo '</pre>'; 
+	        	
+	        	// echo '$outlet_ids <pre>'; print_r($outlet_ids );echo '</pre>'; 
+
+	        	// echo '$outlets_to_add <pre>'; print_r($outlets_to_add );echo '</pre>'; 
+
+	        	// echo '$outlets_to_delete <pre>'; print_r($outlets_to_delete );echo '</pre>'; 
+	        	foreach ($outlets_to_delete as $key => $o_id) {
+	        		$condition = array(
+	        				'user_id' => $user_id,
+	        				'outlet_id' => $o_id ,
+	        				'brand_id' => $brand_id
+	        			);
+	        		$this->timeframe_model->delete_data('user_outlets',$condition);
+	        	}
+	        	foreach ($outlets_to_add as $key_1 => $o_id_1) {
+	        		$data = array(
+	        			'user_id' => $user_id,
+	        			'outlet_id' => $o_id_1,
+	        			'brand_id' => $brand_id
+	        			);
+	        		$this->timeframe_model->insert_data('user_outlets',$data);
+	        	}
+	        }
+	        $user_info = array(
+	        		'first_name'=> $post_data['first_name'],
+	        		'last_name'=> $post_data['last_name'],
+	        		'title'=> $post_data['title'],
+	        		'first_name'=> $post_data['first_name']
+	        	);
+	        $condition = array('aauth_user_id' => $user_id);
+	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
+
+	        if(isset($post_data['file']) && !empty($post_data['file'])){
+        		$base64_image = $post_data['file'];
+    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+	        	//decode base64 string
+		        $decoded = base64_decode($base64_str);
+
+		        //create jpeg from decoded base 64 string and save the image in the parent folder
+
+		        if(!is_dir(upload_path().$this->user_id.'/users/')){
+		        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+		        }
+		        $url = upload_path().$this->user_id.'/users/'.$user_id.'.png';	
+		        
+		        $result = file_put_contents($url, $decoded);
+		        
+		        $source_url = imagecreatefrompng($url);
+		        
+		        header('Content-Type: image/png');
+		        
+		        imagepng($source_url, $url, 8);
+
+		        // $old_role = strtolower(get_user_groups($aauth_user_id,$brand_id));
+		        
+		        // $this->aauth->remove_member($user_id, $old_role);
+
+		        // $group_id = $this->aauth->get_group_id($post_data['role']);
+
+		        // $this->aauth->add_member($user_id,$group_id,$brand_id);
+		        
+		        // $this->aauth->deny_user($user_id, $old_role);
+
+		        //add permission to user
+            
+            	// if(!empty($post_data['permissions']))
+            	// {
+            	// 	foreach($post_data['permissions'] as $permission)
+            	// 	{
+            	// 		$matching_perms = $this->aauth->get_matching_perms($permission);
+
+            	// 		foreach($matching_perms as $perm)
+            	// 		{
+            	// 			$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
+            	// 		}
+            	// 	}
+            	// }
+            	echo 'success';
+        	}
+		}
+	}
 }

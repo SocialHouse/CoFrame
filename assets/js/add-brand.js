@@ -425,8 +425,15 @@ jQuery(function($) {
 			}
 		});
 
-		$(document).on('blur keyup','#firstName,#lastName',function()
-		{			
+		$(document).on('keyup change','#firstName,#lastName',function()
+		{
+				console.log([
+							$('#lastName').val(),
+							$('#userEmail').val(),
+							validateEmail(	$('#userEmail').val()),
+							$('#firstName').val() ,
+							validEmail
+						]);
 			if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val() && validEmail)
 	    	{
 				toggleBtnClass('#addRole',false);
@@ -496,7 +503,7 @@ jQuery(function($) {
     	}
     });
 
-   	 $(document).on('keyup blur','#userEmail',function(){
+   	 $(document).on('keyup change','#userEmail',function(){
     	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
     	{
  			toggleBtnClass('#addRole',false);
@@ -524,6 +531,7 @@ jQuery(function($) {
 		else
 		{
 			$('#emailValid').addClass('hide');
+			console.log('sadasdsdsadsadas');
 			$.ajax({
 				url: base_url+'tour/check_email_exist',
 				type:'POST',
@@ -710,6 +718,7 @@ jQuery(function($) {
      	// if(!($('#userPermissionsList .table').length > 1)){
      	// 	return false;
      	// }
+     	console.log(language_message);
     	if(confirm(language_message.delete_user))
         {
 
@@ -731,6 +740,149 @@ jQuery(function($) {
 		}
 		
     });
+
+ 	$(document).on('click', '.edit-user-permission', function(e) {
+		var aauth_user_id = $(this).data('user-id');
+		var brand_id = $(this).data('brand-id');
+		validEmail = true;	
+		$('.addUserToBrand').addClass('editUserToBrand');
+		$('.editUserToBrand').removeClass('addUserToBrand');
+		$('.editUserToBrand').removeClass('Update');
+		toggleBtnClass('.editUserToBrand',false);
+		$('.editUserToBrand').text('Update');
+		$('#user-select').attr('disabled','disabled');
+		$('#addUserBtns .btn-cancel').addClass('disabled-drop-down');
+		$('#userRoleBtns .btn-cancel').addClass('disabled-drop-down');
+		// $('#user-select').val(aauth_user_id);
+		toggleBtnClass('#addRole', false);
+		$('#userSelect').slideUp(function() {
+			$('#addUserInfo').slideDown(function() {
+				equalColumns();
+			});
+		});
+		$('#user-select option[value='+aauth_user_id+']').attr('selected','selected');
+		var user_details,user_outlets,user_role;
+		$.ajax({
+			url: base_url+'settings/get_user_info',
+			type:'POST',
+			dataType:'json',
+			data: {
+				'aauth_user_id':aauth_user_id,
+				'brand_id':brand_id
+			},
+			success:function(response){
+				if(response.status =='success'){
+					user_details = response.result.user_details;
+					user_outlets = response.result.user_outlets;
+					user_role = response.result.user_role;
+					var $hiddenInput = $('<input/>',{type:'hidden',id:'aauth_user_id',value:aauth_user_id});
+					$('#addUserInfo').append($hiddenInput);
+					$('#firstName').val(user_details.first_name);
+					$('#lastName').val(user_details.last_name);
+					$('#userTitle').val(user_details.title);
+					$('#userEmail').val(user_details.email);
+					$('#userEmail').attr('readonly','readonly');
+					$('#userEmail').attr('disabled','disabled');
+					$('#userOutlet').val('');
+					var newOutlets = [];
+					$.each($('#user-selected-outlet li'), function(i, element){
+						$.each(user_outlets, function(j,obj){
+							if($(element).data('selected-outlet') == obj.id){
+								$(element).removeClass('disabled');
+								$(element).addClass('selected');
+								if ($.inArray(obj.id, newOutlets) === -1)
+   									newOutlets.push(obj.id);
+							}
+						});
+					});
+					$('#userOutlet').val(newOutlets);
+					validEmail = true;
+					$('#userRoleSelect').val(user_role).trigger('change');
+				}else{
+
+				}
+			}
+		});
+	});
+
+	$(document).on('click','.disabled-drop-down',function(e){
+		$('#user-selected-outlet li').addClass('disabled');
+		$('#user-selected-outlet li').removeClass('selected');
+		$('#userEmail').removeAttr('readonly');
+		setTimeout( function (){
+			$('#aauth_user_id').remove();
+			$('#user-select').removeAttr('disabled');
+			$('#user-select').removeAttr('readonly');
+			$('#userEmail').removeAttr('readonly');
+			$('#userEmail').removeAttr('disabled');
+			$('#userOutlet').val('');
+			$('.editUserToBrand').text('Add');
+			$('.addUserToBrand').removeClass('editUserToBrand');
+			$('.editUserToBrand').addClass('addUserToBrand');
+			$('#addUserBtns .btn-cancel').removeClass('disabled-drop-down');
+			$('#userRoleBtns .btn-cancel').removeClass('disabled-drop-down');			
+		},200);
+	});
+
+
+
+	//add user to brand
+			$(document).on( 'click','.editUserToBrand', function( e ){
+				var control = this;
+				$('.user-upload-img').show();
+				$('.user-img-preview').hide();
+				// ajax file upload for modern browsers
+					e.preventDefault();
+					// gathering the form data
+					var ajaxData = new FormData();
+					var other_data = $('form').serializeArray();
+					// ajax request
+					var brand_id = $('#brand_id').val();
+			    	var fname = $('#firstName').val();
+			    	var lname = $('#lastName').val();
+			    	var title = $('#userTitle').val();
+			    	var email = $('#userEmail').val();
+			    	var selectedOutlets = $('#userOutlet').val();
+			    	var userRoleSelect = $('#userRoleSelect :selected').val();
+			    	var selected_user = $('#aauth_user_id').val();
+			    	var selectedPermissions = [];
+			    	var image_name = '';
+			    	var user_pic = '';
+			    	console.log(selected_user);
+			    	if($('#user_pic_base64').val() != ''){
+			    		user_pic = $('#user_pic_base64').attr('value');
+			    	}
+
+			    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
+					   selectedPermissions[i] = this.value;
+					});
+					
+			    	$.ajax({
+			    		url: base_url+'Settings/edit_user',    		
+			    		data:{
+			    			'brand_id': brand_id,
+			    			'first_name':fname,
+			    			'last_name':lname,
+			    			'title':title,
+			    			'email':email,
+			    			'outlets':selectedOutlets,
+			    			'role':userRoleSelect,
+			    			'permissions':selectedPermissions,
+			    			'image_name': image_name,
+			    			'file':user_pic,
+			    			'user_id': selected_user
+			    		},
+			    		type: 'POST',
+			    		dataType: 'html',
+			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+			    		success: function(data)
+			    		{
+			    			window.location.reload();
+			    		}
+			    	});
+
+			
+			});
 }
 
 	function validateEmail(email) {
