@@ -819,22 +819,14 @@
 			if(file_type == 'video'){
 				jQuery('#live-post-preview .content').prepend(video);
 				jQuery("#live-post-preview .content video").css("width", "100%");
-			}else{
-				var preview_img = '<img width="100%" src="'+window.URL.createObjectURL(file)+'" >';
-				jQuery('.vine-img-div').empty();
-				jQuery('#live-post-preview .content').append(preview_img);	
-			}	
+			}
 		}
 		if(selected_outlet == 'outlet_youtube')
 		{
 			if(file_type == 'video'){
 				jQuery('#live-post-preview .content').prepend(video);
 				jQuery("#live-post-preview .content video").css("width", "100%");
-			}else{
-				var preview_img = '<img width="100%" src="'+window.URL.createObjectURL(file)+'" >';
-				jQuery('.vine-img-div').empty();
-				jQuery('#live-post-preview .content').append(preview_img);	
-			}	
+			}
 		}
 		if(selected_outlet == 'outlet_pinterest')
 		{
@@ -1101,7 +1093,7 @@
 			if(selected_outlet == 'outlet_youtube')
 			{
 				var preview_img = '<img width="100%" src="'+$(b).attr('src')+'" >';
-	            jQuery('.vine-img-div').empty();
+	            jQuery('.youtube-img-div').empty();
 	            jQuery('#live-post-preview .content').append(preview_img);
 			}
 			if(selected_outlet == 'outlet_pinterest')
