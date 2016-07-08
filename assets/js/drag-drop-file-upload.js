@@ -67,7 +67,13 @@
 
 					showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
-						
+					
+					if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
+					{
+						alert(language_message.twitter_img_allowed);
+						return false;
+					}
+
 					$.each(droppedFiles, function (index, file) {
 
 						var file_type = file.type.split('/');
@@ -75,6 +81,24 @@
 							alert('Invalid file extention');
 							return false;
 						};
+						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
+						if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
+						{
+							var message_obj = 'vine_img_not_allwed';
+							if(outlet_const == 'youtube')
+							{
+								message_obj = 'youtube_img_not_allwed';
+							}
+							alert(language_message.message_obj);
+							return false;
+						}
+
+						if(outlet_const == 'instagram' && file_type[0]== 'video')
+						{
+							alert(language_message.insta_video_not_allowed);
+							return false;
+						}
+
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
 								alert('Image size should be less than 2 MB');
@@ -208,12 +232,38 @@
 						var $fileDiv = $('.form__input');
 						$fileDiv.parent().find('.upload-error').addClass('hide');
 						var error ='false';
+						
+						if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
+						{
+							alert(language_message.twitter_img_allowed);
+							return false;
+						}
+
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
 							if($.inArray(file_type[1] ,supported_files) == -1){
 								alert(language_message.invalid_extention);
 								return false;
-							};
+							}
+							
+							var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
+							if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
+							{
+								var message_obj = 'vine_img_not_allwed';
+								if(outlet_const == 'youtube')
+								{
+									message_obj = 'youtube_img_not_allwed';
+								}
+								alert(language_message.message_obj);
+								return false;
+							}
+
+							if(outlet_const == 'instagram' && file_type[0]== 'video')
+							{
+								alert(language_message.insta_video_not_allowed);
+								return false;
+							}
+
 							if( file_type[0]== 'image'){
 								if( file.size > 2000000){
 									alert(language_message.image_size_limit);

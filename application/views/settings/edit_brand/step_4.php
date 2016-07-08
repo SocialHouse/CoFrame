@@ -1,5 +1,5 @@
 <div class="container-brand-step">
-	<form id="step_4_edit" method="POST" action="<?php echo base_url()?>brands/save_tags" enctype="multipart/form-data">
+	<form id="step_4_edit" method="POST" action="<?php echo base_url()?>brands/update_tags" enctype="multipart/form-data">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
@@ -12,12 +12,16 @@
 						foreach ($selected_tags as $st_tag) 
 						{
 							?>
-							<li data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag" data-tag="<?php echo $st_tag->tag_name; ?>">
+							<li data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag save-list-tag" data-tag="<?php echo $st_tag->tag_name; ?>">
+								<input class="tg-ids" type="hidden" name='tag_id[]' value="<?php echo $st_tag->id; ?>">
 								<input type="checkbox" value="<?php echo $st_tag->color; ?>" checked="checked" name="selected_tags[]" class="hidden-xs-up color">
 								<i class="fa fa-circle" style="color:<?php echo $st_tag->color; ?>"><i class="fa fa-check"></i></i>
-								<input type="hidden" value="<?php echo $st_tag->tag_name; ?>" class="labels" name="labels[]"><?php echo $st_tag->tag_name; ?>
+								<input type="hidden" value="<?php echo $st_tag->tag_name; ?>" class="labels" name="labels[]"><span><?php echo $st_tag->tag_name; ?></span>
 								<a data-remove-tag="<?php echo $st_tag->tag_name; ?>" class="pull-sm-right remove-tag" href="#">
 									<i class="tf-icon circle-border">x</i>
+								</a>
+								<a data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" href="#brandOutlets" data-color="<?php echo $st_tag->color; ?>" data-value="<?php echo $st_tag->tag_name; ?>" class="btn-icon btn-gray post-filter-popup edit-tag show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns">
+								<i class="fa fa-pencil"></i>
 								</a>
 							</li>
 							<?php						

@@ -123,6 +123,25 @@ jQuery(function($) {
         $('#addTagLink').on('click', function() {
             $('#newLabel').val("");
             $('#tagLabel').val("");
+            $('#tagLabel').attr('data-edit_color','');
+			$('#tagLabel').attr('data-edit_value','');
+			$('#tagLabel').attr('data-edit_index','');
+			$('#tagLabel').attr('data-prev_value','');
+			$('#tagLabel').attr('data-prev_color','');
+            $('#tagLabel').removeClass('edit-process');
+            $('#otherTagLabel').hide();
+            // $(".tags-to-add").children('li selected').removeClass('selected');
+            var selected_tag = $('#selectedTags').find('li');
+			$.each(selected_tag,function(a,b){
+				$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
+					if($(d).attr('data-color') == $(b).find('a:last').attr('data-color'))
+					{
+						$(d).attr('data-value',$(b).attr('data-value'));
+						$(d).removeClass('selected');
+						$(d).addClass('saved');
+					}
+				});
+			});
         })
 
 		$('#userRoleSelect').on('change', function() {
@@ -179,6 +198,9 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('body').on('click', '#selectBrandTags .tag', function() {
+			if($(this).hasClass('save-list-tag')){
+				return;
+			}
 			//alert('test');
 			if($(this).hasClass('saved')) {
 				return;
@@ -234,28 +256,37 @@ jQuery(function($) {
 					//console.log(selected_tag);
 					var add_flag = 1;
 					var control = this;
-					$.each(selected_tag,function(a,b){
-						//console.log($(control).val());
-						//console.log($(b).data('value'));
-						if($(b).data('value') == $(control).val())
-						{
-							add_flag = 0;
-							$('#labelSelectValid').removeClass('hide');
-						}
-					});
+					setTimeout(function(){
+						$.each(selected_tag,function(a,b){
+							//console.log($(control).val());
+							//console.log($(b).data('value'));
+							if($(b).data('value') == $(control).val())
+							{
+								add_flag = 0;
+								$('#labelSelectValid').removeClass('hide');
+							}
 
-					if(add_flag == 1)
-					{
-						$('#labelSelectValid').addClass('hide');
-						if($(this).val())
+							if($(b).data('value') == $(control).val() && $(control).hasClass('edit-process') && $(control).attr('data-edit_color') == $(b).children('a:last').data('color'))
+							{
+								add_flag = 1;
+								$('#labelSelectValid').addClass('hide');
+								toggleBtnClass('#addTag',false);
+								return false;
+							}
+						});
+						if(add_flag == 1)
 						{
-							toggleBtnClass('#addTag',false);
-						}				
-					}
-					else
-					{
-						toggleBtnClass('#addTag',true);
-					}
+							$('#labelSelectValid').addClass('hide');
+							if($(control).val())
+							{
+								toggleBtnClass('#addTag',false);
+							}				
+						}
+						else
+						{
+							toggleBtnClass('#addTag',true);
+						}
+					},300);					
 				}
 				else {
 					$('#labelSelectValid').addClass('hide');
@@ -326,34 +357,75 @@ jQuery(function($) {
 		$('#addTag').on('click', function() {
 			var $selectedItem = $('#selectBrandTags .selected');
 			var numberSelected =  $selectedItem.length;
-			if(numberSelected > 0) {
-				var $selectedList = $('#selectedTags ul');
-				var $clone = $selectedItem.clone();
+			var $selectedList = $('#selectedTags ul');
+			var control = this;
+			if($('#tagLabel').hasClass('edit-process'))
+			{
+				if(numberSelected > 0)
+				{
+					// alert('test');
+					$.each($selectedList.children('li'),function(a,b){
+						if($('#tagLabel').attr('data-edit_index') == $(b).attr('data-index'))
+						{
+							alert('in');
+							// console.log($selectedItem.attr('data-value'));
+							$(b).attr('data-tag', $selectedItem.attr('data-value'));							
+							$(b).attr('data-value',$selectedItem.attr('data-value'));
+							$(b).find('input[type="checkbox"]').val($selectedItem.attr('data-color'));
+							$(b).find('i:first').css('color',$selectedItem.attr('data-color'));
+							$(b).find('.labels').val($selectedItem.data('value'));
+							$(b).find('a:first').attr('data-remove-tag',$selectedItem.attr('data-value'));
 
-				var $listItem = $clone.remove('input').removeClass('selected');
-				$listItem.children('.color').attr('name','selected_tags[]');
-				$('.submit_tag').prop('disabled',true);
-				setTimeout(function(){										
-					var tagTitle = $selectedItem.attr('data-value');
-					var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
-					//reset custom tags so that another can be added
-					if(customTag === true) {
-						var $custom = $('#selectBrandTags .custom-tag');					
-						var $newCustom = $custom.clone();
-						$newCustom.insertAfter($custom).removeClass('selected').hide();
-						$custom.removeClass('custom-tag');
-						customTag = false;
-					}
-					
-					$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
-					$selectedItem.addClass('saved').removeClass('selected');
-					$selectedList.append($listItem);					
-				}, 200);
-				toggleBtnClass('.submit_tag',false);
-				$('.submit_tag').prop('disabled',false);
+							$(b).find('a:last').attr('data-previous_value',$(b).find('a:last').attr('data-value'));
+							$(b).find('a:last').attr('data-previous_color',$(b).find('a:last').attr('data-color'));
+
+							$(b).find('a:last').attr('data-value',$selectedItem.attr('data-value'));
+							$(b).find('a:last').attr('data-color',$selectedItem.attr('data-color'));
+							$(b).find('span:first').text($selectedItem.attr('data-value'));
+
+							$('#tagLabel').attr('data-prev_value',$selectedItem.attr('data-value'));
+							$('#tagLabel').attr('data-prev_color',$selectedItem.attr('data-color'));	
+							console.log($(b).attr('data-tag'));
+							// $(b).find('a:last').attr('data-previous_value',$selectedItem.data('value'));
+							// $(b).find('a:last').attr('data-previous_color',$selectedItem.data('color'));
+						}
+					});
+				}
+				else
+				{
+					return
+				}
 			}
-			else {
-				return;
+			else
+			{
+				if(numberSelected > 0) {					
+					var $clone = $selectedItem.clone();
+
+					var $listItem = $clone.remove('input').removeClass('selected');
+					$listItem.children('.color').attr('name','selected_tags[]');
+					$('.submit_tag').prop('disabled',true);
+					setTimeout(function(){										
+						var tagTitle = $selectedItem.attr('data-value');
+						var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
+						//reset custom tags so that another can be added
+						if(customTag === true) {
+							var $custom = $('#selectBrandTags .custom-tag');					
+							var $newCustom = $custom.clone();
+							$newCustom.insertAfter($custom).removeClass('selected').hide();
+							$custom.removeClass('custom-tag');
+							customTag = false;
+						}
+						
+						$listItem.append('<input type="hidden" name="labels[]" class="labels" value="'+tagTitle+'" >'+tagTitle + editTag).attr('data-tag', tagTitle);
+						$selectedItem.addClass('saved').removeClass('selected');
+						$selectedList.append($listItem);					
+					}, 200);
+					toggleBtnClass('.submit_tag',false);
+					$('.submit_tag').prop('disabled',false);
+				}
+				else {
+					return;
+				}
 			}
 		});
 
@@ -383,6 +455,69 @@ jQuery(function($) {
 			$(this).parents('li').remove();
 		});
 
+		$(document).on('click','.edit-tag',function(){
+			control = this;
+			var li = $(".tags-to-add").children('li');
+			var selected = 0;
+			var selected_tag = $('#selectedTags').find('li');
+			$.each(selected_tag,function(a,b){
+				$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
+					if($(d).attr('data-color') == $(b).children('a:last').attr('data-color'))
+					{
+						$(d).attr('data-value',$(b).data('value'));
+						$(d).addClass('saved');
+						$(d).removeClass('selected');
+					}
+				});
+			});
+			$.each(li,function(a,b){
+				if($(b).attr('data-color') == $(control).attr('data-color') && $(b).attr('data-value') == $(control).data('value'))
+				{	
+					$(b).removeClass('saved');
+					$(b).addClass('selected');
+					var data_tag_val = $(b).attr('data-value');
+					
+					// $("#tagLabel").val($(b).attr('data-value'));
+					// $("#tagLabel").trigger('change');
+				}
+			});
+			$('#tagLabel').addClass('edit-process');
+			$('#tagLabel').attr('data-edit_value',$(this).attr('data-value'));
+			$('#tagLabel').attr('data-edit_color',$(this).attr('data-color'));
+			$('#tagLabel').attr('data-edit_index',$(this).data('index'));	
+			// $('#tagLabel').attr('data-prev_value',$(this).attr('data-previous_valur'));
+			// $('#tagLabel').attr('data-prev_color',$(this).attr('data-previous_color'));	
+
+			toggleBtnClass('.submit_tag',false);
+
+		// console.log($(this).attr('data-previous_color'));
+			
+			
+			$('#tagLabel>option').map(function(){
+				if($(this).val() == $(control).attr('data-previous_value'))
+				{
+					$(this).remove();
+					
+				}
+
+				if($(this).val() == $(control).attr('data-value'))
+				{
+					$(this).remove();
+					
+				}
+
+				if($(this).val() == 'other')
+				{
+					$(this).remove();
+					
+				}
+			});
+			$('#tagLabel').append('<option selected="selected" value="'+$('#tagLabel').attr('data-edit_value')+'">'+$('#tagLabel').attr('data-edit_value')+'</option><option value="other">+ADD LABEL</option>');		
+			$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
+			$("#tagLabel").trigger('change');
+			
+		});
+
 		$('#selectedTags').on('contentSlidDown', function() {
 			hideNoLength($(this));
 		});
@@ -390,8 +525,9 @@ jQuery(function($) {
 		var selected_tag = $('#selectedTags').find('li');
 		$.each(selected_tag,function(a,b){
 			$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
-				if($(d).data('color') == $(b).find('input').val())
+				if($(d).data('color') == $(b).find('a:last').attr('data-color'))
 				{
+					$(d).attr('data-value',$(b).data('value'));
 					$(d).addClass('saved');
 				}
 			});
@@ -602,7 +738,7 @@ jQuery(function($) {
     });  
 
     //save tags
-     $(document).on('click','.submit_tag',function(){     
+     $(document).on('click','.submit_tag',function(){
     	var control = this;
     	var brand_id = $('#brand_id').val();
     	var slug = $('#slug').val();
@@ -692,7 +828,6 @@ jQuery(function($) {
     	var brand_id = $('#brand_id').val();    	
     	if(brand_id)
     	{
-    		console.log($(this).hasClass('selected'));
 	    	var path = base_url+outlet.toLowerCase()+'_connect/'+outlet.toLowerCase()+'/'+brand_id+'/'+$(this).data('selected-outlet-id');
 	    	if($(this).hasClass('selected'))
 	    	{

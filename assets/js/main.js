@@ -77,14 +77,56 @@ jQuery(function($) {
 		$('.outlet_ul li:first').toggleClass('disabled');
 		$('.outlet_ul li:first').siblings().addClass('disabled');
 		$('#postOutlet').val(outlet_id);
+		if(outlet_const=='twitter'){
+			$("#postCopy").val('');
+			$("#postCopy").attr("maxlength",10);
+		}else{
+			$('#postCopy').removeAttr('maxlength');
+		}
 		$('#postOutlet').attr('data-outlet-const',outlet_const);
 		createPreview();
 
 		equalColumns();
 		
-		$('#post-details .outlet-list li').on('click', function() {
+		$('#post-details .outlet-list li').on('click', function() {			
 			var previous_outlet = $('#postOutlet').val();
-			var outlet = $(this).data('selectedOutlet');			
+			var outlet = $(this).data('selectedOutlet');
+			var outlet_const = $(this).data('outlet-const');
+			if(outlet_const == 'twitter')
+			{
+				if($('.form__preview-wrapper img').length > 4)
+				{
+					alert(language_message.twitter_img_allowed_outlet_change);
+					return false;
+				}
+
+			}
+
+			if(outlet_const == 'vine' || outlet_const == 'youtube')
+			{
+				if($('.form__preview-wrapper img').length)
+				{
+					var message_obj = 'vine_outlet_change_error';
+					if(outlet_const == 'youtube')
+					{
+						message_obj = 'youtube_outlet_change_error';
+					}
+
+					alert(language_message.message_obj);
+					return false;
+				}
+
+			}
+
+			if(outlet_const == 'instagram')
+			{
+				if($('.form__preview-wrapper video').length)
+				{
+					alert(language_message.insta_outlet_change_error);
+					return false;
+				}
+			}
+
 			if(previous_outlet != outlet)
 			{
 				$(this).toggleClass('disabled');
@@ -2077,6 +2119,16 @@ jQuery(function($) {
 		var slug = $('#slug').val();
 		var selected_labels = $('.labels');
 
+		var tag_ids = []
+		$('.tg-ids').each(function(i) {
+			tag_ids[i] = this.value;
+		});
+
+		var tags = [];
+		$('input[name="selected_tags[]"]:checked').each(function(i) {
+			tags[i] = this.value;
+		});
+
 		var tags = [];
 		$('input[name="selected_tags[]"]:checked').each(function(i) {
 			tags[i] = this.value;
@@ -2089,7 +2141,7 @@ jQuery(function($) {
  
          $.ajax({
             url: form.attr('action'),
-            data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug},
+            data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug,'tag_ids':tag_ids},
             type:'POST',
             dataType: 'json',
             success: function(result){

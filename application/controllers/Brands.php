@@ -263,6 +263,48 @@ class Brands extends CI_Controller {
 
     }
 
+     public function update_tags()
+    {
+		$post_data = $this->input->post();
+    	if(!empty($post_data))
+    	{
+    		$tags = $post_data['tags'];
+    		$labels = $post_data['labels'];
+    		$previous_tags = $this->timeframe_model->get_data_array_by_condition('brand_tags',array('brand_id' => $post_data['brand_id']));
+    		
+    		if(!empty($previous_tags))
+    		{
+    			$previous_tag_ids = array_column($previous_tags,'id');
+    			$tags_to_delete = array_diff($previous_tag_ids,$post_data['tag_ids']);
+    			foreach($tags_to_delete as $tag)
+    			{
+    				$this->timeframe_model->delete_data('brand_tags',array('id' =>$tag));
+    			}
+    		}
+        	foreach ($tags as $key=>$tag)
+        	{
+        		$data = array(
+	        				'name' => $post_data['labels'][$key],
+	        				'color' => $tag,
+	        				'brand_id' => $post_data['brand_id']
+	        			);
+        		if(!empty($post_data['tag_ids'][$key]))
+        		{
+        			$condition = array('id' => $post_data['tag_ids'][$key]);
+        			$this->timeframe_model->update_data('brand_tags',$data,$condition);
+        		}
+        		else
+        			$this->timeframe_model->insert_data('brand_tags',$data);
+	        }
+	        echo json_encode(array('response'=>'success','brand_id' => $post_data['brand_id']));
+    	}
+    	else
+    	{
+    		echo json_encode(array('response'=>'fail'));
+    	}
+
+    }
+
     public function add_user()
     {
     	$post_data = $this->input->post();
