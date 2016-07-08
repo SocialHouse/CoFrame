@@ -21,7 +21,15 @@
 				font-weight: 400;	}
 			/* Custom CSS */
 		</style>
-		
+		<?php
+		if($this->config->item('compile_json_message_js')){
+			$msg_file = $this->config->item('json_msg_file');
+			$json_message = $this->lang->language;
+			$json_str = 'var language_message = '.json_encode($json_message);
+			@unlink($msg_file);
+			file_put_contents($msg_file, $json_str);
+		}
+		?>
 		<script type="text/javascript">
 			var base_url = "<?php echo base_url(); ?>";
 		</script>
