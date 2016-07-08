@@ -96,35 +96,17 @@
 	</div>
 
 	<div id="outlet_tumblr">
-		<div class="post-container">
-			<div class="tumblr-post">
-				<div class="tumblr-title" >
-					Here's a blog: psych-facts
+		<div class="post-container clearfix">
+			<div class="pull-left">
+				<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">			        
+			</div>
+			<div class="post-details">
+				<div class="post-user-name">
+					Tragic Tofu
 				</div>
-				<div class="tumblr-img-div">
+				<div class="img-div">
 				</div>
-				<div class="tumblr-user">
-					<div class="tumblr-user-profile" >
-						<img class="default-img reblog-avatar-image-thumb" src="<?php echo img_url(); ?>default_profile.jpg" width="40">			        
-					</div>
-					<div class="tumblr-user-info" >
-						<span>Tragic Tofu</span>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="content">
-					<div class="tumblr-comment-div">
-						<div class="post_copy_text">
-						</div>
-						<div class="tumblr-sharing-option">
-							<span >654 notes</span>
-							<div class="pull-right">
-								<i class="fa fa-heart" aria-hidden="true"></i>
-								<i class="fa fa-refresh" aria-hidden="true"></i>
-								<i class="fa fa-share-square-o" aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
+				<div class="post_copy_text">
 				</div>
 			</div>
 		</div>

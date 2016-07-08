@@ -8687,6 +8687,40 @@ x:-o-prefocus, .qtip .qtip-tip {
         text-decoration: none; }
 
 /*Tumblr Post Styles*/
+.tb_post {
+  font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  background: #36465d;
+  padding: 10px; }
+  .tb_post .user-profile-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 3px; }
+  .tb_post .post-details {
+    background: #fff;
+    border-radius: 3px;
+    padding: 15px 0 0;
+    margin-left: 84px; }
+  .tb_post .post-user-name {
+    font-weight: bold;
+    color: #444;
+    padding: 0 20px;
+    margin: -3px 0 13px;
+    font-size: 13px; }
+  .tb_post .post_copy_text {
+    padding: 15px 20px; }
+  .tb_post a {
+    color: #a1a1a1;
+    font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif; }
+    .tb_post a + a {
+      margin-left: 11px; }
+  .tb_post strong, .tb_post b {
+    font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    font-weight: bold; }
+  .tb_post .img-div img + img {
+    margin-top: 4px; }
+
 /*Twitter Post Styles*/
 .tw_post {
   font-family: Arial, sans-serif;

@@ -233,6 +233,46 @@
 
 /*Tumblr Post Styles*/
 .tb_post {
+	font-family: $tb-font;
+	font-size: 14px;
+	line-height: 21px;
+	background: #36465d;
+	padding: 10px;
+	.user-profile-img {
+		width: 64px;
+		height: 64px;
+		border-radius: 3px;
+	}
+	.post-details {
+		background: #fff;
+		border-radius: 3px;
+		padding: 15px 0 0;
+		margin-left: 84px;
+	}
+	.post-user-name {
+		font-weight: bold;
+		color: #444;
+		padding: 0 20px;
+		margin: -3px 0 13px;
+		font-size: 13px;
+	}
+	.post_copy_text {
+		padding: 15px 20px;
+	}
+	a {
+		color: $tb-link;
+		font-family: $tb-font;
+		+ a {
+			margin-left: 11px;
+		}
+	}
+	strong, b {
+		font-family: $tb-font;
+		font-weight: bold;
+	}
+	.img-div img + img {
+		margin-top: 4px;
+	}
 }
 
 /*Twitter Post Styles*/

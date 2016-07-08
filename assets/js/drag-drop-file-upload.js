@@ -805,12 +805,15 @@
 		if(selected_outlet == 'outlet_tumblr')
 		{
 			if(file_type == 'video'){
-				jQuery('#live-post-preview .tumblr-img-div').prepend(video);
-				jQuery("#live-post-preview .tumblr-img-div video").css("width", "100%");
+				jQuery('#live-post-preview .img-div').prepend(video);
+				jQuery("#live-post-preview .img-div video").css("width", "100%");
 			}else{
-				var preview_img = '<img width="100%" src="'+window.URL.createObjectURL(file)+'" >';
-				jQuery('#live-post-preview .tumblr-img-div').append(preview_img);
+				var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
+				jQuery('#live-post-preview .img-div').append(preview_img);
 			}
+			preview_img.load(function() {
+				equalColumns();
+			});
 		}
 	
 		//for vine
@@ -1081,9 +1084,10 @@
 			//for tumblr
 			if(selected_outlet == 'outlet_tumblr')
 			{
+				console.log(allFiles);
 				$.each(allFiles,function(a,img){
 					var preview_img = jQuery('<img/>', {src: img.img_src});
-					jQuery('#live-post-preview .tumblr-img-div').append(preview_img);
+					jQuery('#live-post-preview .img-div').append(preview_img);
 				});
 			}
 

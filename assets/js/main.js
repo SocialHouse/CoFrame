@@ -1703,7 +1703,7 @@ jQuery(function($) {
 		else if(outlet === "pinterest") {
 			postOutletClass = 'pn_post';
 		}
-		else if(outlet === "tumbler") {
+		else if(outlet === "tumblr") {
 			postOutletClass = 'tb_post';
 		}
 		else if(outlet === "twitter") {
