@@ -15,9 +15,9 @@ if(!empty($post_images)){
 		<div class="pull-left user-profile-img">
 			<?php 
 				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-					echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="center-block" />';
+					echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" />';
 				   }else{
-					echo '<img class="twitter-default-img" src="'.img_url().'default_profile_twitter.png">';	
+					echo '<img src="'.img_url().'default_profile_twitter.png">';	
 				   }
 			?>
 		</div>
