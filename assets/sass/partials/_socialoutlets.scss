@@ -45,6 +45,10 @@
 		display: block;
 		line-height: 1.34;
 	}
+	strong, b {
+		font-family: $fb-font;
+		font-weight: bold;
+	}
 	a {
 		color: $fb-link;
 		font-family: $fb-font;
@@ -96,6 +100,9 @@
 	.time-color {
 		color: $ig-light;
 	}
+	strong, b {
+		font-family: 'Proxima N W01 Bold','Helvetica Neue',Arial,Helvetica,sans-serif;
+	}
 	a {
 		color: $ig-link;
 		font-family: $ig-font;
@@ -140,6 +147,10 @@
 		color: $in-link;
 		font-family: $ig-font;
 	}
+	strong, b {
+		font-family: $in-font;
+		font-weight: bold;
+	}
 	.post_copy_text {
 		margin: 0 15px 10px;
 		color:#333;
@@ -158,6 +169,66 @@
 
 /*Pinterest Post Styles*/
 .pn_post {
+	font-family: $pn-font;
+	font-size: 13px;
+	line-height: 17px;
+	padding: 1rem 0;
+	.post-container {
+		max-width: 236px;
+		margin: 0 auto;
+		border-radius: 6px;
+		box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
+	}
+	.post-details {
+		padding: 5px 12px;
+	}
+	.post-header {
+		padding: 7px 0;
+	}
+	.user-profile-img {
+		width: 16px;
+		height: 16px;
+		border-radius: 2px;
+		display: block;
+	}
+	.post-user-name {
+		color: $pn-light;
+		font-size: 11px;
+		padding: 0 7px 0 5px;
+		line-height: 16px;
+	}
+	.post_copy_text {
+		color: #333;
+		margin: 5px 0;
+	}
+	a {
+		color: $pn-link;
+		font-family: $pn-font;
+		font-weight: bold;
+	}
+	strong, b {
+		font-family: $pn-font;
+		font-weight: bold;
+	}
+	.post-credits {
+		border-top: 1px solid #e7e7e7;
+		padding: 10px;
+		font-size: 11px;
+		line-height: 15px;
+		color: #555;
+		cursor: pointer;
+		&:hover {
+			background: #f1f1f1;
+		}
+		a {
+			color: #555;
+			font-weight: normal;
+			display: block;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
 }
 
 /*Tumblr Post Styles*/
@@ -189,6 +260,10 @@
 		font-size: 13px;
 		color: $tw-light;
 		line-height: 17px;
+	}
+	strong, b {
+		font-family: $tw-font;
+		font-weight: bold;
 	}
 	a {
 		color: $tw-link;

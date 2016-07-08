@@ -830,8 +830,8 @@
 		}
 		if(selected_outlet == 'outlet_pinterest')
 		{
-			if(file_type == 'images'){
-				var preview_img = '<img src="'+window.URL.createObjectURL(file)+'" >';
+			if(file_type == 'image'){
+				var preview_img = jQuery('<img/>', {src: window.URL.createObjectURL(file)});
 				jQuery('.pinterest-img-div').empty();
 				jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
 			}
@@ -1098,9 +1098,11 @@
 			}
 			if(selected_outlet == 'outlet_pinterest')
 			{
-	            var preview_img = '<img src="'+$(b).attr('src')+'" >';
-	            jQuery('.pinterest-img-div').empty();
-	            jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
+				$.each(allFiles,function(a,img){
+					var preview_img = jQuery('<img/>', {src: img.img_src});
+					jQuery('.pinterest-img-div').empty();
+					jQuery('#live-post-preview .pinterest-img-div').append(preview_img);
+				});
 			}
 			equalColumns();
 		}		

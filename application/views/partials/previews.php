@@ -79,7 +79,7 @@
 
 	<div id="outlet_vine">
 		<div class="post-container">
-			<div class="vine-post" style="width:100%">
+			<div class="vine-post">
 				<div style="padding: 8px">
 					<div class="vine-user-profile" >
 						<img class="default-img img-circle" src="<?php echo img_url(); ?>default_profile.jpg" width="40">
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 
-	<div id="outlet_tumblr"  style="width:100%">
+	<div id="outlet_tumblr">
 		<div class="post-container">
 			<div class="tumblr-post">
 				<div class="tumblr-title" >
@@ -142,7 +142,7 @@
 		</div>
 	</div>
 
-	<div id="outlet_youtube"  style="width:100%">
+	<div id="outlet_youtube">
 		<div class="post-container">
 			<div class="youtube-post" style="width:100%">
 				<div class="clearfix"></div>
@@ -160,34 +160,41 @@
 		</div>
 	</div>
 
-	<div id="outlet_pinterest"  style="width:100%">
+	<div id="outlet_pinterest">
 		<div class="post-container">
-			<div class="pinterest-post">
-				<div class="content">
-					<div class="pinterest-img-div">
+			<div class="pinterest-img-div img-div">
+			</div>
+			<div class="post-details">
+				<div class="clearfix post-header">
+					<div class="pull-left">
+						<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg" width="40">
 					</div>
-					<div class="pintereat-comment">
-						<div class="pinterest-comment-div">
-							<p class="post_copy_text">
-								
-							</p>
-						</div>
-						<div class="pinterest-sharing-option">
-							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-							<i class="fa fa-thumb-tack fa-rotate-180" aria-hidden="true"></i>&nbsp;4.5k
-							<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;969
-						</div>
-						<div class="pull-left">
-							<img class="default-img img-circle" src="<?php echo img_url(); ?>default_profile.jpg" width="40">
-						</div>
-						<div class="clearfix pinterest-userinfo ">
-							<div class="creditTitle">Saved by</div>
-							<div  class="creditTitle" id="pinterest_user_name"></div>				
-						</div>
+					<div class="post-user-name pull-left">
+						by Pinterest Username
 					</div>
 				</div>
+				<div class="post_copy_text"></div>
+			</div>
+			<div class="post-credits">
+				<a href="#" target="_blank">
+				<strong>Saved from</strong><br>
+				rothcheese.com
+				</a>
 			</div>
 		</div>
 	</div>
+
+
+				<div class="pull-left">
+					<img src="<?php echo img_url(); ?>default_profile_linkedin.png" class="user-profile-img">
+				</div>
+				<div class="user-profile-details">
+					<div class="post-header">
+						<div class="post-user-name pull-left">ninad g</div>
+						<span class="time-color pull-right">0s</span>
+					</div>
+					<div class="post_copy_text"></div>
+					<div class="likedin-img-div img-div"></div>
+				</div>
 
 </div>
