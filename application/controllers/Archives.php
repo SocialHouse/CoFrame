@@ -147,7 +147,7 @@ class Archives extends CI_Controller {
 				{
 					if(!empty($daterange['start_date']) && !empty($daterange['end_date']))
 					{
-						$posts = $this->object_to_array($posts);
+						$posts = object_to_array($posts);
 						$this->outputCSV($posts);
 					}
 				}

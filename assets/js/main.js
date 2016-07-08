@@ -48,6 +48,7 @@ jQuery(function($) {
 		$(document).on('click','.sub-user-outlet', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
+			
 			var thisOutlet = $(this).data('selectedOutlet');
 			$(this).toggleClass('disabled selected');
 			if($(this).hasClass('selected')) {
@@ -58,7 +59,7 @@ jQuery(function($) {
 			}
 			else {
 				savedOutlets = savedOutlets.split(',');
-				var index = savedOutlets.indexOf(thisOutlet);
+				var index = savedOutlets.indexOf(thisOutlet+"");
 				savedOutlets.splice(index, 1);
 				newOutlets.push(savedOutlets);
 			}
