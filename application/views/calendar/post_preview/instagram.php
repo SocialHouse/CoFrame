@@ -10,7 +10,7 @@ if(!empty($post_images)){
 		$brand_id = $post_details->brand_id;
 	}
 ?>
-<div id="outlet_3">
+<div id="outlet_3" class="ig_post">
 	<div class="clearfix post-header">
 		<div class="pull-left">
 			<?php 

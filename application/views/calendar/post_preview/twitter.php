@@ -10,7 +10,7 @@ if(!empty($post_images)){
 		$brand_id = $post_details->brand_id;
 	}
 ?>
-<div id="outlet_2">
+<div id="outlet_2" class="tw_post">
 	<div class="clearfix">
 		<div class="pull-left user-profile-img">
 			<?php 
