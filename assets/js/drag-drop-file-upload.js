@@ -824,8 +824,8 @@
 		if(selected_outlet == 'outlet_youtube')
 		{
 			if(file_type == 'video'){
-				jQuery('#live-post-preview .content').prepend(video);
-				jQuery("#live-post-preview .content video").css("width", "100%");
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview video").css("width", "100%");
 			}
 		}
 		if(selected_outlet == 'outlet_pinterest')
@@ -989,8 +989,12 @@
 					var more_img = '<div class="more-images" id="' + more_num + '"><span class="vertical-center">+' + more_num + '</span></div>';
 					jQuery('#live-post-preview .section2 .img-item:last-child').append(more_img);
 				}
-
-				jQuery('.no-of-photos').html(' added <span class="photos_count">' + no_of_img + ' new ' + photoText + '</span>');
+				if(no_of_img > 0) {
+					jQuery('.no-of-photos').html(' added <span class="photos_count">' + no_of_img + ' new ' + photoText + '</span>');
+				}
+				else {
+					jQuery('.no-of-photos').html('');
+				}
 			}
 			//for twitter
 			if(selected_outlet == 'outlet_twitter')

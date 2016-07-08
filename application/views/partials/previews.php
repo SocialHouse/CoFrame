@@ -132,17 +132,20 @@
 
 	<div id="outlet_youtube">
 		<div class="post-container">
-			<div class="youtube-post" style="width:100%">
-				<div class="clearfix"></div>
-				<div class="content">
-					<div class="youtube-comment-div">
-						<div class="post_copy_text">
-						</div>
-						<div class="youtube-sharing-option">
-							<span>21 views</span>
-							<span>1 week ago</span>
-						</div>
-					</div>
+			<div class="video-div">
+			</div>
+			<div class="clearfix post-section">
+				<h1>Video Title</h1>
+				<div class="pull-left">
+					<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">
+				</div>
+				<div class="pull-left">
+					<div class="post-user-name">Tragic Tofu</div>
+				</div>
+			</div>
+			<div class="post-section">
+				<div class="time-color">Posted on <?php echo date('j, Y'); ?></div>
+				<div class="post_copy_text">
 				</div>
 			</div>
 		</div>
@@ -171,18 +174,5 @@
 			</div>
 		</div>
 	</div>
-
-
-				<div class="pull-left">
-					<img src="<?php echo img_url(); ?>default_profile_linkedin.png" class="user-profile-img">
-				</div>
-				<div class="user-profile-details">
-					<div class="post-header">
-						<div class="post-user-name pull-left">ninad g</div>
-						<span class="time-color pull-right">0s</span>
-					</div>
-					<div class="post_copy_text"></div>
-					<div class="likedin-img-div img-div"></div>
-				</div>
 
 </div>

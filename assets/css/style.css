@@ -8782,8 +8782,41 @@ x:-o-prefocus, .qtip .qtip-tip {
     display: block; }
 
 /*Youtube Post Styles*/
-.yu_post video {
-  display: block; }
+.yu_post {
+  font-family: Roboto, arial, sans-serif;
+  font-size: 13px;
+  line-height: 17px;
+  color: #333;
+  background: #f1f1f1;
+  padding: 10px 10px 0; }
+  .yu_post h1 {
+    font-family: Roboto, arial, sans-serif;
+    font-size: 20px; }
+  .yu_post .post-section {
+    background: #fff;
+    padding: 15px;
+    margin: 0 0 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+  .yu_post .user-profile-img {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px; }
+  .yu_post .user-profile-details {
+    padding: 13px 10px; }
+  .yu_post .post-user-name {
+    font-weight: 500; }
+  .yu_post .time-color {
+    font-weight: 500; }
+  .yu_post a {
+    color: #167ac6;
+    font-family: Roboto, arial, sans-serif; }
+  .yu_post strong, .yu_post b {
+    font-family: Roboto, arial, sans-serif;
+    font-weight: bold; }
+  .yu_post .video-div {
+    margin-bottom: 10px; }
+  .yu_post video {
+    display: block; }
 
 * {
   backface-visibility: visible;

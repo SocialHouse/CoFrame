@@ -10,9 +10,8 @@ if(!empty($post_images)){
 		$brand_id = $post_details->brand_id;
 	}
 ?>
-<div class="youtube-post" style="width:100%">
-	<div class="clearfix"></div>
-	<div class="content">
+<div class="youtube-post" class="yu_post">
+	<div class="video-div">
 		<?php
 			if(!empty($post_images)){
 				foreach ($post_images as $key) {
@@ -33,8 +32,23 @@ if(!empty($post_images)){
 				}
 			}
 		?>
-
-		<div class="youtube-comment-div">
+	</div>
+	<div class="clearfix post-section">
+		<h1>Video Title</h1>
+		<div class="pull-left">
+			<?php 
+				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+					echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="user-profile-img" />';
+				   }else{
+					echo '<img class="user-profile-img" src="'.img_url().'default_profile_twitter.png">';	
+				   }
+			?>
+		</div>
+		<div class="pull-left">
+			<div class="post-user-name">Tragic Tofu</div>
+		</div>
+		<div class="post-section">
+			<div class="time-color">Posted on <?php echo date('j, Y'); ?></div>
 			<div class="post_copy_text">
 				<?php 
 					$content = $post_details->content;
@@ -42,11 +56,6 @@ if(!empty($post_images)){
 					echo (!empty($content)) ? $content : '';
 				?>
 			</div>
-			<div class="youtube-sharing-option">
-				<span>21 views</span>
-				<span>1 week ago</span>
-			</div>
-			
 		</div>
 	</div>
 </div>

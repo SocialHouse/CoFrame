@@ -357,6 +357,49 @@
 
 /*Youtube Post Styles*/
 .yu_post {
+	font-family: $yu-font;
+	font-size: 13px;
+	line-height: 17px;
+	color: #333;
+	background: #f1f1f1;
+	padding: 10px 10px 0;
+	h1 {
+		font-family: $yu-font;
+		font-size: 20px;
+	}
+	.post-section {
+		background: #fff;
+		padding: 15px;
+		margin: 0 0 10px;
+		box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	}
+	.user-profile-img {
+		width: 48px;
+		height: 48px;
+		margin-right: 10px;
+	}
+	.user-profile-details {
+		padding: 13px 10px;
+	}
+	.post-user-name {
+		font-weight: 500;
+	}
+	.time-color {
+		font-weight: 500;
+	}
+	a {
+		color: $yu-link;
+		font-family: $yu-font;
+	}
+	strong, b {
+		font-family: $yu-font;
+		font-weight: bold;
+	}
+	.post_copy_text {
+	}
+	.video-div {
+		margin-bottom:10px;
+	}
 	video {
 		display: block;
 	}
