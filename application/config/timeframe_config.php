@@ -34,5 +34,5 @@ $config['enable_hooks'] = FALSE;
 |
 */
 
-$config['compile_json_message_js'] = FALSE; 	//when you want to compile set true  or update messages
+$config['compile_json_message_js'] = true; 	//when you want to compile set true  or update messages
 $config['json_msg_file'] = 'assets/js/json_message.json';

@@ -103,7 +103,6 @@ class Posts extends CI_Controller {
 		$error = '';
 		$uploaded_files = array();
 		$post_data = $this->input->post();
-
 		if(!empty($post_data))
 		{
 			if(!empty($post_data['brand_id']))
@@ -214,9 +213,10 @@ class Posts extends CI_Controller {
 			    									'note' => $phase['note']
 		    									);
 		    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+		    						$phase['approver'] = array_unique($phase['approver']);
 		    						foreach($phase['approver'] as $user)
 		    						{
-		    							$user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
+		    							// $user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
 		    							$phases_approver = array(
 		    								'user_id' => $user,
 		    								'phase_id' => $phase_insert_id
@@ -229,7 +229,7 @@ class Posts extends CI_Controller {
 		    								'type' => 'reminder',
 		    								'brand_id' => $post_data['brand_id'],
 		    								'due_date' => $approve_date_time,
-		    								'text' => 'Approve '.date('m/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($user_info[0]->first_name).' '.ucfirst($user_info[0]->last_name).' by '.date('m/d',strtotime($approve_date_time))
+		    								'text' => 'Approve '.date('m/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
 		    								);
 
 	    								$this->timeframe_model->insert_data('reminders',$reminder_data);

@@ -101,6 +101,14 @@
 						<th>Status</th>
 						<th>Post Copy</th>
 						<th>Approvals</th>
+						<?php
+						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR $user_group == 'Approver')
+						{
+							?>
+							<th>Approval Deadline</th>
+							<?php
+						}
+						?>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -202,6 +210,7 @@
 														$approver_status = '';
 														$phase_status = '';
 														$phase_id = '';
+														$deadline = '';
 														if(!empty($approvers['result']))
 														{
 															foreach($approvers['result'] as $approver)
@@ -211,6 +220,7 @@
 																	$approver_status = $approver['status'];
 																	$phase_status = $approver['phase_status'];
 																	$phase_id = $approver['id'];
+																	$deadline = $approver['approve_by'];
 																}
 																$image_path = img_url().'default_profile.jpg';
 																if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
@@ -229,7 +239,26 @@
 													<?php
 												}
 												?>	
-											</td>										
+											</td>
+											<?php
+											if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR !empty($deadline))
+											{
+												?>
+												<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+													<?php
+													if(!empty($deadline))
+													{
+														echo date('d/m/Y h:i A',strtotime($deadline));
+													}
+													else
+													{
+														echo "N/A";
+													}
+													?>
+												</td>
+												<?php
+											}
+											?>
 											<td class="text-xs-center">
 												<?php
 												if($approver_status == 'approved')
@@ -259,7 +288,7 @@
 												}
 												elseif($post->status == 'scheduled')
 												{
-													if($this->user_group != 'Approver')
+													if($user_group != 'Approver')
 													{
 														?>
 														<div class="before-approve">
@@ -275,7 +304,7 @@
 												}
 												elseif($post->status == 'approved')
 												{
-													if($this->user_group != 'Approver')
+													if($user_group != 'Approver')
 													{
 														?>
 														<div class="before-approve">

@@ -389,7 +389,7 @@ if(!function_exists('replace_with_expression'))
 
 if(!function_exists('check_access'))
 {
-    function check_access($perm,$brand,$additional_group = '')
+    function check_access($perm,$brand,$additional_group = '',$message = '')
     {
         $CI = & get_instance();      
         $group = get_user_groups($CI->user_id,$brand[0]->id);
@@ -399,6 +399,7 @@ if(!function_exists('check_access'))
             $CI->data['user_group'] = $group;
             $CI->data['brand_id'] = $brand[0]->id;
             $CI->data['brand'] = $brand[0];
+            $CI->data['access_denied_msg'] = $message;
             $CI->data['view'] = 'partials/no_permission';
             $CI->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
             _render_view($CI->data);

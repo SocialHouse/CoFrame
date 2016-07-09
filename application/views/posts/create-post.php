@@ -224,49 +224,76 @@
 						<div>
 							<h4 class="text-xs-center">Mandatory Approvals</h4>
 							<label>Check all that apply:</label>
-							<?php 
-							if(!empty($users))
-							{
-								?>
-								<ul class="timeframe-list user-list first-phase">
-									<?php
-									foreach ($users as $user)
+							<ul class="timeframe-list user-list first-phase">
+								<?php 
+								if($this->user_id != $this->user_data['created_by'])
+								{
+									$master_user = get_master_user($this->user_data['created_by']);
+									if(!empty($master_user))
 									{
-										?>
+										?>										
 										<li>
 											<div class="pull-sm-left">
-												<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
+												<input type="checkbox" class="hidden-xs-up approvers" name="phase[0][approver][]" value="<?php echo $master_user[0]->aauth_user_id; ?>"><i class="tf-icon check-box circle-border user-list" data-value="<?php echo $master_user[0]->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
 											</div>
 											<div class="pull-sm-left">
 												<?php
 												$path = img_url()."default_profile.jpg";
-												if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
+												
+												if(file_exists(upload_path().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png'))
 												{
-													$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
+													$path = upload_url().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png';
 												}
 												?>
-												<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
+												<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name; ?>" class="circle-img"/>
 											</div>
 											<div class="pull-sm-left post-approver-name">
-												<strong>
-												<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
-												</strong>
-												<?php echo get_user_groups($user->aauth_user_id,$brand_id); ?>
+												<strong><?php echo ucfirst($master_user[0]->first_name)." ".ucfirst($master_user[0]->last_name); ?></strong>
+												Master Admin
 											</div>
-										</li>										
-										<?php									
-									}
-									?>
+										</li>
+										<?php
+									}			
+								}
+								if(!empty($users))
+								{
+										foreach ($users as $user)
+										{
+											?>
+											<li>
+												<div class="pull-sm-left">
+													<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
+												</div>
+												<div class="pull-sm-left">
+													<?php
+													$path = img_url()."default_profile.jpg";
+													if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
+													{
+														$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
+													}
+													?>
+													<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
+												</div>
+												<div class="pull-sm-left post-approver-name">
+													<strong>
+													<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
+													</strong>
+													<?php echo get_user_groups($user->aauth_user_id,$brand_id); ?>
+												</div>
+											</li>										
+											<?php									
+										}
+										?>
 
-									<li class="option-all-users">
-										<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
-										<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
-										<div class="pull-sm-left post-approver-name">Check<br>All</div>
-									</li>
-								</ul>
-								<?php
-							}
-							?>
+										<li class="option-all-users">
+											<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
+											<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
+											<div class="pull-sm-left post-approver-name">Check<br>All</div>
+										</li>
+									<?php
+								}
+								?>
+							</ul>
 							<label>Must approve by:</label>
 							<div class="clearfix">
 								<div class="form-group form-inline pull-sm-left" style="margin: 0px;">

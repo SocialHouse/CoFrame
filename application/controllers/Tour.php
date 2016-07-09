@@ -53,7 +53,7 @@ class Tour extends CI_Controller {
 
                 // get brand id to find my brand owner  
                 // if $my_brand_id (in else case ) id null then me as brand owner 
-                $my_brand_id = get_my_brand($user->id);
+                $my_brand_id = get_my_brand($user_id);
                 if(empty($my_brand_id)){
                    // get_my_brand
                     $created_by = $user_id;

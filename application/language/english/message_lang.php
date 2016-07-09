@@ -119,6 +119,9 @@
 
 	//edit tags
 	$lang['edit_tag_msg'] = "You are changing a tag. This change will affect all posts using this tag.";
+	
+	//access denied page
+	$lang['access_denied_approval_page'] = "You do not have permission to access Approvals";
 ?>
 
 

@@ -45,7 +45,8 @@ class Approvals extends CI_Controller {
 			{
 				$additional_group = $this->data['user_group'];
 			}
-			check_access('approve',$brand,$additional_group);
+			$message = $this->lang->line('access_denied_approval_page');
+			check_access('approve',$brand,$additional_group,$message);
 
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
