@@ -57,7 +57,8 @@
 					showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
 					
-					if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
+					var outlt_const = jQuery('#postOutlet').attr('data-outlet-const');
+					if(allFiles.length == 4 && outlt_const == 'twitter')
 					{
 						alert(language_message.twitter_img_allowed);
 						return false;
@@ -89,6 +90,21 @@
 							return false;
 						}
 
+						if(allFiles.length == 1 && (outlt_const == 'instagram' || outlt_const == 'linkedin' || outlt_const == 'pinterest'))
+						{
+							var message = language_message.insta_img_allowed;
+							if(outlt_const == 'linkedin')
+							{
+								message = language_message.linkedin_img_allowed;
+							}
+							else if(outlt_const == 'pinterest')
+							{
+								message = language_message.pinterest_img_allowed;
+							}
+							alert(message);
+							return false;
+						}
+						
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
 								alert(language_message.image_size_limit);
@@ -226,6 +242,21 @@
 						if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 						{
 							alert(language_message.twitter_img_allowed);
+							return false;
+						}
+
+						if(allFiles.length == 1 && (outlt_const == 'instagram' || outlt_const == 'linkedin' || outlt_const == 'pinterest'))
+						{
+							var message = language_message.insta_img_allowed;
+							if(outlt_const == 'linkedin')
+							{
+								message = language_message.linkedin_img_allowed;
+							}
+							else if(outlt_const == 'pinterest')
+							{
+								message = language_message.pinterest_img_allowed;
+							}
+							alert(message);
 							return false;
 						}
 

@@ -109,13 +109,22 @@
 	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records. Please try again.";
 
 	$lang['twitter_img_allowed'] = "Only 4 images are allowed for twitter.";
-	$lang['twitter_img_allowed_outlet_change'] = "Only 4 images are allowed for twitter so please delete additional images.";
+	$lang['twitter_img_allowed_outlet_change'] = "Only 4 images are allowed for twitter so please delete extra images.";
 	$lang['vine_img_not_allwed'] = "Image is not allowed for vine.";
 	$lang['youtube_img_not_allwed'] = "Image is not allowed for youtube.";
 	$lang['insta_video_not_allowed'] = "Video is not allowed for instagram.";
 	$lang['vine_outlet_change_error'] = "Images are not allowed for vine so please delete and then switch to vine.";
 	$lang['youtube_outlet_change_error'] = "Images are not allowed for youtube so please delete and then switch to youtube.";
 	$lang['insta_outlet_change_error'] = "Video is not allowed for instagram so please delete and then switch to instagram.";
+
+	$lang['insta_outlet_change_img_error'] = "Only 1 image is allowed for instagram so please delete extra images and then switch to instagram.";
+
+	$lang['linkedin_outlet_change_error'] = "Only 1 image is allowed for linkedin so please delete extra images and then switch to linkedin.";
+	$lang['pinterest_outlet_change_error'] = "Only 1 image is allowed for pinterest so please delete extra images and then switch to pinterest.";
+	$lang['insta_img_allowed'] = "Only 1 image is allowed for instagram.";
+	$lang['linkedin_img_allowed'] = "Only 1 image is allowed for linkedin.";
+	$lang['pinterest_img_allowed'] = "Only 1 image is allowed for pinterest.";	
+	
 
 	//edit tags
 	$lang['edit_tag_msg'] = "You are changing a tag. This change will affect all posts using this tag.";

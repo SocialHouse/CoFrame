@@ -101,6 +101,7 @@ jQuery(function($) {
 					$("#postCopy").val(tweetTrunc);
 				}
 				$("#postCopy").attr("maxlength",140);
+				
 				if($('.form__preview-wrapper img').length > 4)
 				{
 					alert(language_message.twitter_img_allowed_outlet_change);
@@ -132,6 +133,30 @@ jQuery(function($) {
 					alert(language_message.insta_outlet_change_error);
 					return false;
 				}
+
+				if($('.form__preview-wrapper img').length > 1)
+				{
+					alert(language_message.insta_outlet_change_img_error);
+					return false;
+				}
+			}
+
+			if(outlet_const == 'linkedin')
+			{
+				if($('.form__preview-wrapper img').length > 1)
+				{
+					alert(language_message.linkedin_outlet_change_error);
+					return false;
+				}			
+			}
+
+			if(outlet_const == 'pinterest')
+			{
+				if($('.form__preview-wrapper img').length > 1)
+				{
+					alert(language_message.pinterest_outlet_change_error);
+					return false;
+				}			
 			}
 
 			if(previous_outlet != outlet)

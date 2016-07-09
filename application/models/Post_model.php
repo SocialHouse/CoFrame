@@ -27,6 +27,7 @@ class Post_model extends CI_Model
 		$this->db->join('outlets','outlets.id = user_outlets.outlet_id');
 		$this->db->where('user_outlets.brand_id',$brand_id);
 		$this->db->where('user_outlets.user_id',$user_id);
+		$this->db->order_by('outlets.id','ASC');
 		$query = $this->db->get('user_outlets');
 		if($query->num_rows() > 0)
 		{
