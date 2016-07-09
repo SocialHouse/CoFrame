@@ -443,3 +443,13 @@ if(!function_exists('is_set_permmition'))
         return false;
     }
 }
+
+if(!function_exists('get_master_user'))
+{
+    function get_master_user($user_id)
+    {
+        $CI = & get_instance();   
+        $CI->load->model('timeframe_model');
+        return $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id));
+    }
+}
