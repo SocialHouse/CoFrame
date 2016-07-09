@@ -468,8 +468,8 @@ class Brands extends CI_Controller {
 						$response .= '<i class="fa fa-check"></i>';
 					}
 					$response .= '</div></div>';
-					
-                    echo json_encode(array('response' => 'success','html' => $response));
+
+                    echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id));
                 }
                 else
                 {
