@@ -518,7 +518,8 @@
 						    	allFiles = [];
 						    	$('.user-upload-img').hide();
 						    	$('.user-img-preview').show();
-
+						    	
+						    	$("#user-select option[value='"+data.inserted_id+"']").remove();
 						    	if($('#add_user_next').hasClass('btn-disabled'))
 						    	{
 						    		$('#add_user_next').removeClass('btn-disabled');
