@@ -116,6 +116,9 @@
 	$lang['vine_outlet_change_error'] = "Images are not allowed for vine so please delete and then switch to vine.";
 	$lang['youtube_outlet_change_error'] = "Images are not allowed for youtube so please delete and then switch to youtube.";
 	$lang['insta_outlet_change_error'] = "Video is not allowed for instagram so please delete and then switch to instagram.";
+
+	//edit tags
+	$lang['edit_tag_msg'] = "You are changing a tag. This change will affect all posts using this tag.";
 ?>
 
 

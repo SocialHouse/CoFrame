@@ -20,7 +20,7 @@
 								<a data-remove-tag="<?php echo $st_tag->tag_name; ?>" class="pull-sm-right remove-tag" href="#">
 									<i class="tf-icon circle-border">x</i>
 								</a>
-								<a data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" href="#brandOutlets" data-color="<?php echo $st_tag->color; ?>" data-value="<?php echo $st_tag->tag_name; ?>" class="btn-icon btn-gray post-filter-popup edit-tag show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns">
+								<a data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" href="#brandOutlets" data-color="<?php echo $st_tag->color; ?>" data-value="<?php echo $st_tag->tag_name; ?>" class="btn-icon btn-gray post-filter-popup edit-tag edit-pensil show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns">
 								<i class="fa fa-pencil"></i>
 								</a>
 							</li>
@@ -72,7 +72,7 @@
 					<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
 					<div id="labelValid" class="error hide">This label is already been used.</div>
 				</div>
-			</div>
+			</div>			
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep4Btns">

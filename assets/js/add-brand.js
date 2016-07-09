@@ -367,9 +367,7 @@ jQuery(function($) {
 					$.each($selectedList.children('li'),function(a,b){
 						if($('#tagLabel').attr('data-edit_index') == $(b).attr('data-index'))
 						{
-							alert('in');
-							// console.log($selectedItem.attr('data-value'));
-							$(b).attr('data-tag', $selectedItem.attr('data-value'));							
+							$(b).attr('data-tag', $selectedItem.attr('data-value'));					
 							$(b).attr('data-value',$selectedItem.attr('data-value'));
 							$(b).find('input[type="checkbox"]').val($selectedItem.attr('data-color'));
 							$(b).find('i:first').css('color',$selectedItem.attr('data-color'));
@@ -384,10 +382,7 @@ jQuery(function($) {
 							$(b).find('span:first').text($selectedItem.attr('data-value'));
 
 							$('#tagLabel').attr('data-prev_value',$selectedItem.attr('data-value'));
-							$('#tagLabel').attr('data-prev_color',$selectedItem.attr('data-color'));	
-							console.log($(b).attr('data-tag'));
-							// $(b).find('a:last').attr('data-previous_value',$selectedItem.data('value'));
-							// $(b).find('a:last').attr('data-previous_color',$selectedItem.data('color'));
+							$('#tagLabel').attr('data-prev_color',$selectedItem.attr('data-color'));
 						}
 					});
 				}
@@ -454,8 +449,8 @@ jQuery(function($) {
 			}
 			$(this).parents('li').remove();
 		});
-
-		$(document).on('click','.edit-tag',function(){
+		
+		$('.edit-tag').unbind('click').click(function(){			
 			control = this;
 			var li = $(".tags-to-add").children('li');
 			var selected = 0;
@@ -484,14 +479,9 @@ jQuery(function($) {
 			$('#tagLabel').addClass('edit-process');
 			$('#tagLabel').attr('data-edit_value',$(this).attr('data-value'));
 			$('#tagLabel').attr('data-edit_color',$(this).attr('data-color'));
-			$('#tagLabel').attr('data-edit_index',$(this).data('index'));	
-			// $('#tagLabel').attr('data-prev_value',$(this).attr('data-previous_valur'));
-			// $('#tagLabel').attr('data-prev_color',$(this).attr('data-previous_color'));	
+			$('#tagLabel').attr('data-edit_index',$(this).data('index'));
 
 			toggleBtnClass('.submit_tag',false);
-
-		// console.log($(this).attr('data-previous_color'));
-			
 			
 			$('#tagLabel>option').map(function(){
 				if($(this).val() == $(control).attr('data-previous_value'))
@@ -515,8 +505,68 @@ jQuery(function($) {
 			$('#tagLabel').append('<option selected="selected" value="'+$('#tagLabel').attr('data-edit_value')+'">'+$('#tagLabel').attr('data-edit_value')+'</option><option value="other">+ADD LABEL</option>');		
 			$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
 			$("#tagLabel").trigger('change');
-			
+			alert(language_message.edit_tag_msg);
 		});
+		// $(document).on('click','.edit-tag',function(){
+		// 	alert('tes');
+		// 	control = this;
+		// 	var li = $(".tags-to-add").children('li');
+		// 	var selected = 0;
+		// 	var selected_tag = $('#selectedTags').find('li');
+		// 	$.each(selected_tag,function(a,b){
+		// 		$.each($('.tag-list').children('.tags-to-add').find('li'),function(c,d){
+		// 			if($(d).attr('data-color') == $(b).children('a:last').attr('data-color'))
+		// 			{
+		// 				$(d).attr('data-value',$(b).data('value'));
+		// 				$(d).addClass('saved');
+		// 				$(d).removeClass('selected');
+		// 			}
+		// 		});
+		// 	});
+		// 	$.each(li,function(a,b){
+		// 		if($(b).attr('data-color') == $(control).attr('data-color') && $(b).attr('data-value') == $(control).data('value'))
+		// 		{	
+		// 			$(b).removeClass('saved');
+		// 			$(b).addClass('selected');
+		// 			var data_tag_val = $(b).attr('data-value');
+					
+		// 			// $("#tagLabel").val($(b).attr('data-value'));
+		// 			// $("#tagLabel").trigger('change');
+		// 		}
+		// 	});
+		// 	$('#tagLabel').addClass('edit-process');
+		// 	$('#editMessage').removeClass('hide');
+
+		// 	$('#tagLabel').attr('data-edit_value',$(this).attr('data-value'));
+		// 	$('#tagLabel').attr('data-edit_color',$(this).attr('data-color'));
+		// 	$('#tagLabel').attr('data-edit_index',$(this).data('index'));
+
+		// 	toggleBtnClass('.submit_tag',false);
+			
+		// 	$('#tagLabel>option').map(function(){
+		// 		if($(this).val() == $(control).attr('data-previous_value'))
+		// 		{
+		// 			$(this).remove();
+					
+		// 		}
+
+		// 		if($(this).val() == $(control).attr('data-value'))
+		// 		{
+		// 			$(this).remove();
+					
+		// 		}
+
+		// 		if($(this).val() == 'other')
+		// 		{
+		// 			$(this).remove();
+					
+		// 		}
+		// 	});
+		// 	$('#tagLabel').append('<option selected="selected" value="'+$('#tagLabel').attr('data-edit_value')+'">'+$('#tagLabel').attr('data-edit_value')+'</option><option value="other">+ADD LABEL</option>');		
+		// 	$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
+		// 	$("#tagLabel").trigger('change');
+			
+		// });
 
 		$('#selectedTags').on('contentSlidDown', function() {
 			hideNoLength($(this));
