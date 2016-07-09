@@ -67,18 +67,19 @@
 
 						var file_type = file.type.split('/');
 						if($.inArray(file_type[1] ,supported_files) == -1){
-							alert('Invalid file extention');
+							alert(language_message.invalid_extention);
 							return false;
 						};
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
 						if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
 						{
-							var message_obj = 'vine_img_not_allwed';
+							
 							if(outlet_const == 'youtube')
 							{
-								message_obj = 'youtube_img_not_allwed';
+								alert(language_message.youtube_outlet_change_error);
+							}else{
+								alert(language_message.vine_outlet_change_error);
 							}
-							alert(language_message.message_obj);
 							return false;
 						}
 
@@ -90,11 +91,11 @@
 
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
-								alert('Image size should be less than 2 MB');
+								alert(language_message.image_size_limit);
 								return false;
 							}
 							if($fileDiv.find('video').length > 0){
-								alert('Invalid file extention');
+								alert(language_message.invalid_extention);
 								return false;
 							}				
 							if($(fileInput).parents('.brand-image').length)
@@ -141,15 +142,15 @@
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 							if( file.size > 104857600){
-								alert('Video size should be less than 100 MB');
+								alert(language_message.insta_video_not_allowed);
 								return false;
 							}
 							if($('.form__file-preview').length >= 1){
 
 								if(file_type[0] =='video'){
-									alert('You can\'t add more than 1 video');
+									alert(language_message.video_upload_error);
 								}else{
-									alert('Invalid file extention');
+									alert(language_message.invalid_extention);
 								}
 								return false;
 							}else{
@@ -535,7 +536,7 @@
 						    	}
 						    	$('#add_user_next').removeClass('btn-secondary');
 						    	$('#add_user_next').prop('disabled',true);
-								alert('Unable to add user.');
+								alert(language_message.unable_to_add_user);
 			    			}
 			    		}
 			    	});

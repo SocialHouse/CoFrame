@@ -113,13 +113,13 @@ jQuery(function($) {
 			{
 				if($('.form__preview-wrapper img').length)
 				{
-					var message_obj = 'vine_outlet_change_error';
 					if(outlet_const == 'youtube')
 					{
-						message_obj = 'youtube_outlet_change_error';
+						alert(language_message.youtube_outlet_change_error);
+					}else{
+						alert(language_message.vine_outlet_change_error);
 					}
-
-					alert(language_message.message_obj);
+					
 					return false;
 				}
 
