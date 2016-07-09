@@ -100,7 +100,8 @@
 	$lang['connecting_error_session'] ="There was an error connecting to the session: ";
 	$lang['valid_date'] ="Plaese select the valid date";
 	$lang['select_re_date'] ="Plaese select the date";
-	$lang['post_update_successful'] ="Your post has been update successfully";
+	$lang['post_update_successful'] ="Your post has been update successfully.";
+	$lang['unable_to_add_user'] ="Unable to add user";
 	
 
 	// Delete Draft
