@@ -2122,20 +2122,20 @@ jQuery(function($) {
 		});
 
 		var tags = [];
-		$('input[name="selected_tags[]"]:checked').each(function(i) {
-			tags[i] = this.value;
+		$('input[name="selected_tags[]"]').each(function(i) {
+			var attr = $(this).attr('name');
+			if (typeof attr !== typeof undefined && attr !== false) {
+				tags[i] = this.value;
+			}
+			
 		});
 
-		var tags = [];
-		$('input[name="selected_tags[]"]:checked').each(function(i) {
-			tags[i] = this.value;
-		});
 		var labels = []
 
 		$.each(selected_labels,function(i,value){            
 			labels[i] = $(value).val();
 		});
- 
+
          $.ajax({
             url: form.attr('action'),
             data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug,'tag_ids':tag_ids},
