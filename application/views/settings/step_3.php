@@ -24,11 +24,11 @@
 			</div>
 		</div>
 		<?php 
-			if(!empty($users))
+			if(!empty($added_users))
 			{ 
-				$num_users = count($users);
+				$num_users = count($added_users);
 				$u = 1;
-				foreach($users as $user)
+				foreach($added_users as $user)
 				{ 
 					//echo '<pre>'; print_r($user);echo '</pre>';
 					?> 

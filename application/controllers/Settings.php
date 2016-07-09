@@ -45,7 +45,7 @@ class Settings extends CI_Controller {
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
-			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			$this->data['added_users'] = $this->brand_model->get_brand_users($brand_id);
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);	
 
@@ -101,9 +101,8 @@ class Settings extends CI_Controller {
 				if(!empty($current_brand_users))
 					$brands_users = array_column($current_brand_users,'access_user_id');
 
-				//$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
-				$this->data['users'] = $this->brand_model->get_brand_users($brand[0]->id);
-				
+				$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
+								
 				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
 			} 
 
@@ -133,6 +132,20 @@ class Settings extends CI_Controller {
 			$this->data['user_details'] = $this->user_model->get_user($aauth_user_id);
 			$this->data['user_outlets'] = $this->post_model->get_user_outlets($brand_id,$aauth_user_id);
 			$this->data['user_role'] = strtolower(get_user_groups($aauth_user_id,$brand_id));
+			$user_permissions= $this->aauth->get_user_perm($aauth_user_id,$brand_id);
+
+			if(!empty($user_permissions ))
+        	{
+        		$this->data['user_permissions'] = [];
+        		foreach($user_permissions as $permission)
+        		{
+        			$name = explode('.', $permission->name);
+        			if(!in_array($name[0],$this->data['user_permissions'])){
+        				$this->data['user_permissions'][] = strtolower($name[0]);
+        			}
+        		}
+        	}
+
 			if(!empty($this->data)){
 				echo json_encode(array('status' => 'success' , 'result'=> $this->data));
 			}else{
@@ -152,23 +165,16 @@ class Settings extends CI_Controller {
 			$brand_id = $post_data['brand_id'];
 
         	$old_outlets = object_to_array($this->post_model->get_user_outlets($brand_id,$user_id));
-        	if(!empty($old_outlets))
+        	
+        	// find the outlets which are deleted and which are newly added
+
+        	if(!empty($post_data['outlets']))
         	{
 	        	$outlet_ids = array_column($old_outlets,'id');
-
 	        	$new_selected_outlets = explode(',', $post_data['outlets']);
-
-	        	$outlets_to_add = array_diff($new_selected_outlets,$outlet_ids); // outlets to add
-	        	
+	        	$outlets_to_add = array_diff($new_selected_outlets,$outlet_ids); // outlets to add	        	
 	        	$outlets_to_delete = array_diff($outlet_ids,$new_selected_outlets); //outlets to delete
 
-	        	// echo '$new_selected_outlets <pre>'; print_r($new_selected_outlets );echo '</pre>'; 
-	        	
-	        	// echo '$outlet_ids <pre>'; print_r($outlet_ids );echo '</pre>'; 
-
-	        	// echo '$outlets_to_add <pre>'; print_r($outlets_to_add );echo '</pre>'; 
-
-	        	// echo '$outlets_to_delete <pre>'; print_r($outlets_to_delete );echo '</pre>'; 
 	        	foreach ($outlets_to_delete as $key => $o_id) {
 	        		$condition = array(
 	        				'user_id' => $user_id,
@@ -186,6 +192,8 @@ class Settings extends CI_Controller {
 	        		$this->timeframe_model->insert_data('user_outlets',$data);
 	        	}
 	        }
+
+	        // Update user info 
 	        $user_info = array(
 	        		'first_name'=> $post_data['first_name'],
 	        		'last_name'=> $post_data['last_name'],
@@ -195,6 +203,7 @@ class Settings extends CI_Controller {
 	        $condition = array('aauth_user_id' => $user_id);
 	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
 
+	        // Update user profile image
 	        if(isset($post_data['file']) && !empty($post_data['file'])){
         		$base64_image = $post_data['file'];
     		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
@@ -215,34 +224,42 @@ class Settings extends CI_Controller {
 		        
 		        header('Content-Type: image/png');
 		        
-		        imagepng($source_url, $url, 8);
-
-		        // $old_role = strtolower(get_user_groups($aauth_user_id,$brand_id));
-		        
-		        // $this->aauth->remove_member($user_id, $old_role);
-
-		        // $group_id = $this->aauth->get_group_id($post_data['role']);
-
-		        // $this->aauth->add_member($user_id,$group_id,$brand_id);
-		        
-		        // $this->aauth->deny_user($user_id, $old_role);
-
-		        //add permission to user
-            
-            	// if(!empty($post_data['permissions']))
-            	// {
-            	// 	foreach($post_data['permissions'] as $permission)
-            	// 	{
-            	// 		$matching_perms = $this->aauth->get_matching_perms($permission);
-
-            	// 		foreach($matching_perms as $perm)
-            	// 		{
-            	// 			$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
-            	// 		}
-            	// 	}
-            	// }
-            	echo 'success';
+		        imagepng($source_url, $url, 8);		      
         	}
+
+        	//  Get user old Permissions and Groups and remove old and add New 
+        	$old_role = strtolower(get_user_groups($user_id,$brand_id));
+        	$group_id = $this->aauth->get_group_id($post_data['role']);
+        	$old_permissions = $this->aauth->get_user_perm($user_id,$brand_id);
+
+        	if(!empty($old_permissions)){
+        		foreach ($old_permissions as $key => $per_obj) {
+        			$this->aauth->deny_user($user_id, $per_obj->perm_id);
+        		}
+        	}
+	        
+	       	$this->aauth->remove_member($user_id, $old_role);
+
+	       	$this->aauth->add_member($user_id,$group_id,$brand_id);
+
+	        // echo '<pre>'; print_r( [$result,$group_id ,$old_role] );echo '</pre>'; die;
+          	// add new Permission to user
+        	if(!empty($post_data['permissions']))
+        	{
+        		foreach($post_data['permissions'] as $permission)
+        		{
+        			$matching_perms = $this->aauth->get_matching_perms($permission);
+
+        			foreach($matching_perms as $perm)
+        			{
+        				$this->aauth->allow_user($user_id,$perm->id,$post_data['brand_id']);
+        			}
+        		}
+        	}
+        	echo json_encode(array('response' => 'success'));
+		}
+		else{
+			echo json_encode(array('response' => 'fail'));
 		}
 	}
 }

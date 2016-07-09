@@ -2448,6 +2448,29 @@ class Aauth {
 		return FALSE;
 	}
 
+	//tested
+	/**
+	 * Allow User
+	 * get list of permission
+	 * @param int $user_id User id 
+	 * @return list of permission
+	 */
+	public function get_user_perm($user_id,$brand_id) {
+
+		if( empty($user_id) && empty($brand_id) ) {
+			return FALSE;
+		}
+		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");		
+		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->where('brand_id', $brand_id);
+		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 } // end class
 
 // $this->CI->session->userdata('id')
