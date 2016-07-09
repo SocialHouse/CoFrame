@@ -24,9 +24,13 @@
 			{
 				foreach($users as $user)
 				{
-					?>
-					<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
-					<?php
+					if(!empty($brand_id) && !empty($brand_id)){
+						if(!is_set_permmition($user->aauth_user_id ,$brand_id)){
+							?>
+							<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
+							<?php
+						}
+					}					
 				}
 			}
 			?>

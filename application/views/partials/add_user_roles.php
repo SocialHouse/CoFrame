@@ -65,7 +65,7 @@
 			<li>Edit <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Approve <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="approve" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="approve" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
-			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="sttings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="sttings" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Billing <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="billing"><i class="tf-icon check-box circle-border pull-sm-right" data-value="billing" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>

@@ -993,7 +993,10 @@ jQuery(function($) {
 					});
 					
 			    	$.ajax({
-			    		url: base_url+'Settings/edit_user',    		
+			    		url: base_url+'Settings/edit_user',
+			    		type: 'POST',
+			    		dataType: 'json',
+			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 			    		data:{
 			    			'brand_id': brand_id,
 			    			'first_name':fname,
@@ -1006,13 +1009,15 @@ jQuery(function($) {
 			    			'image_name': image_name,
 			    			'file':user_pic,
 			    			'user_id': selected_user
-			    		},
-			    		type: 'POST',
-			    		dataType: 'html',
-			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+			    		},			    		
 			    		success: function(data)
 			    		{
-			    			window.location.reload();
+			    			if(data.response =='success'){
+			    				$('.close_brand').trigger('click');
+			    			}else{
+			    				alert(language_message.try_again);
+			    				$('.close_brand').trigger('click');
+			    			}
 			    		}
 			    	});
 

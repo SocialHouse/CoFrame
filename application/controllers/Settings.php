@@ -101,7 +101,8 @@ class Settings extends CI_Controller {
 				if(!empty($current_brand_users))
 					$brands_users = array_column($current_brand_users,'access_user_id');
 
-				//$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);	
+				// $this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users[0]);	
+				
 				$this->data['users'] = $this->brand_model->get_brand_users($brand[0]->id);
 				
 				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
@@ -215,34 +216,44 @@ class Settings extends CI_Controller {
 		        
 		        header('Content-Type: image/png');
 		        
-		        imagepng($source_url, $url, 8);
-
-		        // $old_role = strtolower(get_user_groups($aauth_user_id,$brand_id));
-		        
-		        // $this->aauth->remove_member($user_id, $old_role);
-
-		        // $group_id = $this->aauth->get_group_id($post_data['role']);
-
-		        // $this->aauth->add_member($user_id,$group_id,$brand_id);
-		        
-		        // $this->aauth->deny_user($user_id, $old_role);
-
-		        //add permission to user
-            
-            	// if(!empty($post_data['permissions']))
-            	// {
-            	// 	foreach($post_data['permissions'] as $permission)
-            	// 	{
-            	// 		$matching_perms = $this->aauth->get_matching_perms($permission);
-
-            	// 		foreach($matching_perms as $perm)
-            	// 		{
-            	// 			$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
-            	// 		}
-            	// 	}
-            	// }
-            	echo 'success';
+		        imagepng($source_url, $url, 8);		      
         	}
+
+        	$old_role = strtolower(get_user_groups($user_id,$brand_id));
+
+        	$group_id = $this->aauth->get_group_id($post_data['role']);
+
+        	$old_permissions = $this->aauth->get_user_perm($user_id,$brand_id);
+
+        	if(!empty($old_permissions)){
+        		foreach ($old_permissions as $key => $per_obj) {
+        			$this->aauth->deny_user($user_id, $per_obj->perm_id);
+        		}
+        	}
+	        
+	       	$this->aauth->remove_member($user_id, $old_role);
+
+	       	$this->aauth->add_member($user_id,$group_id,$brand_id);
+
+	        // echo '<pre>'; print_r( [$result,$group_id ,$old_role] );echo '</pre>'; die;
+          	// add permission to user
+        
+        	if(!empty($post_data['permissions']))
+        	{
+        		foreach($post_data['permissions'] as $permission)
+        		{
+        			$matching_perms = $this->aauth->get_matching_perms($permission);
+
+        			foreach($matching_perms as $perm)
+        			{
+        				$this->aauth->allow_user($user_id,$perm->id,$post_data['brand_id']);
+        			}
+        		}
+        	}
+        	echo json_encode(array('response' => 'success'));
+		}
+		else{
+			echo json_encode(array('response' => 'fail'));
 		}
 	}
 }

@@ -422,3 +422,23 @@ if(!function_exists('object_to_array'))
         return $data;
     }
 }
+
+if(!function_exists('is_set_permmition'))
+{
+    function is_set_permmition($user_id ,$brand_id)
+    {
+        if (!empty($user_id) && !empty($brand_id))
+        {
+            $CI = & get_instance();
+
+            $CI->load->model('timeframe_model');
+            $result = $CI->timeframe_model->get_data_by_condition('brand_user_map',array('brand_id' => $brand_id, 'access_user_id' => $user_id));
+            if($result)
+            {
+               return true;
+            }
+            return false;
+        }
+        return false;
+    }
+}
