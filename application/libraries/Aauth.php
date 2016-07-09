@@ -2460,7 +2460,7 @@ class Aauth {
 		if( empty($user_id) && empty($brand_id) ) {
 			return FALSE;
 		}
-		
+		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");		
 		$this->aauth_db->where('user_id', $user_id);
 		$this->aauth_db->where('brand_id', $brand_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
