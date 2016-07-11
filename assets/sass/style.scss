@@ -1562,10 +1562,11 @@ a {
 .post-approver-img {
 	position: relative;
 	.remove-user {
-		top: 50%;
-		left: -23px;
-		-webkit-transform: translate(0, -50%);
-		transform: translate(0, -50%);
+		position: relative;
+		top: inherit;
+		left:  inherit;
+		-webkit-transform: none;
+		transform: none;
 	}
 }
 .post-approver-name {
