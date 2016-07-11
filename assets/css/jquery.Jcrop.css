@@ -183,12 +183,11 @@ img.jcrop-preview {
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: #5F5F5F;
   opacity: 0.95;
   display: none;
-  z-index: 9999;
 }
 
 #preview{
@@ -199,10 +198,6 @@ img.jcrop-preview {
   display: none;
   border: 4px solid #A5A2A2;
   border-radius: 4px;
-  float: left;
-  font-size: 0px;
-  line-height: 0px;
-   z-index: 9999;
 }
 
 #preview .buttons{
@@ -217,8 +212,6 @@ img.jcrop-preview {
   border-radius: 4px;
   width: 36px;
   height: 36px;
-  line-height: 0px;
-  font-size: 0px;
   background-image: url('../images/Ok.png');
   background-repeat: no-repeat;
 }
@@ -232,8 +225,6 @@ img.jcrop-preview {
   border-radius: 4px;
   width: 36px;
   height: 36px;
-  line-height: 0px;
-  font-size: 0px;
   background-image: url('../images/Cancel.png');
   background-repeat: no-repeat;
 }

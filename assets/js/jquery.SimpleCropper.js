@@ -242,14 +242,14 @@
                             current_image.style['height'] = scaled_height + 'px';
 
                             // Position the modal div to the center of the screen
-                            $('#modal').css('display', 'block');
+                            $('#modal').appendTo('body').css('display', 'block');
                             var window_width = $(window).width() / 2 - scaled_width / 2 + "px";
                             var window_height = $(window).height() / 2 - scaled_height / 2 + "px";
 
                             // Show image in modal view
                             $("#preview").css("top", window_height);
                             $("#preview").css("left", window_width);
-                            $('#preview').show(500);
+                            $('#preview').appendTo('body').show(500);
 
 
                             // Calculate selection rect
