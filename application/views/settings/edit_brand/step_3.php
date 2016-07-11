@@ -3,7 +3,7 @@
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $this->user_id; ?>">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
-		<h4 class="text-xs-center">Users &amp; Permissions</h4>
+		<h4 class="text-xs-center">Manage Users</h4>
 		<div class="brand-image"></div>
 		<div class="brand-fields">
 			<div id="userPermissionsList" class="user-permissions-list">

@@ -5,7 +5,7 @@
 <input type="hidden" id="base64" name="base64" value="">
 
 	<div class="container-brand-step">	
-		<h4 class="text-xs-center">General Settings</h4>
+		<h4 class="text-xs-center">Edit Brand Info</h4>
 		<div class="brand-fields pd-bot-15">
 			<div class="form-group">
 			<?php
