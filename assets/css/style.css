@@ -8637,7 +8637,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8665,10 +8665,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -9293,7 +9293,10 @@ a {
   padding-right: 2rem; }
 
 .navbar-brand-manage .navbar-nav {
-  margin-top: 4rem; }
+  margin-top: 2rem; }
+  @media (min-width: 1820px) {
+    .navbar-brand-manage .navbar-nav {
+      margin-top: 4rem; } }
   .navbar-brand-manage .navbar-nav .nav-item {
     display: block;
     float: none;
@@ -9402,14 +9405,14 @@ a {
   margin-left: 10px; }
 
 .date-header {
-  font-size: 1.66667rem;
-  line-height: 3.4rem;
+  font-size: 25px;
+  line-height: 51px;
   border-bottom: 1px solid #000;
   padding-bottom: 0;
   margin-bottom: 0;
   letter-spacing: normal; }
   .date-header h2 {
-    font-size: 1.66667rem;
+    font-size: 25px;
     line-height: 60px;
     border: 0;
     margin-bottom: 0;
