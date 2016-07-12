@@ -6140,12 +6140,13 @@ a.bg-danger:focus, a.bg-danger:hover {
 .fa-th-list:before {
   content: ""; }
 
-.fa-check:before {
+.fa-check:before, .timeframe-list.approval-list .approved:before {
   content: ""; }
 
 .fa-remove:before,
 .fa-close:before,
-.fa-times:before {
+.fa-times:before,
+.timeframe-list.approval-list .pending:before {
   content: ""; }
 
 .fa-search-plus:before {
@@ -6866,7 +6867,7 @@ a.bg-danger:focus, a.bg-danger:hover {
 .fa-spinner:before {
   content: ""; }
 
-.fa-circle:before, .timeframe-list.approval-list li:before {
+.fa-circle:before {
   content: ""; }
 
 .fa-mail-reply:before,
@@ -10141,13 +10142,14 @@ a {
         line-height: 1;
         position: absolute;
         top: -3px;
-        left: 0;
+        left: 3px;
         z-index: 2;
         font-size: 12px; }
     .timeframe-list.approval-list .circle-img {
       margin-right: 10px; }
     .timeframe-list.approval-list .approved:before {
-      color: #009245; }
+      color: #009245;
+      top: -5px; }
     .timeframe-list.approval-list .pending:before {
       color: #C1272D; }
     .timeframe-list.approval-list .pending .circle-img {
@@ -10774,7 +10776,7 @@ a {
   .qtip-content .tag-list .tag {
     padding-bottom: 2px;
     padding-top: 2px; }
-.tag-list .fa-circle, .tag-list .timeframe-list.approval-list li, .timeframe-list.approval-list .tag-list li {
+.tag-list .fa-circle {
   padding: 0 1px;
   border-radius: 100%;
   border: 2px solid transparent;
@@ -10783,7 +10785,7 @@ a {
   font-size: 15px;
   width: 19px;
   height: 19px; }
-  .tag-list .fa-circle.tag-custom, .tag-list .timeframe-list.approval-list li.tag-custom, .timeframe-list.approval-list .tag-list li.tag-custom {
+  .tag-list .fa-circle.tag-custom {
     border-color: transparent !important; }
 
 .tag-red {
@@ -10861,7 +10863,7 @@ a {
       border-radius: 18px;
       padding: 10px;
       margin-left: 12px; }
-      #selectedFilters .filter-list li .fa-circle, #selectedFilters .filter-list li .timeframe-list.approval-list li, .timeframe-list.approval-list #selectedFilters .filter-list li li {
+      #selectedFilters .filter-list li .fa-circle {
         margin-right: 0; }
     #selectedFilters .filter-list .outlet-list {
       line-height: normal;
@@ -11174,7 +11176,7 @@ a {
         margin-bottom: 0; }
         .archives .timeframe-list li .check-box.selected .fa {
           visibility: visible; }
-    .archives .timeframe-list li .fa-circle, .archives .timeframe-list.approval-list li li {
+    .archives .timeframe-list li .fa-circle {
       float: left; }
     .archives .timeframe-list li .tag-title {
       margin-top: 2px;
