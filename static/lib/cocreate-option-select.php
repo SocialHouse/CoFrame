@@ -3,7 +3,7 @@
 	<p class="text-xs-center">Select an option below to start</p>
 	<ul class="cocreate-list text-xs-center">
 		<li>
-			<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-chat"></i></i>
+			<a href="cocreate-post.php"><i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-chat"></i></i></a>
 		</li>
 		<li>
 			<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-tele"></i></i>

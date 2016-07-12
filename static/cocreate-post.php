@@ -30,10 +30,23 @@
 					</div>
 				</div>
 			</section>
-			<section id="brand-manage" class="page-main bg-white col-sm-10">
-				<header class="page-main-header">
-					<h1 class="center-title section-title">New Post</h1>
-				</header>
+			<section id="brand-manage" class="page-main bg-white col-sm-10 cocreate-post">
+				<div class="row">
+					<div class="col-sm-8">
+						<header class="page-main-header">
+							<h1 class="center-title section-title">Co-Create</h1>
+						</header>
+					</div>
+					<div class="col-sm-4">
+						<header class="page-main-header">
+							<h1 class="center-title section-title">Discussion</h1>
+						</header>
+						<div class="cocreate-opts text-xs-center">
+							<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-tele"></i></i>
+							<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-video"></i></i>
+						</div>
+					</div>
+				</div>
 					<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
 						<div class="row equal-columns">
 							<div class="col-md-4 equal-height">
@@ -43,7 +56,7 @@
 								<?php include("lib/add-post-details.php"); ?>
 							</div>
 							<div class="col-md-4 equal-height">
-								<?php include("lib/add-post-approvals.php"); ?>
+								<?php include("lib/cocreate-post-discussion.php"); ?>
 							</div>
 						</div>
 					</form>
