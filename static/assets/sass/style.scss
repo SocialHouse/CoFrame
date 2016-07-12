@@ -1492,7 +1492,6 @@ a {
 			margin-bottom: 0;
 		}
 		li {
-			@extend .fa-circle;
 			border: 0;
 			padding-bottom: 5px;
 			position: relative;
@@ -1501,7 +1500,7 @@ a {
 				line-height: 1;
 				position: absolute;
 				top: -3px;
-				left: 0;
+				left: 3px;
 				z-index: 2;
 				font-size: 12px;
 			}
@@ -1510,11 +1509,14 @@ a {
 			margin-right: 10px
 		}
 		.approved {
+			@extend .fa-check;
 			&:before {
 				color: $brand-success;
+				top: -5px;
 			}
 		}
 		.pending {
+			@extend .fa-times;
 			&:before {
 				color: $brand-danger;
 			}
