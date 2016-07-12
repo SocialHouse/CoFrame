@@ -1763,6 +1763,7 @@ a {
 	&#brandStep3 {
 		.form-group {
 			margin-bottom: 1.5rem;
+			position: relative;
 			&.input-margin {
 				margin-bottom: .5rem;
 			}
@@ -3190,6 +3191,13 @@ textarea.form-control {
 	line-height: 20px;
 	text-transform: none;
 	z-index: 100;
+	.remove-user-img & {
+		top: 1rem;
+		right: 0;
+		left: inherit;
+		-webkit-transform: none;
+		transform: none;
+	}
 }
 .js .file-upload-label {
 	cursor: pointer;

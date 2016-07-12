@@ -426,7 +426,7 @@ class Brands extends CI_Controller {
 
 					$response .= '<div class="pull-sm-left post-approver-img">';
 					$response .= '<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="'.$inserted_id.'" data-brand-id="'.$post_data["brand_id"].'"><i class="fa fa-pencil"></i></a>';
-					$response .= '<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/><i title="Remove User" data-user-id="'.$inserted_id.'" class="tf-icon-circle remove-item remove-user">x</i></div>';
+					$response .= '<i title="Remove User" data-user-id="'.$inserted_id.'" class="tf-icon-circle remove-item remove-user">x</i><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
 					$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
 					$response .= '</div>';
 					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
