@@ -5,6 +5,7 @@
 <title>Timeframe | Overview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>style.css" media="all">
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -33,7 +34,6 @@
 	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 </script>
 <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
-<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
 
