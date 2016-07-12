@@ -10206,7 +10206,7 @@ a {
   .brand-step#brandStep3 .add-link {
     margin-top: 0; }
   .brand-step#brandStep2 .outlet-list ul {
-    margin: 120px 0 0; }
+    margin: 120px -1px 0; }
   .brand-step .outlet-list li {
     padding: 0 10px 12px; }
   .brand-step .outlet-list.selected-items .tf-icon, .brand-step .outlet-list.saved-items .tf-icon {
