@@ -1306,6 +1306,24 @@ a {
 	width: 9px;
 	background-size: 9px;
 }
+.tf-icon-chat {
+	background-image: url(../images/icons/chat.png);
+	height: 90px;
+	width: 90px;
+	background-position: center 23px;
+}
+.tf-icon-tele {
+	background-image: url(../images/icons/tele.png);
+	height: 90px;
+	width: 90px;
+	background-position: center 23px;
+}
+.tf-icon-video {
+	background-image: url(../images/icons/video-chat.png);
+	height: 90px;
+	width: 90px;
+	background-position: center 23px;
+}
 
 .circle-border {
 	border: 1px solid;
@@ -2619,6 +2637,31 @@ a {
 	}
 }
 
+/*Co-Create*/
+.cocreate {
+	h2 + p {
+		margin: 3rem 6rem;
+	}
+}
+.cocreate-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	li {
+		margin-bottom: 3rem;
+	}
+	.circle-border {
+		border-width: 4px;
+		overflow: hidden;
+		&:hover {
+			background: #000;
+			box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.25);
+			[class*="tf-icon"] {
+				background-position: center -23px;
+			}
+		}
+	}
+}
 /*Archive*/
 .archives {
 	h2 {
