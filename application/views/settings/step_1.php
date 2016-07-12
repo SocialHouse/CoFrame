@@ -1,5 +1,7 @@
 <div class="container-brand-step">
-	<h4 class="text-xs-center">General Settings</h4>
+	<h4 class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default edit-brands-info" data-step-no="1" >Edit Brand Info</button>
+	</h4>
 	<div class="brand-logo text-xs-center">
 		<?php
 		$image_path = img_url().'default_brand.png';

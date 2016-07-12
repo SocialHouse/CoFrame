@@ -531,7 +531,10 @@ a {
 	padding-right: remCalc(30px);
 }
 .navbar-brand-manage .navbar-nav {
-	margin-top: remCalc(60px);
+	margin-top:  remCalc(30px);
+	@include media-breakpoint-up(xl) {
+		margin-top: remCalc(60px);
+	}
 	.nav-item {
 		display: block;
 		float: none;
@@ -665,14 +668,14 @@ a {
  	}
 }
 .date-header {
-	font-size: remCalc(25px);
-	line-height: remCalc(51px);
+	font-size: 25px;
+	line-height: 51px;
 	border-bottom: 1px solid #000;
 	padding-bottom: 0;
 	margin-bottom: 0;
 	letter-spacing: normal;
 	h2 {
-		font-size: remCalc(25px);
+		font-size: 25px;
 		line-height: 60px;
 		border: 0;
 		margin-bottom: 0;
@@ -1559,10 +1562,11 @@ a {
 .post-approver-img {
 	position: relative;
 	.remove-user {
-		top: 50%;
-		left: -23px;
-		-webkit-transform: translate(0, -50%);
-		transform: translate(0, -50%);
+		position: relative;
+		top: inherit;
+		left:  inherit;
+		-webkit-transform: none;
+		transform: none;
 	}
 }
 .post-approver-name {

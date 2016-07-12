@@ -1,5 +1,7 @@
 <div class="container-brand-step">
-	<h4 class="text-xs-center">Post Tags</h4>
+	<h4 class="text-xs-center">
+		<button type="button" class="btn btn-sm btn-default edit-brands-info" data-step-no="4">Manage Tags</button>
+	</h4>
 	<div class="tag-list saved-items" >
 		<ul>
 			<?php 

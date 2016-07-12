@@ -3,7 +3,7 @@
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $this->user_id; ?>">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
-		<h4 class="text-xs-center">Users &amp; Permissions</h4>
+		<h4 class="text-xs-center">Manage Users</h4>
 		<div class="brand-image"></div>
 		<div class="brand-fields">
 			<div id="userPermissionsList" class="user-permissions-list">
@@ -50,8 +50,8 @@
 										<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="<?php echo $user->aauth_user_id; ?>" data-brand-id="<?php echo $brand->id; ?>">
 											<i class="fa fa-pencil"></i>
 										</a>
-										<img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/>
 										<i class="tf-icon-circle remove-item remove-user" data-user-id="<?php echo $user->aauth_user_id; ?>" title="Remove User">x</i>
+										<img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/>
 									</div>
 									<div class="pull-sm-left post-approver-name">
 										<strong>
