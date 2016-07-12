@@ -9130,6 +9130,9 @@ a {
   .navbar-main .navbar-nav {
     position: relative;
     z-index: 2; }
+  @media (max-width: 1280px) {
+    .navbar-main .nav-item + .nav-item {
+      margin-left: .5rem; } }
   .navbar-main .nav-link {
     text-transform: uppercase;
     letter-spacing: .25rem;

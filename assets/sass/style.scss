@@ -337,6 +337,11 @@ a {
 		position: relative;
 		z-index: 2;
 	}
+	.nav-item + .nav-item {
+		@media (max-width: 1280px) {
+			margin-left: .5rem;
+		}
+	}
 	.nav-link {
 		text-transform: uppercase;
 		letter-spacing: .25rem;
