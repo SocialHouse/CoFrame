@@ -169,7 +169,6 @@
 											<input type="text" class="time-input amselect" name="post-ampm" value="am">
 										</div>
 									</div>
-									<span class="timezone pull-xs-right" id="timezone_abbreviation"></span>
 								</div>
 							</div>
 							<div class="form-group slate-post-tz">
