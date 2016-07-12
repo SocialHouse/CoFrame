@@ -395,3 +395,6 @@ ALTER TABLE `user_info` ADD `email_notification` TINYINT NOT NULL DEFAULT '0' AF
 
 
 ALTER TABLE `user_info` CHANGE `email_notification` `email_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive', CHANGE `urgent_notification` `urgent_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive', CHANGE `desktop_notification` `desktop_notification` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0 = Active , 1 Inavtive';
+
+--- 12-07-2016
+ALTER TABLE `co_create_requests` DROP `token`;

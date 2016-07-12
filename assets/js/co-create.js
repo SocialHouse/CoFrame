@@ -4,21 +4,21 @@ var $ = jQuery;
 // var token = 'T1==cGFydG5lcl9pZD00NTYxNzExMiZzaWc9YmJhOTMyNzQzMDg1ZGE0OWZlZWZhNDY0OGFkMDhlZWMzNWY5NGYxZjpzZXNzaW9uX2lkPTJfTVg0ME5UWXhOekV4TW41LU1UUTJOemM0T0RJek1EY3dNMzVFWmxRNWREQjRObFl5T1d4WE5sUXhVSGRoWm1KelJXVi1VSDQmY3JlYXRlX3RpbWU9MTQ2Nzc4ODIzMiZyb2xlPXB1Ymxpc2hlciZub25jZT0xNDY3Nzg4MjMyLjQzOTgxNDcyNTk0NTUz';
 var session;
 
-$(document).ready(function(){		
+$(document).ready(function() {		
 	initializeSession(apiKey, sessionId,token);		
 });	
 
 
 function initializeSession(apiKey, sessionId,token) {
 	session = OT.initSession(apiKey, sessionId);	  
-	OT.getDevices(function(error,devices){		
-		if(!devices.length)
-		{
+	OT.getDevices(function(error,devices) {		
+		if(!devices.length) {
 			alert(language_message.video_audio_not_enabled);
 		}
 	});
 	// Subscribe to a newly created stream
 	session.on('streamCreated', function(event) {
+		console.log(event.stream);
 		session.subscribe(event.stream, 'subscriber', {
 		  insertMode: 'append',
 		  width: '100%',
@@ -34,14 +34,13 @@ function initializeSession(apiKey, sessionId,token) {
 	session.connect(token, function(error) {
 		// If the connection is successful, initialize a publisher and publish to the session
 		if (!error) {
-			console.log('not error');
-		  var publisher = OT.initPublisher('publisher', {
-		    insertMode: 'append',
-		    width: '100%',
-		    height: '100%'
-		  });
-
-		  session.publish(publisher);
+			var publisher = OT.initPublisher('publisher', {
+				insertMode: 'append',
+				width: '100%',
+				height: '100%',
+				name:'Ninad'
+			});
+		  	session.publish(publisher);
 		} else {
 		  console.log(language_message.connecting_error_session, error.code, error.message);
 		}
@@ -49,11 +48,14 @@ function initializeSession(apiKey, sessionId,token) {
 
    // Receive a message and append it to the history	
   	session.on('signal:msg', function(event) {
+  		var userData = event.from.data.split(',');
+  		console.log(userData[2]);
+
   		var className = event.from.connectionId === session.connection.connectionId ? 'sent' : 'receive';
   		
   		var msg_div = '<div class="row msg_container base_'+className+'">';
 	    var msg_div_img = '<div class="col-md-2 col-xs-2 avatar">';
-	    msg_div_img += '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+	    msg_div_img += '<img src="'+userData[2]+'" class=" img-responsive ">'
 	    msg_div_img += '</div>';
 
 	    var msg_div_msg = '<div class="col-xs-10 col-md-10">';
@@ -62,8 +64,7 @@ function initializeSession(apiKey, sessionId,token) {
 	    msg_div_msg += '</div>';
 	    msg_div_msg += '</div>';
 	    var append_div = msg_div_img+msg_div_msg;
-	    if(className == 'sent')
-	    {
+	    if(className == 'sent') {
 	    	append_div = msg_div_msg+msg_div_img;
 	    }
 	    msg_div += append_div;

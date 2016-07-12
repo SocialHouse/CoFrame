@@ -15,7 +15,7 @@
 		<input type="hidden" id="all_files">
 		<div class="row equal-columns create">
 		<?php
-		if(empty($request))
+		if(empty($request) AND check_user_perm($this->user_id,'create',$brand_id))
 		{
 			?>
 			<div class="col-md-6 " style="height:900px;">

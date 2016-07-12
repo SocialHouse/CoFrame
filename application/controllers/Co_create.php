@@ -75,13 +75,24 @@ class Co_create extends CI_Controller {
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 
+			$path = img_url()."default_profile.jpg";
+			upload_path().$brand[0]->created_by.'/users/'.$this->user_id.'.png';
+			if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$this->user_id.'.png'))
+			{
+				$path = upload_url().$brand[0]->created_by.'/users/'.$this->user_id.'.png';
+			}
+
+			$connection_metadata = ucfirst($this->user_data['first_name']).",".$this->user_id.",".$path;			
+
+			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));					
+
 			if(!empty($request_string))
 			{
 				$request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
 				if(!empty($request))
 				{
-					$this->data['sessionId'] = $request[0]->session_id;
-			        $this->data['token'] = $request[0]->token;
+					$this->data['sessionId'] = $request[0]->session_id;					
+					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('user_id'=> $this->user_id,'data' => $connection_metadata));
 			    }
 			}
 
@@ -91,15 +102,13 @@ class Co_create extends CI_Controller {
 				$is_request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('user_id' => $this->user_id,'brand_slug' => $slug));
 		        if(empty($is_request))
 		        {
-					$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));
 			        $session = $opentok->createSession();
 			        $this->data['sessionId'] = $session->getSessionId();
-			        $this->data['token'] = $session->generateToken();
+					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
 		        
 		       
 			        $request_data = array(
-			        		'session_id' => $this->data['sessionId'],
-			        		'token' => $this->data['token'],
+			        		'session_id' => $this->data['sessionId'],			        		
 			        		'request_string' => uniqid(),
 			        		'brand_slug' => $slug,
 			        		'user_id' => $this->user_id
@@ -111,7 +120,7 @@ class Co_create extends CI_Controller {
 			    else
 			    {
 			    	$this->data['sessionId'] = $is_request[0]->session_id;
-			        $this->data['token'] = $is_request[0]->token;
+			        $this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
 			        $this->data['request_string'] = $is_request[0]->request_string;
 			    }
 		    }

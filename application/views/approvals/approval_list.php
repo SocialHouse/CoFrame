@@ -100,8 +100,13 @@
 						<th>Outlet</th>
 						<th>Status</th>
 						<th>Post Copy</th>
-						<th>Approvals</th>
 						<?php
+						if($user_group != 'Approver')
+						{
+							?>
+							<th>Approvals</th>
+						<?php
+						}
 						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR $user_group == 'Approver')
 						{
 							?>
@@ -199,7 +204,14 @@
 											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo ucfirst($post->status); ?></td>
 
 											<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
-											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+											<?php
+											$class = '';
+											if($user_group == 'Approver')
+											{
+												$class = 'hide';
+											}
+											?>
+											<td class="text-xs-center <?php echo $class; ?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 												<?php 
 												$approvers = get_post_approvers($post->id);
 												if($approvers)
