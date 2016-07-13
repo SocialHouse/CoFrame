@@ -90,7 +90,7 @@
 									<td>
 										<a href="" class="btn btn-default color-success btn-xs">Complete</a>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-sm btn-disabled btn-secondary">Approved</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-disabled btn-default color-success">Approved</a> <a class="btn btn-sm btn-disabled btn-default color-success">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1224, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -115,7 +115,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-default color-success">Approve</a> <a class="btn btn-sm btn-default color-success">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1225, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -143,7 +143,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-default color-success">Approve</a> <a class="btn btn-sm btn-default color-success">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1226, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -194,7 +194,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-default color-success">Approve</a> <a class="btn btn-sm btn-disabled btn-default color-success">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1227, 'click', 'approvals-post');">
 									<td>Wed 5/13</td>
@@ -225,7 +225,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-default color-success">Approve</a> <a class="btn btn-sm btn-disabled btn-default color-success">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>

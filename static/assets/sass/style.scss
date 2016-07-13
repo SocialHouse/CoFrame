@@ -240,9 +240,14 @@ h5 {
 	border-color: $gray-lighter;
 	background: none;
 	cursor: not-allowed;
-	&.btn-default, &.btn-icon {
+	&.btn-default, &.btn-icon, &.color-success {
 		color: $gray-lighter;
 		border-color: $gray-lighter;
+		&.color-success {
+			color: $gray-lighter;
+			border-color: $gray-lighter;
+			background: #fff;
+		}
 	}
 	&.btn-secondary {
 		background: $gray-lighter;
