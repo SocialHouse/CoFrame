@@ -14,6 +14,7 @@
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
 		<div class="row equal-columns create">
+		<input type="hidden" value="<?php echo $full_name; ?>" id="full_name" />
 		<?php
 		if(empty($request) AND check_user_perm($this->user_id,'create',$brand_id))
 		{
@@ -80,8 +81,8 @@
 						<div>
 							<h4 class="text-xs-center">Collaborate</h4>								
 							<div id="videos">
-						        <div id="subscriber"></div>
-						        <div id="publisher"></div>
+						        <div id="subscriber" style="height:200px"></div>
+						        <div id="publisher" style="height:200px"></div>
 							</div>
 
 							<br/>

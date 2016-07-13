@@ -19,11 +19,22 @@ function initializeSession(apiKey, sessionId,token) {
 	// Subscribe to a newly created stream
 	session.on('streamCreated', function(event) {
 		console.log(event.stream);
-		session.subscribe(event.stream, 'subscriber', {
-		  insertMode: 'append',
-		  width: '100%',
-		  height: '100%'
-		});
+		// session.subscribe(event.stream, 'subscriber', {
+		//   insertMode: 'append',
+		//   width: '100%',
+		//   height: '100%'
+		// });
+		var subscriberProperties = {insertMode: 'append'};
+		var subscriber = session.subscribe(event.stream,
+		    'subscriber',
+		    subscriberProperties,
+		    function (error) {
+		      if (error) {
+		        console.log(error);
+		      } else {
+		        console.log('Subscriber added.');
+		      }
+		  });
 	});
 
 	session.on('sessionDisconnected', function(event) {
@@ -34,12 +45,19 @@ function initializeSession(apiKey, sessionId,token) {
 	session.connect(token, function(error) {
 		// If the connection is successful, initialize a publisher and publish to the session
 		if (!error) {
+			var targetElement = 'publisherContainer';
+			console.log(session.capabilities.publish);
+			// var pubOptions = {publishAudio:true, publishVideo:true};
 			var publisher = OT.initPublisher('publisher', {
 				insertMode: 'append',
 				width: '100%',
 				height: '100%',
-				name:'Ninad'
-			});
+				name: $('#full_name').val(),
+				publishAudio:true, 
+				publishVideo:true
+			},function(error){
+				console.log(error.message);
+			});			
 		  	session.publish(publisher);
 		} else {
 		  console.log(language_message.connecting_error_session, error.code, error.message);

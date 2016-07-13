@@ -73,6 +73,7 @@ class Co_create extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$this->data['full_name'] = ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']);
 			$brand_id = $brand[0]->id;
 
 			$path = img_url()."default_profile.jpg";
