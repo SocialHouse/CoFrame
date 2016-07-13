@@ -238,7 +238,7 @@ class Co_create extends CI_Controller {
 					        {
 					        	$uploaded_files[$i]['file'] = $status['file_name'];
 					        	$uploaded_files[$i]['type'] = 'images';
-					        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+					        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];
 					        	
 					        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
 					        	{
