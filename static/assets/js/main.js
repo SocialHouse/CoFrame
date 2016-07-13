@@ -681,6 +681,9 @@ jQuery(function($) {
 			});
 			$(this).css('width', listWidth);
 		});
+		
+		//truncate post copy
+		$(".post-excerpt").dotdotdot({ellipsis: '', wrap: 'letter'});
 	}
 	//Time selector functions
 	$('body').on('click', '.incrementer', function(e) {

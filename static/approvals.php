@@ -85,7 +85,7 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>
 									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td><span class="post-excerpt">Lorem ipsum dolor sit amet, consectetur adipisci this is some additional post content</span></td>
 									<td class="text-xs-center color-danger"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td>
 										<a href="" class="btn btn-default color-success btn-xs">Complete</a>
@@ -103,7 +103,7 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>
 									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td><span class="post-excerpt">Lorem ipsum dolor sit amet, consectetur adipisci some additional post content</span></td>
 									<td class="text-xs-center color-danger"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
 										<ul class="timeframe-list approval-list pull-md-left">
@@ -128,7 +128,7 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-instagram"><span class="bg-outlet bg-instagram"></span></i>
 									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td><span class="post-excerpt">Lorem ipsum dolor sit amet, consectetur adipisci more additional post content</span></td>
 									<td class="text-xs-center">N/A</td>
 									<td class="text-xs-center">
 										<ul class="timeframe-list approval-list pull-md-left">
@@ -156,7 +156,7 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-vine"><span class="bg-outlet bg-vine"></span></i>
 									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td><span class="post-excerpt">Lorem ipsum dolor sit amet, consectetur adipisci additional post content</span></td>
 									<td class="text-xs-center"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
 										<ul class="timeframe-list approval-list pull-md-left">
@@ -207,7 +207,7 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-twitter"><span class="bg-outlet bg-twitter"></span></i>
 									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td><span class="post-excerpt">Lorem ipsum dolor sit amet, consectetur adipisci post content</span></td>
 									<td class="text-xs-center"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
 										<ul class="timeframe-list approval-list pull-md-left">
@@ -496,6 +496,7 @@
 	<script type='text/javascript' src='assets/js/vendor/isotope.pkgd.min.js?ver=3.0.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/moment.min.js?ver=2.11.0'></script>
 	<script type='text/javascript' src='assets/js/vendor/fullcalendar.min.js?ver=2.6.1'></script>
+	<script type='text/javascript' src='assets/js/vendor/jquery.dotdotdot.min.js?ver=1.8.1'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/post-filters.js?ver=1.0.0'></script>
