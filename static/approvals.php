@@ -5,9 +5,9 @@
 <title>Timeframe | Overview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 <link type="text/css" rel="stylesheet" href="assets/css/style.css" media="all">
 <link type="text/css" rel="stylesheet" href="assets/css/fullcalendar.css" media="all">
-<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
 <script type='text/javascript' src='assets/js/vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
 
@@ -69,10 +69,10 @@
 									<th>Post Time</th>
 									<th>Tags</th>
 									<th>Outlet</th>
-									<th>Status</th>
 									<th>Post Copy</th>
-									<th>Approvals</th>
-									<th>Schedule / View Edit Requests</th>
+									<th>Approval<br>Deadline</th>
+									<th>Pending Approvals</th>
+									<th>Actions</th>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1223, 'click', 'approvals-post');">
 									<td>Tue 5/12</td>
@@ -85,28 +85,12 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>
 									</td>
-									<td class="text-xs-center">Scheduled</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
-									<td class="text-xs-center">
-										<ul class="timeframe-list approval-list">
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="pending">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-										</ul>
+									<td class="text-xs-center color-danger"><small>5/11/16<br>12:55 PM PST</small></td>
+									<td>
+										<a href="" class="btn btn-default color-success btn-xs">Complete</a>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-disabled btn-secondary">Approved</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1224, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -119,20 +103,11 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i>
 									</td>
-									<td class="text-xs-center">Scheduled</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td class="text-xs-center color-danger"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
-										<ul class="timeframe-list approval-list">
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
+										<ul class="timeframe-list approval-list pull-md-left">
+											<li class="pending">
 												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
 											<li class="pending">
@@ -140,7 +115,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1225, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -153,20 +128,14 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-instagram"><span class="bg-outlet bg-instagram"></span></i>
 									</td>
-									<td class="text-xs-center">Scheduled</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td class="text-xs-center">N/A</td>
 									<td class="text-xs-center">
-										<ul class="timeframe-list approval-list">
-											<li class="approved">
+										<ul class="timeframe-list approval-list pull-md-left">
+											<li class="pending">
 												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
+											<li class="pending">
 												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
 											<li class="pending">
@@ -174,7 +143,7 @@
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-xs btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-secondary">Schedule</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1226, 'click', 'approvals-post');">
 									<td>&nbsp;</td>
@@ -187,28 +156,45 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-vine"><span class="bg-outlet bg-vine"></span></i>
 									</td>
-									<td class="text-xs-center">Scheduled</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td class="text-xs-center"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
-										<ul class="timeframe-list approval-list">
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
+										<ul class="timeframe-list approval-list pull-md-left">
+											<li class="pending">
 												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
 											<li class="pending">
 												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
+											<li class="pending">
+												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+											</li>
+											<li>
+												<button class="btn-icon btn-circle btn-menu showInvisible"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+												<ul class="timeframe-list approval-list invisible">
+													<li class="pending">
+														<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+													</li>
+													<li class="pending">
+														<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+													</li>
+													<li class="pending">
+														<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+													</li>
+													<li class="pending">
+														<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+													</li>
+													<li class="pending">
+														<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
+													</li>
+													<li>
+														<button class="btn-icon btn-circle btn-menu btn-close hideVisible">X</button>
+													</li>												
+												</ul>
+											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'), 1227, 'click', 'approvals-post');">
 									<td>Wed 5/13</td>
@@ -221,28 +207,25 @@
 									<td class="text-xs-center outlet-list">
 										<i class="fa fa-twitter"><span class="bg-outlet bg-twitter"></span></i>
 									</td>
-									<td class="text-xs-center">Scheduled</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisci...</td>
+									<td class="text-xs-center"><small>5/11/16<br>12:55 PM PST</small></td>
 									<td class="text-xs-center">
-										<ul class="timeframe-list approval-list">
-											<li class="approved">
+										<ul class="timeframe-list approval-list pull-md-left">
+											<li class="pending">
 												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
-											<li class="approved">
+											<li class="pending">
 												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
-											<li class="approved">
+											<li class="pending">
 												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
-											</li>
-											<li class="approved">
-												<img src="assets/images/fpo/david.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
 											<li class="pending">
 												<img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img">
 											</li>
 										</ul>
 									</td>
-									<td class="text-xs-center"><a class="btn btn-xs btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">View Edit<br>Requests</a></td>
+									<td class="text-xs-center"><a class="btn btn-sm btn-secondary">Approve</a> <a class="btn btn-sm btn-disabled btn-secondary">Scheduled</a> <a href="edit-requests.php" class="btn btn-xs btn-wrap btn-disabled btn-default">Edit<br>Requests</a></td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
