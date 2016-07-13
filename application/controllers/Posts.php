@@ -66,26 +66,30 @@ class Posts extends CI_Controller {
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 			//echo '<pre>'; print_r($this->user_data);echo '</pre>';
-			foreach ($this->data['timezones']  as $key => $value) {
-				if($this->data['brand']->timezone  == $value->value){
+			foreach ($this->data['timezones']  as $key => $value) 
+			{
+				if($this->data['brand']->timezone  == $value->value)
+				{
 					$this->data['brand_timezone'] = array(
 											'name' =>  $value->timezone,
 											'value' => $value->value
 											);
 					 unset($this->data['timezones'] [$key]);
-					}
+				}
 				
-					if($this->user_data['timezone'] == $value->value){
-						$this->data['user_timezone'] = array(
-											'name' =>  $value->timezone,
-											'value' => $value->value
-											);
-						if($this->data['brand']->timezone  != $this->user_data['timezone'] ){
-							unset($this->data['timezones'] [$key]);
-						}
+				if($this->user_data['timezone'] == $value->value)
+				{
+					$this->data['user_timezone'] = array(
+										'name' =>  $value->timezone,
+										'value' => $value->value
+										);
+					if($this->data['brand']->timezone  != $this->user_data['timezone'] )
+					{
+						unset($this->data['timezones'] [$key]);
 					}
-			}
-			//echo '<pre>'; print_r($this->data);echo '</pre>'; die;
+				}
+			}			
+
 			$this->data['view'] = 'posts/create-post';
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
@@ -154,7 +158,8 @@ class Posts extends CI_Controller {
 			    		}					    		
 		    			
 		    			// Create notification for a created post and change message if it's a draft.
-		    			if ($status == "draft"){
+		    			if ($status == "draft")
+		    			{
 		    				$reminder_data = array(
 		    										'post_id' => $inserted_id,
 		    										'user_id' => $this->user_id,
@@ -163,7 +168,8 @@ class Posts extends CI_Controller {
 		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' draft'
 		    									);
 		    			}
-		    			else{
+		    			else
+		    			{
 		    				$reminder_data = array(
 		    										'post_id' => $inserted_id,
 		    										'user_id' => $this->user_id,

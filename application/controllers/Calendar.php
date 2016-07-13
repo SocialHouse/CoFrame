@@ -202,6 +202,7 @@ class Calendar extends CI_Controller {
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['users'] = $this->brand_model->get_approvers($brand[0]->id);
+			$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
 
 			if(!empty($this->data['post_id'])){
 				$post_id = $this->data['post_id'];

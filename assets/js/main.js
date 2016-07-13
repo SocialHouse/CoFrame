@@ -32,7 +32,7 @@ jQuery(function($) {
 	 	$(".hour-select").mask('Hh', {
 	 							translation: {
 									   'H': { pattern: /[0-1]/},
-									   'h': { pattern: /[0-9]/},
+									   'h': { pattern: /[0-2]/},
 								    }
 								});
 	 	$(".minute-select").mask('Mm', {
