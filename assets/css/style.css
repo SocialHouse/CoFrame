@@ -8967,6 +8967,11 @@ h5, .qtip-titlebar {
     padding-top: .4rem;
     padding-bottom: .4rem; }
 
+.btn-xxs {
+  border-radius: 6px;
+  font-size: 9px;
+  padding: 6px; }
+
 .btn-default {
   border: 1px solid #fff;
   background: none;
@@ -9051,7 +9056,8 @@ h5, .qtip-titlebar {
     color: #fff !important; }
     .post-actions .btn-disabled.btn-secondary, .post-actions .btn-disabled:hover.btn-secondary {
       background: #e5e5e5 !important;
-      color: #999999 !important; }
+      color: #999999 !important;
+      border-color: #e5e5e5; }
 
 .btn-login {
   margin-top: 19px; }
@@ -9079,6 +9085,15 @@ h5, .qtip-titlebar {
   font-size: 1rem;
   width: 2rem;
   height: 2rem;
+  line-height: 2rem; }
+
+.btn-icon-xl {
+  border-radius: 6px;
+  font-size: 1rem;
+  width: auto;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  height: 2.4rem;
   line-height: 2rem; }
 
 .btn-menu {
@@ -9265,7 +9280,7 @@ a {
   height: 34px;
   width: 34px;
   outline: none;
-  z-index: 1050;
+  z-index: 1060;
   left: 1.5rem;
   top: 1.5rem;
   cursor: pointer; }
@@ -9616,6 +9631,11 @@ a {
     bottom: inherit;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%); }
+    .modal.alert-modal .modal-content {
+      padding-top: 1rem; }
+  .modal h5, .modal .qtip-titlebar {
+    font-size: 10px;
+    margin-bottom: .5rem; }
 
 .modal-dialog {
   margin: 0 auto;
@@ -9630,6 +9650,9 @@ a {
 @media (min-width: 1440px) {
   .modal-lg {
     width: 1280px; } }
+@media (min-width: 1600px) {
+  .modal-lg {
+    width: 1470px; } }
 
 .modal-contain {
   position: absolute;
@@ -9644,6 +9667,11 @@ a {
   box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.25);
   padding: 1.5rem 1rem 1rem;
   width: 90%; }
+
+.edit-post-modal .modal-body {
+  padding-top: 0; }
+.edit-post-modal .post-content {
+  padding-top: 1.46667rem; }
 
 /*Theme Colors*/
 .bg-primary a {
@@ -10445,6 +10473,8 @@ a {
 
 [class*="container-"] h4 {
   margin-bottom: 1.5rem; }
+  [class*="container-"] h4 .btn[class*="pull-"] {
+    margin-top: -6px; }
 
 #overview .container-summary-list {
   background: none;
@@ -10539,6 +10569,9 @@ a {
   text-transform: none;
   font-size: 1rem;
   line-height: 1; }
+  .container-view-approvals .approval-note {
+    font-size: 1.2rem;
+    line-height: 1.4rem; }
   .qtip-calendar-post .approval-note {
     font-size: 12px;
     letter-spacing: normal; }
@@ -10954,12 +10987,10 @@ a {
     text-decoration: underline; }
   .post-actions .btn-group .btn {
     margin: 0; }
-  .post-actions .btn {
+  .post-actions .btn-sm, .post-actions .btn-group-sm > .btn {
     text-decoration: none;
     font-size: 11px;
     margin-right: 1rem; }
-  .post-actions .btn-secondary {
-    border: 0; }
 
 .post-tags .fa + .fa {
   margin-left: -9px; }
@@ -11679,6 +11710,13 @@ textarea.form-control {
 
 .shrink {
   transform: scale(0); }
+
+.sep {
+  height: 2.4rem;
+  border-left: 1px solid #000;
+  margin-left: .75rem;
+  margin-right: .75rem;
+  display: inline-block; }
 
 /*ADDITIONAL STYLES*/
 .post-container {

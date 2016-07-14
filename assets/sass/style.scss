@@ -136,6 +136,11 @@ h5 {
 		padding-bottom: .4rem;
 	}
 }
+.btn-xxs {
+	border-radius: $border-radius-sm;
+	font-size: 9px;
+	padding: 6px;
+}
 .btn-default {
 	border: 1px solid #fff;
 	background: none;
@@ -240,6 +245,7 @@ h5 {
 		.post-actions & {
 			background: #e5e5e5 !important;
 			color: $gray !important;
+			border-color: #e5e5e5;
 		}
 	}
 }
@@ -271,6 +277,15 @@ h5 {
 	font-size: 1rem;
 	width: 2rem;
 	height: 2rem;
+	line-height: 2rem;
+}
+.btn-icon-xl {
+	border-radius: 6px;
+	font-size: 1rem;
+	width: auto;
+	padding-left: .75rem;
+	padding-right: .75rem;
+	height: remCalc(36px);
 	line-height: 2rem;
 }
 .btn-menu {
@@ -498,7 +513,7 @@ a {
 	height: 34px;
 	width: 34px;
 	outline: none;
-	z-index: 1050;
+	z-index: 1060;
 	left: 1.5rem;
 	top: 1.5rem;
 	cursor: pointer;
@@ -972,6 +987,13 @@ a {
 		bottom: inherit;
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
+		.modal-content {
+			padding-top: 1rem;
+		}
+	}
+	h5 {
+		font-size: 10px;
+		margin-bottom: .5rem;
 	}
 }
 .modal-dialog {
@@ -988,6 +1010,9 @@ a {
 	@media (min-width: 1440px) {
 		width: 1280px;
 	}
+	@media (min-width: 1600px) {
+		width: 1470px;
+	}
 }
 
 .modal-contain {
@@ -1003,6 +1028,14 @@ a {
 	box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.25);
 	padding: 1.5rem 1rem 1rem;
 	width: 90%;
+}
+.edit-post-modal {
+	.modal-body {
+		padding-top: 0;
+	}
+	.post-content {
+		padding-top: remCalc(22px);	
+	}
 }
 /*Theme Colors*/
 .bg-primary {
@@ -1995,6 +2028,9 @@ a {
 [class*="container-"] {
 	h4 {
 		margin-bottom: 1.5rem;
+		.btn[class*="pull-"] {
+			margin-top: -6px;
+		}
 	}
 }
 .container-summary-list {
@@ -2115,6 +2151,10 @@ a {
 	text-transform: none;
 	font-size: 1rem;
 	line-height: 1;
+	.container-view-approvals & {
+		font-size: remCalc(18px);
+		line-height: remCalc(21px);
+	}
 	.qtip-calendar-post & {
 		font-size: 12px;
 		letter-spacing: normal;
@@ -2641,13 +2681,10 @@ a {
 			margin: 0;
 		}
 	}
-	.btn {
+	.btn-sm {
 		text-decoration: none;
 		font-size: 11px;
 		margin-right: 1rem;
-	}
-	.btn-secondary {
-		border: 0;
 	}
 }
 .post-tags {
@@ -3541,7 +3578,13 @@ textarea.form-control {
 .shrink {
 	transform: scale(0);
 }
-
+.sep {
+  	height: remCalc(36px);
+  	border-left: 1px solid #000;
+	margin-left: .75rem;
+  	margin-right: .75rem;
+  	display: inline-block;
+}
 /*ADDITIONAL STYLES*/
 .post-container {
   text-transform: none;
