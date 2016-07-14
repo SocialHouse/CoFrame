@@ -1023,6 +1023,9 @@ a {
 		background: rgba(255,255,255,.88);
 	}
 }
+.bg-orange {
+	background: $brand-orange;
+}
 .bg-black {
 	background: #000;
 	color: #fff;
@@ -1351,6 +1354,26 @@ a {
 	border-radius: 100%;
 	text-align: center;
 }
+.tf-icon-schedule {
+	background-image: url(../images/icons/schedule.png);
+	background-position: center center;
+	height: 16px;
+	width: 16px;
+	.summary-list & {
+		background-position: 3px center;
+		background-size: 9px;
+	}
+}
+.tf-icon-ticktock {
+	background-image: url(../images/icons/ticktock.png);
+	background-position: center center;
+	height: 16px;
+	width: 16px;
+	.summary-list & {
+		background-position: 3px 2px;
+		background-size: 7px;
+	}
+}
 .tf-icon-download {
 	background-image: url(../images/icons/download.png);
 	height: 13px;
@@ -1416,14 +1439,15 @@ a {
 		line-height: remCalc(34px);
 		@include clearfix;
 	}
-	.fa, [class*="icon-"] {
+	.fa{
 		font-size: remCalc(18px);
 		float: left;
 		margin-right: .5rem; 
 		line-height: remCalc(34px);
 	}
-	[class*="icon-"] {
-		font-size: remCalc(16px);
+	[class*="tf-icon"] {
+		margin-right: .5rem; 
+		display: inline-block;
 	}
 	.fa-custom-circle {
 		height: remCalc(17px);
