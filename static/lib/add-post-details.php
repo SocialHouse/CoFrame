@@ -120,10 +120,6 @@
 				<input type="text" class="time-input amselect" name="post-ampm" value="am">
 			</div>
 		</div>
-		<span class="timezone pull-xs-right">
-			<label class="invisible">Post Timezone</label>
-			PST
-		</span>
 	</div>
 	<div class="form-group form-inline pull-xl-right">
 		<label>Tags:</label><br>

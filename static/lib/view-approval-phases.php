@@ -1,5 +1,6 @@
+<h4 class="text-xs-center">Mandatory Approvals <button class="btn btn-default btn-xxs pull-sm-right">Reset</button></h4>
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase1">
-	<h2 class="clearfix">Phase 1 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button> <button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
+	<h2 class="clearfix">Phase 1 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button> <button title="Edit Phase" class="btn-icon"><i class="fa fa-trash"></i></button> <div class="pull-sm-right"><span class="select-box" data-value="phase-1-id-134234" data-group="delete-phase"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></span><label>Resubmit</label></div></h2>
 	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 		<li class="pull-sm-left approved"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
@@ -13,7 +14,7 @@
 </div>
 
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase2">
-	<h2 class="clearfix">Phase 2 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
+	<h2 class="clearfix">Phase 2 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button> <button title="Edit Phase" class="btn-icon"><i class="fa fa-trash"></i></button><div class="pull-sm-right"><span class="select-box" data-value="phase-2-id-134234" data-group="delete-phase"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></span><label>Resubmit</label></div></h2>
 	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 		<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
@@ -27,7 +28,7 @@
 </div>
 
 <div class="bg-white approval-phase animated fadeIn" id="approvalPhase3">
-	<h2 class="clearfix">Phase 3 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default pull-sm-right">Resubmit for Approval</button></h2>
+	<h2 class="clearfix">Phase 3 <button title="Edit Phase" class="btn-icon"><i class="fa fa-pencil"></i></button> <button title="Edit Phase" class="btn-icon"><i class="fa fa-trash"></i></button><div class="pull-sm-right"><span class="select-box" data-value="phase-3-id-134234" data-group="delete-phase"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></span><label>Resubmit</label></div></h2>
 	<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 		<li class="pull-sm-left pending"><img src="assets/images/fpo/norel.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>
 		<li class="pull-sm-left pending"><img src="assets/images/fpo/kristin.jpg" width="36" height="36" alt="Norel Mancuso" class="circle-img"/></li>

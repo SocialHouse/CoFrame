@@ -28,6 +28,6 @@
 		</div>
 	</div>
 	<footer class="post-content-footer post-actions text-xs-center">
-		<a href="#" class="btn btn-default btn-sm">Edit</a>
+		<a href="edit-post-calendar.php" class="btn btn-default btn-sm" data-modal-src="edit-post-calendar.php" data-toggle="modal-ajax" data-class="edit-post-modal" data-modal-id="edit-post-id2392" data-modal-size="lg">Edit</a>
 	</footer>
 </div>

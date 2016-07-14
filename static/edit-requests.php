@@ -46,6 +46,11 @@
 		</div>
 	</div>
 
+	<button type="button" class="modal-toggler">
+		<span class="sr-only">Toggle Modal</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
 	<!-- Blank Modal -->
 	<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">

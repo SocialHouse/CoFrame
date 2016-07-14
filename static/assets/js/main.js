@@ -599,7 +599,8 @@ jQuery(function($) {
 
 	//modal triggers
 	//Get modal content from an external source
-	$('body').on('click', '[data-toggle="modal-ajax"]', function() {
+	$('body').on('click', '[data-toggle="modal-ajax"]', function(e) {
+		e.preventDefault();
 		var newModal = $('#emptyModal').clone();
 		var $target=$(this);
 		var mid = $target.data('modalId');
@@ -614,8 +615,13 @@ jQuery(function($) {
 			if(mclass !== "") {
 				newModal.addClass(mclass);
 			}
-			mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
-			newModal.find('.modal-body').html(mtitle + data);
+			if(mtitle) {
+				mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
+				newModal.find('.modal-body').html(mtitle + data);
+			}
+			else {
+				newModal.find('.modal-body').html(data);
+			}
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
@@ -623,7 +629,7 @@ jQuery(function($) {
 			newModal.on('shown.bs.modal', function () {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
-				equalColumns();
+				equalColumns('#' + mid);
 			});
 			newModal.on('hide.bs.modal', function () {
 				$('.modal-toggler').fadeOut();
@@ -632,16 +638,19 @@ jQuery(function($) {
 		});
 	});
 	//Get modal content from inline source
-	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function() {
+	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function(e) {
+		e.preventDefault();
 		var $target=$(this);
 		var mid = $target.data('modalId');
+		var mtitle = $target.data('title');
+		var mclass = $target.data('class');
 		$('#' + mid).modal({
 			show: true,
 			backdrop: 'static'
 		});
 		$('#' + mid).on('shown.bs.modal', function () {
 			$('.modal-toggler').fadeIn();
-			equalColumns();
+			equalColumns('#' + mid);
 		});
 		$('#' + mid).on('hide.bs.modal', function () {
 			$('.modal-toggler').fadeOut();
@@ -828,29 +837,37 @@ jQuery(function($) {
 	};
 	addIncrements();
 
-	window.equalColumns = function equalColumns() {
-		$('.equal-columns .equal-height, .equal-section').css('height', '');
+	window.equalColumns = function equalColumns(div) {
+		if(div === undefined) {
+			div = '.page-main';
+		}
+		$(div + ' .equal-columns .equal-height, ' + div + ' .equal-section').css('height', '');
 		var colHs = [];
-		$('.equal-section').each(function() {
+		$(div).find('.equal-section').each(function() {
 			var colH = $(this).outerHeight();
 			colHs.push(colH);
 		});
 		var tallest = Math.max.apply(null, colHs);
-		$('.equal-section').css('height', tallest);
+		$(div + ' .equal-section').css('height', tallest);
 		var dashboardH = $('.page-main').outerHeight();
 		var headhH = $('.page-main-header').outerHeight(true);
-		var colsH = $('.equal-columns').outerHeight(true);
+		var colsH = $(div + ' .equal-columns').outerHeight(true);
 		var newColsH = dashboardH - headhH;
 		var magicNum = 0;
-		$('.equal-columns .equal-height').each(function() {
+		$(div).find('.equal-columns .equal-height').each(function() {
 			if($(this).parent().hasClass('brand-steps')) {
 				magicNum = 60;
 			}
-			if(newColsH > colsH) {
-				$(this).css('height', dashboardH - headhH - magicNum);
+			if($(this).parents().hasClass('modal')) {
+				$(this).css('height', colsH);
 			}
 			else {
-				$(this).css('height', colsH);
+				if(newColsH > colsH) {
+					$(this).css('height', dashboardH - headhH - magicNum);
+				}
+				else {
+					$(this).css('height', colsH);
+				}
 			}
 		});
 	};
