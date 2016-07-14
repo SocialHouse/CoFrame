@@ -10005,6 +10005,24 @@ a {
   border-radius: 100%;
   text-align: center; }
 
+.tf-icon-schedule {
+  background-image: url(../images/icons/schedule.png);
+  background-position: center center;
+  height: 16px;
+  width: 16px; }
+  .summary-list .tf-icon-schedule {
+    background-position: 3px center;
+    background-size: 9px; }
+
+.tf-icon-ticktock {
+  background-image: url(../images/icons/ticktock.png);
+  background-position: center center;
+  height: 16px;
+  width: 16px; }
+  .summary-list .tf-icon-ticktock {
+    background-position: 3px 2px;
+    background-size: 7px; }
+
 .tf-icon-download {
   background-image: url(../images/icons/download.png);
   height: 13px;
@@ -10066,13 +10084,14 @@ a {
       content: "";
       display: table;
       clear: both; }
-  .timeframe-list .fa, .timeframe-list [class*="icon-"] {
+  .timeframe-list .fa {
     font-size: 1.2rem;
     float: left;
     margin-right: .5rem;
     line-height: 2.26667rem; }
-  .timeframe-list [class*="icon-"] {
-    font-size: 1.06667rem; }
+  .timeframe-list [class*="tf-icon"] {
+    margin-right: .5rem;
+    display: inline-block; }
   .timeframe-list .fa-custom-circle {
     height: 1.13333rem;
     width: 1.13333rem;
