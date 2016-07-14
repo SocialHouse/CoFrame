@@ -15330,7 +15330,7 @@ a:hover .tf-icon-print, .active .tf-icon-print {
 /* line 2279, ../sass/style.scss */
 .container-post-discussion .container-view-approvals h5, .container-post-discussion .container-view-approvals .qtip-titlebar {
   padding: 1rem 0 .25rem;
-  font-size: 12px;
+  font-size: 0.8rem;
   border-bottom: 1px solid #000;
 }
 /* line 2284, ../sass/style.scss */
@@ -15386,7 +15386,7 @@ a:hover .tf-icon-print, .active .tf-icon-print {
 
 /* line 2325, ../sass/style.scss */
 .comment {
-  font-size: 17px;
+  font-size: 1.13333rem;
   padding: 0 0 0 48px;
   position: relative;
 }

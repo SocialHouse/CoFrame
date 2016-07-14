@@ -2278,7 +2278,7 @@ a {
 		padding-bottom: 100px;
 		h5 {
 			padding: 1rem 0 .25rem;
-			font-size: 12px;
+			font-size: remCalc(12px);
 			border-bottom: 1px solid #000;
 		}
 		.post-content-footer {
@@ -2323,7 +2323,7 @@ a {
 	}
 }
 .comment {
-	font-size: 17px;
+	font-size: remCalc(17px);
 	padding: 0 0 0 48px;
 	position: relative;
 	p:last-of-type {
