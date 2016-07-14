@@ -604,12 +604,18 @@ jQuery(function($) {
 		var $target=$(this);
 		var mid = $target.data('modalId');
 		var msize = $target.data('modalSize');
+		var mtitle = $target.data('title');
+		var mclass = $target.data('class');
 		$.get($target.data('modalSrc'),function(data) {
 			newModal.attr('id', mid);
 			if(msize !== "") {
 				newModal.find('.modal-dialog').addClass('modal-' + msize);
 			}
-			newModal.find('.modal-body').html(data);
+			if(mclass !== "") {
+				newModal.addClass(mclass);
+			}
+			mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
+			newModal.find('.modal-body').html(mtitle + data);
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
@@ -649,6 +655,9 @@ jQuery(function($) {
 	});
 	$('.modal-toggler').on('click', function() {
 		$('.modal').modal('hide');
+	});
+	$('body').on('shown.bs.modal', '.edit-approvals-modal', function (e) {
+ 		addIncrements();
 	});
 	$('[data-toggle="addPhases"]').one('click', function() {
 		var columnParent = $(this).closest('.col-md-4');

@@ -199,7 +199,7 @@
 						As per last meeting, we’re using the white collection as the first spring campaign.
 					</div>
 					<footer class="post-content-footer text-xs-center">
-						<a href="#" class="btn btn-default btn-sm">Edit Approvers</a>
+						<a href="#" class="btn btn-default btn-sm" data-toggle="modal-ajax" data-modal-src="lib/edit-approval-phase.php" data-class="alert-modal edit-approvals-modal" data-title="Edit Approvals - Phase 2" data-modal-id="phase2-postid-1223">Edit Approvers</a>
 					</footer>
 				</div>
 			</div>

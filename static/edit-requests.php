@@ -38,7 +38,7 @@
 						<div class="col-md-4 equal-height">
 							<?php include("lib/post-preview-approval.php"); ?>
 						</div>
-						<div class="col-md-8 equal-height">
+						<div class="col-md-8">
 							<?php include("lib/edit-requests.php"); ?>
 						</div>
 					</div>
@@ -49,9 +49,7 @@
 	<!-- Blank Modal -->
 	<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-		  </div>
+		<div class="modal-content bg-white">
 		  <div class="modal-body">
 		  </div>
 		</div>
@@ -73,13 +71,13 @@
 			</div>
 		</div>
 	</div>
-	<!-- Submit For Approval Modal -->
-	<div class="modal alert-modal fade" id="submitApproval2" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- Undo Approval Modal -->
+	<div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
 				<div class="modal-body">
-					<h2 class="text-xs-center">Submit to Phase 2</h2>
-					<p class="text-xs-center">You are about to submit this post to Phase 2 approvers.</p>
+					<h2 class="text-xs-center">Undo Approval</h2>
+					<p class="text-xs-center">Are you sure you want to undo your approval? You will have to approve this again.</p>
 					<footer class="overlay-footer">
 					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
 					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Submit</button>
@@ -88,16 +86,16 @@
 			</div>
 		</div>
 	</div>
-	<!-- Submit For Approval #3 Modal -->
-	<div class="modal alert-modal fade" id="submitApproval3" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- Finish Phase #2 Modal -->
+	<div class="modal alert-modal fade" id="finishPhase2" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
 				<div class="modal-body">
-					<h2 class="text-xs-center">Submit to Phase 3</h2>
-					<p class="text-xs-center">You are about to submit this post to Phase 3 approvers.</p>
+					<h2 class="text-xs-center">Alert</h2>
+					<p class="text-xs-center"> You have not received all approvals. Are you sure you still want to finish Phase 2?</p>
 					<footer class="overlay-footer">
 					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
-					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Submit</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Yes</button>
 					</footer>
 				</div>
 			</div>

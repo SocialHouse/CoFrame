@@ -255,6 +255,7 @@ h5 {
 		.post-actions & {
 			background: #e5e5e5;
 			color: $gray;
+			border-color: #e5e5e5;
 		}
 	}
 }
@@ -286,6 +287,15 @@ h5 {
 	font-size: 1rem;
 	width: 2rem;
 	height: 2rem;
+	line-height: 2rem;
+}
+.btn-icon-xl {
+	border-radius: 6px;
+	font-size: 1rem;
+	width: auto;
+	padding-left: .75rem;
+	padding-right: .75rem;
+	height: remCalc(36px);
 	line-height: 2rem;
 }
 .btn-menu {
@@ -932,6 +942,13 @@ a {
 		bottom: inherit;
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
+		.modal-content {
+			padding-top: 1rem;
+		}
+	}
+	h5 {
+		font-size: 10px;
+		margin-bottom: .5rem;
 	}
 }
 .modal-dialog {
@@ -2193,6 +2210,9 @@ a {
 	> .post-content-footer {
 		border: 0;
 	}
+	.post-actions {
+		margin-right: 1rem;
+	}
 	.current-user {
 		margin: 2rem 0 0;
 	}
@@ -2357,6 +2377,9 @@ a {
 	border-top: 1px solid #000;
 	padding-top: 1rem;
 	margin-top: 2rem;
+	.btn-icon {
+		margin-right: .75rem;
+	}
 }
 #live-post-preview {
 	box-shadow: 0px 0px 5px rgba(0,0,0,.4);
@@ -2675,12 +2698,9 @@ a {
 		font-size: 10px;
 		text-decoration: underline;
 	}
-	.btn {
+	.btn-sm {
 		text-decoration: none;
 		font-size: 11px;
-	}
-	.btn-secondary {
-		border: 0;
 	}
 }
 .post-tags {
@@ -3537,5 +3557,12 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .shrink {
 	transform: scale(0);
 }
+.sep {
+	height: remCalc(36px);
+	border-left: 1px solid #000;
+	margin-right: .75rem;
+	display: inline-block;
+}
+
 @import "partials/print";
 @import "partials/responsive";
