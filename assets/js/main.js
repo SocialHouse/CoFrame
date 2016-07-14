@@ -1088,11 +1088,11 @@ jQuery(function($) {
 	$('.commentReply').on('contentSlidDown', function(event, element) {
 		if($(this).is(':visible')) {
 			element.addClass('active');
-			$(this).closest('.comment').addClass('has-reply');
+			$(this).closest('.comment').addClass('will-reply');
 		}
 		else {
 			element.removeClass('active');
-			$(this).closest('.comment').removeClass('has-reply');
+			$(this).closest('.comment').removeClass('will-reply');
 		}
 	});
 	

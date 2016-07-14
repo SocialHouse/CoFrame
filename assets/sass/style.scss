@@ -2008,7 +2008,7 @@ a {
 			min-height: 100%;
 		}
 	}
-	.container-post-discussion, .container-view-approvals {
+	.container-view-approvals {
 		padding-bottom: 0;
 		height: auto;
 		min-height: 100%;
@@ -2071,6 +2071,9 @@ a {
 	box-shadow: 0px 0px 5px rgba(0,0,0,.4);
 	border-color: #808080;
 	transition: height 500ms;
+	&:last-child {
+		margin-bottom: 0;
+	}
 	h2 {
 		font-size: remCalc(13px);
 		font-family: $futura;
@@ -2080,27 +2083,9 @@ a {
 		margin-bottom: 0;
 	}
 	&.active {
-		h2 {
+		h2, h2 a {
 			font-family: $futura-bold;
-		}
-		.container-view-approvals & {
-			box-shadow: 0px 0px 30px rgba(0,0,0,.5);
-			position: relative;
-			z-index: 10;
-			&:after {
-				left: 100%;
-				top: 50%;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-				border-color: rgba(255, 255, 255, 0);
-				border-left-color: #ffffff;
-				border-width: 15px;
-				margin-top: -15px;
-			}
+			text-decoration: underline;
 		}
 		&.editing:after {
 			display: none;
@@ -2109,7 +2094,7 @@ a {
 	&.inactive {
 		height: remCalc(45px);
 		overflow: hidden;
-		h2 {
+		h2, a {
 			border: 0;
 			color: $gray-lighter;
 			line-height: 1.5;
@@ -2142,6 +2127,9 @@ a {
 .approval-date {
 	text-transform:  none;
 	margin-bottom: 1rem;
+	h5 {
+		margin-bottom: .5rem;
+	}
 	.qtip-calendar-post & {
 		font-size: 10px;
 		letter-spacing: normal;
@@ -2154,6 +2142,9 @@ a {
 	.container-view-approvals & {
 		font-size: remCalc(18px);
 		line-height: remCalc(21px);
+	}
+	h5 {
+		margin-bottom: .5rem;
 	}
 	.qtip-calendar-post & {
 		font-size: 12px;
@@ -2208,31 +2199,59 @@ a {
 	padding-top: 23px;
 }
 
-.container-view-approvals {
-	.btn {
-		padding: 5px 7px;
-		font-size: 10px;
-	}
-}
-
 .container-post-discussion {
-	box-shadow: 0 0 50px rgba(0,0,0,.5);
-	left: -16px;
-	z-index: 1;
-	margin: 0 -15px;
+	h4 {
+		border: 0;
+		margin-bottom:0;
+	}
+	.approval-phase {
+		padding-bottom: 0;
+		h2 {
+			margin-left: -1rem;
+			margin-right: -1rem;
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		.btn-sm {
+			min-width: 80px;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			font-size: 10px;
+		}
+		> .post-content-footer {
+			position: relative;
+			bottom: inherit;
+			right: inherit;
+			left: inherit;
+			height: auto;
+			padding-bottom: 1.5rem;
+			margin: 0 -1rem;
+		}
+	}
+	> .post-content-footer {
+		border: 0;
+	}
+	.current-user {
+		margin: 2rem 0 0;
+	}
+	.suggest-edit {
+		margin-left: 48px;
+		padding-top: 1rem;
+	}
 	.form-group {
 		margin-bottom: 1rem;
 	}
-	.btn, .reply-link {
+	.reply-link {
 		opacity: .35;
 		&.active {
 			opacity: 1;
 		}
 	}
-	.btn-sm {
-		min-width: 80px;
-		padding-top: 8px;
-		padding-bottom: 8px;
+	.btn-md {
+		padding: 0.5rem 1.25rem;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		min-width: 170px;
 	}
 	.btn-xs {
 		font-size: 10px;
@@ -2244,8 +2263,25 @@ a {
 		width: 30px;
 		height: 30px;
 	}
-	.reply-link {
-		padding-left: 10px;
+	h2 {
+		.fa {
+			font-size: 18px;
+		}
+	}
+	.container-view-approvals {
+		padding-bottom: 100px;
+		h5 {
+			padding: 1rem 0 .25rem;
+			font-size: 12px;
+			border-bottom: 1px solid #000;
+		}
+		.post-content-footer {
+			border: 0;
+			bottom: 1rem;
+		}
+	}
+	.post-actions {
+		margin-right: 1rem;
 	}
 }
 .author {
@@ -2261,10 +2297,11 @@ a {
 
 .comment-list {
 	padding-top: .5rem;
+	padding-bottom: 1rem;
 	li {
 		padding: 1rem 0;
 		line-height: normal;
-		border-color: $gray;
+		border-color: transparent;
 		&:first-child {
 			border: 0;
 		}
@@ -2289,7 +2326,7 @@ a {
 	p:last-of-type {
 		margin-bottom: 0;
 	}
-	&.has-reply {
+	&.has-reply, &.will-reply {
 		&:before {
 			content: "";
 			height: 100%;
