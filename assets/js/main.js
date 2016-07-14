@@ -1242,6 +1242,28 @@ jQuery(function($) {
 			addIncrements();
 		}
 	});
+
+	$('.showInvisible').on('click', function(e) {
+		e.stopPropagation();
+		$(this).next('.invisible').toggleClass('invisible visible');
+	});
+	$('.hideVisible').on('click', function(e) {
+		e.stopPropagation();
+		$(this).closest('.visible').toggleClass('invisible visible');
+	});
+
+	if($('.table-approvals').length) {
+		var listWidth = 8;
+		$('.approval-list .approval-list').each(function() {
+			$(this).find('li').each(function() {
+				listWidth += $(this).outerWidth();
+			});
+			$(this).css('width', listWidth);
+		});
+
+		//truncate post copy
+		$(".post-excerpt").dotdotdot({ellipsis: '', wrap: 'letter'});
+	}
 	//Time selector functions
 	$('body').on('click', '.incrementer', function(e) {
 		var $target = $(e.target);

@@ -3233,7 +3233,7 @@ button.close {
 @media (min-width: 1024px) {
   .modal-lg {
     width: 1470px; } }
-.clearfix::after, .img-div::after, .img-wrapper::after, .tw_post .img-div::after, .discussion-list li::after {
+.clearfix::after, .img-div::after, .img-wrapper::after, .tw_post .img-div::after, .table-approvals .timeframe-list.approval-list::after, .discussion-list li::after {
   content: "";
   display: table;
   clear: both; }
@@ -9048,9 +9048,13 @@ h5, .qtip-titlebar {
   border-color: #bfbfbf !important;
   background: none !important;
   cursor: not-allowed; }
-  .btn-disabled.btn-default, .btn-disabled.btn-icon, .btn-disabled:hover.btn-default, .btn-disabled:hover.btn-icon {
+  .btn-disabled.btn-default, .btn-disabled.btn-icon, .btn-disabled.color-success, .btn-disabled:hover.btn-default, .btn-disabled:hover.btn-icon, .btn-disabled:hover.color-success {
     color: #bfbfbf !important;
     border-color: #bfbfbf !important; }
+    .btn-disabled.btn-default.color-success, .btn-disabled.btn-icon.color-success, .btn-disabled.color-success.color-success, .btn-disabled:hover.btn-default.color-success, .btn-disabled:hover.btn-icon.color-success, .btn-disabled:hover.color-success.color-success {
+      color: #bfbfbf;
+      border-color: #bfbfbf;
+      background: #fff; }
   .btn-disabled.btn-secondary, .btn-disabled:hover.btn-secondary {
     background: #bfbfbf !important;
     color: #fff !important; }
@@ -9121,6 +9125,12 @@ h5, .qtip-titlebar {
   border-left: 0; }
   .btn-group .btn:first-child {
     border-left: 1px solid; }
+
+.btn-thirds .btn {
+  width: 33%; }
+
+.btn-circle {
+  border-radius: 100%; }
 
 /* Anchor Link */
 a {
@@ -10574,12 +10584,80 @@ a {
   border-top: 0;
   border-bottom: 1px solid #bfbfbf; }
 .table-approvals .timeframe-list.approval-list {
-  margin: 0; }
+  margin: 0;
+  position: relative; }
   .table-approvals .timeframe-list.approval-list li {
     padding-bottom: 0;
     float: left; }
+    .table-approvals .timeframe-list.approval-list li + li {
+      padding-left: 7px; }
+    .table-approvals .timeframe-list.approval-list li:first-child:before {
+      left: -4px; }
+  .table-approvals .timeframe-list.approval-list ul {
+    position: absolute;
+    background: #fff;
+    padding: 4px;
+    border-radius: 0 22px 22px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    top: -4px;
+    right: -4px;
+    white-space: nowrap;
+    z-index: 3; }
+    .table-approvals .timeframe-list.approval-list ul li {
+      position: relative; }
   .table-approvals .timeframe-list.approval-list .circle-img {
-    margin-right: 7px; }
+    margin: 0;
+    display: block; }
+.table-approvals small {
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block; }
+.table-approvals .btn-menu {
+  border: 0;
+  background: #d9d9d9;
+  color: #808080;
+  height: 36px;
+  width: 36px;
+  padding: 0;
+  display: block;
+  outline: none; }
+  .table-approvals .btn-menu .fa {
+    font-size: 7px;
+    margin-right: 0;
+    display: inline-block;
+    float: none; }
+.table-approvals .btn-close {
+  font-size: 20px;
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
+.table-approvals .btn-sm, .table-approvals .btn-group-sm > .btn {
+  font-size: 10px;
+  padding: 10px 7px;
+  width: 100px; }
+.table-approvals .btn-xs {
+  padding: 5px 7px;
+  font-size: 10px; }
+.table-approvals .post-excerpt {
+  overflow: visible;
+  height: 29px;
+  display: inline-block;
+  max-width: 420px;
+  position: relative; }
+  .table-approvals .post-excerpt.is-truncated:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 29px;
+    width: 50px;
+    background: -moz-linear-gradient(left, rgba(30, 87, 153, 0) 0%, #fdfdfe 99%, white 100%);
+    background: -webkit-linear-gradient(left, rgba(30, 87, 153, 0) 0%, #fdfdfe 99%, white 100%);
+    background: linear-gradient(to right, rgba(30, 87, 153, 0) 0%, #fdfdfe 99%, white 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#ffffff',GradientType=1 ); }
+.table-approvals tr:nth-of-type(odd) .post-excerpt.is-truncated:after {
+  background: -moz-linear-gradient(left, rgba(30, 87, 153, 0) 0%, #f5f5f6 99%, #f7f7f7 100%);
+  background: -webkit-linear-gradient(left, rgba(30, 87, 153, 0) 0%, #f5f5f6 99%, #f7f7f7 100%);
+  background: linear-gradient(to right, rgba(30, 87, 153, 0) 0%, #f5f5f6 99%, #f7f7f7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#f7f7f7',GradientType=1 ); }
 
 .post-preview-footer {
   border-top: 1px solid #999999;
@@ -10590,13 +10668,6 @@ a {
 
 .post-approval-btns {
   margin-top: 1.5rem; }
-  .post-approval-btns .btn, .post-approval-btns .btn-group {
-    display: block; }
-  .post-approval-btns .btn-thirds .btn {
-    width: 33%; }
-
-.container-post-approval-preview {
-  padding-top: 23px; }
 
 .container-post-discussion h4 {
   border: 0;
