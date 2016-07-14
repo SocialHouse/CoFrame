@@ -1102,17 +1102,29 @@ jQuery(function($) {
 
 	//modal triggers
 	//Get modal content from an external source
-	$('body').on('click', '[data-toggle="modal-ajax"]', function() {
+	$('body').on('click', '[data-toggle="modal-ajax"]', function(e) {
+		e.preventDefault();
 		var newModal = $('#emptyModal').clone();
 		var $target=$(this);
 		var mid = $target.data('modalId');
 		var msize = $target.data('modalSize');
+		var mtitle = $target.data('title');
+		var mclass = $target.data('class');
 		$.get($target.data('modalSrc'),function(data) {
 			newModal.attr('id', mid);
 			if(msize !== "") {
 				newModal.find('.modal-dialog').addClass('modal-' + msize);
 			}
-			newModal.find('.modal-body').html(data);
+			if(mclass !== "") {
+				newModal.addClass(mclass);
+			}
+			if(mtitle) {
+				mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
+				newModal.find('.modal-body').html(mtitle + data);
+			}
+			else {
+				newModal.find('.modal-body').html(data);
+			}
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
@@ -1120,9 +1132,8 @@ jQuery(function($) {
 			newModal.on('shown.bs.modal', function () {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
-				equalColumns();
+				equalColumns('#' + mid);
 				addIncrements();
-				$(".content-container").addClass('height-999');
 			});
 			newModal.on('hide.bs.modal', function () {
 				$('.modal-toggler').fadeOut();
@@ -1134,11 +1145,12 @@ jQuery(function($) {
 			$('#approvalPhase1').find('ul').trigger('click');
 			setTimeout(function() {
 				$('#approvalPhase1').find('ul').trigger('click');
-			},300)			
+			},300);
 		});
 	});
 	//Get modal content from inline source
-	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function() {
+	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function(e) {
+		e.preventDefault();
 		var $target=$(this);
 		var mid = $target.data('modalId');
 		$('#' + mid).modal({
@@ -1147,13 +1159,11 @@ jQuery(function($) {
 		});
 		$('#' + mid).on('shown.bs.modal', function () {
 			$('.modal-toggler').fadeIn();
-			equalColumns();
+			equalColumns('#' + mid);
 		});
 		$('#' + mid).on('hide.bs.modal', function () {
 			$('.modal-toggler').fadeOut();
 		});
-
-
 	});
 	$('.modal').on('show.bs.modal', function() {
 		$('.modal-toggler').fadeIn();
@@ -1168,7 +1178,7 @@ jQuery(function($) {
 			current_modal_id = edit_modal.attr('id');
 			$('#edit-post-details').parent().empty();
 			$(edit_modal).attr('id', 'emptyModal');
-			equalColumns();			
+			equalColumns();
 		}
 		$('.modal').modal('hide');
 	});
@@ -1586,40 +1596,48 @@ jQuery(function($) {
 	};
 	addIncrements();
 
-	window.equalColumns = function equalColumns() {
+	window.equalColumns = function equalColumns(div) {
+		if(div === undefined) {
+			div = '.page-main';
+		}
 		//reset heights to default to get appropriate calculation
-		$('.equal-height').css('height', '');
+		$(div + ' .equal-columns .equal-height, ' + div + ' .equal-section').css('height', '');
+
+		var colHs = [];
+		$(div).find('.equal-section').each(function() {
+			var colH = $(this).outerHeight();
+			colHs.push(colH);
+		});
+		var tallest = Math.max.apply(null, colHs);
+		$(div + ' .equal-section').css('height', tallest);
+
 		var dashboardH = $('.page-main').outerHeight();
 		var newColsH = dashboardH;
 		var headhH = $('.page-main-header').outerHeight(true);
-		var colsH = $('.equal-columns').outerHeight(true);
+		var colsH = $(div + ' .equal-columns').outerHeight(true);
 		if(headhH){
 			newColsH = dashboardH - headhH;
 		}
 		var magicNum = 0;
-		$('.equal-columns .equal-height').each(function() {
+		$(div).find('.equal-columns .equal-height').each(function() {
 			if($(this).parents().hasClass('brand-steps')) {
 				magicNum = 60;
 			}
 			if($(this).parents().hasClass('brand-settings')) {
 				magicNum = 30;
 			}
-			if(newColsH > colsH) {
-				$(this).css('height',  newColsH - magicNum);
-			}
-			else {
+			if($(this).parents().hasClass('modal')) {
 				$(this).css('height', colsH);
 			}
+			else {
+				if(newColsH > colsH) {
+					$(this).css('height',  newColsH - magicNum);
+				}
+				else {
+					$(this).css('height', colsH);
+				}
+			}
 		});
-
-		var colHs = [];
-		$('.equal-section').each(function() {
-			$(this).css('height', '');
-			var colH = $(this).outerHeight();
-			colHs.push(colH);
-		});
-		var tallest = Math.max.apply(null, colHs);
-		$('.equal-section').css('height', tallest);
 	};
 	window.qtipEqualColumns = function qtipEqualColumns() {
 		var colsH = $('.equal-columns').outerHeight(true);
