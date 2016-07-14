@@ -5,9 +5,9 @@
 <title>Timeframe | Overview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 <link type="text/css" rel="stylesheet" href="assets/css/style.css" media="all">
 <link type="text/css" rel="stylesheet" href="assets/css/fullcalendar.css" media="all">
-<script type='text/javascript' src='http://fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js'></script>
 <script type='text/javascript' src='assets/js/vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
 
@@ -32,16 +32,13 @@
 			</section>
 			<section id="brand-manage" class="page-main bg-white col-sm-10">
 				<header class="page-main-header">
-					<h1 class="center-title section-title">Post Approval</h1>
+					<h1 class="center-title section-title">Edit Requests</h1>
 				</header>
 					<div class="row equal-columns">
 						<div class="col-md-4 equal-height">
 							<?php include("lib/post-preview-approval.php"); ?>
 						</div>
-						<div class="col-md-4 equal-height">
-							<?php include("lib/post-approval-view-phases.php"); ?>
-						</div>
-						<div class="col-md-4 equal-height">
+						<div class="col-md-8 equal-height">
 							<?php include("lib/edit-requests.php"); ?>
 						</div>
 					</div>

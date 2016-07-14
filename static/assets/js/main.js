@@ -579,11 +579,12 @@ jQuery(function($) {
 	$('.commentReply').on('contentSlidDown', function(event, element) {
 		if($(this).is(':visible')) {
 			element.addClass('active');
-			$(this).closest('.comment').addClass('has-reply');
+			$(this).closest('.comment').addClass('will-reply');
+			equalColumns();
 		}
 		else {
 			element.removeClass('active');
-			$(this).closest('.comment').removeClass('has-reply');
+			$(this).closest('.comment').removeClass('will-reply');
 		}
 	});
 	
@@ -814,30 +815,30 @@ jQuery(function($) {
 	addIncrements();
 
 	window.equalColumns = function equalColumns() {
+		$('.equal-columns .equal-height, .equal-section').css('height', '');
+		var colHs = [];
+		$('.equal-section').each(function() {
+			var colH = $(this).outerHeight();
+			colHs.push(colH);
+		});
+		var tallest = Math.max.apply(null, colHs);
+		$('.equal-section').css('height', tallest);
 		var dashboardH = $('.page-main').outerHeight();
 		var headhH = $('.page-main-header').outerHeight(true);
 		var colsH = $('.equal-columns').outerHeight(true);
 		var newColsH = dashboardH - headhH;
 		var magicNum = 0;
 		$('.equal-columns .equal-height').each(function() {
-				if($(this).parent().hasClass('brand-steps')) {
-					magicNum = 60;
-				}
-				if(newColsH > colsH) {
-					$(this).css('height', dashboardH - headhH - magicNum);
-				}
-				else {
-					$(this).css('height', colsH);
-				}
+			if($(this).parent().hasClass('brand-steps')) {
+				magicNum = 60;
+			}
+			if(newColsH > colsH) {
+				$(this).css('height', dashboardH - headhH - magicNum);
+			}
+			else {
+				$(this).css('height', colsH);
+			}
 		});
-		var colHs = [];
-		$('.equal-section').each(function() {
-			$(this).css('height', '');
-			var colH = $(this).outerHeight();
-			colHs.push(colH);
-		});
-		var tallest = Math.max.apply(null, colHs);
-		$('.equal-section').css('height', tallest);
 	};
 	window.qtipEqualColumns = function qtipEqualColumns() {
 		var colsH = $('.equal-cols').outerHeight(true);
