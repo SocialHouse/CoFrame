@@ -540,7 +540,12 @@ jQuery(function($) {
 			var next = $(this).data('newPhase');
 			nextPhase(next);
 		});
-
+		$('body').on('click', '.toggleActive', function(e) {
+			e.preventDefault();
+			$(this).closest('.approval-phase').toggleClass('active inactive');
+			$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
+			equalColumns();
+		});
 		$('body').on('click', '.show-hide', function(e) {
 			e.preventDefault();
 			var $trigger = $(this);

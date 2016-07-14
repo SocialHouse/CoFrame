@@ -1967,10 +1967,14 @@ a {
 		line-height: 30px;
 		padding-bottom: 8px;
 		margin-bottom: 0;
+		a {
+			display: block;
+		}
 	}
 	&.active {
-		h2 {
+		h2, h2 a {
 			font-family: $futura-bold;
+			text-decoration: none;
 		}
 		&.editing:after {
 			display: none;
