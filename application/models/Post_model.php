@@ -343,16 +343,6 @@ class Post_model extends CI_Model
 				foreach ($result as $key => $post) {
 					$result[$key]->post_images = $this->get_images($post->id);
 					$result[$key]->post_tags = $this->get_post_tags($post->id);
-
-					//$result[$key]->post_phases = $this->get_post_phases($post->id);
-				
-					// if(!empty($post_phases))
-					// {
-					// 	foreach($post_phases as $phase)
-					// 	{
-					// 		$result['post_details'][$key]->phases[$phase->phase][] = $phase;
-					// 	}
-					// }
 				}
 				return $result;
 			}

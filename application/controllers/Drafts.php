@@ -34,11 +34,17 @@ class Drafts extends CI_Controller {
 	{
 		$this->data = array();
 		$slug = $this->uri->segment(2);	
-		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-		check_access('create',$brand);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$additional_group = '';
+			if(check_user_perm($this->user_id,'master',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			check_access('create',$brand,$additional_group);			
 			$brand_id = $brand[0]->id;
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];

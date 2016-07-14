@@ -43,6 +43,25 @@ class Co_create extends CI_Controller {
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
+
+			$additional_group = '';
+			
+			if(check_user_perm($this->user_id,'create',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'edit',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'master',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+			check_access('approve',$brand,$additional_group);
+
 			$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
 			$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
 			

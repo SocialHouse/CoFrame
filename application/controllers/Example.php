@@ -47,103 +47,107 @@ class Example extends CI_Controller {
         $a = $this->aauth->create_group("Billing");
 
         $a = $this->aauth->create_perm("create.post","Create new post drafts");
-        $a = $this->aauth->create_perm("create.slate_post","Slate posts");
-        $a = $this->aauth->create_perm("create.schedule_post","Schedule posts");
-        $a = $this->aauth->create_perm("create.submit_post","Submit posts");
-        $a = $this->aauth->create_perm("create.co_create","Co-create interaction");
+        // $a = $this->aauth->create_perm("create.slate_post","Slate posts");
+        // $a = $this->aauth->create_perm("create.schedule_post","Schedule posts");
+        // $a = $this->aauth->create_perm("create.submit_post","Submit posts");
+        // $a = $this->aauth->create_perm("create.co_create","Co-create interaction");
 
         $a = $this->aauth->create_perm("edit.post","Edit posts");
-        $a = $this->aauth->create_perm("edit.co_create","Co-create interaction");
-        $a = $this->aauth->create_perm("edit.overview","Overview");
+        // $a = $this->aauth->create_perm("edit.co_create","Co-create interaction");
+        // $a = $this->aauth->create_perm("edit.overview","Overview");
 
         $a = $this->aauth->create_perm("approve.approve_post","Approve posts");
-        $a = $this->aauth->create_perm("approve.retract_approve_post","Retract approval of posts");
-        $a = $this->aauth->create_perm("approve.co_create","Co-create interaction");
-        $a = $this->aauth->create_perm("approve.overview","Overview");
+        // $a = $this->aauth->create_perm("approve.retract_approve_post","Retract approval of posts");
+        // $a = $this->aauth->create_perm("approve.co_create","Co-create interaction");
+        // $a = $this->aauth->create_perm("approve.overview","Overview");
 
         $a = $this->aauth->create_perm("view.view_posts","View posts");
-        $a = $this->aauth->create_perm("view.view_calendar","View Calendar");        
+        // $a = $this->aauth->create_perm("view.view_calendar","View Calendar");        
 
         $a = $this->aauth->create_perm("settings.edit_app_setting","Edit application settings");
-        $a = $this->aauth->create_perm("settings.edit_brand_setting","Edit brand settings");
+        // $a = $this->aauth->create_perm("settings.edit_brand_setting","Edit brand settings");
 
-        $a = $this->aauth->create_perm("analytics.view_analytics","View analytics");
+        // $a = $this->aauth->create_perm("analytics.view_analytics","View analytics");
         $a = $this->aauth->create_perm("billing.view_billing","View billing data");
 
+         $a = $this->aauth->create_perm("master","All access");
+
         $a = $this->aauth->allow_group("Admin","create.post");
-        $a = $this->aauth->allow_group("Admin","create.slate_post");
-        $a = $this->aauth->allow_group("Admin","create.schedule_post");
-        $a = $this->aauth->allow_group("Admin","create.submit_post");       
+        // $a = $this->aauth->allow_group("Admin","create.slate_post");
+        // $a = $this->aauth->allow_group("Admin","create.schedule_post");
+        // $a = $this->aauth->allow_group("Admin","create.submit_post");       
 
         $a = $this->aauth->allow_group("Admin","edit.post");       
-        $a = $this->aauth->allow_group("Admin","edit.overview");
+        // $a = $this->aauth->allow_group("Admin","edit.overview");
 
         $a = $this->aauth->allow_group("Admin","approve.approve_post");
-        $a = $this->aauth->allow_group("Admin","approve.retract_approve_post");       
-        $a = $this->aauth->allow_group("Admin","approve.overview");
+        // $a = $this->aauth->allow_group("Admin","approve.retract_approve_post");       
+        // $a = $this->aauth->allow_group("Admin","approve.overview");
 
         $a = $this->aauth->allow_group("Admin","view.view_posts");
-        $a = $this->aauth->allow_group("Admin","view.view_calendar");        
+        // $a = $this->aauth->allow_group("Admin","view.view_calendar");        
 
         $a = $this->aauth->allow_group("Admin","settings.edit_app_setting");
-        $a = $this->aauth->allow_group("Admin","settings.edit_brand_setting");
+        // $a = $this->aauth->allow_group("Admin","settings.edit_brand_setting");
 
-        $a = $this->aauth->allow_group("Admin","analytics.view_analytics");
+        // $a = $this->aauth->allow_group("Admin","analytics.view_analytics");
         $a = $this->aauth->allow_group("Admin","billing.view_billing");
+        $a = $this->aauth->allow_group("Admin","master");
+
 
         $a = $this->aauth->allow_group("Manager","create.post");
-        $a = $this->aauth->allow_group("Manager","create.slate_post");
-        $a = $this->aauth->allow_group("Manager","create.schedule_post");
-        $a = $this->aauth->allow_group("Manager","create.submit_post");        
+        // $a = $this->aauth->allow_group("Manager","create.slate_post");
+        // $a = $this->aauth->allow_group("Manager","create.schedule_post");
+        // $a = $this->aauth->allow_group("Manager","create.submit_post");        
 
         $a = $this->aauth->allow_group("Manager","edit.post");        
-        $a = $this->aauth->allow_group("Manager","edit.overview");
+        // $a = $this->aauth->allow_group("Manager","edit.overview");
 
 
         $a = $this->aauth->allow_group("Manager","approve.approve_post");
-        $a = $this->aauth->allow_group("Manager","approve.retract_approve_post");        
-        $a = $this->aauth->allow_group("Manager","approve.overview");
+        // $a = $this->aauth->allow_group("Manager","approve.retract_approve_post");        
+        // $a = $this->aauth->allow_group("Manager","approve.overview");
 
         $a = $this->aauth->allow_group("Manager","view.view_posts");
-        $a = $this->aauth->allow_group("Manager","view.view_calendar");       
+        // $a = $this->aauth->allow_group("Manager","view.view_calendar");       
 
         $a = $this->aauth->allow_group("Manager","settings.edit_app_setting");
-        $a = $this->aauth->allow_group("Manager","settings.edit_app_setting");
+        // $a = $this->aauth->allow_group("Manager","settings.edit_app_setting");
 
-        $a = $this->aauth->allow_group("Manager","analytics.view_analytics");
+        // $a = $this->aauth->allow_group("Manager","analytics.view_analytics");
 
 
         $a = $this->aauth->allow_group("Creator","create.post");
-        $a = $this->aauth->allow_group("Creator","create.slate_post");
-        $a = $this->aauth->allow_group("Creator","create.schedule_post");
-        $a = $this->aauth->allow_group("Creator","create.submit_post");
+        // $a = $this->aauth->allow_group("Creator","create.slate_post");
+        // $a = $this->aauth->allow_group("Creator","create.schedule_post");
+        // $a = $this->aauth->allow_group("Creator","create.submit_post");
 
 
         $a = $this->aauth->allow_group("Creator","edit.post");
-        $a = $this->aauth->allow_group("Creator","edit.overview");
+        // $a = $this->aauth->allow_group("Creator","edit.overview");
 
 
         $a = $this->aauth->allow_group("Creator","view.view_posts");
-        $a = $this->aauth->allow_group("Creator","view.view_calendar");        
+        // $a = $this->aauth->allow_group("Creator","view.view_calendar");        
 
        
         $a = $this->aauth->allow_group("Approver","approve.approve_post");
-        $a = $this->aauth->allow_group("Approver","approve.retract_approve_post");
-        $a = $this->aauth->allow_group("Approver","approve.overview");
+        // $a = $this->aauth->allow_group("Approver","approve.retract_approve_post");
+        // $a = $this->aauth->allow_group("Approver","approve.overview");
 
 
-        $a = $this->aauth->allow_group("Approver","analytics.view_analytics");
+        // $a = $this->aauth->allow_group("Approver","analytics.view_analytics");
 
 
         $a = $this->aauth->allow_group("Approver","view.view_posts");
-        $a = $this->aauth->allow_group("Approver","view.view_calendar");
+        // $a = $this->aauth->allow_group("Approver","view.view_calendar");
         
 
-        $a = $this->aauth->allow_group("Analyst","analytics.view_analytics");
+        // $a = $this->aauth->allow_group("Analyst","analytics.view_analytics");
 
 
-        $a = $this->aauth->allow_group("Analyst","view.view_posts");
-        $a = $this->aauth->allow_group("Analyst","view.view_calendar");
+        // $a = $this->aauth->allow_group("Analyst","view.view_posts");
+        // $a = $this->aauth->allow_group("Analyst","view.view_calendar");
        
        
         $a = $this->aauth->allow_group("Billing","billing.billing");
@@ -190,6 +194,14 @@ class Example extends CI_Controller {
 
         $a = $this->aauth->delete_perm("analytics.view_analytics","View analytics");
         $a = $this->aauth->delete_perm("billing.view_billing","View billing data");
+
+        $a = $this->aauth->delete_perm("master","All access");
+    }
+
+    function update_group_perm()
+    {
+        $a = $this->aauth->create_perm("master","All access");
+        $a = $this->aauth->allow_group("Admin","master");
     }
 
     function add_group()

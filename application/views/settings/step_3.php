@@ -23,6 +23,9 @@
 				<div class="table-header">
 					<div class="permission">Billing</div>
 				</div>
+				<div class="table-header">
+					<div class="permission">Master</div>
+				</div>
 			</div>
 		</div>
 		<?php 
@@ -95,6 +98,15 @@
 						<div class="table-cell text-xs-center vertical-middle has-permission">
 							<?php 
 								if (check_user_perm($user->aauth_user_id,"billing",$brand->id)) {
+									?> 
+									<i class="fa fa-check"></i>
+									<?php
+								}
+							?> 
+						</div> 
+						<div class="table-cell text-xs-center vertical-middle has-permission">
+							<?php 
+								if (check_user_perm($user->aauth_user_id,"master",$brand->id)) {
 									?> 
 									<i class="fa fa-check"></i>
 									<?php

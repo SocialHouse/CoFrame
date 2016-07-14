@@ -40,6 +40,32 @@ class Calendar extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+
+			$additional_group = '';
+			
+			if(check_user_perm($this->user_id,'create',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'edit',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'master',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'view',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+			check_access('approve',$brand,$additional_group);
+
+
+
 			$this->data['selected_date'] = '';
 			if(isset($post_data) AND !empty($post_data))
 			{
@@ -69,6 +95,30 @@ class Calendar extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+
+			$additional_group = '';
+			
+			if(check_user_perm($this->user_id,'create',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'edit',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'master',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'view',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+			check_access('approve',$brand,$additional_group);
+
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['slug'] = $slug;
@@ -94,6 +144,31 @@ class Calendar extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+
+			$additional_group = '';
+			
+			if(check_user_perm($this->user_id,'create',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'edit',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'master',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+
+			if(check_user_perm($this->user_id,'view',$brand[0]->id))
+			{
+				$additional_group = $this->data['user_group'];
+			}
+			check_access('approve',$brand,$additional_group);
+
+			
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
 			$this->data['slug'] = $slug;

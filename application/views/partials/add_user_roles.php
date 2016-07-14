@@ -33,6 +33,7 @@
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Brand Settings <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="settings" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="settings" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Billing <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="billing" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="billing" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li>Master <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="master" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="master" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
 			
 		</ul>
 	</div>
@@ -45,6 +46,7 @@
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Billing <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="billing"><i class="tf-icon check-box circle-border pull-sm-right" data-value="billing" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>
 	<div id="creatorPermissions" class="permission-details hidden">
@@ -56,6 +58,7 @@
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Billing <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="billing"><i class="tf-icon check-box circle-border pull-sm-right" data-value="Billing" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>
 	<div id="approverPermissions" class="permission-details hidden">
@@ -67,6 +70,7 @@
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Billing <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="billing"><i class="tf-icon check-box circle-border pull-sm-right" data-value="billing" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>
 	<div id="billingPermissions" class="permission-details hidden">
@@ -78,6 +82,7 @@
 			<li class="hidden">View Content <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="view"><i class="tf-icon check-box circle-border pull-sm-right" data-value="view" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Billing <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="billing" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="billing" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>
 </div>
