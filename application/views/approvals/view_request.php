@@ -319,8 +319,9 @@
 														</div>
 														<div class="form-group clearfix">
 															<div class="attachment pull-sm-left">
-																<input type="file" name="attachment<?php echo $comment->id; ?>" class="hidden">
-																<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>			
+																<input type="file" name="attachment<?php echo $comment->id; ?>" class="hidden reply-attach">
+																<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>
+																<img src="" class="hide" height="25" width="25">
 															</div>
 															<div class="pull-sm-right">
 																<button type="button" data-comment-id="<?php echo $comment->id; ?>" class="btn btn-default btn-sm reset-comment">Clear</button>

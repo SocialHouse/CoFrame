@@ -1099,6 +1099,28 @@ jQuery(function($) {
 	$('.add-attachment').on('click', function() {
 		$(this).closest('.attachment').find('input[type="file"]').click();
 	});
+// console.log($('input[name="attachment"]'));
+	$(document).on('change','.reply-attach',function()
+	{
+		if($(this).attr('id') != 'attachment')
+		{
+			var control = this;
+			var supported_files = ['gif','png','jpg','jpeg'];
+			var reader = new FileReader();
+			var file = $(this)[0].files[0];
+			reader.readAsDataURL(file);
+			reader.onload = function (event) {
+				var file_type = file.type.split('/');
+				if($.inArray(file_type[1] ,supported_files) == -1){
+					alert('Invalid file extention');
+					return false;
+				};
+				$(control).next().next().attr('src',event.target.result);
+				$(control).next().next().removeClass('hide');
+
+	        }
+		}
+	})
 
 	//modal triggers
 	//Get modal content from an external source
@@ -1897,7 +1919,8 @@ jQuery(function($) {
     	$('#attachment').remove();
     	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
 		$('.attachment').prepend(attachment_html);
-		
+		$('#attached_img').attr('src','');
+		$('#attached_img').addClass('hide');
 		toggleBtnClass($(this).parent().children('.save-edit-req'),true);
     });
     
@@ -2004,6 +2027,8 @@ jQuery(function($) {
     $(document).on('click','.reset-comment',function(){
     	var parent_id = $(this).data('comment-id');
     	var parent_div = $("input[name='attachment"+parent_id+"']" ).parent();
+    	$(parent_div).children('img').attr('src','');
+    	$(parent_div).children('img').addClass('hide');
     	$("input[name='attachment"+parent_id+"']" ).remove();
     	
     	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';	            		
@@ -2251,6 +2276,7 @@ jQuery(function($) {
 	
 	$(document).on('change','#attachment',function()
 	{
+		var control = this;
 		var supported_files = ['gif','png','jpg','jpeg'];
 		var reader = new FileReader();
 		var file = $(this)[0].files[0];
@@ -2261,8 +2287,8 @@ jQuery(function($) {
 				alert('Invalid file extention');
 				return false;
 			};
-			$('#attached_img').attr('src',event.target.result);
-			$('#attached_img').removeClass('hide');
+			$(control).next().next().attr('src',event.target.result);
+			$(control).next().next().removeClass('hide');
 
         }
 	});

@@ -39,91 +39,9 @@
 						?>
 					</div>
 					<footer class="post-content-footer">
-						<span class="post-actions pull-xs-left">
-							<!-- <a href="#" class="btn btn-secondary btn-xs approve_post" data-post-id="<?php echo $post_details->id; ?>"  data-user-id="<?php echo $this->user_id; ?>" >Approve</a> -->
+						<span class="post-actions pull-xs-left">							
 							<?php
-							if($user_is == 'approver')
-							{
-								if($approver_status == 'pending' AND $post_details->status != 'scheduled')
-								{
-									?>
-									<div class="before-approve">
-										<button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</button>
-									</div>
-
-									<div class="after-approve hide">
-										<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
-										<a class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
-									</div>
-									<?php
-								}
-								elseif($phase_status == 'posted')
-								{
-									?>
-									<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>
-									<?php
-								}
-								elseif($approver_status == 'approved' AND $post_details->status != 'scheduled')
-								{
-									?>
-									<div class="before-approve">
-										<button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
-										<?php
-										if($phase_status == 'pending')
-										{
-											?>											
-											<a  class="change-approve-status small_font_size"  data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
-											<?php
-										}
-										?>
-									</div>
-
-									<div class="after-approve hide">
-										<button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size" data-post-id="<?php echo $post_details->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</button>
-									</div>
-									<?php
-								}
-								elseif($post_details->status == 'scheduled')
-								{
-									?>
-									<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>
-									<?php
-								}
-							}
-							else
-							{
-
-								if($post_details->user_id == $this->user_id)
-								{
-									?>
-									<div class="btn-group pull-md-right" role="group">
-										<a href="#" data-clear="yes" class="btn btn-xs btn-default edit_post" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/<?php echo $view_type.'/'.$post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
-										<?php
-										if($post_details->status == 'scheduled')
-										{
-											?>
-											<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>	
-											<button type="button" class="btn btn-xs btn-default">Post Now</button>
-											<?php
-										}
-										elseif($post_details->status == 'pending')
-										{
-											?>
-											<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
-											<button type="button" class="btn btn-xs btn-default">Post Now</button>
-											<?php
-										}
-										elseif($post_details->status == 'posted')
-										{
-											?>
-											<button type="button" class="btn btn-xs btn-default">Posted</button>
-											<?php
-										}
-										?>
-								  	</div>
-									<?php
-								}
-							}
+							echo week_month_overlay_buttons($user_is,$approver_status,$phase_status,$phase_id,$post_details,$view_type);
 							?>
 						</span>
 					</footer>
@@ -189,16 +107,15 @@
 							<footer class="post-content-footer">
 								<div class="btn-group pull-md-right" role="group">
 									<?php
-									if($post_details->user_id == $this->user_id)
+									
+									$is_edit_request = is_edit_request($post_details->id);
+									if($is_edit_request)
 									{
-										$is_edit_request = is_edit_request($post_details->id);
-										if($is_edit_request)
-										{
-											?>
-											<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
-											<?php
-										}
+										?>
+										<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">View Edit Requests</a>
+										<?php
 									}
+									
 									if($user_is == 'approver')
 								  	{
 										?>

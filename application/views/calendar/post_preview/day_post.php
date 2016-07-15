@@ -146,7 +146,7 @@
 								<?php 
 								$all_phases = get_post_approvers($post->id);								
 								$user_is = '';
-								$approver_stats = '';
+								$approver_status = '';
 								$phase_id = '';
 								$phase_status = '';
 								if(isset($all_phases['result']) and !empty($all_phases['result']))
@@ -163,104 +163,11 @@
 									}
 								}
 
-								if($user_is == 'approver')
-								{
-									if($approver_status == 'pending' AND $phase_status == 'pending')
-									{
-										?>
-										<div class="before-approve">
-											<button class="btn btn-approved btn-sm btn-secondary change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</button>
-										</div>
-
-										<div class="after-approve hide">
-											<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
-											<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
-										</div>
-										<?php
-									}
-									elseif($post->status == 'posted')
-									{
-										?>
-										<button class="btn btn-approved btn-sm btn-default">View Live</button>
-										<?php 
-									}
-									elseif($post->status == 'scheduled')
-									{
-										?>
-										<button class="btn btn-approved btn-sm btn-default">Scheduled</button>
-										<?php 
-									}
-									elseif($post->status == 'approved')
-									{
-										?>
-										<button class="btn btn-approved btn-sm btn-default">All phases approved</button>
-										<?php 
-									}
-									elseif($approver_status == 'approved')
-									{
-										?>
-										<div class="before-approve">	
-											<button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
-											<?php
-											if($phase_status == 'pending' AND $post->status == 'pending')
-											{
-												?>
-												<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="pending" href="#">Undo</a>
-												<?php
-											}
-											?>
-										</div>
-
-										<div class="after-approve hide">
-											<button class="btn btn-approved btn-sm btn-secondary change-approve-status" data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="approved">Approve</button>
-										</div>
-										<?php
-									}
-								}
-								else
-								{
-									if($post->status == 'pending' OR $post->status == 'approved')
-									{
-										$undo_stat = 'pending';
-										if($post->status == 'approved')
-										{
-											$undo_stat = 'unschedule';
-										}
-										?>
-										<div class="before-approve">
-											<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schedule</a>
-										</div>
-
-										<div class="after-approve hide">
-											<button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
-											<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="<?php echo $undo_stat; ?>" href="#">Undo</a>
-										</div>
-										<?php
-									}
-									elseif($post->status == 'posted')
-									{
-										?>
-										<button class="btn btn-approved btn-sm btn-default">View Live</button>
-										<?php 
-									}
-									elseif($post->status == 'scheduled')
-									{
-										?>
-										<div class="before-approve">
-											<button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
-											<a class="change-approve-status"  data-post-id="<?php echo $post->id ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
-										</div>
-
-										<div class="after-approve hide">
-											<a class="btn btn-xs btn-secondary change-approve-status" data-post-id="<?php echo $post->id; ?>" data-phase-id="<?php echo $phase_id; ?>" data-phase-status="schedule">Schedule</a>
-										</div>
-										<?php
-									}
-								}
+								echo get_day_cal_buttons($user_is,$approver_status,$phase_status,$phase_id,$post);
 								?>
 							</span>	
 							<?php
-							if($post->status != 'posted')
+							if($post->status != 'posted' AND $this->user_id == $post->user_id)
 							{
 								?>
 								<div class="hide-top-bx-shadow">

@@ -453,3 +453,256 @@ if(!function_exists('get_master_user'))
         return $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id));
     }
 }
+
+if(!function_exists('get_approval_list_buttons'))
+{
+    function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id)
+    {
+        $CI = & get_instance(); 
+        $html_to_return = '<td class="text-xs-center">';      
+        if(check_user_perm($CI->user_id,'approve',$brand_id) AND !empty($phase_status))
+        {
+            if($phase_status == 'pending' AND $post->status == 'pending')
+            {               
+                $html_to_return .= '<div class="before-approve">
+                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <button class="btn btn-default color-success btn-disabled btn-sm" disabled>Approved</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
+                </div>';                
+            }            
+            elseif($phase_status == 'approved')
+            {
+                $html_to_return .= '<a class="btn btn-sm btn-disabled btn-default color-success">Approved</a>';
+            }
+
+            if(!empty($approver_status))
+            {
+                $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
+            }
+        }
+        elseif(check_user_perm($CI->user_id,'create',$brand_id))
+        {
+            if($post->status == 'scheduled')
+            {
+                $html_to_return .= '<div class="before-approve">';
+                $html_to_return .= '<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'>" data-phase-status="scheduled">Schedule</a>
+                </div>';
+            }
+            elseif($post->status == 'pending' OR $post->status == 'approved')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <button class="btn btn-disabled btn-default color-success btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
+                </div>';
+            }
+            elseif($post->status == 'posted')
+            {
+                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
+            }
+
+            $is_edit_request = is_edit_request($post->id);
+            if($is_edit_request AND empty($approver_status))
+            {
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
+            }
+        }
+        else
+        {
+            if($post->status == 'scheduled')
+            {
+                $html_to_return .= '<div class="before-approve">';
+                $html_to_return .= '<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'>" data-phase-status="scheduled">Schedule</a>
+                </div>';
+            }
+            elseif($post->status == 'pending')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <button class="btn btn-disabled btn-default color-success btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
+                </div>';
+            }
+            elseif($post->status == 'posted')
+            {
+                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
+            }
+
+            $is_edit_request = is_edit_request($post->id);
+            if($is_edit_request AND empty($approver_status))
+            {
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
+            }
+        }
+        $html_to_return .= '</td>';
+        return $html_to_return;
+    }
+}
+
+if(!function_exists('get_day_cal_buttons'))
+{
+    function get_day_cal_buttons($user_is,$approver_status,$phase_status,$phase_id,$post)
+    {
+        $CI = & get_instance(); 
+        $html_to_return = '';
+        if($user_is == 'approver')
+        {
+            if($approver_status == 'pending' AND $phase_status == 'pending')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status"  data-post-id="'. $post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                </div>
+
+                <div class="after-approve hide">
+                    <button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
+                </div>';
+            }
+            elseif($post->status == 'posted')
+            {
+                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
+            }
+            else
+            {
+                $html_to_return .= '<div class="before-approve">    
+                    <button class="btn btn-secondary btn-disabled btn-sm" disabled>Approved</button><br>';
+
+                if($phase_status == 'pending' AND $post->status == 'pending')
+                {
+                    $html_to_return .= '<a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>';
+                }
+
+                $html_to_return .= '</div>';
+
+                $html_to_return .= '<div class="after-approve hide">
+                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>';
+                $html_to_return .= '</div>';
+            }
+        }
+        else
+        {
+            if($post->status == 'pending' OR $post->status == 'approved')
+            {
+                $undo_stat = 'pending';
+                if($post->status == 'approved')
+                {
+                    $undo_stat = 'unschedule';
+                }
+
+                $html_to_return .= '<div class="before-approve">
+                    <a class="btn btn-xs btn-secondary change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
+                </div>';
+
+                $html_to_return .= '<div class="after-approve hide">
+                    <button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="'.$undo_stat.'" href="#">Undo</a>
+                </div>';
+            }
+            elseif($post->status == 'posted')
+            {
+                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
+            }
+            elseif($post->status == 'scheduled')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <button class="btn btn-secondary btn-disabled btn-sm" disabled>Scheduled</button><br>
+                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
+                </div>
+
+                <div class="after-approve hide">
+                    <a class="btn btn-xs btn-secondary change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
+                </div>';
+            }
+        }
+        return $html_to_return;
+    }
+}
+
+if(!function_exists('week_month_overlay_buttons'))
+{
+    function week_month_overlay_buttons($user_is,$approver_status,$phase_status,$phase_id,$post_details,$view_type)
+    {
+        $CI = & get_instance(); 
+        $html_to_return = '';
+        if($user_is == 'approver')
+        {
+            if($approver_status == 'pending' AND $post_details->status != 'scheduled')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                </div>
+
+                <div class="after-approve hide">
+                    <button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
+                    <a class="change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
+                </div>';
+            }
+            elseif($phase_status == 'posted')
+            {
+                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>';                
+            }
+            elseif($approver_status == 'approved' AND $post_details->status != 'scheduled')
+            {
+                $html_to_return .= '<div class="before-approve">
+                    <button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>';                    
+                    if($phase_status == 'pending')
+                    {                                       
+                        $html_to_return .= '<a  class="change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>';
+                    }
+                $html_to_return .= '</div>';
+
+                $html_to_return .= '<div class="after-approve hide">
+                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                </div>';
+            }
+            elseif($post_details->status == 'scheduled')
+            {
+                $html_to_return .= '<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>';
+            }
+        }
+        else
+        {
+            if($post_details->user_id == $CI->user_id)
+            {
+                $html_to_return .= '<div class="btn-group pull-md-right" role="group">
+                    <a href="#" data-clear="yes" class="btn btn-xs btn-default edit_post" data-modal-src="'.base_url().'calendar/edit_post_calendar/'.$view_type.'/'.$post_details->slug.'/'.$post_details->id.'" data-toggle="modal-ajax" data-modal-id="edit-post-id'.$post_details->id.'" data-modal-size="lg">Edit</a>';
+
+                if($post_details->status == 'scheduled')
+                {
+                    $html_to_return .= '<button type="button" class="btn btn-xs btn-default" disabled>Scheduled</button>    
+                    <button type="button" class="btn btn-xs btn-default">Post Now</button>';
+                }
+                elseif($post_details->status == 'pending')
+                {
+                    $html_to_return .= '<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
+                    <button type="button" class="btn btn-xs btn-default">Post Now</button>';
+                }
+                elseif($post_details->status == 'posted')
+                {
+                    $html_to_return .= '<button type="button" class="btn btn-xs btn-default">Posted</button>';
+                }
+                $html_to_return .= '</div>';
+            }
+        }
+        return $html_to_return;
+    }
+}

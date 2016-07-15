@@ -101,13 +101,26 @@
 						<th>Status</th>
 						<th>Post Copy</th>
 						<?php
-						if($user_group != 'Approver')
+						$class = 'hide';
+						$approval_shown = 1;
+						if(!check_user_perm($this->user_id,'approve',$brand_id))
 						{
+							$class = '';
+							$approval_shown = 0;
 							?>
 							<th>Approvals</th>
-						<?php
+							<?php
 						}
-						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR $user_group == 'Approver')
+
+						if(check_user_perm($this->user_id,'create',$brand_id) AND $approval_shown == 1)
+						{
+							$class = '';
+							?>
+							<th>Approvals</th>
+							<?php
+						}
+
+						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR check_user_perm($this->user_id,'approve',$brand_id))
 						{
 							?>
 							<th>Approval Deadline</th>
@@ -205,55 +218,98 @@
 
 											<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
 											<?php
-											$class = '';
-											if($user_group == 'Approver')
+											$approvers = get_post_approvers($post->id);
+											if($approvers)
 											{
-												$class = 'hide';
+												$approver_status = '';
+												$phase_status = '';
+												$phase_id = '';
+												$deadline = '';
+												$approver_count = 0;
+												if(!empty($approvers['result']))
+												{
+													$approver_count = 0;
+													$show_additional_approvers = 0;
+													$additional_approvers_html = '<ul class="timeframe-list approval-list"><li>
+																			<button class="btn-icon btn-circle btn-menu showInvisible"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+															<ul class="timeframe-list approval-list invisible">';
+													$simple_user_list = '<ul class="timeframe-list approval-list">';
+													$approved_status = [];
+													foreach($approvers['result'] as $approver)
+													{
+														if($approver['status'] == 'approved')
+														{
+															array_push($approved_status, 'approved');
+														}
+
+														if($approver['user_id'] == $this->user_id)
+														{
+															$approver_status = $approver['status'];
+															$phase_status = $approver['phase_status'];
+															$phase_id = $approver['id'];
+															$deadline = $approver['approve_by'];
+														}
+														$image_path = img_url().'default_profile.jpg';
+														if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
+														{
+															$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
+														}
+														$approver_count++;
+														if($approver_count >= 4)
+														{				
+															$additional_approvers_html .= '<li class="'.$approver['status'].'">
+																<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+															</li>';
+														
+															$show_additional_approvers = 1;
+														}
+														else												
+														{
+															$approvers_html = '<li class="'.$approver['status'].'">
+																<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+															</li>';
+
+															$simple_user_list .= $approvers_html;
+															$additional_approvers_html .= $approvers_html;
+														}
+													}
+												}
+												
 											}
 											?>
-											<td class="text-xs-center <?php echo $class; ?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
-												<?php 
-												$approvers = get_post_approvers($post->id);
-												if($approvers)
+											
+												<?php
+												if(isset($approvers['result']) AND count($approved_status) == count($approvers['result']))
 												{
 													?>
-													<ul class="timeframe-list approval-list">
-														<?php
-														$approver_status = '';
-														$phase_status = '';
-														$phase_id = '';
-														$deadline = '';
-														if(!empty($approvers['result']))
-														{
-															foreach($approvers['result'] as $approver)
-															{
-																if($approver['user_id'] == $this->user_id)
-																{
-																	$approver_status = $approver['status'];
-																	$phase_status = $approver['phase_status'];
-																	$phase_id = $approver['id'];
-																	$deadline = $approver['approve_by'];
-																}
-																$image_path = img_url().'default_profile.jpg';
-																if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
-																{
-																	$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
-																}
-																?>
-																<li class="<?php echo $approver['status']; ?>">
-																	<img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>" class="circle-img" data-toggle="popover-hover" data-content="<?php echo ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']); ?>">
-																</li>
-																<?php
-															}
-														}
-														?>
-													</ul>
+													<td class="<?php echo $class; ?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+													<a href="javascript:void(0)" class="btn btn-default color-success btn-xs">Complete</a>
 													<?php
 												}
-												?>	
+												else
+												{
+													?>
+													<td class="text-xs-center <?php echo $class; ?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+														<?php
+														if($show_additional_approvers == 1)
+														{
+															echo $additional_approvers_html.'<li>
+																<button class="btn-icon btn-circle btn-menu btn-close hideVisible">X</button>
+															</li></ul>';
+														}
+														else
+														{
+															echo $simple_user_list;
+														}
+														?>
+													</td>
+													<?php
+												}
+												?>
 											</td>
+											
 											<?php
-											if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR !empty($deadline))
+											if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
 											{
 												?>
 												<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
@@ -270,8 +326,11 @@
 												</td>
 												<?php
 											}
+
+											echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
 											?>
-											<td class="text-xs-center">
+											
+											<!-- <td class="text-xs-center">
 												<?php
 												if($approver_status == 'approved')
 												{
@@ -357,7 +416,7 @@
 													<?php
 												}
 												?>
-												</td>											
+												</td>											 -->
 										</tr>
 										<?php
 									}

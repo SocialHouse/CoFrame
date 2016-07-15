@@ -9,29 +9,53 @@ class Approval_model extends CI_Model
 
 	function get_approvals($user_id,$brand_id,$user_group,$date='')
 	{
-		$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
-		$this->db->join('posts','posts.id = phases.post_id');
-		$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
-		$this->db->where('posts.brand_id',$brand_id);
+		$result = [];
+		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['created_by'])
+		{
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
+			$this->db->join('posts','posts.id = phases.post_id');
+			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
+			$this->db->where('posts.brand_id',$brand_id);
 
-		if(!empty($date))
-		{
-			$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
-		}		
-		
-		if($user_group == 'Creator')
-		{
+			if(!empty($date))
+			{
+				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
+			}
 			$this->db->where('posts.user_id',$user_id);			
-		}
-		// $this->db->where('posts.status','pending');
 
-		$this->db->order_by('slate_date_time','ASC');
-		$query = $this->db->get('phases');		
-		if($query->num_rows() > 0)
-		{
-			return $query->result();
+			$this->db->order_by('slate_date_time','ASC');
+			$query = $this->db->get('phases');		
+			if($query->num_rows() > 0)
+			{
+				$result =  $query->result();
+			}
 		}
-		return FALSE;
+		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['created_by'])
+		{
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
+			$this->db->join('posts','posts.id = phases.post_id');
+			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
+			$this->db->where('posts.brand_id',$brand_id);
+
+			if(!empty($date))
+			{
+				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
+			}
+			$this->db->where('phases_approver.user_id',$user_id);
+			$this->db->order_by('slate_date_time','ASC');
+			$query = $this->db->get('phases');		
+			if($query->num_rows() > 0)
+			{
+				if(!empty($result))
+				{
+					$result = array_merge($result,$query->result());
+				}
+				else
+					$result =  $query->result();
+			}			
+		}
+
+		return $result;
 	}
 
 	public function get_approvers_by_phase($phase_id)
@@ -62,6 +86,7 @@ class Approval_model extends CI_Model
 			$this->db->join('phases','phases.id = phases_approver.phase_id');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 			$this->db->where('phases.post_id',$post_id);
+			$this->db->order_by('phases_approver.status','desc');
 			$query = $this->db->get('phases_approver');
 		
 			if($query->num_rows() > 0)

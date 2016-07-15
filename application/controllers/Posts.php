@@ -683,13 +683,13 @@ class Posts extends CI_Controller {
 						'status' => $post_data['status']
 					);
 
-			if($post_data['status'] == 'schedule')
+			if($post_data['status'] == 'scheduled')
 			{
 				$this->timeframe_model->update_data('posts',$approver_data,array('id'=>$post_data['post_id']));
 			}
 			elseif($post_data['status'] == 'unschedule')
 			{
-				$approver_data['status'] = 'approved';
+				$approver_data['status'] = 'pending';
 				$this->timeframe_model->update_data('posts',$approver_data,array('id'=>$post_data['post_id']));
 			}
 			else
