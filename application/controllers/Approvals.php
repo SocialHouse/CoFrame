@@ -68,12 +68,7 @@ class Approvals extends CI_Controller {
 			
 			$this->data['approval_list'] = array();
 			if(!empty($approvals))
-			{
-				usort($approvals, function($a,$b){
-					$t1 = strtotime($a->slate_date_time);
-				    $t2 = strtotime($b->slate_date_time);
-				    return $t1 - $t2;
-				});				
+			{							
 				foreach($approvals as $approval)
 				{
 					$this->data['approval_list'][date('D m/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;

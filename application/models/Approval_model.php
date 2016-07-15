@@ -52,7 +52,16 @@ class Approval_model extends CI_Model
 				}
 				else
 					$result =  $query->result();
-			}			
+
+				if(!empty($result))
+				{
+					usort($result, function($a,$b){
+						$t1 = strtotime($a->slate_date_time);
+					    $t2 = strtotime($b->slate_date_time);
+					    return $t1 - $t2;
+					});
+				}
+			}
 		}
 
 		return $result;
