@@ -88,7 +88,7 @@ class Approvals extends CI_Controller {
 
 	function edit_request()
 	{
-		$this->data = array();		
+		$this->data = array();
 		$post_id = $this->uri->segment(2);
 		$this->load->model('post_model');
 		$this->data['post_id'] = $post_id;
@@ -99,6 +99,7 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
+			// echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
 			if(!empty($this->data['phase']))
 			{
 				$this->data['brand_id'] = $brand[0]->id;
@@ -196,9 +197,11 @@ class Approvals extends CI_Controller {
 
 		if(!empty($brand))
 		{
+
 			$this->data['phases'] = $this->approval_model->all_approval_phases($post_id);			
 			if(!empty($this->data['phases']))
 			{
+
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['brand'] = $brand[0];
 				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);

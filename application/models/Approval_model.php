@@ -117,6 +117,7 @@ class Approval_model extends CI_Model
 		
 		if($query->num_rows() > 0)
 		{
+
 			$phase_id = $query->row()->id;
 			$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
@@ -133,9 +134,39 @@ class Approval_model extends CI_Model
 				{
 					$result['phase_comments'] = $phase_comments;
 				}
-				
+
 				return $result;
 			}
+		}
+		else{
+			$this->db->select('phases.id');
+			$this->db->where('phases.post_id',$post_id);
+			$query = $this->db->get('phases');
+			if($query->num_rows() > 0)
+			{
+				$phase_result =$query->result();
+				$result = array();
+				foreach ($phase_result as $key => $value) {
+					$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status');
+					$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
+					$this->db->join('phases','phases_approver.phase_id = phases.id');		
+					$this->db->where_in('phases_approver.phase_id',$value->id);
+					$query = $this->db->get('phases_approver');
+				
+					if($query->num_rows() > 0)
+					{
+						$phase_users = $query->result();
+						$result[$phase_users[0]->phase]['phase_users'] = $query->result();
+						$phase_comments = $this->get_phase_comments($value->id);
+						if($phase_comments)
+						{
+							$result[$phase_users[0]->phase]['phase_comments'] = $phase_comments;
+						}
+					}
+				}
+				return $result;
+			}
+
 		}
 		return FALSE;
 	}

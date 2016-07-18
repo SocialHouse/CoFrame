@@ -1939,9 +1939,10 @@ jQuery(function($) {
 			jQuery.each($('textarea'), function(i, control) {
 			    data.append(control.name, control.value);
 			});
+			data.append('phase_id', $(this).data('phase-id'));
 			
 			jQuery.each($('input'), function(i, control) {
-				if(control.name == 'brand_owner' || control.name == 'phase_id' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
+				if(control.name == 'brand_owner' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
 				{
 					if(control.value)
 			    		data.append(control.name, control.value);
