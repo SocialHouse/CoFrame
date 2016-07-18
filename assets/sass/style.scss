@@ -3998,21 +3998,9 @@ footer.day-edit-post .btn-default{
 }
 
 /*drafts*/
-.post-copy-draft{
-    overflow-x: hidden;
-    overflow-y: hidden;
-    text-overflow: ellipsis;
-    width: 350px;
-    cursor: pointer;
-    display: -webkit-inline-box ;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .height-999{
+.height-999{
     height: 999px !important;
-  }
+}
 .remove_box{
   box-shadow: none;
 }
