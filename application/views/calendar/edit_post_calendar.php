@@ -103,6 +103,8 @@
 				</div>
 
 				<div class="form-group pull-sm-left">
+					<div id="hm_error" class="error"></div>
+					<div id="date_error" class="error"></div>
 					<label>Slate Post:</label><br>
 					<div class="hide-top-bx-shadow">
 						<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0"  value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
@@ -237,6 +239,7 @@
 																		<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $phase_no;?>][approve_ampm]"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
 																	</div>
 																</div>
+																<label class="phase-one-error error hide clearfix"></label>
 																<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
 															</div>
 														</div>

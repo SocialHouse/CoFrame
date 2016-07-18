@@ -7,6 +7,10 @@ jQuery(function($) {
 		create_post_validation($(this));
 	});
 
+	$(document).on('click', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute', function() {
+		create_post_validation($(this));
+	});
+
 	$(document).on('keypress', '.minute-select', function ( e ) {
 		return isValidNumber(e, 59,$(this));
 	});
@@ -257,10 +261,10 @@ jQuery(function($) {
 			img_error = $('#img_error'),
 			date_error = $('#date_error');
 			hm_error = $('#hm_error'),
-			approve_date = $('#ph_one_date').val(),
-			approve_hour = $('#ph_one_hour').val(),
-			approve_minute = $('#ph_one_minute').val(),
-			approve_ampm = $('#ph_one_ampm').val(),
+			approve_date = $('#only_ph_one_date').val(),
+			approve_hour = $('#only_ph_one_hour').val(),
+			approve_minute = $('#only_ph_one_minute').val(),
+			approve_ampm = $('#only_ph_one_ampm').val(),
 			old_date 	= $('input[name="post-date"]').val(),
 			old_hour 	= $('input[name="post-hour"]').val(),
 			old_minute 	= $('input[name="post-minute"]').val(),
@@ -275,7 +279,7 @@ jQuery(function($) {
 			var startDate = new Date();
 			startDate = moment(new Date (startDate)).format('YYYY-MM-DD');
 			old_date = moment(new Date (old_date)).format('YYYY-MM-DD');
-			if(startDate >= old_date){
+			if(startDate <= old_date){
 				date_error.text(language_message.date_greater_than_today );
 				date_error.show();
 				disable_btn = true;
@@ -304,7 +308,7 @@ jQuery(function($) {
 					if($(".check-box.circle-border").hasClass('selected')){
 						
 						if( approve_date !='' && !compareDate(approve_date, old_date)){
-
+							$('.phase-one-error').hide();
 							if( approve_hour !='' && approve_minute !=''){
 								var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 								var ed_date = approve_date+' '+approve_hour+':'+approve_minute+' '+approve_ampm;
@@ -313,10 +317,17 @@ jQuery(function($) {
 									console.log([approve_date, old_date]);
 									disable_btn = false;
 								}
+							}else{
+								disable_btn = true;
+								$('.phase-one-error').show();
+								$('.phase-one-error').text(language_message.enter_hour_minutes);
 							}
 						}
 						else {
 							disable_btn = true;
+							$('.phase-one-error').show();
+							$('.phase-one-error').text(language_message.valid_date);
+							//date_error.show();
 						}
 					}
 				}
@@ -334,7 +345,7 @@ jQuery(function($) {
 			}
 		}
 		equalColumns();
-		console.log('disable_btn: '+disable_btn);
+		//console.log('disable_btn: '+disable_btn);
 		toggleBtnClass("#submit-approval", disable_btn);
 		//toggleBtnClass("#draft", disable_btn);
 	}
@@ -402,7 +413,7 @@ jQuery(function($) {
 		
 		if( startDate == '' ){
 			if(phase_no == 0 ){
-				$message = language_messageselect_sdate;
+				$message = language_message.select_sdate;
 				console.log($message);
 			}
 			if(phase_no == 1 ){
