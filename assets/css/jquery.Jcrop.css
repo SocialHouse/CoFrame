@@ -250,9 +250,6 @@ img.jcrop-preview {
 }
 
 .cropme img{
-  float: left;
-  margin-bottom: 5px;
-  margin-right: 5px;
   cursor: pointer;
   border-radius: 100%;
 }

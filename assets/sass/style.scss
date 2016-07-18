@@ -1818,6 +1818,27 @@ a {
 		.cropme {
 			float: none;
 			margin: 0px auto;
+			position: relative;
+			&.hasUpload {
+				&:after {
+					@extend .tf-icon-circle;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					-webkit-transform: translate(-50%, -50%);
+					transform: translate(-50%, -50%);
+					color: #fff;
+					background: rgba(0, 0, 0, 0.75);
+					cursor: pointer;
+					font-size: 18px;
+					z-index: 100;
+					content: "\f040";
+					font-family: "FontAwesome";
+					width: 30px;
+					height: 30px;
+					line-height: 30px;
+				}
+			}
 		}
 	}
 	.remove-brand-img {

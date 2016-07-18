@@ -9423,14 +9423,14 @@ a {
   padding: 1.73333rem 0; }
 #user-preferences .page-main-header {
   padding: 1.73333rem 0 0.75rem; }
-.page-main-header .tf-icon-circle {
+.page-main-header .tf-icon-circle, .page-main-header .brand-step .brand-logo .cropme.hasUpload:after, .brand-step .brand-logo .page-main-header .cropme.hasUpload:after {
   background: #dedede;
   height: 40px;
   width: 40px;
   line-height: 52px; }
-  .page-main-header .tf-icon-circle:hover, .page-main-header .tf-icon-circle.active {
+  .page-main-header .tf-icon-circle:hover, .page-main-header .brand-step .brand-logo .cropme.hasUpload:hover:after, .brand-step .brand-logo .page-main-header .cropme.hasUpload:hover:after, .page-main-header .tf-icon-circle.active, .page-main-header .brand-step .brand-logo .active.cropme.hasUpload:after, .brand-step .brand-logo .page-main-header .active.cropme.hasUpload:after {
     background: #c0c0c0; }
-.page-main-header .toolbar .tf-icon-circle {
+.page-main-header .toolbar .tf-icon-circle, .page-main-header .toolbar .brand-step .brand-logo .cropme.hasUpload:after, .brand-step .brand-logo .page-main-header .toolbar .cropme.hasUpload:after {
   margin-left: 10px; }
 
 .date-header {
@@ -9449,7 +9449,7 @@ a {
     letter-spacing: normal; }
   .date-header strong {
     text-transform: uppercase; }
-  .date-header .tf-icon-circle {
+  .date-header .tf-icon-circle, .date-header .brand-step .brand-logo .cropme.hasUpload:after, .brand-step .brand-logo .date-header .cropme.hasUpload:after {
     margin-top: 8px;
     margin-bottom: 9px; }
   .date-header .form-search {
@@ -9973,9 +9973,9 @@ a {
   a:hover .tf-icon-search {
     background-position: 0 -17px; }
 
-#showSearch.tf-icon-circle {
+#showSearch.tf-icon-circle, .brand-step .brand-logo #showSearch.cropme.hasUpload:after {
   transition: all 500ms; }
-  #showSearch.tf-icon-circle.active {
+  #showSearch.tf-icon-circle.active, .brand-step .brand-logo #showSearch.active.cropme.hasUpload:after {
     border-radius: 8px;
     background: #dedede; }
 
@@ -10001,7 +10001,7 @@ a {
   width: 11px;
   background-size: 11px; }
 
-.tf-icon-circle {
+.tf-icon-circle, .brand-step .brand-logo .cropme.hasUpload:after {
   border-radius: 100%;
   text-align: center; }
 
@@ -10330,7 +10330,24 @@ a {
     position: relative; }
     .brand-step .brand-logo .cropme {
       float: none;
-      margin: 0px auto; }
+      margin: 0px auto;
+      position: relative; }
+      .brand-step .brand-logo .cropme.hasUpload:after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        color: #fff;
+        background: rgba(0, 0, 0, 0.75);
+        cursor: pointer;
+        font-size: 18px;
+        z-index: 100;
+        content: "\f040";
+        font-family: "FontAwesome";
+        width: 30px;
+        height: 30px;
+        line-height: 30px; }
   .brand-step .remove-brand-img {
     position: absolute;
     right: 0;
