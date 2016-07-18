@@ -39,11 +39,22 @@
 						?>
 					</div>
 					<footer class="post-content-footer">
-						<span class="post-actions pull-xs-left">							
+						<span class="post-actions">
 							<?php
 							echo week_month_overlay_buttons($user_is,$approver_status,$phase_status,$phase_id,$post_details,$view_type);
 							?>
 						</span>
+						<div class="btn-group" role="group">
+							<?php
+							$is_edit_request = is_edit_request($post_details->id);
+							if($is_edit_request)
+							{
+								?>
+								<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">Edit Requests</a>
+								<?php
+							}
+							?>
+						</div>
 					</footer>
 				</div>
 			</div>
