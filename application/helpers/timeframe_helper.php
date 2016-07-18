@@ -248,7 +248,7 @@ if(!function_exists('get_abbreviation'))
 
 if(!function_exists('check_user_perm'))
 {
-    function check_user_perm($permission,$perm,$brand_id)
+    function check_user_perm($permission,$perm,$brand_id = '')
     {
         $CI = & get_instance();        
         return $CI->aauth->check_user_perm($permission,$perm,$brand_id);
@@ -480,7 +480,8 @@ if(!function_exists('get_approval_list_buttons'))
 
             if(!empty($approver_status))
             {
-                $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
+                // $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
             }
         }
         elseif(check_user_perm($CI->user_id,'create',$brand_id))
@@ -704,5 +705,20 @@ if(!function_exists('week_month_overlay_buttons'))
             }
         }
         return $html_to_return;
+    }
+}
+
+if(!function_exists('get_plan'))
+{
+    function get_plan($user_id)
+    {
+        $CI = & get_instance(); 
+        $CI->load->model('timeframe_model');
+        $plan = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$user_id),'plan');
+        if($plan)
+        {
+            return $plan[0]->plan;
+        }
+        return FALSE;
     }
 }

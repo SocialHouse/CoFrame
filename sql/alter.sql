@@ -398,3 +398,6 @@ ALTER TABLE `user_info` CHANGE `email_notification` `email_notification` TINYINT
 
 --- 12-07-2016
 ALTER TABLE `co_create_requests` DROP `token`;
+
+--- 18-07-2016
+UPDATE `timeframe`.`aauth_perms` SET `name` = 'settings' WHERE `aauth_perms`.`id` = 15;

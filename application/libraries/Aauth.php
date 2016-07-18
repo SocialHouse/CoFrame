@@ -2433,12 +2433,13 @@ class Aauth {
 	}
 
 	//get matching permission by given string
-	function check_user_perm($user_id,$perm,$brand_id)
+	function check_user_perm($user_id,$perm,$brand_id = '')
 	{
 		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");
 		$this->aauth_db->like('name',$perm);
 		$this->aauth_db->where('user_id', $user_id);
-		$this->aauth_db->where('brand_id', $brand_id);
+		if($brand_id)
+			$this->aauth_db->where('brand_id', $brand_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
 		
 		if($query->num_rows() > 0)

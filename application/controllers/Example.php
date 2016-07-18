@@ -64,7 +64,7 @@ class Example extends CI_Controller {
         $a = $this->aauth->create_perm("view.view_posts","View posts");
         // $a = $this->aauth->create_perm("view.view_calendar","View Calendar");        
 
-        $a = $this->aauth->create_perm("settings.edit_app_setting","Edit application settings");
+        $a = $this->aauth->create_perm("settings","Edit application settings");
         // $a = $this->aauth->create_perm("settings.edit_brand_setting","Edit brand settings");
 
         // $a = $this->aauth->create_perm("analytics.view_analytics","View analytics");
@@ -87,7 +87,7 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Admin","view.view_posts");
         // $a = $this->aauth->allow_group("Admin","view.view_calendar");        
 
-        $a = $this->aauth->allow_group("Admin","settings.edit_app_setting");
+        $a = $this->aauth->allow_group("Admin","settings");
         // $a = $this->aauth->allow_group("Admin","settings.edit_brand_setting");
 
         // $a = $this->aauth->allow_group("Admin","analytics.view_analytics");
@@ -111,7 +111,7 @@ class Example extends CI_Controller {
         $a = $this->aauth->allow_group("Manager","view.view_posts");
         // $a = $this->aauth->allow_group("Manager","view.view_calendar");       
 
-        $a = $this->aauth->allow_group("Manager","settings.edit_app_setting");
+        $a = $this->aauth->allow_group("Manager","settings");
         // $a = $this->aauth->allow_group("Manager","settings.edit_app_setting");
 
         // $a = $this->aauth->allow_group("Manager","analytics.view_analytics");

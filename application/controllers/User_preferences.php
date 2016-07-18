@@ -53,8 +53,8 @@ class User_preferences extends CI_Controller {
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
 		}
 				
-		if($this->user_id == $this->user_data['created_by'])
-		{
+		// if($this->user_id == $this->user_data['created_by'])
+		// {
 			if($page == 'user_plan')
 			{
 				$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
@@ -70,12 +70,13 @@ class User_preferences extends CI_Controller {
 				$this->data['js_files'][] = 'https://js.stripe.com/v2/';
 				$this->data['js_files'][] = js_url().'stripe.js?ver=2.11.0';
 			}
+			
 			_render_view($this->data);
-		}
-		else
-		{
-			_render_view($this->data);
-		}
+		// }
+		// else
+		// {
+		// 	_render_view($this->data);
+		// }
 	}
 
 	function edit_my_info()
