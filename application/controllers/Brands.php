@@ -717,4 +717,11 @@ class Brands extends CI_Controller {
 			echo json_encode(array('html'=>$html));
 		}
 	}
+
+	function get_active_notifications()
+	{
+		$this->load->model('reminder_model');
+		$notofications = $this->reminder_model->get_active_notifications();
+		echo json_encode($notofications);
+	}
 }

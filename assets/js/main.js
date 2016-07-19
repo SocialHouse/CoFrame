@@ -2473,7 +2473,34 @@ jQuery(function($) {
 	});
 
 	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
+
+	if(desktop_notify_status == 0)
+		alert_notification();
 });
+
+function alert_notification()
+{
+	jQuery.ajax({
+		url:base_url+'brands/get_active_notifications',
+		type:'get',
+		dataType:'json',
+		success:function(response)
+		{			
+			if(response)
+			{
+				n = new Notification( "Please check the notification", {
+					body: response.text, 
+					icon : "star.ico"
+				});
+			}
+		}
+	});
+
+	
+	setTimeout(function(){
+		alert_notification();
+	},10000);
+}
 
 
 function convertToLink(text) {

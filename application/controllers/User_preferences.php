@@ -27,7 +27,7 @@ class User_preferences extends CI_Controller {
         $this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->email = $this->session->userdata('email');
-		$this->user_data = $this->session->userdata('user_info');
+		$this->user_data = $this->session->userdata('user_info');		
 	}
 
 	function index()
@@ -125,7 +125,12 @@ class User_preferences extends CI_Controller {
 							'urgent_notification' =>$urgent_notification
 						);
             $this->timeframe_model->update_data('user_info',$user_data,$condition);
-           
+           	
+           	$user_data['user_info_id'] = $post_data['aauth_user_id'];
+           	$user_data['created_by'] = $this->user_data['created_by'];
+
+           	$this->session->set_userdata('user_info',$user_data);
+
             if(!empty($post_data['user_pic_base64'])){
         		$base64_image = $post_data['user_pic_base64'];
     		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);

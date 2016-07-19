@@ -76,7 +76,10 @@ class Tour extends CI_Controller {
                             'company_name' => $user->company_name,
                             'company_email' => $user->company_email,
                             'company_url' => $user->company_url,
-                            'created_by' => $created_by                            
+                            'created_by' => $created_by,
+                            'email_notification' => $user->email_notification,
+                            'urgent_notification' => $user->urgent_notification,
+                            'desktop_notification' => $user->desktop_notification
                         );
 
                 $this->session->set_userdata('user_info',$user_info);

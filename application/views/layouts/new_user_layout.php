@@ -32,6 +32,7 @@
 <script type="text/javascript">
 	var base_url = "<?php echo base_url(); ?>";
 	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
+	var desktop_notify_status = "<?php echo isset($this->user_data['desktop_notification']) ? $this->user_data['desktop_notification'] : ''; ?>";
 </script>
 <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
@@ -108,6 +109,7 @@
     }
     ?>
     <script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js?ver=1.0.0'></script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>notification.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>main.js?ver=1.0.0'></script>
     <script>
     	if(typeof(fileDragNDrop) == 'function')

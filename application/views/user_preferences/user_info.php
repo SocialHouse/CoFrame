@@ -10,10 +10,10 @@
 			
 				if(!empty($user_details)){
 					$image ='';
-					$cls= 'hide';
-					if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$user_details->id.'.png'))
+					$cls= 'hide';					
+					if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$this->user_id.'.png'))
 					{
-						$path = upload_url().$this->user_data['created_by'].'/users/'.$user_details->id.'.png?'.uniqid();
+						$path = upload_url().$this->user_data['created_by'].'/users/'.$this->user_id.'.png?'.uniqid();
 						$image = '<img src="'.$path.'">';
 						$cls ='';
 					}

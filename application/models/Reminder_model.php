@@ -55,4 +55,25 @@ class Reminder_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_active_notifications()
+	{
+		$this->db->select('id,text');
+		$this->db->where('status',0);
+		$this->db->where('user_id',$this->user_id);
+		$this->db->group_start();
+		$this->db->where('due_date',NULL);
+		$this->db->or_where('due_date >=', date('Y-m-d H:i:s'));
+		$this->db->group_end();
+		$this->db->limit(1);
+		$query = $this->db->get('reminders');
+
+		if($query->num_rows() > 0)
+		{
+			$row = $query->row();
+			$this->db->where('id',$row->id);			
+			$this->db->update('reminders',array('status' => 1)); 
+			return $row;
+		}
+		return FALSE;
+	}
 }

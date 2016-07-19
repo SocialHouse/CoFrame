@@ -401,3 +401,6 @@ ALTER TABLE `co_create_requests` DROP `token`;
 
 --- 18-07-2016
 UPDATE `timeframe`.`aauth_perms` SET `name` = 'settings' WHERE `aauth_perms`.`id` = 15;
+
+--- 19-07-2016
+ALTER TABLE `reminders` ADD `status` TINYINT NOT NULL DEFAULT '0' AFTER `due_date`;
