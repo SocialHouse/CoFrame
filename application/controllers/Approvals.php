@@ -99,7 +99,7 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
-			echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
+			//echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
 			if(!empty($this->data['phase']))
 			{
 				$this->data['brand_id'] = $brand[0]->id;

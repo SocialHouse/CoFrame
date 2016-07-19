@@ -730,13 +730,13 @@ if(!function_exists('relative_date'))
         $today = strtotime(date('M j, Y'));
         $reldays = ($time - $today) / 86400;
         if ($reldays >= 0 && $reldays < 1) {
-            return 'Today '.date('\a\t H:i a' , strtotime($time));
+            return 'Today '.date('\a\t h:i a' , $time);
         } else
         if ($reldays >= 1 && $reldays < 2) {
-            return 'Tomorrow '.date('\a\t H:i a' , strtotime($time));
+            return 'Tomorrow '.date('\a\t h:i a' ,$time);
         } else
         if ($reldays >= -1 && $reldays < 0) {
-            return 'Yesterday '.date('\a\t H:i a' , strtotime($time));
+            return 'Yesterday '.date('\a\t h:i a' , $time);
         }
 
         if (abs($reldays) < 7) 

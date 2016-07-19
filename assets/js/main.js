@@ -1947,6 +1947,7 @@ jQuery(function($) {
     $(document).on('click','.save-edit-req',function(){
     	if($(this).hasClass('btn-secondary'))
     	{
+    		toggleBtnClass($(this),true);
     		var $div_suggest_edit = $(this).parent().parent().parent('div.suggest-edit');
     		var input_files = $div_suggest_edit.find("input[type='file']");
     		var textarea = $div_suggest_edit.find("textarea");
@@ -2005,6 +2006,8 @@ jQuery(function($) {
 	$(document).on('click','.reply-comment-submit',function(){
 		if($(this).hasClass('btn-secondary'))
 		{
+			toggleBtnClass($(this),true);
+			console.log('truy');
 			var $div_suggest_edit = $(this).parent().parent().parent('div.suggest-edit');
 			var input_files = $div_suggest_edit.find("input[type='file']");
 			var textarea = $div_suggest_edit.find("textarea");
@@ -2027,7 +2030,7 @@ jQuery(function($) {
 			    		data.append(control.name, control.value);
 				}
 			});
-
+			console.log();
 			$.ajax({
 				type:'POST',
 				url: base_url+'approvals/save_edit_request',
@@ -2040,17 +2043,13 @@ jQuery(function($) {
 			    {
 			    	if(response.response  == 'success')
 		        	{
-		        		$div_suggest_edit.next().prepend(response.html);
-		        		var new_height = $div_suggest_edit.next().find('li:first').height();
+		        		$div_suggest_edit.parent().parent().slideUp(function() {
+							$div_suggest_edit.parent().parent().remove();
+						});
+		        		$div_suggest_edit.parent().parent().parent().append(response.html);
+		        		var new_height = $div_suggest_edit.parent().parent().parent().find('li:first').height();
 		        		var col_8_height = $div_suggest_edit.parent('div').height();
 		        		$div_suggest_edit.parent('div').height( parseInt(col_8_height) + parseInt(new_height) );
-		        		textarea.val('');
-						input_files.remove();
-		        		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
-						$div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
-						img.attr('src','');
-						img.addClass('hide');
-						toggleBtnClass($(this).parent().children('.save-edit-req'),true);
 		        	}
 		        	else
 		        	{
@@ -2074,7 +2073,7 @@ jQuery(function($) {
 					$(show).remove();
 				});
 			}else{
-				$comment.append(html_body);
+				$comment.prepend(html_body);
 				$comment.find('.emptyCommentReply').attr('id',replay_id);
 				$comment.find('.reply-comment-submit').attr('data-parent-id',replay_id.split("_")[1]);
 				$(show).removeClass('emptyCommentReply');				

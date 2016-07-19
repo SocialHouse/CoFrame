@@ -89,6 +89,7 @@
 	                    	$len = count($phase);
 	                    	$cls = 'inactive';
 							foreach ($phase as $ph_number => $phs) {
+								//echo '<pre>'; print_r($phs);echo '</pre>';
 								if(count($phase) == 1){
 									$cls = 'active';
 								}else{
@@ -116,7 +117,9 @@
 											}
 										?>
 										</h2>
+
 										<div class="row equal-columns">
+
 										<!-- Comments Start-->
 											<div class="col-md-8 equal-section">
 												<?php
@@ -143,7 +146,14 @@
 														</div>
 														<div class="pull-sm-right">
 															<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-															<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php print_r($phs['phase_users'][0]->id); ?>" disabled="disabled">Submit</button>
+														<?php 
+														if(!empty($phs['phase_users'][0]->id)){
+															$ph_id = $phs['phase_users'][0]->id;
+														}else{
+															$ph_id = 1;
+														}
+														?>
+															<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php echo $ph_id ;?>" disabled="disabled">Submit</button>
 														</div>
 													</div>
 												</div>
@@ -175,12 +185,13 @@
 																</div>
 																<?php
 																$class = "";
-																$replay = get_comment_reply($comment->id);
-																if($replay)
+																$replies = get_comment_reply($comment->id);
+																if($replies)
 																{
 																	$class = " has-reply";
 																}
 																?>
+
 																<div class="comment<?php echo $class; ?>">
 																	<p><?php echo $comment->comment; ?></p>
 																	<?php
@@ -196,56 +207,24 @@
 																		<?php
 																	}
 																	?>
-																	<div class="comment-btns">
-																		<a href="#" class="reply-link show-hide-replay" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
-																	</div>
-																		
-																	<?php
-																	if($replay)
+																	<?php 
+
+																	if($comment->user_id != $this->user_id)
 																	{
 																		?>
-																		<ul class="commentReply timeframe-list replay">
-																			<li>
-																				<div class="author clearfix">
-																					<?php
-																					$path = img_url()."default_profile.jpg";
-																					if (file_exists(upload_path().$brand->created_by.'/users/'.$replay->user_id.'.png'))
-																					{
-																						$path = upload_url().$brand->created_by.'/users/'.$replay->user_id.'.png';
-																					}
-																					?>
-																					<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	" class="circle-img pull-sm-left">
+																		<div class="comment-btns">
+																			<a href="#" class="reply-link show-hide-replay" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
+																		</div>
+																		<?php 
+																	}
+																	?>
 
-																					<div class="author-meta pull-sm-left">
-																						<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	
-																						<span class="dateline">
-																							<?php echo relative_date(strtotime($replay->created_at)); ?>
-																						</span>
-																					</div>
-																				</div>	
-																				<div class="comment">
-																					<p><?php echo $replay->comment; ?></p>
-																					<?php
-																					if(!empty($replay->media))
-																					{
-																						?>
-																						<div class="comment-asset">
-																							<a href="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" title="Download Asset">
-																								<i class="tf-icon-download"></i>
-																								<img src="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" width="60" height="60" alt=""/>
-																							</a>
-																						</div>
-																						<?php
-																					}
-																					?>
-																					<div class="comment-btns">
-																						<a href="#" class="reply-link show-hide-replay" data-show="#commentReply_<?php echo $replay->id; ?>">Reply</a>
-																					</div>
-
-																				</div>
-																			</li>
-																		</ul>
-																		<?php
+																	<?php
+																	//echo '<pre>'; print_r($replays);echo '</pre>'; 
+																	if($replies)
+																	{
+																		$data['replies'] = $replies;
+																		$this->load->view('approvals/comment_view' , $data);
 																	}
 																	?>
 																</div>
@@ -359,6 +338,5 @@
 			</div>
 		</li>
 	</ul>
-
 </div>
 	

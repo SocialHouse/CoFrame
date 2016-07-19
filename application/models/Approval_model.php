@@ -127,14 +127,14 @@ class Approval_model extends CI_Model
 			
 			if($query->num_rows() > 0)
 			{
-				$result['phase_users'] = $query->result();
-				
+				$phase_result =$query->result();
+				$result = array();
+				$result[$phase_result[0]->phase]['phase_users'] = $phase_result;
 				$phase_comments = $this->get_phase_comments($phase_id);
 				if($phase_comments)
 				{
-					$result['phase_comments'] = $phase_comments;
+					$result[$phase_result[0]->phase]['phase_comments'] = $phase_comments;
 				}
-
 				return $result;
 			}
 		}
@@ -190,11 +190,18 @@ class Approval_model extends CI_Model
 		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media');
 		$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
 		$this->db->where('parent_id',$comment_id);
+		$this->db->order_by('created_at','ASC');
 		$query = $this->db->get('post_comments');
-		
 		if($query->num_rows() > 0)
 		{
-			return $query->row();
+			$result = $query->result();
+			foreach ($result as $key => $value) {
+				$comments = $this->get_comment_reply($value->id);
+				if(!empty($comments)){
+					$result[$key]->replies = $comments;
+				}
+			}
+			return $result;
 		}
 		return FALSE;
 	}
