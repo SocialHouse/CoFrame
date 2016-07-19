@@ -18,8 +18,6 @@ if(!empty($comment))
 		</div>		
 		<div class="comment">
 			<p><?php echo $comment->comment; ?></p>
-			<p><?php echo $comment->status ? 'Staus: '.$comment->status : 'Staus: '.'Pending'; ?></p>
-
 			<?php
 			if(!empty($comment->media))
 			{

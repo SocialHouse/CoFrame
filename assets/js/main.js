@@ -1095,10 +1095,12 @@ jQuery(function($) {
 			$(this).closest('.comment').removeClass('will-reply');
 		}
 	});
-	
-	$('.add-attachment').on('click', function() {
-		$(this).closest('.attachment').find('input[type="file"]').click();
+
+	$(document).on('click','.add-attachment',function(event) {
+		event.preventDefault();
+		$(this).closest('.attachment').find('input[type="file"]').click();		
 	});
+	
 // console.log($('input[name="attachment"]'));
 	$(document).on('change','.reply-attach',function()
 	{
@@ -1917,10 +1919,27 @@ jQuery(function($) {
     $(document).on('click','.reset-request',function(){
     	$('#comment_copy').val('');
     	$('#attachment').remove();
-    	var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+    	var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
 		$('.attachment').prepend(attachment_html);
 		$('#attached_img').attr('src','');
 		$('#attached_img').addClass('hide');
+		toggleBtnClass($(this).parent().children('.save-edit-req'),true);
+    });
+
+
+    $(document).on('click','.reset-edit-request',function(){
+    	var $div_suggest_edit = $(this).parent().parent().parent('div.suggest-edit');
+    	var textarea = $div_suggest_edit.find("textarea");
+    	var img = $div_suggest_edit.find("img");
+    	var input_file = $div_suggest_edit.find("input[type='file']");
+    	textarea.val('');
+    	input_file.remove();
+    	img.attr('src','');
+		img.addClass('hide');
+
+    	var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
+		$div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
+
 		toggleBtnClass($(this).parent().children('.save-edit-req'),true);
     });
     
@@ -1928,17 +1947,18 @@ jQuery(function($) {
     $(document).on('click','.save-edit-req',function(){
     	if($(this).hasClass('btn-secondary'))
     	{
-    		var attachment = $('#attachment')[0].files[0];
+    		var $div_suggest_edit = $(this).parent().parent().parent('div.suggest-edit');
+    		var input_files = $div_suggest_edit.find("input[type='file']");
+    		var textarea = $div_suggest_edit.find("textarea");
+    		var attachment = input_files[0].files[0];
+	    	var img = $div_suggest_edit.find("img");
+
 	    	var data = new FormData();
 			
-			jQuery.each($('#attachment')[0].files, function(i, file) {
+			jQuery.each(input_files[0].files, function(i, file) {
 				data.append( 'attachment', file,file.name);
-
 			});
-
-			jQuery.each($('textarea'), function(i, control) {
-			    data.append(control.name, control.value);
-			});
+			data.append('comment', textarea.val());
 			data.append('phase_id', $(this).data('phase-id'));
 			
 			jQuery.each($('input'), function(i, control) {
@@ -1961,11 +1981,17 @@ jQuery(function($) {
 			    {
 			    	if(response.response  == 'success')
 	            	{
-	            		$('#comment_copy').val('');
-	            		$('.comment-list').prepend(response.html);
-	            		$('#attachment').remove();
+	            		$div_suggest_edit.next().prepend(response.html);
+	            		var new_height = $div_suggest_edit.next().find('li:first').height();
+	            		var col_8_height = $div_suggest_edit.parent('div').height();
+	            		$div_suggest_edit.parent('div').height( parseInt(col_8_height) + parseInt(new_height) );
+	            		textarea.val('');
+    					input_files.remove();
 	            		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
-	            		$('.attachment').prepend(attachment_html);	            		
+						$div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
+						img.attr('src','');
+						img.addClass('hide');
+						toggleBtnClass($(this).parent().children('.save-edit-req'),true);
 	            	}
 	            	else
 	            	{
@@ -1973,17 +1999,127 @@ jQuery(function($) {
 	            	}
 			    }
 	    	});
-    	}    	
+    	}
     });
 
+	$(document).on('click','.reply-comment-submit',function(){
+		if($(this).hasClass('btn-secondary'))
+		{
+			var $div_suggest_edit = $(this).parent().parent().parent('div.suggest-edit');
+			var input_files = $div_suggest_edit.find("input[type='file']");
+			var textarea = $div_suggest_edit.find("textarea");
+			var attachment = input_files[0].files[0];
+			var img = $div_suggest_edit.find("img");
+
+			var data = new FormData();
+			
+			jQuery.each(input_files[0].files, function(i, file) {
+				data.append( 'attachment', file,file.name);
+			});
+			data.append('comment', textarea.val());
+			data.append('phase_id', $(this).data('phase-id'));
+			data.append('parent_id', $(this).data('parent-id'));
+			
+			jQuery.each($('input'), function(i, control) {
+				if(control.name == 'brand_owner' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id')
+				{
+					if(control.value)
+			    		data.append(control.name, control.value);
+				}
+			});
+
+			$.ajax({
+				type:'POST',
+				url: base_url+'approvals/save_edit_request',
+				cache: false,
+			    contentType: false,
+				processData: false,
+			    data:data,
+			    dataType: 'json',
+			    success:function(response)
+			    {
+			    	if(response.response  == 'success')
+		        	{
+		        		$div_suggest_edit.next().prepend(response.html);
+		        		var new_height = $div_suggest_edit.next().find('li:first').height();
+		        		var col_8_height = $div_suggest_edit.parent('div').height();
+		        		$div_suggest_edit.parent('div').height( parseInt(col_8_height) + parseInt(new_height) );
+		        		textarea.val('');
+						input_files.remove();
+		        		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+						$div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
+						img.attr('src','');
+						img.addClass('hide');
+						toggleBtnClass($(this).parent().children('.save-edit-req'),true);
+		        	}
+		        	else
+		        	{
+		        		alert(language_message.edit_req_not_save);
+		        	}
+			    }
+			});
+		}
+	});
+
+    $('body').on('click', '.show-hide-replay', function(e) {
+			e.preventDefault();
+			var $trigger = $(this);
+			var show =  $(this).data('show');
+			var replay_id =  show.substring(1);
+			var html_body = $('#commentReplyStatic').html();
+			$comment = $trigger.parent().parent();
+			
+			if($trigger.hasClass('active')){
+				$(show).slideUp(function() {
+					$(show).remove();
+				});
+			}else{
+				$comment.append(html_body);
+				$comment.find('.emptyCommentReply').attr('id',replay_id);
+				$comment.find('.reply-comment-submit').attr('data-parent-id',replay_id.split("_")[1]);
+				$(show).removeClass('emptyCommentReply');				
+			}
+
+			$.each($trigger.parentsUntil('.approval-phase'), function(i, cntrl){
+				if($(cntrl).hasClass('equal-section') && $(cntrl).hasClass('col-md-8') ){
+					if($trigger.hasClass('active')){
+						$trigger.removeClass('active');
+						setTimeout(function() {
+							$(cntrl).height("-=240");
+						},300);
+					}else{
+						$trigger.addClass('active');
+						$(cntrl).height("+=240").slideDown();
+					}
+				}
+			});
+
+			$(show).slideToggle(function(){
+				$(show).trigger('contentSlidDown', [$trigger]);
+			});			
+		});
+
     $(document).on('keyup blur','#comment_copy',function(){
-    	if($(this).val())
+    	$suggest_edit =  $(this).parent().parent();
+    	if($.trim($(this).val()))
     	{
-    		toggleBtnClass('.save-edit-req',false);
+    		toggleBtnClass($suggest_edit.find('button.save-edit-req'),false);
     	}
     	else
     	{
-    		toggleBtnClass('.save-edit-req',true);
+    		toggleBtnClass($suggest_edit.find('button.save-edit-req'),true);
+    	}
+    });
+
+     $(document).on('keyup blur','#replay_comment_copy',function(){
+    	$suggest_edit =  $(this).parent().parent();
+    	if($.trim($(this).val()))
+    	{
+    		toggleBtnClass($suggest_edit.find('button.reply-comment-submit'),false);
+    	}
+    	else
+    	{
+    		toggleBtnClass($suggest_edit.find('button.reply-comment-submit'),true);
     	}
     })
 
@@ -2016,7 +2152,7 @@ jQuery(function($) {
     $(document).on('keyup blur','.reply-comment',function(){
     	var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
     	if($(this).val())
-    	{	    	
+    	{
 	    	toggleBtnClass(btn,false);
 	    }
 	    else
@@ -2043,7 +2179,6 @@ jQuery(function($) {
     	var status = $(this).data('status');
     	
     	var reply_div = $(this).parent().parent().parent().parent();
-
     	var data = new FormData();
     	jQuery.each($("input[name='attachment"+parent_id+"']" )[0].files, function(i, file) {
     		data.append( 'attachment', file,file.name);
@@ -2275,8 +2410,9 @@ jQuery(function($) {
 		$('#summary-form').submit();
 	});
 	
-	$(document).on('change','#attachment',function()
+	$(document).on('change','.attachment_image',function()
 	{
+		console.log($(this));
 		var control = this;
 		var supported_files = ['gif','png','jpg','jpeg'];
 		var reader = new FileReader();
