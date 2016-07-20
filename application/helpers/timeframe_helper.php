@@ -459,8 +459,8 @@ if(!function_exists('get_approval_list_buttons'))
     function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id)
     {
         $CI = & get_instance(); 
-        $html_to_return = '<td class="text-xs-center">';      
-        if(check_user_perm($CI->user_id,'approve',$brand_id) AND !empty($phase_status))
+        $html_to_return = '<td class="text-xs-center">';
+        if(check_user_perm($CI->user_id,'approve',$brand_id) OR !empty($phase_status))
         {
             if($phase_status == 'pending' AND $post->status == 'pending')
             {               
