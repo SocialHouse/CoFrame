@@ -65,6 +65,18 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_brand_by_id($brand_id)
+	{
+		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');
+		$this->db->group_by('brands.id');
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+		return FALSE;
+	}
+
 	//get user assosiate with brands
 	public function get_brand_users($brand_id)
 	{

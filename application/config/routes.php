@@ -61,6 +61,12 @@ $route['approvals/save_reply'] = "approvals/save_reply";
 
 $route['approvals/change_comment_status'] = "approvals/change_comment_status";
 $route['approvals/get_approvals_by_date'] = "approvals/get_approvals_by_date";
+$route['approvals/edit-approval-phase'] = "approvals/edit_approval_phase";
+$route['approvals/phase-user-list/(:any)'] = "approvals/phase_user_list/$1";
+$route['approvals/edit-approval-phase/(:any)/(:any)'] = "approvals/edit_approval_phase/$1/$2";
+$route['approvals/edit-approval-phase/(:any)/(:any)/(:any)'] = "approvals/edit_approval_phase/$1/$2/$3";
+
+
 
 $route['approvals/(:any)'] = "approvals/index/$1";
 $route['reminders/(:any)'] = "reminders/index/$1";

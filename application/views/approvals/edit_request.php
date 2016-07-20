@@ -260,14 +260,14 @@
 												</ul>
 												<div class="approval-date">
 													<h5>Must approve by:</h5>
-													<?php echo date('m/d/Y \a\t H:m A' , strtotime($phs['phase_users'][0]->approve_by)); ?>
+													<?php echo date('m/d/Y \a\t h:i A' , strtotime($phs['phase_users'][0]->approve_by)); ?>
 												</div>
 												<div class="approval-note">
 													<h5>Notes:</h5>
 													<?php echo $phs['phase_users'][0]->note; ?>
 												</div>
 												<footer class="post-content-footer text-xs-center">
-													<a href="#" class="btn btn-default btn-sm" data-toggle="modal-ajax" data-modal-src="lib/edit-approval-phase.php" data-class="alert-modal edit-approvals-modal" data-title="Edit Approvals - Phase 2" data-modal-id="phase2-postid-1223">Edit Approvers</a>
+													<a href="#" class="btn btn-default btn-sm" data-modal-id="phase2-postid-1223" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
 												</footer>
 											</div>
 											<!-- Pending Approvals End -->

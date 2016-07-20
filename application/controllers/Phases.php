@@ -249,4 +249,14 @@ class Phases extends CI_Controller {
 		$this->load->view('phases/add_phases_number');
 	}
 
+	public function delete_phase()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data['post_id']) && !empty($post_data['phase_id'])){
+			$this->load->model('post_model');
+			$this->load->model('timeframe_model');
+			//$this->timeframe_model->delete_data($table,$condition)
+		}
+	}
+
 }

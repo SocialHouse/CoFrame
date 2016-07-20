@@ -26,6 +26,8 @@ class Approvals extends CI_Controller {
 		$this->load->model('timeframe_model');
 		$this->load->model('approval_model');
 		$this->load->model('brand_model');
+		$this->load->model('phase_model');
+		$this->load->model('post_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');		
 	}
@@ -90,7 +92,6 @@ class Approvals extends CI_Controller {
 	{
 		$this->data = array();
 		$post_id = $this->uri->segment(2);
-		$this->load->model('post_model');
 		$this->data['post_id'] = $post_id;
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		$this->data['post_images'] = $this->post_model->get_images($post_id);
@@ -107,8 +108,8 @@ class Approvals extends CI_Controller {
 				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 				$this->data['view'] = 'approvals/edit_request';
 				$this->data['layout'] = 'layouts/new_user_layout';
-				$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
-
+				$this->data['css_files'] = array(css_url().'fullcalendar.css');
+				$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 		        _render_view($this->data);
 		    }
 	    }
@@ -188,7 +189,6 @@ class Approvals extends CI_Controller {
 	{
 		$this->data = array();		
 		$post_id = $this->uri->segment(2);
-		$this->load->model('post_model');
 		$this->data['post_id'] = $post_id;
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		$this->data['post_images'] = $this->post_model->get_images($post_id);
@@ -250,5 +250,104 @@ class Approvals extends CI_Controller {
 			}
 			echo $this->load->view('approvals/approval_table_html',$this->data,true);
 		}		
+	}
+
+	public function edit_approval_phase()
+	{
+		$this->data = '';
+		$phase_id = $this->uri->segment(3);
+		$post_id = $this->uri->segment(4);
+		$this->data['phase_id'] = $phase_id;
+		$this->data['post_id'] = $post_id;
+		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
+		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
+		if( $this->uri->segment(5) == 'edit')
+		{
+			$post_data = $this->input->post();
+			$phase_users = object_to_array($this->data['phase_users']);
+			$selected_users  = array_column($phase_users, 'aauth_user_id');
+			
+			$post_data['phase_approver'] = $post_data['phase'][$this->data['phase_details']->phase]['approver'];
+			$post_data['phase_id'] = $post_data['phase'][$this->data['phase_details']->phase]['phase_id'];
+			
+			$user_to_add = array_diff($post_data['phase_approver'],$selected_users);
+		    $user_to_delete = array_diff($selected_users,$post_data['phase_approver']);
+			// echo '<pre>'; print_r($post_data);echo '</pre>';
+			// echo '<pre>'; print_r([$user_to_add,$user_to_delete]);echo '</pre>'; die;
+
+			// Add new users
+			if(!empty($user_to_add)){
+				foreach ($user_to_add as $newuser) {
+					$phasesdata = '';
+					$phasesdata = array(
+								'phase_id' => $phase_id,
+								'user_id' => $newuser
+							);
+					$this->timeframe_model->insert_data('phases_approver',$phasesdata);
+				}
+			}
+			// delete old users  
+			if(!empty($user_to_delete)){
+				foreach ($user_to_delete as $olduser) {
+					$phasesdata = '';
+					$phasescondition= array(
+								'phase_id' => $phase_id,
+								'user_id' => $olduser
+							);
+					$this->timeframe_model->delete_data('phases_approver',$phasescondition);
+				}
+			}
+
+			$hour = !empty($post_data['post-hour'])? $post_data['post-hour'] :'';
+			$minute = !empty($post_data['post-minute'])? $post_data['post-minute'] :'';
+			$ampm = !empty($post_data['post-ampm'])? $post_data['post-ampm'] :'am';
+			$date_time = !empty($post_data['post-date'])? $post_data['post-date'] :'';
+			$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+
+			$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+			
+
+			if(!empty($post_data['phase_id'])){
+				$ph_condition ='';
+				$ph_condition = array('id' =>$post_data['phase_id'] );
+				$phase_data['approve_by'] = $approve_date_time;
+				$phase_data['note'] = $post_data['note'];
+				
+				$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);
+			}
+			redirect(base_url().'edit-request/'.$post_id);
+		}
+		else
+		{
+			
+			$brand_id = $this->data['phase_details']->brand_id;
+			$this->data['brand_id'] = $brand_id;
+			$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
+			echo $this->load->view('approvals/edit_approval_phase' ,$this->data ,true);
+		}
+	}
+
+
+	public function phase_user_list($phase_id)
+	{
+		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
+		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
+		$brand_id = $this->data['phase_details']->brand_id;
+		$this->data['brand_id'] = $brand_id;
+		$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+		$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
+		$post_phases= $this->post_model->get_post_phases($this->data['phase_details']->post_id);
+		if(!empty($post_phases))
+		{
+			foreach($post_phases as $phase)
+			{
+				if($this->data['phase_details']->phase == $phase->phase){
+					$this->data['phases']['selceted'][] = $phase->user_id;
+				}else{
+					$this->data['phases']['hidden'][] = $phase->user_id;
+				}
+			}
+		}
+		echo $this->load->view('approvals/phase_user_list', $this->data, TRUE);
 	}
 }

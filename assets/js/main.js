@@ -32,7 +32,7 @@ jQuery(function($) {
 	 	$(".hour-select").mask('Hh', {
 	 							translation: {
 									   'H': { pattern: /[0-1]/},
-									   'h': { pattern: /[0-2]/},
+									   'h': { pattern: /[0-9]/},
 								    }
 								});
 	 	$(".minute-select").mask('Mm', {
@@ -200,16 +200,16 @@ jQuery(function($) {
 	    });
 
 		//nav activation
-		var pathname = location.pathname;		
+		var pathname = location.pathname;
 		$('.navbar-brand-manage .nav-link').each(function() {
-			var href = $(this).attr('href');			
+			var href = $(this).attr('href');
 			if(href.indexOf(pathname) > -1) {
 				$(this).addClass('active');
 			}
 			var sub_pages = $(this).data('sub_pages');
 			if(sub_pages != undefined)
 			{
-				if(pathname.indexOf(sub_pages) > -1) {					
+				if(pathname.indexOf(sub_pages) > -1) {
 					$(this).addClass('active');
 				}
 			}
@@ -229,10 +229,10 @@ jQuery(function($) {
 						}else{
 							$(input_btn).attr('checked','checked');
 						}
-			    	});					
+			    	});
 				}else{
 					$chk_box = $btn.parent().children('input');
-					if($btn.hasClass('selected')){						
+					if($btn.hasClass('selected')){
 						$chk_box.removeAttr('checked');
 					}else{
 						$chk_box.attr('checked','checked');
@@ -267,7 +267,7 @@ jQuery(function($) {
 			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
 			//add selected users to list from popover
 		
-			if($btn.hasClass('check-box')) {				
+			if($btn.hasClass('check-box')) {
 				if($btn.parent().parent().parent().parent().parent().attr('id') != 'qtip-popover-user-list')
 				{
 					$btn.parent().parent().parent().parent().parent().attr('id','qtip-popover-user-list');
@@ -282,11 +282,9 @@ jQuery(function($) {
 				// var img = imgDiv;
 				var $activePhase = $('#phaseDetails').find('.active');
 				var activePhaseId = $activePhase.attr('id');
-				
 				if($btn.hasClass('selected')) {
 					$activePhase.parent().children('div:eq(1)').find('.user-list li').append(imgDiv);
-				
-				
+
 					var phase_number = $activePhase.data('id');
 					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase['+phase_number+'][approver][]">';
 					$activePhase.find('.user-list li').prepend(imgDiv);
@@ -297,7 +295,7 @@ jQuery(function($) {
 					
 					setTimeout(function() {
 						if($activePhase.find('.approver-selected').children('li').children('div').length > 2)
-						{							
+						{
 							if($activePhase.find('.phase-date-time-input').val() && $activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
 							{
 								var btn_num = 0;
@@ -309,7 +307,7 @@ jQuery(function($) {
 								{
 									toggleBtnClass($('.save-phases'),false);
 								}
-							}							
+							}
 						}
 						else
 						{
@@ -322,7 +320,7 @@ jQuery(function($) {
 							{
 								toggleBtnClass($('.save-phases'),true);
 							}
-						}						
+						}
 					},100);
 
 					btnClicks++;
@@ -409,16 +407,16 @@ jQuery(function($) {
 			//add selected users to list from popover
 			if($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
-				var checkbox = $btn.parent().children('.approvers');			
+				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
 				var $activePhase = $('#phaseDetails .approval-phase.active');
-				var activePhaseId = $activePhase.attr('id');				
+				var activePhaseId = $activePhase.attr('id');
 				if($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
 					$(checkbox).attr('name','phase['+phase_number+'][approver][]');
 					$activePhase.find('.user-list li').prepend(imgDiv);
-					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);					
+					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);
 					$btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
 				}
@@ -449,10 +447,10 @@ jQuery(function($) {
 			}
 			else if(boxVal === "check-all" && !$box.hasClass('checked')) {
 				$('.select-box[data-group="' + inputGroup + '"]').addClass('checked');
-				$('.delete-draft').attr('data-toggle','modal');						
+				$('.delete-draft').attr('data-toggle','modal');
 			}
 			else if(boxVal === "check-all" && $box.hasClass('checked')) {
-				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');				
+				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
 				$('.delete-draft').attr('data-toggle','');
 			}
 
@@ -467,12 +465,12 @@ jQuery(function($) {
 	    	if(postsTotDelete.length)
 	    	{
 	    		$('.delete-draft').attr('data-toggle','modal');
-	    		toggleBtnClass($('.delete-draft'),false);		    	
+	    		toggleBtnClass($('.delete-draft'),false);
 	    	}
 	    	else
 	    	{
 	    		$('.delete-draft').attr('data-toggle','');
-	    		toggleBtnClass($('.delete-draft'),true);	
+	    		toggleBtnClass($('.delete-draft'),true);
 	    	}
 		});
 		
@@ -587,7 +585,7 @@ jQuery(function($) {
 			}
 		});
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {		
+		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {
 			var $target=$(this);
 			var pcontent = $target.data('contentSrc');
 			var pclass = $target.data('popoverClass');
@@ -633,7 +631,7 @@ jQuery(function($) {
 				},
 				events: {
 					show: function() {
-						$target.attr('data-toggle', 'popover-ajax-inline');						
+						$target.attr('data-toggle', 'popover-ajax-inline');
 					},
 					visible: function() {
 						var modal = this;
@@ -645,7 +643,7 @@ jQuery(function($) {
 							{
 								var phase_div = $target.parent().parent().parent().children('div');
 								var count = 0;
-								$.each(phase_div,function(i,j){									
+								$.each(phase_div,function(i,j){
 								
 									$.each($(j).children('div').find('input[type="checkbox"]'),function(a,b){
 										$.each($(modal).children('div:eq(2)').children('ul').children('li'),function(c,d){
@@ -710,7 +708,7 @@ jQuery(function($) {
 		});
 
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {		
+		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {
 			var $target = $(this);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
@@ -784,7 +782,7 @@ jQuery(function($) {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
-						var modal = this;						
+						var modal = this;
 						var phase_div = $target.parent().parent().parent().children('div');
 						var count = 0;
 						$.each(phase_div,function(i,j){
@@ -1012,7 +1010,7 @@ jQuery(function($) {
 				$('.tag-select .fa.color-gray-lighter').show();
 			}
 			//set the input value
-			var $input = $(this).find('input');			
+			var $input = $(this).find('input');
 			// $input.attr("checked", checked);			
 		});
 
@@ -1098,7 +1096,7 @@ jQuery(function($) {
 
 	$(document).on('click','.add-attachment',function(event) {
 		event.preventDefault();
-		$(this).closest('.attachment').find('input[type="file"]').click();		
+		$(this).closest('.attachment').find('input[type="file"]').click();
 	});
 	
 // console.log($('input[name="attachment"]'));
@@ -1211,7 +1209,7 @@ jQuery(function($) {
 		
 		if($('.container-approvals').children('.add_phases_num'))
 		{			
-			$('.container-approvals').children('.add_phases_num').remove();			
+			$('.container-approvals').children('.add_phases_num').remove();
 		}
 
 		if($('#qtip-popover-user-list'))
@@ -1221,8 +1219,7 @@ jQuery(function($) {
 
 		if($('.add-phases'))
 		{
-			$('.add-phases').remove();	
-		}
+			$('.add-phases').remove();		}
 		var columnParent = $(this).closest('.col-md-4');
 		var div_src = $(this).data('div-src');
 
@@ -1236,8 +1233,8 @@ jQuery(function($) {
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
-	$(document).on('click','.cancel-phase',function(){		
-		$('.container-approvals').children('div:first').removeClass('hide');		
+	$(document).on('click','.cancel-phase',function(){
+		$('.container-approvals').children('div:first').removeClass('hide');
 		$('.container-approvals').children('div:eq(1)').remove();
 		$('.container-approvals').children('div:eq(2)').remove();
 		$('.modal-backdrop').remove();
@@ -1247,9 +1244,9 @@ jQuery(function($) {
 		}
 	});
 
-	$(document).on('click','.cancel-edit-phase',function(){	
+	$(document).on('click','.cancel-edit-phase',function(){
 		$('#is-new-approver').val('no');
-		$.each($('#phaseDetails').children('div'),function(a,b){			
+		$.each($('#phaseDetails').children('div'),function(a,b){
 			if($(b).children('div:eq(1)').find('.approval-list').children('li').length)
 			{
 				$(b).children('div:eq(1)').removeClass('hide');
@@ -1297,7 +1294,7 @@ jQuery(function($) {
 
 		if(relatedInput.length > 1)
 		{
-			var relatedInput = $('input[name="' + inputName + '"]:last');		
+			var relatedInput = $('input[name="' + inputName + '"]:last');
 		}
 		
 		if(relatedInput.hasClass('hour-select')) {
@@ -1339,7 +1336,7 @@ jQuery(function($) {
 		}
 	});
 
-	$(document).on('keyup blur','.approvalNotes',function(){		
+	$(document).on('keyup blur','.approvalNotes',function(){
 		$(this).parent().parent().parent().children('div:last').find('.approval-note').html('NOTE: '+$(this).val().replace(/\r?\n/g,'<br/>'));
 	});
 
@@ -1369,12 +1366,12 @@ jQuery(function($) {
 		}
 		$(input).val(newVal);
 	
-		$activePhase = $(input).parent().parent().parent().parent().parent();		
+		$activePhase = $(input).parent().parent().parent().parent().parent();
 
 		var preview_phase = $activePhase.parent().children('div:last');
 
 		var minute = $(input).parent().children('input:eq(1)');
-		var ampm = $(input).parent().children('input:eq(2)');		
+		var ampm = $(input).parent().children('input:eq(2)');
 		var phase_num = $activePhase.data('id') + 1;
 		$(preview_phase).find('.time-preview'+phase_num).html('');
 		$(preview_phase).find('.time-preview'+phase_num).html(' at '+newVal+':'+$(minute).val()+' '+$(ampm).val());
@@ -1454,7 +1451,7 @@ jQuery(function($) {
 		var preview_phase = $activePhase.parent().children('div:last');
 
 		var minute = $(input).parent().children('input:eq(1)');
-		var ampm = $(input).parent().children('input:eq(2)');		
+		var ampm = $(input).parent().children('input:eq(2)');
 		var phase_num = $activePhase.data('id') + 1;
 		$(preview_phase).find('.time-preview'+phase_num).html(' ');
 		$(preview_phase).find('.time-preview'+phase_num).html(' at '+newVal+':'+$(minute).val()+' '+$(ampm).val().toUpperCase());		
@@ -1483,7 +1480,7 @@ jQuery(function($) {
 				{
 					toggleBtnClass($('.save-phases'),true);
 				}
-			}			
+			}
 		}
 		else
 		{
@@ -1499,12 +1496,12 @@ jQuery(function($) {
 		}
 	}
 	function setAmPm(input) {
-		$activePhase = $(input).parent().parent().parent().parent().parent();		
+		$activePhase = $(input).parent().parent().parent().parent().parent();
 		var preview_phase = $activePhase.parent().children('div:last');
 		
 		var hour = $(input).parent().children('input:eq(0)');
 		var minute = $(input).parent().children('input:eq(1)');
-		var ampm = $(input).parent().children('input:eq(2)');	
+		var ampm = $(input).parent().children('input:eq(2)');
 		var phase_num = $activePhase.data('id') + 1;
 		$(preview_phase).find('.time-preview'+phase_num).html(' at '+$(hour).val()+':'+$(minute).val()+' '+$(input).val().toUpperCase());
 		($(input).val() === 'am') ? $(input).val('pm') : $(input).val('am');
@@ -1549,13 +1546,13 @@ jQuery(function($) {
 		});
 	}
 
-	$(document).on('click','.save-phases',function(){		
+	$(document).on('click','.save-phases',function(){
 		var child_divs = $('#phaseDetails').children('div');
 
 		$.each(child_divs,function(a,b){
 			$(b).children('div:first').addClass('hide');
 			if($(b).find('.user-list li').children('div').length > 2 && $(b).find('.phase-date-time-input').val() && $(b).find('.hour-select').val() && $(b).find('.minute-select').val())
-			{				
+			{
 				$(b).children('div:eq(1)').removeClass('hide');
 				$(b).children('div:eq(1)').addClass('active');
 			}
@@ -1573,11 +1570,11 @@ jQuery(function($) {
 	$(document).on('click','.edit-phase',function(){
 		$('#is-new-approver').val('yes');
 		var child_divs = $('#phaseDetails').children('div');
-		$.each(child_divs,function(a,b){			
+		$.each(child_divs,function(a,b){
 			$(b).children('div:first').removeClass('hide');
 			$(b).children('div:first').addClass('inactive');
 			$(b).children('div:eq(1)').addClass('hide');
-			$(b).children('div:eq(1)').removeClass('active');			
+			$(b).children('div:eq(1)').removeClass('active');
 		});
 		
 		$(this).parent().parent().parent().children('div:first').removeClass('inactive');	
@@ -1598,14 +1595,14 @@ jQuery(function($) {
 				}
 			}
 		}
-		$activePhase.addClass('active');		
+		$activePhase.addClass('active');
 	});
 
 	//resubmit approval single phsae
 	$(document).on('click','.resubmit-approval',function(){
 		var btn = this;
 		var phase_id = $(this).attr('id');
-		var outlet = $('#postOutlet').val();		
+		var outlet = $('#postOutlet').val();
 		var phase_ids = [];
 		if(phase_id)
 		{
@@ -1775,7 +1772,7 @@ jQuery(function($) {
     	if($('#postCopy').val())
     		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
     	$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
-    	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());    	
+    	$('#live-post-preview').append($('#outlet_'+selected_outlet).html());
     }
 
 	function setOutletPreview(outlet) {
@@ -1810,7 +1807,7 @@ jQuery(function($) {
     	var post_copy = $(this).val();
     	post_copy = convertToLink(post_copy);
     	post_copy = hashtagToLink(post_copy);
-    	post_copy = atToLink(post_copy);    	
+    	post_copy = atToLink(post_copy);
     	$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
     });
 
@@ -1909,7 +1906,7 @@ jQuery(function($) {
 		            	{
 		            		$(btn).parent().parent().children('div:first').removeClass('hide')
 		            	}
-	            	}            		
+	            	}
 	            }
 	    	});
     	}   	
@@ -2076,7 +2073,7 @@ jQuery(function($) {
 				$comment.prepend(html_body);
 				$comment.find('.emptyCommentReply').attr('id',replay_id);
 				$comment.find('.reply-comment-submit').attr('data-parent-id',replay_id.split("_")[1]);
-				$(show).removeClass('emptyCommentReply');				
+				$(show).removeClass('emptyCommentReply');
 			}
 
 			$.each($trigger.parentsUntil('.approval-phase'), function(i, cntrl){
@@ -2131,7 +2128,7 @@ jQuery(function($) {
     	var control = this;
     	$.ajax({
     		type:'POST',
-    		url: base_url+'approvals/change_comment_status',    		
+    		url: base_url+'approvals/change_comment_status',
 		    data:data,
 		    success:function(response)
 		    {
@@ -2212,10 +2209,10 @@ jQuery(function($) {
             	{
 		    		$(reply_div).empty();
 		    		$(reply_div).prepend(response.html);
-		    		$("input[name='comment"+parent_id+"']" ).val('');            		
+		    		$("input[name='comment"+parent_id+"']" ).val('');
             		$("input[name='attachment"+parent_id+"']" ).remove();
             		var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
-            		$("input[name='attachment"+parent_id+"']" ).prepend(attachment_html);            	
+            		$("input[name='attachment"+parent_id+"']" ).prepend(attachment_html);
 		    	}
 		    	else
 		    	{
@@ -2230,7 +2227,7 @@ jQuery(function($) {
     	if(id)
     	{
     		for(var i =1; i<=3;i++)
-    		{    			
+    		{
     			if(id != 'approvalPhase'+i)
     			{
     				$('.approvalPhase'+i).addClass('hide');
@@ -2239,7 +2236,7 @@ jQuery(function($) {
     			else
     			{
     				$('.approvalPhase'+i).removeClass('hide');
-    			}    			
+    			}
     		}
     		
     		$(this).addClass('active');
@@ -2252,7 +2249,7 @@ jQuery(function($) {
     	if(id)
     	{
     		$.ajax({
-	    		'type':'POST',	    		
+	    		'type':'POST',
 	    		url: base_url+'posts/schedule_post',
 	    		data:{'post_id':id},
 	            success: function(response){
@@ -2357,7 +2354,7 @@ jQuery(function($) {
 
 		var labels = []
 
-		$.each(selected_labels,function(i,value){            
+		$.each(selected_labels,function(i,value){
 			labels[i] = $(value).val();
 		});
 
@@ -2462,6 +2459,28 @@ jQuery(function($) {
 				}
 			});
 		}
+	});
+
+	$(document).on('click','.delete-phase',function(event){
+		event.preventDefault();
+		$btn = $(this);
+		var post_id, phase_id;
+		post_id = $btn.data('post-id');
+		phase_id = $btn.data('phase-id');
+
+    	if(confirm(language_message.confirm_delete_phase))
+        {
+        	$.ajax({
+	    		'type':'POST',
+	    		dataType: 'json',
+	    		url: base_url+'phases/delete_phase',
+	    		data:{'post_id':post_id,'phase_id':phase_id},
+	            success: function(response)
+	            {
+	            	location.reload();
+	            }
+	    	});
+	    }
 	});
 
 

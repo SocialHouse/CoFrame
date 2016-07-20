@@ -255,15 +255,23 @@ class Calendar extends CI_Controller {
 	public function edit_post_calendar()
 	{	
 		$redirect_url = $this->uri->segment(3);
-		if($redirect_url == 'drafts'){
+		if($redirect_url == 'drafts')
+		{
 			$this->data['redirect_url'] = 'drafts';
 		}
-		else if($redirect_url == 'day'){
+		else if($redirect_url == 'day')
+		{
 			$this->data['redirect_url'] = 'calendar/day';
 		}
-		else if($redirect_url == 'view_request'){
+		else if($redirect_url == 'view_request')
+		{
 			$this->data['redirect_url'] = 'view-request';
-		}else{
+		}
+		else if($redirect_url == 'edit-request')
+		{
+			$this->data['redirect_url'] = 'edit-request';
+		}
+		else{
 			$this->data['redirect_url'] = 'calendar/'.$redirect_url;
 		}
 		$this->data['slug'] = $this->uri->segment(4);
@@ -494,7 +502,7 @@ class Calendar extends CI_Controller {
 									}
 								}
 
-								// delete old pahse  
+								// delete old phase  
 								if(!empty($user_to_delete)){
 									foreach ($user_to_delete as $olduser) {
 										$phasesdata = '';
@@ -538,7 +546,7 @@ class Calendar extends CI_Controller {
 								}
 							}
 
-							// update the pahse information 
+							// update the phase information 
 
 							$phase_data = '';
 							$hour = !empty($new_phase['approve_hour'])? $new_phase['approve_hour'] :'';
@@ -563,7 +571,7 @@ class Calendar extends CI_Controller {
 								$phase_data['approve_by'] = $approve_date_time;
 			    				$phase_data['note'] = $new_phase['note'];
 								
-		    					$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);								
+		    					$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);
 							}
 							
 
@@ -589,7 +597,7 @@ class Calendar extends CI_Controller {
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');
 
-				if($post_data['redirect_url']== 'view-request' ){
+				if($post_data['redirect_url']== 'view-request' || $post_data['redirect_url']== 'edit-request' ){
 					redirect(base_url().$post_data['redirect_url'].'/'.$post_data['post_id']);
 				}else{
 					redirect(base_url().$post_data['redirect_url'].'/'.$post_data['brand_slug']);
