@@ -8686,6 +8686,8 @@ x:-o-prefocus, .qtip .qtip-tip {
       display: block; }
       .pn_post .post-credits a:hover {
         text-decoration: none; }
+      .modal .pn_post .post-credits a {
+        text-decoration: none !important; }
 
 /*Tumblr Post Styles*/
 .tb_post {

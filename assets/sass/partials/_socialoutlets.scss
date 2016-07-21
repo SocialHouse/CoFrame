@@ -227,6 +227,9 @@
 			&:hover {
 				text-decoration: none;
 			}
+			.modal & {
+				text-decoration: none !important;
+			}
 		}
 	}
 }
