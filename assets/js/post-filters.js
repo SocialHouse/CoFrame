@@ -1,4 +1,4 @@
-jQuery(function($) {	
+jQuery(function($) {
 	// init Isotope
 	var $container = $('.calendar-day').isotope({
 		itemSelector: '.post-day'
@@ -9,7 +9,9 @@ jQuery(function($) {
 	});
 
 	setTimeout(function() {		
-		 $containerApp.find('tr').attr('style','');
+		$containerApp.find('tr').attr('style','');
+		$filter_btn = $(document).find('[data-toggle="popover-ajax"]')[1];
+		$filter_btn.click();
 	},200);
 
 	$('body').on('click', '.filter', function() {
@@ -41,7 +43,8 @@ jQuery(function($) {
 				$selectedFilters.find('.filter-list').append($filterItem);
 			}
 			else {
-				$selectedFilters.find('.filter-remove[data-value="' + filterVal + '"]').remove();
+				$('.filter-list').children('li[data-value="' + filterVal + '"]').remove();
+				// $selectedFilters.find('.filter-remove[data-value="' + filterVal + '"]').remove();
 			}
 		}
 		else if(filterVal === "check-all" && !$filter.hasClass('checked')) {
@@ -111,7 +114,7 @@ jQuery(function($) {
 
 				if($(this).data('tag-id'))
 				{
-					tags.push($(this).data('color')+'__'+$(this).data('value'));
+					tags.push($(this).data('tag-id'));
 				}
 
 			}
@@ -249,9 +252,8 @@ jQuery(function($) {
 		var filterValue = inclusives.length ? inclusives.join(', ') : '*';		
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
-		$('#tags').val(tags.join());	
-		console.log($('#outlet_ids').val());	
-		
+		$('#tags').val(tags.join());
+
 		if($container.length)
 			$container.isotope({ filter: filterValue });
 		if($containerApp.length)

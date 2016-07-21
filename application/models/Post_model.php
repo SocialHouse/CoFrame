@@ -244,7 +244,15 @@ class Post_model extends CI_Model
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		$this->db->where('posts.status != "delete"');
-		$this->db->where('posts.status != "draft"');
+		if(!check_user_perm($this->user_id,'create',$brand_id))
+		{
+			$this->db->where('posts.status != "draft"');
+		}
+		else
+		{
+			$this->db->where('posts.user_id',$this->user_id);	
+		}
+
 		if($outlets)
 		{
 			$outlets = explode(',', $outlets);

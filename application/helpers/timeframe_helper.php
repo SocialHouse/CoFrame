@@ -763,3 +763,13 @@ if(!function_exists('relative_date'))
         }
     }
 }
+
+if(!function_exists('get_tag_data'))
+{
+    function get_tag_data($tag_id)
+    {
+        $CI = & get_instance();
+        $CI->load->model('timeframe_model');
+        return $CI->timeframe_model->get_data_by_condition('brand_tags',array('id' => $tag_id),'name,color');
+    }
+}

@@ -60,17 +60,21 @@
 
 					if(!empty($filters[0]->tags))
 					{
-						$tags = explode(',',$filters[0]->tags);
+						$tags = explode(',',$filters[0]->tags);						
 						foreach($tags as $tag)
 						{
-							$tag = explode('__',$tag);
-							?>
-							<li data-value="<?php echo $tag[1]; ?>" class="filter-remove-list outlet-list">
-								<i style="color:<?php echo $tag[0]; ?>" class="fa fa-circle tag-test"></i>
-								<span class="tag-title"><?php echo $tag[1]; ?></span>
-								<i class="tf-icon-close"></i>
-							</li>
-							<?php
+							$tag_data = get_tag_data($tag);
+
+							if(!empty($tag_data))
+							{
+								?>
+								<li data-value="<?php echo $tag_data[0]->name; ?>" class="filter-remove-list outlet-list">
+									<i style="color:<?php echo $tag_data[0]->color; ?>" class="fa fa-circle tag-test"></i>
+									<span class="tag-title"><?php echo $tag_data[0]->name; ?></span>
+									<i class="tf-icon-close"></i>
+								</li>
+								<?php
+							}
 						}
 					}
 				}

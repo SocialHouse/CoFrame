@@ -210,7 +210,15 @@ class Calendar extends CI_Controller {
     	$this->data = array();
     	$brand_id = $this->uri->segment(3);
     	$this->data['brand_id'] = $brand_id;
-    	$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
+    	if($this->user_id == $this->user_data['created_by'])
+		{
+			$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand_id);
+		}
+		else
+		{
+			$this->data['outlets'] = $this->post_model->get_user_outlets($brand_id,$this->user_id);
+		}
+    	// $this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
     	$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
     	$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand_id,'user_id' => $this->user_id));
     	echo $this->load->view('partials/post_filters',$this->data,true);
@@ -626,20 +634,23 @@ class Calendar extends CI_Controller {
 				$save_data['outlets'] = implode(',',$post_data['outlets']);
 			if(!empty($post_data['statuses']))
 				$save_data['statuses'] = implode(',',$post_data['statuses']);
-			if(!empty($save_data))
+		
+			$save_data['brand_id'] = $post_data['brand_id'];
+			$save_data['user_id'] = $this->user_id;
+			if(!empty($post_data['filter_id']))
 			{
-				$save_data['brand_id'] = $post_data['brand_id'];
-				$save_data['user_id'] = $this->user_id;
-				if(!empty($post_data['filter_id']))
+				if(empty($post_data['tags']) AND empty($post_data['outlets']) AND empty($post_data['statuses']))
 				{
-					$this->timeframe_model->update_data('filters',$save_data,array('id' => $post_data['filter_id']));
+					$this->timeframe_model->delete_data('filters',array('id' => $post_data['filter_id']));
 				}
 				else
-				{
-					$this->timeframe_model->insert_data('filters',$save_data);
-				}
-
+					$this->timeframe_model->update_data('filters',$save_data,array('id' => $post_data['filter_id']));
 			}
+			else
+			{
+				$this->timeframe_model->insert_data('filters',$save_data);
+			}
+
 			echo "1";
 		}
 	}

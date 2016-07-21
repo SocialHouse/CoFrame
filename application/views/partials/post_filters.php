@@ -17,10 +17,29 @@ if(!empty($filters))
 		<input type="hidden" id="filter_id" value="<?php echo !empty($filters) ? $filters[0]['id'] : ''; ?>" />
 		<input type="hidden" id="filter_brand_id" value="<?php echo $brand_id; ?>" />
 		<h2 class="text-xs-center">Post Status</h2>
-		<div class="form-group filter <?php echo in_array('posted', $selected_statuses) ? 'checked' : ''; ?>" data-status="posted" data-value="f-posted" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-posted">Posted</label></div>
-		<div class="form-group filter <?php echo in_array('draft', $selected_statuses) ? 'checked' : ''; ?>" data-status="draft" data-value="f-draft" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-draft">Draft</label></div>
-		<div class="form-group filter <?php echo in_array('scheduled', $selected_statuses) ? 'checked' : ''; ?>" data-status="scheduled" data-value="f-scheduled" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-scheduled">Scheduled</label></div>
-		<div class="form-group filter <?php echo in_array('pending', $selected_statuses) ? 'checked' : ''; ?>" data-status="pending" data-value="f-pending" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-pending">Pending</label></div>
+
+		<div class="form-group filter <?php echo in_array('posted', $selected_statuses) ? 'checked' : ''; ?>" data-status="posted" data-value="f-posted" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-posted">Posted</label></div>			
+		<?php
+		if(check_user_perm($this->user_id,'create',$brand_id) OR $this->user_id == $this->user_data['created_by'])
+		{
+			?>
+			<div class="form-group filter <?php echo in_array('draft', $selected_statuses) ? 'checked' : ''; ?>" data-status="draft" data-value="f-draft" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-draft">Draft</label></div>
+			<?php
+		}
+
+		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['created_by'])
+		{
+			?>
+			<div class="form-group filter <?php echo in_array('scheduled', $selected_statuses) ? 'checked' : ''; ?>" data-status="scheduled" data-value="f-scheduled" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-scheduled">Scheduled</label></div>
+			<?php
+		}
+		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['created_by'])
+		{
+			?>
+			<div class="form-group filter <?php echo in_array('pending', $selected_statuses) ? 'checked' : ''; ?>" data-status="pending" data-value="f-pending" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-pending">Pending</label></div>
+			<?php
+		}
+		?>
 		<div class="form-group filter" data-status="posted" data-value="check-all" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for="check-all">All</label></div>
 	</div>
 	<div class="col-md-4">
@@ -65,7 +84,7 @@ if(!empty($filters))
 							$count = 1;
 							foreach ($tags as $key => $obj) {
 								$class = '';
-								if(in_array($obj->color.'__'.$obj->name,$selected_tags))
+								if(in_array($obj->id,$selected_tags))
 								{
 									$class = 'checked';
 								}
