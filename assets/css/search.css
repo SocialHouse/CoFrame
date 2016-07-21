@@ -188,3 +188,13 @@
     border: 1px solid #000;
     color: #000;
   }
+
+  footer.post-content-footer .before-approve{
+    text-align: center ! important; 
+    float: left;
+    margin-left: 4em;
+  }
+
+  footer.post-content-footer .after-approve{
+    float: left;
+  }

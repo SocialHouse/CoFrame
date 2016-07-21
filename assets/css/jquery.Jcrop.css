@@ -179,7 +179,7 @@ img.jcrop-preview {
 }
 
 #modal{
-  z-index: 10;
+  z-index: 1061;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -191,7 +191,7 @@ img.jcrop-preview {
 }
 
 #preview{
-  z-index: 11;
+  z-index: 1061;
   position: fixed;
   top: 0px;
   left: 0px;
