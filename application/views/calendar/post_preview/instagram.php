@@ -11,30 +11,31 @@ if(!empty($post_images)){
 	}
 ?>
 <div id="outlet_3" class="ig_post">
-	<div class="clearfix post-header">
-		<div class="pull-left">
-			<?php 
-				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-                   	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="img-circle user-profile-img" />';
-                   }else{
-                   	echo '<img class="img-circle user-profile-img" src="'.img_url().'default_profile.jpg">';	
-				}
-			?>
+	<div class="post-container">
+		<div class="clearfix post-header">
+			<div class="pull-left">
+				<?php 
+					if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
+						echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="img-circle user-profile-img" />';
+					   }else{
+						echo '<img class="img-circle user-profile-img" src="'.img_url().'default_profile.jpg">';	
+					}
+				?>
+			</div>
+			<span class="post-user-name pull-left"><?php echo (!empty($post_details->user))? $post_details->user :''; ?></span>
+			<div class="pull-right time-color">0m</div>
 		</div>
-		<span class="post-user-name pull-left"><?php echo (!empty($post_details->user))? $post_details->user :''; ?></span>
-		<div class="pull-right time-color">0m</div>
-	</div>
-
-	<div class="insta-img-div img-div">
-		<?php 
+	
+		<div class="insta-img-div img-div">
+			<?php 
 				if(!empty($post_images)){
 					$class = 1;
 					foreach ($post_images as $key) {
 						if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
 							if($key->type == 'images'){
-	                    		echo '<img class="'.$class.'" src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
-	                    		break;
-	                    	}elseif ($key->type == 'video') {
+								echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
+								break;
+							}elseif ($key->type == 'video') {
 								echo '<video autobuffer autoloop loop controls width="100%" >
 									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'">
 									<object type="'.$key->mime.'">
@@ -46,14 +47,14 @@ if(!empty($post_images)){
 								</video>';
 								break;
 							}
-	                    }
+						}
 					}
 				}
 			?>
 		</div>	
-		
+			
 		<div class="insta-post-copy">
-			<span class="post-user-name"<?php echo (!empty($post_details->user))? $post_details->user :''; ?> </span>
+			<span class="post-user-name"><?php echo (!empty($post_details->user))? $post_details->user :''; ?> </span>
 			<span class="post_copy_text"><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></span>
 		</div>
 	</div>
