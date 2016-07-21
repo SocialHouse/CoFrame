@@ -101,27 +101,25 @@
 					<div class="form__success">Done!</div>
 					<div class="form__error">Error! <span></span>.</div>
 				</div>
-
-				<div class="form-group pull-sm-left">
-					<div id="hm_error" class="error"></div>
-					<div id="date_error" class="error"></div>
-					<label>Slate Post:</label><br>
-					<div class="hide-top-bx-shadow">
-						<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0"  value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
-					</div>
-				</div>
-				<div class="form-group pull-sm-left">
-					<div class="pull-xs-left">
-						<label class="invisible">Post Time</label>
-						<div class="time-select form-control">
-							<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
-							<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
-							<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
+				<div class="slate-post clearfix">
+					<div class="form-group pull-sm-left">
+						<div id="hm_error" class="error"></div>
+						<div id="date_error" class="error"></div>
+						<label>Slate Post:</label><br>
+						<div class="hide-top-bx-shadow">
+							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0"  value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
 						</div>
 					</div>
-					<span class="timezone pull-xs-right"><label class="invisible">Post Timezone</label>
-						<span  id="timezone_abbreviation"><?php echo get_abbreviation($post_details->time_zone); ?></span>
-					</span>
+					<div class="form-group pull-sm-left">
+						<div class="pull-xs-left">
+							<label class="invisible">Post Time</label>
+							<div class="time-select form-control">
+								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
+								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
+								<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="form-group slate-post-tz">
 					<select class="form-control" name="time_zone">
