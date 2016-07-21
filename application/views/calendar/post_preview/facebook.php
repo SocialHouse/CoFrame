@@ -25,7 +25,7 @@ if(!empty($post_images)){
 			<div class="pull-left">
 				<span class="post-user-name">
 					<?php echo (!empty($post_details->user))? $post_details->user :''; ?>
-					<span class="no-of-photos"></span>
+					<span class="no-of-photos">added <span class="photos_count"><?php echo $img_count; ?> new photo<?php if($img_count > 1) echo 's';?></span></span>
 				</span>
 				<span class="time-color">
 					Just now
@@ -44,53 +44,78 @@ if(!empty($post_images)){
 				$i = 0;
 				$more_txt = '';
 				if(!empty($post_images)){
+					$cls = '';
 					foreach ($post_images as $key) {
-						$cls = '';
 						if($img_count == 2 ){
-							$cls = 'width_50';
+							echo '<div class="width_50 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" /></div>';
 						}
-						if($img_count == 3 ){
+						else if($img_count == 3 ){
 							if($i < 1){
-								$cls = 'width_50';
 								if($key->type == 'images'){
-									echo '<div class="pull-left section1">';
-                               		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" style="height: 150px;"/>';
+									echo '<div class="img-wrapper section1">';
+                               		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"/>';
                                		echo '</div>';
                                	}
 							}else{
-								$cls = 'width_33';
 								if($key->type == 'images'){
 									//echo 'I : '.$i;
 									if($i == 1){
-										echo '<div class="pull-left width_50 section2">';
+										echo '<div class="img-wrapper section2">';
 									}
-									echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" />';
+									echo '<div class="width_50 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" /></div>';
 									if($i == 2){
 										echo '</div>';	
-										echo '<div class="clearfix"></div>';
 									}
                                	}
 							}
 						}
-						if($img_count == 4 ){
+						else if($img_count == 4 ){
 							if($i < 1){
-								$cls = 'post-img';
+								if($key->type == 'images'){
+									echo '<div class="img-wrapper section1">';
+                               		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"/>';
+                               		echo '</div>';
+                               	}
 							}else{
-								$cls = 'width_33';
+								if($key->type == 'images'){
+									if($i == 1){
+										echo '<div class="img-wrapper section2">';
+									}
+									echo '<div class="width_33 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" /></div>';
+									if($i == 3){
+										echo '</div>';
+									}
+                               	}
 							}
 						}
-						if($img_count > 4 ){
-							if($i < 2){
-								$cls = 'width_50';
-							}else{
-								$cls = 'width_33';	
-							}
-							if($img_count > 5 ){
-								$img_more  = $i -4;
-								$more_txt = '<div id="5" class="more-images">+'.$img_more.'</div>';
+						else if($img_count > 4 ){
+							if($i < 1){
+								if($key->type == 'images'){
+									echo '<div class="img-wrapper section1">';
+                               		echo '<div class="width_50 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"/></div>';
+                               	}
+							}elseif($i==1){
+								echo '<div class="width_50 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"/></div>';
+								echo '</div>';								
+							}elseif($i>1 && $i < 5){
+								if($key->type == 'images'){
+									//echo 'I : '.$i;
+									if($i == 2){
+										echo '<div class="img-wrapper section2">';
+									}
+									echo '<div class="width_33 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" />';
+										if($img_count > 5 && $i ==4 ){
+											$img_more  = $img_count - 5;
+											echo '<div class="more-images"><span class="vertical-center">+'.$img_more.'</span></div>';
+										}
+									echo '</div>';
+									if($i == 4){
+										echo '</div>';	
+									}
+                               	}
 							}
 						}
-						if($i < 5 && $img_count !==3 ){
+						else if($i < 5 && $img_count !==3 ){
 							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
 								if($key->type == 'images'){
                                		echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"class="'. $cls .'" />';
@@ -107,10 +132,7 @@ if(!empty($post_images)){
 									break;
 								}
                         	}
-						}else{
-							echo $more_txt ;
 						}
-							
 						$i ++;
 					}	
 				}
