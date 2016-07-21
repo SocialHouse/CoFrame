@@ -273,16 +273,60 @@
 											<!-- Pending Approvals End -->
 
 										</div>
-
+										<div class="clearfix">&nbsp;</div>
 										<footer class="post-content-footer text-xs-center">
-											<div class="inline-block">
-												<span class="post-actions pull-sm-left">
-													<button disabled="" class="btn btn-secondary btn-disabled btn-md">Approved</button><br>
-													<a data-target="#undoApproval" data-toggle="modal" href="#">Undo</a>
-												</span>
-												<a href="#" class="btn btn-default color-success btn-md">Approve</a>
-												<a href="#" class="btn btn-secondary btn-md">Finish Phase <?php echo $ph_number ?></a>
-											</div>
+												<?php
+												$approver_status = '';
+												$phase_status = '';
+												foreach($phs['phase_users'] as $phase_data)
+												{
+													if($phase_data->aauth_user_id == $this->user_id)
+													{
+														$approver_status = $phase_data->status;
+														$phase_status = $phase_data->phase_status;
+													}
+												}
+												
+												if(!empty($approver_status) && $approver_status == 'approved' ){
+													?>
+													<div class="before-approve">
+														<span class="post-actions pull-sm-left">
+															<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
+															<?php
+															if($phase_status == 'pending' && $post_details->status == 'pending')
+															{
+																?>
+																<br/>
+																<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+																<?php
+															}
+															?>
+														</span>
+													</div>
+													
+													<div class="after-approve hide">
+														<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+													</div>
+
+													<?php
+												}else{
+													if($post_details->status == 'pending')
+													{
+														?>
+														<div class="before-approve">
+															<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+														</div>
+														<div class="after-approve hide">
+															<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
+															<br/>
+															<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
+														</div>
+														<?php
+													}
+													
+												}
+												?>
+												<a href="#" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" class="btn btn-secondary btn-md">Finish Phase <?php echo $ph_number ?></a>
 										</footer>
 									</div>
 									<?php
@@ -292,8 +336,39 @@
 						?>
 						</div>
 						<footer class="post-content-footer post-actions text-xs-right">
-							<a href="#" class="btn btn-secondary btn-sm">Schedule</a>
-							<a href="#" class="btn btn-secondary btn-sm">Post Now</a>
+							<?php 
+
+								if($post_details->status != 'posted')
+								{
+									?>
+									<a href="#"  data-target="#postNow" data-toggle="modal" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm">Post Now</a>
+									<?php
+								}
+								if($post_details->status == 'scheduled' )
+								{
+									?>
+									<div class="before-approve">
+					               		<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+					                    <a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>"  data-phase-status="unschedule" href="#">Undo</a>
+					                </div>
+					                <div class="after-approve hide">
+					                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
+					                </div>
+									<?php
+								}
+								else
+								{
+									?>
+									<div class="before-approve hide">
+					               		<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+					                    <a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
+					                </div>
+					                <div class="after-approve">
+					                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
+					                </div>
+									<?php
+								}
+							?>
 						</footer>
 					</div>
 				</div>
@@ -332,7 +407,7 @@
 					</div>
 					<div class="pull-sm-right">
 						<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-						<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php print_r($phs['phase_users'][0]->id); ?>" disabled="disabled">Submit</button>
+						<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" disabled="disabled">Submit</button>
 					</div>
 				</div>
 			</div>

@@ -275,3 +275,55 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 		</div>
 	</div>
 </div>
+
+<!-- Undo Approval Modal -->
+	<div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Undo Approval</h2>
+					<p class="text-xs-center">Are you sure you want to undo your approval?
+					You will have to approve this again.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Undo</button>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- /.modal -->
+
+<!-- Finish Current Phase  Modal -->
+	<div class="modal alert-modal fade" id="finishPhase" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Alert</h2>
+					<p class="text-xs-center"> You have not received all approvals. Are you sure you still want to finish this Phase ?</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Yes</button>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- /.modal -->
+
+<!-- Post Now Modal -->
+	<div class="modal alert-modal fade" id="postNow" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center">Post Now</h2>
+					<p class="text-xs-center">You are about to post to an outlet. You can’t undo this action.</p>
+					<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Post Now</button>
+				</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- /.modal -->
