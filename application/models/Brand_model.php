@@ -176,6 +176,7 @@ class Brand_model extends CI_Model
 	public function get_brand_outlets($brand_id)
 	{
 		$this->db->join('outlets','outlets.id = brand_outlets.outlet_id');
+		$this->db->order_by('outlets.id','ASC');
 		$query = $this->db->get_where('brand_outlets',array('brand_id' => $brand_id));		
 		if($query->num_rows() > 0)
 		{

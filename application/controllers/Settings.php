@@ -129,6 +129,11 @@ class Settings extends CI_Controller {
 		$aauth_user_id = $this->input->post('aauth_user_id');
 		$brand_id = $this->input->post('brand_id');
 		if(!empty($brand_id) && !empty($aauth_user_id)){
+			if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$aauth_user_id.'.png'))
+			{
+				$this->data['user_profile'] = upload_url().$this->user_data['created_by'].'/users/'.$aauth_user_id.'.png';
+			}
+
 			$this->data['user_details'] = $this->user_model->get_user($aauth_user_id);
 			$this->data['user_outlets'] = $this->post_model->get_user_outlets($brand_id,$aauth_user_id);
 			$this->data['user_role'] = strtolower(get_user_groups($aauth_user_id,$brand_id));
@@ -256,7 +261,67 @@ class Settings extends CI_Controller {
         			}
         		}
         	}
-        	echo json_encode(array('response' => 'success'));
+
+        	if(empty($post_data['slug']))
+        	{
+        		$image_path = img_url().'default_profile.jpg';
+				if(file_exists(upload_path().$this->user_data['created_by'].'/users/'.$user_id.'.png'))
+				{
+					$image_path = upload_url().$this->user_data['created_by'].'/users/'.$user_id.'.png';
+				}
+
+                // $response = '<div class="table" id="table_id_'.$user_id.'">';
+				$response = '<div class="table-cell">';
+
+				$response .= '<div class="pull-sm-left post-approver-img">';
+				$response .= '<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="'.$user_id.'" data-brand-id="'.$brand_id.'"><i class="fa fa-pencil"></i></a>';
+				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
+				$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
+				$response .= '</div>';
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('create',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('edit',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('approve',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('view',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('settings',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('billing',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
+
+                echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $user_id));
+        	}
+        	else
+        		echo json_encode(array('response' => 'success'));
 		}
 		else{
 			echo json_encode(array('response' => 'fail'));

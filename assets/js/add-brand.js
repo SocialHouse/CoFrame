@@ -117,6 +117,8 @@ jQuery(function($) {
             $('#nameValid').addClass('hide');
             $('#emailValid').addClass('hide');
             $('#emailUniqueValid').addClass('hide');
+            $('.editUserToBrand').removeClass('editUserToBrand');
+            toggleBtnClass('.editUserToBrand', true);
         })
 
         // Clear tag field when adding a second tag.
@@ -142,7 +144,25 @@ jQuery(function($) {
 					}
 				});
 			});
-        })
+			toggleBtnClass('#addTag',true);
+			// if($('.tags-to-add').children('.saved').length && $('#tagLabel').val())
+			// {
+			// 	if($('#tagLabel').val() && $('#tagLabel').val() == 'other' && $('#newLabel').val())
+			// 	{
+			// 		toggleBtnClass('#addTag',false);
+			// 	}
+			// 	else
+			// 	{
+			// 		toggleBtnClass('#addTag',true);	
+			// 	}
+
+			// 	if($('#tagLabel').val() != 'other')
+			// 	{
+			// 		toggleBtnClass('#addTag',false);	
+			// 	}
+
+			// }
+        });
 
 		$('#userRoleSelect').on('change', function() {
 			var selectedRole = $(this).val();
@@ -968,17 +988,31 @@ jQuery(function($) {
 					$('#userEmail').attr('readonly','readonly');
 					$('#userEmail').attr('disabled','disabled');
 					$('#userOutlet').val('');
+
+					$('#new_user_pic img').remove();
+					$('#addNewUser .remove-user-img').addClass('hide');
+					if(response.result.user_profile)
+					{
+						$('#new_user_pic').append('<img src="'+response.result.user_profile+'" >');
+						$('#addNewUser .remove-user-img').removeClass('hide');
+						$('#addNewUser .remove-user-img').show();
+					}
+
 					var newOutlets = [];
-					$.each($('#user-selected-outlet li'), function(i, element){
-						$.each(user_outlets, function(j,obj){
-							if($(element).data('selected-outlet') == obj.id){
-								$(element).removeClass('disabled');
-								$(element).addClass('selected');
-								if ($.inArray(obj.id, newOutlets) === -1)
-   									newOutlets.push(obj.id);
-							}
+					if(user_outlets)
+					{
+						$.each($('#user-selected-outlet li'), function(i, element){
+							$.each(user_outlets, function(j,obj){
+								if($(element).data('selected-outlet') == obj.id){
+									$(element).removeClass('disabled');
+									$(element).addClass('selected');
+									if ($.inArray(obj.id, newOutlets) === -1)
+	   									newOutlets.push(obj.id);
+								}
+							});
 						});
-					});
+					}
+
 					$('#userOutlet').val(newOutlets);
 					validEmail = true;
 					$('#userRoleSelect').val(user_role).trigger('change');
@@ -1026,6 +1060,10 @@ jQuery(function($) {
 
 	//add user to brand
 	$(document).on( 'click','.editUserToBrand', function( e ){
+		var slug;
+		if($('#brand_slug').val() !=  undefined)
+			slug = $('#brand_slug').val();
+		
 		var control = this;
 		$('.user-upload-img').show();
 		$('.user-img-preview').hide();
@@ -1071,12 +1109,25 @@ jQuery(function($) {
     			'permissions':selectedPermissions,
     			'image_name': image_name,
     			'file':user_pic,
-    			'user_id': selected_user
+    			'user_id': selected_user,
+    			'slug' : slug
     		},
     		success: function(data)
     		{
     			if(data.response =='success'){
-    				$('.close_brand').trigger('click');
+    				if(data.html)
+    				{
+    					if($('#userPermissionsList').children('#table_id_'+data.inserted_id).length)
+    					{
+    						$('#userPermissionsList').children('#table_id_'+data.inserted_id).empty();
+    						$('#userPermissionsList').children('#table_id_'+data.inserted_id).html(data.html);
+    					}
+    					$('#userRoleBtns .btn-cancel').trigger('click');
+    				}
+    				else
+    				{
+    					$('.close_brand').trigger('click');
+    				}
     			}else{
     				alert(language_message.try_again);
     				$('.close_brand').trigger('click');
