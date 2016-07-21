@@ -159,12 +159,12 @@ jQuery(function($) {
 				}			
 			}
 
-			if(previous_outlet != outlet)
+			if(previous_outlet != outlet_const)
 			{
 				$(this).toggleClass('disabled');
 				$(this).siblings().addClass('disabled');
 				$('#postOutlet').val(outlet);
-				setOutletPreview(outlet);
+				setOutletPreview(outlet_const);
 				removeFromPreview();
 			}
 		});

@@ -893,7 +893,7 @@
 		var $ = jQuery;
 		$('#live-post-preview').empty();
 		$('.no-of-photos').html('');
-    	var outlet_id = $('#postOutlet').val();
+		var outlet_id = $('#postOutlet').attr('data-outlet-const');
     	var post_copy;
     	if($('#postCopy').val())
     		post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
