@@ -9,6 +9,7 @@
 			<input type='file' id='userfileInput' name='files' accept='image/*'>
 			<div class="cropme" id="new_user_pic" style="width: 70px; height: 70px;"></div>
 			<input type="hidden" name="user_pic_base64" value="" id="user_pic_base64">
+			<input type="hidden" name="is_user_image" value="" id="is_user_image">
 		</div>
 		<div class="upload-error error hide" style="margin-left: 15%;">Wrong file type uploaded</div>
 		<div class="form__uploading">Uploading ...</div>

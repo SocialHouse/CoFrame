@@ -209,28 +209,33 @@ class Settings extends CI_Controller {
 	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
 
 	        // Update user profile image
-	        if(isset($post_data['file']) && !empty($post_data['file'])){
-        		$base64_image = $post_data['file'];
-    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+	        if($post_data['is_user_image'] == 'yes'){
+	        	 if(isset($post_data['file']) && !empty($post_data['file'])){
+	        		$base64_image = $post_data['file'];
+	    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
 
-	        	//decode base64 string
-		        $decoded = base64_decode($base64_str);
+		        	//decode base64 string
+			        $decoded = base64_decode($base64_str);
 
-		        //create jpeg from decoded base 64 string and save the image in the parent folder
+			        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-		        if(!is_dir(upload_path().$this->user_id.'/users/')){
-		        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
-		        }
-		        $url = upload_path().$this->user_id.'/users/'.$user_id.'.png';	
-		        
-		        $result = file_put_contents($url, $decoded);
-		        
-		        $source_url = imagecreatefrompng($url);
-		        
-		        header('Content-Type: image/png');
-		        
-		        imagepng($source_url, $url, 8);		      
-        	}
+			        if(!is_dir(upload_path().$this->user_id.'/users/')){
+			        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+			        }
+			        $url = upload_path().$this->user_id.'/users/'.$user_id.'.png';	
+			        
+			        $result = file_put_contents($url, $decoded);
+			        
+			        $source_url = imagecreatefrompng($url);
+			        
+			        header('Content-Type: image/png');
+			        
+			        imagepng($source_url, $url, 8);
+	        	}
+	        }else{
+	        	$url = upload_path().$this->user_id.'/users/'.$user_id.'.png';
+	        	delete_file($url);
+	        }
 
         	//  Get user old Permissions and Groups and remove old and add New 
         	$old_role = strtolower(get_user_groups($user_id,$brand_id));
@@ -255,9 +260,13 @@ class Settings extends CI_Controller {
         		{
         			$matching_perms = $this->aauth->get_matching_perms($permission);
 
-        			foreach($matching_perms as $perm)
-        			{
-        				$this->aauth->allow_user($user_id,$perm->id,$post_data['brand_id']);
+        			// if(!empty($matching_perms)){
+        			if(is_array($matching_perms)){
+        				foreach($matching_perms as $perm)
+	        			{
+	        				if(!empty($perm))
+	        					$this->aauth->allow_user($user_id,$perm->id,$post_data['brand_id']);
+	        			}
         			}
         		}
         	}

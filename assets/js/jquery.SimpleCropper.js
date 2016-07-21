@@ -132,12 +132,14 @@
                 $('#preview').delay(100).hide();
                 $('#modal').hide();
                 jcrop_api.destroy();
-               // console.log(obj);
+                console.log(obj);
                 if(obj== 'userfile_obj'){
                     $('.remove-user-img').removeClass('hide');
                     $('.remove-user-img').show();
- 					$('#new_user_pic').addClass('hasUpload');                   
+                    $('#is_user_image').val('yes');
+ 					$('#new_user_pic').addClass('hasUpload');
                 }else{
+                    
                     $('.remove-brand-img').removeClass('hide');
 					$('#add_brand_img').addClass('hasUpload');
                     //console.log($('.remove-user-img').attr('class'));
@@ -147,6 +149,7 @@
 
             //cancel listener
             $('.cancel').click(function (event) {
+                $('#is_user_image').val('no');
                 $('#preview').delay(100).hide();
                 $('#modal').hide();
                 jcrop_api.destroy();
@@ -172,6 +175,7 @@
                 $('.user-img-preview img').remove();
                 $('.remove-user-img').addClass('hide');
 				$('#new_user_pic').removeClass('hasUpload');
+                $('#is_user_image').val('no');
             });
 
         });
@@ -282,6 +286,7 @@
                         }
 
                         // Add image to dropbox element
+                        console.log(current_image);
                         dropbox.appendChild(current_image);
                         
                     }

@@ -922,22 +922,20 @@ jQuery(function($) {
      	// if(!($('#userPermissionsList .table').length > 1)){
      	// 	return false;
      	// }
-     	console.log(language_message);
     	if(confirm(language_message.delete_user))
         {
-
-			var aauth_user_id = $(this).data('user-id');
+        	var aauth_user_id = $(this).data('user-id');
 			$.ajax({
 				url: base_url+'brands/delete_user',
 				type:'POST',
 				data: {'aauth_user_id':aauth_user_id},
 				success:function(data){
-					if(data=='success'){
+					if(data.trim() =='success'){
 						$('#table_id_'+aauth_user_id).fadeOut(function() {
 							$('#table_id_'+aauth_user_id).remove();
 						});
 					}else{
-
+						language_message.try_again;
 					}
 				}
 			});
@@ -996,6 +994,9 @@ jQuery(function($) {
 						$('#new_user_pic').append('<img src="'+response.result.user_profile+'" >');
 						$('#addNewUser .remove-user-img').removeClass('hide');
 						$('#addNewUser .remove-user-img').show();
+						$('#is_user_image').val('yes');
+					}else{
+						$('#is_user_image').val('no');
 					}
 
 					var newOutlets = [];
@@ -1078,6 +1079,7 @@ jQuery(function($) {
     	var lname = $('#lastName').val();
     	var title = $('#userTitle').val();
     	var email = $('#userEmail').val();
+    	var is_user_image = $('#is_user_image').val();
     	var selectedOutlets = $('#userOutlet').val();
     	var userRoleSelect = $('#userRoleSelect :selected').val();
     	var selected_user = $('#aauth_user_id').val();
@@ -1110,7 +1112,8 @@ jQuery(function($) {
     			'image_name': image_name,
     			'file':user_pic,
     			'user_id': selected_user,
-    			'slug' : slug
+    			'slug' : slug,
+    			'is_user_image':is_user_image
     		},
     		success: function(data)
     		{
