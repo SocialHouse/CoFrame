@@ -16,7 +16,7 @@
 		<div class="row equal-columns create">
 		<input type="hidden" value="<?php echo $full_name; ?>" id="full_name" />
 		<?php
-		if(empty($request) AND check_user_perm($this->user_id,'create',$brand_id))
+		if(empty($request) AND (check_user_perm($this->user_id,'create',$brand_id) OR $this->user_id == $this->user_data['created_by']))
 		{
 			?>
 			<div class="col-md-6 " style="height:900px;">

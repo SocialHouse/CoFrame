@@ -194,10 +194,10 @@
         function imageUpload(dropbox, file) {
             var imageType = /image.*/;
             brand_logo = [];
-            if(file.size > 2000000){
-                alert(language_message.file_size_limit);
-                return false;
-            }
+            // if(file.size > 2000000){
+            //     alert(language_message.file_size_limit);
+            //     return false;
+            // }
             brand_logo.push(file);
             if (file.type.match(imageType)) {
                 image_filename = file.name;

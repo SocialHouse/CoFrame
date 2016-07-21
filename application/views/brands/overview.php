@@ -3,7 +3,7 @@
 	if(!empty($brands))
 	{
 		$show = 0;
-		if(check_user_perm($this->user_id,'settings.edit_app_setting') OR $this->user_id == $this->user_data['created_by'])
+		if($this->user_id == $this->user_data['created_by'])
 		{
 			$show = 1;
 			?>
