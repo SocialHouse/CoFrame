@@ -193,7 +193,7 @@
 						?>
 						<ul class="timeframe-list comment-list clearfix <?php echo $hide_class; ?> approvalPhase<?php echo $i; ?>">
 							<?php
-							$comments = get_phase_comments($phase->id);							
+							$comments = get_phase_comments($phase->id);
 							if(!empty($comments))
 							{
 								foreach($comments as $comment)
@@ -246,46 +246,11 @@
 											{
 												$disabled = 'disabled="disabled"';
 											}
-
 											if($replay)
 											{
-												?>
-												<ul class="commentReply timeframe-list replay">
-													<li>
-														<div class="author clearfix">
-															<?php
-															$path = img_url()."default_profile.jpg";						
-															if (file_exists(upload_path().$brand->created_by.'/users/'.$replay->user_id.'.png'))
-															{
-																$path = upload_url().$brand->created_by.'/users/'.$replay->user_id.'.png';
-															}
-															?>
-															<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	" class="circle-img pull-sm-left">
-
-															<div class="author-meta pull-sm-left">
-																<?php echo ucfirst($replay->first_name).' '.ucfirst($replay->last_name); ?>	
-																<span class="dateline"><?php echo date('m/d/Y' , strtotime($replay->created_at));; ?></span>
-															</div>
-														</div>	
-														<div class="comment">
-															<p><?php echo $replay->comment; ?></p>
-															<?php
-															if(!empty($replay->media))
-															{
-																?>
-																<div class="comment-asset">
-																	<a href="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" title="Download Asset">
-																		<i class="tf-icon-download"></i>
-																		<img src="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$replay->media ?>" width="60" height="60" alt=""/>
-																	</a>
-																</div>
-																<?php
-															}
-															?>
-														</div>														
-													</li>
-												</ul>
-												<?php
+												$data['replies'] = $replay;
+												$data['phase_id'] = $phase->id;
+												$this->load->view('approvals/comment_view_request' , $data);
 											}
 											else
 											{

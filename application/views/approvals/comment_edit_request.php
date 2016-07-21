@@ -55,7 +55,7 @@ foreach ($replies as $key => $obj) {
 				<?php
 				if(!empty($obj->replies)){
 					$data['replies'] = $obj->replies;
-					$this->load->view('approvals/comment_view',$data );
+					$this->load->view('approvals/comment_edit_request',$data );
 				}
 				?>
 			</div>

@@ -224,7 +224,7 @@
 																	if($replies)
 																	{
 																		$data['replies'] = $replies;
-																		$this->load->view('approvals/comment_view' , $data);
+																		$this->load->view('approvals/comment_edit_request' , $data);
 																	}
 																	?>
 																</div>
