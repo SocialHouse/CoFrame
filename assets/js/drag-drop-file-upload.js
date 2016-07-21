@@ -216,6 +216,12 @@
 
 			// drag&drop files if the feature is available
 			if( isAdvancedUpload ){
+				//set all files array on initial load - for post edit screens
+				if(allFiles.length === 0 && $('img.form__file-preview').length > 0) {
+					$('img.form__file-preview').each(function() {
+						allFiles.push($(this).attr('src'));
+					});
+				}
 				$form
 				.addClass( 'has-advanced-upload' ) // letting the CSS part to know drag&drop is supported by the browser
 				.on( 'drag dragstart dragend dragover dragenter dragleave drop', function( e ){
@@ -238,7 +244,6 @@
 						var $fileDiv = $('.form__input');
 						$fileDiv.parent().find('.upload-error').addClass('hide');
 						var error ='false';
-						
 						if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 						{
 							alert(language_message.twitter_img_allowed);
@@ -1117,7 +1122,6 @@
 			//for tumblr
 			if(selected_outlet == 'outlet_tumblr')
 			{
-				console.log(allFiles);
 				$.each(allFiles,function(a,img){
 					var preview_img = jQuery('<img/>', {src: img.img_src});
 					jQuery('#live-post-preview .img-div').append(preview_img);
