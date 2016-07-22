@@ -326,7 +326,8 @@ if(!function_exists('get_phase_comments'))
 {
     function get_phase_comments($phase_id)
     {
-        $CI = & get_instance();        
+        $CI = & get_instance();
+        $CI->load->model('approval_model');          
         return $CI->approval_model->get_phase_comments($phase_id);
     }
 }

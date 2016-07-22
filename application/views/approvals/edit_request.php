@@ -88,14 +88,52 @@
 	                    	$i = 0;
 	                    	$len = count($phase);
 	                    	$cls = 'inactive';
-							foreach ($phase as $ph_number => $phs) {
-								//echo '<pre>'; print_r($phs);echo '</pre>';
-								if(count($phase) == 1){
+	                    	$next_active = 'false';
+							foreach ($phase as $ph_number => $phs) 
+							{
+								// echo '<pre>'; print_r($phs);echo '</pre>';
+								
+								if($len == 1 )
+								{
 									$cls = 'active';
-								}else{
-									 if ($i == $len - 1) {
-									 	$cls = 'active';
-									 }
+								}
+								else
+								{
+									if($cls == 'inactive'){
+										if($next_active =='false')
+										{
+											if($phs['phase_users'][0]->status == 'finished')
+											{
+												if ($i == $len - 1)
+												{
+												 	$cls = 'active';
+												}
+												else
+												{	
+													$next_active = 'true';
+												}
+											}
+											else
+											{
+												if ($i == $len - 1)
+												{
+												 	$cls = 'active';
+												}
+												else
+												{
+													$cls = 'active';
+													$next_active = '';
+												}
+											}
+										}else if($next_active =='true')
+										{
+
+											$cls = 'active';
+											$next_active = '';
+										}
+									}else{
+										$cls = 'inactive';
+									}
 								}
 									?>
 									<div id="approvalPhase<?php echo $ph_number ; ?>" class="bg-white approval-phase animated fadeIn <?php echo $cls ?>">
@@ -112,7 +150,7 @@
 											{
 												?>
 													<i class="fa fa-angle-right"></i>
-													<button class="btn btn-xs btn-default btn-disabled pull-sm-right">Finished</button>
+													<button class="btn btn-xs btn-default btn-disabled pull-sm-right ">Finished</button>
 												<?php
 											}
 										?>
@@ -326,7 +364,7 @@
 													
 												}
 												?>
-												<a href="#" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" class="btn btn-secondary btn-md">Finish Phase <?php echo $ph_number ?></a>
+												<a href="#" class="btn btn-secondary btn-md finish_phase" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
 										</footer>
 									</div>
 									<?php

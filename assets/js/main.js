@@ -2473,16 +2473,81 @@ jQuery(function($) {
         	$.ajax({
 	    		'type':'POST',
 	    		dataType: 'json',
-	    		url: base_url+'phases/delete_phase',
+	    		url: base_url+'phases/delete',
 	    		data:{'post_id':post_id,'phase_id':phase_id},
 	            success: function(response)
 	            {
-	            	location.reload();
+	            	if(response.status =='success'){
+	            		window.location.reload();
+	            		$('.modal-hide').click();
+	            	}else{
+	            		alert(language_message.try_again);
+	            		$('.modal-hide').click();
+	            	}
 	            }
 	    	});
 	    }
 	});
 
+	$(document).on('click','.finish_phase',function(){
+		var phase_id = $(this).data('phase-id');
+		var phase_number = $(this).data('phase-number');
+		$('.finish_yes').attr('data-phase-id', phase_id);
+		$('.finish_yes').attr('data-phase-number',phase_number );
+	});
+
+	$(document).on('click','.finish_yes',function(){
+		var phase_id = $(this).data('phase-id');
+		var phase_number = $(this).data('phase-number');
+		var next_phase = phase_number+1;
+
+		$btn_current =  $('#approvalPhase'+phase_number).find('h2 button');
+
+		$.ajax({
+	    		type:'GET',
+	    		dataType: 'json',
+	    		url: base_url+'posts/finish_phase/'+phase_id,
+	            success: function(response)
+	            {
+	            	if(response.response  == 'success')
+	            	{
+	            		window.location.reload();
+	            		// if($('#approvalPhase'+next_phase).length){
+						// 	$btn_next = $('#approvalPhase'+next_phase).find('h2 button');
+						// 	$('#approvalPhase'+next_phase).removeClass('inactive');
+						// 	$('#approvalPhase'+next_phase).addClass('active');
+						// 	$('#approvalPhase'+phase_number).removeClass('active');
+						// 	$('#approvalPhase'+phase_number).addClass('inactive');
+						// 	$btn_current.text('Finished');
+						// 	$btn_current.removeClass('color-success');
+						// 	$btn_current.addClass('btn-disabled');
+						// 	$btn_next.text('Current');
+						// 	$btn_next.addClass('color-success');
+						// 	$btn_next.removeClass('btn-disabled');
+						// }else{
+						// 	$btn_current.text('Finished');
+						// 	$btn_current.removeClass('color-success');
+						// }
+						
+						$('.modal-hide').click();
+	            	}
+	            	else
+	            	{
+	            		alert(language_message.try_again);
+	            	}
+	            }
+	    	});		
+	});
+
+	$(document).on('click','.go_back',function(){
+		$btn =  $(this).next( "button" );
+		$.each($btn.data(), function(i,k){ 
+			var attr_name =i.split(/(?=[A-Z])/) ;
+			var str = attr_name[0]+'-'+attr_name[1];
+			$btn.removeAttr("data-" + str.toLowerCase());
+		});
+	});
+	
 
 	$(document).on('change','select[name="time_zone"]',function(){
 		var selected_abb;

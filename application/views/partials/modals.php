@@ -302,8 +302,8 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<h2 class="text-xs-center">Alert</h2>
 					<p class="text-xs-center"> You have not received all approvals. Are you sure you still want to finish this Phase ?</p>
 					<footer class="overlay-footer">
-					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
-					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Yes</button>
+					<button type="button" class="btn btn-sm btn-default modal-hide go_back">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary finish_yes">Yes</button>
 					</footer>
 				</div>
 			</div>

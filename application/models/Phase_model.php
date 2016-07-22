@@ -34,4 +34,22 @@ class Phase_model extends CI_Model
 		return FALSE;
 	}
 
+	public function delete_comments($comment_id ='',$phase_id='',$post_id='')
+	{
+		if(!empty($comment_id) || (!empty($phase_id) && !empty($post_id)) ){
+			if(!empty($comment_id)){
+				$this->db->where('comment_id',$phase_id);
+			}
+			else
+			{
+				$this->db->where('phase_id',$phase_id);
+				$this->db->where('post_id',$phase_id);				
+			}
+			$this->db->delete('post_comments');
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+
 }

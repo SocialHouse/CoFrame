@@ -740,6 +740,20 @@ class Posts extends CI_Controller {
 		}
 	}
 
+	function finish_phase($phase_id)
+	{
+		if(!empty($phase_id)){
+			$phase_data = array(
+						'status' => 'finished'
+					);
+			$this->timeframe_model->update_data('phases_approver',$phase_data,array('id' => $phase_id));
+			echo json_encode(array('response'=>'success'));
+		}
+		else{
+			echo json_encode(array('response'=>'fail'));
+		}
+	}
+
 	function schedule_post()
 	{
 		$post_data = $this->input->post();
