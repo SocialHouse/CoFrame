@@ -632,13 +632,6 @@ jQuery(function($) {
 
 		$(document).on('keyup change','#firstName,#lastName',function()
 		{
-				console.log([
-							$('#lastName').val(),
-							$('#userEmail').val(),
-							validateEmail(	$('#userEmail').val()),
-							$('#firstName').val() ,
-							validEmail
-						]);
 			if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val() && validEmail)
 	    	{
 				toggleBtnClass('#addRole',false);
@@ -736,7 +729,6 @@ jQuery(function($) {
 		else
 		{
 			$('#emailValid').addClass('hide');
-			console.log('sadasdsdsadsadas');
 			$.ajax({
 				url: base_url+'tour/check_email_exist',
 				type:'POST',
@@ -1086,7 +1078,6 @@ jQuery(function($) {
     	var selectedPermissions = [];
     	var image_name = '';
     	var user_pic = '';
-    	console.log(selected_user);
     	if($('#user_pic_base64').val() != ''){
     		user_pic = $('#user_pic_base64').attr('value');
     	}

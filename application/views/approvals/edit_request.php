@@ -87,71 +87,60 @@
 						<?php 
 	                    	$i = 0;
 	                    	$len = count($phase);
+	                    	$ph_one_status ='';
+	                    	$ph_two_status ='';
+	                    	$ph_three_status ='';
 	                    	$cls = 'inactive';
-	                    	$next_active = 'false';
+	                    	$is_shown = 'false';
+	                    	$shown_anch = 'false';
 							foreach ($phase as $ph_number => $phs) 
 							{
-								// echo '<pre>'; print_r($phs);echo '</pre>';
-								
-								if($len == 1 )
-								{
-									$cls = 'active';
-								}
-								else
-								{
-									if($cls == 'inactive'){
-										if($next_active =='false')
-										{
-											if($phs['phase_users'][0]->status == 'finished')
-											{
-												if ($i == $len - 1)
-												{
-												 	$cls = 'active';
-												}
-												else
-												{	
-													$next_active = 'true';
-												}
-											}
-											else
-											{
-												if ($i == $len - 1)
-												{
-												 	$cls = 'active';
-												}
-												else
-												{
-													$cls = 'active';
-													$next_active = '';
-												}
-											}
-										}else if($next_active =='true')
-										{
 
-											$cls = 'active';
-											$next_active = '';
-										}
+								if($phs['phase_users'][0]->status == 'finished'){
+
+								}else{
+									if($is_shown !='true'){
+										$cls = 'active';
+										$is_shown = 'true';
 									}else{
 										$cls = 'inactive';
+										$shown_anch = 'true';
 									}
 								}
-									?>
+							
+							?>
 									<div id="approvalPhase<?php echo $ph_number ; ?>" class="bg-white approval-phase animated fadeIn <?php echo $cls ?>">
-										<h2 class="clearfix">Phase <?php echo $ph_number ; ?>
+										<h2 class="clearfix">
 										<?php 
 											if($cls =='active')
 											{
 												?>
+													Phase <?php echo $ph_number ; ?>
 													<i class="fa fa-angle-down"></i> 
 													<button class="btn btn-xs btn-default color-success pull-sm-right">Current</button>
 												<?php
 											}
 											else
 											{
-												?>
-													<i class="fa fa-angle-right"></i>
-													<button class="btn btn-xs btn-default btn-disabled pull-sm-right ">Finished</button>
-												<?php
+												if($shown_anch =='false')
+												{
+													?>
+														Phase <?php echo $ph_number ; ?>
+														<i class="fa fa-angle-right"></i>
+														<button class="btn btn-xs btn-default btn-disabled pull-sm-right ">Finished</button>
+													<?php
+												}
+												else
+												{
+
+													?>
+														<a title="Edit Phase" class="toggleActive" href="#approvalPhase<?php echo $ph_number ; ?>">
+														Phase <?php echo $ph_number ; ?>
+															<i class="fa fa-angle-right"></i>
+														</a>
+													<?php
+
+												}
 											}
 										?>
 										</h2>
@@ -304,9 +293,16 @@
 													<h5>Notes:</h5>
 													<?php echo $phs['phase_users'][0]->note; ?>
 												</div>
-												<footer class="post-content-footer text-xs-center">
-													<a href="#" class="btn btn-default btn-sm" data-modal-id="phase2-postid-1223" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
-												</footer>
+												<?php
+												if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+												{
+													?>
+													<footer class="post-content-footer text-xs-center">
+														<a href="#" class="btn btn-default btn-sm" data-modal-id="phase2-postid-1223" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
+													</footer>
+													<?php
+												}
+												?>
 											</div>
 											<!-- Pending Approvals End -->
 
@@ -325,30 +321,32 @@
 													}
 												}
 												
-												if(!empty($approver_status) && $approver_status == 'approved' ){
-													?>
-													<div class="before-approve">
-														<span class="post-actions pull-sm-left">
-															<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
-															<?php
-															if($phase_status == 'pending' && $post_details->status == 'pending')
-															{
-																?>
-																<br/>
-																<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+												if(!empty($approver_status)){
+													if($approver_status == 'approved')
+													{
+														?>
+														<div class="before-approve">
+															<span class="post-actions pull-sm-left">
+																<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
 																<?php
-															}
-															?>
-														</span>
-													</div>
-													
-													<div class="after-approve hide">
-														<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
-													</div>
+																if($phase_status == 'pending' && $post_details->status == 'pending')
+																{
+																	?>
+																	<br/>
+																	<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+																	<?php
+																}
+																?>
+															</span>
+														</div>
+														
+														<div class="after-approve hide">
+															<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+														</div>
 
-													<?php
-												}else{
-													if($post_details->status == 'pending')
+														<?php
+													}
+													elseif($approver_status == 'pending')
 													{
 														?>
 														<div class="before-approve">
@@ -361,10 +359,15 @@
 														</div>
 														<?php
 													}
-													
+												}
+
+												if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+												{	
+													?>
+													<a href="#" class="btn btn-secondary btn-md finish_phase" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
+													<?php
 												}
 												?>
-												<a href="#" class="btn btn-secondary btn-md finish_phase" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
 										</footer>
 									</div>
 									<?php
@@ -375,7 +378,8 @@
 						</div>
 						<footer class="post-content-footer post-actions text-xs-right">
 							<?php 
-
+							if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+							{
 								if($post_details->status != 'posted')
 								{
 									?>
@@ -406,6 +410,7 @@
 					                </div>
 									<?php
 								}
+							}
 							?>
 						</footer>
 					</div>

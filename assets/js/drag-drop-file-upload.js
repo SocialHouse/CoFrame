@@ -473,7 +473,7 @@
 			//add user to brand
 			$(document).on( 'click','.addUserToBrand', function( e ){
 				var control = this;
-
+				$(control).addClass('hide');
 				$('.user-upload-img').show();
 				$('.user-img-preview').hide();
 				// ajax file upload for modern browsers
@@ -526,6 +526,8 @@
 			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 			    		success: function(data)
 			    		{
+			    			
+			    			$(control).removeClass('hide');
 			    			if(data.response == "success")
 			    			{
 			    				$('#user_pic_base64').val('');

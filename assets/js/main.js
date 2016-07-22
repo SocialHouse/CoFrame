@@ -2426,6 +2426,13 @@ jQuery(function($) {
         }
 	});
 
+	$('body').on('click', '.toggleActive', function(e) {
+		e.preventDefault();
+		$(this).closest('.approval-phase').toggleClass('active inactive');
+		$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
+		equalColumns();
+	});
+
 	toggleBtnClass = function(btnClass, btnState){
 		$(btnClass).prop('disabled', btnState);
 		if(btnState) {

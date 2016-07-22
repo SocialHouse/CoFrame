@@ -115,7 +115,7 @@ class Approval_model extends CI_Model
 		$this->db->where('phases.post_id',$post_id);
 		$query = $this->db->get('phases');
 		
-		if($query->num_rows() > 0)
+		if($query->num_rows() > 0 && $this->user_id !== $this->user_data['created_by'] )
 		{
 
 			$phase_id = $query->row()->id;
