@@ -243,7 +243,7 @@ class Post_model extends CI_Model
 		$this->db->join('post_media','post_media.post_id = posts.id','left');		
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
-		$this->db->where('posts.status != "delete"');
+		$this->db->where('posts.status != "deleted"');
 		if(!check_user_perm($this->user_id,'create',$brand_id))
 		{
 			$this->db->where('posts.status != "draft"');
@@ -324,7 +324,7 @@ class Post_model extends CI_Model
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
-		$this->db->where('posts.status != "delete"');
+		$this->db->where('posts.status != "deleted"');
 		$this->db->where('posts.status != "draft"');
 		if(empty($date))
 		{
@@ -392,7 +392,9 @@ class Post_model extends CI_Model
 		$this->db->join('brands','brands.id = posts.brand_id','LEFT');
 		$this->db->join('post_tags','post_tags.post_id = posts.id','LEFT');
 		$this->db->join('brand_tags','brand_tags.id = post_tags.brand_tag_id ','LEFT');
-
+		$this->db->where('posts.status != "deleted"');
+		$this->db->where('posts.status != "draft"');
+		
 		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') >= "'.date("Y-m-d",strtotime($start_date)).'")');
 		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') <= "'.date("Y-m-d",strtotime($end_date)).'")');
 		

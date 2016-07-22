@@ -204,10 +204,11 @@ class Phases extends CI_Controller {
 
 	public function delete()
 	{
-		$phase_id = $this->uri->segment(3);
+		$phase_id = $this->input->post('phase_id');
 		if($phase_id)
 		{
 			$phase_data = $this->phase_model->get_phase($phase_id);
+			//echo '<pre>'; print_r($phase_data);echo '</pre>'; die;
 			if(!empty($phase_data))
 			{
 				//delete phase
@@ -238,8 +239,13 @@ class Phases extends CI_Controller {
 					}
 				}
 
+				$this->phase_model->delete_comments('',$phase_id,$phase_data->post_id);
+
 				$this->session->set_flashdata('message','Phase has been deleted successfully');
-				redirect(base_url().'phases/index/'.$phase_data->brand_id);
+				//redirect(base_url().'phases/index/'.$phase_data->brand_id);
+				echo json_encode(array('status'=>'success'));
+			}else{
+				echo json_encode(array('status'=>'fail'));
 			}
 		}
 	}
@@ -247,16 +253,6 @@ class Phases extends CI_Controller {
 	public function add_phases_number()
 	{
 		$this->load->view('phases/add_phases_number');
-	}
-
-	public function delete_phase()
-	{
-		$post_data = $this->input->post();
-		if(!empty($post_data['post_id']) && !empty($post_data['phase_id'])){
-			$this->load->model('post_model');
-			$this->load->model('timeframe_model');
-			//$this->timeframe_model->delete_data($table,$condition)
-		}
 	}
 
 }

@@ -156,7 +156,8 @@ class User_preferences extends CI_Controller {
 
 	function change_plan()
 	{
-		if($this->user_data['user_group'] = 'Master admin')
+
+		if($this->user_data['created_by'] == $this->user_id)
 		{
 			$this->data = array();		
 	        $this->form_validation->set_rules('plan','plan','required',                                            
@@ -240,13 +241,14 @@ class User_preferences extends CI_Controller {
 						redirect(base_url().'user_preferences/user_plan');
 					}
 				}
+				redirect(base_url().'user_preferences/user_plan');
 			}
         }
 	}
 
 	public function save_payment()
 	{
-		if($this->user_data['user_group'] = 'Master admin')
+		if($this->user_data['created_by'] == $this->user_id)
 		{
 			$user_id = $this->user_id;
 			$user_token =  $this->input->post('stripe_token');
