@@ -405,7 +405,7 @@
 														</ul>													
 
 														<div class="approval-date">
-															<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span><span class="time-preview3"></span>PST
+															<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span><span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 														</div>
 														<div class="approval-note">
 															NOTE: <?php echo $obj[0]->note; ?>

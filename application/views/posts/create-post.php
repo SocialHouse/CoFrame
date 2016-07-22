@@ -4,7 +4,7 @@
 	<header class="page-main-header">
 		<h1 class="center-title section-title">New Post</h1>
 	</header>
-	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>">
+	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>" autocomplete="off">
 		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
 		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $brand->created_by; ?>">
 		<input type="hidden" name="save_as" id="save_as" value="">
@@ -314,7 +314,6 @@
 											<input type="text" id="only_ph_one_ampm" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
 										</div>
 									</div>
-									<span class="timezone pull-xs-right form-control-sm">PST</span>
 								</div>
 							</div>
 							<label class="phase-one-error error hide clearfix"></label>

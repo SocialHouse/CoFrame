@@ -11,14 +11,6 @@ jQuery(function($) {
 		create_post_validation($(this));
 	});
 
-	$(document).on('keypress', '.minute-select', function ( e ) {
-		return isValidNumber(e, 59,$(this));
-	});
-
-	$(document).on('keypress', '.hour-select', function ( e ) {
-		return isValidNumber(e, 12,$(this));
-	});
-
 	$(document).on('click', '.check-box.circle-border', function(){
 		if($('ul.timeframe-list.user-list.first-phase li div i.selected').length > 0){
 			$('#submit-approval').text('Submit for Approval');
@@ -388,19 +380,18 @@ jQuery(function($) {
 	};
 
 
-	isValidNumber = function(events ,limit, current_txt_box ) {
+	isValidNumber = function(events, limit, current_txt_box ) {
 		if(events.which === 13 || events.which === 8 || events.which === 0 ) {
-	    	return true
-	    };
-	    var currentChar = parseInt(String.fromCharCode(events.which), 10);
-	    if(!isNaN(currentChar)){
-	        var nextValue = current_txt_box.val() + currentChar; //It's a string concatenation, not an addition
-	        if(parseInt(nextValue, 10) <= limit) {
-	        	return true
-	        };
+	    	return true;
+	    }
+	    var currentVal = parseInt(current_txt_box.val(), 10);
+	    if(!isNaN(currentVal)){
+	        if(currentVal <= limit) {
+	        	return true;
+	        }
 	    }
 	    return false;
-	}
+	};
 
 	comparePhases = function(startDate, endDate, error_div, phase_no){
 		var $display_error 	= true,
