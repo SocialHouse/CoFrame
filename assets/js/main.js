@@ -740,8 +740,6 @@ jQuery(function($) {
 					'events.visible' : function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
-
-
 					},
 					'hide.effect': function() { $(this).fadeOut(); },
 					'hide.event': phide,
@@ -893,11 +891,19 @@ jQuery(function($) {
 			e.preventDefault();
 			var $toggler = $(this);
 			if($toggler.hasClass('show-brands-toggler')) {
-				if($toggler.hasClass('animated')) {
-					$toggler.removeClass('animated pulse');
-					setTimeout(function() {
-						$toggler.addClass('selected');
-					}, 150);
+				if(e.type === 'click') {
+					if($toggler.hasClass('animated')) {
+						$toggler.removeClass('animated pulse');
+						setTimeout(function() {
+							$toggler.addClass('selected');
+						}, 150);
+					}
+					else {
+						$toggler.removeClass('selected');
+						setTimeout(function() {
+							$toggler.addClass('animated pulse');
+						}, 200);
+					}
 				}
 				else {
 					$toggler.removeClass('selected');
@@ -1051,12 +1057,14 @@ jQuery(function($) {
 					$(hide).trigger('contentSlidUp', [$trigger]);
 					$(show).slideDown(function(){
 						$(show).trigger('contentSlidDown', [$trigger]);
+						equalColumns();
 					});
 				});
 			}
 			else {
 				$(show).slideToggle(function(){
 					$(show).trigger('contentSlidDown', [$trigger]);
+					equalColumns();
 				});
 			}
 		});

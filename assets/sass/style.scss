@@ -1707,11 +1707,6 @@ a {
 		font-family: $bebas-book;
 		font-size: remCalc(30px);
 	}
-	.equal-columns & {
-		[class*="container-"] {
-			padding-bottom: 75px;
-		}
-	}
 	label {
 		font-size: remCalc(12px);
 	}
