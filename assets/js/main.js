@@ -88,8 +88,7 @@ jQuery(function($) {
 
 			var previous_outlet = $('#postOutlet').val();
 			var outlet = $(this).data('selectedOutlet');
-			var outlet_const = $(this).data('outlet-const');
-			$('#postOutlet').attr('data-outlet-const',outlet_const);
+			var outlet_const = $(this).data('outlet-const');			
 			$('#postCopy').removeAttr('maxlength');
 			if(outlet_const == 'twitter')
 			{
@@ -140,7 +139,7 @@ jQuery(function($) {
 					return false;
 				}
 			}
-
+			
 			if(outlet_const == 'linkedin')
 			{
 				if($('.form__preview-wrapper img').length > 1)
@@ -157,12 +156,13 @@ jQuery(function($) {
 					alert(language_message.pinterest_outlet_change_error);
 					return false;
 				}			
-			}
+			}			
 
 			if(previous_outlet != outlet_const)
 			{
 				$(this).toggleClass('disabled');
 				$(this).siblings().addClass('disabled');
+				$('#postOutlet').attr('data-outlet-const',outlet_const);
 				$('#postOutlet').val(outlet);
 				setOutletPreview(outlet_const);
 				removeFromPreview();
