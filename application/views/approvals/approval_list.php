@@ -102,17 +102,24 @@
 						<th>Post Time</th>
 						<th>Tags</th>
 						<th>Outlet</th>
-						<th>Status</th>
 						<th>Post Copy</th>
 						<?php
 						$class = 'hide';
 						$approval_shown = 1;
+
+						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR check_user_perm($this->user_id,'approve',$brand_id))
+						{
+							?>
+							<th>Approval Deadline</th>
+							<?php
+						}
+
 						if(!check_user_perm($this->user_id,'approve',$brand_id))
 						{
 							$class = '';
 							$approval_shown = 0;
 							?>
-							<th>Approvals</th>
+							<th>Pending Approvals</th>
 							<?php
 						}
 
@@ -120,14 +127,7 @@
 						{
 							$class = '';
 							?>
-							<th>Approvals</th>
-							<?php
-						}
-
-						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR check_user_perm($this->user_id,'approve',$brand_id))
-						{
-							?>
-							<th>Approval Deadline</th>
+							<th>Pending Approvals</th>
 							<?php
 						}
 						?>
@@ -218,10 +218,29 @@
 												<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
 											</td>
 											
-											<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo ucfirst($post->status); ?></td>
-
 											<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
+
 											<?php
+											if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
+											{
+												?>
+												<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+													<small>
+													<?php
+													if(!empty($deadline))
+													{
+														echo date('m/d/Y h:i A',strtotime($deadline));
+													}
+													else
+													{
+														echo "N/A";
+													}
+													?>
+													</small>
+												</td>
+											<?php
+											}
+
 											$approvers = get_post_approvers($post->id);
 											if($approvers)
 											{
@@ -311,26 +330,8 @@
 												}
 												?>
 											</td>
-											
-											<?php
-											if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
-											{
-												?>
-												<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
-													<?php
-													if(!empty($deadline))
-													{
-														echo date('d/m/Y h:i A',strtotime($deadline));
-													}
-													else
-													{
-														echo "N/A";
-													}
-													?>
-												</td>
-												<?php
-											}
 
+											<?php
 											echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
 											?>
 											

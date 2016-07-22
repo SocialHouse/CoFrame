@@ -482,7 +482,7 @@ if(!function_exists('get_approval_list_buttons'))
             if(!empty($approver_status))
             {
                 // $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         elseif(check_user_perm($CI->user_id,'create',$brand_id))
@@ -517,7 +517,7 @@ if(!function_exists('get_approval_list_buttons'))
             $is_edit_request = is_edit_request($post->id);
             if($is_edit_request AND empty($approver_status))
             {
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         else
@@ -552,7 +552,7 @@ if(!function_exists('get_approval_list_buttons'))
             $is_edit_request = is_edit_request($post->id);
             if($is_edit_request AND empty($approver_status))
             {
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         $html_to_return .= '</td>';
