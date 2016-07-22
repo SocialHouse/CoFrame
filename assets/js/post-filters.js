@@ -12,6 +12,9 @@ jQuery(function($) {
 		$containerApp.find('tr').attr('style','');
 		$filter_btn = $(document).find('[data-toggle="popover-ajax"]')[1];
 		$filter_btn.click();
+		setTimeout(function() {
+			$filter_btn.click();
+		},100);
 	},200);
 
 	$('body').on('click', '.filter', function() {
