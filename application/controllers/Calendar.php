@@ -300,7 +300,16 @@ class Calendar extends CI_Controller {
 				$post_details = $this->post_model->get_post($this->data['post_id']);
 				$this->data['post_details'] = $post_details;
 				$this->data['post_images'] = $this->post_model->get_images($post_id);
-				$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
+				// $this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
+				if($this->user_id == $this->user_data['created_by'])
+				{
+					$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand[0]->id);
+				}
+				else
+				{
+					$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
+				}
+			
 				$post_phases = $this->post_model->get_post_phases($post_id);
 				$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);		
 				if(!empty($post_phases))
