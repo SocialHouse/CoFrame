@@ -724,4 +724,52 @@ class Brands extends CI_Controller {
 		$notofications = $this->reminder_model->get_active_notifications();
 		echo json_encode($notofications);
 	}
+
+	function delete($brand_id){
+		$status = 'fail';
+		if(!empty($brand_id)){
+			$brand = $this->timeframe_model->get_data_by_condition('brands',array('id'=>$brand_id),'created_by');
+			
+			$condition = array('brand_id'=> $brand_id);
+
+			// delete brand outlet from brand_outlets table
+			$this->timeframe_model->delete_data('brand_outlets',$condition);
+
+			// delete brand user_outlets from brand_outlets table
+			$this->timeframe_model->delete_data('user_outlets',$condition);
+
+			// delete brand reminders from reminders table
+			$this->timeframe_model->delete_data('reminders',$condition);
+
+			// delete brand tags from brand_tags table
+			$this->timeframe_model->delete_data('brand_tags',$condition);
+
+			// delete users filters from filters table
+			$this->timeframe_model->delete_data('filters',$condition);
+
+			// delete brand Users from brand_user_map table
+			$this->timeframe_model->delete_data('brand_user_map',$condition);
+
+			// delete brand post from posts table
+			$this->timeframe_model->delete_data('posts',$condition);
+
+			// delete brand data from brand table
+			$responce = $this->timeframe_model->delete_data('brands',array('id'=> $brand_id));
+			
+			if(!empty($brand[0])){
+				$dir = FCPATH.'uploads/'.$brand[0]->created_by.'/brands/'.$brand_id;
+				if(is_dir($dir)){
+					$responce = deleteDirectory($dir);
+				}
+			}
+			$status ='success';	
+		}
+		echo json_encode(array('status' => $status));
+	}
+
 }
+
+
+
+
+

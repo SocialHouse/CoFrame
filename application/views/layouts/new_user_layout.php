@@ -34,7 +34,7 @@
 	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
 	var desktop_notify_status = "<?php echo isset($this->user_data['desktop_notification']) ? $this->user_data['desktop_notification'] : ''; ?>";
 </script>
-<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
+<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json?ver=3.3.1'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 </head>
 

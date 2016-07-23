@@ -37,7 +37,7 @@
     <script type="text/javascript">
        var base_url = "<?php echo base_url(); ?>";
     </script>
-    <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json?ver=3.3.1'></script>
   </head>
 
   <body>

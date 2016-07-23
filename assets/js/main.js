@@ -2510,6 +2510,28 @@ jQuery(function($) {
 		$('#timezone_abbreviation').text(selected_abb);	
 	});
 
+	$(document).on('click','.cancel-brand',function(event){
+		event.preventDefault();
+		if(confirm(language_message.confirm_cancel)){
+			var brand_id = $('#brand_id').val();
+			if(brand_id !=''){
+				$.ajax({
+		    		'type':'get',
+		    		dataType: 'json',
+		    		url: base_url+'brands/delete/'+brand_id,
+		            success: function(response)
+		            {
+		            	if(response.status !='success'){
+		            		alert(language_message.try_again);
+		            		return false;
+		            	}
+		            }
+		    	});
+			}
+			//window.location = base_url+'brands/overview';
+		}
+	});
+
 	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
 	if(desktop_notify_status == 0)

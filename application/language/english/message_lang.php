@@ -132,8 +132,11 @@
 	//access denied page
 	$lang['access_denied_approval_page'] = "You do not have permission to access Approvals";
 
-	// confirm_delete_phase
-	$lang['confirm_delete_phase'] = "Are you sure you want to delete these Phase? You cannot undo this action."
+	// confirm delete phase
+	$lang['confirm_delete_phase'] = "Are you sure you want to delete these Phase? You cannot undo this action.";
+
+	// confirm cancel message
+	$lang['confirm_cancel'] = "Are you sure you want to cancel?";
 ?>
 
 
