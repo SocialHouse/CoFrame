@@ -2528,7 +2528,7 @@ jQuery(function($) {
 		            }
 		    	});
 			}
-			//window.location = base_url+'brands/overview';
+			window.location = base_url+'brands/overview';
 		}
 	});
 

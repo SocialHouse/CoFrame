@@ -402,10 +402,16 @@
 
 					// gathering the form data
 					var ajaxData = new FormData( $form.get( 0 ) );
+
 					if( allFiles ){
-						$.each( allFiles, function( i, file ){							
-							ajaxData.append( 'file['+i+']',file,file.name);
-						});					
+						var file_count = 0;
+						$.each( allFiles, function( i, file ){
+							if(typeof(file) == 'object'){
+								ajaxData.append( 'file['+file_count+']',file,file.name);
+								file_count++;
+							}
+							
+						});
 					}
 					// return false;
 					var other_data = $('form').serializeArray();
