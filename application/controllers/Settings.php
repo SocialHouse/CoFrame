@@ -273,18 +273,12 @@ class Settings extends CI_Controller {
 
         	if(empty($post_data['slug']))
         	{
-        		$image_path = img_url().'default_profile.jpg';
-				if(file_exists(upload_path().$this->user_data['created_by'].'/users/'.$user_id.'.png'))
-				{
-					$image_path = upload_url().$this->user_data['created_by'].'/users/'.$user_id.'.png';
-				}
-
-                // $response = '<div class="table" id="table_id_'.$user_id.'">';
+        		// $response = '<div class="table" id="table_id_'.$user_id.'">';
 				$response = '<div class="table-cell">';
 
 				$response .= '<div class="pull-sm-left post-approver-img">';
 				$response .= '<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="'.$user_id.'" data-brand-id="'.$brand_id.'"><i class="fa fa-pencil"></i></a>';
-				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i><img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'" class="circle-img"/></div>';
+				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i>'.print_user_image($this->user_data['created_by'],$user_id).'</div>';
 				$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
 				$response .= '</div>';
 				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';

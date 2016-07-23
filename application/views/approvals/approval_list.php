@@ -411,7 +411,7 @@
 												if($is_edit_request AND empty($approver_status) AND $user_group != 'Approver')
 												{
 													?>
-													<a href="<?php echo base_url().'view-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>
+													<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>
 													<?php
 												}
 												if(!empty($approver_status))
