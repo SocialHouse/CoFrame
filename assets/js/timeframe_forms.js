@@ -333,6 +333,8 @@ console.log(language_message);
         			},
             password :{ required : true,minlength:6 },
             confirm_password :{ required : true,equalTo: "#password_reg"},
+            timezone :{ required : true},
+
         },
          messages :{
         	email: {
@@ -342,6 +344,7 @@ console.log(language_message);
         		required : language_message.enter_pass,
         		minlength:language_message.mini_char },
             confirm_password :{ required: language_message.re_enter_pass},
+            timezone :{ required : language_message.select_timezone}
         },
         submitHandler: function(form, event) {
         	jQuery('#loading_main').show();
@@ -352,6 +355,7 @@ console.log(language_message);
             var email = jQuery('#email_reg').val();
             var password = jQuery('#password_reg').val();
             var confirmPassword = jQuery('#confirm_password_reg').val();
+            var timezone = jQuery('#timeZoneRegister').val();
 
             jQuery.ajax({
 				"url": base_url+'tour/save_sub_user',
@@ -360,7 +364,8 @@ console.log(language_message);
 					'verification_code':verification_code,
 					'email':email,
 					'password':password,
-					'confirm_password': confirmPassword
+					'confirm_password': confirmPassword,
+					'timezone': timezone
 				},
 				"type":"POST",
 				success: function(response)

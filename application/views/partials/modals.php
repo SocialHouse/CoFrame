@@ -243,6 +243,21 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 						<label class="sr-only" for="confirm_password">Confirm password</label>
 						<input type="password" class="form-control" id="confirm_password_reg" placeholder="Confirm password" name="confirm_password" value="<?php echo set_value('user_pass',$user_pass); ?>">
 					</div>
+
+					<fieldset class="form-group">
+						<label class="sr-only" for="timeZone">Time Zone*</label>
+						<select class="form-control" id="timeZoneRegister" name="timezone">
+							<option value="">Time Zone*</option>
+							<?php
+						    foreach($timezones as $timezone)
+						    {
+						    	?>
+						    	<option value="<?php echo $timezone->value ?>" <?php echo set_select('timezone', $timezone->value); ?>><?php echo $timezone->timezone; ?></option>
+						    	<?php
+						    }
+						    ?>
+						</select>
+					</fieldset>
 					
 					<hr>
 					<div class="clearfix">

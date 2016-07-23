@@ -458,6 +458,7 @@ class Tour extends CI_Controller {
         $this->data['is_user'] = 'fail';
         if($user)
         {
+            $this->data['timezones'] = $this->user_model->get_timezones();
             $this->data['is_user'] = 'success';
         }
 
@@ -473,6 +474,11 @@ class Tour extends CI_Controller {
         // echo '<pre>'; print_r($status);echo '</pre>'; die;
         if($status)
         {
+            $data = array(
+                    'timezone' => $post_data['timezone']
+                );
+            $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $post_data['user_id']));
+            
             $verification_status = $this->aauth->verify_user($post_data['user_id'],$post_data['verification_code']);
 
             if($verification_status)
