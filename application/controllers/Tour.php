@@ -415,8 +415,10 @@ class Tour extends CI_Controller {
         }
     }
 
-    public function verify_user_email($user_id,$verification_code)
+    public function verify_user_email()
     {
+        $user_id = $this->uri->segment(3);
+        $verification_code = $this->uri->segment(4);
         $status = $this->aauth->verify_user($user_id,$verification_code);
         if($status)
         {
@@ -454,7 +456,7 @@ class Tour extends CI_Controller {
         
         $user = $this->timeframe_model->get_data_by_condition('aauth_users',array('id' => $user_id,'verification_code' => $verification_code));  
         // echo '<pre>'; print_r($user);echo '</pre>'; 
-        $this->data['user_email'] = $user[0]->email;
+        $this->data['user_email'] = isset($user[0]->email) ? $user[0]->email :'';
         $this->data['is_user'] = 'fail';
         if($user)
         {
@@ -478,7 +480,7 @@ class Tour extends CI_Controller {
                     'timezone' => $post_data['timezone']
                 );
             $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $post_data['user_id']));
-            
+
             $verification_status = $this->aauth->verify_user($post_data['user_id'],$post_data['verification_code']);
 
             if($verification_status)
