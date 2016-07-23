@@ -39,15 +39,10 @@
 					?> 
 					<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">
 						<div class="table-cell">
-							<?php
-								$path = img_url()."default_profile.jpg";
 							
-								if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
-								{
-									$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
-								}
-							?>
-							<div class="pull-sm-left"><img src="<?php echo $path; ?>" width="36" height="36" alt="" class="circle-img"/></div>
+							<div class="pull-sm-left">
+								<?php echo print_user_image($brand->created_by,$user->aauth_user_id); ?>
+							</div>
 							<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand->id); ?></div>
 						</div>
 						<div class="table-cell text-xs-center vertical-middle has-permission">

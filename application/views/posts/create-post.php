@@ -236,6 +236,7 @@
 									$master_user = get_master_user($this->user_data['created_by']);
 									if(!empty($master_user))
 									{
+
 										?>										
 										<li>
 											<div class="pull-sm-left">
@@ -247,6 +248,7 @@
 												
 												if(file_exists(upload_path().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png'))
 												{
+
 													$path = upload_url().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png';
 												}
 												?>
@@ -271,13 +273,8 @@
 												</div>
 												<div class="pull-sm-left">
 													<?php
-													$path = img_url()."default_profile.jpg";
-													if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
-													{
-														$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
-													}
+														echo print_user_image($brand->created_by, $user->aauth_user_id);
 													?>
-													<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
 												</div>
 												<div class="pull-sm-left post-approver-name">
 													<strong>

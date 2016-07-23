@@ -13,7 +13,7 @@ if(!empty($comment))
 			<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" class="circle-img pull-sm-left">
 			<div class="author-meta pull-sm-left">
 				<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
-				<span class="dateline"><?php echo date('m/d/Y' , strtotime($comment->created_at));; ?></span>
+				<span class="dateline">Now</span>
 			</div>
 		</div>		
 		<div class="comment">

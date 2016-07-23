@@ -118,6 +118,13 @@ jQuery(function($) {
             $('#emailValid').addClass('hide');
             $('#emailUniqueValid').addClass('hide');
             $('.editUserToBrand').removeClass('editUserToBrand');
+            if($.trim($('#user_pic_base64').val()) != ''){
+            	$('#user_pic_base64').val('');
+            }
+            if($('#new_user_pic img').attr('src') != ''){
+            	$('#new_user_pic').removeClass('hasUpload');
+	           	$('#new_user_pic img').remove();
+	        }
             toggleBtnClass('.editUserToBrand', true);
         })
 
@@ -626,7 +633,11 @@ jQuery(function($) {
 				});
 			}
 			else if($(this).val() !== "") {
+				//console.log($(this).val());
+				// if($('#user-selected-outlet li'))
 				toggleBtnClass('#addRole', false);
+			}else{
+				toggleBtnClass('#addRole', true);
 			}
 		});
 
@@ -983,7 +994,9 @@ jQuery(function($) {
 					$('#addNewUser .remove-user-img').addClass('hide');
 					if(response.result.user_profile)
 					{
-						$('#new_user_pic').append('<img src="'+response.result.user_profile+'" >');
+						var dt = new Date();
+
+						$('#new_user_pic').append('<img src="'+response.result.user_profile+'?'+Math.random()+'" >');
 						$('#addNewUser .remove-user-img').removeClass('hide');
 						$('#addNewUser .remove-user-img').show();
 						$('#is_user_image').val('yes');
@@ -1026,7 +1039,6 @@ jQuery(function($) {
 							$(this).addClass('hidden');
 						}
 					});
-
 				}
 			}
 		});
@@ -1103,11 +1115,13 @@ jQuery(function($) {
     			'image_name': image_name,
     			'file':user_pic,
     			'user_id': selected_user,
-    			'slug' : slug,
+    			// 'slug' : slug,
     			'is_user_image':is_user_image
     		},
     		success: function(data)
     		{
+    			console.log(data);
+
     			if(data.response =='success'){
     				if(data.html)
     				{

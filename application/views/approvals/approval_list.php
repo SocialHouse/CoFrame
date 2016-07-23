@@ -332,7 +332,6 @@
 										}
 										?>
 									</td>
-
 									<?php
 									echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
 									?>

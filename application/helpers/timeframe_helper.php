@@ -482,7 +482,7 @@ if(!function_exists('get_approval_list_buttons'))
             if(!empty($approver_status))
             {
                 // $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         elseif(check_user_perm($CI->user_id,'create',$brand_id))
@@ -517,7 +517,7 @@ if(!function_exists('get_approval_list_buttons'))
             $is_edit_request = is_edit_request($post->id);
             if($is_edit_request AND empty($approver_status))
             {
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         else
@@ -552,7 +552,7 @@ if(!function_exists('get_approval_list_buttons'))
             $is_edit_request = is_edit_request($post->id);
             if($is_edit_request AND empty($approver_status))
             {
-                $html_to_return .= '<a href="'.base_url().'view-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+                $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
         $html_to_return .= '</td>';
@@ -774,3 +774,28 @@ if(!function_exists('get_tag_data'))
         return $CI->timeframe_model->get_data_by_condition('brand_tags',array('id' => $tag_id),'name,color');
     }
 }
+
+
+
+if(!function_exists('print_user_image'))
+{
+    function print_user_image($created_by, $user_id)
+    {
+        $path = img_url()."default_profile.jpg";
+        $CI = & get_instance(); 
+        $CI->load->model('timeframe_model');
+        $data = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$user_id),"CONCAT('first_name',' ','last_name') as name");
+        if($data)
+        {
+            $name = $data[0]->name;
+        }
+
+        if (file_exists(upload_path().$created_by.'/users/'.$user_id.'.png'))
+        {
+            $path = upload_url().$created_by.'/users/'.$user_id.'.png?'.uniqid();
+        }
+        $image = '<img src="'.$path.'" width="36" height="36" alt="'.$name.'" class="circle-img"/>';
+        return $image;
+    }
+}
+

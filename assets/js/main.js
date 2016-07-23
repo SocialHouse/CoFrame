@@ -2258,25 +2258,26 @@ jQuery(function($) {
 
 	$(document).on('submit','#step_3_edit',function(e){
 		e.preventDefault();
-		var form = $(this);
-		var step_no = '3';
-		var brand_slug = $('#brand_slug').val();
-		if(brand_slug){
-	    	$.ajax({
-	    		'type':'POST',
-	    		dataType: 'html',
-	    		url: base_url+'settings/edit_step',
-	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
-	            success: function(response){
-	            	if(response != 'false'){
-	            		toggleBtnClass($('.edit-brands-info'),false);
-	            		$('#brandStep'+step_no).empty();
-	            		$('#brandStep'+step_no).removeClass('active');
-	            		$('#brandStep'+step_no).html(response);
-	            	}
-	            }
-	    	});
-    	}
+		window.location.reload();
+		// var form = $(this);
+		// var step_no = '3';
+		// var brand_slug = $('#brand_slug').val();
+		// if(brand_slug){
+	 //    	$.ajax({
+	 //    		'type':'POST',
+	 //    		dataType: 'html',
+	 //    		url: base_url+'settings/edit_step',
+	 //    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
+	 //            success: function(response){
+	 //            	if(response != 'false'){
+	 //            		toggleBtnClass($('.edit-brands-info'),false);
+	 //            		$('#brandStep'+step_no).empty();
+	 //            		$('#brandStep'+step_no).removeClass('active');
+	 //            		$('#brandStep'+step_no).html(response);
+	 //            	}
+	 //            }
+	 //    	});
+  //   	}
 	});
 
 
@@ -2322,24 +2323,25 @@ jQuery(function($) {
 
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
-		var step_no = $(this).data('step-no');
-		var brand_slug = $('#brand_slug').val();
-		if(brand_slug){
-	    	$.ajax({
-	    		'type':'POST',
-	    		dataType: 'html',
-	    		url: base_url+'settings/edit_step',
-	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
-	            success: function(response){
-	            	if(response != 'false'){
-	            		toggleBtnClass($('.edit-brands-info'),false);
-	            		$('#brandStep'+step_no).empty();
-	            		$('#brandStep'+step_no).removeClass('active');
-	            		$('#brandStep'+step_no).html(response);
-	            	}
-	            }
-	    	});
-    	}
+     	window.location.reload();
+		// var step_no = $(this).data('step-no');
+		// var brand_slug = $('#brand_slug').val();
+		// if(brand_slug){
+	 //    	$.ajax({
+	 //    		'type':'POST',
+	 //    		dataType: 'html',
+	 //    		url: base_url+'settings/edit_step',
+	 //    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
+	 //            success: function(response){
+	 //            	if(response != 'false'){
+	 //            		toggleBtnClass($('.edit-brands-info'),false);
+	 //            		$('#brandStep'+step_no).empty();
+	 //            		$('#brandStep'+step_no).removeClass('active');
+	 //            		$('#brandStep'+step_no).html(response);
+	 //            	}
+	 //            }
+	 //    	});
+  //   	}
     });
 
     $(document).on("click", ".edit_post", function(event){
