@@ -350,6 +350,17 @@ class Brands extends CI_Controller {
 
                 	$this->aauth->add_member($inserted_id,$group_id,$post_data['brand_id']);
 
+                	$user_data['aauth_user_id'] = $inserted_id;
+                	$user_data['img_folder'] = $this->user_data['img_folder'];
+
+
+                	if($post_data['selected_user'] == 'Add New' AND $user_in_other_brand == 0)
+            		{
+                		$this->timeframe_model->insert_data('user_info',$user_data);
+                	}
+
+                	$user_img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $inserted_id),'img_folder');
+                	
                 	//add permission to user
             
                 	if(!empty($post_data['permissions']))
@@ -374,10 +385,10 @@ class Brands extends CI_Controller {
 
 				        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-				        if(!is_dir(upload_path().$this->user_data['account_id'].'/users/')){
-				        	mkdir(upload_path().$this->user_data['account_id'].'/users/',0755,true);
+				        if(!is_dir(upload_path().$user_img_folder[0]->img_folder.'/users/')){
+				        	mkdir(upload_path().$user_img_folder[0]->img_folder.'/users/',0755,true);
 				        }
-				        $url = upload_path().$this->user_data['account_id'].'/users/'.$inserted_id.'.png';	
+				        $url = upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';	
 				        $result = file_put_contents($url, $decoded);
 
 				        $source_url = imagecreatefrompng($url);
@@ -386,14 +397,7 @@ class Brands extends CI_Controller {
 				        imagepng($source_url, $url, 8);
 		        	}
                 	
-                	$user_data['aauth_user_id'] = $inserted_id;
-                	$user_data['img_folder'] = $this->user_data['img_folder'];
                 	
-                	if($post_data['selected_user'] == 'Add New' AND $user_in_other_brand == 0)
-            		{
-                		$this->timeframe_model->insert_data('user_info',$user_data);
-                	}
-
                     $brand_user_map = array(
                     							'brand_id' => $post_data['brand_id'],
                     							'access_user_id' => $inserted_id
@@ -417,9 +421,9 @@ class Brands extends CI_Controller {
                     }
 
                     $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$inserted_id.'.png'))
+					if(file_exists(upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png'))
 					{
-						$image_path = upload_url().$this->user_data['account_id'].'/users/'.$inserted_id.'.png';
+						$image_path = upload_url().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';
 					}
 
                     $response = '<div class="table" id="table_id_'.$inserted_id.'">';
