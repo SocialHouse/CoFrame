@@ -34,8 +34,9 @@ class Brand_model extends CI_Model
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
 		$this->db->group_end();
-		$this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
+		// $this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
 		$this->db->where('is_hidden',0);
+		$this->db->where('account_id',$this->user_data['account_id']);
 		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)
@@ -50,13 +51,14 @@ class Brand_model extends CI_Model
 		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');
 		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
 		if($slug)
+		{			
 			$this->db->where('brands.slug', $slug);
-
+		}
+		$this->db->where('brands.account_id',$this->user_data['account_id']);
 		$this->db->group_start();
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
-		$this->db->group_end();
-		$this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
+		$this->db->group_end();		
 		$this->db->where('is_hidden',0);
 		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);
@@ -82,7 +84,7 @@ class Brand_model extends CI_Model
 	//get user assosiate with brands
 	public function get_brand_users($brand_id)
 	{
-		$this->db->select('brand_user_map.id,user_info.first_name,user_info.last_name,aauth_users.email,user_info.aauth_user_id');
+		$this->db->select('brand_user_map.id,user_info.first_name,user_info.last_name,aauth_users.email,user_info.aauth_user_id,img_folder');
 		$this->db->where('brand_id', $brand_id);
 		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
 		$this->db->join('user_info','user_info.aauth_user_id = brand_user_map.access_user_id');
@@ -117,7 +119,7 @@ class Brand_model extends CI_Model
 		$query = $this->db->get('aauth_perms');
 		if($query->num_rows() > 0)
 		{
-			$this->db->select('user_info.aauth_user_id,first_name,last_name,perm_id,aauth_perm_to_user.user_id');
+			$this->db->select('user_info.aauth_user_id,first_name,last_name,perm_id,aauth_perm_to_user.user_id,img_folder');
 			$this->db->join('user_info','user_info.aauth_user_id = access_user_id');
 			$this->db->join('aauth_perm_to_user','aauth_perm_to_user.user_id = access_user_id');
 			$this->db->where('perm_id',$query->row()->id);

@@ -30,7 +30,6 @@ class Approvals extends CI_Controller {
 		$this->load->model('post_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
-		$this->account_ids = $this->user_data['accounts'];
 	}
 
 	function index()

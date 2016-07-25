@@ -128,6 +128,8 @@ class User_preferences extends CI_Controller {
            	
            	$user_data['user_info_id'] = $post_data['aauth_user_id'];
            	$user_data['created_by'] = $this->user_data['created_by'];
+           	$user_data['img_folder'] = $this->user_data['img_folder'];
+           	$user_data['accounts'] = $this->user_data['accounts'];
 
            	$this->session->set_userdata('user_info',$user_data);
 

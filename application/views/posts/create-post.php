@@ -244,7 +244,7 @@
 											</div>
 											<div class="pull-sm-left">
 												<?php
-												echo print_user_image($this->user_data['img_folder'], $this->user_id);
+												echo print_user_image($master_user[0]->img_folder, $this->user_id);
 												?>
 											</div>
 											<div class="pull-sm-left post-approver-name">
@@ -266,7 +266,7 @@
 												</div>
 												<div class="pull-sm-left">
 													<?php
-														echo print_user_image($this->user_data['img_folder'], $user->aauth_user_id);
+														echo print_user_image($user->img_folder, $user->aauth_user_id);
 													?>
 												</div>
 												<div class="pull-sm-left post-approver-name">

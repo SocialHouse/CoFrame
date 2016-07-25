@@ -46,7 +46,7 @@
 											<i class="fa fa-pencil"></i>
 										</a>
 										<i class="tf-icon-circle remove-item remove-user" data-user-id="<?php echo $user->aauth_user_id; ?>" title="Remove User">x</i>
-										<?php echo print_user_image($this->user_data['img_folder'],$user->aauth_user_id ); ?>
+										<?php echo print_user_image($user->img_folder,$user->aauth_user_id ); ?>
 									</div>
 									<div class="pull-sm-left post-approver-name">
 										<strong>

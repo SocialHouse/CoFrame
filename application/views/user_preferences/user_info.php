@@ -11,9 +11,9 @@
 				if(!empty($user_details)){
 					$image ='';
 					$cls= 'hide';					
-					if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$this->user_id.'.png'))
+					if (file_exists(upload_path().$user_details->img_folder.'/users/'.$this->user_id.'.png'))
 					{
-						$path = upload_url().$this->user_data['account_id'].'/users/'.$this->user_id.'.png?'.uniqid();
+						$path = upload_url().$user_details->img_folder.'/users/'.$this->user_id.'.png?'.uniqid();
 						$image = '<img src="'.$path.'">';
 						$cls ='';
 					}

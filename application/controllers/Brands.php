@@ -69,6 +69,7 @@ class Brands extends CI_Controller {
     						'name' => $this->input->post('name'),    						
     						'created_by' => $this->user_id,
     						'timezone' => $this->input->post('timezone'),
+    						'account_id' => $this->user_data['account_id']
     						//'is_hidden' => $is_hidden
     					);		
     	if(empty($brand_id))
@@ -395,8 +396,7 @@ class Brands extends CI_Controller {
 
                     $brand_user_map = array(
                     							'brand_id' => $post_data['brand_id'],
-                    							'access_user_id' => $inserted_id,
-                    							'account_id' => $this->user_data['account_id']
+                    							'access_user_id' => $inserted_id
                     						);
                     
                     $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);

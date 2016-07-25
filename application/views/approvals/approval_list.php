@@ -192,9 +192,9 @@
 												$deadline = $approver['approve_by'];
 											}
 											$image_path = img_url().'default_profile.jpg';
-											if(file_exists(upload_path().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png'))
+											if(file_exists(upload_path().$approver['img_folder'].'/users/'.$approver['user_id'].'.png'))
 											{
-												$image_path = upload_url().$approvers['owner_id'].'/users/'.$approver['user_id'].'.png';
+												$image_path = upload_url().$approver['img_folder'].'/users/'.$approver['user_id'].'.png';
 											}
 											$approver_count++;
 											if($approver_count >= 4)

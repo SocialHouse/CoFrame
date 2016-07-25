@@ -15,7 +15,7 @@
 						<?php
 						$path = img_url()."default_profile.jpg";
 						
-						if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png'))
+						if(file_exists(upload_path().$master_user[0]->img_folder.'/users/'.$master_user[0]->aauth_user_id.'.png'))
 						{
 							$path = upload_url().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png';
 						}
@@ -44,9 +44,9 @@
 						<?php
 						$path = img_url()."default_profile.jpg";
 						
-						if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png'))
+						if(file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png'))
 						{
-							$path = upload_url().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png';
+							$path = upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png';
 						}
 						?>
 						<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>

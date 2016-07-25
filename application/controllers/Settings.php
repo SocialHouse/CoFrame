@@ -128,18 +128,20 @@ class Settings extends CI_Controller {
 	{
 		$aauth_user_id = $this->input->post('aauth_user_id');
 		$brand_id = $this->input->post('brand_id');
-		if(!empty($brand_id) && !empty($aauth_user_id)){
-			if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$aauth_user_id.'.png'))
-			{
-				$this->data['user_profile'] = upload_url().$this->user_data['img_folder'].'/users/'.$aauth_user_id.'.png';
-			}
+		if(!empty($brand_id) && !empty($aauth_user_id)){			
 
 			$this->data['user_details'] = $this->user_model->get_user($aauth_user_id);
 			$this->data['user_outlets'] = $this->post_model->get_user_outlets($brand_id,$aauth_user_id);
+
+			if (file_exists(upload_path().$this->data['user_details']->img_folder.'/users/'.$aauth_user_id.'.png'))
+			{
+				$this->data['user_profile'] = upload_url().$this->data['user_details']->img_folder.'/users/'.$aauth_user_id.'.png';
+			}
+
 			$this->data['user_role'] = strtolower(get_user_groups($aauth_user_id,$brand_id));
 			$user_permissions= $this->aauth->get_user_perm($aauth_user_id,$brand_id);
 
-			if(!empty($user_permissions ))
+			if(!empty($user_permissions))
         	{
         		$this->data['user_permissions'] = [];
         		foreach($user_permissions as $permission)
@@ -222,6 +224,7 @@ class Settings extends CI_Controller {
 	        $condition = array('aauth_user_id' => $user_id);
 	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
 
+	        $user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
 	        // Update user profile image
 	        if($post_data['is_user_image'] == 'yes'){
 	        	 if(isset($post_data['file']) && !empty($post_data['file'])){
@@ -233,10 +236,10 @@ class Settings extends CI_Controller {
 
 			        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-			        if(!is_dir(upload_path().$this->user_id.'/users/')){
-			        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+			        if(!is_dir(upload_path().$user_img[0]->img_folder.'/users/')){
+			        	mkdir(upload_path().$user_img[0]->img_folder.'/users/',0755,true);
 			        }
-			        $url = upload_path().$this->user_id.'/users/'.$user_id.'.png';	
+			        $url = upload_path().$user_img[0]->img_folder.'/users/'.$user_id.'.png';	
 			        
 			        $result = file_put_contents($url, $decoded);
 			        
@@ -247,7 +250,7 @@ class Settings extends CI_Controller {
 			        imagepng($source_url, $url, 8);
 	        	}
 	        }else{
-	        	$url = upload_path().$this->user_id.'/users/'.$user_id.'.png';
+	        	$url = upload_path().$user_img[0]->img_folder.'/users/'.$user_id.'.png';
 	        	delete_file($url);
 	        }
 
@@ -292,7 +295,7 @@ class Settings extends CI_Controller {
 
 				$response .= '<div class="pull-sm-left post-approver-img">';
 				$response .= '<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="'.$user_id.'" data-brand-id="'.$brand_id.'"><i class="fa fa-pencil"></i></a>';
-				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i>'.print_user_image($this->user_data['img_folder'],$user_id).'</div>';
+				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i>'.print_user_image($user_img[0]->img_folder,$user_id).'</div>';
 				$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
 				$response .= '</div>';
 				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
