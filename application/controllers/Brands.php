@@ -302,12 +302,14 @@ class Brands extends CI_Controller {
     	{        	
             try
             {
+            	$user_in_other_brand = 0;
             	$inserted_id = $post_data['selected_user'];
             	if($post_data['selected_user'] == 'Add New')
             	{
-            		$is_present = $this->aauth->user_exist_by_email($email);
-            		if(!$is_present)
+            		$is_present = $this->aauth->user_exist_by_email($post_data['email']);            		
+            		if($is_present)
             		{
+            			$user_in_other_brand = 1;
             			$inserted_id = $this->aauth->get_user_id($post_data['email']);
             		}
             		else
@@ -371,10 +373,10 @@ class Brands extends CI_Controller {
 
 				        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-				        if(!is_dir(upload_path().$this->user_id.'/users/')){
-				        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+				        if(!is_dir(upload_path().$this->user_data['account_id'].'/users/')){
+				        	mkdir(upload_path().$this->user_data['account_id'].'/users/',0755,true);
 				        }
-				        $url = upload_path().$this->user_id.'/users/'.$inserted_id.'.png';	
+				        $url = upload_path().$this->user_data['account_id'].'/users/'.$inserted_id.'.png';	
 				        $result = file_put_contents($url, $decoded);
 
 				        $source_url = imagecreatefrompng($url);
@@ -386,7 +388,7 @@ class Brands extends CI_Controller {
                 	$user_data['aauth_user_id'] = $inserted_id;
                 	$user_data['img_folder'] = $this->user_data['img_folder'];
                 	
-                	if($post_data['selected_user'] == 'Add New')
+                	if($post_data['selected_user'] == 'Add New' AND $user_in_other_brand == 0)
             		{
                 		$this->timeframe_model->insert_data('user_info',$user_data);
                 	}
@@ -415,9 +417,9 @@ class Brands extends CI_Controller {
                     }
 
                     $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$inserted_id.'.png'))
+					if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$inserted_id.'.png'))
 					{
-						$image_path = upload_url().$this->user_data['img_folder'].'/users/'.$inserted_id.'.png';
+						$image_path = upload_url().$this->user_data['account_id'].'/users/'.$inserted_id.'.png';
 					}
 
                     $response = '<div class="table" id="table_id_'.$inserted_id.'">';
