@@ -54,6 +54,7 @@
 	$lang['mini_char'] = "Please enter minimum 6 character";
 		
 	$lang['invalid_company_url'] = "Please enter valid url eg. www.example.com";
+	$lang['enter_company_name'] = "Please enter company name";
 
 	$lang['select_timezone'] = "Please select timezone";
 	$lang['select_plan'] = "Please select plan";
