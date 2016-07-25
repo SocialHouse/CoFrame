@@ -231,9 +231,9 @@
 							<label>Check all that apply:</label>
 							<ul class="timeframe-list user-list first-phase">
 								<?php 
-								if($this->user_id != $this->user_data['created_by'])
+								if($this->user_id != $this->user_data['account_id'])
 								{
-									$master_user = get_master_user($this->user_data['created_by']);
+									$master_user = get_master_user($this->user_data['account_id']);
 									if(!empty($master_user))
 									{
 
@@ -244,15 +244,8 @@
 											</div>
 											<div class="pull-sm-left">
 												<?php
-												$path = img_url()."default_profile.jpg";
-												
-												if(file_exists(upload_path().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png'))
-												{
-
-													$path = upload_url().$brand->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png';
-												}
+												echo print_user_image($this->user_data['img_folder'], $this->user_id);
 												?>
-												<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name; ?>" class="circle-img"/>
 											</div>
 											<div class="pull-sm-left post-approver-name">
 												<strong><?php echo ucfirst($master_user[0]->first_name)." ".ucfirst($master_user[0]->last_name); ?></strong>
@@ -273,7 +266,7 @@
 												</div>
 												<div class="pull-sm-left">
 													<?php
-														echo print_user_image($brand->created_by, $user->aauth_user_id);
+														echo print_user_image($this->user_data['img_folder'], $user->aauth_user_id);
 													?>
 												</div>
 												<div class="pull-sm-left post-approver-name">

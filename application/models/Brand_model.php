@@ -34,6 +34,7 @@ class Brand_model extends CI_Model
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
 		$this->db->group_end();
+		$this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
 		$this->db->where('is_hidden',0);
 		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);
@@ -55,6 +56,7 @@ class Brand_model extends CI_Model
 		$this->db->where('created_by', $user_id);
 		$this->db->or_where('access_user_id',$user_id);
 		$this->db->group_end();
+		$this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
 		$this->db->where('is_hidden',0);
 		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);

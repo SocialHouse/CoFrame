@@ -461,7 +461,7 @@ if(!function_exists('get_approval_list_buttons'))
     {
         $CI = & get_instance(); 
         $html_to_return = '<td class="text-xs-center">';
-        if(check_user_perm($CI->user_id,'approve',$brand_id) OR !empty($phase_status))
+        if((check_user_perm($CI->user_id,'approve',$brand_id) OR ($CI->user_id == $CI->user_data['account_id'])) AND !empty($phase_status))
         {
             if($phase_status == 'pending' AND $post->status == 'pending')
             {               
@@ -522,6 +522,7 @@ if(!function_exists('get_approval_list_buttons'))
         }
         else
         {
+            echo "test";
             if($post->status == 'scheduled')
             {
                 $html_to_return .= '<div class="before-approve">';
@@ -817,6 +818,18 @@ if(!function_exists('deleteDirectory'))
             }
         }
         return rmdir($dir);
+    }
+
+    function get_company_name($id)
+    {
+        $CI = &get_instance();
+        $CI->load->model('timeframe_model');
+        $result = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $id),'company_name');
+        if(!empty($result))
+        {
+            return $result[0]->company_name;
+        }
+        return FALSE;
     }
 }
 

@@ -129,9 +129,9 @@ class Settings extends CI_Controller {
 		$aauth_user_id = $this->input->post('aauth_user_id');
 		$brand_id = $this->input->post('brand_id');
 		if(!empty($brand_id) && !empty($aauth_user_id)){
-			if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$aauth_user_id.'.png'))
+			if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$aauth_user_id.'.png'))
 			{
-				$this->data['user_profile'] = upload_url().$this->user_data['created_by'].'/users/'.$aauth_user_id.'.png';
+				$this->data['user_profile'] = upload_url().$this->user_data['img_folder'].'/users/'.$aauth_user_id.'.png';
 			}
 
 			$this->data['user_details'] = $this->user_model->get_user($aauth_user_id);
@@ -175,27 +175,41 @@ class Settings extends CI_Controller {
 
         	if(!empty($post_data['outlets']))
         	{
-	        	$outlet_ids = array_column($old_outlets,'id');
-	        	$new_selected_outlets = explode(',', $post_data['outlets']);
-	        	$outlets_to_add = array_diff($new_selected_outlets,$outlet_ids); // outlets to add	        	
-	        	$outlets_to_delete = array_diff($outlet_ids,$new_selected_outlets); //outlets to delete
-
-	        	foreach ($outlets_to_delete as $key => $o_id) {
-	        		$condition = array(
-	        				'user_id' => $user_id,
-	        				'outlet_id' => $o_id ,
-	        				'brand_id' => $brand_id
-	        			);
-	        		$this->timeframe_model->delete_data('user_outlets',$condition);
-	        	}
-	        	foreach ($outlets_to_add as $key_1 => $o_id_1) {
-	        		$data = array(
-	        			'user_id' => $user_id,
-	        			'outlet_id' => $o_id_1,
-	        			'brand_id' => $brand_id
-	        			);
-	        		$this->timeframe_model->insert_data('user_outlets',$data);
-	        	}
+        		$new_selected_outlets = [];
+        		if(!empty($post_data['outlets']))
+        		{
+        			$new_selected_outlets = explode(',', $post_data['outlets']);
+        		}
+        		
+        		$outlets_to_add = $new_selected_outlets;
+        		if(!empty($old_outlets))
+        		{
+		        	$outlet_ids = array_column($old_outlets,'id');		        	
+		        	$outlets_to_add = array_diff($new_selected_outlets,$outlet_ids); // outlets to add	        	
+		        	$outlets_to_delete = array_diff($outlet_ids,$new_selected_outlets); //outlets to delete
+		        	if(!empty($outlets_to_delete))
+		        	{
+			        	foreach ($outlets_to_delete as $key => $o_id) {
+			        		$condition = array(
+			        				'user_id' => $user_id,
+			        				'outlet_id' => $o_id ,
+			        				'brand_id' => $brand_id
+			        			);
+			        		$this->timeframe_model->delete_data('user_outlets',$condition);
+			        	}
+			        }
+		        }
+		        if(!empty($outlets_to_add))
+		        {
+		        	foreach ($outlets_to_add as $key_1 => $o_id_1) {
+		        		$data = array(
+		        			'user_id' => $user_id,
+		        			'outlet_id' => $o_id_1,
+		        			'brand_id' => $brand_id
+		        			);
+		        		$this->timeframe_model->insert_data('user_outlets',$data);
+		        	}
+		        }
 	        }
 
 	        // Update user info 
@@ -278,7 +292,7 @@ class Settings extends CI_Controller {
 
 				$response .= '<div class="pull-sm-left post-approver-img">';
 				$response .= '<a href="#" class="btn-icon btn-gray edit-user-permission show-hide" href="#addUser" data-hide="#addUserLink, #outletStep3Btns, #userPermissionsList" data-show="#addNewUser, #addUserBtns" data-user-id="'.$user_id.'" data-brand-id="'.$brand_id.'"><i class="fa fa-pencil"></i></a>';
-				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i>'.print_user_image($this->user_data['created_by'],$user_id).'</div>';
+				$response .= '<i title="Remove User" data-user-id="'.$user_id.'" class="tf-icon-circle remove-item remove-user">x</i>'.print_user_image($this->user_data['img_folder'],$user_id).'</div>';
 				$response .= '<div class="pull-sm-left post-approver-name"><strong>'.ucfirst($post_data['first_name']).' '.ucfirst($post_data['last_name']).'</strong>'.$post_data['role'].'</div>';
 				$response .= '</div>';
 				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';

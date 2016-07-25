@@ -27,7 +27,7 @@ class User_preferences extends CI_Controller {
         $this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->email = $this->session->userdata('email');
-		$this->user_data = $this->session->userdata('user_info');		
+		$this->user_data = $this->session->userdata('user_info');
 	}
 
 	function index()
@@ -53,7 +53,7 @@ class User_preferences extends CI_Controller {
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
 		}
 				
-		// if($this->user_id == $this->user_data['created_by'])
+		// if($this->user_id == $this->user_data['account_id'])
 		// {
 			if($page == 'user_plan')
 			{
@@ -143,7 +143,7 @@ class User_preferences extends CI_Controller {
 		        if(!is_dir(upload_path().$this->user_id.'/users/')){
 		        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
 		        }
-		        $url = upload_path().$this->user_data['created_by'].'/users/'.$this->user_id.'.png';
+		        $url = upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
 		        $result = file_put_contents($url, $decoded);
 		        $source_url = imagecreatefrompng($url);
 
@@ -157,7 +157,7 @@ class User_preferences extends CI_Controller {
 	function change_plan()
 	{
 
-		if($this->user_data['created_by'] == $this->user_id)
+		if($this->user_data['account_id'] == $this->user_id)
 		{
 			$this->data = array();		
 	        $this->form_validation->set_rules('plan','plan','required',                                            
@@ -248,7 +248,7 @@ class User_preferences extends CI_Controller {
 
 	public function save_payment()
 	{
-		if($this->user_data['created_by'] == $this->user_id)
+		if($this->user_data['account_id'] == $this->user_id)
 		{
 			$user_id = $this->user_id;
 			$user_token =  $this->input->post('stripe_token');

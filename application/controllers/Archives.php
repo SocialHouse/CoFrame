@@ -32,7 +32,7 @@ class Archives extends CI_Controller {
         $this->load->model('brand_model');
         $this->load->model('post_model');
 		$this->user_id = $this->session->userdata('id');
-		$this->user_data = $this->session->userdata('user_info');
+		$this->user_data = $this->session->userdata('user_info');		
 	}
 
 	function index()

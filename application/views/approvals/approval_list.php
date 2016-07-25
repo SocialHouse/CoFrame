@@ -107,7 +107,7 @@
 						$class = 'hide';
 						$approval_shown = 1;
 
-						if($this->user_id == $this->user_data['created_by'] OR $user_group == 'Manager' OR check_user_perm($this->user_id,'approve',$brand_id))
+						if($this->user_id == $this->user_data['account_id'] OR $user_group == 'Manager' OR check_user_perm($this->user_id,'approve',$brand_id))
 						{
 							?>
 							<th>Approval Deadline</th>
@@ -284,7 +284,7 @@
 									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
 
 									<?php
-									if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
+									if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
 									{
 										?>
 										<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">

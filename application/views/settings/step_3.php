@@ -41,7 +41,7 @@
 						<div class="table-cell">
 							
 							<div class="pull-sm-left">
-								<?php echo print_user_image($brand->created_by,$user->aauth_user_id); ?>
+								<?php echo print_user_image($this->user_data['img_folder'],$user->aauth_user_id); ?>
 							</div>
 							<div class="pull-sm-left post-approver-name"><strong><?php echo $user->first_name . " " . $user->last_name; ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand->id); ?></div>
 						</div>

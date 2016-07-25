@@ -79,9 +79,16 @@ class Tour extends CI_Controller {
                             'created_by' => $created_by,
                             'email_notification' => $user->email_notification,
                             'urgent_notification' => $user->urgent_notification,
-                            'desktop_notification' => $user->desktop_notification
+                            'desktop_notification' => $user->desktop_notification,
+                            'img_folder' => $user->img_folder
                         );
 
+
+                $this->user_id = $user_id;
+                $this->user_data = $user_info;
+                $accounts = $this->timeframe_model->get_accounts();
+                $user_info['accounts'] = $accounts;
+                $user_info['account_id'] = $accounts[0];
                 $this->session->set_userdata('user_info',$user_info);
                 
                 $remember_me = isset($post_data['remember_me']) ? $post_data['remember_me'] : '';
@@ -399,6 +406,7 @@ class Tour extends CI_Controller {
             if($inserted_id)
             {
                 $user_data['aauth_user_id']= $inserted_id;
+                $user_data['img_folder']= $inserted_id;
                 $this->timeframe_model->insert_data('user_info',$user_data);
                 $login_attempt = array(
                             'ip_address' => $_SERVER['REMOTE_ADDR'],

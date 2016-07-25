@@ -745,6 +745,7 @@ jQuery(function($) {
 				type:'POST',
 				data: {'email':$('#userEmail').val()},
 				success:function(data){
+					console.log(data);
 					if(data == 'true')
 					{
 						validEmail = false;
@@ -755,6 +756,7 @@ jQuery(function($) {
 						validEmail = true;
 						$('#emailUniqueValid').addClass('hide');
 					}
+					
 					if($('#lastName').val() && $('#userEmail').val() && $('#firstName').val() && validEmail)
 			    	{
 						toggleBtnClass('#addRole',false);

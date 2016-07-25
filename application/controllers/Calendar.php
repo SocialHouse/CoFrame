@@ -210,7 +210,7 @@ class Calendar extends CI_Controller {
     	$this->data = array();
     	$brand_id = $this->uri->segment(3);
     	$this->data['brand_id'] = $brand_id;
-    	if($this->user_id == $this->user_data['created_by'])
+    	if($this->user_id == $this->user_data['account_id'])
 		{
 			$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand_id);
 		}
@@ -301,7 +301,7 @@ class Calendar extends CI_Controller {
 				$this->data['post_details'] = $post_details;
 				$this->data['post_images'] = $this->post_model->get_images($post_id);
 				// $this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
-				if($this->user_id == $this->user_data['created_by'])
+				if($this->user_id == $this->user_data['account_id'])
 				{
 					$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand[0]->id);
 				}

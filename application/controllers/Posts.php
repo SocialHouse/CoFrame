@@ -29,7 +29,6 @@ class Posts extends CI_Controller {
 		$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
-
 	}
 
 	public function index()
@@ -59,7 +58,7 @@ class Posts extends CI_Controller {
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
 			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
-			if($this->user_id == $this->user_data['created_by'])
+			if($this->user_id == $this->user_data['account_id'])
 			{
 				$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand_id);
 			}

@@ -294,7 +294,7 @@
 													<?php echo $phs['phase_users'][0]->note; ?>
 												</div>
 												<?php
-												if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+												if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id))
 												{
 													?>
 													<footer class="post-content-footer text-xs-center">
@@ -361,7 +361,7 @@
 													}
 												}
 
-												if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+												if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id))
 												{	
 													?>
 													<a href="#" class="btn btn-secondary btn-md finish_phase" data-target="#finishPhase" data-toggle="modal" data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
@@ -378,7 +378,7 @@
 						</div>
 						<footer class="post-content-footer post-actions text-xs-right">
 							<?php 
-							if($this->user_id == $this->user_data['created_by'] OR check_user_perm($this->user_id,'create',$brand_id))
+							if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id))
 							{
 								if($post_details->status != 'posted')
 								{

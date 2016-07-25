@@ -11,9 +11,9 @@
 				if(!empty($user_details)){
 					$image ='';
 					$cls= 'hide';					
-					if (file_exists(upload_path().$this->user_data['created_by'].'/users/'.$this->user_id.'.png'))
+					if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$this->user_id.'.png'))
 					{
-						$path = upload_url().$this->user_data['created_by'].'/users/'.$this->user_id.'.png?'.uniqid();
+						$path = upload_url().$this->user_data['account_id'].'/users/'.$this->user_id.'.png?'.uniqid();
 						$image = '<img src="'.$path.'">';
 						$cls ='';
 					}
@@ -122,7 +122,7 @@
 					</div>
 					<?php
 					$class = 'hide';
-					if(check_user_perm($this->user_id,'master') OR $this->user_id == $this->user_data['created_by'])
+					if(check_user_perm($this->user_id,'master') OR $this->user_id == $this->user_data['account_id'])
 					{
 						$class = '';
 					}

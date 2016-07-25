@@ -80,5 +80,39 @@ class Timeframe_model extends CI_Model
 		}
 		return FALSE;
 	}
-	
+
+	public function get_accounts()
+	{
+		if($this->user_id == $this->user_data['img_folder'])
+		{
+			$this->db->select('account_id');
+			$this->db->where('access_user_id',$this->user_id);
+			$this->db->order_by('id','ASC');
+			$this->db->group_by('account_id');
+			$query = $this->db->get('brand_user_map');
+			if($query->num_rows() > 0)
+			{
+				$result = $query->result_array();				
+				$result = array_column($result,'account_id');
+				array_unshift($result,$this->user_id);
+				return $result;
+			}	
+		}
+		else
+		{
+			$this->db->select('account_id');
+			$this->db->where('access_user_id',$this->user_id);
+			$this->db->order_by('id','ASC');
+			$this->db->group_by('account_id');
+			$query = $this->db->get('brand_user_map');
+			if($query->num_rows() > 0)
+			{
+				$result = $query->result_array();
+				$result = array_column($result,'account_id');
+				return $result;
+			}			
+		}
+		$result[0] = $this->user_id;
+		return $result;
+	}	
 }

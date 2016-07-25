@@ -1,20 +1,20 @@
-<section id="overview" class="page-main bg-white col-sm-12">	
-	<?php
-	if(!empty($brands))
-	{
-		$show = 0;
-		if($this->user_id == $this->user_data['created_by'])
+<section id="overview" class="page-main bg-white col-sm-12">
+	<header class="page-main-header">
+		<?php
+		if(!empty($brands))
 		{
-			$show = 1;
-			?>
-			<header class="page-main-header">
+			$show = 0;
+			if($this->user_id == $this->user_data['account_id'])
+			{
+				$show = 1;
+				?>
 				<a href="<?php echo base_url().'brands/add' ?>" class="btn btn-secondary btn-sm pull-sm-left">Add a Brand</a>			
-				<a href="#" class="btn btn-default btn-sm btn-reorder pull-sm-right popover-toggle" data-toggle="popover-reorder-brands" data-content-src="<?php echo base_url().'brands/reorder_brands'; ?>" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-reorder-brands" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="20" data-offset-y="-6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body">Reorder <i class="fa fa-bars"></i></a>
-				<h1 class="center-title section-title">Overview</h1>
-			</header>
-			<?php
-		}
-		?>
+				<?php
+			}
+			?>
+			<a href="#" class="btn btn-default btn-sm btn-reorder pull-sm-right popover-toggle" data-toggle="popover-reorder-brands" data-content-src="<?php echo base_url().'brands/reorder_brands'; ?>" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-reorder-brands" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="20" data-offset-y="-6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body">Reorder <i class="fa fa-bars"></i></a>
+			<h1 class="center-title section-title">Overview</h1>
+		</header>
 		<div id="brand-sort">
 			<?php
 			foreach($brands as $key=>$brand)
@@ -148,5 +148,4 @@
 		<?php
 	}
 	?>
-		
 </section>

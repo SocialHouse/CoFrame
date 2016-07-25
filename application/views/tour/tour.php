@@ -399,7 +399,7 @@
 				if(verify && verify == 'success')
 				{
 					jQuery('#responseHeader').html(language_message.successful);
-					jQuery('#responseMessage').html(language_message.verificatio_successful);
+					jQuery('#responseMessage').html(language_message.verification_successful);
 					jQuery('#verifyResponse').modal('show');
 					jQuery('#verifyResponseBtn').html(language_message.go_to_login);
 				}

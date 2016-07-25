@@ -10,7 +10,7 @@ class Approval_model extends CI_Model
 	function get_approvals($user_id,$brand_id,$user_group,$date='')
 	{
 		$result = [];
-		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['created_by'])
+		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id'])
 		{
 			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
 			$this->db->join('posts','posts.id = phases.post_id');
@@ -30,7 +30,7 @@ class Approval_model extends CI_Model
 				$result =  $query->result();
 			}
 		}
-		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['created_by'])
+		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['account_id'])
 		{
 			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
 			$this->db->join('posts','posts.id = phases.post_id');
@@ -115,7 +115,7 @@ class Approval_model extends CI_Model
 		$this->db->where('phases.post_id',$post_id);
 		$query = $this->db->get('phases');
 		
-		if($query->num_rows() > 0 && $this->user_id !== $this->user_data['created_by'] )
+		if($query->num_rows() > 0 && $this->user_id !== $this->user_data['account_id'] )
 		{
 
 			$phase_id = $query->row()->id;

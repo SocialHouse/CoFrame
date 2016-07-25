@@ -1,5 +1,5 @@
 <?php
-if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'billing') OR $this->user_id == $this->user_data['created_by'])
+if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'billing') OR $this->user_id == $this->user_data['account_id'])
 {
 	?>
 	<section id="user-preferences" class="page-main bg-white col-sm-12">
@@ -16,7 +16,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 					    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>    
 					</div>
 					<form action="<?php echo base_url().'user_preferences/save_payment'; ?>" id="payment-form" method="post">
-						<input type="hidden" name="plan" value="<?php echo get_plan($this->user_data['created_by']); ?>">
+						<input type="hidden" name="plan" value="<?php echo get_plan($this->user_data['account_id']); ?>">
 						<input type="hidden" name="email" value="<?php echo $this->email; ?>" >
 						<input type="hidden" name="billing_id" value="<?php echo set_value('billing_id') ? set_value('billing_id') : (isset($billing_details->id) ? $billing_details->id : '' ); ?>">
 						

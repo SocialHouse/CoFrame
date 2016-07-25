@@ -11,9 +11,9 @@ if(!empty($post_details->brand_id)){
 				<label>Check all that apply:</label>
 				<ul class="timeframe-list user-list first-phase">
 					<?php 
-					if($this->user_id != $this->user_data['created_by'])
+					if($this->user_id != $this->user_data['account_id'])
 					{
-						$master_user = get_master_user($this->user_data['created_by']);
+						$master_user = get_master_user($this->user_data['account_id']);
 						if(!empty($master_user))
 						{
 							?>										

@@ -1,9 +1,9 @@
 	<ul class="timeframe-list user-list">
 		<?php
 		$master_user = [];
-		if($this->user_id != $this->user_data['created_by'])
+		if($this->user_id != $this->user_data['account_id'])
 		{
-			$master_user = get_master_user($this->user_data['created_by']);
+			$master_user = get_master_user($this->user_data['account_id']);
 			if(!empty($master_user))
 			{
 				?>
@@ -15,9 +15,9 @@
 						<?php
 						$path = img_url()."default_profile.jpg";
 						
-						if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png'))
+						if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png'))
 						{
-							$path = upload_url().$brand[0]->created_by.'/users/'.$master_user[0]->aauth_user_id.'.png';
+							$path = upload_url().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png';
 						}
 						?>
 						<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name; ?>" class="circle-img"/>

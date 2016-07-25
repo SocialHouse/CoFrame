@@ -1,5 +1,5 @@
 <?php
-if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'billing') OR $this->user_id == $this->user_data['created_by'])
+if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'billing') OR $this->user_id == $this->user_data['account_id'])
 {
 	?>
 	<section id="user-preferences" class="page-main bg-white col-sm-12">
@@ -20,7 +20,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 					$corporate = '';
 					$premiere = '';
 					if(!empty($user_details)){
-						$selected_plan = strtolower(get_plan($this->user_data['created_by']));
+						$selected_plan = strtolower(get_plan($this->user_data['account_id']));
 					}
 					switch ($selected_plan) {
 					case 'business':
