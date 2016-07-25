@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){
-console.log(language_message);
 	jQuery('#loginForm').validate({
         rules: {
             email : { 
@@ -230,6 +229,7 @@ console.log(language_message);
         			},
             password :{ required : true,minlength:6 },
             confirm_password :{ required : true,equalTo: "#password"},
+            company_name: {required: true},
             company_email :{email: true},
             company_url:{domain:true}
         },
@@ -256,6 +256,7 @@ console.log(language_message);
         	},
             confirm_password :{ required : language_message.re_enter_pass  },
             company_email :{ email:language_message.valid_email },
+            last_name: {required:language_message.enter_company_name},
             company_url:{domain: language_message.invalid_company_url }
         },
         submitHandler: function(form, event) {

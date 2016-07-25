@@ -378,7 +378,6 @@ jQuery(function($) {
 *	error_div 	=  Error dic to display error
 *	phase_no 	=  Current phase number
 */ 
-console.log(language_message);
 	comparePhases = function(startDate, endDate, error_div, phase_no){
 		var sdate 			= $('input[name="post-date"]').val(),
 			sdate_hour 		= $('input[name="post-hour"]').val(),

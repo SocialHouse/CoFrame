@@ -405,6 +405,6 @@ UPDATE `timeframe`.`aauth_perms` SET `name` = 'settings' WHERE `aauth_perms`.`id
 --- 19-07-2016
 ALTER TABLE `reminders` ADD `status` TINYINT NOT NULL DEFAULT '0' AFTER `due_date`;
 
---- 20-07-2016
+--- 25-07-2016
 ALTER TABLE `user_info` ADD `img_folder` INT NULL AFTER `desktop_notification`;
 ALTER TABLE `brand_user_map` ADD `account_id` INT NOT NULL AFTER `access_user_id`;
