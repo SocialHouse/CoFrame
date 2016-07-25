@@ -125,11 +125,13 @@ class User_preferences extends CI_Controller {
 							'urgent_notification' =>$urgent_notification
 						);
             $this->timeframe_model->update_data('user_info',$user_data,$condition);
-           	
+           	$img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $this->user_id),'img_folder');
+
            	$user_data['user_info_id'] = $post_data['aauth_user_id'];
            	$user_data['created_by'] = $this->user_data['created_by'];
            	$user_data['img_folder'] = $this->user_data['img_folder'];
            	$user_data['accounts'] = $this->user_data['accounts'];
+           	$user_data['account_id'] = $this->user_data['account_id'];
 
            	$this->session->set_userdata('user_info',$user_data);
 
@@ -142,10 +144,10 @@ class User_preferences extends CI_Controller {
 
 		        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-		        if(!is_dir(upload_path().$this->user_id.'/users/')){
-		        	mkdir(upload_path().$this->user_id.'/users/',0755,true);
+		        if(!is_dir(upload_path().$img_folder[0]->img_folder.'/users/')){
+		        	mkdir(upload_path().$img_folder[0]->img_folder.'/users/',0755,true);
 		        }
-		        $url = upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
+		        $url = upload_path().$img_folder[0]->img_folder.'/users/'.$this->user_id.'.png';
 		        $result = file_put_contents($url, $decoded);
 		        $source_url = imagecreatefrompng($url);
 
