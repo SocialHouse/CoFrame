@@ -73,28 +73,23 @@ jQuery(function($) {
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !='' ){
 					if( new_minute != '' &&  new_hour !='' ){
-						comparePhases(old_date, new_date, date_error,phase_no);
+						
+						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 
-						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
-						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
-						if(compareDateTime(ed_date, st_date)){
-							date_error.text(language_message.enter_valid_datetime_approval_than_date_than_slate_date);
-							date_error.show();
-						}else{
-							date_error.empty();
-							date_error.hide();
-						}
+						comparePhases(current_ph_date ,slate_date, date_error,phase_no);
+						
 					}else{
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
 				}else{
-					$('#hm_error').text(language_message.enter_hour_minutes);
-					$('#hm_error').show();
+					date_error.text(language_message.enter_hour_minutes);
+					date_error.show();
 				}
 			}else{
-				$('#hm_error').text(language_message.enter_slate_date);
-				$('#hm_error').show();
+				date_error.text(language_message.enter_slate_date);
+				date_error.show();
 			}
 		}
 	);
@@ -118,17 +113,12 @@ jQuery(function($) {
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !='' ){
 					if( new_minute != '' &&  new_hour !='' ){
-						comparePhases(old_date, new_date, date_error,phase_no);
 
-						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
-						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
-						if(compareDateTime(ed_date, st_date)){
-							date_error.text(language_message.enter_valid_datetime_approval_than_date_than_slate_date);
-							date_error.show();
-						}else{
-							date_error.empty();
-							date_error.hide();
-						}
+						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+
+						comparePhases(current_ph_date ,slate_date, date_error,phase_no);
+						
 					}else{
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
@@ -157,7 +147,7 @@ jQuery(function($) {
 				new_date 	= $('input[name="phase[1][approve_date]"]').val(),
 				new_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
 				new_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
-				new_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),			
+				new_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),
 				old_date 	= $('#ph_one_date').val(),
 				old_hour 	= $('#ph_one_hour').val(),
 				old_minute 	= $('#ph_one_minute').val(),
@@ -167,17 +157,11 @@ jQuery(function($) {
 				if(old_hour != '' && old_minute !='' ){
 					if( new_minute != '' &&  new_hour !='' ){
 
-						comparePhases(old_date, new_date, date_error,phase_no);
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 
-						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
-						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
-						if(compareDateTime(ed_date, st_date)){
-							date_error.text(language_message.date_less_than_phase+phase_no);
-							date_error.show();
-						}else{
-							date_error.text();
-							date_error.hide();
-						}
+						comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+						
 					}else{
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
@@ -187,8 +171,8 @@ jQuery(function($) {
 					$('#hm_error').show();
 				}
 			}else{
-				$('#hm_error').text(language_message.enter_hour_minutes);
-				$('#hm_error').show();
+				date_error.text(language_message.enter_slate_date);
+				date_error.show();
 			}
 		}
 	);
@@ -197,11 +181,11 @@ jQuery(function($) {
 		function( e )
 		{
 			var date_error 	= $('.phase-three-error'),
-				phase_no 	= 1 ,
+				phase_no 	= 2 ,
 				new_date 	= $('input[name="phase[2][approve_date]"]').val(),
 				new_hour 	= $('input[name="phase[2][approve_hour]"]').val(),
 				new_minute 	= $('input[name="phase[2][approve_minute]"]').val(),
-				new_ampm 	= $('input[name="phase[2][approve_ampm]"]').val(),			
+				new_ampm 	= $('input[name="phase[2][approve_ampm]"]').val(),
 				old_date 	= $('input[name="phase[1][approve_date]"]').val(),
 				old_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
 				old_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
@@ -211,17 +195,11 @@ jQuery(function($) {
 				if(old_hour != '' && old_minute !='' ){
 					if( new_minute != '' &&  new_hour !='' ){
 
-						comparePhases(old_date, new_date, date_error,phase_no);
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 
-						var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
-						var ed_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
-						if(compareDateTime(ed_date, st_date)){
-							date_error.text( language_message.date_less_than_phase+'2');
-							date_error.show();
-						}else{
-							date_error.empty();
-							date_error.hide();
-						}
+						comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+
 					}else{
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
@@ -382,56 +360,95 @@ jQuery(function($) {
 
 	isValidNumber = function(events, limit, current_txt_box ) {
 		if(events.which === 13 || events.which === 8 || events.which === 0 ) {
-	    	return true;
-	    }
-	    var currentVal = parseInt(current_txt_box.val(), 10);
-	    if(!isNaN(currentVal)){
-	        if(currentVal <= limit) {
-	        	return true;
-	        }
-	    }
-	    return false;
+			return true;
+		}
+		var currentVal = parseInt(current_txt_box.val(), 10);
+		if(!isNaN(currentVal)){
+			if(currentVal <= limit) {
+				return true;
+			}
+		}
+		return false;
 	};
 
+/*
+*	this function compare the phase date time 
+*	startDate 	=  current phase date time
+*	endDate 	=  previous phase date time
+*	error_div 	=  Error dic to display error
+*	phase_no 	=  Current phase number
+*/ 
+console.log(language_message);
 	comparePhases = function(startDate, endDate, error_div, phase_no){
-		var $display_error 	= true,
-			$message 		='';
+		var sdate 			= $('input[name="post-date"]').val(),
+			sdate_hour 		= $('input[name="post-hour"]').val(),
+			sdate_minute 	= $('input[name="post-minute"]').val(), 
+			sdate_ampm 		= $('input[name="post-ampm"]').val(),
+			$display_error 	= true,
+			message 		='';
+
+		startDate = moment(new Date (startDate)).format('YYYY-MM-DD H:mm');
+
+		endDate = moment(new Date (endDate)).format('YYYY-MM-DD H:mm');
 
 		error_div.empty();
 		error_div.hide();
-		// start_date = moment(new Date (startDate)).format('YYYY-MM-DD');	
-		// end_date = moment(new Date (endDate)).format('YYYY-MM-DD');
-		
-		if( startDate == '' ){
-			if(phase_no == 0 ){
-				$message = language_message.select_sdate;
-				console.log($message);
-			}
-			if(phase_no == 1 ){
-				$message = language_message.select_date+phase_no;
-			}
-			if(phase_no == 2 ){
-				$message = language_message.select_date+phase_no;
-			}
-			error_div.text($message);
-			error_div.show();
-		}else{
-			if(compareDate(startDate, endDate)){
-				$display_error = false;
+
+		if(sdate ==''  && sdate_hour == '' && sdate_minute == '' && sdate_ampm == '' ){
+			if(sdate ==''){
+				message =language_message.enter_slate_date;
 			}else{
-				if(phase_no == 0 ){
-					$message = language_message.date_less_than_sdate;
-				}
-				else{
-					$message =language_message.phase_less_than+ phase_no;
-				}
-				error_div.text($message);
-				error_div.show();
+				if(sdate_hour == '' && sdate_minute == '' && sdate_ampm == ''){
+					message = language_message.enter_hour_minutes_slate_date;
+				}				
 			}
+		}else{
+				var slate_date = sdate+' '+sdate_hour+':'+sdate_minute+' '+sdate_ampm;
+				console.log(slate_date);
+				slate_date = moment(new Date(slate_date)).format('YYYY-MM-DD H:mm');
+				if( startDate == '' ){
+					if(phase_no == 0 ){
+						message = language_message.select_sdate;
+					}
+					if(phase_no == 1 ){
+						message = language_message.select_date+phase_no;
+					}
+					if(phase_no == 2 ){
+						message = language_message.select_date+phase_no;
+					}
+				}else{
+						// compaire phase two with sdate and phase one(sdate is greter than phase two/three and sdate is less than phase one/two )
+						// moment().isBetween(moment-like, moment-like, String);
+						// where moment-like is Moment|String|Number|Date|Array
+						// moment('2010-10-20').isBetween('2010-10-19', '2010-10-25'); // true
+						// '2010-10-19' < '2010-10-20' > '2010-10-25'
+
+						if(phase_no == 0){
+							endDate = moment(new Date()).format('YYYY-MM-DD H:mm');
+						}
+						if (moment(startDate).isBetween(endDate, slate_date)){
+							$display_error = false;
+						}else{
+							if(phase_no == 0 ){
+								message = language_message.phase_one_date_error;
+							}
+							if(phase_no == 1 ){
+								message =language_message.phase_two_date_error;
+							}
+							if(phase_no == 2 ){
+								message =language_message.phase_three_date_error;
+							}
+						}
+					// is middel between  start date  and  previous phase 
+				}
+			
+			error_div.text(message);
+			error_div.show();
 		}
 		if(!$display_error){
 			error_div.empty();
 			error_div.hide();
+			message ='';
 		}
 	};
 

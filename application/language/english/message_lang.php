@@ -102,6 +102,10 @@
 	$lang['select_re_date'] ="Plaese select the date";
 	$lang['post_update_successful'] ="Your post has been update successfully.";
 	$lang['unable_to_add_user'] ="Unable to add user";
+	$lang['phase_one_date_error'] ="Date must be greter than today's date and less than Slate date";
+	$lang['phase_two_date_error'] ="Date must be greter than phase one approver date and less than Slate date";
+	$lang['phase_three_date_error'] ="Date must be greter than phase two approver date and less than Slate date";
+
 	
 
 	// Delete Draft
