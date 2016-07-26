@@ -7,9 +7,9 @@ foreach ($replies as $key => $obj) {
 			<div class="author clearfix">
 				<?php
 				$path = img_url()."default_profile.jpg";
-				if (file_exists(upload_path().$brand->created_by.'/users/'.$obj->user_id.'.png'))
+				if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$obj->user_id.'.png'))
 				{
-					$path = upload_url().$brand->created_by.'/users/'.$obj->user_id.'.png';
+					$path = upload_url().$this->user_data['account_id'].'/users/'.$obj->user_id.'.png';
 				}
 				?>
 				<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>	" class="circle-img pull-sm-left">
@@ -34,9 +34,9 @@ foreach ($replies as $key => $obj) {
 				{
 					?>
 					<div class="comment-asset">
-						<a  target="_blank" href="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$obj->media ?>" title="Download Asset">
+						<a  target="_blank" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>" title="Download Asset">
 							<i class="tf-icon-download"></i>
-							<img src="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$obj->media ?>" width="60" height="60" alt=""/>
+							<img src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>" width="60" height="60" alt=""/>
 						</a>
 					</div>
 					<?php

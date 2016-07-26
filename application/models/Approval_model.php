@@ -82,14 +82,14 @@ class Approval_model extends CI_Model
 
 	public function get_post_approvers($post_id)
 	{
-		$this->db->select('created_by');
+		$this->db->select('account_id');
 		$this->db->join('brands','brands.id = posts.brand_id');
 		$this->db->where('posts.id',$post_id);
 		$query = $this->db->get('posts');
 		if($query->num_rows() > 0)
 		{
 			$result = [];
-			$result['owner_id'] = $query->row()->created_by;		
+			$result['owner_id'] = $query->row()->account_id;		
 
 			$this->db->select('phases.id as id,phases.phase,post_id,note,approve_by,phases_approver.user_id,first_name,last_name,phases_approver.status,phases.status as phase_status,img_folder');
 			$this->db->join('phases','phases.id = phases_approver.phase_id');

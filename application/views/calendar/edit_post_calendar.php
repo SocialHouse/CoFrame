@@ -77,10 +77,10 @@
 								$class = 1;
 								foreach ($post_images as $key) {
 									if($key->type =='images'){
-										echo '<div class="form__preview-wrapper"><i data-delete-id="'.$key->id.'" class="tf-icon-circle remove-upload">x</i><img src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview delete-img" data-delete="'.$class.'" /></div>';
+										echo '<div class="form__preview-wrapper"><i data-delete-id="'.$key->id.'" class="tf-icon-circle remove-upload">x</i><img src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$this->user_data['account_id'].'/posts/'. $key->name.'" class="form__file-preview delete-img" data-delete="'.$class.'" /></div>';
 										$class++;
 									}else if($key->type =='video'){
-										echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$post_details->created_by.'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';
+										echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';
 									}										
 	                            }
 	                            echo '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>';
@@ -204,9 +204,9 @@
 																foreach($obj as $user)
 																{
 																	$image_path = img_url().'default_profile.jpg';
-																	if(file_exists(upload_path().$brand->created_by.'/users/'.$user->user_id.'.png'))
+																	if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->user_id.'.png'))
 																	{
-																		$image_path = upload_url().$brand->created_by.'/users/'.$user->user_id.'.png';
+																		$image_path = upload_url().$this->user_data['account_id'].'/users/'.$user->user_id.'.png';
 																	}
 																	?>
 																	<div class="pull-sm-left">
@@ -286,9 +286,9 @@
 															foreach($obj as $user)
 															{
 																$image_path = img_url().'default_profile.jpg';
-																if(file_exists(upload_path().$brand->created_by.'/users/'.$user->user_id.'.png'))
+																if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->user_id.'.png'))
 																{
-																	$image_path = upload_url().$brand->created_by.'/users/'.$user->user_id.'.png';
+																	$image_path = upload_url().$this->user_data['account_id'].'/users/'.$user->user_id.'.png';
 																}
 																?>
 																<li class="pull-sm-left <?php echo $user->status; ?>">

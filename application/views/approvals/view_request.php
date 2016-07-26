@@ -7,7 +7,7 @@
 		<h1 class="center-title section-title">Post Approval</h1>
 	</header>
 
-	<input type="hidden" name="brand_owner" id="brand-owner" value="<?php echo $brand->created_by; ?>" />	
+	<input type="hidden" name="brand_owner" id="brand-owner" value="<?php echo $this->user_data['account_id']; ?>" />	
 	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 	<input type="hidden" name="post_id" id="post-id" value="<?php echo $post_id; ?>" />
 	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
@@ -28,8 +28,8 @@
 					<div class="post-preview-footer">
 						<div class="author clearfix">
 							<?php
-							if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-			                	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
+							if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png')) {
+			                	echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
 			                }else{
 			                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile_twitter.png">';	
 			                }
@@ -145,9 +145,9 @@
 								{
 									$path = img_url()."default_profile.jpg";
 								
-									if (file_exists(upload_path().$brand->created_by.'/users/'.$user->aauth_user_id.'.png'))
+									if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png'))
 									{
-										$path = upload_url().$brand->created_by.'/users/'.$user->aauth_user_id.'.png';
+										$path = upload_url().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png';
 									}
 									?>
 									<li class="pull-sm-left <?php echo $user->status; ?>"><img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" class="circle-img"/></li>
@@ -200,9 +200,9 @@
 								{
 									$path = img_url()."default_profile.jpg";
 							
-									if (file_exists(upload_path().$brand->created_by.'/users/'.$comment->user_id.'.png'))
+									if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$comment->user_id.'.png'))
 									{
-										$path = upload_url().$brand->created_by.'/users/'.$comment->user_id.'.png';
+										$path = upload_url().$this->user_data['account_id'].'/users/'.$comment->user_id.'.png';
 									}
 									?>
 									<li>
@@ -232,9 +232,9 @@
 											{
 												?>
 												<div class="comment-asset">
-													<a target="_blank" href="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
+													<a target="_blank" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
 														<i class="tf-icon-download"></i>
-														<img src="<?php echo upload_url().$brand->created_by.'/brands/'.$brand->id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
+														<img src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
 													</a>
 												</div>												
 												<?php
@@ -264,9 +264,9 @@
 													<li>
 														<?php
 														$path = img_url()."default_profile.jpg";						
-														if (file_exists(upload_path().$brand->created_by.'/users/'.$this->user_id.'.png'))
+														if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$this->user_id.'.png'))
 														{
-															$path = upload_url().$brand->created_by.'/users/'.$this->user_id.'.png';
+															$path = upload_url().$this->user_data['account_id'].'/users/'.$this->user_id.'.png';
 														}
 														?>
 														<div class="author clearfix">

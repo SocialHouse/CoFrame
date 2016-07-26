@@ -110,7 +110,7 @@ class Timeframe_model extends CI_Model
 		$this->db->join('brand_user_map','brand_user_map.brand_id = brands.id','left');
 		// $this->db->where('access_user_id',$this->user_id);
 		$this->db->group_start();
-		$this->db->where('created_by', $this->user_id);
+		$this->db->where('account_id', $this->user_id);
 		$this->db->or_where('access_user_id',$this->user_id);
 		$this->db->group_end();
 

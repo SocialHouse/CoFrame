@@ -6,7 +6,7 @@ if(!empty($post_images)){
 	}
 	if(!empty($post_details)){
 		$outlet_name = $post_details->outlet_name;
-		$brand_onwer = $post_details->created_by;
+		$brand_onwer = $this->user_data['account_id'];
 		$brand_id = $post_details->brand_id;
 	}
 ?>
@@ -14,8 +14,8 @@ if(!empty($post_images)){
 	<div class="user-profile-details clearfix">
 		<div class="pull-left">
 			<?php 
-				if (file_exists(upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png')) {
-	            	echo '<img src="'.upload_url().$post_details->created_by.'/users/'.$post_details->user_id.'.png"class="user-profile-img circle-img" />';
+				if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png')) {
+	            	echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png"class="user-profile-img circle-img" />';
 	            }else{
 	            	echo '<img class="user-profile-img circle-img" src="'.img_url().'default_profile.jpg" width="40">';	
 	            }

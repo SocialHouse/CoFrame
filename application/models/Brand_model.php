@@ -48,7 +48,7 @@ class Brand_model extends CI_Model
 
 	public function get_brand_by_slug($user_id, $slug = '')
 	{
-		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');
+		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug,account_id');
 		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
 		if($slug)
 		{			
