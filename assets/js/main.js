@@ -45,9 +45,12 @@ jQuery(function($) {
 	 	$(".minute-select").mask('Mm', {
 	 		translation: {
 				'M': { pattern: /[0-5]/},
-				'm': { pattern: /[0-9]/}
+				'm': { pattern: /[1-9]/}
 			}
 		});
+
+		$(".hour-select").mask('00');
+		$(".minute-select").mask('00');
 
 		$(".single-date-select").mask('00/00/0000');
 
@@ -2323,25 +2326,28 @@ jQuery(function($) {
 
 	$(document).on("click", ".close_brand", function(event){
      	event.preventDefault();
-     	window.location.reload();
-		// var step_no = $(this).data('step-no');
-		// var brand_slug = $('#brand_slug').val();
-		// if(brand_slug){
-	 //    	$.ajax({
-	 //    		'type':'POST',
-	 //    		dataType: 'html',
-	 //    		url: base_url+'settings/edit_step',
-	 //    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
-	 //            success: function(response){
-	 //            	if(response != 'false'){
-	 //            		toggleBtnClass($('.edit-brands-info'),false);
-	 //            		$('#brandStep'+step_no).empty();
-	 //            		$('#brandStep'+step_no).removeClass('active');
-	 //            		$('#brandStep'+step_no).html(response);
-	 //            	}
-	 //            }
-	 //    	});
-  //   	}
+     
+		var step_no = $(this).data('step-no');
+		var brand_slug = $('#brand_slug').val();
+		if(brand_slug){
+	    	$.ajax({
+	    		'type':'POST',
+	    		dataType: 'html',
+	    		url: base_url+'settings/edit_step',
+	    		data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
+	            success: function(response){
+	            	if(response != 'false'){
+	            		toggleBtnClass($('.edit-brands-info'),false);
+	            		$('#brandStep'+step_no).empty();
+	            		$('#brandStep'+step_no).removeClass('active');
+	            		$('#brandStep'+step_no).html(response);
+	            	}
+	            	window.location.reload();
+	            }
+	    	});
+    	}else{
+    		window.location.reload();
+    	}
     });
 
     $(document).on("click", ".edit_post", function(event){
