@@ -587,41 +587,32 @@ jQuery(function($) {
 				newModal.remove();
 			});
 		});
-		
-		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
-			e.preventDefault();
 
+		$('body').on('submit', '#reschedule_date', function(ev) {
+			ev.preventDefault();
 			var newDate = newModal.find('input[name="post_date"]').val();
 			var newHour = newModal.find('input[name="post_hour"]').val();
 			var newMin = newModal.find('input[name="post_minute"]').val();
 			var newAmPm = newModal.find('input[name="post_ampm"]').val();
-			var postId = newModal.find('input[name="post_id"]').val();
-			
+			var postId = newModal.find('input[name="post_id"]').val();			
 		 	
 		 	var message, error_div, error_display = false;
 		 	var today = moment().format("YYYY-MM-DD");
 		 	var selected_date;
-		 	var today = moment().format("YYYY-MM-DD H:mm");
-			
+		 	var today = moment().format("YYYY-MM-DD H:mm");			
 			error_div = $('#reschedule_error');
-
 			error_div.text(message);
 			error_div.hide();
-
 			if(newDate != ''){
 				// conveted in spefic dete format
-				 selected_date = newDate+' '+newHour+':'+newMin+' '+newAmPm;
-
+				selected_date = newDate+' '+newHour+':'+newMin+' '+newAmPm;
 				newDate = moment(new Date (newDate)).format('YYYY-MM-DD');
-
 				selected_date = moment(new Date (selected_date)).format('YYYY-MM-DD H:mm');
-
 				if(moment(selected_date).isAfter(today)){
 					error_display = false;
 				}else{
 					error_display = true;
 					message=language_message.enter_hour_minutes;
-					console.log('enter_hour_minutes');
 				}
 			}else{
 				error_display = true;
@@ -632,15 +623,17 @@ jQuery(function($) {
 				$.ajax({
 					url:base_url+'calendar/save_reschedule',
 					type:'post',
-					data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
+					data:{
+						post_date:newDate,
+						post_hour:newHour,
+						post_minute:newMin,
+						post_ampm:newAmPm,
+						post_id:postId
+					},
 					success:function(response){
-						console.log(response);
-						postDate = moment(postDate).format('MM/D/YYYY h:mm a');
-						console.log(postDate);
+						postDate = moment(selected_date).format('MM/D/YYYY h:mm a');
 						event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
 						$(calendar).fullCalendar('updateEvent', event);
-						$(calendar).fullCalendar('updateEvent', event);	
-						
 						newModal.modal('hide');
 						newModal.on('hidden.bs.modal', function () {
 							newModal.remove();
