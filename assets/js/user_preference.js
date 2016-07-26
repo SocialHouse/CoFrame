@@ -8,7 +8,7 @@ $(document).ready(function(){
 		$.fn.intlTelInput.loadUtils( base_url+"assets/js/vendor/utils.js");
 		var $phone_no = jQuery('#phone').val();
 		var telInput = $("#phone");
-		
+		console.log($phone_no);
 		telInput.intlTelInput({
 			allowDropdown: true,
 	      	autoHideDialCode: true,
@@ -65,4 +65,11 @@ $(document).ready(function(){
 			}
 		}
 	});
+});
+$(window).load(function() {
+	setTimeout(function(){
+		var phone_no = jQuery('#phone').val();
+		jQuery('#phone').val(phone_no.trim().replace(/[^a-z0-9]+/gi, ''));
+		console.log(phone_no.trim().replace(/[^a-z0-9]+/gi, ''));
+	},200);
 });

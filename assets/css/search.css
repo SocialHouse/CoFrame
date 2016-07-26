@@ -189,6 +189,14 @@
     color: #000;
   }
 
+  button.modal-hide:hover,
+  button.modal-hide:focus,
+  button.modal-hide:active {
+    background: #c71f2a none repeat scroll 0 0;
+    border-color: #c71f2a;
+    color: #fff;
+}
+
   footer.post-content-footer .before-approve{
     text-align: center ! important; 
     float: left;
@@ -198,3 +206,17 @@
   footer.post-content-footer .after-approve{
     float: left;
   }
+
+  .overlay-footer button.btn-default{
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  .overlay-footer button.btn-default:hover,
+  .overlay-footer button.btn-default:focus,
+  .overlay-footer button.btn-default:active {
+    background: #c71f2a none repeat scroll 0 0;
+    border-color: #c71f2a;
+    color: #fff;
+}

@@ -20,7 +20,7 @@
 		</div>
 		<label id='reschedule_error' for="error" class=" error hide clearfix"></label>
 		<footer class="overlay-footer">
-			<button type="reset" class="btn btn-sm btn-default qtip">Cancel</button>
+			<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
 			<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Save</button>
 		</footer>
 

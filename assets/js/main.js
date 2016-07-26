@@ -44,7 +44,7 @@ jQuery(function($) {
 		});
 	 	$(".minute-select").mask('Mm', {
 	 		translation: {
-				'M': { pattern: /[1-5]/},
+				'M': { pattern: /[0-5]/},
 				'm': { pattern: /[0-9]/}
 			}
 		});

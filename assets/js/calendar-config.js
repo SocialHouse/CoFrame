@@ -395,7 +395,7 @@ jQuery(function($) {
 
 							if($activePhase.data('id') == 0)
 							{
-								toggleBtnClass('btn-disabled','btn-secondary',$('.save-phases'),false);
+								toggleBtnClass($('.save-phases'),false);
 							}
 						}
 					}
@@ -404,11 +404,11 @@ jQuery(function($) {
 
 						if($activePhase.find('[data-new-phase]').length > 1)
 							btn_num = 1;
-						toggleBtnClass('btn-secondary','btn-disabled',$activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+						toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
 
 						if($activePhase.data('id') == 0)
 						{
-							toggleBtnClass('btn-secondary','btn-disabled',$('.save-phases'),true);
+							toggleBtnClass($('.save-phases'),true);
 						}
 					}
 				},100);
@@ -544,6 +544,9 @@ jQuery(function($) {
 
 	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {		
 		var newModal = $('#emptyModal').clone();
+		selected_date = moment(event.start._d).format('YYYY-MM-DD H:mm');
+		var today = moment().format("YYYY-MM-DD H:mm");		
+
 		newModal.attr('id', '');
 		newModal.addClass('alert-modal modal-reschedule-post');
 		newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
@@ -551,10 +554,17 @@ jQuery(function($) {
 			newModal.find('.modal-body').html('<h2 class="text-xs-center">Reschedule Post</h2><h3 class="text-xs-center">' + event.title + '<h3>' + data);
 			var newMonth = $.fullCalendar.moment(event.start).format('MM');
 			var newDay = $.fullCalendar.moment(event.start).format('DD');
-			var newYear = $.fullCalendar.moment(event.start).format('YYYY');			
-			var newHour = $.fullCalendar.moment(event.start).format('h');
-			var newMin = $.fullCalendar.moment(event.start).format('mm');
-			var newAmPm = $.fullCalendar.moment(event.start).format('a');
+			var newYear = $.fullCalendar.moment(event.start).format('YYYY');
+			if(!moment(selected_date).isAfter(today)){
+				var newHour = moment(today).add(1, 'hours').format('hh');				
+				var newMin = moment().format("mm");
+				var newAmPm = moment().format("a");
+			}else{
+				var newHour = $.fullCalendar.moment(event.start).format('hh');
+				var newMin = $.fullCalendar.moment(event.start).format('mm');
+				var newAmPm = $.fullCalendar.moment(event.start).format('a');
+			}
+			
 			//set the form values
 			newModal.find('input[name="post_date"]').val(newMonth + '/' + newDay + '/' + newYear);
 			newModal.find('input[name="post_hour"]').val(newHour);
@@ -577,8 +587,10 @@ jQuery(function($) {
 				newModal.remove();
 			});
 		});
+		
 		$('body').on('click', '.modal-reschedule-post button[type="submit"]', function(e) {
 			e.preventDefault();
+
 			var newDate = newModal.find('input[name="post_date"]').val();
 			var newHour = newModal.find('input[name="post_hour"]').val();
 			var newMin = newModal.find('input[name="post_minute"]').val();
@@ -588,6 +600,8 @@ jQuery(function($) {
 		 	
 		 	var message, error_div, error_display = false;
 		 	var today = moment().format("YYYY-MM-DD");
+		 	var selected_date;
+		 	var today = moment().format("YYYY-MM-DD H:mm");
 			
 			error_div = $('#reschedule_error');
 
@@ -595,35 +609,38 @@ jQuery(function($) {
 			error_div.hide();
 
 			if(newDate != ''){
-				// conveted in spefi dete format
+				// conveted in spefic dete format
+				 selected_date = newDate+' '+newHour+':'+newMin+' '+newAmPm;
+
 				newDate = moment(new Date (newDate)).format('YYYY-MM-DD');
 
-				if(newDate > today ){
-					if(newMin != '' && newHour != ''  && newAmPm != '' ){
-						error_display = false;
-					}else{
-						error_display = true;
-						message=language_message.enter_hour_minutes;
-					}
+				selected_date = moment(new Date (selected_date)).format('YYYY-MM-DD H:mm');
+
+				if(moment(selected_date).isAfter(today)){
+					error_display = false;
 				}else{
 					error_display = true;
 					message=language_message.enter_hour_minutes;
+					console.log('enter_hour_minutes');
 				}
 			}else{
 				error_display = true;
 				message=language_message.select_re_date;
 			}
 			if(!error_display){
-				
 				var postDate = newDate + " " + newHour + ":" + newMin + " " + newAmPm;
-				event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
-				$(calendar).fullCalendar('updateEvent', event);
-
-		    	$.ajax({
+				$.ajax({
 					url:base_url+'calendar/save_reschedule',
 					type:'post',
 					data:{post_date:newDate,post_hour:newHour,post_minute:newMin,post_ampm:newAmPm,post_id:postId},
 					success:function(response){
+						console.log(response);
+						postDate = moment(postDate).format('MM/D/YYYY h:mm a');
+						console.log(postDate);
+						event.start = $.fullCalendar.moment(postDate, 'MM/D/YYYY h:mm a');
+						$(calendar).fullCalendar('updateEvent', event);
+						$(calendar).fullCalendar('updateEvent', event);	
+						
 						newModal.modal('hide');
 						newModal.on('hidden.bs.modal', function () {
 							newModal.remove();
@@ -631,7 +648,6 @@ jQuery(function($) {
 					}
 				});	
 			}else{
-				console.log(message);
 				error_div.text(message);
 				error_div.show();
 				return false;
@@ -697,12 +713,7 @@ jQuery(function($) {
 					//don't allow dates earlier than today
 					var today = $.fullCalendar.moment().format('YYYYMMDD');
 					var selected = $.fullCalendar.moment(date).format('YYYYMMDD');
-					if(inputType == 'post_date') {
-						today_date = moment();
-						today_date = today_date.add('days', 1);
-						today =  moment(today_date).format("YYYYMMDD");
-						//startDate = moment().calendar(moment().add(1, 'day'));
-					}
+					
 					if(selected < today) {
 						return;
 					}
@@ -867,74 +878,47 @@ jQuery(function($) {
 	}
 
 
-	$(document).on("change", "#edit_minute, #edit_ampm, #edit_hour, #reschedule_day", function(event){
-		event.preventDefault();
-		console.log('reschedule_error');
+	$(document).on("change, keyup, blur", "#edit_minute, #edit_ampm, #edit_hour, #reschedule_day", function(event){
+		event.preventDefault();	
+
+		var error_display = false;
+		$error_div = $('#reschedule_error');
 		$('#reschedule_error').hide();
 		$('#reschedule_error').empty();
-	});
 
-
-
-	$(document).on("submit", "#reschedule_post", function(event){
-	 	event.preventDefault();
-	 	var edit_date, edit_minute, edit_ampm, edit_hour, message, error_div, rror_display = false;
-	 	var today = moment().format("YYYY-MM-DD");
-	 	var tomorrow = moment().format("YYYY-MM-DD");
-		
 		edit_date = $('#reschedule_day').val();
+		edit_hour = $('#edit_hour').val();
 		edit_minute = $('#edit_minute').val();
 		edit_ampm = $('#edit_ampm').val();
-		edit_hour = $('#edit_hour').val();
-		error_div = $('#reschedule_error');
 
-		error_div.text(message);
-		error_div.hide();
+		if(edit_date != '' && edit_hour != '' && edit_minute != '' && edit_ampm != ''){
+			var selected_date = edit_date+' '+edit_hour+':'+edit_minute+' '+edit_ampm;
+			var today = moment().format("YYYY-MM-DD H:mm");
 
-		if(edit_date != ''){
-			// conveted in spefi dete format
-			edit_date = moment(new Date (edit_date)).format('YYYY-MM-DD');
+			selected_date = moment(new Date (selected_date)).format('YYYY-MM-DD H:mm');
 
-			if(edit_date > today ){
-				if(edit_minute != '' && edit_hour != ''  && edit_ampm != '' ){
-					error_display = false;
-				}else{
-					error_display = true;
-					message=language_message.enter_hour_minutes;
-				}
+			if(moment(selected_date).isAfter(today)){
+				error_display = false;
 			}else{
+				message = 'please select valid date and time';
 				error_display = true;
-				message=language_message.valid_date;
 			}
 		}else{
+			message = 'please select date, hour and time';
 			error_display = true;
-			message=language_message.select_re_date;
 		}
-		if(!error_display){
-			
-			var post_url = $(this).attr('action');
-	    	var selected_date = $('#selected_date').val();    	
-	    	$.ajax({
-	    		'type':'POST',
-	    		'data':$(this).serialize()+'&selcted_data='+ selected_date,
-	    		dataType: 'html',
-	    		url: post_url,                 
-	            success: function(response)
-	            {
-	            	if(response  != 'false')
-	            	{
-	            		alert(language_message.post_update_successful);
-	            	}
-	            	$('.calendar-day').empty();
-	            	$('.calendar-day').html(response);
-	            }
-	    	});
+
+		if(error_display){
+			$error_div.val(message);
+			$error_div.show();
+			toggleBtnClass($('.overlay-footer button[type="submit"]'),true);
 		}else{
-			console.log(message);
-			error_div.text(message);
-			error_div.show();
-			return false;
+			
+			$error_div.val('');
+			$error_div.hide();
+			toggleBtnClass($('.overlay-footer button[type="submit"]'),false);
 		}
+
 	});
 
 });
