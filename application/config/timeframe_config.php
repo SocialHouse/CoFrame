@@ -49,7 +49,7 @@ $config['plans'] = array(
 								'tags' => 'unlimited',
 								'phase_approvers' => 1
 							),
-						'Corporate' => array(
+						'corporate' => array(
 								'brands' => 8,
 								'master_admins' => 'unlimited',
 								'users' => 35,
@@ -60,7 +60,7 @@ $config['plans'] = array(
 								'tags' => 15,
 								'phase_approvals' => 1
 							),
-						'Business' => array(
+						'business' => array(
 								'brands' => 3,
 								'master_admins' => 2,
 								'users' => 12,
@@ -71,7 +71,7 @@ $config['plans'] = array(
 								'tags' => 8,
 								'phase_approvers' => 1
 							),
-						'START-UP' => array(
+						'start-up' => array(
 								'brands' => 1,
 								'master_admins' => 1,
 								'users' => 3,
