@@ -3,7 +3,6 @@ if(!empty($post_details->brand_id)){
 	$brand_id = $post_details->brand_id;
 }
 ?>
-<div>
 	<div class="bg-white approval-phase active animated fadeIn" id="approvalPhase1" data-id="0">
 		<h2 class="clearfix">Phase 1 </h2>
 		<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$brand_id; ?>" data-title="Add to Phase 1" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
@@ -33,24 +32,22 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="1" >Next Phase</button>
 		</div>
 	</div>
-
-	<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase1">
+	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase1" data-id="0">
 		<h2 class="clearfix">Phase 1 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
 			
 		</ul>
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span><span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			
 		</div>
 	</div>
-</div>
-<div>
+	
 	<div class="bg-white approval-phase animated fadeIn inactive" id="approvalPhase2" data-id="1">
 		<h2 class="clearfix">Phase 2 
 		<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
@@ -80,25 +77,23 @@ if(!empty($post_details->brand_id)){
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[1][note]"></textarea>
 		</div>
 		<div class="form-group">
-			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" >Next Phase</button>
+			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="0">Previous</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
 		</div>
 	</div>
-
-	<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase2">
+	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase2" data-id="1">
 		<h2 class="clearfix">Phase 2 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
 			
 		</ul>
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span><span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			
 		</div>
 	</div>
-</div>
-<div>
+
 	<div class="bg-white approval-phase animated fadeIn inactive" id="approvalPhase3" data-id="2">
 		<h2 class="clearfix">Phase 3 
 		<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
@@ -128,34 +123,27 @@ if(!empty($post_details->brand_id)){
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>
 		</div>
 		<div class="form-group">
-			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
+			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
 		</div>
 	</div>
-	<div class="bg-white approval-phase animated fadeIn hide" id="preview_approvalPhase">
+	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase" data-id="2">
 		<h2 class="clearfix">Phase 3 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
 			
 		</ul>
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span><span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			
 		</div>
 	</div>
-</div>
 
-<div>
-	<div>
-		<footer class="post-content-footer">
-			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
-			<button type="button" class="btn btn-sm btn-secondary pull-sm-right save-phases btn-disabled" disabled="disabled">Save Phases</button>
-		</footer>
-	</div>
-	<div class="hide">
-		<footer class="post-content-footer">
-			<button class="btn btn-sm btn-default save-draft-btn submit-btn clear-phase" id="draft">Save Draft</button>
-			<button type="button" class="btn btn-sm btn-secondary submit-approval submit-btn clear-phase" id="submit-approval">Submit for Approval</button>
-		</footer>
-	</div>
-</div>
+	<footer class="post-content-footer" id="save-phase-btns">
+		<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
+		<button type="button" class="btn btn-sm btn-secondary pull-sm-right save-phases btn-disabled" disabled="disabled">Save Phases</button>
+	</footer>
+	<footer class="post-content-footer hide" id="submit-approval-btns">
+		<button class="btn btn-sm btn-default save-draft-btn submit-btn clear-phase" id="draft">Save Draft</button>
+		<button type="button" class="btn btn-sm btn-secondary submit-approval submit-btn clear-phase pull-sm-right" id="submit-approval">Submit for Approval</button>
+	</footer>

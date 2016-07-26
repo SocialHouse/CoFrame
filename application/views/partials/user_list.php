@@ -11,7 +11,7 @@
 					<div class="pull-sm-left">
 						<input type="checkbox" class="hidden-xs-up approvers" name="post-approver" value="<?php echo $master_user[0]->aauth_user_id; ?>"><i class="tf-icon check-box circle-border user-list" data-value="<?php echo $master_user[0]->aauth_user_id; ?>" data-group="post-approver"><i class="fa fa-check"></i></i>
 					</div>
-					<div class="pull-sm-left">
+					<div class="pull-sm-left user-img">
 						<?php
 						$path = img_url()."default_profile.jpg";
 						
@@ -40,7 +40,7 @@
 					<div class="pull-sm-left">
 						<input type="checkbox" class="hidden-xs-up approvers" name="post-approver" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border user-list" data-value="<?php echo $user->aauth_user_id; ?>" data-group="post-approver"><i class="fa fa-check"></i></i>
 					</div>
-					<div class="pull-sm-left">
+					<div class="pull-sm-left user-img">
 						<?php
 						$path = img_url()."default_profile.jpg";
 						

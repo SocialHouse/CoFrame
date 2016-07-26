@@ -2091,6 +2091,15 @@ a {
 		padding: 0 0 0 20px;
 	}
 }
+.container-phases {
+	.modal & {
+		margin-top: -23px;
+		padding-bottom: 23px;
+		.post-content-footer {
+			margin-bottom: -23px;
+		}
+	}
+}
 .add-phases {
 	position: relative;
 	height: calc(100% + 100px);
@@ -2136,7 +2145,6 @@ a {
 	&.active {
 		h2, h2 a {
 			font-family: $futura-bold;
-			text-decoration: underline;
 		}
 		&.editing:after {
 			display: none;
