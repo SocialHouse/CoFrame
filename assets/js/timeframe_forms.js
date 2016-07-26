@@ -218,7 +218,7 @@ jQuery(document).ready(function(){
 		                }
 	                }
         		},
-        	phone:{checkData: true, required: true},
+        	phone:{ number: true, required: true},
         	timezone: {required: true},
         	plan: {required: true},
         	username: {required: true,
@@ -242,7 +242,7 @@ jQuery(document).ready(function(){
         		remote: language_message.email_used},
         	phone:{
         		required:language_message.enter_phone,
-        		checkData: language_message.valid_phone
+        		number: language_message.valid_phone
         	},
         	timezone: { required: language_message.select_timezone},
         	plan: { required: language_message.select_plan },
@@ -400,7 +400,7 @@ jQuery(document).ready(function(){
         rules: {
         	first_name: {required: true},
         	last_name: {required: true},
-        	phone:{checkData: true, required: true},
+        	phone:{number: true, required: true},
         	timezone: {required: true},
         	password :{ minlength:6 },
         	new_password: {
@@ -423,7 +423,7 @@ jQuery(document).ready(function(){
         	last_name: {required: language_message.enter_lname},
         	phone:{
         		required: language_message.enter_phone, 
-        		checkData: language_message.valid_phone},
+        		number: language_message.valid_phone},
         	timezone: {required: language_message.select_timezone },
         	password :{ minlength:language_message.mini_char},
         	new_password :{ 
