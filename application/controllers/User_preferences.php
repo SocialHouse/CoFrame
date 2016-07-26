@@ -28,6 +28,7 @@ class User_preferences extends CI_Controller {
 		$this->user_id = $this->session->userdata('id');
 		$this->email = $this->session->userdata('email');
 		$this->user_data = $this->session->userdata('user_info');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}
 
 	function index()
@@ -132,6 +133,7 @@ class User_preferences extends CI_Controller {
            	$user_data['img_folder'] = $this->user_data['img_folder'];
            	$user_data['accounts'] = $this->user_data['accounts'];
            	$user_data['account_id'] = $this->user_data['account_id'];
+           	$user_data['plan'] = $this->user_data['plan'];
 
            	$this->session->set_userdata('user_info',$user_data);
 

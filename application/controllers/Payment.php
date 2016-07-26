@@ -32,6 +32,7 @@ class Payment extends CI_Controller {
 
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 
 		$this->stripe_test_mode = $this->config->item('stripe_test_mode');
     	if($this->stripe_test_mode == TRUE)

@@ -26,6 +26,7 @@ class Tumblr_connect extends CI_Controller {
 		$this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 
 		$this->load->library('tblr');
         $this->config->load('tumblr');

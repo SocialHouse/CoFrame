@@ -89,6 +89,7 @@ class Tour extends CI_Controller {
                 $accounts = $this->timeframe_model->get_accounts();
                 $user_info['accounts'] = $accounts;
                 $user_info['account_id'] = $accounts[0];
+                $user_info['plan'] = get_plan($accounts[0]);
                 $this->session->set_userdata('user_info',$user_info);
                 
                 $remember_me = isset($post_data['remember_me']) ? $post_data['remember_me'] : '';

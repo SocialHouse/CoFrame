@@ -800,23 +800,30 @@ jQuery(function($) {
     	var post_data = {}
     	$.extend(post_data, data, social_media_keys);
 
-    	$.ajax({
-    		url: base_url+'brands/save_outlet',
-    		data: post_data,
-    		type:'POST',
-    		dataType: 'json',
-    		success: function( data ){
-    			
-    			if(data.response == 'success')
-    			{
-    				$(control).parents().children('.btn-next-step').trigger('click');
-    				if(data.html)
-    				{
-    					$('#user-selected-outlet').html(data.html);
-    				}
-    			}
-    		}
-    	});
+    	if(plan_data.outlets == 'unlimited' || $('#selectedOutlets').children('ul').children('li').length <= plan_data.outlets)
+    	{
+        	$.ajax({
+	    		url: base_url+'brands/save_outlet',
+	    		data: post_data,
+	    		type:'POST',
+	    		dataType: 'json',
+	    		success: function( data ){
+	    			
+	    			if(data.response == 'success')
+	    			{
+	    				$(control).parents().children('.btn-next-step').trigger('click');
+	    				if(data.html)
+	    				{
+	    					$('#user-selected-outlet').html(data.html);
+	    				}
+	    			}
+	    		}
+	    	});
+        }
+        else
+        {
+        	alert(language_message.outlet_limit.replace('%outlet_number%',plan_data.outlets));
+        }
     });  
 
     //save tags
@@ -836,20 +843,26 @@ jQuery(function($) {
     		labels[i] = $(value).val();
     	});
     	
-
-    	$.ajax({
-    		url: base_url+'brands/save_tags',
-    		data: {'brand_id': brand_id,'tags': tags,'labels':labels},
-    		type:'POST',
-    		dataType: 'json',
-    		success: function( data ){
-    			
-    			if(data.response == 'success')
-    			{    				
-    				window.location.href = base_url+'brands/success/'+slug;
-    			}
-    		}
-    	});
+    	if($('#selectedTags').find('li').length <= plan_data.tags || plan_data.tags == 'unlimited')
+    	{
+	    	$.ajax({
+	    		url: base_url+'brands/save_tags',
+	    		data: {'brand_id': brand_id,'tags': tags,'labels':labels},
+	    		type:'POST',
+	    		dataType: 'json',
+	    		success: function( data ){
+	    			
+	    			if(data.response == 'success')
+	    			{    				
+	    				window.location.href = base_url+'brands/success/'+slug;
+	    			}
+	    		}
+	    	});
+	    }
+	    else
+	    {
+	    	alert(language_message.tag_limit.replace('%tag_number%',plan_data.tags));
+	    }
     });
 
     //step3 cancel btn

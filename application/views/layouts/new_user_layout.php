@@ -32,7 +32,7 @@
 <script type="text/javascript">
 	var base_url = "<?php echo base_url(); ?>";
 	var selected_day = "<?php echo isset($selected_date)?$selected_date : ''; ?>";
-	var desktop_notify_status = "<?php echo isset($this->user_data['desktop_notification']) ? $this->user_data['desktop_notification'] : ''; ?>";
+	var desktop_notify_status = "<?php echo isset($this->user_data['desktop_notification']) ? $this->user_data['desktop_notification'] : ''; ?>";		
 </script>
 <script type='text/javascript' src='<?php echo js_url(); ?>json_message.json?ver=3.3.1'></script>
 <script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
@@ -101,7 +101,10 @@
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=4.0.0'></script>	
-	
+	<script type="text/javascript">
+		var plan_data = '<?php echo json_encode($this->plan_data); ?>';	
+		plan_data = jQuery.parseJSON(plan_data);
+	</script>
 	
 	<?php       
     if(isset($js_files))

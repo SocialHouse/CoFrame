@@ -7,9 +7,12 @@
 			if($this->user_id == $this->user_data['account_id'])
 			{
 				$show = 1;
-				?>
-				<a href="<?php echo base_url().'brands/add' ?>" class="btn btn-secondary btn-sm pull-sm-left">Add a Brand</a>			
-				<?php
+				if(count($brands) < $this->plan_data['brands'])
+				{
+					?>
+					<a href="<?php echo base_url().'brands/add' ?>" class="btn btn-secondary btn-sm pull-sm-left">Add a Brand</a>
+					<?php
+				}
 			}
 			?>
 			<a href="#" class="btn btn-default btn-sm btn-reorder pull-sm-right popover-toggle" data-toggle="popover-reorder-brands" data-content-src="<?php echo base_url().'brands/reorder_brands'; ?>" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-reorder-brands" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="20" data-offset-y="-6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body">Reorder <i class="fa fa-bars"></i></a>

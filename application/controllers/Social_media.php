@@ -29,6 +29,7 @@ class Social_media extends CI_Controller {
         $this->load->config('twitter');
         $this->user_data = $this->session->userdata('user_info');
         $this->user_id = $this->session->userdata('id');
+        $this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
         
         //for twittr
         $this->load->library('twitteroauth');

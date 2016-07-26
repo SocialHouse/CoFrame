@@ -27,6 +27,7 @@ class Brands extends CI_Controller {
 		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}
 
 	public function index()
@@ -41,6 +42,11 @@ class Brands extends CI_Controller {
 
 	public function add()
 	{
+		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);
+
+		$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
+		no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
+
 		$this->data = array();
 		$this->load->model('user_model');
 		$this->data['timezones'] = $this->user_model->get_timezones();
@@ -783,6 +789,7 @@ class Brands extends CI_Controller {
 		{
 			$session_data = $this->user_data;
 			$session_data['account_id'] = $account_id;
+			$session_data['plan'] = get_plan($accounts[0]);
 			$this->session->set_userdata('user_info',$session_data);			
 		}
 		redirect(base_url().'brands/overview');
