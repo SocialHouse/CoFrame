@@ -480,8 +480,10 @@ class Calendar extends CI_Controller {
 				$post = array(
     						'content' => $this->input->post('post_copy'),
     						'slate_date_time' => $slate_date_time,
-    						'time_zone' =>$post_data['time_zone']
+    						'time_zone' =>$post_data['time_zone'],
+    						'updated_at' =>date("Y-m-d H:i:s")
     					);
+
 
 				//  fetch all phases of post
 				$post_phases = $this->post_model->get_post_phases($post_data['post_id']);
@@ -580,7 +582,7 @@ class Calendar extends CI_Controller {
 	    										'status' => 'pending',
 	    									);
 								$this->timeframe_model->update_data('phases_approver',$phase_data,array('phase_id'=>$new_phase['phase_id']));
-								$this->timeframe_model->update_data('posts',$phase_data,array('id'=>$post_data['post_id']));
+								$post['status'] = 'pending';
 							}
 							
 							if(!empty($new_phase['phase_id'])){
@@ -611,7 +613,6 @@ class Calendar extends CI_Controller {
 						}
 					}					
 				}
-
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');
 

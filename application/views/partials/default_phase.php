@@ -107,7 +107,14 @@ if(!empty($post_details->brand_id)){
 				<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
 			</div>
 			<footer class="post-content-footer">
-				<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
+				<?php
+					if(empty($is_edit))
+					{
+						?>
+						<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
+						<?php
+					}
+				?>
 				<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn pull-sm-right" id="submit-approval"> Slate Post </button>
 			</footer>
 		</div>
