@@ -43,12 +43,13 @@ class Brands extends CI_Controller {
 	public function add()
 	{
 		$this->data = array();
-		$this->load->model('user_model');
-
-		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);		
-
-		$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
-		no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
+		$this->load->model('user_model');		
+		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);
+		if(!empty($this->data['brands']))
+		{
+			$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
+			no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
+		}
 		
 		// $users = $this->brand_model->get_all_users();
 
