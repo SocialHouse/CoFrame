@@ -408,6 +408,40 @@ if(!function_exists('check_access'))
         }       
     }
 }
+
+if(!function_exists('plan_access'))
+{
+    function plan_access($plan,$brand,$group,$message = '')
+    {
+        if($plan == 0)
+        {
+            $CI->data['user_group'] = $group;
+            $CI->data['brand_id'] = $brand[0]->id;
+            $CI->data['brand'] = $brand[0];
+            $CI->data['access_denied_msg'] = $message;
+            $CI->data['view'] = 'partials/no_permission';
+            $CI->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
+            _render_view($CI->data);
+            die;
+        }
+    }
+}
+
+if(!function_exists('no_of_brand_allowed'))
+{
+    function no_of_brand_allowed($current_count,$allowed_count,$message = '')
+    {
+        if($current_count >= $allowed_count)
+        {
+            $CI->data['access_denied_msg'] = $message;
+            $CI->data['view'] = 'partials/limit_exceed_error';
+            $CI->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0');
+            _render_view($CI->data);
+            die;
+        }
+    }
+}
+
 if(!function_exists('object_to_array'))
 {
     function object_to_array($data)

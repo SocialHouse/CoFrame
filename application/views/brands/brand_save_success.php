@@ -11,9 +11,9 @@
 						<?php
 						$image_path = img_url().'default_brand.png';
 						$image_class = 'center-block';
-						if(file_exists(upload_path().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png'))
+						if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png'))
 						{
-							$image_path = upload_url().$brand[0]->created_by.'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png';
+							$image_path = upload_url().$this->user_data['account_id'].'/brands/'.$brand[0]->id.'/'.$brand[0]->id.'.png';
 							$image_class = 'center-block circle-img';
 						}
 						?>
@@ -97,9 +97,9 @@
 							foreach($brands_user as $user)
 							{
 								$image_path = img_url().'default_profile.jpg';
-								if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png'))
+								if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png'))
 								{
-									$image_path = upload_url().$brand[0]->created_by.'/users/'.$user->aauth_user_id.'.png';
+									$image_path = upload_url().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png';
 								}
 								?>
 								<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">

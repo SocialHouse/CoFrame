@@ -32,6 +32,8 @@ class Cron extends CI_Controller {
         $this->load->config('tumblr');
         $this->user_data = $this->session->userdata('user_info');
         $this->user_id = $this->session->userdata('id');
+        $this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
+        
         $this->load->library('twitteroauth');
         $this->load->library('tblr');
         ini_set('max_execution_time', 2000);

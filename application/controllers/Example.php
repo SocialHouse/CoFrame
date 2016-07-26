@@ -68,7 +68,7 @@ class Example extends CI_Controller {
         // $a = $this->aauth->create_perm("settings.edit_brand_setting","Edit brand settings");
 
         // $a = $this->aauth->create_perm("analytics.view_analytics","View analytics");
-        $a = $this->aauth->create_perm("billing.view_billing","View billing data");
+        $a = $this->aauth->create_perm("billing.billing","View billing data");
 
          $a = $this->aauth->create_perm("master","All access");
 
@@ -91,7 +91,7 @@ class Example extends CI_Controller {
         // $a = $this->aauth->allow_group("Admin","settings.edit_brand_setting");
 
         // $a = $this->aauth->allow_group("Admin","analytics.view_analytics");
-        $a = $this->aauth->allow_group("Admin","billing.view_billing");
+        $a = $this->aauth->allow_group("Admin","billing.billing");
         $a = $this->aauth->allow_group("Admin","master");
 
 
@@ -193,7 +193,7 @@ class Example extends CI_Controller {
         $a = $this->aauth->delete_perm("settings.edit_brand_setting","Edit brand settings");
 
         $a = $this->aauth->delete_perm("analytics.view_analytics","View analytics");
-        $a = $this->aauth->delete_perm("billing.view_billing","View billing data");
+        $a = $this->aauth->delete_perm("billing.billing","View billing data");
 
         $a = $this->aauth->delete_perm("master","All access");
     }

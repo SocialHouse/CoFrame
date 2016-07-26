@@ -30,7 +30,8 @@ class Co_create extends CI_Controller {
 		$this->load->model('brand_model');
 		$this->load->config('opentok');
 		$this->user_id = $this->session->userdata('id');
-		$this->user_data = $this->session->userdata('user_info');
+		$this->user_data = $this->session->userdata('user_info');		
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}	
 
 	public function create()
@@ -43,6 +44,9 @@ class Co_create extends CI_Controller {
 		{
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
+			//check plan have access to this page
+			$message = 'Your plan does not have access to this page';
+			plan_access($this->plan_data['co_create'],$brand,$this->data['user_group'],$message);
 
 			$additional_group = '';
 			
@@ -96,10 +100,10 @@ class Co_create extends CI_Controller {
 			$brand_id = $brand[0]->id;
 
 			$path = img_url()."default_profile.jpg";
-			upload_path().$brand[0]->created_by.'/users/'.$this->user_id.'.png';
-			if(file_exists(upload_path().$brand[0]->created_by.'/users/'.$this->user_id.'.png'))
+			upload_path().$brand[0]->account_id.'/users/'.$this->user_id.'.png';
+			if(file_exists(upload_path().$brand[0]->account_id.'/users/'.$this->user_id.'.png'))
 			{
-				$path = upload_url().$brand[0]->created_by.'/users/'.$this->user_id.'.png';
+				$path = upload_url().$brand[0]->account_id.'/users/'.$this->user_id.'.png';
 			}
 
 			$connection_metadata = ucfirst($this->user_data['first_name']).",".$this->user_id.",".$path;			

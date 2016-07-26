@@ -143,6 +143,10 @@
 
 	// confirm cancel message
 	$lang['confirm_cancel'] = "Are you sure you want to cancel?";
+
+	//plan access errors
+	$lang['outlet_limit'] = 'Your plan support only %outlet_number% outlets per brand';
+	$lang['tag_limit'] = 'Your plan support only %tag_number% tags per brand';
 ?>
 
 

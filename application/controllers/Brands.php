@@ -27,6 +27,7 @@ class Brands extends CI_Controller {
 		$this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}
 
 	public function index()
@@ -43,6 +44,14 @@ class Brands extends CI_Controller {
 	{
 		$this->data = array();
 		$this->load->model('user_model');
+
+		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);		
+
+		$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
+		no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
+		
+		// $users = $this->brand_model->get_all_users();
+
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');		
 		$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id);	
@@ -93,9 +102,9 @@ class Brands extends CI_Controller {
 			if(isset($filename))
 			{
 				//helper function to delete files
-				if(file_exists(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename))
+				if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id.'/'.$filename))
 				{
-					delete_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$filename);
+					delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id.'/'.$filename);
 				}
 
 				if($is_brand_image_save == 'yes')
@@ -106,10 +115,10 @@ class Brands extends CI_Controller {
 			        $decoded = base64_decode($base64_str);
 
 			        //create jpeg from decoded base 64 string and save the image in the parent folder
-			        if(!is_dir(upload_path().$this->user_id.'/brands/'.$brand_id)){
-			        	mkdir(upload_path().$this->user_id.'/brands/'.$brand_id,0755,true);
+			        if(!is_dir(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id)){
+			        	mkdir(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id,0755,true);
 			        }
-			        $url = upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png';
+			        $url = upload_path().$this->user_data['account_id'].'/brands/'.$brand_id.'/'.$brand_id.'.png';
 			        $result = file_put_contents($url, $decoded);
 
 			        $source_url = imagecreatefrompng($url);
@@ -127,7 +136,7 @@ class Brands extends CI_Controller {
     	}
     	if($is_brand_image_save == 'no')
 		{
-			delete_file(upload_path().$this->user_id.'/brands/'.$brand_id.'/'.$brand_id.'.png');
+			delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id.'/'.$brand_id.'.png');
 		}
 		if(!isset($error))
 		{
@@ -496,11 +505,11 @@ class Brands extends CI_Controller {
     	$brand_data = array(
 								'is_hidden' => 0
 							);
-    	$condition = array('created_by' => $this->user_id,'slug'=>$slug);
+    	$condition = array('account_id' => $this->user_user_data['account_id'],'slug'=>$slug);
     	$this->timeframe_model->update_data('brands',$brand_data,$condition);
 
 
-    	$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $slug,'created_by'=> $this->user_id));
+    	$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $slug,'account_id' => $this->user_user_data['account_id']));
 
     	// $this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);
     	// echo $this->db->last_query();
@@ -737,7 +746,7 @@ class Brands extends CI_Controller {
 	function delete($brand_id){
 		$status = 'fail';
 		if(!empty($brand_id)){
-			$brand = $this->timeframe_model->get_data_by_condition('brands',array('id'=>$brand_id),'created_by');
+			$brand = $this->timeframe_model->get_data_by_condition('brands',array('id'=>$brand_id),'account_id');
 			
 			$condition = array('brand_id'=> $brand_id);
 
@@ -766,7 +775,7 @@ class Brands extends CI_Controller {
 			$responce = $this->timeframe_model->delete_data('brands',array('id'=> $brand_id));
 			
 			if(!empty($brand[0])){
-				$dir = FCPATH.'uploads/'.$brand[0]->created_by.'/brands/'.$brand_id;
+				$dir = FCPATH.'uploads/'.$brand[0]->account_id.'/brands/'.$brand_id;
 				if(is_dir($dir)){
 					$responce = deleteDirectory($dir);
 				}
@@ -783,6 +792,7 @@ class Brands extends CI_Controller {
 		{
 			$session_data = $this->user_data;
 			$session_data['account_id'] = $account_id;
+			$session_data['plan'] = get_plan($accounts[0]);
 			$this->session->set_userdata('user_info',$session_data);			
 		}
 		redirect(base_url().'brands/overview');

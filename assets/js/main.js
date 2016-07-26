@@ -2240,17 +2240,24 @@ jQuery(function($) {
 	$(document).on('submit','#step_2_edit',function(e){
 		e.preventDefault();
 		var form = $(this);
-		$.ajax({
-    		'type':'POST',
-    		'dataType':'json',
-    		url: form.attr('action'),
-    		data:form.serialize(),
-            success: function(result){
-            	if(result.response == 'success'){
-            		window.location.reload();
-            	}
-            }
-    	});
+		if($('#selectedOutlets').find('li').length <= plan_data.outlets || plan_data.outlets == 'unlimited')
+    	{
+			$.ajax({
+	    		'type':'POST',
+	    		'dataType':'json',
+	    		url: form.attr('action'),
+	    		data:form.serialize(),
+	            success: function(result){
+	            	if(result.response == 'success'){
+	            		window.location.reload();
+	            	}
+	            }
+	    	});
+	    }
+	    else
+	    {
+	    	alert(language_message.tag_limit.replace('%tag_number%',plan_data.tags));
+	    }
 	});
 
 	$(document).on('submit','#step_3_edit',function(e){
@@ -2305,17 +2312,24 @@ jQuery(function($) {
 			labels[i] = $(value).val();
 		});
 
-         $.ajax({
-            url: form.attr('action'),
-            data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug,'tag_ids':tag_ids},
-            type:'POST',
-            dataType: 'json',
-            success: function(result){
-                if(result.response == 'success'){
-					window.location.reload();
-				}
-            }
-        });
+		if($('#selectedTags').find('li').length <= plan_data.tags || plan_data.tags == 'unlimited')
+    	{
+	        $.ajax({
+	            url: form.attr('action'),
+	            data: {'brand_id': brand_id,'tags': tags,'labels':labels,'slug':slug,'tag_ids':tag_ids},
+	            type:'POST',
+	            dataType: 'json',
+	            success: function(result){
+	                if(result.response == 'success'){
+						window.location.reload();
+					}
+	            }
+	        });
+	    }
+	    else
+	    {
+	    	alert(language_message.tag_limit.replace('%tag_number%',plan_data.tags));
+	    }
     });
 
 	$(document).on("click", ".close_brand", function(event){
@@ -2534,7 +2548,7 @@ jQuery(function($) {
 
 	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
-	if(desktop_notify_status == 0)
+	if(desktop_notify_status == 0 && plan_data.real_time_notification != 0)
 		alert_notification();
 });
 

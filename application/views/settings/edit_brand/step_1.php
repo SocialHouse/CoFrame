@@ -13,9 +13,9 @@
 				$cls_1 = 'hide';
 				$is_img='no';
 
-				if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png'))
+				if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png'))
 				{
-					$image_path = upload_url().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png';
+					$image_path = upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png';
 					$image ='<img src="'.$image_path.'" id="photo">';
 					$cls_1 = '';
 					$is_img='yes';

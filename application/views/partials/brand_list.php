@@ -7,9 +7,9 @@ if(!empty($brands))
 		foreach($brands as $brand)
 		{			
 			$image_path = img_url().'default_brand.png';
-			if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png'))
+			if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png'))
 			{
-				$image_path = upload_url().$brand->created_by.'/brands/'.$brand->id.'/'.$brand->id.'.png';
+				$image_path = upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png';
 			}
 			
 			?>

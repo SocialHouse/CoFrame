@@ -6,7 +6,7 @@
 	</header>
 	<form action="<?php echo base_url().'posts/save_post' ?>" method="POST" id="post-details" class="file-upload clearfix" upload="<?php echo base_url()."posts/upload"; ?>">
 		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
-		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $brand->created_by; ?>">
+		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $this->user_data['account_id']; ?>">
 		<input type="hidden" name="save_as" id="save_as" value="">
 		<input type="hidden" name="slug" id="slug" value="<?php echo $brand->slug; ?>">
 
@@ -202,9 +202,9 @@
 												<div class="pull-sm-left">
 													<?php
 													$path = img_url()."default_profile.jpg";
-													if(file_exists(upload_path().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
+													if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png'))
 													{
-														$path = upload_url().$brand->created_by.'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
+														$path = upload_url().$this->user_data['account_id'].'/brands/'.$brand_id.'/posts'.$user->aauth_user_id.'.png';
 													}
 													?>
 													<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>

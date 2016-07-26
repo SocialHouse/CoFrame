@@ -43,7 +43,7 @@
 				foreach ($post_details as $key => $post) 
 				{
 					$outlet_name = strtolower($post->outlet_name);
-					$brand_onwer = $post->created_by;
+					$brand_onwer = $this->user_data['account_id'];
 					$brand_id = $post->brand_id;
 					$style = '';
 					$style_prop = '';
