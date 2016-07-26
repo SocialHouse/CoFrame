@@ -53,14 +53,15 @@
 									</ul>
 									<?php
 								}
-							?>								
+							?>
+							<div id="outlet_error" class="error"></div>
 							<input type="hidden" id="postOutlet" name="post_outlet">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="postCopy">Post Copy</label>
 						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..." name="post_copy"></textarea>
-						<div id="post_copy_error" class="error "></div>
+						<div id="post_copy_error" class="error"></div>
 					</div>
 					<div class="form-group" id="mediaUpload">
 						<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Images (jpg,gif,png) should be less than 2MB in size, and videos (.mp4) should be less than 100MB in size." data-popover-arrow="true"></i></label>
@@ -73,7 +74,7 @@
 						<div class="form__uploading">Uploading ...</div>
 						<div class="form__success">Done!</div>
 						<div class="form__error">Error! <span></span>.</div>
-						<div id="img_error" class="error "></div>
+						<div id="img_error" class="error"></div>
 					</div>					
 					<div class="media-type clearfix hidden" id="facebookMediaUpload">
 						<div class="clearfix">

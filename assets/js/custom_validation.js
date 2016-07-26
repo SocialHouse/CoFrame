@@ -1,6 +1,6 @@
 jQuery(function($) {
 
-	$(document).on('keypress blur', '#postCopy, .single-date-select, .hour-select, .minute-select, .check-box.circle-border,.incrementer i', function() {
+	$(document).on('keypress, blur, change', '#postCopy, .single-date-select, .hour-select, .minute-select, .time-input, .check-box.circle-border,.incrementer i', function() {
 		create_post_validation($(this));
 	});
 	$(document).on('click', '.check-box.circle-border, .incrementer i', function() {
@@ -71,8 +71,9 @@ jQuery(function($) {
 				
 			
 			if(old_date != ''){
-				if(old_hour != '' && old_minute !='' ){
-					if( new_minute != '' &&  new_hour !='' ){
+
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
 						
 						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
@@ -111,8 +112,8 @@ jQuery(function($) {
 				new_ampm 	= $('#only_ph_one_ampm').val();
 			
 			if(old_date != ''){
-				if(old_hour != '' && old_minute !='' ){
-					if( new_minute != '' &&  new_hour !='' ){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
 
 						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
@@ -154,8 +155,8 @@ jQuery(function($) {
 				old_ampm 	= $('#ph_one_ampm').val();
 
 			if(old_date != ''){
-				if(old_hour != '' && old_minute !='' ){
-					if( new_minute != '' &&  new_hour !='' ){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
 
 						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
@@ -192,8 +193,8 @@ jQuery(function($) {
 				old_ampm 	= $('input[name="phase[1][approve_ampm]"]').val();
 
 			if(old_date != ''){
-				if(old_hour != '' && old_minute !='' ){
-					if( new_minute != '' &&  new_hour !='' ){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
 
 						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
@@ -216,32 +217,28 @@ jQuery(function($) {
 	);
 
 
-
-	$(document).on('click','#submit-approval', function(){
-		// if(){
-
-		// }
-	});
-
-
 	create_post_validation = function(field){
+		
 		var $ = jQuery;
-		var disable_btn = true;
-		var post_copy_error = $('#post_copy_error'),
-			img_error = $('#img_error'),
-			date_error = $('#date_error');
-			hm_error = $('#hm_error'),
-			approve_date = $('#only_ph_one_date').val(),
-			approve_hour = $('#only_ph_one_hour').val(),
-			approve_minute = $('#only_ph_one_minute').val(),
-			approve_ampm = $('#only_ph_one_ampm').val(),
-			old_date 	= $('input[name="post-date"]').val(),
-			old_hour 	= $('input[name="post-hour"]').val(),
-			old_minute 	= $('input[name="post-minute"]').val(),
-			old_ampm 	= $('input[name="post-ampm"]').val() ;
+		var disable_btn 		= true;
+		var is_outlet_selected 	= false;
+		var post_copy_error 	= $('#post_copy_error'),
+			outlet_error		=$('#outlet_error'),
+			img_error 			= $('#img_error'),
+			date_error 			= $('#date_error');
+			hm_error 			= $('#hm_error'),
+			approve_date 		= $('#only_ph_one_date').val(),
+			approve_hour 		= $('#only_ph_one_hour').val(),
+			approve_minute 		= $('#only_ph_one_minute').val(),
+			approve_ampm 		= $('#only_ph_one_ampm').val(),
+			old_date 			= $('input[name="post-date"]').val(),
+			old_hour 			= $('input[name="post-hour"]').val(),
+			old_minute 			= $('input[name="post-minute"]').val(),
+			old_ampm 			= $('input[name="post-ampm"]').val() ;
 
+		
 		if($(field).hasClass('single-date-select') && $(field).val() === "") {
-			date_error.text('Please select date');
+			date_error.text(language_message.select_re_date);
 			date_error.show();
 		}
 
@@ -255,7 +252,7 @@ jQuery(function($) {
 				disable_btn = true;
 			}else{
 				date_error.empty();
-				date_error.hide();				
+				date_error.hide();
 			}
 		}
 
@@ -263,57 +260,88 @@ jQuery(function($) {
 		if($(field).hasClass('hour-select') && $(field).val() === "" || $(field).hasClass('minute-select') && $(field).val() === "") {
 			hm_error.text(language_message.enter_hour_minutes);
 			hm_error.show();
+			disable_btn = true;
 		}
 		if($(field).hasClass('hour-select') && $(field).val() > 12 || $(field).hasClass('minute-select') && $(field).val() > 60) {
 			hm_error.text(language_message.enter_hour_minutes);
 			hm_error.show();
+			disable_btn = true;
 		}
-		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
-			post_copy_error.hide();			
-			if($('.single-date-select').val() !=''){
-				date_error.hide();
-				if( $('.hour-select').val() != '' && $('.minute-select').val() != '' ){
+
+		$('#post-details .outlet-list li').each(function(i, elm) {
+			if(!$(elm).hasClass('disabled')){
+				is_outlet_selected = true;
+			}
+		});
+
+		if(!is_outlet_selected){
+			outlet_error.show();
+			outlet_error.text('please select outlet');
+		}else{
+			outlet_error.hide();
+			outlet_error.empty();
+			if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
+				post_copy_error.hide();
+				if($('.single-date-select').val() !='' && !moment($('.single-date-select').val(), 'YYYY-MM-DD', true).isValid()){
+					hm_error.empty();
 					hm_error.hide();
-					disable_btn = false;
-					if($(".check-box.circle-border").hasClass('selected')){
-						
-						if( approve_date !='' && !compareDate(approve_date, old_date)){
-							$('.phase-one-error').hide();
-							if( approve_hour !='' && approve_minute !=''){
-								var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
-								var ed_date = approve_date+' '+approve_hour+':'+approve_minute+' '+approve_ampm;
-								//console.log([approve_date, old_date]);
-								if(compareDateTime(ed_date,st_date)){
-									console.log([approve_date, old_date]);
-									disable_btn = false;
+					date_error.empty();
+					date_error.hide();
+					if( $('.hour-select').val() != '' && $('.minute-select').val() != '' && $('.hour-select').val() > 0 && $('.hour-select').val() < 13 && $('.minute-select').val() < 60 && $('.minute-select').val() >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm')){
+						hm_error.hide();
+						disable_btn = false;
+						if($(".check-box.circle-border").hasClass('selected')){
+							
+							if( approve_date !='' && !compareDate(approve_date, old_date)){
+								$('.phase-one-error').hide();
+								if( approve_hour !='' && approve_minute !=''){
+									var st_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+									var ed_date = approve_date+' '+approve_hour+':'+approve_minute+' '+approve_ampm;
+									//console.log([approve_date, old_date]);
+									if(compareDateTime(ed_date,st_date)){
+										console.log([approve_date, old_date]);
+										disable_btn = false;
+									}
+								}else{
+									disable_btn = true;
+									$('.phase-one-error').show();
+									$('.phase-one-error').text(language_message.enter_hour_minutes);
 								}
-							}else{
+							}
+							else {
 								disable_btn = true;
 								$('.phase-one-error').show();
-								$('.phase-one-error').text(language_message.enter_hour_minutes);
+								$('.phase-one-error').text(language_message.valid_date);
+								//date_error.show();
 							}
 						}
-						else {
-							disable_btn = true;
-							$('.phase-one-error').show();
-							$('.phase-one-error').text(language_message.valid_date);
-							//date_error.show();
+					}else{
+						if($('.hour-select').val() == '' && $('.minute-select').val() == ''){
+							hm_error.text(language_message.enter_hour_minutes);
+							hm_error.show();
+						}else{
+							hm_error.text(language_message.valid_hour_minutes);
+							hm_error.show();
 						}
 					}
+				}else{
+					hm_error.text(language_message.valid_date);
+					hm_error.show();
 				}
-			}
-		}else{
-			var error_disp = false;
-			if($('#postCopy').val()==''){
-				post_copy_error.text(language_message.enter_post_content);
-				post_copy_error.show();
-				error_disp = true;
-			}
-			if(!error_disp){
-				img_error.text(language_message.select_image_video);
-				img_error.show();
-			}
+			}else{
+				var error_disp = false;
+				if($('#postCopy').val()==''){
+					post_copy_error.text(language_message.enter_post_content);
+					post_copy_error.show();
+					error_disp = true;
+				}
+				if(!error_disp){
+					img_error.text(language_message.select_image_video);
+					img_error.show();
+				}
+			}			
 		}
+		
 		equalColumns();
 		//console.log('disable_btn: '+disable_btn);
 		toggleBtnClass("#submit-approval", disable_btn);
@@ -341,14 +369,19 @@ jQuery(function($) {
 		end_date = moment(new Date (endDate)).format('YYYY-MM-DD H:mm');
 		end_hr =parseInt(moment(new Date (endDate)).format('H'));
 		end_mm = parseInt(moment(new Date (endDate)).format('mm'));
-		//console.log(moment(startDate).isBefore(endDate));
-		if (st_date >= end_date ) {
-			if (st_hr >= end_hr ) {
-				if (st_mm >= end_mm ) {
-					$isValid = true ;
-				}
-			}
+		console.log('$isValid');
+		console.log(moment(startDate).isBefore(endDate));
+		if(moment(startDate).isBefore(endDate)){
+			$isValid = true;
 		}
+		//console.log(moment(startDate).isBefore(endDate));
+		// if (st_date >= end_date ) {
+		// 	if (st_hr >= end_hr ) {
+		// 		if (st_mm >= end_mm ) {
+		// 			$isValid = true ;
+		// 		}
+		// 	}
+		// }
 		if($isValid){
 			return $isValid;
 		}else{
@@ -466,8 +499,6 @@ jQuery(function($) {
 		$('#hm_error').hide();
 		$('#img_error').empty();
 		$('#img_error').hide();
-		$('#date_error').empty();
-		$('#date_error').hide();
 		$('#post_copy_error').empty();
 		$('#post_copy_error').hide();
 	}

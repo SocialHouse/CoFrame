@@ -86,11 +86,12 @@
 	$lang['enter_valid_datetime_slate_greater_than_date_than_approval'] = "Please enter valid date and time or Slate date must be greater than date than Approval phase 1";
 	$lang['enter_valid_datetime_approval_than_date_than_slate_date'] = "Please enter valid date and time or Approval date must be less than Slate date";
 	$lang['enter_hour_minutes'] ="Please enter hour and minutes";
+	$lang['valid_hour_minutes'] ="Please enter valid hour and minutes";
 	$lang['enter_slate_date'] ="Please enter Slate date";
 	$lang['enter_hour_minutes_slate_date'] ="Please enter Slate date or hour and minutes";
 	$lang['date_less_than_phase'] ="Please enter valid date and time or date must be less than phase ";
-	$lang['select_date'] ="Plaese select date in Phase ";
-	$lang['select_sdate'] ="Plaese select Sdate first";
+	$lang['select_date'] ="Please select date in Phase ";
+	$lang['select_sdate'] ="Please select Sdate first";
 	$lang['phase_less_than'] ="Date must be less than Phase";
 	$lang['date_less_than_sdate'] ="Date must be less than Sdate";
 	$lang['select_image_video'] ="Please select images or video";	
@@ -99,8 +100,8 @@
 	$lang['video_audio_not_enabled'] ="Video and audio not enabled, atleast enable one";
 	$lang['disconnected_from_session'] ="You were disconnected from the session. ";
 	$lang['connecting_error_session'] ="There was an error connecting to the session: ";
-	$lang['valid_date'] ="Plaese select the valid date";
-	$lang['select_re_date'] ="Plaese select the date";
+	$lang['valid_date'] ="Please select the valid date";
+	$lang['select_re_date'] ="Please select date";
 	$lang['post_update_successful'] ="Your post has been update successfully.";
 	$lang['unable_to_add_user'] ="Unable to add user";
 	$lang['phase_one_date_error'] ="Date must be greter than today's date and less than Slate date";

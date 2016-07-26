@@ -36,18 +36,12 @@ jQuery(function($) {
 		    return false;
 		});
 
-	 	$(".hour-select").mask('Hh', {
-	 		translation: {
-				'H': { pattern: /[0-1]/},
-				'h': { pattern: /[0-9]/},
-			}
-		});
-	 	$(".minute-select").mask('Mm', {
-	 		translation: {
-				'M': { pattern: /[0-5]/},
-				'm': { pattern: /[1-9]/}
-			}
-		});
+		$('.amselect').mask('Pp', {
+				'translation': {
+					P: { pattern: '[AaPp]'},
+					p: { pattern: '[Mm]'},
+				}
+			});
 
 		$(".hour-select").mask('00');
 		$(".minute-select").mask('00');
@@ -2561,7 +2555,6 @@ function alert_notification()
 			}
 		}
 	});
-
 	
 	setTimeout(function(){
 		alert_notification();
@@ -2605,6 +2598,7 @@ function setUserTime() {
 	//realtime time updates
 	var t = setTimeout(setUserTime, 500);
 }
+
 function checkMinutes(i) {
 	if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
 	return i;
