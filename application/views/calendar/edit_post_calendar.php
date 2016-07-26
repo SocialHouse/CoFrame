@@ -169,9 +169,9 @@
 				</footer>
 			</div>			
 		</div>
-		<?php if(empty($phases)){ 
+		<?php if(empty($phases)){
 			$data['is_edit'] = 'true';
-			$this->load->view('partials/default_phase' ,$data);
+			$this->load->view('partials/default_phase');
 		} else{ ?>
 		<div class="col-md-4 equal-height">
 			<div class="container-phases">
@@ -427,7 +427,7 @@
 									</div>
 									<!-- <div class="hide">
 										<footer class="post-content-footer">
-											<button class="btn btn-sm save-draft-btn" data-active-class="btn-default submit-btn" id="draft">Draft</button>
+											<button class="btn btn-sm save-draft-btn" data-active-class="btn-default submit-btn" id="draft">Save Draft</button>
 											<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn" data-active-class="btn-secondary" id="submit-approval">Submit for Approval</button>
 										</footer>
 									</div> -->
