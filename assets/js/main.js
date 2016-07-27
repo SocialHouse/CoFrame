@@ -155,7 +155,6 @@ jQuery(function($) {
 				$(this).siblings().addClass('disabled');
 				$('#postOutlet').attr('data-outlet-const',outlet_const);
 				$('#postOutlet').val(outlet);
-				setOutletPreview(outlet_const);
 				removeFromPreview();
 			}
 		});
@@ -1677,9 +1676,6 @@ $(document).on('change','.reply-attach',function()
 		$('.no-of-photos').html('');
 		var outlet_id = $('#postOutlet').val();
 		var selected_outlet = $('#postOutlet').attr('data-outlet-const');
-
-		setOutletPreview(selected_outlet);
-
 		var post_copy;
 		if($('#postCopy').val())
 			post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
@@ -1687,34 +1683,6 @@ $(document).on('change','.reply-attach',function()
 		$('#live-post-preview').append($('#outlet_'+selected_outlet).html());
 	}
 
-	function setOutletPreview(outlet) {
-		var postOutletClass;
-		if(outlet === "facebook") {
-			postOutletClass = 'fb_post';
-		}
-		else if(outlet === "instagram") {
-			postOutletClass = 'ig_post';
-		}
-		else if(outlet === "linkedin") {
-			postOutletClass = 'in_post';
-		}
-		else if(outlet === "pinterest") {
-			postOutletClass = 'pn_post';
-		}
-		else if(outlet === "tumblr") {
-			postOutletClass = 'tb_post';
-		}
-		else if(outlet === "twitter") {
-			postOutletClass = 'tw_post';
-		}
-		else if(outlet === "vine") {
-			postOutletClass = 'vn_post';
-		}
-		else if(outlet === "youtube") {
-			postOutletClass = 'yu_post';
-		}
-		$('#live-post-preview').attr('class', postOutletClass);
-	}
 	$(document).on('keyup','#postCopy',function(){
 		var post_copy = $(this).val();
 		post_copy = convertToLink(post_copy);
