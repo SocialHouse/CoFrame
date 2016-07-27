@@ -1334,7 +1334,7 @@ $(document).on('change','.reply-attach',function()
 			}
 		}
 		else if(incDec === "decrease") {
-			if(inputVal >= minVal) {
+			if(inputVal > minVal) {
 				newVal = inputVal - 1;
 			}
 			else if(inputVal <= minVal) {
@@ -1344,6 +1344,7 @@ $(document).on('change','.reply-attach',function()
 		$(input).val(newVal);
 		var $activePhase = $(input).closest('.approval-phase.active');
 		if($activePhase.length) {
+			var phaseId = $activePhase.data('id');
 			savePhaseHrs(phaseId, newVal);
 		}
 	}
@@ -1378,19 +1379,19 @@ $(document).on('change','.reply-attach',function()
 		$(input).val(newVal);
 		
 		var $activePhase = $(input).closest('.approval-phase.active');
-		
 		if($activePhase.length) {
+			var phaseId = $activePhase.data('id');
 			savePhaseMins(phaseId, newVal);
 		}
 	}
 	
 	function setAmPm(input, incDec) {
 		var $activePhase = $(input).closest('.approval-phase.active');
-		var phaseId = $activePhase.data('id');
 		if(incDec) {
 			($(input).val() === 'am') ? $(input).val('pm') : $(input).val('am');
 		}
 		if($activePhase.length) {
+			var phaseId = $activePhase.data('id');
 			savePhaseAmPm(phaseId, $(input).val().toUpperCase());
 		}
 	}
