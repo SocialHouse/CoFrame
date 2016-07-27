@@ -1666,7 +1666,7 @@ $(document).on('change','.reply-attach',function()
 					corner: true,
 					mimic: 'center'
 				},
-				width: 635
+				width: 435
 			}
 		}, jsEvent);
 	};
