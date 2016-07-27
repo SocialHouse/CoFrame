@@ -196,7 +196,7 @@
 								reader.onload = function (e) {
 									video.src = e.target.result;
 									file.img_src = e.target.result;
-				                	allFiles.push(file);				                	
+									allFiles.push(file);
 									//for show preview								
 									changePreview(file,'video');								
 				                }
@@ -218,8 +218,9 @@
 			if( isAdvancedUpload ){
 				//set all files array on initial load - for post edit screens
 				if(allFiles.length === 0 && $('img.form__file-preview').length > 0) {
-					$('img.form__file-preview').each(function() {
-						allFiles.push($(this).attr('src'));
+					$('img.form__file-preview').each(function(i, el) {
+						var file = {img_src:$(el).attr('src')};
+						allFiles.push(file);
 					});
 				}
 				$form
@@ -364,7 +365,7 @@
 									reader.onload = function (e) {
 										video.src = e.target.result;
 										file.img_src = e.target.result;
-					                	allFiles.push(file);				                	
+										allFiles.push(file);
 										//for show preview
 										changePreview(file,'video');
 					                }
@@ -629,7 +630,7 @@
 				var $uploader = $(this).closest('.form__input');
 				var imgIndex;
 				var control = $(this).parent().find('img');
-				if($(this).data('delete-id'))
+				if($(this).data('deleteId'))
 				{
 					var deleted = $('#delete_img').val()
 					if(deleted)
@@ -638,19 +639,16 @@
 					}
 					else
 					{
-						$('#delete_img').val($(this).data('delete-id'));
+						$('#delete_img').val($(this).data('deleteId'));
 					}
 				}
-				else
-				{
-					$.each(allFiles,function(a,img){
-						if(img.img_src === $(control).attr('src'))
-						{
-							imgIndex = a;
-						}
-					});
-					allFiles.splice(imgIndex, 1);
-				}
+				$.each(allFiles,function(a,img){
+					if(img.img_src === $(control).attr('src'))
+					{
+						imgIndex = a;
+					}
+				});
+				allFiles.splice(imgIndex, 1);
 
 				$(this).parent('.form__preview-wrapper').fadeOut(function() {
 					$(this).remove();
