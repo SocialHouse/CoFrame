@@ -60,6 +60,18 @@ class User_preferences extends CI_Controller {
 			{
 				$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
 				$this->data['user_details'] = $this->user_model->get_user($this->user_id);
+				$this->load->model('brand_model');
+				$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
+
+				$brands = $this->timeframe_model->get_data_by_condition('brands',array('account_id' => $this->user_data['account_id']),'id');
+				$this->data['brand_count'] = 0;
+				if(!empty($brands))
+				{
+					$this->data['brand_count'] = count($brands);
+				}
+
+				$this->data['brand_wise_tags'] = $this->brand_model->get_brand_wise_tags();
+				$this->data['brand_wise_outlets'] = $this->brand_model->get_brand_wise_outlets();
 			}
 
 			if($page == 'billing_info')

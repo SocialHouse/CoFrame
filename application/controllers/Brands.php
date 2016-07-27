@@ -45,13 +45,13 @@ class Brands extends CI_Controller {
 		$this->data = array();
 		$this->load->model('user_model');		
 		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);
+		$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
+		
 		if(!empty($this->data['brands']))
 		{
 			$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
 			no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
 		}
-		
-		// $users = $this->brand_model->get_all_users();
 
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');		
@@ -484,7 +484,9 @@ class Brands extends CI_Controller {
 					}
 					$response .= '</div></div>';
 
-                    echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id));
+					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
+
+                    echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id,'all_user_count' => $all_users));
                 }
                 else
                 {

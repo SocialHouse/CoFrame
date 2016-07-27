@@ -478,130 +478,138 @@
 
 			//add user to brand
 			$(document).on( 'click','.addUserToBrand', function( e ){
-				var control = this;
-				$(control).addClass('hide');
-				$('.user-upload-img').show();
-				$('.user-img-preview').hide();
-				// ajax file upload for modern browsers
-				if( isAdvancedUpload ) {
-					e.preventDefault();
-					// gathering the form data
-					var ajaxData = new FormData();
-					var other_data = $('form').serializeArray();
-					$.each(other_data,function(key,input){
-						if(input.name == 'brand_id' || input.name== 'user_id')
-						{
-							if(input.value)
-								ajaxData.append(input.name,input.value);
-						}
-				    });
+				if(plan_data.users > $('#all_users').val() || $('#user-select').val() != 'Add New')
+				{
+					var control = this;				
+					$('.user-upload-img').show();
+					$('.user-img-preview').hide();
+					// ajax file upload for modern browsers
+					if( isAdvancedUpload ) {
+						e.preventDefault();
+						// gathering the form data
+						var ajaxData = new FormData();
+						var other_data = $('form').serializeArray();
+						$.each(other_data,function(key,input){
+							if(input.name == 'brand_id' || input.name== 'user_id')
+							{
+								if(input.value)
+									ajaxData.append(input.name,input.value);
+							}
+					    });
 
-					// ajax request
-					
-					var brand_id = $('#brand_id').val();
-			    	var fname = $('#firstName').val();
-			    	var lname = $('#lastName').val();
-			    	var title = $('#userTitle').val();
-			    	var email = $('#userEmail').val();
-			    	var selectedOutlets = $('#userOutlet').val();
-			    	var userRoleSelect = $('#userRoleSelect :selected').val();
-			    	var user_id = $('#post_user_id :selected').val();
-			    	var selected_user = $('#user-select').val();
-			    	if(selected_user != 'Add New')
-			    	{
-			    		fname = $('#user-select option:selected').attr('data-fname');
-			    		lname = $('#user-select option:selected').attr('data-lname');
-			    	}
+						// ajax request
+						
+						var brand_id = $('#brand_id').val();
+				    	var fname = $('#firstName').val();
+				    	var lname = $('#lastName').val();
+				    	var title = $('#userTitle').val();
+				    	var email = $('#userEmail').val();
+				    	var selectedOutlets = $('#userOutlet').val();
+				    	var userRoleSelect = $('#userRoleSelect :selected').val();
+				    	var user_id = $('#post_user_id :selected').val();
+				    	var selected_user = $('#user-select').val();
+				    	if(selected_user != 'Add New')
+				    	{
+				    		fname = $('#user-select option:selected').attr('data-fname');
+				    		lname = $('#user-select option:selected').attr('data-lname');
+				    	}
 
-			    	var selectedPermissions = [];
-			    	var image_name = '';
-			    	var user_pic = '';
-			    	if($('#user_pic_base64').val() != ''){
-			    		user_pic = $('#user_pic_base64').attr('value');
-			    	}
+				    	var selectedPermissions = [];
+				    	var image_name = '';
+				    	var user_pic = '';
+				    	if($('#user_pic_base64').val() != ''){
+				    		user_pic = $('#user_pic_base64').attr('value');
+				    	}
 
-			    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
-					   selectedPermissions[i] = this.value;
-					});
-					
-			    	$.ajax({
-			    		url: base_url+'brands/add_user',    		
-			    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id,'selected_user':selected_user},
-			    		type: 'POST',
-			    		dataType: 'json',
-			    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-			    		success: function(data)
-			    		{
-			    			
-			    			$(control).removeClass('hide');
-			    			if(data.response == "success")
-			    			{
-			    				$('#user_pic_base64').val('');
-			    				$('#new_user_pic img').remove();
-			    				$('#new_user_pic').removeClass('hasUpload');
-			    				$('#userPermissionsList').append(data.html);
-			    				$('.go-to-userlist').trigger('click');
-			    				$('#firstName').val('');
-						    	$('#lastName').val('');
-						    	$('#userTitle').val('');
-						    	$('#userEmail').val('');
-						    	$('#userOutlet').val('');
-						    	$('#userRoleSelect').val('');
-						    	$('#userRoleSelect').trigger('change');
-						    	$('#userSelect select').val('');
+				    	$('input[name="'+userRoleSelect+'-permissions[]"]:checked').each(function(i) {
+						   selectedPermissions[i] = this.value;
+						});
 
-						    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
-						    	$('.user_upload_img_div').html('');
-						    	$('.user_upload_img_div').removeClass('has-files');
-						    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
-								html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
-								html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
-								$('.user_upload_img_div').html('');
-						    	$('.user_upload_img_div').html(html);
-						    	$('.remove-user-img').hide();
-						    	allFiles = [];
-						    	$('.user-upload-img').hide();
-						    	$('.user-img-preview').show();
-						    	
-						    	$("#user-select option[value='"+data.inserted_id+"']").remove();
-						    	if($('#add_user_next').hasClass('btn-disabled'))
-						    	{
-						    		$('#add_user_next').removeClass('btn-disabled');
-						    	}
-						    	$('#add_user_next').addClass('btn-secondary');
-						    	$('#add_user_next').prop('disabled',false);
-			    			}
-			    			else
-			    			{
-			    				$('.user-upload-img').hide();
-								$('.user-img-preview').show();
-								if(!$('#add_user_next').hasClass('btn-disabled'))
-						    	{
-						    		$('#add_user_next').addClass('btn-disabled');
-						    	}
-						    	$('#add_user_next').removeClass('btn-secondary');
-						    	$('#add_user_next').prop('disabled',true);
-								alert(language_message.unable_to_add_user);
-			    			}
-			    		}
-			    	});
+						$(control).addClass('hide');
+				    	$.ajax({
+				    		url: base_url+'brands/add_user',    		
+				    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id,'selected_user':selected_user},
+				    		type: 'POST',
+				    		dataType: 'json',
+				    		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+				    		success: function(data)
+				    		{
+				    			
+				    			$(control).removeClass('hide');
+				    			if(data.response == "success")
+				    			{
+				    				$('#user_pic_base64').val('');
+				    				$('#new_user_pic img').remove();
+				    				$('#new_user_pic').removeClass('hasUpload');
+				    				$('#userPermissionsList').append(data.html);
+				    				$('.go-to-userlist').trigger('click');
+				    				$('#firstName').val('');
+							    	$('#lastName').val('');
+							    	$('#userTitle').val('');
+							    	$('#userEmail').val('');
+							    	$('#userOutlet').val('');
+							    	$('#userRoleSelect').val('');
+							    	$('#userRoleSelect').trigger('change');
+							    	$('#userSelect select').val('');
+							    	$('#all_users').val(data.all_user_count);
+
+							    	$('.user-img-preview').attr('src',base_url+'assets/images/default_profile.jpg');
+							    	$('.user_upload_img_div').html('');
+							    	$('.user_upload_img_div').removeClass('has-files');
+							    	var html = '<input id="userFile" class="form__file" type="file" data-multiple-caption="{count} files selected" name="files[]">';
+									html += '<label id="userFileLabel" class="file-upload-label" for="userFile">Upload photo</label>';
+									html += '<button class="form__button btn btn-sm btn-default" type="submit">Upload</button>';
+									$('.user_upload_img_div').html('');
+							    	$('.user_upload_img_div').html(html);
+							    	$('.remove-user-img').hide();
+							    	allFiles = [];
+							    	$('.user-upload-img').hide();
+							    	$('.user-img-preview').show();
+							    	
+							    	$("#user-select option[value='"+data.inserted_id+"']").remove();
+							    	if($('#add_user_next').hasClass('btn-disabled'))
+							    	{
+							    		$('#add_user_next').removeClass('btn-disabled');
+							    	}
+							    	$('#add_user_next').addClass('btn-secondary');
+							    	$('#add_user_next').prop('disabled',false);
+				    			}
+				    			else
+				    			{
+				    				$('.user-upload-img').hide();
+									$('.user-img-preview').show();
+									if(!$('#add_user_next').hasClass('btn-disabled'))
+							    	{
+							    		$('#add_user_next').addClass('btn-disabled');
+							    	}
+							    	$('#add_user_next').removeClass('btn-secondary');
+							    	$('#add_user_next').prop('disabled',true);
+									alert(language_message.unable_to_add_user);
+				    			}
+				    		}
+				    	});					   
+					}
+
+					// fallback Ajax solution upload for older browsers
+					else {
+						var iframeName	= 'uploadiframe' + new Date().getTime(),
+							$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+						$( 'body' ).append( $iframe );
+						$form.attr( 'target', iframeName );
+
+						$iframe.one( 'load', function(){
+							var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+							$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+							if( !data.success ) $errorMsg.text( data.error );
+							$iframe.remove();
+						});
+					}
 				}
-
-				// fallback Ajax solution upload for older browsers
-				else {
-					var iframeName	= 'uploadiframe' + new Date().getTime(),
-						$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
-
-					$( 'body' ).append( $iframe );
-					$form.attr( 'target', iframeName );
-
-					$iframe.one( 'load', function(){
-						var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
-						$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
-						if( !data.success ) $errorMsg.text( data.error );
-						$iframe.remove();
-					});
-				}
+			    else
+			    {
+			    	alert(language_message.user_limit.replace('%user_number%',plan_data.users))
+			    }
 			});
 
 		    $('.remove-user-img').click(function(){

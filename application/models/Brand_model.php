@@ -258,4 +258,46 @@ class Brand_model extends CI_Model
 		}
 		return FALSE;
 	}
+
+	function get_all_users()
+	{
+		$this->db->select('brands.id,brand_user_map.access_user_id');
+		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id');
+		$this->db->where('is_hidden',0);
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$this->db->group_by('brand_user_map.access_user_id');
+		$query = $this->db->get($this->table);		
+		// plus one for master user who added the brand because above query only
+		// users who are present in brand can be calculated
+		//whe nwe complete with functionality like add multiple master users we need to change this
+		return $query->num_rows() + 1;
+	}
+
+	function get_brand_wise_tags()
+	{
+		$this->db->select('brands.name,count(brand_tags.name) as count');
+		$this->db->join('brand_tags','brands.id = brand_tags.brand_id');
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$this->db->group_by('brands.id');
+		$query = $this->db->get('brands');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	function get_brand_wise_outlets()
+	{
+		$this->db->select('brands.name,count(brand_outlets.id) as count');
+		$this->db->join('brand_outlets','brands.id = brand_outlets.brand_id');
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$this->db->group_by('brands.id');
+		$query = $this->db->get('brands');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
 }

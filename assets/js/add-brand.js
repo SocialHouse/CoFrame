@@ -1010,8 +1010,8 @@ jQuery(function($) {
 					if(response.result.user_profile)
 					{
 						var dt = new Date();
-
-						$('#new_user_pic').append('<img src="'+response.result.user_profile+'?'+Math.random()+'" >');
+						$('.user-img-preview').attr('src',response.result.user_profile);
+						$('#new_user_pic').append('<img src="'+response.result.user_profile+'?'+Math.random()+'" >');						
 						$('#addNewUser .remove-user-img').removeClass('hide');
 						$('#addNewUser .remove-user-img').show();
 						$('#is_user_image').val('yes');

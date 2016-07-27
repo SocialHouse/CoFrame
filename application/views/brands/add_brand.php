@@ -5,6 +5,7 @@
 	<input type="hidden" name="brand_id" id="brand_id" />
 	<input type="hidden" name="slug" id="slug" />
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo $this->user_id; ?>" >
+	<input type="hidden" name="all_users" id="all_users" value="<?php echo $all_users; ?>" >
 	<input type="hidden" name="is_brand_image" id="is_brand_image" value="no" >
 	<div class="row row-sm-12 equal-columns relative-wrapper">
 		<div class="brand-steps col-xl-10 center-block">

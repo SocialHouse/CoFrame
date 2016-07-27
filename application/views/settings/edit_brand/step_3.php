@@ -3,6 +3,8 @@
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $this->user_id; ?>">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
+		<input type="hidden" id="all_users" name="all_users" value="<?php echo $all_users; ?>">
+
 		<h4 class="text-xs-center">Manage Users</h4>
 		<div class="brand-image"></div>
 		<div class="brand-fields">

@@ -95,6 +95,7 @@ class Settings extends CI_Controller {
 			if($step_number == 3 ){
 				$this->data['groups'] = $this->aauth->list_groups();
 				$this->data['added_users'] = $this->brand_model->get_brand_users($brand[0]->id);
+				$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
 
 				$current_brand_users = $this->timeframe_model->get_data_array_by_condition('brand_user_map',array('brand_id' => $brand[0]->id),'access_user_id');
 

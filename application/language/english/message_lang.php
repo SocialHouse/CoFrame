@@ -147,6 +147,12 @@
 	//plan access errors
 	$lang['outlet_limit'] = 'Your plan support only %outlet_number% outlets per brand';
 	$lang['tag_limit'] = 'Your plan support only %tag_number% tags per brand';
+	$lang['user_limit'] = 'Your plan support only %user_number% users';
+
+	$lang['user_limit_downgrade'] = 'Please remove %user_number% users ';
+	$lang['brand_limit_downgrade'] = 'Please remove %brand_number% brands ';
+	$lang['tag_limit_downgrade'] = 'Please remove tags from brand %message% ';
+	$lang['outlet_limit_downgrade'] = 'Please remove outlets from brand %message% ';
 ?>
 
 

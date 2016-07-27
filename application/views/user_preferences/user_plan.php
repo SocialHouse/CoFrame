@@ -7,8 +7,11 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 			<h1 class="center-title section-title">User Preferences</h1>
 		</header>
 		<div class="row">
-			<form id="payment_form" method="post" action="<?php echo base_url();?>user_preferences/change-plan">
+			<form id="payment_form" method="post" action="<?php echo base_url();?>user_preferences/change-plan">				
 				<input type="hidden" name="plan" id="selected_plan">
+				<input type="hidden" name="brand_wise_tags" id="brand_wise_tags" value='<?php echo !empty($brand_wise_tags) ? json_encode($brand_wise_tags) : ''; ?>' >
+				<input type="hidden" name="brand_wise_outlets" id="brand_wise_outlets" value='<?php echo !empty($brand_wise_outlets) ? json_encode($brand_wise_outlets) : ''; ?>' >
+
 				<input type="hidden" id="billing_id" name="billing_id" value="<?php echo set_value('billing_id') ? set_value('billing_id') : (isset($billing_details->id) ? $billing_details->id : '' ); ?>">
 				<div class="col-lg-8 col-sm-10 center-block text-xs-center">
 					<?php 
@@ -60,8 +63,10 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								}
 								else
 								{
+									$plan_config = $this->config->item('plans')['start-up'];
+									$plan_change = 'downgrade';
 									?>
-									<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="START-UP" data-price="$99.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="START-UP" data-price="$99.00">Select</a>
 									<?php
 								}
 							?>
@@ -89,8 +94,14 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								}
 								else
 								{
+									$plan_config = $this->config->item('plans')['business'];
+									$plan_change = 'upgrade';									
+									if(in_array(strtolower($selected_plan),array('corporate','premier')))
+									{
+										$plan_change = 'downgrade';
+									}
 									?>
-										<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="BUSINESS" data-price="$199.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="BUSINESS" data-price="$199.00">Select</a>
 									<?php
 								}
 							?>	
@@ -117,8 +128,15 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								}
 								else
 								{
+									$plan_config = $this->config->item('plans')['corporate'];
+									$plan_change = 'upgrade';
+									if(in_array(strtolower($selected_plan),array('premier')))
+									{
+										$plan_change = 'downgrade';
+									}
+
 									?>
-										<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="CORPORATE" data-price="$299.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="CORPORATE" data-price="$299.00">Select</a>
 									<?php
 								}
 							?>
@@ -147,8 +165,9 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								}
 								else
 								{
+									$plan_change= 'upgrade';
 									?>
-										<a class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="PREMIERE" data-price="$499.00">Select</a>
+										<a data-plan_change="<?php echo $plan_change; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="PREMIERE" data-price="$499.00">Select</a>
 									<?php
 								}
 							?>
