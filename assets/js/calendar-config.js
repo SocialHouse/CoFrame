@@ -94,13 +94,6 @@ jQuery(function($) {
 				$('.calendar-summary #calendar').fullCalendar('renderEvent', eventData, true);
 				$("#selected_date").val($.fullCalendar.moment(date).format('YYYY-MM-DD'));
 				var date_on_cal = $.fullCalendar.moment(date).format('YYYY-MM-DD');
-				// console.log($('#calendar').children('div:last').find('table').find('td.fc-today'));
-
-				// $('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('ui-state-highlight');
-				// $('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('fc-today');
-				// console.log($('#calendar').children('div:last').find('table').find('td.fc-today'));
-				// $('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('ui-state-highlight');
-				// $('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('fc-today');
 			
 				$.ajax({
 					url:base_url+'brands/get_summary',
@@ -111,7 +104,6 @@ jQuery(function($) {
 					{
 						if(response)
 						{
-							console.log(response.html);
 							$('.summary-posts').html(response.html);
 						}
 					}
@@ -256,9 +248,9 @@ jQuery(function($) {
 		});
 
 		//Get popover calendar for date selector
-		$('body').on('click focus', 'input[data-toggle="popover-calendar"]', function(e) {			
-			//don't fire calendar popover if date is today or tomorrow
+		$('body').on('focus', 'input[data-toggle="popover-calendar"]', function(e) {
 			var $target = $(this);
+			var tindex = $target.index('input[data-toggle="popover-calendar"]');
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
 			var pattachment = $target.data('attachment');
@@ -269,9 +261,9 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
-			//clone the calendar div to allow for multiple date selectors on one page
+			//clone the calendar div and give custom id to allow for multiple date selectors on one page
 			var calendarClone = $('#' + pid).clone();
-			calendarClone.attr('id', pid + '-clone');
+			calendarClone.attr('id', pid + tindex);
 			inputType = $target.attr('name');
 			var inputVal = $target.val();
 			if(inputVal === '') {
@@ -305,7 +297,7 @@ jQuery(function($) {
 					},
 					visible: function() {
 						if(inputType !== undefined) {
-							showSelectCalendar(pid + '-clone');
+							showSelectCalendar(pid + tindex);
 						}
 					}
 				},
@@ -374,7 +366,6 @@ jQuery(function($) {
 		});
 
 		
-
 		//Get popover calendar for date selector
 		$('body').on('click', 'a[data-toggle="popover-calendar"]', function(e) {
 			var $target = $(this);
@@ -449,7 +440,6 @@ jQuery(function($) {
 			selectedday = moment(daySelectedDate).format('DD \, YYYY');
 			$('#calendarCurrentdate').text(selectedday);
 			$('#calendarCurrentMonth').text(selectedmonth);
-			console.log(daySelectedDate);
 			if($(this).hasClass('approval-date-filter'))
 			{
 				findApprovalsbyDate(daySelectedDate);
