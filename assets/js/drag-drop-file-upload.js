@@ -4,7 +4,6 @@
 		removeFromPreview;
 
 	;( function( $, window, document, undefined ){
-
 		window.fileDragNDrop = function fileDragNDrop() {
 		// feature detection for drag&drop upload
 		var isAdvancedUpload = function(){
@@ -642,15 +641,17 @@
 						$('#delete_img').val($(this).data('deleteId'));
 					}
 				}
-				$.each(allFiles,function(a,img){
-					if(img.img_src === $(control).attr('src'))
-					{
-						imgIndex = a;
-					}
-				});
-				allFiles.splice(imgIndex, 1);
 
 				$(this).parent('.form__preview-wrapper').fadeOut(function() {
+					$.each(allFiles,function(a,img){
+						if(img.img_src === $(control).attr('src'))
+						{
+							imgIndex = a;
+							return;
+						}
+					});
+					allFiles.splice(imgIndex, 1);
+
 					$(this).remove();
 					removeFromPreview();
 					var $uploads = $uploader.find('.form__preview-wrapper');

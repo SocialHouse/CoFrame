@@ -1159,7 +1159,7 @@ $(document).on('change','.reply-attach',function()
 			setTimeout(function() {
 				edit_modal.remove();
 			},500);
-			console.log(edit_modal);
+			allFiles = [];
 			equalColumns();
 		}
 		$('#qtip-popover-post-menu-content').show();
