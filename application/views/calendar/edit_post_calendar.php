@@ -291,7 +291,7 @@
 											?>
 										</ul>
 										<div class="approval-date">
-											<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no + 1 ; ?>"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span> <span class="time-preview<?php echo $phase_no + 1 ; ?>"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span> PST
+											<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no + 1 ; ?>"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span> <span class="time-preview<?php echo $phase_no + 1 ; ?>"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span>
 										</div>
 										<?php
 										if(!empty($obj[0]->note))
@@ -348,7 +348,6 @@
 														<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $i- 1;?>][approve_ampm]">
 													</div>
 												</div>
-												<span class="timezone pull-xs-right form-control-sm phase-timezone">PST</span>
 											</div>
 										</div>
 										<div class="form-group">
