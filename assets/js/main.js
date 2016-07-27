@@ -859,6 +859,7 @@ jQuery(function($) {
 						$toggler.removeClass('selected');
 						setTimeout(function() {
 							$toggler.addClass('animated pulse');
+							$('.popover-brand-list').hide();
 						}, 200);
 					}
 				}
