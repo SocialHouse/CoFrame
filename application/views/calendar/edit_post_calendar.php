@@ -99,69 +99,71 @@
 					<div class="form__success">Done!</div>
 					<div class="form__error">Error! <span></span>.</div>
 				</div>
-				<div class="slate-post clearfix">
-					<div class="form-group pull-sm-left">
-						<div id="hm_error" class="error"></div>
-						<div id="date_error" class="error"></div>
-						<label>Slate Post:</label><br>
-						<div class="hide-top-bx-shadow">
-							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
-						</div>
-					</div>
-					<div class="form-group pull-sm-left">
-						<div class="pull-xs-left">
-							<label class="invisible">Post Time</label>
-							<div class="time-select form-control">
-								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
-								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
-								<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group slate-post-tz">
-					<select class="form-control" name="time_zone">
-						<?php 
-							foreach ($timezones as $key => $obj) {
-								$selected_tz = '';
-								if( $obj->value == $post_details->time_zone ){
-									$selected_tz = 'selected="selected"';
-								}
-								?>
-								<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
-								<?php
-							}
-						?>
-					</select>
-				</div>
-				<?php
-				if(!empty($tags))
-				{
-				?>
 				<div class="clearfix">
-					<div class="form-group pull-xl-right">
-						<label>Tags:</label><br>
-						<div class="hide-top-bx-shadow">
-							<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-popover-container="#edit-post-details">
-								<?php
-								$style = ''; 
-								if(!empty($selected_tags)){
-									$style = ' style="display: none;" ';
-									foreach ($selected_tags as $stag) {
-										?>
-										<i style="color:<?php echo $stag['tag_color']; ?>" data-tag="<?php echo $stag['id']; ?>" class="fa fa-circle"><input type="checkbox" value="<?php echo $stag['id']; ?>" name="post_tag[]" class="hidden-xs-up" checked="checked"></i>
-										<?php
-										}
-								}
-								?>
-								<i class="fa fa-circle color-gray-lighter"  <?php echo $style; ?>></i> | <i class="fa fa-caret-down color-black"></i>
+					<div class="pull-xl-left">
+						<div class="slate-post clearfix">
+							<div class="form-group pull-sm-left">
+								<div id="hm_error" class="error"></div>
+								<div id="date_error" class="error"></div>
+								<label>Slate Post:</label><br>
+								<div class="hide-top-bx-shadow">
+									<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
+								</div>
+							</div>
+							<div class="form-group pull-sm-left">
+								<div class="pull-xs-left">
+									<label class="invisible">Post Time</label>
+									<div class="time-select form-control">
+										<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
+										<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
+										<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
+									</div>
+								</div>
 							</div>
 						</div>
+						<div class="form-group slate-post-tz">
+							<select class="form-control" name="time_zone">
+								<?php 
+									foreach ($timezones as $key => $obj) {
+										$selected_tz = '';
+										if( $obj->value == $post_details->time_zone ){
+											$selected_tz = 'selected="selected"';
+										}
+										?>
+										<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+										<?php
+									}
+								?>
+							</select>
+						</div>
 					</div>
+					<?php
+					if(!empty($tags))
+					{
+					?>
+						<div class="form-group pull-xl-right">
+							<label>Tags:</label><br>
+							<div class="hide-top-bx-shadow">
+								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-popover-container="#edit-post-details">
+									<?php
+									$style = ''; 
+									if(!empty($selected_tags)){
+										$style = ' style="display: none;" ';
+										foreach ($selected_tags as $stag) {
+											?>
+											<i style="color:<?php echo $stag['tag_color']; ?>" data-tag="<?php echo $stag['id']; ?>" class="fa fa-circle"><input type="checkbox" value="<?php echo $stag['id']; ?>" name="post_tag[]" class="hidden-xs-up" checked="checked"></i>
+											<?php
+											}
+									}
+									?>
+									<i class="fa fa-circle color-gray-lighter"  <?php echo $style; ?>></i> | <i class="fa fa-caret-down color-black"></i>
+								</div>
+							</div>
+						</div>
+					<?php
+					}
+					?>
 				</div>
-				<?php
-				}
-				?>
 				<footer class="post-content-footer">
 					<div class="auto-save text-xs-center hidden">Auto Saving ...</div>
 				</footer>
