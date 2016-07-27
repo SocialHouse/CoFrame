@@ -10574,7 +10574,8 @@ a {
     display: none; }
   .approval-phase.inactive {
     height: 3rem;
-    overflow: hidden; }
+    overflow: hidden;
+    position: relative; }
     .approval-phase.inactive h2, .approval-phase.inactive a {
       border: 0;
       color: #bfbfbf;

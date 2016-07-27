@@ -2153,6 +2153,7 @@ a {
 	&.inactive {
 		height: remCalc(45px);
 		overflow: hidden;
+		position: relative;
 		h2, a {
 			border: 0;
 			color: $gray-lighter;
