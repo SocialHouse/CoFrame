@@ -257,7 +257,7 @@
 											<?php																			
 											}
 											?>
-											<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 2;?>" disabled="disabled">Next Phase</button>
+											<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 1;?>" disabled="disabled">Next Phase</button>
 										</div>
 									</div>
 									<div class="bg-white approval-phase saved-phase animated fadeIn" id="preview_approvalPhase<?php echo $phase_no + 1;?>" data-id="<?php  echo $phase_no;?>">

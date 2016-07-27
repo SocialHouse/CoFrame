@@ -4,6 +4,7 @@ jQuery(function($) {
 	$(document).ready(function() {
 		if($("#add-brand-details").length || $("#step_1_edit").length  || $("#step_3_edit").length)
 		{
+			// this is use to crop image 
 			$('.cropme').simpleCropper();
 		}
 

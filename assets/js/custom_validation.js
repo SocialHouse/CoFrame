@@ -1,5 +1,66 @@
 jQuery(function($) {
 
+	//update single date calendar on input blur
+	// This function enable and disable the phase button 
+	$('body').on('blur', '.single-date-select', function() {
+
+		var inputVal = $(this).val();
+		if(inputVal !== "") {
+			startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+			endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
+
+			/* 	$activePhase  find the current active phaes 
+			*	approval-phase is the  class of that phase Id like approvalPhase1 ,approvalPhase2,approvalPhase3
+			* 	active is the current active Phase
+			*/
+
+			$activePhase = $(this).closest('.approval-phase.active');
+
+			if($activePhase){
+
+				setTimeout(function() {
+					var phase_num = $activePhase.data('id') + 1;
+					$('.date-preview'+phase_num).html(startDate.format('M/DD/YYYY'))
+
+					/*	
+					*	it is used to find Approvals user is selected or not from drop doan list
+					*	pull-sm-left id the class of div into ul > li
+					*/
+					
+					if($activePhase.find('.approver-selected li .pull-sm-left').length > 2)
+					{
+						if($activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
+						{
+							var btn_num = 0;
+							if($activePhase.find('[data-new-phase]').length > 1)
+								btn_num = 1;
+							toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),false)
+
+							if($activePhase.data('id') == 0)
+							{
+								toggleBtnClass($('.save-phases'),false);
+							}
+						}
+					}
+					else
+					{
+
+						if($activePhase.find('[data-new-phase]').length > 1){
+							btn_num = 1;
+						}
+
+						toggleBtnClass($activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);	
+						
+						if($activePhase.data('id') == 0)
+						{
+							toggleBtnClass($('.save-phases'), true );
+						}
+					}
+				},100);
+			}
+		}
+	});
+
 	$(document).on('keypress, blur, change', '#postCopy, .single-date-select, .hour-select, .minute-select, .time-input, .check-box.circle-border,.incrementer i', function() {
 		create_post_validation($(this));
 	});
@@ -29,7 +90,7 @@ jQuery(function($) {
 	$(document).on( 'click, blur, change', 'input[name="post-date"]',
 		function( e )
 		{
-			var $div 		= $(this).parents().parents('div.form-group'),
+			var $div 		= $(this).closest('div.form-group'),
 				date_error 	= $('#date_error'),
 				phase_no 	= 0 ,
 				new_date 	= $('#only_ph_one_date').val(),
@@ -57,7 +118,7 @@ jQuery(function($) {
 	$(document).on( 'click, blur, change', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm',
 		function( e )
 		{
-			var $div 		= $(this).parents().parents('div.form-group'),
+			var $div 		= $(this).closest('div.form-group'),
 				date_error =  $('.phase-one-error-all'),
 				phase_no 	= 0 ,
 				old_date 	= $('input[name="post-date"]').val(),
@@ -99,7 +160,7 @@ jQuery(function($) {
 	$(document).on( 'click, blur, change', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm',
 		function( e )
 		{
-			var $div 		= $(this).parents().parents('div.form-group'),
+			var $div 		= $(this).closest('div.form-group'),
 				date_error 	= $('.phase-one-error'),
 				phase_no 	= 0 ,
 				old_date 	= $('input[name="post-date"]').val(),
@@ -369,7 +430,6 @@ jQuery(function($) {
 		end_date = moment(new Date (endDate)).format('YYYY-MM-DD H:mm');
 		end_hr =parseInt(moment(new Date (endDate)).format('H'));
 		end_mm = parseInt(moment(new Date (endDate)).format('mm'));
-		console.log('$isValid');
 		console.log(moment(startDate).isBefore(endDate));
 		if(moment(startDate).isBefore(endDate)){
 			$isValid = true;
