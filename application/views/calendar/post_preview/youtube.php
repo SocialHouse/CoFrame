@@ -10,7 +10,7 @@ if(!empty($post_images)){
 		$brand_id = $post_details->brand_id;
 	}
 ?>
-<div class="youtube-post" class="yu_post">
+<div class="youtube-post yu_post">
 	<div class="video-div">
 		<?php
 			if(!empty($post_images)){
@@ -47,15 +47,15 @@ if(!empty($post_images)){
 		<div class="pull-left">
 			<div class="post-user-name">Tragic Tofu</div>
 		</div>
-		<div class="post-section">
-			<div class="time-color">Posted on <?php echo date('j, Y'); ?></div>
-			<div class="post_copy_text">
-				<?php 
-					$content = $post_details->content;
-					$content = replace_with_expression($content);
-					echo (!empty($content)) ? $content : '';
-				?>
-			</div>
+	</div>
+	<div class="post-section">
+		<div class="time-color">Posted on <?php echo date('j, Y'); ?></div>
+		<div class="post_copy_text">
+			<?php 
+				$content = $post_details->content;
+				$content = replace_with_expression($content);
+				echo (!empty($content)) ? $content : '';
+			?>
 		</div>
 	</div>
 </div>
