@@ -495,7 +495,7 @@ jQuery(function($) {
 		});
 	});
 
-	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {		
+	window.eventDropModal = function eventDropModal(event, revertFunc, calendar) {
 		var newModal = $('#emptyModal').clone();
 		selected_date = moment(event.start._d).format('YYYY-MM-DD H:mm');
 		var today = moment().format("YYYY-MM-DD H:mm");		
@@ -610,7 +610,7 @@ jQuery(function($) {
 		});
 	};
 
-	window.showSelectCalendar = function showSelectCalendar(id) {		
+	window.showSelectCalendar = function showSelectCalendar(id) {
 		var exportStart, exportEnd;
 
 		$('#' + id + ' .date-select-calendar').fullCalendar({
@@ -823,7 +823,6 @@ jQuery(function($) {
 		$('#calendarCurrentMonth').text(selectedmonth);
 		// $('#calendar-change-day #getPostsByDate').trigger('click');
 	}
-
 
 	$(document).on("change, keyup, blur", "#edit_minute, #edit_ampm, #edit_hour, #reschedule_day", function(event){
 		event.preventDefault();	

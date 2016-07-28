@@ -133,7 +133,7 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep3Btns">
-				<button type="button" class="btn btn-sm btn-default close_brand"  data-step-no="3">Cancel</button>
+				<button type="button" class="btn btn-sm btn-default close_brand_step"  data-step-no="3">Cancel</button>
 				<button type="submit"" class="btn btn-sm pull-sm-right btn-secondary"  data-step-no="3" >Save</button>
 			</div>
 			<div class="hidden" id="addUserBtns">

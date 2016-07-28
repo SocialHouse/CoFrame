@@ -815,7 +815,8 @@ class Brands extends CI_Controller {
 		{
 			$session_data = $this->user_data;
 			$session_data['account_id'] = $account_id;
-			$session_data['plan'] = get_plan($accounts[0]);
+			$session_data['plan'] = strtolower(get_plan($account_id));
+
 			$this->session->set_userdata('user_info',$session_data);			
 		}
 		redirect(base_url().'brands/overview');

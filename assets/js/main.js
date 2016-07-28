@@ -3,42 +3,45 @@ jQuery(function($) {
 	var wh = $(window).height();
 	var ww = $(window).width();
 
-	if($('#brand-manage').length) {
+	if ($('#brand-manage').length) {
 		setUserTime();
 	}
 
-	$(window).on("orientationchange resize", function () {
+	$(window).on("orientationchange resize", function() {
 		wh = $(window).height();
 		ww = $(window).width();
 	});
 
 	$(document).ready(function() {
-		if(selected_day)
-		{
+		if (selected_day) {
 			var date_on_cal = $.fullCalendar.moment(selected_day).format('YYYY-MM-DD');
 			$('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('ui-state-highlight');
 			$('#calendar').children('div:last').find('table').find('td.fc-today').removeClass('fc-today');
-			$('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('ui-state-highlight');
-			$('#calendar').children('div:last').find('table').find('[data-date="'+date_on_cal+'"]').addClass('fc-today');
+			$('#calendar').children('div:last').find('table').find('[data-date="' + date_on_cal + '"]').addClass('ui-state-highlight');
+			$('#calendar').children('div:last').find('table').find('[data-date="' + date_on_cal + '"]').addClass('fc-today');
 		}
-		
+
 		// Prevent enter key from submitting forms.
-		$(window).keydown(function(event){
-			if(event.keyCode === 13) {
+		$(window).keydown(function(event) {
+			if (event.keyCode === 13) {
 				event.preventDefault();
 				return false;
 			}
 		});
-		
+
 		jQuery('.txt-disable').bind('keypress', function(e) {
-			e.stopPropagation(); 
+			e.stopPropagation();
 			return false;
 		});
 
 		$('.amselect').mask('Pp', {
 			'translation': {
-				P: { pattern: '[AaPp]'},
-				p: { pattern: '[Mm]'},
+				P: {
+					pattern: '[AaPp]'
+				},
+				p: {
+					pattern: '[Mm]'
+				},
 			}
 		});
 
@@ -47,144 +50,129 @@ jQuery(function($) {
 
 		$(".single-date-select").mask('00/00/0000');
 
-		$(document).on('click','.sub-user-outlet', function() {
+		$(document).on('click', '.sub-user-outlet', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
-			
+
 			var thisOutlet = $(this).data('selectedOutlet');
 			$(this).toggleClass('disabled selected');
-			if($(this).hasClass('selected')) {
-				if(savedOutlets !== '') {
+			if ($(this).hasClass('selected')) {
+				if (savedOutlets !== '') {
 					newOutlets.push(savedOutlets);
 				}
 				newOutlets.push(thisOutlet);
-			}
-			else {
+			} else {
 				savedOutlets = savedOutlets.split(',');
-				var index = savedOutlets.indexOf(thisOutlet+"");
+				var index = savedOutlets.indexOf(thisOutlet + "");
 				savedOutlets.splice(index, 1);
 				newOutlets.push(savedOutlets);
 			}
 			$('#userOutlet').val(newOutlets);
-		});		
+		});
 
 		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
 		var outlet_const = $('.outlet_ul li:first').data('outlet-const');
 		$('.outlet_ul li:first').toggleClass('disabled');
 		$('.outlet_ul li:first').siblings().addClass('disabled');
 		$('#postOutlet').val(outlet_id);
-		$('#postOutlet').attr('data-outlet-const',outlet_const);
+		$('#postOutlet').attr('data-outlet-const', outlet_const);
 		createPreview();
 
 		equalColumns();
-		
+
 		$('#post-details .outlet-list li').on('click', function() {
 			var previous_outlet = $('#postOutlet').val();
 			var outlet = $(this).data('selectedOutlet');
-			var outlet_const = $(this).data('outlet-const');			
+			var outlet_const = $(this).data('outlet-const');
 			$('#postCopy').removeAttr('maxlength');
-			if(outlet_const == 'twitter')
-			{
+			if (outlet_const == 'twitter') {
 				//only allow 140 characters for tweets
 				var tweet = $("#postCopy").val();
 				var chars = tweet.length;
-				if(tweet.length > 140) {
-					var tweetTrunc = tweet.substring(0,140);
+				if (tweet.length > 140) {
+					var tweetTrunc = tweet.substring(0, 140);
 					$("#postCopy").val(tweetTrunc);
 				}
-				$("#postCopy").attr("maxlength",140);
-				
-				if($('.form__preview-wrapper img').length > 4)
-				{
+				$("#postCopy").attr("maxlength", 140);
+
+				if ($('.form__preview-wrapper img').length > 4) {
 					alert(language_message.twitter_img_allowed_outlet_change);
 					return false;
 				}
 			}
 
-			if(outlet_const == 'vine' || outlet_const == 'youtube')
-			{
-				if($('.form__preview-wrapper img').length)
-				{
-					if(outlet_const == 'youtube')
-					{
+			if (outlet_const == 'vine' || outlet_const == 'youtube') {
+				if ($('.form__preview-wrapper img').length) {
+					if (outlet_const == 'youtube') {
 						alert(language_message.youtube_outlet_change_error);
-					}else{
+					} else {
 						alert(language_message.vine_outlet_change_error);
 					}
-					
+
 					return false;
 				}
 			}
 
-			if(outlet_const == 'instagram')
-			{
-				if($('.form__preview-wrapper video').length)
-				{
+			if (outlet_const == 'instagram') {
+				if ($('.form__preview-wrapper video').length) {
 					alert(language_message.insta_outlet_change_error);
 					return false;
 				}
 
-				if($('.form__preview-wrapper img').length > 1)
-				{
+				if ($('.form__preview-wrapper img').length > 1) {
 					alert(language_message.insta_outlet_change_img_error);
 					return false;
 				}
 			}
-			
-			if(outlet_const == 'linkedin')
-			{
-				if($('.form__preview-wrapper img').length > 1)
-				{
+
+			if (outlet_const == 'linkedin') {
+				if ($('.form__preview-wrapper img').length > 1) {
 					alert(language_message.linkedin_outlet_change_error);
 					return false;
-				}			
+				}
 			}
 
-			if(outlet_const == 'pinterest')
-			{
-				if($('.form__preview-wrapper img').length > 1)
-				{
+			if (outlet_const == 'pinterest') {
+				if ($('.form__preview-wrapper img').length > 1) {
 					alert(language_message.pinterest_outlet_change_error);
 					return false;
-				}			
-			}			
+				}
+			}
 
-			if(previous_outlet != outlet_const)
-			{
+			if (previous_outlet != outlet_const) {
 				$(this).toggleClass('disabled');
 				$(this).siblings().addClass('disabled');
-				$('#postOutlet').attr('data-outlet-const',outlet_const);
+				$('#postOutlet').attr('data-outlet-const', outlet_const);
 				$('#postOutlet').val(outlet);
 				removeFromPreview();
 			}
 		});
 
 
-		$(".alert").fadeTo(5000, 500).slideUp(500, function(){
-	       // $(".alert").alert('close');
-	   });
+		$(".alert").fadeTo(5000, 500).slideUp(500, function() {
+			// $(".alert").alert('close');
+		});
 
-		$(document).on('click','.has-archive, .category_date', function(event){
+		$(document).on('click', '.has-archive, .category_date', function(event) {
 			var $btn_enable = false;
-			$.each($('.has-archive') ,function(a,controler){
-				if($(controler).hasClass('selected')){
-					if( $("input[name='exportDate']:checked").val() == 'daterange' ){
-						if($('#start_date').val()!='' && $('#end_date').val()!=''){
-							$btn_enable = true;	
-						}else{
+			$.each($('.has-archive'), function(a, controler) {
+				if ($(controler).hasClass('selected')) {
+					if ($("input[name='exportDate']:checked").val() == 'daterange') {
+						if ($('#start_date').val() != '' && $('#end_date').val() != '') {
+							$btn_enable = true;
+						} else {
 
 							$btn_enable = false;
 						}
-					}else{
-						$btn_enable = true;	
+					} else {
+						$btn_enable = true;
 					}
 				}
 			});
-			if(!$btn_enable)
-			{	
-				toggleBtnClass($("#archive-export button[type=submit]"),true);
-			}else{
-				toggleBtnClass($("#archive-export button[type=submit]"),false);
+			if (!$btn_enable) {
+				toggleBtnClass($("#archive-export button[type=submit]"), true);
+			} else {
+				toggleBtnClass($("#archive-export button[type=submit]"), false);
 			}
 		});
 
@@ -192,88 +180,84 @@ jQuery(function($) {
 		var pathname = location.pathname;
 		$('.navbar-brand-manage .nav-link').each(function() {
 			var href = $(this).attr('href');
-			if(href.indexOf(pathname) > -1) {
+			if (href.indexOf(pathname) > -1) {
 				$(this).addClass('active');
 			}
 			var sub_pages = $(this).data('sub_pages');
-			if(sub_pages != undefined)
-			{
-				if(pathname.indexOf(sub_pages) > -1) {
+			if (sub_pages != undefined) {
+				if (pathname.indexOf(sub_pages) > -1) {
 					$(this).addClass('active');
 				}
 			}
 		});
 
 		/*	fake check box select
-		*	This is used to check or uncheck the checkox 
-		*
-		*/		
+		 *	This is used to check or uncheck the checkox
+		 *
+		 */
 		var btnClicks = 0;
 		$('body').on('click', '.check-box', function() {
 			var $btn = $(this);
-			if($btn.hasClass('has-archive') ){
+			if ($btn.hasClass('has-archive')) {
 				/*
-				*	This is used only for archive page only
-				*/
-				var $chk_box ='';
-				if($btn.data('value')=='check-all'){
-					$chk_box =$btn.closest('.timeframe-list').find('input');
+				 *	This is used only for archive page only
+				 */
+				var $chk_box = '';
+				if ($btn.data('value') == 'check-all') {
+					$chk_box = $btn.closest('.timeframe-list').find('input');
 					/*
-					*	$chk_box = radio input is used to check or uncheck all the checkbox
-					*/
-					$.each($chk_box,function(a,input_btn){
-						if( $btn.hasClass('selected')){
+					 *	$chk_box = radio input is used to check or uncheck all the checkbox
+					 */
+					$.each($chk_box, function(a, input_btn) {
+						if ($btn.hasClass('selected')) {
 							$(input_btn).removeAttr('checked');
-						}else{
-							$(input_btn).attr('checked','checked');
+						} else {
+							$(input_btn).attr('checked', 'checked');
 						}
 					});
 
-				}else{
+				} else {
 					/*
-					*	$chk_box = radio input is used to check or uncheck selected the checkbox
-					*/
+					 *	$chk_box = radio input is used to check or uncheck selected the checkbox
+					 */
 					$chk_box = $btn.siblings('input');
 
-					if($btn.hasClass('selected')){
+					if ($btn.hasClass('selected')) {
 						$chk_box.removeAttr('checked');
-					}else{
-						$chk_box.attr('checked','checked');
+					} else {
+						$chk_box.attr('checked', 'checked');
 					}
 				}
-				
+
 			}
-			if($btn.hasClass('disabled')){
+			if ($btn.hasClass('disabled')) {
 				return;
 			}
 
 			var buttonVal = $btn.attr('data-value');
 			var checked = false;
 			var inputGroup = $btn.attr('data-group');
-			if(buttonVal !== "check-all") {
+			if (buttonVal !== "check-all") {
 				$btn.toggleClass('selected');
-			}
-			else if(buttonVal === "check-all" && !$btn.hasClass('selected')) {
+			} else if (buttonVal === "check-all" && !$btn.hasClass('selected')) {
 				$('.check-box[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
-			}
-			else if(buttonVal === "check-all" && $btn.hasClass('selected')) {
+			} else if (buttonVal === "check-all" && $btn.hasClass('selected')) {
 				$('.check-box[data-group="' + inputGroup + '"]').removeClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', false);
 			}
-			if($btn.hasClass('selected')) {
+			if ($btn.hasClass('selected')) {
 				checked = true;
-			}
-			else {
+			} else {
 				checked = false;
 			}
-			
+
 			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
-			
+
 			//add selected users to list from popover
-			if($btn.closest('#qtip-popover-user-list').length) {
+			if ($btn.closest('#qtip-popover-user-list').length) {
 				var userImg = $btn.closest('li').find('img');
-				$(userImg).attr('data-id',buttonVal);
+				$(userImg).attr('data-id', buttonVal);
 				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
@@ -281,35 +265,33 @@ jQuery(function($) {
 				// var img = imgDiv;
 				var $activePhase = $('#phaseDetails').find('.active');
 				var activePhaseId = $activePhase.attr('id');
-				if($btn.hasClass('selected')) {
+				if ($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
-					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase['+phase_number+'][approver][]">';
+					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
 					$activePhase.find('.user-list li').prepend(imgDiv);
-					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);					
+					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
 					$btn.attr('data-linked-phase', activePhaseId);
 					$activePhase.next('.approval-phase').find('.user-list').append('<li class="pull-sm-left pending"></li>');
 					$activePhase.next('.approval-phase').find('.user-list li:last').append(newImage);
-					
+
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
-					},100);
+					}, 100);
 
 					btnClicks++;
-				}
-				else {
+				} else {
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();
 					$activePhase.next('.approval-phase').find('img[data-id="' + buttonVal + '"]').parent().remove();
 
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
-					},100);
+					}, 100);
 
 					btnClicks--;
 				}
-				if(btnClicks > 0) {
+				if (btnClicks > 0) {
 					$activePhase.find('.post-approver-name').hide();
-				}
-				else {
+				} else {
 					$activePhase.find('.post-approver-name').show();
 				}
 			}
@@ -325,56 +307,51 @@ jQuery(function($) {
 		var btnClicks = 0;
 		$('body').on('click', '.radio-button', function() {
 			var $btn = $(this);
-			if($btn.hasClass('disabled')){
+			if ($btn.hasClass('disabled')) {
 				return;
 			}
 			var buttonVal = $btn.attr('data-value');
 			var checked = false;
 			var inputGroup = $btn.attr('data-group');
-			if(buttonVal !== "check-all") {
+			if (buttonVal !== "check-all") {
 				$btn.toggleClass('selected');
-			}
-			else if(buttonVal === "check-all" && !$btn.hasClass('selected')) {
+			} else if (buttonVal === "check-all" && !$btn.hasClass('selected')) {
 				$('.radio-button[data-group="' + inputGroup + '"]').addClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', true);
-			}
-			else if(buttonVal === "check-all" && $btn.hasClass('selected')) {
+			} else if (buttonVal === "check-all" && $btn.hasClass('selected')) {
 				$('.radio-button[data-group="' + inputGroup + '"]').removeClass('selected');
 				$('input[name="' + inputGroup + '"]').prop('checked', false);
 			}
-			if($btn.hasClass('selected')) {
+			if ($btn.hasClass('selected')) {
 				checked = true;
-			}
-			else {
+			} else {
 				checked = false;
 			}
 			$('input[value="' + buttonVal + '"]').prop('checked', checked);
 
 			//add selected users to list from popover
-			if($btn.closest('#qtip-popover-user-list').length !== 0) {
+			if ($btn.closest('#qtip-popover-user-list').length !== 0) {
 				var userImg = $btn.closest('li').find('img');
 				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
 				var $activePhase = $('#phaseDetails .approval-phase.active');
 				var activePhaseId = $activePhase.attr('id');
-				if($btn.hasClass('selected')) {
+				if ($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
-					$(checkbox).attr('name','phase['+phase_number+'][approver][]');
+					$(checkbox).attr('name', 'phase[' + phase_number + '][approver][]');
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);
 					$btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
-				}
-				else {
+				} else {
 					$activePhase.find('img[src="' + imgSrc + '"]').parent().remove();
 					$btn.removeAttr('data-linked-phase');
 					btnClicks--;
 				}
-				if(btnClicks > 0) {
+				if (btnClicks > 0) {
 					$activePhase.find('.post-approver-name').hide();
-				}
-				else {
+				} else {
 					$activePhase.find('.post-approver-name').show();
 				}
 			}
@@ -385,48 +362,42 @@ jQuery(function($) {
 			var boxVal = $box.attr('data-value');
 			var inputGroup = $box.attr('data-group');
 
-			if(boxVal !== "check-all") {
+			if (boxVal !== "check-all") {
 				$box.toggleClass('checked');
-			}
-			else if(boxVal === "check-all" && !$box.hasClass('checked')) {
+			} else if (boxVal === "check-all" && !$box.hasClass('checked')) {
 				$('.select-box[data-group="' + inputGroup + '"]').addClass('checked');
-				$('.delete-draft').attr('data-toggle','modal');
-			}
-			else if(boxVal === "check-all" && $box.hasClass('checked')) {
+				$('.delete-draft').attr('data-toggle', 'modal');
+			} else if (boxVal === "check-all" && $box.hasClass('checked')) {
 				$('.select-box[data-group="' + inputGroup + '"]').removeClass('checked');
-				$('.delete-draft').attr('data-toggle','');
+				$('.delete-draft').attr('data-toggle', '');
 			}
 
 			var postsTotDelete = [];
-			$.each($(".select-box"),function(a,b){
-				if($(b).hasClass('checked') && $(b).data('value') != "check-all")
-				{
+			$.each($(".select-box"), function(a, b) {
+				if ($(b).hasClass('checked') && $(b).data('value') != "check-all") {
 					postsTotDelete.push($(b).data('value'));
 				}
 			});
 
-			if(postsTotDelete.length)
-			{
-				$('.delete-draft').attr('data-toggle','modal');
-				toggleBtnClass($('.delete-draft'),false);
-			}
-			else
-			{
-				$('.delete-draft').attr('data-toggle','');
-				toggleBtnClass($('.delete-draft'),true);
+			if (postsTotDelete.length) {
+				$('.delete-draft').attr('data-toggle', 'modal');
+				toggleBtnClass($('.delete-draft'), false);
+			} else {
+				$('.delete-draft').attr('data-toggle', '');
+				toggleBtnClass($('.delete-draft'), true);
 			}
 		});
-		
+
 		//different media uploads for facebook
 		$('body').on('click', '#facebookMediaUpload .media-item', function() {
 			var mediaType = $(this).data('value');
 			$('input[value="' + mediaType + '"]').prop('checked', true);
 			$('#facebookMediaUpload').slideUp(function() {
-				if(mediaType === "Album") {
+				if (mediaType === "Album") {
 					$('#mediaUpload').addClass('photo-album-upload');
 				}
 				$('#mediaUpload').slideDown(function() {
-					if(mediaType === "Album") {
+					if (mediaType === "Album") {
 						$('#albumType').show();
 					}
 				});
@@ -434,13 +405,13 @@ jQuery(function($) {
 		});
 
 		$('#albumName').on('keyup', function() {
-			if($(this).val() !== "") {
+			if ($(this).val() !== "") {
 				$('input[value="newAlbum"]').prop('checked', true);
 			}
 		});
 
 		$('#existingAlbum').on('change', function() {
-			if($(this).val() !== "") {
+			if ($(this).val() !== "") {
 				$('input[value="existingAlbum"]').prop('checked', true);
 			}
 		});
@@ -466,7 +437,7 @@ jQuery(function($) {
 		});
 
 		$('body').on('click', '[data-toggle="popover"]', function(e) {
-			var $target=$(this);
+			var $target = $(this);
 			var pcontent = $target.data('content');
 			$target.qtip({
 				content: {
@@ -533,7 +504,7 @@ jQuery(function($) {
 
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {
-			var $target=$(this);
+			var $target = $(this);
 			var pcontent = $target.data('contentSrc');
 			var pclass = $target.data('popoverClass');
 			var pid = $target.data('popoverId');
@@ -548,22 +519,21 @@ jQuery(function($) {
 			var pcontainer = $target.data('popoverContainer');
 			var pconstrain = $target.data('popoverConstrain');
 			var phide = $target.data('hide');
-			if(!pcontainer) {
+			if (!pcontainer) {
 				pcontainer = '.page-main';
 			}
-			if(!pconstrain) {
+			if (!pconstrain) {
 				pconstrain = false;
-			}
-			else {
+			} else {
 				pconstrain = $(pconstrain);
 			}
 			var tipW = 1;
 			var tipH = 1;
-			if(parrow) {
+			if (parrow) {
 				tipW = 20;
 				tipH = 10;
 			}
-			if(phide !== false) {
+			if (phide !== false) {
 				phide = 'click unfocus';
 			}
 			$target.qtip({
@@ -584,35 +554,34 @@ jQuery(function($) {
 						var modal = this;
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
-						
-						
+
+
 						/*	used for display selected and not selected (hide) Approvals list
-						*	This is use to disable users which are already selected in next phase for only first phase on edit post overlay page
-						*/
+						 *	This is use to disable users which are already selected in next phase for only first phase on edit post overlay page
+						 */
 
-						setTimeout(function(){
+						setTimeout(function() {
 
-							if($target.hasClass('first-new-phase'))
-							{
+							if ($target.hasClass('first-new-phase')) {
 								var phase_div = $target.closest('#phaseDetails');
-								$.each(phase_div,function(i,j){
-									$.each($(j).find('.approval-phase'),function(a,b){
-										$.each($(modal).find('div:eq(2)').find('li'),function(c,d){
-											if($(d).find('div:first').find('input').val() == $(b).find('.approver-selected li').find('input[type="checkbox"]').val()){
-												if($target.closest('.edit-phase-div').attr('id') != $(b).attr('id')){
+								$.each(phase_div, function(i, j) {
+									$.each($(j).find('.approval-phase'), function(a, b) {
+										$.each($(modal).find('div:eq(2)').find('li'), function(c, d) {
+											if ($(d).find('div:first').find('input').val() == $(b).find('.approver-selected li').find('input[type="checkbox"]').val()) {
+												if ($target.closest('.edit-phase-div').attr('id') != $(b).attr('id')) {
 													$(d).find('div:first').find('i').addClass('disabled');
-												}else{
+												} else {
 													$(d).find('div:first').find('i').removeClass('disabled');
 												}
 
 												$(d).find('div:first').find('i').addClass('selected');
-												$(d).find('div:first').find('i').attr('data-linked-phase',$(b).attr('id'));
+												$(d).find('div:first').find('i').attr('data-linked-phase', $(b).attr('id'));
 											}
 										});
 									});
-								});	
+								});
 							}
-						},600);
+						}, 600);
 					}
 				},
 				id: pid,
@@ -671,35 +640,35 @@ jQuery(function($) {
 			var pcontainer = $target.data('popoverContainer');
 			var pconstrain = $target.data('popoverConstrain');
 			var phide = $target.data('hide');
-			if(!pcontainer) {
+			if (!pcontainer) {
 				pcontainer = '.page-main';
 			}
-			if(!pconstrain) {
+			if (!pconstrain) {
 				pconstrain = false;
-			}
-			else {
+			} else {
 				pconstrain = $(pconstrain);
 			}
 			var tipW = 1;
 			var tipH = 1;
-			if(parrow) {
+			if (parrow) {
 				tipW = 20;
 				tipH = 10;
 			}
-			if(phide !== false) {
+			if (phide !== false) {
 				phide = 'click unfocus';
 			}
-			
-			if($(this).hasClass('post-filter-popup'))
-			{
-				
+
+			if ($(this).hasClass('post-filter-popup')) {
+
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
-					'events.visible' : function() {
+					'events.visible': function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 					},
-					'hide.effect': function() { $(this).fadeOut(); },
+					'hide.effect': function() {
+						$(this).fadeOut();
+					},
 					'hide.event': phide,
 					'position.adjust.x': poffsetX,
 					'position.adjust.y': poffsetY,
@@ -709,7 +678,9 @@ jQuery(function($) {
 					'position.target': $target,
 					'position.viewport': pconstrain,
 					'overwrite': false,
-					'show.effect': function() { $(this).fadeIn(); },
+					'show.effect': function() {
+						$(this).fadeIn();
+					},
 					'show.event': e.type,
 					'show.solo': true,
 					'style.classes': 'qtip-shadow ' + pclass,
@@ -719,14 +690,12 @@ jQuery(function($) {
 					'style.tip.width': tipW,
 					'style.width': pwidth
 				}, e);
-			}
-			else
-			{
-				
+			} else {
+
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
 					'content.title': ptitle,
-					'events.visible' : function() {
+					'events.visible': function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
@@ -734,26 +703,26 @@ jQuery(function($) {
 						var phase_div = $target.closest('#phaseDetails');
 						var count = 0;
 						/*	used for display selected and not selected (hide) Approvals list
-						*	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
-						*	
-						*/
-						$.each(phase_div,function(i,j){
+						 *	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
+						 *
+						 */
+						$.each(phase_div, function(i, j) {
 							console.log(j);
-							$.each($(j).find('.approval-phase'),function(a,b){
-								$.each($(modal).find('div:eq(2)').find('li'),function(c,d){
-									if($(d).find('div:first').find('input').val() == $(b).val()){
-										if($target.parent().attr('id') != $(b).attr('id')){
+							$.each($(j).find('.approval-phase'), function(a, b) {
+								$.each($(modal).find('div:eq(2)').find('li'), function(c, d) {
+									if ($(d).find('div:first').find('input').val() == $(b).val()) {
+										if ($target.parent().attr('id') != $(b).attr('id')) {
 											$(d).find('div:first i').addClass('disabled');
-										}else{
+										} else {
 											$(d).find('div:first i').removeClass('disabled');
 										}
 
 										$(d).find('div:first').find('i').addClass('selected');
-										$(d).find('div:first').find('i').attr('data-linked-phase',$(b).attr('id'));
+										$(d).find('div:first').find('i').attr('data-linked-phase', $(b).attr('id'));
 									}
 								});
 							});
-						});	
+						});
 					},
 					'hide.event': 'unfocus',
 					'position.adjust.x': poffsetX,
@@ -791,12 +760,12 @@ jQuery(function($) {
 			var parrow = $target.data('popoverArrow');
 			var arrowcorner = $target.data('arrowCorner');
 			var pcontainer = $target.data('popoverContainer');
-			if(!pcontainer) {
+			if (!pcontainer) {
 				pcontainer = '.page-main';
 			}
 			var tipW = 1;
 			var tipH = 1;
-			if(parrow) {
+			if (parrow) {
 				tipW = 20;
 				tipH = 10;
 			}
@@ -851,38 +820,34 @@ jQuery(function($) {
 		$('body').on('click blur', '.popover-toggle', function(e) {
 			e.preventDefault();
 			var $toggler = $(this);
-			if($toggler.hasClass('show-brands-toggler')) {
-				if(e.type === 'click') {
-					if($toggler.hasClass('animated')) {
+			if ($toggler.hasClass('show-brands-toggler')) {
+				if (e.type === 'click') {
+					if ($toggler.hasClass('animated')) {
 						$toggler.removeClass('animated pulse');
 						setTimeout(function() {
 							$toggler.addClass('selected');
 						}, 150);
-					}
-					else {
+					} else {
 						$toggler.removeClass('selected');
 						setTimeout(function() {
 							$toggler.addClass('animated pulse');
 							$('.popover-brand-list').hide();
 						}, 200);
 					}
-				}
-				else {
+				} else {
 					$toggler.removeClass('selected');
 					setTimeout(function() {
 						$toggler.addClass('animated pulse');
 					}, 200);
 				}
-			}
-			else {
-				if(e.type === 'click') {
+			} else {
+				if (e.type === 'click') {
 					//remove selected class if user clicks from one toggler to another
 					$('.popover-toggle.selected').each(function() {
 						$(this).removeClass('selected');
 					});
 					$toggler.addClass('selected');
-				}
-				else {
+				} else {
 					$toggler.removeClass('selected');
 				}
 			}
@@ -895,13 +860,13 @@ jQuery(function($) {
 		//hide visible tooltips when body is clicked
 		$('body').on('click', function(e) {
 			var $target = $(e.target);
-			if($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
+			if ($target.closest('.popover-clickable').length === 0 && $target.closest('.popover-toggle').length === 0) {
 				$('.qtip').qtip('hide');
 				$('.popover-toggle').each(function() {
 					var $toggler = $(this);
 					$toggler.removeClass('selected');
 					//add animation back to go to brand button
-					if($toggler.hasClass('show-brands-toggler')) {
+					if ($toggler.hasClass('show-brands-toggler')) {
 						setTimeout(function() {
 							$toggler.addClass('animated pulse');
 						}, 200);
@@ -909,10 +874,10 @@ jQuery(function($) {
 				});
 			}
 			//hide tooltips
-			if($target.hasClass('qtip-hide')) {
+			if ($target.hasClass('qtip-hide')) {
 				$('.qtip').qtip('hide');
 			}
-			if($target.hasClass('modal-hide')) {
+			if ($target.hasClass('modal-hide')) {
 				$('.modal').modal('hide');
 			}
 		});
@@ -920,19 +885,17 @@ jQuery(function($) {
 		//hide active tooltips on input focus
 		$('body').on('focus', '.form-control', function() {
 			var $target = $(this);
-			if($target.attr('data-toggle') === undefined) {
+			if ($target.attr('data-toggle') === undefined) {
 				//make sure this isn't a tooltip in a tooltip situation
-				if($target.closest('.qtip').length === 0) {
+				if ($target.closest('.qtip').length === 0) {
 					$('.qtip').fadeOut();
-				}
-				else {
+				} else {
 					$target.closest('.qtip').addClass('parent-tooltip');
 					$('.qtip:not(.parent-tooltip)').fadeOut(function() {
 						$target.closest('.qtip').removeClass('parent-tooltip');
 					});
 				}
-			}
-			else {
+			} else {
 				//hide qtip that doesn't have the id of the one that should display now
 				var qtipId = $(this).data('hasqtip');
 				$target.closest('.qtip').addClass('parent-tooltip');
@@ -943,30 +906,28 @@ jQuery(function($) {
 		});
 
 		/*Tag Functions*/
-		$('body').on('click','.post_tags',function(){
+		$('body').on('click', '.post_tags', function() {
 			$(this).toggleClass('selected');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
 			var tag = $(this).find('.fa');
 			var tagClass = tag.data('tag');
-			if($(this).hasClass('selected')) {
+			if ($(this).hasClass('selected')) {
 				var newTag = tag.clone();
-				newTag.children().attr('checked',true);
+				newTag.children().attr('checked', true);
 				newTag.prependTo('.tag-select');
 				checked = true;
-			}
-			else {
+			} else {
 				$('.tag-select').find('.fa').each(function() {
-					if($(this).data('tag') === tagClass) {
+					if ($(this).data('tag') === tagClass) {
 						$(this).remove();
 					}
 				});
 				checked = false;
 			}
-			if(numTags > 0) {
+			if (numTags > 0) {
 				$('.tag-select .fa.color-gray-lighter').hide();
-			}
-			else {
+			} else {
 				$('.tag-select .fa.color-gray-lighter').show();
 			}
 			//set the input value
@@ -982,23 +943,21 @@ jQuery(function($) {
 			var numTags = $('.tag-list .selected').length;
 			var tag = $(this).find('.fa');
 			var tagClass = tag.attr('class');
-			if($(this).hasClass('selected')) {
+			if ($(this).hasClass('selected')) {
 				var newTag = tag.clone();
 				newTag.prependTo('.tag-select');
 				checked = true;
-			}
-			else {
+			} else {
 				$('.tag-select').find('.fa').each(function() {
-					if($(this).attr('class') === tagClass) {
+					if ($(this).attr('class') === tagClass) {
 						$(this).remove();
 					}
 				});
 				checked = false;
 			}
-			if(numTags > 0) {
+			if (numTags > 0) {
 				$('.tag-select .fa.color-gray-lighter').hide();
-			}
-			else {
+			} else {
 				$('.tag-select .fa.color-gray-lighter').show();
 			}
 			//set the input value
@@ -1010,7 +969,7 @@ jQuery(function($) {
 			var next = $(this).data('newPhase');
 			next = parseInt(next) + 1;
 			console.log(next);
-			nextPhase(next,this);
+			nextPhase(next, this);
 		});
 
 		$('body').on('click', '.show-hide', function(e) {
@@ -1018,18 +977,17 @@ jQuery(function($) {
 			var $trigger = $(this);
 			var show = $trigger.data('show');
 			var hide = $trigger.data('hide');
-			if(hide) { 
+			if (hide) {
 				$(hide).slideUp(function() {
 					//call custom function on completion
 					$(hide).trigger('contentSlidUp', [$trigger]);
-					$(show).slideDown(function(){
+					$(show).slideDown(function() {
 						$(show).trigger('contentSlidDown', [$trigger]);
 						equalColumns();
 					});
 				});
-			}
-			else {
-				$(show).slideToggle(function(){
+			} else {
+				$(show).slideToggle(function() {
 					$(show).trigger('contentSlidDown', [$trigger]);
 					equalColumns();
 				});
@@ -1041,7 +999,7 @@ jQuery(function($) {
 			setTimeout(function() {
 				$('.form-search, .input-search').animate({
 					width: '300px'
-				}, function(){
+				}, function() {
 					$('.input-search').attr('placeholder', 'Search').focus();
 				});
 			}, 400);
@@ -1054,44 +1012,43 @@ jQuery(function($) {
 	$('body').on('click', '[data-toggle="modal-ajax"]', function(e) {
 		e.preventDefault();
 		var newModal = $('#emptyModal').clone();
-		var $target=$(this);
+		var $target = $(this);
 		var mid = $target.data('modalId');
 		var msize = $target.data('modalSize');
 		var mtitle = $target.data('title');
 		var mclass = $target.data('class');
-		$.get($target.data('modalSrc'),function(data) {
+		$.get($target.data('modalSrc'), function(data) {
 			newModal.attr('id', mid);
-			if(msize !== "") {
+			if (msize !== "") {
 				newModal.find('.modal-dialog').addClass('modal-' + msize);
 			}
-			if(mclass !== "") {
+			if (mclass !== "") {
 				newModal.addClass(mclass);
 			}
-			if(mtitle) {
+			if (mtitle) {
 				mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
 				newModal.find('.modal-body').html(mtitle + data);
-			}
-			else {
+			} else {
 				newModal.find('.modal-body').html(data);
 			}
 			newModal.modal({
 				show: true,
 				backdrop: 'static'
 			});
-			newModal.on('shown.bs.modal', function () {
+			newModal.on('shown.bs.modal', function() {
 				$('.modal-toggler').fadeIn();
 				fileDragNDrop();
 				equalColumns('#' + mid);
 				addIncrements();
 			});
-			newModal.on('hide.bs.modal', function () {
+			newModal.on('hide.bs.modal', function() {
 				$('.modal-toggler').fadeOut();
 			});
 
-			if($target.data('clear') == 'no'){
+			if ($target.data('clear') == 'no') {
 				$target.attr('data-toggle', 'modal-ajax-inline');
 			}
-			if($('#qtip-popover-post-menu-content')){
+			if ($('#qtip-popover-post-menu-content')) {
 				$('#qtip-popover-post-menu-content').hide();
 			}
 		});
@@ -1100,18 +1057,18 @@ jQuery(function($) {
 	//Get modal content from inline source
 	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function(e) {
 		e.preventDefault();
-		var $target=$(this);
+		var $target = $(this);
 		var mid = $target.data('modalId');
 		$('#' + mid).modal({
 			show: true,
 			backdrop: 'static'
 		});
-		$('#' + mid).on('shown.bs.modal', function () {
+		$('#' + mid).on('shown.bs.modal', function() {
 			$('.modal-toggler').fadeIn();
 			equalColumns('#' + mid);
 			addIncrements();
 		});
-		$('#' + mid).on('hide.bs.modal', function () {
+		$('#' + mid).on('hide.bs.modal', function() {
 			$('.modal-toggler').fadeOut();
 		});
 	});
@@ -1125,12 +1082,12 @@ jQuery(function($) {
 	});
 
 	$('.modal-toggler').on('click', function() {
-		
-		if($('#edit-post-details').length){
+
+		if ($('#edit-post-details').length) {
 			var edit_modal = $('#edit-post-details').closest('.modal');
 			setTimeout(function() {
 				edit_modal.remove();
-			},500);
+			}, 500);
 			allFiles = [];
 			equalColumns();
 		}
@@ -1138,57 +1095,52 @@ jQuery(function($) {
 		$('.modal').modal('hide');
 	});
 
-	$(document).on('click','[data-toggle="addPhases"]',function() {
-		if($('.container-approvals').children('.add_phases_num'))
-		{			
+	$(document).on('click', '[data-toggle="addPhases"]', function() {
+		if ($('.container-approvals').children('.add_phases_num')) {
 			$('.container-approvals').children('.add_phases_num').remove();
 		}
 
-		if($('#qtip-popover-user-list'))
-		{
+		if ($('#qtip-popover-user-list')) {
 			$('#qtip-popover-user-list').remove();
 		}
 
-		if($('.add-phases'))
-		{
-			$('.add-phases').remove();		}
-			var columnParent = $(this).closest('.col-md-4');
-			var div_src = $(this).data('div-src');
+		if ($('.add-phases')) {
+			$('.add-phases').remove();
+		}
+		var columnParent = $(this).closest('.col-md-4');
+		var div_src = $(this).data('div-src');
 
-			var approvalsContainer = $('.container-approvals');
+		var approvalsContainer = $('.container-approvals');
 		// approvalsContainer.empty();
 		approvalsContainer.children('.dafault-phase').addClass('hide');
-		$.get(base_url+div_src,function(data) {
+		$.get(base_url + div_src, function(data) {
 			approvalsContainer.append(data);
 		});
 		columnParent.css('z-index', 2000);
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
-	$(document).on('click','.cancel-phase',function(){
+	$(document).on('click', '.cancel-phase', function() {
 		$('.container-approvals').children('div:first').removeClass('hide');
 		$('.container-approvals').children('div:eq(1)').remove();
 		$('.container-approvals').children('div:eq(2)').remove();
 		$('.modal-contain').remove();
-		if($(this).hasClass('phase-num'))
-		{
+		if ($(this).hasClass('phase-num')) {
 			$(this).trigger('click');
 		}
 	});
 
-	$(document).on('click','.cancel-edit-phase',function(){
+	$(document).on('click', '.cancel-edit-phase', function() {
 		$('#is-new-approver').val('no');
-		$.each($('#phaseDetails .saved-phase'),function(){
+		$.each($('#phaseDetails .saved-phase'), function() {
 			var phaseId = $(this).data('id');
-			if($(this).find('.approval-list li').length)
-			{
+			if ($(this).find('.approval-list li').length) {
 				$('.approval-phase[data-id="' + phaseId + '"]').removeClass('active').addClass('hide');
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('inactive hide');
-			}
-			else {
+			} else {
 				$(this).addClass('hide');
 			}
-		});		
+		});
 	});
 
 	$('body').on('contentShown', '#phaseDetails', function() {
@@ -1196,7 +1148,7 @@ jQuery(function($) {
 	});
 
 	$('body').on('qtipShown', function(e, classes) {
-		if(classes.indexOf('popover-post-date') > -1) {
+		if (classes.indexOf('popover-post-date') > -1) {
 			addIncrements();
 		}
 	});
@@ -1211,7 +1163,7 @@ jQuery(function($) {
 		$(this).closest('.visible').toggleClass('invisible visible');
 	});
 
-	if($('.table-approvals').length) {
+	if ($('.table-approvals').length) {
 		var listWidth = 8;
 		$('.approval-list .approval-list').each(function() {
 			$(this).find('li').each(function() {
@@ -1221,7 +1173,10 @@ jQuery(function($) {
 		});
 
 		//truncate post copy
-		$(".post-excerpt").dotdotdot({ellipsis: '', wrap: 'letter'});
+		$(".post-excerpt").dotdotdot({
+			ellipsis: '',
+			wrap: 'letter'
+		});
 	}
 
 	//Time selector functions
@@ -1231,18 +1186,17 @@ jQuery(function($) {
 		var inputName = $(this).data('for');
 		var relatedInput = $('input[name="' + inputName + '"]');
 
-		if(relatedInput.length > 1)
-		{
+		if (relatedInput.length > 1) {
 			var relatedInput = $('input[name="' + inputName + '"]:last');
 		}
-		
-		if(relatedInput.hasClass('hour-select')) {
+
+		if (relatedInput.hasClass('hour-select')) {
 			setHrs(relatedInput, incDec);
 		}
-		if(relatedInput.hasClass('minute-select')) {
+		if (relatedInput.hasClass('minute-select')) {
 			setMins(relatedInput, incDec);
 		}
-		if(relatedInput.hasClass('amselect')) {
+		if (relatedInput.hasClass('amselect')) {
 			setAmPm(relatedInput, incDec);
 		}
 	});
@@ -1252,186 +1206,234 @@ jQuery(function($) {
 		var incDec;
 		var input = $(this);
 		//up arrow pressed
-		if(e.which === 38) {
+		if (e.which === 38) {
 			incDec = 'increase';
 		}
 		//down arrow pressed
-		else if(e.which === 40) {
+		else if (e.which === 40) {
 			incDec = 'decrease';
-		}
-		else {
+		} else {
 			var val = input.val();
 			var phaseId = input.closest('.approval-phase').data('id');
-			if(input.hasClass('hour-select')) {
+			if (input.hasClass('hour-select')) {
 				savePhaseHrs(phaseId, val);
 			}
-			if(input.hasClass('minute-select')) {
+			if (input.hasClass('minute-select')) {
 				savePhaseMins(phaseId, val);
 			}
-			if(input.hasClass('amselect')) {
+			if (input.hasClass('amselect')) {
 				savePhaseAmPm(phaseId, val);
 			}
 			return;
 		}
-		if(input.hasClass('hour-select')) {
+		if (input.hasClass('hour-select')) {
 			isValidNumber(e, 12, input);
 			setHrs(input, incDec);
 		}
-		if(input.hasClass('minute-select')) {
+		if (input.hasClass('minute-select')) {
 			isValidNumber(e, 59, input);
 			setMins(input, incDec);
 		}
-		if(input.hasClass('amselect')) {
+		if (input.hasClass('amselect')) {
 			setAmPm(input, incDec);
 		}
 	});
 
-	$(document).on('keyup blur','.approvalNotes',function(){
+	$(document).on('keyup blur', '.approvalNotes', function() {
 		var phaseId = $(this).closest('.approval-phase.active').data('id');
-		$('.saved-phase[data-id="' + phaseId + '"]').find('.approval-note').html('NOTE: '+$(this).val().replace(/\r?\n/g,'<br/>'));
+		$('.saved-phase[data-id="' + phaseId + '"]').find('.approval-note').html('NOTE: ' + $(this).val().replace(/\r?\n/g, '<br/>'));
+	});
+
+	$(document).on('click', '.save-phases', function() {
+		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
+
+		$.each(phases, function() {
+			var phaseId = $(this).data('id');
+			$(this).addClass('hide').removeClass('active');
+			if ($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
+				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
+			}
+		});
+
+		$('#save-phase-btns, .modal-contain').hide();
+		$('#submit-approval-btns').show();
+	});
+
+	$(document).on('click', '.edit-phase', function() {
+		$('#is-new-approver').val('yes');
+		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
+		var editPhaseNum = $(this).closest('.approval-phase').data('id');
+		
+		//show edit phase view
+		$.each(phases, function() {
+			$(this).removeClass('hide').addClass('inactive');
+		});
+		
+		//hide saved phase view
+		$('#phaseDetails .saved-phase').each(function() {
+			$(this).addClass('hide').removeClass('active');
+		});
+		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]');
+		$activePhase.removeClass('inactive').addClass('active');
+
+		setPhaseBtns($activePhase);
+		$('#save-phase-btns, .modal-contain').show();
+		$('#submit-approval-btns').hide();
+	});
+
+	//resubmit approval single phsae
+	$(document).on('click', '.resubmit-approval', function() {
+		var btn = this;
+		var phase_id = $(this).attr('id');
+		var outlet = $('#postOutlet').val();
+		var phase_ids = [];
+		if (phase_id) {
+			phase_ids.push(phase_id);
+			$.ajax({
+				type: 'POST',
+				data: {
+					'phase_ids': phase_ids,
+					'outlet': outlet
+				},
+				dataType: 'json',
+				url: base_url + 'posts/resubmit_phases',
+				success: function(response) {
+					if (response.response == 'success') {
+						$(btn).remove();
+					} else {
+						alert(language_message.unable_to_resubmit);
+					}
+				}
+			});
+		}
 	});
 
 	function setHrs(input, incDec) {
 		var newVal;
 		var minVal = $(input).attr('data-min');
 		var maxVal = $(input).attr('data-max');
-		var inputVal = parseInt($(input).val(),10);
-		if(!inputVal) {
+		var inputVal = parseInt($(input).val(), 10);
+		if (!inputVal) {
 			inputVal = 0;
 		}
-		if(incDec === "increase") {
-			if(inputVal < maxVal) {
+		if (incDec === "increase") {
+			if (inputVal < maxVal) {
 				newVal = inputVal + 1;
-			}
-			else if(inputVal >= maxVal) {
+			} else if (inputVal >= maxVal) {
 				newVal = minVal;
 			}
-		}
-		else if(incDec === "decrease") {
-			if(inputVal > minVal) {
+		} else if (incDec === "decrease") {
+			if (inputVal > minVal) {
 				newVal = inputVal - 1;
-			}
-			else if(inputVal <= minVal) {
+			} else if (inputVal <= minVal) {
 				newVal = maxVal;
 			}
 		}
 		$(input).val(newVal);
 		var $activePhase = $(input).closest('.approval-phase.active');
-		if($activePhase.length) {
+		if ($activePhase.length) {
 			var phaseId = $activePhase.data('id');
 			savePhaseHrs(phaseId, newVal);
 		}
 	}
-	
+
 	function setMins(input, incDec) {
 		var newVal;
 		var minVal = $(input).attr('data-min');
 		var maxVal = $(input).attr('data-max');
-		var inputVal = parseInt($(input).val(),10);
-		if(!inputVal) {
+		var inputVal = parseInt($(input).val(), 10);
+		if (!inputVal) {
 			inputVal = 0;
 		}
-		if(incDec === "increase") {
-			if(inputVal < maxVal) {
+		if (incDec === "increase") {
+			if (inputVal < maxVal) {
 				newVal = inputVal + 1;
-			}
-			else if(inputVal >= maxVal) {
+			} else if (inputVal >= maxVal) {
 				newVal = minVal;
 			}
-		}
-		else if(incDec === "decrease") {
-			if(inputVal > minVal) {
+		} else if (incDec === "decrease") {
+			if (inputVal > minVal) {
 				newVal = inputVal - 1;
-			}
-			else if(inputVal <= minVal) {
+			} else if (inputVal <= minVal) {
 				newVal = maxVal;
 			}
 		}
-		if(newVal < 10) {
+		if (newVal < 10) {
 			newVal = '0' + newVal;
 		}
 		$(input).val(newVal);
-		
+
 		var $activePhase = $(input).closest('.approval-phase.active');
-		if($activePhase.length) {
+		if ($activePhase.length) {
 			var phaseId = $activePhase.data('id');
 			savePhaseMins(phaseId, newVal);
 		}
 	}
-	
+
 	function setAmPm(input, incDec) {
 		var $activePhase = $(input).closest('.approval-phase.active');
-		if(incDec) {
+		if (incDec) {
 			($(input).val() === 'am') ? $(input).val('pm') : $(input).val('am');
 		}
-		if($activePhase.length) {
+		if ($activePhase.length) {
 			var phaseId = $activePhase.data('id');
 			savePhaseAmPm(phaseId, $(input).val().toUpperCase());
 		}
 	}
-	
+
 	function savePhaseHrs(id, val) {
-		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .hour-preview').html(val);
-		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
+		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .hour-preview').html(val);
+		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
 
 	function savePhaseMins(id, val) {
-		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .minute-preview').html(val);
-		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
+		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .minute-preview').html(val);
+		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
 
 	function savePhaseAmPm(id, val) {
-		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .ampm-preview').html(val);
-		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
+		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .ampm-preview').html(val);
+		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
-	
+
 	function setPhaseBtns(activePhase) {
 		var phaseId = activePhase.data('id');
 		var btn_num = 0;
-		if(activePhase.find('.approver-selected .user-img').length)
-		{
-			if(activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val())
-			{
-				if(activePhase.find('[data-new-phase]').length > 1) {
+		if (activePhase.find('.approver-selected .user-img').length) {
+			if (activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val()) {
+				if (activePhase.find('[data-new-phase]').length > 1) {
 					btn_num = phaseId;
 				}
 
-				toggleBtnClass(activePhase.find('[data-new-phase]:eq('+btn_num+')'),false);
+				toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), false);
 
-				if(phaseId === 0)
-				{
-					toggleBtnClass($('.save-phases'),false);
+				if (phaseId === 0) {
+					toggleBtnClass($('.save-phases'), false);
 				}
-			}
-			else
-			{
-				if(activePhase.find('[data-new-phase]').length) {
+			} else {
+				if (activePhase.find('[data-new-phase]').length) {
 					btn_num = phaseId;
 				}
-				toggleBtnClass(activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+				toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), true);
 
-				if(phaseId === 0)
-				{
-					toggleBtnClass($('.save-phases'),true);
+				if (phaseId === 0) {
+					toggleBtnClass($('.save-phases'), true);
 				}
 			}
-		}
-		else
-		{
-			if(activePhase.find('[data-new-phase]').length > 1) {
+		} else {
+			if (activePhase.find('[data-new-phase]').length > 1) {
 				btn_num = phaseId;
 			}
-			toggleBtnClass(activePhase.find('[data-new-phase]:eq('+btn_num+')'),true);
+			toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), true);
 
-			if(phaseId === 0)
-			{
-				toggleBtnClass($('.save-phases'),true);
+			if (phaseId === 0) {
+				toggleBtnClass($('.save-phases'), true);
 			}
 		}
 	}
 
-	function nextPhase(i,control) {
-		if($(control).closest('.approval-phase').hasClass('active'))
+	function nextPhase(i, control) {
+		if ($(control).closest('.approval-phase').hasClass('active'))
 			$(control).closest('.approval-phase').addClass('inactive').removeClass('active');
 		var linkedPhase;
 		var $activePhase = $('#approvalPhase' + i);
@@ -1441,86 +1443,22 @@ jQuery(function($) {
 		var $selected = $('#qtip-popover-user-list').find('.selected');
 		$selected.each(function() {
 			linkedPhase = $(this).attr('data-linked-phase');
-			if(linkedPhase === 'approvalPhase' + i) {
+			if (linkedPhase === 'approvalPhase' + i) {
 				$(this).removeClass('disabled');
-			}
-			else {
+			} else {
 				$(this).addClass('disabled');
 			}
 		});
 	}
 
-	$(document).on('click','.save-phases',function(){
-		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
 
-		$.each(phases,function(){
-			var phaseId = $(this).data('id');
-			$(this).addClass('hide').removeClass('active');
-			if($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val())
-			{
-				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
-			}
-		});
-
-		$('#save-phase-btns, .modal-contain').hide();
-		$('#submit-approval-btns').show();
-	});
-
-	$(document).on('click','.edit-phase',function(){
-		$('#is-new-approver').val('yes');
-		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
-		var editPhaseNum = $(this).closest('.approval-phase').data('id');
-		//show edit phase vew
-		$.each(phases,function(){
-			$(this).removeClass('hide').addClass('inactive');
-		});
-		//hide saved phase view
-		$('#phaseDetails .saved-phase').each(function() {
-			$(this).addClass('hide').removeClass('active');
-		});
-		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]');
-		$activePhase.removeClass('inactive').addClass('active');
-		
-		setPhaseBtns($activePhase);
-		$('#save-phase-btns, .modal-contain').show();
-		$('#submit-approval-btns').hide();
-	});
-
-	//resubmit approval single phsae
-	$(document).on('click','.resubmit-approval',function(){
-		var btn = this;
-		var phase_id = $(this).attr('id');
-		var outlet = $('#postOutlet').val();
-		var phase_ids = [];
-		if(phase_id)
-		{
-			phase_ids.push(phase_id);
-			$.ajax({
-				type:'POST',
-				data:{'phase_ids':phase_ids,'outlet':outlet},
-				dataType: 'json',
-				url: base_url+'posts/resubmit_phases',
-				success: function(response)
-				{
-					if(response.response  == 'success')
-					{
-						$(btn).remove();
-					}
-					else
-					{
-						alert(language_message.unable_to_resubmit);
-					}
-				}
-			});
-		}
-	});
 
 	window.addIncrements = function addIncrements() {
 		$('body').find('.time-select .time-input').each(function() {
 			var inputName = $(this).attr('name');
 			var increment = '<div class="incrementer" data-for="' + inputName + '"><i class="fa fa-caret-up increase"></i><i class="fa fa-caret-down decrease"></i></div>';
 			$(this).after(increment);
-			if($(this).hasClass('minute-select')) {
+			if ($(this).hasClass('minute-select')) {
 				$(this).before('<span class="time-separator">:</span>');
 			}
 		});
@@ -1529,7 +1467,7 @@ jQuery(function($) {
 	addIncrements();
 
 	window.equalColumns = function equalColumns(div) {
-		if(div === undefined) {
+		if (div === undefined) {
 			div = '.page-main';
 		}
 		//reset heights to default to get appropriate calculation
@@ -1547,25 +1485,23 @@ jQuery(function($) {
 		var newColsH = dashboardH;
 		var headhH = $('.page-main-header').outerHeight(true);
 		var colsH = $(div + ' .equal-columns').outerHeight(true);
-		if(headhH){
+		if (headhH) {
 			newColsH = dashboardH - headhH;
 		}
 		var magicNum = 0;
 		$(div).find('.equal-columns .equal-height').each(function() {
-			if($(this).parents().hasClass('brand-steps')) {
+			if ($(this).parents().hasClass('brand-steps')) {
 				magicNum = 60;
 			}
-			if($(this).parents().hasClass('brand-settings')) {
+			if ($(this).parents().hasClass('brand-settings')) {
 				magicNum = 30;
 			}
-			if($(this).parents().hasClass('modal')) {
+			if ($(this).parents().hasClass('modal')) {
 				$(this).css('height', colsH);
-			}
-			else {
-				if(newColsH > colsH) {
-					$(this).css('height',  newColsH - magicNum);
-				}
-				else {
+			} else {
+				if (newColsH > colsH) {
+					$(this).css('height', newColsH - magicNum);
+				} else {
 					$(this).css('height', colsH);
 				}
 			}
@@ -1581,13 +1517,12 @@ jQuery(function($) {
 
 	window.showPostPopover = function showPostPopover(element, id, jsEvent, className) {
 		var offsetY, offsetX, tipW, tipH;
-		if(className === 'approvals-post') {
+		if (className === 'approvals-post') {
 			offsetY = 27;
 			offsetX = 9;
 			tipW = 30;
 			tipH = 15;
-		}
-		else {
+		} else {
 			offsetY = 0;
 			offsetX = 0;
 			tipW = 20;
@@ -1597,7 +1532,7 @@ jQuery(function($) {
 			content: {
 				text: 'Loading...',
 				ajax: {
-					url: base_url+"posts/get_post_info/"+id+'/'+$('#calendar_type').val(),
+					url: base_url + "posts/get_post_info/" + id + '/' + $('#calendar_type').val(),
 					type: 'GET',
 					once: true
 				}
@@ -1650,409 +1585,343 @@ jQuery(function($) {
 	};
 
 	//live preview		
-	function createPreview(){
+	function createPreview() {
 		var postOutletClass;
 		$('#live-post-preview').empty();
 		$('.no-of-photos').html('');
 		var outlet_id = $('#postOutlet').val();
 		var selected_outlet = $('#postOutlet').attr('data-outlet-const');
 		var post_copy;
-		if($('#postCopy').val())
-			post_copy = $('#postCopy').val().replace(/\r?\n/g,'<br/>')
-		$('#outlet_'+outlet_id+' .post_copy_text').html(post_copy);
-		$('#live-post-preview').append($('#outlet_'+selected_outlet).html());
+		if ($('#postCopy').val())
+			post_copy = $('#postCopy').val().replace(/\r?\n/g, '<br/>')
+		$('#outlet_' + outlet_id + ' .post_copy_text').html(post_copy);
+		$('#live-post-preview').append($('#outlet_' + selected_outlet).html());
 	}
 
-	$(document).on('keyup','#postCopy',function(){
+	$(document).on('keyup', '#postCopy', function() {
 		var post_copy = $(this).val();
 		post_copy = convertToLink(post_copy);
 		post_copy = hashtagToLink(post_copy);
 		post_copy = atToLink(post_copy);
-		$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g,'<br/>'));
+		$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g, '<br/>'));
 	});
 
-	$(document).on("click", ".delete_post", function(event){
+	/*
+	*	Delete the Post
+	*/
+	$(document).on("click", ".delete_post", function(event) {
 		event.preventDefault();
-		if(confirm(language_message.delete_post))
-		{
+		if (confirm(language_message.delete_post)) {
 			var post_id = [];
 			post_id.push($(this).data('post-id'));
 
 			$.ajax({
-				'type':'POST',
+				'type': 'POST',
 				dataType: 'json',
-				url: base_url+'posts/delete_post',
-				data:{'post_ids':post_id},
-				success: function(response)
-				{
+				url: base_url + 'posts/delete_post',
+				data: {
+					'post_ids': post_id
+				},
+				success: function(response) {
 					location.reload();
 				}
 			});
-		}    	
+		}
 	});
 
-	$(document).on("click", "#submitDeleteDrafts", function(event){
+	/*
+	*	Delete selected post from Draft
+	*/
+	$(document).on("click", "#submitDeleteDrafts", function(event) {
 		var postsTotDelete = [];
-		$.each($(".select-box"),function(a,b){
-			if($(b).hasClass('checked') && $(b).data('value') != "check-all")
-			{
+		$.each($(".select-box"), function(a, b) {
+			if ($(b).hasClass('checked') && $(b).data('value') != "check-all") {
 				postsTotDelete.push($(b).data('value'));
 			}
 		});
 
 		$.ajax({
-			'type':'POST',
+			'type': 'POST',
 			dataType: 'json',
-			url: base_url+'posts/delete_post',
-			data:{'post_ids':postsTotDelete},
-			success: function(response)
-			{
+			url: base_url + 'posts/delete_post',
+			data: {
+				'post_ids': postsTotDelete
+			},
+			success: function(response) {
 				location.reload();
 			}
 		});
 	});
 
-	$(document).on("click", ".approve_post", function(event){
+	$(document).on("click", ".approve_post", function(event) {
 		var post_id = $(this).data('post-id');
 		var user_id = $(this).data('user-id');
 
-		if(post_id){
+		if (post_id) {
 			$.ajax({
-				'type':'POST',
+				'type': 'POST',
 				dataType: 'json',
-				url: base_url+'posts/approve_post/',
-				data:{'post_id':post_id,'user_id':user_id,},
-				success: function(response)
-				{
-	            	//console.log(response);
-	            	//location.reload();
-	            }
-	        });
-		}   	
+				url: base_url + 'posts/approve_post/',
+				data: {
+					'post_id': post_id,
+					'user_id': user_id,
+				},
+				success: function(response) {
+					//console.log(response);
+					//location.reload();
+				}
+			});
+		}
 	});
 
-	$(document).on("click", ".change-approve-status", function(event){
+	$(document).on("click", ".change-approve-status", function(event) {
 		var phase_id = $(this).data('phase-id');
 		var status = $(this).data('phase-status');
 		var user_id = $('#user-id').val()
 		var post_id = $(this).data('post-id');
 		var btn = this;
 
-		if(post_id){
+		if (post_id) {
 			$.ajax({
-				'type':'POST',
+				'type': 'POST',
 				dataType: 'json',
-				url: base_url+'posts/change_post_status',
-				data:{'phase_id':phase_id,'status':status,'user_id':user_id,'post_id':post_id},
-				success: function(response)
-				{
-					if($(btn).attr('id') == 'approval_list_btn')
-					{
+				url: base_url + 'posts/change_post_status',
+				data: {
+					'phase_id': phase_id,
+					'status': status,
+					'user_id': user_id,
+					'post_id': post_id
+				},
+				success: function(response) {
+					if ($(btn).attr('id') == 'approval_list_btn') {
 						$(btn).hide();
 						$(btn).parent().children('a:eq(1)')
 						$(btn).parent().children('a:eq(1)').show();
-					}
-					else
-					{
+					} else {
 						$(btn).parent().addClass('hide');
-						if($(btn).parent('.before-approve').length)
-						{
+						if ($(btn).parent('.before-approve').length) {
 							$(btn).parent().parent().children('div:last').removeClass('hide')
-						}
-						else
-						{
+						} else {
 							$(btn).parent().parent().children('div:first').removeClass('hide')
 						}
 					}
 				}
 			});
-		}   	
-	});	
-
-    //view edit request
-    $(document).on('click','.change-status',function(){
-    	var comment_id = $(this).data('id');
-    	var status = $(this).data('status');
-    	
-    	var data = {'comment_id': comment_id,'status' : status};
-    	var control = this;
-    	$.ajax({
-    		type:'POST',
-    		url: base_url+'approvals/change_comment_status',
-    		data:data,
-    		success:function(response)
-    		{
-    			if(response == 1)
-    			{
-    				$(control).parent().parent().children('p:last').html('Status: '+status);
-    				$(control).parent().children('button').prop('disabled',true);
-    			}
-    			else
-    			{
-    				alert(language_message.unable_to_change_status);
-    			}
-    		}
-    	});
-    });
-
-    $(document).on('click','.schedule-post',function(){
-    	var id = $(this).attr('id');
-    	var btn = this;
-    	if(id)
-    	{
-    		$.ajax({
-    			'type':'POST',
-    			url: base_url+'posts/schedule_post',
-    			data:{'post_id':id},
-    			success: function(response){
-    				if(response == 1)
-    				{
-    					$(btn).html('Scheduled');
-    					$(btn).prop('disabled',true);
-    					$(btn).addClass('btn-disabled');
-    					$(btn).addClass('btn-secondary');
-    					$(btn).removeClass('btn-default');
-    				}
-    				else
-    				{
-    					alert(language_message.unable_to_post);
-    				}
-    			}
-    		});
-    	}
-    });
-
-    $(document).on("click", ".close_brand", function(event){
-    	event.preventDefault();
-
-    	var step_no = $(this).data('step-no');
-    	var brand_slug = $('#brand_slug').val();
-    	if(brand_slug){
-    		$.ajax({
-    			'type':'POST',
-    			dataType: 'html',
-    			url: base_url+'settings/edit_step',
-    			data:{'step_no':step_no,'brand_slug':brand_slug,reload:'true'},
-    			success: function(response){
-    				if(response != 'false'){
-    					toggleBtnClass($('.edit-brands-info'),false);
-    					$('#brandStep'+step_no).empty();
-    					$('#brandStep'+step_no).removeClass('active');
-    					$('#brandStep'+step_no).html(response);
-    				}
-    				window.location.reload();
-    			}
-    		});
-    	}else{
-    		window.location.reload();
-    	}
-    });
-
-    $(document).on("click", ".edit_post", function(event){
-    	//.qtip is my qtip element from the parent page and then I hide it.
-		$('.qtip', window.parent.document).qtip("hide");
+		}
 	});
 
-    $(document).on('click','.got-to-calender',function(e){
-    	e.preventDefault();		
-    	$('#selected_date').val($(this).data('post-date'));
-    	$('#summary-form').submit();
-    });
+	//view edit request
+	/*
+	 * change the status comment(Accept, Reject)
+	 */
 
-    $('body').on('click', '.toggleActive', function(e) {
-    	e.preventDefault();
-    	$(this).closest('.approval-phase').toggleClass('active inactive');
-    	$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
-    	equalColumns();
-    });
+	$(document).on('click', '.change-status', function() {
+		var comment_id = $(this).data('id');
+		var status = $(this).data('status');
 
-    toggleBtnClass = function(btnClass, btnState){
-    	$(btnClass).prop('disabled', btnState);
-    	if(btnState) {
-    		$(btnClass).addClass('btn-disabled');
-    	}
-    	else {
-    		$(btnClass).removeClass('btn-disabled');
-    	}
-    };
-
-
-    $('#send-join').click(function(){
-    	var selected_users = [];
-    	$('.check-box').each(function(){
-    		if($(this).data('value') != 'check-all' && $(this).hasClass('selected'))
-    		{
-    			selected_users.push($(this).data('value'));
-    		}
-    	})
-    	var request_string = $('#request-string').val();
-    	var slug = $('#slug').val();
-    	if(selected_users.length)
-    	{
-    		$.ajax({
-    			url:base_url+'co_create/send_join_request',
-    			type:'post',
-    			data:{selected_users:selected_users,request_string: request_string,slug: slug},
-    			success:function(response)
-    			{
-
-    			}
-    		});
-    	}
-    });
-
-    $(document).on('click','.delete-phase',function(event){
-    	event.preventDefault();
-    	$btn = $(this);
-    	var post_id, phase_id;
-    	post_id = $btn.data('post-id');
-    	phase_id = $btn.data('phase-id');
-
-    	if(confirm(language_message.confirm_delete_phase))
-    	{
-    		$.ajax({
-    			'type':'POST',
-    			dataType: 'json',
-    			url: base_url+'phases/delete',
-    			data:{'post_id':post_id,'phase_id':phase_id},
-    			success: function(response)
-    			{
-    				if(response.status =='success'){
-    					window.location.reload();
-    					$('.modal-hide').click();
-    				}else{
-    					alert(language_message.try_again);
-    					$('.modal-hide').click();
-    				}
-    			}
-    		});
-    	}
-    });
-
-    $(document).on('click','.go_back',function(){
-    	$btn =  $(this).next( "button" );
-    	$.each($btn.data(), function(i,k){ 
-    		var attr_name =i.split(/(?=[A-Z])/) ;
-    		var str = attr_name[0]+'-'+attr_name[1];
-    		$btn.removeAttr("data-" + str.toLowerCase());
-    	});
-    });
-
-
-    $(document).on('change','select[name="time_zone"]',function(){
-    	var selected_abb;
-    	selected_abb =  $(this).find(':selected').data('abbreviation');
-    	$('#timezone_abbreviation').text(selected_abb);	
-    });
-
-    $(document).on('click','.cancel-brand',function(event){
-    	event.preventDefault();
-    	if(confirm(language_message.confirm_cancel)){
-    		var brand_id = $('#brand_id').val();
-    		if(brand_id !=''){
-    			$.ajax({
-    				'type':'get',
-    				dataType: 'json',
-    				url: base_url+'brands/delete/'+brand_id,
-    				success: function(response)
-    				{
-    					if(response.status !='success'){
-    						alert(language_message.try_again);
-    						return false;
-    					}
-    				}
-    			});
-    		}
-    		window.location = base_url+'brands/overview';
-    	}
-    });
-
-    $('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
-
-	// if(desktop_notify_status == 0 && plan_data.real_time_notification != 0)
-	// 	alert_notification();
-});
-
-	function alert_notification()
-	{
-		jQuery.ajax({
-			url:base_url+'brands/get_active_notifications',
-			type:'get',
-			dataType:'json',
-			success:function(response)
-			{			
-				if(response)
-				{
-					n = new Notification( "Please check the notification", {
-						body: response.text, 
-						icon : "star.ico"
-					});
+		var data = {
+			'comment_id': comment_id,
+			'status': status
+		};
+		var control = this;
+		$.ajax({
+			type: 'POST',
+			url: base_url + 'approvals/change_comment_status',
+			data: data,
+			success: function(response) {
+				if (response == 1) {
+					$(control).parent().parent().children('p:last').html('Status: ' + status);
+					$(control).parent().children('button').prop('disabled', true);
+				} else {
+					alert(language_message.unable_to_change_status);
 				}
 			}
 		});
-		
-		setTimeout(function(){
-			alert_notification();
-		},10000);
-	}
+	});
 
-
-	function convertToLink(text) {
-		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
-		return text.replace(exp,"<a href='$1'>$1</a>");
-	}
-
-	function hashtagToLink(text) {
-		var exp = /(?:^|\W)#(\w+)(?!\w)/g;
-		return text.replace(exp,"<a href='$1'> #$1</a>");
-	}
-
-	function atToLink(text) {
-		var exp = /(?:^|\W)@(\w+)(?!\w)/g;
-		return text.replace(exp,"<a href='$1'> @$1</a>");
-	}
-
-	function setUserTime() {
-		var today = new Date();
-		var h = today.getHours();
-		var m = today.getMinutes();
-		var s = today.getSeconds();
-		// add leading 0
-		if (s < 10){
-			s = "0"+s;
+	$(document).on('click', '.schedule-post', function() {
+		var id = $(this).attr('id');
+		var btn = this;
+		if (id) {
+			$.ajax({
+				'type': 'POST',
+				url: base_url + 'posts/schedule_post',
+				data: {
+					'post_id': id
+				},
+				success: function(response) {
+					if (response == 1) {
+						$(btn).html('Scheduled');
+						$(btn).prop('disabled', true);
+						$(btn).addClass('btn-disabled');
+						$(btn).addClass('btn-secondary');
+						$(btn).removeClass('btn-default');
+					} else {
+						alert(language_message.unable_to_post);
+					}
+				}
+			});
 		}
+	});
 
-		h = checkHours(h);
-		m = checkMinutes(m);
-		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
-		//set timezone
-		var tz = moment.tz.guess();
-		var zoneAbbr = moment.tz(tz).zoneAbbr();
-		var ampm = moment().format('a');
-		document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
-		//realtime time updates
-		var t = setTimeout(setUserTime, 500);
-	}
+	$(document).on("click", ".edit_post", function(event) {
+		//.qtip is my qtip element from the parent page and then I hide it.
+		$('.qtip', window.parent.document).qtip("hide");
+	});
 
-	function checkMinutes(i) {
-		if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-		return i;
-	}
+	$(document).on('click', '.got-to-calender', function(e) {
+		e.preventDefault();
+		$('#selected_date').val($(this).data('post-date'));
+		$('#summary-form').submit();
+	});
 
-	function checkHours(i) {
-		if (i > 12) {i = i-12}; //12 hour format
-		return i;
-	}
+	$('body').on('click', '.toggleActive', function(e) {
+		e.preventDefault();
+		$(this).closest('.approval-phase').toggleClass('active inactive');
+		$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
+		equalColumns();
+	});
 
-	function showContent(obj) {
-		obj.fadeIn(function() {
-			obj.trigger('contentShown');
+
+
+	$(document).on('click', '.delete-phase', function(event) {
+		event.preventDefault();
+		$btn = $(this);
+		var post_id, phase_id;
+		post_id = $btn.data('post-id');
+		phase_id = $btn.data('phase-id');
+
+		if (confirm(language_message.confirm_delete_phase)) {
+			$.ajax({
+				'type': 'POST',
+				dataType: 'json',
+				url: base_url + 'phases/delete',
+				data: {
+					'post_id': post_id,
+					'phase_id': phase_id
+				},
+				success: function(response) {
+					if (response.status == 'success') {
+						window.location.reload();
+						$('.modal-hide').click();
+					} else {
+						alert(language_message.try_again);
+						$('.modal-hide').click();
+					}
+				}
+			});
+		}
+	});
+
+	$(document).on('click', '.go_back', function() {
+		$btn = $(this).next("button");
+		$.each($btn.data(), function(i, k) {
+			var attr_name = i.split(/(?=[A-Z])/);
+			var str = attr_name[0] + '-' + attr_name[1];
+			$btn.removeAttr("data-" + str.toLowerCase());
 		});
+	});
+
+	$(document).on('change', 'select[name="time_zone"]', function() {
+		var selected_abb;
+		selected_abb = $(this).find(':selected').data('abbreviation');
+		$('#timezone_abbreviation').text(selected_abb);
+	});
+
+	toggleBtnClass = function(btnClass, btnState) {
+		$(btnClass).prop('disabled', btnState);
+		if (btnState) {
+			$(btnClass).addClass('btn-disabled');
+		} else {
+			$(btnClass).removeClass('btn-disabled');
+		}
+	};
+
+	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
+
+	if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+		alert_notification();
+});
+
+function alert_notification() {
+	jQuery.ajax({
+		url: base_url + 'brands/get_active_notifications',
+		type: 'get',
+		dataType: 'json',
+		success: function(response) {
+			if (response) {
+				n = new Notification("Please check the notification", {
+					body: response.text,
+					icon: "star.ico"
+				});
+			}
+		}
+	});
+
+	setTimeout(function() {
+		alert_notification();
+	}, 10000);
+}
+
+function convertToLink(text) {
+	var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
+	return text.replace(exp, "<a href='$1'>$1</a>");
+}
+
+function hashtagToLink(text) {
+	var exp = /(?:^|\W)#(\w+)(?!\w)/g;
+	return text.replace(exp, "<a href='$1'> #$1</a>");
+}
+
+function atToLink(text) {
+	var exp = /(?:^|\W)@(\w+)(?!\w)/g;
+	return text.replace(exp, "<a href='$1'> @$1</a>");
+}
+
+function setUserTime() {
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	// add leading 0
+	if (s < 10) {
+		s = "0" + s;
 	}
 
-	function hideContent(obj) {
-		obj.fadeOut(function() {
-			obj.trigger('contentHidden');
-		});
-	}
+	h = checkHours(h);
+	m = checkMinutes(m);
+	document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
+	//set timezone
+	var tz = moment.tz.guess();
+	var zoneAbbr = moment.tz(tz).zoneAbbr();
+	var ampm = moment().format('a');
+	document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
+	//realtime time updates
+	var t = setTimeout(setUserTime, 500);
+}
 
+function checkMinutes(i) {
+	if (i < 10) {
+		i = "0" + i
+	}; // add zero in front of numbers < 10
+	return i;
+}
+
+function checkHours(i) {
+	if (i > 12) {
+		i = i - 12
+	}; //12 hour format
+	return i;
+}
+
+function showContent(obj) {
+	obj.fadeIn(function() {
+		obj.trigger('contentShown');
+	});
+}
+
+function hideContent(obj) {
+	obj.fadeOut(function() {
+		obj.trigger('contentHidden');
+	});
+}

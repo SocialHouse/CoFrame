@@ -76,7 +76,7 @@
 		</div>
 		<footer class="post-content-footer">
 			<div id="outletStep4Btns">
-				<button type="button" class="btn btn-sm btn-default close_brand"  data-step-no="4" >Cancel</button>
+				<button type="button" class="btn btn-sm btn-default close_brand_step"  data-step-no="4" >Cancel</button>
 				<button type="submit" class="btn btn-sm btn-secondary pull-sm-right" data-step-no="4">Save</button>
 			</div>
 			<div id="addTagBtns" class="hidden">

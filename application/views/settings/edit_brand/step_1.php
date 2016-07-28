@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<footer class="post-content-footer">
-			<button type="button" class="btn btn-sm btn-default close_brand" data-step-no="1">Cancel</button>
+			<button type="button" class="btn btn-sm btn-default close_brand_step" data-step-no="1">Cancel</button>
 			<button type="submit" class="btn btn-sm btn-default pull-sm-right" data-step-no="1">Save</button>
 		</footer>
 	</div>
