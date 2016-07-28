@@ -47,7 +47,7 @@ class Brands extends CI_Controller {
 		$this->data['brands'] = $this->brand_model->get_users_brand($this->user_data['account_id']);
 		$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
 		
-		if(!empty($this->data['brands']))
+		if(!empty($this->data['brands']) && $this->plan_data['brands'] != 'unlimited')
 		{
 			$message = 'Your plan supports '.$this->plan_data['brands'].' brands';
 			no_of_brand_allowed(count($this->data['brands']),$this->plan_data['brands'],$message);
