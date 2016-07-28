@@ -530,6 +530,7 @@ jQuery(function($) {
 				width: 320
 			}
 		});
+
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax"]', function(e) {
 			var $target=$(this);
@@ -1094,6 +1095,7 @@ jQuery(function($) {
 			}
 		});
 	});
+
 	//Get modal content from inline source
 	$('body').on('click', '[data-toggle="modal-ajax-inline"]', function(e) {
 		e.preventDefault();
@@ -1371,10 +1373,12 @@ jQuery(function($) {
 		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .hour-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
 	}
+
 	function savePhaseMins(id, val) {
 		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .minute-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
 	}
+
 	function savePhaseAmPm(id, val) {
 		$('.saved-phase[data-id="' + id +'"]').find('.time-preview .ampm-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id +'"]'));
@@ -1643,6 +1647,7 @@ jQuery(function($) {
 			}
 		}, jsEvent);
 	};
+
 	//live preview		
 	function createPreview(){
 		var postOutletClass;
@@ -1723,7 +1728,6 @@ jQuery(function($) {
 	            }
 	        });
 		}   	
-
 	});
 
 	$(document).on("click", ".change-approve-status", function(event){
@@ -1762,8 +1766,8 @@ jQuery(function($) {
 				}
 			});
 		}   	
-
 	});	
+
     //view edit request
     $(document).on('click','.change-status',function(){
     	var comment_id = $(this).data('id');
@@ -2087,83 +2091,86 @@ jQuery(function($) {
 	// 	alert_notification();
 });
 
-function alert_notification()
-{
-	jQuery.ajax({
-		url:base_url+'brands/get_active_notifications',
-		type:'get',
-		dataType:'json',
-		success:function(response)
-		{			
-			if(response)
-			{
-				n = new Notification( "Please check the notification", {
-					body: response.text, 
-					icon : "star.ico"
-				});
+	function alert_notification()
+	{
+		jQuery.ajax({
+			url:base_url+'brands/get_active_notifications',
+			type:'get',
+			dataType:'json',
+			success:function(response)
+			{			
+				if(response)
+				{
+					n = new Notification( "Please check the notification", {
+						body: response.text, 
+						icon : "star.ico"
+					});
+				}
 			}
-		}
-	});
-	
-	setTimeout(function(){
-		alert_notification();
-	},10000);
-}
-
-
-function convertToLink(text) {
-	var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
-	return text.replace(exp,"<a href='$1'>$1</a>");
-}
-
-function hashtagToLink(text) {
-	var exp = /(?:^|\W)#(\w+)(?!\w)/g;
-	return text.replace(exp,"<a href='$1'> #$1</a>");
-}
-
-function atToLink(text) {
-	var exp = /(?:^|\W)@(\w+)(?!\w)/g;
-	return text.replace(exp,"<a href='$1'> @$1</a>");
-}
-
-function setUserTime() {
-	var today = new Date();
-	var h = today.getHours();
-	var m = today.getMinutes();
-	var s = today.getSeconds();
-	// add leading 0
-	if (s < 10){
-		s = "0"+s;
+		});
+		
+		setTimeout(function(){
+			alert_notification();
+		},10000);
 	}
 
-	h = checkHours(h);
-	m = checkMinutes(m);
-	document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
-	//set timezone
-	var tz = moment.tz.guess();
-	var zoneAbbr = moment.tz(tz).zoneAbbr();
-	var ampm = moment().format('a');
-	document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
-	//realtime time updates
-	var t = setTimeout(setUserTime, 500);
-}
 
-function checkMinutes(i) {
-	if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-	return i;
-}
-function checkHours(i) {
-	if (i > 12) {i = i-12}; //12 hour format
-	return i;
-}
-function showContent(obj) {
-	obj.fadeIn(function() {
-		obj.trigger('contentShown');
-	});
-}
-function hideContent(obj) {
-	obj.fadeOut(function() {
-		obj.trigger('contentHidden');
-	});
-}
+	function convertToLink(text) {
+		var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
+		return text.replace(exp,"<a href='$1'>$1</a>");
+	}
+
+	function hashtagToLink(text) {
+		var exp = /(?:^|\W)#(\w+)(?!\w)/g;
+		return text.replace(exp,"<a href='$1'> #$1</a>");
+	}
+
+	function atToLink(text) {
+		var exp = /(?:^|\W)@(\w+)(?!\w)/g;
+		return text.replace(exp,"<a href='$1'> @$1</a>");
+	}
+
+	function setUserTime() {
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		// add leading 0
+		if (s < 10){
+			s = "0"+s;
+		}
+
+		h = checkHours(h);
+		m = checkMinutes(m);
+		document.getElementById('userTime').innerHTML = h + ":" + m + ":" + s;
+		//set timezone
+		var tz = moment.tz.guess();
+		var zoneAbbr = moment.tz(tz).zoneAbbr();
+		var ampm = moment().format('a');
+		document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
+		//realtime time updates
+		var t = setTimeout(setUserTime, 500);
+	}
+
+	function checkMinutes(i) {
+		if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+		return i;
+	}
+
+	function checkHours(i) {
+		if (i > 12) {i = i-12}; //12 hour format
+		return i;
+	}
+	
+	function showContent(obj) {
+		obj.fadeIn(function() {
+			obj.trigger('contentShown');
+		});
+	}
+
+	function hideContent(obj) {
+		obj.fadeOut(function() {
+			obj.trigger('contentHidden');
+		});
+	}
 

@@ -4,6 +4,7 @@
 		removeFromPreview;
 
 	;( function( $, window, document, undefined ){
+		
 		window.fileDragNDrop = function fileDragNDrop() {
 		// feature detection for drag&drop upload
 		var isAdvancedUpload = function(){

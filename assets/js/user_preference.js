@@ -172,7 +172,6 @@ $(window).load(function() {
 		if(phone_no)
 		{
 			jQuery('#phone').val(phone_no.trim().replace(/[^a-z0-9]+/gi, ''));
-			console.log(phone_no.trim().replace(/[^a-z0-9]+/gi, ''));
 		}
 	},200);
 });

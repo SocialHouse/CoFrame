@@ -53,6 +53,7 @@
             var userfile_obj = $("#new_user_pic");
             var add_brand_obj = $("#add_brand_img");
             var obj;
+
             add_brand_obj.on('dragenter', function (e) {
                 //console.log(e);
                 e.stopPropagation();
@@ -430,9 +431,7 @@
                 // gathering the form data
                 var ajaxData = new FormData(form[0]);
                 ajaxData.append('base64_image',$('#base64').val());
-                
-                
-                
+                                
                 //ajax request
                 $.ajax({
                     url:            form.attr( 'action' ),

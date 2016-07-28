@@ -18,6 +18,7 @@ var calendarType,
 
 jQuery(function($) {
 	$(document).ready(function() {
+
 		$('#calendarBtnToday').on('click', function(e) {
 			e.preventDefault();
 			if($('#calendar-week').length) {
@@ -33,6 +34,7 @@ jQuery(function($) {
 				findPostbyDate(new Date().toJSON().slice(0,10));
 			}
 		});
+
 		//print & export functions
 		$('body').on('change', '#startDateType', function() {
 			startType = $(this).val();
@@ -49,6 +51,7 @@ jQuery(function($) {
 			}
 			calendarType = startType;
 		});
+
 		$('body').on('change', '#endDateType', function() {
 			endType = $(this).val();
 			var endInput = $('input[name="end-date"]');
@@ -336,7 +339,6 @@ jQuery(function($) {
 					width: pwidth
 				}
 			}, e);
-			
 		});
 
 		//allow click on date select calendar without blurring date input and therefore closing calendar
@@ -480,6 +482,7 @@ jQuery(function($) {
 				});
 			}
 		});
+
 		$('body').on('click', '#calendar-change-month .btn-cancel', function() {
 			var curView = $('#calendar-month').fullCalendar('getView');
 			var curMonthStart = $.fullCalendar.moment(curView.intervalStart).format('YYYY-MM-DD');
@@ -728,6 +731,7 @@ jQuery(function($) {
 		var dates = start + "&#8211;" + end;
 		return dates;
 	};
+	
 	window.GetCalendarMonth = function GetCalendarMonth(calType) {
 		var calendar = $(calType).fullCalendar('getCalendar');
 		var view = calendar.view;

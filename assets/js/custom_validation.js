@@ -9,7 +9,7 @@ jQuery(function($) {
 			startDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 			endDate = $.fullCalendar.moment(inputVal, 'M/DD/YYYY');
 
-			/* 	$activePhase  find the current active phaes 
+			/* 	$activePhase find the current active phaes 
 			*	approval-phase is the  class of that phase Id like approvalPhase1 ,approvalPhase2,approvalPhase3
 			* 	active is the current active Phase
 			*/
