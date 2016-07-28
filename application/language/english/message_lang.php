@@ -146,13 +146,18 @@
 
 	//plan access errors
 	$lang['outlet_limit'] = 'Your plan support only %outlet_number% outlets per brand';
-	$lang['tag_limit'] = 'Your plan support only %tag_number% tags per brand';
+	$lang['tag_limit'] = 'You have reached your tag limit. Either delete a tag or upgrade your package';
 	$lang['user_limit'] = 'Your plan support only %user_number% users';
 
 	$lang['user_limit_downgrade'] = 'Please remove %user_number% users ';
 	$lang['brand_limit_downgrade'] = 'Please remove %brand_number% brands ';
 	$lang['tag_limit_downgrade'] = 'Please remove tags from brand %message% ';
 	$lang['outlet_limit_downgrade'] = 'Please remove outlets from brand %message% ';
+
+	$lang['email_present_in_current_brand'] = 'This user already present in current brand';
+	$lang['email_present_in_current_ac'] = 'This email address is already in use. Select the user from the dropdown to assign them a role for this brand';
+
+	$lang['master_admin_email'] = 'You can`t add accounts master admin in any brand of same account';
 ?>
 
 

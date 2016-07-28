@@ -642,17 +642,102 @@ jQuery(function($) {
 			}
 		});
 
-		$(document).on('keyup change','#firstName,#lastName',function()
+		$(document).on('keyup change','#userEmail',function(){
+	    	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
+	    	{
+	 			toggleBtnClass('#addRole',false);
+	    	}
+	    	else
+	    	{
+	   			toggleBtnClass('#addRole',true);
+		   	}
+
+	    	if(!validateEmail($(this).val()))
+			{
+				if($(this).val().length > 2)
+				{
+					$('#emailValid').html(language_message.not_valid_email);
+					$('#emailValid').removeClass('hide');
+					$('#emailUniqueValid').addClass('hide');
+				}
+
+				if(!$(this).val())
+				{
+					$('#emailValid').addClass('hide');
+					$('#emailUniqueValid').addClass('hide');
+				}
+			}
+			else
+			{
+				$('#emailValid').addClass('hide');
+				$.ajax({
+					url: base_url+'brands/check_email_exist',
+					type:'POST',
+					data: {'email':$('#userEmail').val(),'brand_id': $('#brand_id').val() },
+					success:function(data){
+						data = $.parseJSON(data);					
+						if(data.response == 'current_brand')
+						{
+							validEmail = false;
+							$('#emailUniqueValid').text(language_message.email_present_in_current_brand);
+							$('#emailUniqueValid').removeClass('hide');
+						}
+						else if(data.response == 'current_account')
+						{
+							validEmail = false;
+							$('#emailUniqueValid').text(language_message.email_present_in_current_ac);
+							$('#emailUniqueValid').removeClass('hide');
+						}
+						else if(data.response == 'current_admin')
+						{
+							validEmail = false;
+							$('#emailUniqueValid').text(language_message.master_admin_email);
+							$('#emailUniqueValid').removeClass('hide');
+						}
+						else
+						{
+							validEmail = true;
+							$('#emailUniqueValid').addClass('hide');
+						}
+						
+						if($('#lastName').val() && $('#userEmail').val() && $('#firstName').val() && validEmail)
+				    	{
+							toggleBtnClass('#addRole',false);
+				    	}
+				    	else
+				    	{
+							toggleBtnClass('#addRole',true);
+				    	}
+					}
+				});
+			}
+	    	
+	    });
+
+		$('#firstName,#lastName').unbind('keyup change').bind('click change',function()
 		{
 			if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val() && validEmail)
 	    	{
-				toggleBtnClass('#addRole',false);
+				toggleBtnClass('#addRole',false);				
 	    	}
 	    	else
 	    	{
 				toggleBtnClass('#addRole',true);
 	    	}
 		});
+
+		// $(document).on('keyup change','#firstName,#lastName',function()
+		// {
+		// 	console.log(validEmail);
+		// 	if($('#lastName').val() && $('#userEmail').val() && validateEmail($('#userEmail').val()) && $('#firstName').val() && validEmail)
+	 //    	{
+		// 		toggleBtnClass('#addRole',false);				
+	 //    	}
+	 //    	else
+	 //    	{
+		// 		toggleBtnClass('#addRole',true);
+	 //    	}
+		// });
 	});
 
 	window.successTip = function successTip() {
@@ -711,66 +796,7 @@ jQuery(function($) {
     	{
 			toggleBtnClass('.save_brand',true);
     	}
-    });
-
-   	 $(document).on('keyup change','#userEmail',function(){
-    	if($('#firstName').val() && $('#lastName').val() && $(this).val() && validateEmail($(this).val()))
-    	{
- 			toggleBtnClass('#addRole',false);
-    	}
-    	else
-    	{
-   			toggleBtnClass('#addRole',true);
-	   	}
-
-    	if(!validateEmail($(this).val()))
-		{
-			if($(this).val().length > 2)
-			{
-				$('#emailValid').html(language_message.not_valid_email);
-				$('#emailValid').removeClass('hide');
-				$('#emailUniqueValid').addClass('hide');
-			}
-
-			if(!$(this).val())
-			{
-				$('#emailValid').addClass('hide');
-				$('#emailUniqueValid').addClass('hide');
-			}
-		}
-		else
-		{
-			$('#emailValid').addClass('hide');
-			$.ajax({
-				url: base_url+'tour/check_email_exist',
-				type:'POST',
-				data: {'email':$('#userEmail').val()},
-				success:function(data){
-					console.log(data);
-					if(data == 'true')
-					{
-						validEmail = false;
-						$('#emailUniqueValid').removeClass('hide');
-					}
-					else
-					{
-						validEmail = true;
-						$('#emailUniqueValid').addClass('hide');
-					}
-					
-					if($('#lastName').val() && $('#userEmail').val() && $('#firstName').val() && validEmail)
-			    	{
-						toggleBtnClass('#addRole',false);
-			    	}
-			    	else
-			    	{
-						toggleBtnClass('#addRole',true);
-			    	}
-				}
-			});
-		}
-    	
-    });
+    });   	
 
     $('.skip_step').click(function(){
     	var slug = $('#slug').val();

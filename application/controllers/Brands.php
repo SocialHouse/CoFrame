@@ -55,7 +55,8 @@ class Brands extends CI_Controller {
 
 		$this->data['timezones'] = $this->user_model->get_timezones();
 		$this->data['outlets'] = $this->timeframe_model->get_table_data('outlets');		
-		$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id);	
+		$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_data['account_id']);	
+		
 		$this->data['groups'] = $this->aauth->list_groups();
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
@@ -486,6 +487,25 @@ class Brands extends CI_Controller {
 
 					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
 
+					if(isset($is_present))
+					{
+						$this->data['company_name'] = get_company_name($this->user_data['account_id']);
+						$this->data['role'] = $post_data['role'];
+						try
+					    {
+					    	$email = $post_data['email'];
+					    	$subject = "You have been addded in new account";
+					    	$content = $this->load->view('mails/new_account_info',$this->data,true);
+					    	$mail_send = email_send($email, $subject,$content);
+					    }
+						catch (SomeException $e)
+						{
+						  // do nothing... php will ignore and continue    
+						}
+						
+		                
+					}
+
                     echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id,'all_user_count' => $all_users));
                 }
                 else
@@ -800,6 +820,14 @@ class Brands extends CI_Controller {
 		}
 		redirect(base_url().'brands/overview');
 	}
+
+	public function check_email_exist()
+    {
+        $email = $this->input->post('email');
+        $brand_id = $this->input->post('brand_id');
+        $response = $this->brand_model->check_user_exist_in_account($email,$brand_id);
+        echo json_encode($response);
+    }
 }
 
 

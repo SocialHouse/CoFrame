@@ -300,4 +300,54 @@ class Brand_model extends CI_Model
 		}
 		return FALSE;
 	}
+
+	function check_user_exist_in_account($email,$brand_id)
+	{
+		//check user is already present in current brand
+		$this->db->select('brand_user_map.id');
+		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
+		$this->db->join('brands','brands.id = brand_user_map.brand_id');
+		$this->db->where('aauth_users.email',$email);
+		$this->db->where('brands.id',$brand_id);
+		$query = $this->db->get('brand_user_map');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'current_brand');
+		}
+
+		//check user is already present in current account
+		$this->db->select('brand_user_map.id');
+		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
+		$this->db->join('brands','brands.id = brand_user_map.brand_id');
+		$this->db->where('aauth_users.email',$email);
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$query = $this->db->get('brand_user_map');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'current_account');
+		}
+
+		//check user is admin of current account
+		$this->db->select('brands.id');
+		$this->db->join('aauth_users','aauth_users.id = brands.created_by');
+		$this->db->where('aauth_users.email',$email);
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$query = $this->db->get('brands');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'current_admin');
+		}
+
+		//check user is already present in other account
+		$this->db->select('brand_user_map.id');
+		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
+		$this->db->join('brands','brands.id = brand_user_map.brand_id');
+		$this->db->where('aauth_users.email',$email);
+		$query = $this->db->get('brand_user_map');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'other_account');
+		}
+		return array('response' => 'false');
+	}
 }
