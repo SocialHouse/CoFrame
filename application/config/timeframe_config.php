@@ -47,7 +47,7 @@ $config['plans'] = array(
 								'email_notification' => 1,
 								'co_create' => 1,
 								'tags' => 'unlimited',
-								'phase_approvers' => 1
+								'phase_approvals' => 1
 							),
 						'corporate' => array(
 								'brands' => 8,
@@ -69,7 +69,7 @@ $config['plans'] = array(
 								'email_notification' => 0,
 								'co_create' => 0,
 								'tags' => 8,
-								'phase_approvers' => 1
+								'phase_approvals' => 1
 							),
 						'start-up' => array(
 								'brands' => 20,
@@ -80,6 +80,6 @@ $config['plans'] = array(
 								'email_notification' => 0,
 								'co_create' => 0,
 								'tags' => 3,
-								'phase_approvers' => 0
+								'phase_approvals' => 0
 							)
 					);
