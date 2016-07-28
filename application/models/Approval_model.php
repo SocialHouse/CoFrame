@@ -12,7 +12,7 @@ class Approval_model extends CI_Model
 		$result = [];
 		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id'])
 		{
-			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id');
 			$this->db->join('posts','posts.id = phases.post_id');
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);

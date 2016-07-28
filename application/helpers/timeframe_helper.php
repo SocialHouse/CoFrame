@@ -497,7 +497,7 @@ if(!function_exists('get_approval_list_buttons'))
         $html_to_return = '<td class="text-xs-center">';
         if((check_user_perm($CI->user_id,'approve',$brand_id) OR ($CI->user_id == $CI->user_data['account_id'])) AND !empty($phase_status))
         {
-            if($phase_status == 'pending' AND $post->status == 'pending')
+            if($approver_status == 'pending' AND $post->status == 'pending')
             {               
                 $html_to_return .= '<div class="before-approve">
                     <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</a>
@@ -508,7 +508,7 @@ if(!function_exists('get_approval_list_buttons'))
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
                 </div>';                
             }            
-            elseif($phase_status == 'approved')
+            elseif($approver_status == 'approved')
             {
                 $html_to_return .= '<a class="btn btn-sm btn-disabled btn-default color-success">Approved</a>';
             }
@@ -519,7 +519,7 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
-        elseif(check_user_perm($CI->user_id,'create',$brand_id))
+        elseif(check_user_perm($CI->user_id,'create',$brand_id) OR $post->user_id == $CI->user_id)
         {
             if($post->status == 'scheduled')
             {
@@ -556,7 +556,6 @@ if(!function_exists('get_approval_list_buttons'))
         }
         else
         {
-            echo "test";
             if($post->status == 'scheduled')
             {
                 $html_to_return .= '<div class="before-approve">';

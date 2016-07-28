@@ -2,7 +2,7 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
-			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
+			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft btn-secondary" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
 			
 			<div class="pull-md-right toolbar">
 				<?php $this->load->view('partials/search_form') ?>

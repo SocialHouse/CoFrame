@@ -50,7 +50,7 @@ class Drafts extends CI_Controller {
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 
-			$this->data['drafts'] = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'draft','user_id' => $this->user_id));
+			$this->data['drafts'] = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'draft','user_id' => $this->user_id,'brand_id' => $brand_id));
 
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 

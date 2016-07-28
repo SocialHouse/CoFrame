@@ -141,7 +141,8 @@ class Posts extends CI_Controller {
 	    						'outlet_id' =>$post_data['post_outlet'],
 	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
-	    						'status' => $status
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s')
 	    					);
     				if(!empty($slate_date_time)){
     					$post['slate_date_time'] =  $slate_date_time;
