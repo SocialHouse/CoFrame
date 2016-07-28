@@ -2863,7 +2863,9 @@ a {
 	.btn-sm {
 		text-decoration: none;
 		font-size: 11px;
-		margin-right: 1rem;
+	}
+	.btn + .btn {
+		margin-left: 1rem;
 	}
 }
 .before-approve, .after-approve {

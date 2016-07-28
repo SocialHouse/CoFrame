@@ -11129,8 +11129,9 @@ a {
     margin: 0; }
   .post-actions .btn-sm, .post-actions .btn-group-sm > .btn {
     text-decoration: none;
-    font-size: 11px;
-    margin-right: 1rem; }
+    font-size: 11px; }
+  .post-actions .btn + .btn {
+    margin-left: 1rem; }
 
 .before-approve, .after-approve {
   display: inline-block; }

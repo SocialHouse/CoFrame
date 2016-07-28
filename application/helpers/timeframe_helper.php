@@ -503,7 +503,7 @@ if(!function_exists('get_approval_list_buttons'))
                     <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</a>
                 </div>
 
-                <div class="after-approve hide">
+                <div class="after-approve post-actions hide">
                     <button class="btn btn-default color-success btn-disabled btn-sm" disabled>Approved</button><br>
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
                 </div>';                
@@ -523,7 +523,7 @@ if(!function_exists('get_approval_list_buttons'))
         {
             if($post->status == 'scheduled')
             {
-                $html_to_return .= '<div class="before-approve">';
+                $html_to_return .= '<div class="before-approve post-actions">';
                 $html_to_return .= '<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
                 </div>
@@ -538,7 +538,7 @@ if(!function_exists('get_approval_list_buttons'))
                     <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
                 </div>
 
-                <div class="after-approve hide">
+                <div class="after-approve hide post-actions">
                     <button class="btn btn-disabled btn-default color-success btn-sm" disabled>Scheduled</button><br>
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
                 </div>';
@@ -558,7 +558,7 @@ if(!function_exists('get_approval_list_buttons'))
         {
             if($post->status == 'scheduled')
             {
-                $html_to_return .= '<div class="before-approve">';
+                $html_to_return .= '<div class="before-approve post-actions">';
                 $html_to_return .= '<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
                 </div>
@@ -573,7 +573,7 @@ if(!function_exists('get_approval_list_buttons'))
                     <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
                 </div>
 
-                <div class="after-approve hide">
+                <div class="after-approve post-actions hide">
                     <button class="btn btn-disabled btn-default color-success btn-sm" disabled>Scheduled</button><br>
                     <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="unschedule" href="#">Undo</a>
                 </div>';
