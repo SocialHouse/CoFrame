@@ -7,7 +7,7 @@
 			<h1 class="center-title section-title">Edit Requests</h1>
 		</header>
 
-		<input type="hidden" name="brand_owner" id="brand-owner" value="<?php echo $brand->$this->user_data['account_id']; ?>" />
+		<input type="hidden" name="brand_owner" id="brand-owner" value="<?php echo $this->user_data['account_id']; ?>" />
 		
 		<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />
 		<input type="hidden" name="post_id" id="post-id" value="<?php echo $post_id; ?>" />
