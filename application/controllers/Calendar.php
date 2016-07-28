@@ -352,8 +352,8 @@ class Calendar extends CI_Controller {
 
 	public function get_brand_users_by_post($brand_id, $post_id,$phase_count)
 	{
-		$this->data = '';
-		$this->data['phases'] = '';
+		$this->data = array();
+		$this->data['phases'] = array();
 		if(!empty($post_id)){
 			$this->data['post_details'] =  $this->post_model->get_post($post_id);
 			$post_phases = $this->post_model->get_post_phases($post_id);
@@ -373,10 +373,10 @@ class Calendar extends CI_Controller {
 	}
 
 
-	public function approval_list($post_id){
-		$this->data ='';
+	public function approval_list($post_id){		
+		$this->data = array();
 		if(!empty($post_id)){
-			$post_phases = $this->post_model->get_post_phases($post_id);
+			$post_phases = $this->post_model->get_post_phases($post_id);			
 			if(!empty($post_phases))
 			{
 				foreach($post_phases as $phase)
