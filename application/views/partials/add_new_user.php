@@ -69,7 +69,7 @@
 	<div class="outlet-list" id="user-selected-outlet">
 		<ul>
 			<?php
-			if(!empty($outlets))
+			if(!empty($outlets) AND isset($brand_id))
 			{
 				foreach($outlets as $outlet)
 				{

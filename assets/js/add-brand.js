@@ -843,6 +843,10 @@ jQuery(function($) {
 	    				{
 	    					$('#user-selected-outlet').html(data.html);
 	    				}
+	    				else
+	    				{
+	    					$('#user-selected-outlet').html('');	
+	    				}
 	    			}
 	    		}
 	    	});
