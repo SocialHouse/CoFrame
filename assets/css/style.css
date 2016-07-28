@@ -9562,8 +9562,10 @@ a {
   .qtip.qtip-calendar-post .equal-columns [class*="container-"] {
     padding-bottom: 62px; }
   .qtip.qtip-calendar-post .post-content-footer {
-    border: 0;
-    bottom: 1rem; }
+    position: relative;
+    margin: 0 12px;
+    padding-top: 12px;
+    bottom: inherit; }
   .qtip.qtip-calendar-post .btn-xs {
     font-size: 8px;
     letter-spacing: .2em; }
@@ -11120,8 +11122,9 @@ a {
 .post-actions {
   text-align: center; }
   .post-actions a {
-    font-size: 10px;
-    text-decoration: underline; }
+    font-size: 10px; }
+    .post-actions a:not(.btn) {
+      text-decoration: underline; }
   .post-actions .btn-group .btn {
     margin: 0; }
   .post-actions .btn-sm, .post-actions .btn-group-sm > .btn {

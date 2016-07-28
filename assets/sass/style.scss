@@ -879,8 +879,10 @@ a {
 			padding-bottom: 62px;
 		}
 		.post-content-footer {
-			border: 0;
-			bottom: 1rem;
+			position: relative;
+			margin: 0 12px;
+			padding-top: 12px;
+			bottom: inherit;
 		}
 		.btn-xs {
 			font-size: 8px;
@@ -2849,7 +2851,9 @@ a {
 	text-align: center;
 	a {
 		font-size: 10px;
-		text-decoration: underline;
+		&:not(.btn) {
+			text-decoration: underline;
+		}
 	}
 	.btn-group {
 		.btn {
