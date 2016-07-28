@@ -12,6 +12,10 @@ jQuery(function($) {
 		ww = $(window).width();
 	});
 
+	$(window).on('load', function() {
+		equalColumns();
+	});
+
 	$(document).ready(function() {
 		if (selected_day) {
 			var date_on_cal = $.fullCalendar.moment(selected_day).format('YYYY-MM-DD');
@@ -77,8 +81,6 @@ jQuery(function($) {
 		$('#postOutlet').val(outlet_id);
 		$('#postOutlet').attr('data-outlet-const', outlet_const);
 		createPreview();
-
-		equalColumns();
 
 		$('#post-details .outlet-list li').on('click', function() {
 			var previous_outlet = $('#postOutlet').val();
