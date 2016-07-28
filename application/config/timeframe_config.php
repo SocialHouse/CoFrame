@@ -39,6 +39,7 @@ $config['json_msg_file'] = 'assets/js/json_message.json';
 
 $config['plans'] = array(
 						'premier' => array(
+						'premiere' => array(
 								'brands' => 'unlimited',
 								'master_admins' => 'unlimited',
 								'users' => 'unlimited',
