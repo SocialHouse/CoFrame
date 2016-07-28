@@ -32,7 +32,7 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="1" >Next Phase</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase1" data-id="0">
@@ -77,8 +77,8 @@ if(!empty($post_details->brand_id)){
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[1][note]"></textarea>
 		</div>
 		<div class="form-group">
-			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="0">Previous</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
+			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
+			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" >Next Phase</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase2" data-id="1">
@@ -123,7 +123,7 @@ if(!empty($post_details->brand_id)){
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>
 		</div>
 		<div class="form-group">
-			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
+			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase" data-id="2">

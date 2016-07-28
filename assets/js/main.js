@@ -255,10 +255,9 @@ jQuery(function($) {
 			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
 
 			//add selected users to list from popover
-			if ($btn.closest('#qtip-popover-user-list').length) {
+			if ($btn.closest('.popover-users').length) {
 				var userImg = $btn.closest('li').find('img');
 				$(userImg).attr('data-id', buttonVal);
-				var checkbox = $btn.parent().children('.approvers');
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
 				var newImage = userImg.clone();
@@ -271,8 +270,6 @@ jQuery(function($) {
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
 					$btn.attr('data-linked-phase', activePhaseId);
-					$activePhase.next('.approval-phase').find('.user-list').append('<li class="pull-sm-left pending"></li>');
-					$activePhase.next('.approval-phase').find('.user-list li:last').append(newImage);
 
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
@@ -555,33 +552,27 @@ jQuery(function($) {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
-
 						/*	used for display selected and not selected (hide) Approvals list
 						 *	This is use to disable users which are already selected in next phase for only first phase on edit post overlay page
 						 */
-
-						setTimeout(function() {
-
-							if ($target.hasClass('first-new-phase')) {
-								var phase_div = $target.closest('#phaseDetails');
-								$.each(phase_div, function(i, j) {
-									$.each($(j).find('.approval-phase'), function(a, b) {
-										$.each($(modal).find('div:eq(2)').find('li'), function(c, d) {
-											if ($(d).find('div:first').find('input').val() == $(b).find('.approver-selected li').find('input[type="checkbox"]').val()) {
-												if ($target.closest('.edit-phase-div').attr('id') != $(b).attr('id')) {
-													$(d).find('div:first').find('i').addClass('disabled');
-												} else {
-													$(d).find('div:first').find('i').removeClass('disabled');
-												}
-
-												$(d).find('div:first').find('i').addClass('selected');
-												$(d).find('div:first').find('i').attr('data-linked-phase', $(b).attr('id'));
-											}
-										});
-									});
-								});
-							}
-						}, 600);
+						if ($target.hasClass('first-new-phase')) {
+							var $activePhase = $target.closest('.approval-phase');
+							var phaseId = $activePhase.attr('id');
+							var users = $(modal).find('.user-list li');
+							$.each(users, function(c, user) {
+								var ttipUser = $(user).find('input[name="post-approver"]').val();
+								var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+								if($phaseUser.length) {
+									var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
+									if(phaseId === selectedPhase) {
+										$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
+									}
+									else {
+										$(user).find('[data-group="post-approver"]').addClass('disabled selected');
+									}
+								}
+							});
+						}
 					}
 				},
 				id: pid,
@@ -700,29 +691,30 @@ jQuery(function($) {
 						$('.qtip').trigger('qtipShown', [classes]);
 
 						var modal = this;
-						var phase_div = $target.closest('#phaseDetails');
 						var count = 0;
+
 						/*	used for display selected and not selected (hide) Approvals list
 						 *	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
 						 *
 						 */
-						$.each(phase_div, function(i, j) {
-							console.log(j);
-							$.each($(j).find('.approval-phase'), function(a, b) {
-								$.each($(modal).find('div:eq(2)').find('li'), function(c, d) {
-									if ($(d).find('div:first').find('input').val() == $(b).val()) {
-										if ($target.parent().attr('id') != $(b).attr('id')) {
-											$(d).find('div:first i').addClass('disabled');
-										} else {
-											$(d).find('div:first i').removeClass('disabled');
-										}
-
-										$(d).find('div:first').find('i').addClass('selected');
-										$(d).find('div:first').find('i').attr('data-linked-phase', $(b).attr('id'));
+						if ($target.hasClass('first-new-phase')) {
+							var $activePhase = $target.closest('.approval-phase');
+							var phaseId = $activePhase.attr('id');
+							var users = $(modal).find('.user-list li');
+							$.each(users, function(c, user) {
+								var ttipUser = $(user).find('input[name="post-approver"]').val();
+								var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+								if($phaseUser.length) {
+									var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
+									if(phaseId === selectedPhase) {
+										$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
 									}
-								});
+									else {
+										$(user).find('[data-group="post-approver"]').addClass('disabled selected');
+									}
+								}
 							});
-						});
+						}
 					},
 					'hide.event': 'unfocus',
 					'position.adjust.x': poffsetX,
@@ -967,8 +959,6 @@ jQuery(function($) {
 
 		$('body').on('click', '.btn-change-phase', function() {
 			var next = $(this).data('newPhase');
-			next = parseInt(next) + 1;
-			console.log(next);
 			nextPhase(next, this);
 		});
 
@@ -1439,7 +1429,10 @@ jQuery(function($) {
 		var $activePhase = $('#approvalPhase' + i);
 		$activePhase.removeClass('inactive').addClass('active');
 		setPhaseBtns($activePhase);
-
+		setUserList(i);
+	}
+	
+	function setUserList(i) {
 		var $selected = $('#qtip-popover-user-list').find('.selected');
 		$selected.each(function() {
 			linkedPhase = $(this).attr('data-linked-phase');
@@ -1450,8 +1443,6 @@ jQuery(function($) {
 			}
 		});
 	}
-
-
 
 	window.addIncrements = function addIncrements() {
 		$('body').find('.time-select .time-input').each(function() {

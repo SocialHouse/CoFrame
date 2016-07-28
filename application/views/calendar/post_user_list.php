@@ -32,7 +32,7 @@ if(!empty($users))
 			<div class="pull-sm-left">
 				<input type="checkbox" class="hidden-xs-up approvers" name="post-approver" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border <?php echo $selected.' '.$disabled; ?>" data-value="<?php echo $user->aauth_user_id; ?>" data-group="post-approver" data-linked-phase="<?php echo $phase_num; ?>" ><i class="fa fa-check"></i></i>
 			</div>
-			<div class="pull-sm-left">
+			<div class="pull-sm-left user-img">
 				<?php
 				$path = img_url()."default_profile.jpg";
 				

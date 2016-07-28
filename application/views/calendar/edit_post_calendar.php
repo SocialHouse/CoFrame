@@ -1,4 +1,4 @@
-<form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post "  method="post" upload="<?php echo base_url()."posts/upload"; ?>">
+<form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post " method="post" upload="<?php echo base_url()."posts/upload"; ?>" autocomplete="off">
 
 	<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">
 	<input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>" id="redirect_url">
@@ -195,17 +195,13 @@
 									if(!empty($phases)){ 
 										$phase_count = count($phases);
 										foreach ($phases as $phase_no => $obj) {
-											$user_list = 'data-toggle="popover-ajax-inline"';
 											$class = 'inactive';
-											if($phase_no == 1)
-											{
-												$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'brands/get_brand_users/'.$post_details->brand_id.'"';
-											}
+											$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'brands/get_brand_users/'.$post_details->brand_id.'"';
 											$phase_no -- ;
 									?>
 											<div class="bg-white approval-phase animated fadeIn hide edit-phase-div <?php echo $class; ?>" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
 												<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> </h2>
-												<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
+												<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>
 														<?php
 														foreach($obj as $user)
@@ -267,7 +263,7 @@
 													<?php																			
 													}
 													?>
-													<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 1;?>" disabled="disabled">Next Phase</button>
+													<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 2;?>" disabled="disabled">Next Phase</button>
 												</div>
 											</div>
 											<div class="bg-white approval-phase saved-phase animated fadeIn" id="preview_approvalPhase<?php echo $phase_no + 1;?>" data-id="<?php  echo $phase_no;?>">
@@ -335,7 +331,7 @@
 											?>
 											<div class="bg-white approval-phase animated fadeIn edit-phase-div <?php echo $inactive ;?>" id="approvalPhase<?php echo $i; ?>" data-id="<?php echo $i -1; ?>">
 												<h2 class="clearfix">Phase <?php echo $i?></h2>
-												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax-inline" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top">
+												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>
 														<div class="pull-sm-left">
 															<i class="tf-icon tf-icon-plus circle-border bg-black">+</i>
@@ -383,7 +379,7 @@
 													}
 													if($i != 3){
 													?>
-														<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $i + 1;?>" disabled="disabled">Next Phase</button>
+														<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $i + 2;?>" disabled="disabled">Next Phase</button>
 													<?php
 													}
 													?>
