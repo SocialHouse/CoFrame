@@ -218,10 +218,10 @@
 									}
 									
 								}
-								$tr_class = '';
+								$td_class = '';
 								if(isset($deadline) AND !empty($deadline) AND date('Y-m-d H:i') <= date('Y-m-d H:i',strtotime($deadline)) AND date('Y-m-d H:i',strtotime('+24 hours')) >= date('Y-m-d H:i',strtotime($deadline)))
 								{
-									$tr_class = "color-danger";
+									$td_class = "color-danger";
 								}
 
 								$outlet = get_outlet_by_id($post->outlet_id);
@@ -243,7 +243,7 @@
 									}
 								}
 								?>
-								<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); echo " ".$tr_class;?>">
+								<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet);?>">
 									<?php
 									if($show_date == 1)
 									{
@@ -287,7 +287,7 @@
 									if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline))
 									{
 										?>
-										<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+										<td class="text-xs-center<?php echo " ".$td_class;?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 											<small>
 											<?php
 											if(!empty($deadline))
