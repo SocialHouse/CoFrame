@@ -327,6 +327,7 @@ class Brands extends CI_Controller {
             		else
             		{
 			    		$password = uniqid();
+			    		$password = 123456;
 			        	$user_data = array(
 			        					'first_name' => $this->input->post('first_name'),
 			        					'last_name' => $this->input->post('last_name'),	        					
@@ -528,11 +529,11 @@ class Brands extends CI_Controller {
     	$brand_data = array(
 								'is_hidden' => 0
 							);
-    	$condition = array('account_id' => $this->user_user_data['account_id'],'slug'=>$slug);
+    	$condition = array('account_id' => $this->user_data['account_id'],'slug'=>$slug);
     	$this->timeframe_model->update_data('brands',$brand_data,$condition);
 
 
-    	$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $slug,'account_id' => $this->user_user_data['account_id']));
+    	$this->data['brand'] = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $slug,'account_id' => $this->user_data['account_id']));
 
     	// $this->data['brand'] = $this->brand_model->get_brand_by_slug($this->user_id,$slug);
     	// echo $this->db->last_query();

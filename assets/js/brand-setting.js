@@ -18,6 +18,7 @@ jQuery(function($) {
                         $('#brandStep' + step_no).empty();
                         $('#brandStep' + step_no).addClass('active');
                         $('#brandStep' + step_no).html(response);
+                        equalColumns();
                     }
                 }
             });
@@ -119,10 +120,11 @@ jQuery(function($) {
     });
 
     $(document).on("click", ".close_brand_step", function(event) {
+        toggleBtnClass($(this), true);
         event.preventDefault();
         var step_no = $(this).data('step-no');
         var brand_slug = $('#brand_slug').val();
-        if (brand_slug) {
+        if (brand_slug && step_no != 3) {
             $.ajax({
                 'type': 'POST',
                 dataType: 'html',
@@ -138,8 +140,8 @@ jQuery(function($) {
                         $('#brandStep' + step_no).empty();
                         $('#brandStep' + step_no).removeClass('active');
                         $('#brandStep' + step_no).html(response);
-                    }
-                    window.location.reload();
+                        toggleBtnClass($(this), false);
+                    } 
                 }
             });
         } else {
