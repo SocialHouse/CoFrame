@@ -684,7 +684,7 @@ if(!function_exists('week_month_overlay_buttons'))
             if($approver_status == 'pending' AND $post_details->status != 'scheduled')
             {
                 $html_to_return .= '<div class="before-approve">
-                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                    <button class="btn btn-approved btn-sm btn-default color-success change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
                 </div>
 
                 <div class="after-approve hide">
@@ -707,7 +707,7 @@ if(!function_exists('week_month_overlay_buttons'))
                 $html_to_return .= '</div>';
 
                 $html_to_return .= '<div class="after-approve hide">
-                    <button class="btn btn-approved btn-sm btn-secondary change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                    <button class="btn btn-approved btn-sm btn-default color-success change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
                 </div>';
             }
             elseif($post_details->status == 'scheduled')
