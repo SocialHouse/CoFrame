@@ -684,22 +684,22 @@ if(!function_exists('week_month_overlay_buttons'))
             if($approver_status == 'pending' AND $post_details->status != 'scheduled')
             {
                 $html_to_return .= '<div class="before-approve">
-                    <button class="btn btn-approved btn-sm btn-default color-success change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                    <button class="btn btn-approved btn-xs btn-default color-success change-approve-status"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
                 </div>
 
                 <div class="after-approve hide">
-                    <button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>
-                    <a class="change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
+                    <button class="btn btn-secondary btn-disabled btn-xs" disabled>Approved</button><br>
+                    <a class="change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
                 </div>';
             }
             elseif($phase_status == 'posted')
             {
-                $html_to_return .= '<button class="btn btn-approved btn-sm btn-default small_font_size">View Live</button>';                
+                $html_to_return .= '<button class="btn btn-approved btn-xs btn-default">View Live</button>';                
             }
             elseif($approver_status == 'approved' AND $post_details->status != 'scheduled')
             {
                 $html_to_return .= '<div class="before-approve">
-                    <button class="btn btn-secondary btn-disabled btn-sm small_font_size" disabled>Approved</button><br>';                    
+                    <button class="btn btn-default btn-disabled btn-xs" disabled>Approved</button><br>';                    
                     if($phase_status == 'pending')
                     {                                       
                         $html_to_return .= '<a  class="change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>';
@@ -707,12 +707,12 @@ if(!function_exists('week_month_overlay_buttons'))
                 $html_to_return .= '</div>';
 
                 $html_to_return .= '<div class="after-approve hide">
-                    <button class="btn btn-approved btn-sm btn-default color-success change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
+                    <button class="btn btn-approved btn-xs btn-default color-success change-approve-status" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="approved">Approve</button>
                 </div>';
             }
             elseif($post_details->status == 'scheduled')
             {
-                $html_to_return .= '<button type="button" class="btn btn-xs btn-disabled">Scheduled</button>';
+                $html_to_return .= '<button type="button" class="btn btn-xs btn-disabled btn-default">Scheduled</button>';
             }
         }
         else

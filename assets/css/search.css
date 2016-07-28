@@ -1,94 +1,3 @@
-.page-main-header .title-search {
-  border: 0;
-  font-size: 25px;
-  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-  padding: 0;
-  margin: 0;
-  line-height: 40px; 
-}
-
-#brand-manage .search-header {
-    padding: 10px 0; 
-}
-
-.search-header .date-header {
-    border: 0;
-    line-height: 40px;
-    margin: 0 6.66667rem 0 10px; 
-}
-
-.search-filters {
-  margin-top: 60px; 
-}
-
-.search-filters h2 {
-    border-bottom: 0;
-    border-top: 1px solid #000;
-    padding-top: 2rem;
-    padding-bottom: 0;
-    margin-bottom: 0; 
-}
-
-.search-filters h4 {
-    margin-top: 2rem;
-    border-top: 2px solid #000;
-    padding-top: 1.25rem;
-    padding-bottom: 1rem; 
-}
-
-.page-main-header .tf-icon-circle {
-  background: #dedede;
-  height: 40px;
-  width: 40px;
-  line-height: 52px; }
-  .page-main-header .tf-icon-circle:hover, .page-main-header .tf-icon-circle.active {
-    background: #c0c0c0; }
-.page-main-header .toolbar .tf-icon-circle {
-  margin-left: 10px; }
-
-.form-search {
-  position: relative;
-  width: 0px;
-  overflow: hidden;
-  right: -50px; 
-}
-.form-search input[type="text"].form-control {
-    background: #dedede;
-    border-radius: 8px;
-    border: 0;
-    outline: 0;
-    height: 40px;
-    font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-    width: 0; 
-}
-
-.form-search .btn {
-    position: absolute;
-    right: 11px;
-    top: 12px;
-    padding: 0;
-    background: 0;
-    transition: all 500ms; 
-}
-
-.date-header h2 {
-  font-size: 1.66667rem;
-  line-height: 60px;
-  border: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  letter-spacing: normal; 
-}
-
-#showSearch.tf-icon-circle {
-  transition: all 500ms !important; 
-}
-
-#showSearch.tf-icon-circle.active {
-    border-radius: 8px !important;
-    background: #dedede  !important; 
-}
-
 #post-details .error {
   color: red;
   text-transform: none !important;
@@ -196,12 +105,6 @@
     border-color: #c71f2a;
     color: #fff;
 }
-
-  footer.post-content-footer .before-approve{
-    text-align: center ! important; 
-    float: left;
-    margin-left: 4em;
-  }
 
   footer.post-content-footer .after-approve{
     float: left;
