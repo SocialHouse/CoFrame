@@ -7,7 +7,7 @@
 			if($this->user_id == $this->user_data['account_id'])
 			{
 				$show = 1;
-				if(count($brands) < $this->plan_data['brands'])
+				if(count($brands) < $this->plan_data['brands'] OR $this->plan_data['brands'] == 'unlimited')
 				{
 					?>
 					<a href="<?php echo base_url().'brands/add' ?>" class="btn btn-secondary btn-sm pull-sm-left">Add a Brand</a>
