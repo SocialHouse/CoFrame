@@ -11132,6 +11132,9 @@ a {
     font-size: 11px;
     margin-right: 1rem; }
 
+.before-approve, .after-approve {
+  display: inline-block; }
+
 .post-tags .fa + .fa {
   margin-left: -9px; }
 .post-tags .fa:before {
