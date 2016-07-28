@@ -98,4 +98,3 @@ if(isset($js_files))
     }
 }
 ?>
-<script type='text/javascript' src='<?php echo js_url(); ?>timeframe.js?ver=1.0.0'></script>

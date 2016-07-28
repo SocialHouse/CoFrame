@@ -225,7 +225,7 @@ jQuery(function($) {
 
 		/*Tag Functions*/
 		//assign tags to brand
-		$('body').on('click', '#selectBrandTags .tag', function() {
+		$('#selectBrandTags .tag').unbind('click').click(function(event){
 			if($(this).hasClass('save-list-tag')){
 				return;
 			}

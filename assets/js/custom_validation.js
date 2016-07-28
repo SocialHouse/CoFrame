@@ -65,6 +65,7 @@ jQuery(function($) {
 		create_post_validation($(this));
 	});
 	$(document).on('click', '.check-box.circle-border, .incrementer i', function() {
+		console.log($(this));
 		create_post_validation($(this));
 	});
 
@@ -115,7 +116,7 @@ jQuery(function($) {
 	);
 
 
-	$(document).on( 'click, blur, change', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm',
+	$(document).on( 'click, blur, change', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm, .incrementer i',
 		function( e )
 		{
 			var $div 		= $(this).closest('div.form-group'),
@@ -157,7 +158,7 @@ jQuery(function($) {
 	);
 
 
-	$(document).on( 'click, blur, change', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm',
+	$(document).on( 'click, blur, change', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm, .incrementer i',
 		function( e )
 		{
 			var $div 		= $(this).closest('div.form-group'),
@@ -201,7 +202,7 @@ jQuery(function($) {
 	);
 
 
-	$(document).on( 'click, blur, change', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"]',
+	$(document).on( 'click, blur, change', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"], .incrementer i',
 		function( e )
 		{
 			var date_error 	= $('.phase-two-error'),
@@ -239,7 +240,7 @@ jQuery(function($) {
 		}
 	);
 
-	$(document).on( 'click, blur, change', 'input[name="phase[2][approve_date]"], input[name="phase[2][approve_hour]"], input[name="phase[2][approve_minute]"], input[name="phase[2][approve_ampm]"]',
+	$(document).on( 'click, blur, change', 'input[name="phase[2][approve_date]"], input[name="phase[2][approve_hour]"], input[name="phase[2][approve_minute]"], input[name="phase[2][approve_ampm]"], .incrementer i',
 		function( e )
 		{
 			var date_error 	= $('.phase-three-error'),

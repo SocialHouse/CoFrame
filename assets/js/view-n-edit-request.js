@@ -291,8 +291,7 @@ jQuery(function($) {
     });
 
     // console.log($('input[name="attachment"]'));
-    $(document).on('change','.reply-attach',function()
-    {
+    $(document).on('change','.reply-attach',function(){
         if($(this).attr('id') != 'attachment')
         {
             var control = this;
@@ -388,4 +387,72 @@ jQuery(function($) {
             }
         });
     });
+
+    $(document).on('click','.post-remove-phase',function(){
+        if(confirm(language_message.delete_phase_confirmation)){
+            var div_to_delete = $(this).parents().parents('div:first');
+            var phase_id = $(this).attr('id');
+            $.ajax({
+                'type':'POST',
+                'data':{'phase_id':phase_id},
+                url: base_url+'api/delete_phase',                 
+                success: function(response)
+                {
+                    var json = $.parseJSON(response);
+                    if(json.status == 'success')
+                    {
+                        $(div_to_delete).remove();
+                        
+                        var all_phases_count = ($('.phase_container').length) - 1;
+                        var all_phases = $('.phase_container');
+                        var i =1;
+                        $.each(all_phases, function( index, value ) 
+                        {
+                            if(i <=all_phases_count);
+                            {
+                                $(value).children('#phase_number:first').val(i);
+                                $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));
+                            }
+                //          $(value).children('#phase_number:first').val(i);
+                            // $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));                          
+                        });
+                    }
+                }
+            }); 
+        }        
+    });
+
+    $(document).on('click','#add_next_approval_phase',function(){
+        var number_of_phases = ($('.phase_container').length) - 2;      
+        var next_phase = $('.phase_container:eq('+number_of_phases+')').children('#phase_number').val();
+        ++next_phase;
+        var phase_html = $('.hide:first').clone();      
+        var html_div = phase_html.html();
+        
+        html_div = html_div.replace('Phase 1','Phase '+(next_phase));       
+        html_div = html_div.replace('<input id="phase_number" value="a" type="hidden">','<input type="hidden" id="phase_number" value="'+next_phase+'">');
+        // console.log(html_div);
+        html_div = html_div.split('users[a]').join('phase[users]['+next_phase+']');
+        html_div = html_div.replace('approve_year[a]','phase[approve_year]['+next_phase+'][]');
+        html_div = html_div.replace('approve_month[a]','phase[approve_month]['+next_phase+'][]');
+        html_div = html_div.replace('approve_day[a]','phase[approve_day]['+next_phase+'][]');
+        html_div = html_div.replace('approve_time[a]','phase[approve_time]['+next_phase+'][]');     
+        html_div = html_div.replace('note[a]','phase[note]['+next_phase+'][]');         
+        // html_div = html_div.replace('<input class="phases_to_add" name="phases_to_add" value="'+phase_to_add+'" type="text"><input class="phase_number" name="phase_number" value="1" type="text">','');
+
+        var next_phase_button = '';
+        // if(phase_to_add > phase_added)
+        // {
+        //  next_phase_button = '<div class="col-md-12 add_phase_btn_div"><button style="margin-top:10px" type="button" class="btn btn-primary add_phases_btn pull-right" id="add_phases">Next</button></div>';
+        // }
+        html_div = '<div class="col-md-12 well phase_container"><a href="javascript:void(0)"  id="'+next_phase+'" class="pull-right remove-phase-edit">&times;</a>'+html_div+next_phase_button+'</div>';        
+        $(html_div).appendTo('.all_phases');
+
+        $('.approve_time').timepicker({
+            minuteStep: 5,
+            showInputs: false,
+            disableFocus: true
+        });
+    });
+
 });
