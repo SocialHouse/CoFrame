@@ -22,7 +22,7 @@ if(!empty($post_images)){
                        }
 				?>
 			</div>
-			<div class="pull-left">
+			<div class="user-profile-details">
 				<span class="post-user-name">
 					<?php echo (!empty($post_details->user))? $post_details->user :''; ?>
 					<span class="no-of-photos">added <span class="photos_count"><?php echo $img_count; ?> new photo<?php if($img_count > 1) echo 's';?></span></span>

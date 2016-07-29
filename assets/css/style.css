@@ -8533,6 +8533,8 @@ x:-o-prefocus, .qtip .qtip-tip {
     height: 40px;
     width: 40px;
     margin-right: 8px; }
+  .fb_post .user-profile-details {
+    margin-left: 48px; }
   .fb_post .post-user-name {
     font-weight: bold;
     color: #365899;

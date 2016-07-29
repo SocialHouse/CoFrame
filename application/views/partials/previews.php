@@ -6,7 +6,7 @@
 					<div class="pull-left">
 						<img class="user-profile-img" src="<?php echo img_url().'default_profile.jpg'; ?>">	
 					</div>
-					<div class="pull-left">
+					<div class="user-profile-details">
 						<span class="post-user-name">
 							<?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?><span class="no-of-photos"></span>
 						</span>
