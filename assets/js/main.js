@@ -424,7 +424,8 @@ jQuery(function($) {
 			},
 			position: {
 				my: 'top center',
-				at: 'bottom center'
+				at: 'bottom center',
+				viewport: $('.content-area')
 			},
 			style: {
 				classes: 'qtip-shadow',
