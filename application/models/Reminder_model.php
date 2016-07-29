@@ -32,7 +32,7 @@ class Reminder_model extends CI_Model
 
 	function get_brand_reminders($user_id = 0, $brand_id, $limit = 0, $type='all')
 	{
-	
+		$this->db->select('id, due_date, created_at, text, post_id, brand_id, status');	
 		if($user_id > 0)
 			$this->db->where('user_id',$user_id);
 		if($limit > 0)
@@ -41,9 +41,8 @@ class Reminder_model extends CI_Model
 			$this->db->where('type',$type);
 
 		$this->db->where('brand_id',$brand_id);
-
-
-
+		$this->db->where('status',0);
+		$this->db->order_by('due_date','ASC');
 		$query = $this->db->get('reminders');
 		
 
@@ -66,6 +65,7 @@ class Reminder_model extends CI_Model
 		$this->db->or_where('due_date >=', date('Y-m-d H:i:s'));
 		$this->db->group_end();
 		$this->db->limit(1);
+		$this->db->order_by('due_date','ASC');
 		$query = $this->db->get('reminders');
 		if($query->num_rows() > 0)
 		{

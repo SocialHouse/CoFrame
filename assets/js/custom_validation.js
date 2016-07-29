@@ -1,4 +1,5 @@
 jQuery(function($) {
+	var compare_array = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
 
 	//update single date calendar on input blur
 	// This function enable and disable the phase button 
@@ -72,15 +73,15 @@ jQuery(function($) {
 	$(document).on( 'change','input[type="file"]', function(e){
 		e.preventDefault();
 		if( $(this).attr('id') != 'fileInput'){
-			create_post_validation($(this));
+			create_post_validation($(this),'');
 		}
 	});
 
-	$(document).on('click blur change',"#postCopy, .single-date-select, .hour-select, .minute-select, .time-input, .check-box.circle-border,.slate-post .incrementer i", function () {
-		create_post_validation($(this));
+	$(document).on('click blur change keyup',"#postCopy, .single-date-select, .hour-select, .minute-select, .time-input, .check-box.circle-border,.slate-post .incrementer i", function () {
+		create_post_validation($(this),'');
 	})
 
-	$(document).on( 'click blur change', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm, .default_approver_time .incrementer i',
+	$(document).on( 'click blur change keyup', '#only_ph_one_date, #only_ph_one_hour, #only_ph_one_minute, #only_ph_one_ampm, .default_approver_time .incrementer i',
 		function( e )
 		{
 			var $div 		= $(this).closest('div.form-group'),
@@ -93,13 +94,15 @@ jQuery(function($) {
 				new_date 	= $('#only_ph_one_date').val(),
 				new_hour 	= $('#only_ph_one_hour').val(),
 				new_minute 	= $('#only_ph_one_minute').val(),
-				new_ampm 	= $('#only_ph_one_ampm').val();
+				new_ampm 	= $('#only_ph_one_ampm').val(),
+				is_error  	= true;
 			
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
 					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
-						create_post_validation($(this));
+						is_error = false;
 					}else{
+						is_error = true;
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
@@ -115,12 +118,16 @@ jQuery(function($) {
 				// $('#hm_error').text('Please enter Slate date');
 				// $('#hm_error').show();
 			}
+
+			create_post_validation($(this),is_error);
+			// create post validation ();
 		}
 	);
 
-	$(document).on( 'click, blur, change', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm, .1-phase-time-input .incrementer i',
+	$(document).on( 'click blur change keyup', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm, .1-phase-time-input .incrementer i',
 		function( e )
 		{
+			console.log($(this));
 			var $div 		= $(this).closest('div.form-group'),
 				date_error =  $('.phase-one-error-all'),
 				phase_no 	= 0 ,
@@ -131,10 +138,9 @@ jQuery(function($) {
 				new_date 	= $('#ph_one_date').val(),
 				new_hour 	= $('#ph_one_hour').val(),
 				new_minute 	= $('#ph_one_minute').val(),
-				new_ampm 	= $('#ph_one_ampm').val();
+				new_ampm 	= $('#ph_one_ampm').val(),
+				is_error  	= true;
 				
-			create_post_validation($(this));
-
 			if(old_date != ''){
 
 				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
@@ -142,10 +148,11 @@ jQuery(function($) {
 						
 						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
-						console.log('141');
-						comparePhases(current_ph_date ,slate_date, date_error,phase_no);
-						
+						console.log([convertDateFormat(current_ph_date) ,convertDateFormat(slate_date)]);
+						is_error = comparePhases(current_ph_date ,slate_date, date_error,phase_no);
+
 					}else{
+						is_error = true;
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
@@ -157,10 +164,13 @@ jQuery(function($) {
 				date_error.text(language_message.enter_slate_date);
 				date_error.show();
 			}
+
+			// create post validation ();
+			create_post_validation($(this),is_error);
 		}
 	);
 
-	$(document).on( 'click, blur, change', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"], .2-phase-time-input .incrementer i',
+	$(document).on( 'click blur change keyup', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"], .2-phase-time-input .incrementer i',
 		function( e )
 		{
 			var date_error 	= $('.phase-two-error'),
@@ -172,7 +182,8 @@ jQuery(function($) {
 				old_date 	= $('#ph_one_date').val(),
 				old_hour 	= $('#ph_one_hour').val(),
 				old_minute 	= $('#ph_one_minute').val(),
-				old_ampm 	= $('#ph_one_ampm').val();
+				old_ampm 	= $('#ph_one_ampm').val(),
+				is_error  	= true;
 
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
@@ -181,9 +192,10 @@ jQuery(function($) {
 						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 
-						comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
 						
 					}else{
+						is_error = true;
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
@@ -195,10 +207,13 @@ jQuery(function($) {
 				date_error.text(language_message.enter_slate_date);
 				date_error.show();
 			}
+
+			// create post validation ();
+			create_post_validation($(this),is_error);
 		}
 	);
 
-	$(document).on( 'click, blur, change', 'input[name="phase[2][approve_date]"], input[name="phase[2][approve_hour]"], input[name="phase[2][approve_minute]"], input[name="phase[2][approve_ampm]"], .3-phase-time-input .incrementer i',
+	$(document).on( 'click blur change keyup', 'input[name="phase[2][approve_date]"], input[name="phase[2][approve_hour]"], input[name="phase[2][approve_minute]"], input[name="phase[2][approve_ampm]"], .3-phase-time-input .incrementer i',
 		function( e )
 		{
 			var date_error 	= $('.phase-three-error'),
@@ -210,7 +225,8 @@ jQuery(function($) {
 				old_date 	= $('input[name="phase[1][approve_date]"]').val(),
 				old_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
 				old_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
-				old_ampm 	= $('input[name="phase[1][approve_ampm]"]').val();
+				old_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),
+				is_error  	= true;
 
 			if(old_date != ''){
 				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
@@ -219,9 +235,10 @@ jQuery(function($) {
 						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
 
-						comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
 
 					}else{
+						is_error = true;
 						date_error.text(language_message.enter_hour_minutes);
 						date_error.show();
 					}
@@ -233,6 +250,9 @@ jQuery(function($) {
 				$('#hm_error').text(language_message.enter_hour_minutes);
 				$('#hm_error').show();
 			}
+
+			// create post validation ();
+			create_post_validation($(this),is_error);
 		}
 	);
 
@@ -250,7 +270,7 @@ jQuery(function($) {
 			sdate_ampm 		= $('input[name="post-ampm"]').val(),
 			$display_error 	= true,
 			message 		='',
-			results 		= false;
+			is_error  		= true;
 
 		startDate = convertDateFormat(startDate);
 
@@ -269,7 +289,6 @@ jQuery(function($) {
 			}
 		}else{
 			var slate_date = sdate+' '+sdate_hour+':'+sdate_minute+' '+sdate_ampm;
-			console.log(slate_date);
 			slate_date = convertDateFormat(slate_date);
 			if( startDate == '' ){
 				if(phase_no == 0 ){
@@ -291,8 +310,8 @@ jQuery(function($) {
 					if(phase_no == 0){
 						endDate =convertDateFormat('');
 					}
-					console.log([startDate,endDate, slate_date]);
-					if (moment(startDate).isBetween(endDate, slate_date, ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'])){
+					console.log([endDate,startDate,slate_date]);
+					if (moment(startDate).isBetween(endDate, slate_date, compare_array)){
 						$display_error = false;
 						console.log('isBetween true');
 					}else{
@@ -315,8 +334,9 @@ jQuery(function($) {
 			error_div.empty();
 			error_div.hide();
 			message ='';
-			results = true;
+			is_error = false;
 		}
+		return is_error;
 	};
 
 	isValidNumber = function(events, limit, current_txt_box ) {
@@ -332,35 +352,17 @@ jQuery(function($) {
 		return false;
 	};
 
-	compareDateTime = function(startDate, endDate){
-		var $isValid = false;
-		st_date = convertDateFormat(startDate);
-		st_hr = parseInt(moment(new Date (startDate)).format('H'));
-		st_mm = parseInt(moment(new Date (startDate)).format('mm'));
-
-		end_date =convertDateFormat(endDate);
-		end_hr =parseInt(moment(new Date (endDate)).format('H'));
-		end_mm = parseInt(moment(new Date (endDate)).format('mm'));
-		console.log(moment(startDate).isBefore(endDate, ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']));
-		console.log([startDate,endDate]);
-		if(moment(startDate).isBefore(endDate, ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'])){
-			$isValid = true;
+	convertDateFormat = function(userDate){
+		var result;
+		if(userDate){
+			result = moment(new Date (userDate)).format('YYYY-MM-DD H:mm');
+		}else{
+			result = moment(new Date ()).format('YYYY-MM-DD H:mm');
 		}
+		return result;
+	}
 
-		return $isValid;
-	};
-
-	compareDate = function(startDate, endDate){
-		startDate = moment(new Date (startDate)).format('YYYY-MM-DD');
-		endDate = moment(new Date (endDate)).format('YYYY-MM-DD');
-		if (startDate >= endDate) {
-			return true;
-		}else {
-			return false;
-		}
-	};
-
-	create_post_validation = function(field){
+	create_post_validation = function(field ,checked_data){
 		
 		var $ = jQuery;
 		var disable_btn 		= true;
@@ -389,11 +391,14 @@ jQuery(function($) {
 			var startDate = new Date();
 			startDate = moment(new Date (startDate)).format('YYYY-MM-DD');
 			old_date = moment(new Date (old_date)).format('YYYY-MM-DD');
-			if(startDate <= old_date){
+			console.log( [startDate ,old_date]);
+			if(!moment(old_date).isAfter(startDate, ['year', 'month', 'week', 'day'])){
+				console.log('is_true');
 				date_error.text(language_message.date_greater_than_today );
 				date_error.show();
 				disable_btn = true;
 			}else{
+				console.log('is_false');
 				date_error.empty();
 				date_error.hide();
 			}
@@ -437,14 +442,14 @@ jQuery(function($) {
 						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
 						slate_date = convertDateFormat(slate_date);
 						var today = convertDateFormat('');
-						if(moment(slate_date).isAfter(today, ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'])){
+						if(moment(slate_date).isAfter(today, compare_array)){
 							if($(".check-box.circle-border").hasClass('selected')){							
 								if( approve_date !='' && approve_hour !='' && approve_minute !='' ){
 									$('.phase-one-error').hide();
 									var ed_date = approve_date+' '+approve_hour+':'+approve_minute+' '+approve_ampm;
 									ed_date = convertDateFormat(ed_date);
 									console.log([today,ed_date,slate_date]);
-									if (moment(ed_date).isBetween(today, slate_date, ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'])){
+									if (moment(ed_date).isBetween(today, slate_date, compare_array)){
 										disable_btn = false;
 									}else{
 										disable_btn = true;
@@ -497,18 +502,20 @@ jQuery(function($) {
 		}		
 		equalColumns();
 		//console.log('disable_btn: '+disable_btn);
-		toggleBtnClass("#submit-approval", disable_btn);
+		/*
+		* 	if checked_data is true means there is an error 
+		*	if checked_data is false means there is no error 
+		*	if disable_btn is  true  means there is an error 
+		*	if disable_btn is  false means there is no error 
+		*/
+		if(checked_data != ''){
+			if( checked_data && disable_btn)
+				toggleBtnClass("#submit-approval", true);
+			else
+				toggleBtnClass("#submit-approval", false);
+		}else{
+			toggleBtnClass("#submit-approval", disable_btn);
+		}		
 		//toggleBtnClass("#draft", disable_btn);
 	}
-
-	convertDateFormat = function(userDate){
-		var result;
-		if(userDate){
-			result = moment(new Date (userDate)).format('YYYY-MM-DD H:mm');
-		}else{
-			result = moment(new Date ()).format('YYYY-MM-DD H:mm');
-		}
-		return result;
-	}
-
 });

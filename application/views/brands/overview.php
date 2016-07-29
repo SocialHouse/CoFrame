@@ -54,7 +54,7 @@
 									{
 										foreach($reminders as $reminder)
 										{
-											$symbol = '';						
+											$symbol = '';
 											if(!empty($reminder->due_date))
 											{
 												if(date('Y-m-d H:i') <= date('Y-m-d H:i',strtotime($reminder->due_date)) AND date('Y-m-d H:i',strtotime('12 hours')) >= date('Y-m-d H:i',strtotime($reminder->due_date)))
@@ -66,7 +66,7 @@
 											<li>
 												<?php
 													$date = !empty($reminder->due_date) ? date('m/d',strtotime($reminder->due_date)): date('m/d',strtotime($reminder->created_at));
-													echo '<a href="">'.$reminder->text." ".$symbol.'</a>';
+													echo '<a href="'.base_url().'edit-request/'.$reminder->post_id.'">'.$reminder->text." ".$symbol.'</a>';
 												?>
 											</li>
 											<?php
