@@ -1305,7 +1305,7 @@ a {
 }
 .fa-custom-circle {
 	border-radius: 100%;
-	font-size: .75rem !important;
+	font-size: 11px !important;
 }
 //Icomoon
 @font-face {
@@ -1414,6 +1414,8 @@ a {
 	.summary-list & {
 		background-position: 3px center;
 		background-size: 9px;
+		float: left;
+		margin-top: 7px;
 	}
 }
 .tf-icon-ticktock {
@@ -1488,23 +1490,23 @@ a {
 	padding: 0;
 	li {
 		border-top: 1px solid #000;
-		line-height: remCalc(34px);
+		line-height: 34px;
 		@include clearfix;
 	}
 	.fa {
-		font-size: remCalc(18px);
+		font-size: 18px;
 		float: left;
 		margin-right: .5rem; 
-		line-height: remCalc(34px);
+		line-height: 34px;
 	}
 	[class*="tf-icon"] {
 		margin-right: .5rem; 
 		display: inline-block;
 	}
 	.fa-custom-circle {
-		height: remCalc(17px);
-		width: remCalc(17px);
-		line-height: remCalc(17px);
+		height: 17px;
+		width: 17px;
+		line-height: 17px;
 		text-align: center;
 		margin-top: 7px;
 	}

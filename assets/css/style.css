@@ -9919,7 +9919,7 @@ a {
 
 .fa-custom-circle {
   border-radius: 100%;
-  font-size: .75rem !important; }
+  font-size: 11px !important; }
 
 @font-face {
   font-family: 'icomoon';
@@ -10016,7 +10016,9 @@ a {
   width: 16px; }
   .summary-list .tf-icon-schedule {
     background-position: 3px center;
-    background-size: 9px; }
+    background-size: 9px;
+    float: left;
+    margin-top: 7px; }
 
 .tf-icon-ticktock {
   background-image: url(../images/icons/ticktock.png);
@@ -10083,23 +10085,23 @@ a {
   padding: 0; }
   .timeframe-list li {
     border-top: 1px solid #000;
-    line-height: 2.26667rem; }
+    line-height: 34px; }
     .timeframe-list li::after {
       content: "";
       display: table;
       clear: both; }
   .timeframe-list .fa {
-    font-size: 1.2rem;
+    font-size: 18px;
     float: left;
     margin-right: .5rem;
-    line-height: 2.26667rem; }
+    line-height: 34px; }
   .timeframe-list [class*="tf-icon"] {
     margin-right: .5rem;
     display: inline-block; }
   .timeframe-list .fa-custom-circle {
-    height: 1.13333rem;
-    width: 1.13333rem;
-    line-height: 1.13333rem;
+    height: 17px;
+    width: 17px;
+    line-height: 17px;
     text-align: center;
     margin-top: 7px; }
   .timeframe-list.brand-list {
