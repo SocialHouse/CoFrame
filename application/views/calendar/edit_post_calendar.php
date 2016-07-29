@@ -234,7 +234,7 @@
 													</div>
 													<div class="form-group pull-sm-left">
 														<div class="pull-xs-left">
-															<div class="time-select form-control form-control-sm phase-time-input">
+															<div class="time-select form-control form-control-sm phase-time-input <?php echo $phase_no + 1;?>-phase-time-input">
 																<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $phase_no;?>][approve_hour]"  value="<?php echo date('h' , strtotime($obj[0]->approve_by))?>">
 																<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $phase_no;?>][approve_minute]"  value="<?php echo date('i' , strtotime($obj[0]->approve_by))?>">
 																<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $phase_no;?>][approve_ampm]"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
@@ -347,7 +347,7 @@
 													</div>
 													<div class="form-group pull-sm-left">
 														<div class="pull-xs-left">
-															<div class="time-select form-control form-control-sm phase-time-input">
+															<div class="time-select form-control form-control-sm phase-time-input <?php echo $i;?>phase-time-input">
 																<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[<?php echo $i- 1;?>][approve_hour]">
 																<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[<?php echo $i- 1;?>][approve_minute]">
 																<input type="text" class="time-input amselect" value="am" name="phase[<?php echo $i- 1;?>][approve_ampm]">

@@ -17,7 +17,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
-					<div class="time-select form-control form-control-sm phase-time-input">
+					<div class="time-select form-control form-control-sm phase-time-input 1-phase-time-input">
 						<input type="text" id="ph_one_hour" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
 						<input type="text" id="ph_one_minute" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[0][approve_minute]">
 						<input type="text" id="ph_one_ampm" class="time-input amselect" value="am" name="phase[0][approve_ampm]">
@@ -63,7 +63,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
-					<div class="time-select form-control form-control-sm phase-time-input">
+					<div class="time-select form-control form-control-sm 2-phase-time-input">
 						<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[1][approve_hour]">
 						<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[1][approve_minute]">
 						<input type="text" class="time-input amselect" value="am" name="phase[1][approve_ampm]">
@@ -109,7 +109,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
-					<div class="time-select form-control form-control-sm phase-time-input">
+					<div class="time-select form-control form-control-sm 3-phase-time-input">
 						<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[2][approve_hour]">
 						<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[2][approve_minute]">
 						<input type="text" class="time-input amselect" value="am" name="phase[2][approve_ampm]">
