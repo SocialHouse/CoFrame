@@ -3476,6 +3476,11 @@ textarea.form-control {
 		margin-left: -8px;
 		font-size: 18px;
 	}
+	&.form-control-sm {
+		.incrementer {
+			margin-left: remCalc(-15px);
+		}
+	}
 }
 
 .form-control-time {

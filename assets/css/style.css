@@ -11597,6 +11597,8 @@ textarea.form-control {
   position: absolute;
   margin-left: -8px;
   font-size: 18px; }
+.time-select.form-control-sm .incrementer {
+  margin-left: -1rem; }
 
 .form-control-time {
   max-width: 4.5rem; }
