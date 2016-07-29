@@ -385,6 +385,15 @@
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
 				var btn = this;	
+
+				if($(this).attr('name') == 'resubmit')
+				{
+					$('#resubmit').val('resubmit');
+				}
+				else
+				{
+					$('#resubmit').val('');	
+				}
 					
 				if($(this).attr('id') == 'draft')
 				{
@@ -407,7 +416,7 @@
 					if( allFiles ){
 						var file_count = 0;
 						$.each( allFiles, function( i, file ){
-							if(typeof(file) == 'object'){
+							if(typeof(file) == 'object' && file.name){
 								ajaxData.append( 'file['+file_count+']',file,file.name);
 								file_count++;
 							}

@@ -270,12 +270,12 @@
 												<h5>Pending Approvals:</h5>
 												<ul class="timeframe-list user-list approval-list  clearfix">
 													<?php
-														foreach ($phs['phase_users']as $key => $user) {
+														foreach ($phs['phase_users']as $key => $user) {				
 															?>
-															<li class="pull-sm-left pending">
+															<li class="pull-sm-left <?php echo $user->status ?>">
 																<?php
-																	if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png')) {
-													                	echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
+																	if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png')) {
+													                	echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" />';
 													                }else{
 													                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg">';	
 													                }

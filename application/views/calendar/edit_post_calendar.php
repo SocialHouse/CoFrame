@@ -2,7 +2,7 @@
 
 	<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">
 	<input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>" id="redirect_url">
-
+	<input type="hidden" name="resubmit" id="resubmit" value="">
 	<div  id="edit-post-manage" class="row equal-columns create">
 		<div class="col-md-4 equal-height">
 			<div class="container-post-preview post-content">
@@ -413,7 +413,7 @@
 							<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
 							<?php 
 								if($phase_count > 0){
-									echo '<button type="submit" class="btn btn-sm btn-default pull-sm-right" name="resubmit" value="resubmit" >Resubmit to Phases</button>';
+									echo '<button type="submit" class="btn btn-sm btn-default pull-sm-right submit-btn" name="resubmit" value="resubmit" >Resubmit to Phases</button>';
 								}
 							?>
 						</footer>

@@ -729,7 +729,7 @@ if(!function_exists('week_month_overlay_buttons'))
                 }
                 elseif($post_details->status == 'pending')
                 {
-                    $html_to_return .= '<button class="btn btn-xs btn-default schedule-post" id="<?php echo $post_details->id; ?>">Schedule</button>
+                    $html_to_return .= '<button class="btn btn-xs btn-default schedule-post" id="'.$post_details->id.'">Schedule</button>
                     <button type="button" class="btn btn-xs btn-default">Post Now</button>';
                 }
                 elseif($post_details->status == 'posted')
@@ -861,6 +861,18 @@ if(!function_exists('deleteDirectory'))
         if(!empty($result))
         {
             return $result[0]->company_name;
+        }
+        return FALSE;
+    }
+
+    function get_users_full_name()
+    {
+        $CI = &get_instance();
+        $CI->load->model('timeframe_model');
+        $result = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $CI->user_id),'first_name,last_name');
+        if(!empty($result))
+        {
+            return ucfirst($result[0]->first_name).' '.ucfirst($result[0]->last_name);
         }
         return FALSE;
     }
