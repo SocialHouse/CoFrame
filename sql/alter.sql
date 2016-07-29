@@ -39,17 +39,6 @@ insert  into `timezone`(`id`,`timezone`,`value`) values (29,'(GMT +10:00) Easter
 insert  into `timezone`(`id`,`timezone`,`value`) values (30,'(GMT +11:00) Magadan, Solomon Islands, New Caledonia',11);
 insert  into `timezone`(`id`,`timezone`,`value`) values (31,'(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka',12);
 
-
-INSERT INTO `outlets` (`id`, `outlet_name`) VALUES
-(1, 'Facebook'),
-(2, 'Twitter'),
-(3, 'Instagram'),
-(4, 'Linkedin'),
-(5, 'Vine'),
-(6, 'Pinterest'),
-(7, 'Youtube'),
-(8, 'Tumblr');
-
 INSERT INTO `countries` (`id`, `name`) VALUES
 (1, 'United States'),
 (2, 'Canada'),
@@ -300,10 +289,9 @@ INSERT INTO `outlets` VALUES(1, 'Facebook', 'FACEBOOK');
 INSERT INTO `outlets` VALUES(2, 'Twitter', 'TWITTER');
 INSERT INTO `outlets` VALUES(3, 'Instagram', 'INSTAGRAM');
 INSERT INTO `outlets` VALUES(4, 'Linkedin', 'LINKEDIN');
-INSERT INTO `outlets` VALUES(5, 'Vine', 'VINE');
-INSERT INTO `outlets` VALUES(6, 'Pinterest', 'PINTEREST');
-INSERT INTO `outlets` VALUES(7, 'Youtube', 'YOUTUBE');
-INSERT INTO `outlets` VALUES(8, 'Tumblr', 'TUMBLR');
+INSERT INTO `outlets` VALUES(5, 'Pinterest', 'PINTEREST');
+INSERT INTO `outlets` VALUES(6, 'Youtube', 'YOUTUBE');
+INSERT INTO `outlets` VALUES(7, 'Tumblr', 'TUMBLR');
 
 --- 03-06-2016 ---
 ALTER TABLE `brands` DROP `user_id`;

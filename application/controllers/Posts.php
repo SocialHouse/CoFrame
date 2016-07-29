@@ -163,31 +163,7 @@ class Posts extends CI_Controller {
 			    			
 			    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
 			    			}
-			    		}					    		
-		    			
-		    			// Create notification for a created post and change message if it's a draft.
-		    			if ($status == "draft")
-		    			{
-		    				$reminder_data = array(
-		    										'post_id' => $inserted_id,
-		    										'user_id' => $this->user_id,
-		    										'type' => 'notification',
-		    										'brand_id' => $post_data['brand_id'],
-		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' draft'
-		    									);
-		    			}
-		    			else
-		    			{
-		    				$reminder_data = array(
-		    										'post_id' => $inserted_id,
-		    										'user_id' => $this->user_id,
-		    										'type' => 'notification',
-		    										'brand_id' => $post_data['brand_id'],
-		    										'text' => 'Created '.$outlet_data[0]->outlet_name.' post'
-		    									);
-	    				}
-
-	    				$this->timeframe_model->insert_data('reminders',$reminder_data);	    			
+			    		}
 			    		
 	    				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]))
 						{

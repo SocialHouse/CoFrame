@@ -253,6 +253,7 @@ class Calendar extends CI_Controller {
 				$this->data['slug'] = $this->uri->segment(4);
 				$this->data['post_id'] = $this->uri->segment(5);
 				$this->data['user_is'] = $this->uri->segment(6) ? $this->uri->segment(6) : '';
+				$this->data['post_details'] = $this->post_model->get_post($this->data['post_id']);
 			}
 			$this->load->view('calendar/'.$path, $this->data);
 		}
@@ -267,6 +268,10 @@ class Calendar extends CI_Controller {
 		if($redirect_url == 'drafts')
 		{
 			$this->data['redirect_url'] = 'drafts';
+		}
+		elseif($redirect_url == 'approvals')
+		{
+			$this->data['redirect_url'] = 'approvals';
 		}
 		else if($redirect_url == 'day')
 		{
@@ -333,6 +338,10 @@ class Calendar extends CI_Controller {
 	{
 		$sdate = '';
 		$post_data = $this->input->post();
+
+		$previous_post_details = $this->post_model->get_post($post_data['post_id']);
+		$approvers = get_post_approvers($post_data['post_id']);
+	
 		$schedule_date = $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
 		$schedule_date = date("Y-m-d H:i", strtotime($schedule_date));
 		$condition = array('id' => $post_data['post_id']);
@@ -340,6 +349,23 @@ class Calendar extends CI_Controller {
 		$result = $this->timeframe_model->update_data('posts',$scheduler_array,$condition);
 		if($result){
 			$post_details = $this->post_model->get_post($post_data['post_id']);
+			if(!empty($approvers) AND !empty($approvers['result']))
+			{
+				foreach($approvers['result'] as $approver)
+				{
+					$reminder_data = array(
+	    								'post_id' => $post_data['post_id'],
+	    								'user_id' => $approver['user_id'],
+	    								'type' => 'reminder',
+	    								'brand_id' => $post_details->brand_id,
+	    								'due_date' => $approver['approve_by'],
+	    								'text' => 'Date change: '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('Y-m-d h:i a',strtotime($schedule_date)).' by '.get_users_full_name($post_details->user_id)
+    								);
+
+					$this->timeframe_model->insert_data('reminders',$reminder_data);
+				}
+			}
+
 			if(!empty($post_data['selcted_data'])){
 				$sdate = $post_data['selcted_data'];
 			}
@@ -582,6 +608,9 @@ class Calendar extends CI_Controller {
 	    										'status' => 'pending',
 	    									);
 								$this->timeframe_model->update_data('phases_approver',$phase_data,array('phase_id'=>$new_phase['phase_id']));
+
+								$this->timeframe_model->update_data('posts',$phase_data,array('id'=>$new_phase['post_id']));
+
 								$post['status'] = 'pending';
 							}
 							
@@ -615,7 +644,7 @@ class Calendar extends CI_Controller {
 				}
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');
-
+				
 				if($post_data['redirect_url']== 'view-request' || $post_data['redirect_url']== 'edit-request' ){
 					redirect(base_url().$post_data['redirect_url'].'/'.$post_data['post_id']);
 				}else{
@@ -676,12 +705,32 @@ class Calendar extends CI_Controller {
 		$post_data = $this->input->post();
 		if(!empty($post_data))
 		{
+			$previous_post_details = $this->post_model->get_post($post_data['post_id']);
+			$approvers = get_post_approvers($post_data['post_id']);
+
 			$date_time =  $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
 			
 			$save_data = array(
 							'slate_date_time' => date('Y-m-d H:i:s',strtotime($date_time))
 						);
 			$this->timeframe_model->update_data('posts',$save_data,array('id' => $post_data['post_id']));
+
+			if(!empty($approvers) AND !empty($approvers['result']))
+			{
+				$post_details = $this->post_model->get_post($post_data['post_id']);
+				foreach($approvers['result'] as $approver)
+				{
+					$reminder_data = array(
+	    								'post_id' => $post_data['post_id'],
+	    								'user_id' => $approver['user_id'],
+	    								'type' => 'reminder',
+	    								'brand_id' => $post_details->brand_id,
+	    								'due_date' => $approver['approve_by'],
+	    								'text' => 'Date change: '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('Y-m-d h:i a',strtotime($date_time)).' by '.get_users_full_name($post_details->user_id)
+    								);
+					$this->timeframe_model->insert_data('reminders',$reminder_data);
+				}
+			}
 		}
 	}
 }

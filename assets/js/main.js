@@ -1837,21 +1837,21 @@ jQuery(function($) {
 });
 
 function alert_notification() {
-	jQuery.ajax({
-		url: base_url + 'brands/get_active_notifications',
-		type: 'get',
-		dataType: 'json',
-		success: function(response) {
-			if (response) {
-				n = new Notification("Please check the notification", {
-					body: response.text,
-					icon: "star.ico"
-				});
-			}
-		}
-	});
-
 	setTimeout(function() {
+		jQuery.ajax({
+			url: base_url + 'brands/get_active_notifications',
+			type: 'get',
+			dataType: 'json',
+			success: function(response) {
+				if (response) {
+					n = new Notification("Please check the notification", {
+						body: response.text,
+						icon: "star.ico"
+					});
+				}
+			}
+		});
+		
 		alert_notification();
 	}, 10000);
 }

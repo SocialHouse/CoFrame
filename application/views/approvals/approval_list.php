@@ -7,6 +7,8 @@
 		<?php
 	}
 ?>
+<input type="hidden" name="calendar_type" id="calendar_type" value="approvals">
+
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
