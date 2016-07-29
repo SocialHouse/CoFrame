@@ -8638,7 +8638,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8666,10 +8666,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -8865,7 +8865,7 @@ body, html {
   @media (min-width: 1280px) and (min-height: 768px) {
     body, html {
       font-size: 14px; } }
-  @media (min-width: 1680px) {
+  @media (min-width: 1820px) {
     body, html {
       font-size: 15px; } }
 
@@ -10236,16 +10236,24 @@ a {
   padding-bottom: 2rem; }
   .brand-steps.brand-settings {
     padding-top: 0; }
+    .brand-steps.brand-settings .active.brand-step h4 .btn {
+      border-color: transparent;
+      background: none;
+      cursor: default;
+      color: #000; }
   .brand-steps > .row {
     margin-left: -2rem;
     margin-right: -2rem; }
 
 .brand-step {
-  padding: 2rem 2rem 0;
+  padding: 2rem 1rem 0;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: .25em;
   transition: all 500ms; }
+  @media (min-width: 1820px) {
+    .brand-step {
+      padding: 2rem 2rem 0; } }
   .brand-step h3 {
     font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif;
     font-size: 0.86667rem;
@@ -10274,10 +10282,13 @@ a {
   .brand-step .add-brand-details {
     font-size: 1rem; }
   .brand-step .add-link {
-    margin: 120px 0 2.93333rem;
+    margin: 115px 0 2.93333rem;
     display: block;
     padding: 10px 0 10px 5px;
     font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif; }
+    @media (min-width: 1820px) {
+      .brand-step .add-link {
+        margin: 120px 0 2.93333rem; } }
     .brand-step .add-link .tf-icon {
       margin-right: 16px; }
     #brandStep3 .brand-step .add-link {
@@ -10285,7 +10296,8 @@ a {
   .brand-step#brandStep3 .add-link {
     margin-top: 0; }
   .brand-step#brandStep2 .outlet-list ul {
-    margin: 120px -1px 0; }
+    margin-left: -1px;
+    margin-right: -1px; }
   .brand-step .outlet-list li {
     padding: 0 10px 12px; }
   .brand-step .outlet-list.selected-items .tf-icon, .brand-step .outlet-list.saved-items .tf-icon {
@@ -10293,7 +10305,10 @@ a {
   .brand-step .outlet-list.selected-items .fa, .brand-step .outlet-list.selected-items [class*='icon-'], .brand-step .outlet-list.saved-items .fa, .brand-step .outlet-list.saved-items [class*='icon-'] {
     margin-right: 1rem; }
   .brand-step .selected-items, .brand-step .saved-items {
-    margin: 120px 0 -120px; }
+    margin: 115px 0 -115px; }
+    @media (min-width: 1820px) {
+      .brand-step .selected-items, .brand-step .saved-items {
+        margin: 120px 0 -120px; } }
     .brand-step .selected-items li, .brand-step .saved-items li {
       cursor: inherit;
       display: block;
@@ -10305,7 +10320,10 @@ a {
     font-size: 1rem;
     border-bottom: 1px solid #000; }
     .brand-step .saved-items.outlet-list, .brand-step .saved-items.tag-list {
-      margin-top: 120px; }
+      margin-top: 115px; }
+      @media (min-width: 1820px) {
+        .brand-step .saved-items.outlet-list, .brand-step .saved-items.tag-list {
+          margin-top: 120px; } }
     .brand-step .saved-items ul {
       padding: 0;
       margin: 0; }
@@ -10328,8 +10346,11 @@ a {
   .success .brand-step .post-content-footer button, .success .brand-step .brand-fields {
     display: none; }
   .brand-step .brand-logo {
-    margin-top: 120px;
+    margin-top: 115px;
     position: relative; }
+    @media (min-width: 1820px) {
+      .brand-step .brand-logo {
+        margin-top: 120px; } }
     .brand-step .brand-logo .cropme {
       float: none;
       margin: 0px auto;
@@ -10412,7 +10433,8 @@ a {
   height: 97px;
   float: left;
   position: relative;
-  letter-spacing: .2em; }
+  letter-spacing: .2em;
+  line-height: 1; }
   .user-permissions-list .table-header:nth-child(odd) {
     background: -moz-linear-gradient(top, #ffffff 0%, #f7f7f7 100%);
     background: -webkit-linear-gradient(top, #ffffff 0%, #f7f7f7 100%);
@@ -10425,7 +10447,7 @@ a {
   transform-origin: left top;
   position: absolute;
   bottom: 0;
-  left: 6px; }
+  left: 7px; }
 .user-permissions-list .has-permission {
   width: 23px; }
 .user-permissions-list .post-approver-name {

@@ -18,7 +18,18 @@ jQuery(function($) {
                         $('#brandStep' + step_no).empty();
                         $('#brandStep' + step_no).addClass('active');
                         $('#brandStep' + step_no).html(response);
-                        equalColumns();
+                        document.getElementById('brandStep' + step_no).addEventListener('load', function(event){
+                            var elm = event.target;
+                            if( elm.nodeName.toLowerCase() === 'img' && !$(elm).hasClass('loaded')){
+                                $(elm).addClass('loaded');
+                                if($('#brandStep' + step_no + ' img.loaded').length === $('#brandStep' + step_no + ' img').length) {          
+                                    // All images loaded
+                                    equalColumns();
+                                }
+                            }
+                        },
+                        true
+                        );
                     }
                 }
             });

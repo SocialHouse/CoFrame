@@ -5,7 +5,7 @@
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<input type="hidden" id="all_users" name="all_users" value="<?php echo $all_users; ?>">
 
-		<h4 class="text-xs-center">Manage Users</h4>
+		<h4 class="text-xs-center"><span class="btn btn-sm btn-default edit-brands-info">Manage Users</span></h4>
 		<div class="brand-image"></div>
 		<div class="brand-fields">
 			<div id="userPermissionsList" class="user-permissions-list">

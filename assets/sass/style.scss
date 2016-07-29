@@ -22,7 +22,7 @@ body, html {
 	@media (min-width: 1280px) and (min-height: 768px) {
 		font-size: 14px;
 	}
-	@media (min-width: 1680px) {
+	@include media-breakpoint-up(xl) {
 		font-size: 15px;
 	}
 }
@@ -1677,6 +1677,16 @@ a {
 	padding-bottom: 2rem;
 	&.brand-settings {
 		padding-top: 0;
+		.active.brand-step {
+			h4 {
+				.btn {
+					border-color: transparent;
+					background: none;
+					cursor: default;
+					color: #000;
+				}
+			}
+		}
 	}
 	> .row {
 		margin-left: -2rem;
@@ -1684,11 +1694,14 @@ a {
 	}
 }
 .brand-step {
-	padding: 2rem 2rem 0;
+	padding: 2rem 1rem 0;
 	text-transform: uppercase;
 	font-size: remCalc(12px);
 	letter-spacing: .25em;
 	transition: all 500ms;
+	@include media-breakpoint-up(xl) {
+		padding: 2rem 2rem 0;
+	}
 	h3 {
 		font-family: $futura-bold;
 		font-size: remCalc(13px);
@@ -1724,10 +1737,13 @@ a {
 		font-size: 1rem;
 	}
 	.add-link {
-		margin: 120px 0 remCalc(44px);
+		margin: 115px 0 remCalc(44px);
 		display: block;
 		padding: 10px 0 10px 5px;
 		font-family: $futura-light;
+		@include media-breakpoint-up(xl) {
+			margin: 120px 0 remCalc(44px);
+		}
 		.tf-icon {
 			margin-right: 16px;
 		}
@@ -1743,7 +1759,8 @@ a {
 	&#brandStep2 {
 		.outlet-list {
 			ul {
-				margin: 120px -1px 0;
+				margin-left: -1px;
+				margin-right: -1px;
 			}
 		}
 	}
@@ -1761,7 +1778,10 @@ a {
 		}
 	}
 	.selected-items, .saved-items {
-		margin: 120px 0 -120px;
+		margin: 115px 0 -115px;
+		@include media-breakpoint-up(xl) {
+			margin: 120px 0 -120px;
+		}
 		li {
 			cursor: inherit;
 			display: block;
@@ -1775,7 +1795,10 @@ a {
 		font-size:  1rem;
 		border-bottom: 1px solid #000;
 		&.outlet-list, &.tag-list {
-			margin-top: 120px;
+			margin-top: 115px;
+			@include media-breakpoint-up(xl) {
+				margin-top: 120px;
+			}
 		}
 		ul {
 			padding: 0;
@@ -1810,8 +1833,11 @@ a {
 		}
 	}
 	.brand-logo {
-		margin-top: 120px;
+		margin-top: 115px;
 		position: relative;
+		@include media-breakpoint-up(xl) {
+			margin-top: 120px;
+		}
 		.cropme {
 			float: none;
 			margin: 0px auto;
@@ -1935,6 +1961,7 @@ a {
 		float:left;
 		position: relative;
 		letter-spacing: .2em;
+		line-height: 1;
 		&:nth-child(odd) {
 			background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%);
 			background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%);
@@ -1949,7 +1976,7 @@ a {
 		transform-origin: left top;
 		position: absolute;
 		bottom: 0;
-		left: 6px;
+		left: 7px;
 	}
 	.has-permission {
 		width: 23px;
