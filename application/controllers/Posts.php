@@ -709,6 +709,18 @@ class Posts extends CI_Controller {
 								'status' => 'approved'
 							);
 							$this->timeframe_model->update_data('posts',$post_update,array('id'=>$post_data['post_id']));
+
+							$post_details = $this->post_model->get_post($post_data['post_id']);
+
+							$reminder_data = array(
+	    								'post_id' => $post_data['post_id'],
+	    								'user_id' => $post_details->user_id,
+	    								'type' => 'reminder',
+	    								'brand_id' => $post_details->brand_id,
+	    								'due_date' => $post_details->slate_date_time,
+	    								'text' => 'Schedule '.get_outlet_by_id($post_details->outlet_id).' post having slate date '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time))
+    								);
+							$this->timeframe_model->insert_data('reminders',$reminder_data);
 						}
 					}
 				}

@@ -1833,7 +1833,12 @@ jQuery(function($) {
 	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
 	if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+	{
+		if(Notification.permission !== 'granted'){
+			Notification.requestPermission();
+		}
 		alert_notification();
+	}
 });
 
 function alert_notification() {
