@@ -345,7 +345,7 @@ class Calendar extends CI_Controller {
 		$schedule_date = $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
 		$schedule_date = date("Y-m-d H:i", strtotime($schedule_date));
 		$condition = array('id' => $post_data['post_id']);
-		$scheduler_array = array('slate_date_time'=> $schedule_date );
+		$scheduler_array = array('slate_date_time'=> $schedule_date,'updated_at' => date('Y-m-d H:i:s'));
 		$result = $this->timeframe_model->update_data('posts',$scheduler_array,$condition);
 		if($result){
 			$post_details = $this->post_model->get_post($post_data['post_id']);
@@ -711,7 +711,8 @@ class Calendar extends CI_Controller {
 			$date_time =  $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
 			
 			$save_data = array(
-							'slate_date_time' => date('Y-m-d H:i:s',strtotime($date_time))
+							'slate_date_time' => date('Y-m-d H:i:s',strtotime($date_time)),
+							'updated_at' => date('Y-m-d H:i:s')
 						);
 			$this->timeframe_model->update_data('posts',$save_data,array('id' => $post_data['post_id']));
 

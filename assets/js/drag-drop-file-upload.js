@@ -56,54 +56,15 @@
 
 					showFiles( e.target.files,this);
 					droppedFiles = e.target.files; // the files that were dropped
-					
-					var outlt_const = jQuery('#postOutlet').attr('data-outlet-const');
-					if(allFiles.length == 4 && outlt_const == 'twitter')
-					{
-						alert(language_message.twitter_img_allowed);
-						return false;
-					}
 
 					$.each(droppedFiles, function (index, file) {
-
+						console.log(allFiles.length);
 						var file_type = file.type.split('/');
 						if($.inArray(file_type[1] ,supported_files) == -1){
 							alert(language_message.invalid_extention);
 							return false;
 						};
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
-						if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
-						{
-							
-							if(outlet_const == 'youtube')
-							{
-								alert(language_message.youtube_outlet_change_error);
-							}else{
-								alert(language_message.vine_outlet_change_error);
-							}
-							return false;
-						}
-
-						if(outlet_const == 'instagram' && file_type[0]== 'video')
-						{
-							alert(language_message.insta_video_not_allowed);
-							return false;
-						}
-
-						if(allFiles.length == 1 && (outlt_const == 'instagram' || outlt_const == 'linkedin' || outlt_const == 'pinterest'))
-						{
-							var message = language_message.insta_img_allowed;
-							if(outlt_const == 'linkedin')
-							{
-								message = language_message.linkedin_img_allowed;
-							}
-							else if(outlt_const == 'pinterest')
-							{
-								message = language_message.pinterest_img_allowed;
-							}
-							alert(message);
-							return false;
-						}
 						
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
@@ -126,27 +87,68 @@
 								allFiles =[];
 							}							
 
-							var img = document.createElement('img');
-							var preview_img = document.createElement('img');					
-							img.className = 'form__file-preview';
-
-							var imgDiv = document.createElement('div');
-							imgDiv.className = 'form__preview-wrapper';
-							$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
-							$(imgDiv).append(img);
-								
-							$fileDiv.prepend(imgDiv).addClass('has-files');
-
-							// set  data (data-preview-number) to image tag for deleting image 
-							total_images = $('img.form__file-preview').length;
-							$(img).attr('data-preview-number',total_images);
+							
 							var reader = new FileReader();
 							reader.readAsDataURL(file);
 							reader.onload = function (e) {
-								img.src = e.target.result;
-								file.img_src = e.target.result;
-								allFiles.push(file);
-								changePreview(file,'image');
+								if(allFiles.length == 4 && outlet_const == 'twitter')
+								{
+									alert(language_message.twitter_img_allowed);
+									return false;
+								}
+								else if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
+								{
+									
+									if(outlet_const == 'youtube')
+									{
+										alert(language_message.youtube_outlet_change_error);
+									}else{
+										alert(language_message.vine_outlet_change_error);
+									}
+									return false;
+								}
+
+								if(outlet_const == 'instagram' && file_type[0]== 'video')
+								{
+									alert(language_message.insta_video_not_allowed);
+									return false;
+								}
+
+								if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlt_const == 'pinterest'))
+								{
+									var message = language_message.insta_img_allowed;
+									if(outlet_const == 'linkedin')
+									{
+										message = language_message.linkedin_img_allowed;
+									}
+									else if(outlet_const == 'pinterest')
+									{
+										message = language_message.pinterest_img_allowed;
+									}
+									alert(message);
+									return false;
+								}
+								else
+								{
+									var img = document.createElement('img');
+									var preview_img = document.createElement('img');					
+									img.className = 'form__file-preview';
+
+									var imgDiv = document.createElement('div');
+									imgDiv.className = 'form__preview-wrapper';
+									$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+									$(imgDiv).append(img);
+										
+									$fileDiv.prepend(imgDiv).addClass('has-files');
+
+									// set  data (data-preview-number) to image tag for deleting image 
+									total_images = $('img.form__file-preview').length;
+									$(img).attr('data-preview-number',total_images);
+									img.src = e.target.result;
+									file.img_src = e.target.result;
+									allFiles.push(file);
+									changePreview(file,'image');
+								}								
 			                };	                
 
 							//to sho user uploded img on add role page
@@ -244,27 +246,8 @@
 						droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 						var $fileDiv = $('.form__input');
 						$fileDiv.parent().find('.upload-error').addClass('hide');
-						var error ='false';
-						if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
-						{
-							alert(language_message.twitter_img_allowed);
-							return false;
-						}
-
-						if(allFiles.length == 1 && (outlt_const == 'instagram' || outlt_const == 'linkedin' || outlt_const == 'pinterest'))
-						{
-							var message = language_message.insta_img_allowed;
-							if(outlt_const == 'linkedin')
-							{
-								message = language_message.linkedin_img_allowed;
-							}
-							else if(outlt_const == 'pinterest')
-							{
-								message = language_message.pinterest_img_allowed;
-							}
-							alert(message);
-							return false;
-						}
+						var error ='false';						
+						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');	
 
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
@@ -311,30 +294,51 @@
 									allFiles = [];
 									$(target_file_input).children('.form__file-preview').remove();
 									$('.remove-user-img').show();
-								}
-
-								var img = document.createElement('img');							
-
-								img.className = 'form__file-preview';
-								// img.src = window.URL.createObjectURL(file);
-								var imgDiv = document.createElement('div');
-								imgDiv.className = 'form__preview-wrapper';
-								$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
-								$(imgDiv).append(img);
-								$(target_file_input).prepend(imgDiv).addClass('has-files');
-
-								// set  data (data-preview-number) to image tag for deleting image 
-								total_images = $('img.form__file-preview').length;
-								$(img).attr('data-preview-number',total_images);
+								}								
 
 								var reader = new FileReader();
 								reader.readAsDataURL(file);
 			                    reader.onload = function (e) {
-									img.src = e.target.result;
-									file.img_src = e.target.result;
-				                	allFiles.push(file);
-									//for show preview
-									changePreview(file,'image');
+			                    	if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
+									{
+										alert(language_message.twitter_img_allowed);
+										return false;
+									}
+									else if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
+									{
+										var message = language_message.insta_img_allowed;
+										if(outlet_const == 'linkedin')
+										{
+											message = language_message.linkedin_img_allowed;
+										}
+										else if(outlet_const == 'pinterest')
+										{
+											message = language_message.pinterest_img_allowed;
+										}
+										alert(message);
+										return false;
+									}
+									else
+									{
+										var img = document.createElement('img');							
+
+										img.className = 'form__file-preview';
+										// img.src = window.URL.createObjectURL(file);
+										var imgDiv = document.createElement('div');
+										imgDiv.className = 'form__preview-wrapper';
+										$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+										$(imgDiv).append(img);
+										$(target_file_input).prepend(imgDiv).addClass('has-files');
+
+										// set  data (data-preview-number) to image tag for deleting image 
+										total_images = $('img.form__file-preview').length;
+										$(img).attr('data-preview-number',total_images);
+										img.src = e.target.result;
+										file.img_src = e.target.result;
+					                	allFiles.push(file);
+										//for show preview
+										changePreview(file,'image');
+									}
 				                }
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 

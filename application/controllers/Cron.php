@@ -29,10 +29,7 @@ class Cron extends CI_Controller {
         $this->load->model('timeframe_model');
         $this->load->model('post_model');
         $this->load->config('twitter');
-        $this->load->config('tumblr');
-        $this->user_data = $this->session->userdata('user_info');
-        $this->user_id = $this->session->userdata('id');
-        $this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
+        $this->load->config('tumblr');     
         
         $this->load->library('twitteroauth');
         $this->load->library('tblr');
@@ -326,6 +323,33 @@ class Cron extends CI_Controller {
     function connect_to_twitter()
     {
         $this->load->view('social_media/facebook');
+    }
+
+    function set_reminders()
+    {
+        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
+
+        if(!empty($posts))
+        {
+            foreach($posts as $post)
+            {
+                $is_reminder = $this->timeframe_model->get_data_by_condition('reminders',array('post_id' => $post->id,'added_through_cron' => 1),'id');
+
+                if(empty($is_reminder))
+                {
+                    $reminder_data = array(
+                                        'post_id' => $post->id,
+                                        'user_id' => $post->user_id,
+                                        'type' => 'reminder',
+                                        'brand_id' => $post->brand_id,
+                                        'due_date' => $post->slate_date_time,
+                                        'text' => 'Post '.date('Y-m-d h:i a',strtotime($post->slate_date_time)).' '.get_outlet_by_id($post->outlet_id).' post now',
+                                        'added_through_cron' => 1
+                                    );
+                    $this->timeframe_model->insert_data('reminders',$reminder_data);
+                }
+            }            
+        }
     }
 
 }
