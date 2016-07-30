@@ -763,8 +763,8 @@ class Brands extends CI_Controller {
 	function get_active_notifications()
 	{
 		$this->load->model('reminder_model');
-		$notofications = $this->reminder_model->get_active_notifications();
-		echo json_encode($notofications);
+		$notifications = $this->reminder_model->get_active_notifications();
+		echo json_encode($notifications);
 	}
 
 	function delete($brand_id){

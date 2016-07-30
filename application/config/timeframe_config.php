@@ -72,7 +72,7 @@ $config['plans'] = array(
 								'phase_approvals' => 1
 							),
 						'start-up' => array(
-								'brands' => 20,
+								'brands' => 1,
 								'master_admins' => 1,
 								'users' => 3,
 								'outlets' => 3,
