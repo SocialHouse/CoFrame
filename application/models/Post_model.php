@@ -143,7 +143,7 @@ class Post_model extends CI_Model
 
 	public function duplicate_post($post_id)
 	{
-		$status = $this->db->query('INSERT INTO posts (content,brand_id,user_id,outlet_id,slate_date_time) SELECT content,brand_id,user_id,outlet_id,slate_date_time FROM posts WHERE id='.$post_id);
+		$status = $this->db->query('INSERT INTO posts (content, brand_id, user_id, outlet_id, slate_date_time, status,time_zone, updated_at) SELECT content,brand_id, user_id, outlet_id, slate_date_time, status, time_zone, now() FROM posts WHERE id='.$post_id);
 		$last_id = $this->db->insert_id();
 		if($status)
 		{
@@ -158,21 +158,30 @@ class Post_model extends CI_Model
 				}
 			}
 
-			$this->db->select('name,type,mime');
+			$this->db->select('post_media.name,post_media.type,post_media.mime,posts.brand_id,brands.account_id');
+			$this->db->join('posts','posts.id = post_media.post_id');
+			$this->db->join('brands','brands.id = posts.brand_id');
 			$query = $this->db->get_where('post_media',array('post_id' => $post_id));
 			if($query->num_rows())
 			{
 				foreach($query->result_array() as $row)
-				{					
+				{
 					$row['post_id'] = $last_id;
-
-					$old_path = upload_path().'posts/'.$row['name'];
-					$ext = pathinfo($old_path, PATHINFO_EXTENSION);
-					$file_name = uniqid().'.'.$ext;
-	        		$new_path = upload_path().'posts/'.$file_name;
-	        		copy($old_path,$new_path);
-	        		$row['name'] = $file_name;
-					$this->db->insert('post_media',$row);
+					$old_path = upload_path().$row['account_id'].'/brands/'.$row['brand_id'].'/posts/'.$row['name'];
+					if(file_exists($old_path)){
+						$ext = pathinfo($old_path, PATHINFO_EXTENSION);
+						$file_name = uniqid().'.'.$ext;
+		        		$new_path =upload_path().$row['account_id'].'/brands/'.$row['brand_id'].'/posts/'.$file_name;
+		        		copy($old_path,$new_path);
+		        		$row['name'] = $file_name;
+		        		$img_data =	array(
+			        			'post_id'=>$row['post_id'],
+			        			'name'=>$row['name'],
+			        			'type'=>$row['type'],
+			        			'mime'=>$row['mime']
+			        			);
+						$this->db->insert('post_media',$img_data);
+					}
 				}
 			}
 

@@ -36,6 +36,7 @@ if(!empty($post_id) && !empty($slug)){
 			?>
 			<ul class="list-group-item">
 				<li><a href="#" class="delete_post" data-post-id="<?php echo $post_id ; ?>">Delete</a></li>
+				<li><a href="#" class="duplicate-post" data-post-id="<?php echo $post_id;?>">Duplicate</a></li>
 			</ul>
 			<?php
 		}

@@ -67,11 +67,22 @@ class Drafts extends CI_Controller {
 	public function duplicate($slug,$post_id)
 	{
 		$status = $this->post_model->duplicate_post($post_id);
-		$message = "Post has been duplicated successfully";
-		if($atatus)
+		$message = $this->lang->line('duplicated_success');
+		if($status)
 		{
-			$message = "Unable to duplicate post please try again";
+			$message = $this->lang->line('duplicate_error');
 		}
 		redirect(base_url().'drafts/'.$slug);
+	}
+
+	public function duplicate_post_ajax($post_id)
+	{
+		$status = $this->post_model->duplicate_post($post_id);
+		$message = $this->lang->line('duplicated_success');
+		if(!$status)
+		{
+			$message = $this->lang->line('duplicate_error');
+		}
+		echo json_encode(array('status' =>$status, 'message' => $message));
 	}
 }

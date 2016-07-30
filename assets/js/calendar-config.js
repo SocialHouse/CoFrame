@@ -890,5 +890,28 @@ jQuery(function($) {
 	    });
 	});
 
-
+	$(document).on("click", ".duplicate-post", function(event){
+		event.preventDefault();
+		var sltDate ;
+		var post_id = $(this).data('post-id');
+		if (typeof daySelectedDate === "undefined") {
+			sltDate = moment().format('YYYY-MM-DD');
+		}else{
+			sltDate = daySelectedDate;
+		}
+		if(post_id){
+			$.ajax({
+				type:'GET',
+				dataType:'JSON',
+				url:base_url+'drafts/duplicate_post_ajax/'+post_id,
+				success:function(response){
+					alert(response.message);
+					if(response.status)
+					{
+						findPostbyDate(daySelectedDate);
+					}
+				}
+			});
+		}
+	});
 });

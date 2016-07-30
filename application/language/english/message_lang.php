@@ -158,6 +158,11 @@
 	$lang['email_present_in_current_ac'] = 'This email address is already in use. Select the user from the dropdown to assign them a role for this brand';
 
 	$lang['master_admin_email'] = 'You can`t add accounts master admin in any brand of same account';
+	
+	$lang['duplicate_error'] = 'Unable to duplicate post please try again';
+	$lang['duplicated_success'] = 'Post has been duplicated successfully';
+
+	
 ?>
 
 
