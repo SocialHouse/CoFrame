@@ -114,7 +114,7 @@
 									return false;
 								}
 
-								if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlt_const == 'pinterest'))
+								if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
 								{
 									var message = language_message.insta_img_allowed;
 									if(outlet_const == 'linkedin')
