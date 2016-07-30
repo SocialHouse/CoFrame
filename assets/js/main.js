@@ -1822,6 +1822,12 @@ jQuery(function($) {
 		$('#timezone_abbreviation').text(selected_abb);
 	});
 
+	$('.collapse').on('shown.bs.collapse', function(){
+		$(this).next().text('Less');
+	}).on('hidden.bs.collapse', function(){
+		$(this).next().text('See more');		
+	});
+
 	toggleBtnClass = function(btnClass, btnState) {
 		$(btnClass).prop('disabled', btnState);
 		if (btnState) {

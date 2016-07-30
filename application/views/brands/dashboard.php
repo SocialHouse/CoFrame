@@ -34,7 +34,7 @@
 							?>
 							<li>
 								<?php
-								echo '<a href="">'.$reminder->text." ".$symbol.'</a>';
+								echo '<a href="'.base_url().'edit-request/'.$reminder->post_id.'">'.$reminder->text." ".$symbol.'</a>';
 								?>
 							</li>
 							<?php
