@@ -427,9 +427,11 @@ class Calendar extends CI_Controller {
 		$this->data = array();
 		$error = '';
 		$uploaded_files = array();
-		$post_data = $this->input->post();	
-		
+		$post_data = $this->input->post();
 		if(!empty($post_data['post_id'])){
+
+			$previous_post_details = $this->post_model->get_post($post_data['post_id']);
+
 			$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
 		    $slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 		   /* if(!empty($post_data['post_outlet']))
@@ -603,15 +605,34 @@ class Calendar extends CI_Controller {
 
 							$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
-							if(!empty($post_data['resubmit'])){								
+							if(!empty($post_data['resubmit'])){
+
 								$phase_data = array(
 	    										'status' => 'pending',
 	    									);
-								$this->timeframe_model->update_data('phases_approver',$phase_data,array('phase_id'=>$new_phase['phase_id']));
+								$this->timeframe_model->update_data('phases_approver',$phase_data,array('phase_id' => $new_phase['phase_id']));
 
-								$this->timeframe_model->update_data('posts',$phase_data,array('id'=>$new_phase['post_id']));
+								$this->timeframe_model->update_data('posts',$phase_data,array('id' => $post_data['post_id']));
 
 								$post['status'] = 'pending';
+
+								$reminder_users = get_phase_users($new_phase['phase_id']);
+
+								// add reminder 
+								if(!empty($reminder_users)){
+									foreach ($reminder_users as $key => $objs) {
+										$reminder_data = array(
+											'post_id' 	=> $post_data['post_id'],
+											'user_id' 	=> $objs->aauth_user_id,
+											'type' 		=> 'reminder',
+											'brand_id' 	=> $post_data['brand_id'],
+											'due_date' 	=> $approve_date_time,
+											'text' 		=> 'The approval process of '.get_outlet_by_id($previous_post_details->outlet_id).'  has been reset '.date('m/d',strtotime($slate_date_time))
+											);
+										$this->timeframe_model->insert_data('reminders',$reminder_data);
+									}
+								}
+								
 							}
 							
 							if(!empty($new_phase['phase_id'])){
@@ -621,9 +642,8 @@ class Calendar extends CI_Controller {
 			    				$phase_data['note'] = $new_phase['note'];
 								
 		    					$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);
-							}
-							
 
+							}
 						}else{
 							if(!empty($new_phase['phase_id'])){
 								$phasescondition = '';

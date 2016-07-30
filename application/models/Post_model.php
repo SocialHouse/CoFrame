@@ -467,7 +467,7 @@ class Post_model extends CI_Model
 				}
 				return $result;
 			}
-			return FALSE;			
+			return FALSE;
 		}
 		return FALSE;
 	}
