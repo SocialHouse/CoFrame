@@ -396,3 +396,6 @@ ALTER TABLE `reminders` ADD `status` TINYINT NOT NULL DEFAULT '0' AFTER `due_dat
 --- 25-07-2016
 ALTER TABLE `user_info` ADD `img_folder` INT NULL AFTER `desktop_notification`;
 ALTER TABLE `brands` ADD `account_id` INT NOT NULL AFTER `slug`;
+
+--- 30-07-2016
+ALTER TABLE `reminders` ADD `added_through_cron` TINYINT NOT NULL DEFAULT '0' ;
