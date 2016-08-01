@@ -218,7 +218,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
   	<div class="modal-dialog modal-sm" role="document">
     	<div class="modal-content">
 			<a class="navbar-brand hidden-print" href="/">
-            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">Timeframe</span>
+            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
         	</a>
 			<div class="visible-print-block logo-print">
 	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
