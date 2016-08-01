@@ -1165,8 +1165,8 @@ jQuery(function($) {
 	});
 
 	if ($('.table-approvals').length) {
-		var listWidth = 8;
 		$('.approval-list .approval-list').each(function() {
+			var listWidth = 8;
 			$(this).find('li').each(function() {
 				listWidth += $(this).outerWidth();
 			});
