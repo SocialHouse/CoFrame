@@ -674,7 +674,7 @@ a {
 	line-height: 1;
 	margin: 0;
 	> [class*="col-"] {
-		padding: 3.25rem 4.0625rem 3.75rem;
+		padding: 3.25rem 3rem 3.75rem;
 		background: rgba(0,0,0,.5);
 		border: 1px solid rgba(255,255,255,.8);
 		z-index: 2;
@@ -728,20 +728,26 @@ a {
 	}
 	.box-create {
 		h2:before {
-			background: url(../images/create.png) no-repeat center;
+			background: url(../images/slate.png) no-repeat center;
 			background-size: 44px 44px;
 		}
 	}
-	.box-slate {
+	.box-collaborate {
 		h2:before {
-			background: url(../images/slate.png) no-repeat center;
-			background-size: 42px 49px;
+			background: url(../images/collaborate.png) no-repeat center;
+			background-size: 66px 58px;
 		}
 	}
 	.box-approve {
 		h2:before {
 			background: url(../images/approve.png) no-repeat center;
 			background-size: 53px 49px;
+		}
+	}
+	.box-publish {
+		h2:before {
+			background: url(../images/publish.png) no-repeat center;
+			background-size: 42px 51px;
 		}
 	}
 	&:not(.pricing-list) {
@@ -914,17 +920,19 @@ a {
 	font-size: 1.6875rem;
 	font-family: $futura-light;
 	display: block;
-	.selected-flag .iti-flag,
-	.country-list .flag-box, .country-list .country-name,
+	.country-list .country-name,
 	.country-list .divider {
 		display: none;
-	}
-	&.allow-dropdown.separate-dial-code .selected-dial-code {
-		padding-left: 0;
 	}
 	.highlight {
 		font-family: $futura-light;
 	}
+	&.allow-dropdown.separate-dial-code.iti-sdc-2 .selected-flag {
+		width: 82px;
+	}
+}
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input, .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input[type=text], .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input[type=tel] {
+	padding-left: 88px;
 }
 @media (min-width: 48em) {
 	.form-group.float-md {
@@ -1569,7 +1577,40 @@ code {
 p:empty {
 	display: none;
 }
-
+.circle-img {
+	height: 105px;
+	width: 105px;
+	border: 2px solid #fff;
+	border-radius: 53px;
+	content: "";
+	margin: 0 1.75rem 1.75rem 0;
+	display: inline-block;
+	line-height: 105px;	
+	img {
+		margin: 20px auto 0;
+	}
+	&.create {
+		img {
+			width: 44px;
+		}
+	}
+	&.collaborate {
+		img {
+			width: 66px;
+		}
+	}
+	&.approve {
+		img {
+			width: 53px;
+			margin-top: 25px;
+		}
+	}
+	&.publish {
+		img {
+			width: 42px;
+		}
+	}
+}
 .copyright {
 	position: absolute;
 	bottom: 44px;

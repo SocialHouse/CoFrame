@@ -85,11 +85,12 @@
 					<div class="row row-sm-12 home">
 						<div class="col-md-6">
 							<div class="intro-content">
-								<h1>Manage &amp; approve<br />
-								your social media calendars<br />
-								across multiple outlets,<br />
-								in real-time, all on one<br />
-								easy-to-use platform.</h1>
+								<h1>Create, manage &amp; approve<br>
+								your social media calendars <br>
+								across multiple outlets, <br>
+								in real­time, all on one <br>
+								easy-to-use platform.
+</h1>
 								<p><a class="btn btn-primary btn-lg" href="#get-started">Get Started</a></p>
 							</div>
 						</div>
@@ -108,16 +109,18 @@
 								<div class="col-sm-6 hover-item border-right">
 									<a href="#features"><h2>Features</h2>
 										<div class="hover-item-content vertical-center">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-											<p class="btn btn-default">View More</p>
+											<p><div class="circle-img create"><img src="/assets/images/slate.png" alt="Create"></div>
+											<div class="circle-img collaborate"><img src="/assets/images/collaborate.png" alt="Collaborate"></div>
+											<div class="circle-img approve"><img src="/assets/images/approve.png" alt="Approve"></div>
+											<div class="circle-img publish"><img src="/assets/images/publish.png" alt="Publish"></div></p>
 										</div>
 									</a>
 								</div>
 								<div class="col-sm-6 row-sm-6 hover-item">
 									<a href="#pricing"><h2>Pricing</h2>
 										<div class="hover-item-content vertical-center">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-											<p class="btn btn-default">View More</p>
+											<p>Whether you’re a small business or a Fortune 500 company, we have plans that match your needs. Explore our plans to learn more and begin your free trial.</p>
+											<p class="btn btn-default">Get Started</p>
 										</div>
 									</a>
 								</div>
@@ -138,17 +141,21 @@
 				<section id="features" class="page-section" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/bg-features.jpg);">
 					<div class="section-content">
 						<div class="row feature-list animated" data-animation="fadeIn">
-							<div class="col-md-4 text-center box-create animated" data-animation="fadeInUp"></p>
+							<div class="col-md-3 text-center box-create animated" data-animation="fadeInUp"></p>
 								<h2>Create</h2>
-								<p>Upload content and write copy to see what your post will look like before it is posted
+								<p>Upload content and write copy to see a live preview of your content before it is posted.
 							</div>
-							<div class="col-md-4 text-center box-slate animated" data-animation="fadeInUp animate-delay-300"></p>
-								<h2>Slate</h2>
-								<p>View your content by social media channel while easily filtering by day, week or month
+							<div class="col-md-3 text-center box-collaborate animated" data-animation="fadeInUp animate-delay-300"></p>
+								<h2>Collaborate</h2>
+								<p>Bring everyone together in one virtual war room to CoCreate a post, while talking live via chat, video or call.
 							</div>
-							<div class="col-md-4 text-center box-approve animated" data-animation="fadeInUp animate-delay-600"></p>
+							<div class="col-md-3 text-center box-approve animated" data-animation="fadeInUp animate-delay-600"></p>
 								<h2>Approve</h2>
-								<p>Track your team’s real-time edits &amp; approvals, while archiving calendars for future reference
+								<p>Track your team’s realtime edits, leave feedback and utilize phased approvals to make sure you get all the approvals you need before going live.
+							</div>
+							<div class="col-md-3 text-center box-publish animated" data-animation="fadeInUp animate-delay-600"></p>
+								<h2>Publish</h2>
+								<p>Schedule or post your content live to multiple social channels, while also archiving calendars for future reference.
 							</div>
 						</div>
 						<div class="row feature-list-btn" data-animation="">
