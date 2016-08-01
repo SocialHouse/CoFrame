@@ -9,7 +9,7 @@
         <meta name="author" content="">
         <!-- <link rel="icon" href="../../favicon.ico"> -->
 
-        <title>Timeframe</title>
+        <title>CoFrame | Create, Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
 
         <!-- Bootstrap core CSS -->
         <link href="<?=css_url()?>bootstrap.min.css" rel="stylesheet">
@@ -57,7 +57,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Timeframe</a>
+                    <a class="navbar-brand" href="#">CoFrame</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">

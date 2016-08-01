@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	  	<title>Timeframe | Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
+	  	<title>CoFrame | Create, Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
 	  	<link rel="profile" href="http://gmpg.org/xfn/11">
 
 		<link rel="shortcut icon" href="<?php echo img_url(); ?>ico/favicon.ico" ><meta name='robots' content='noindex,follow' />
@@ -54,7 +54,7 @@
 					<span class="icon-bar"></span>
 				</button>
 		        <a class="navbar-brand hidden-print" href="/">
-	            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">Timeframe</span>
+	            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
 	        	</a>
 				<div class="visible-print-block logo-print">
 		       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
@@ -344,7 +344,7 @@
 								<p><strong>Need help signing up?</strong><br />
 								If you have any questions please email us at: <a href="mailto:support@timeframe.com">support@TIMEFRAME.com</a>.</p>
 								<hr />
-								<p>At Timeframe, we value your privacy and will never share your personal data with any 3rd parties. 
+								<p>At CoFrame, we value your privacy and will never share your personal data with any 3rd parties. 
 							</div>
 						</div>
 					</div>

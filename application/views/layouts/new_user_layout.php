@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
 <meta charset="utf-8">
-<title>Timeframe | Overview</title>
+<title>CoFrame | Create, Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
@@ -40,7 +40,7 @@
 <body class="page-global" style="background-image: url(<?php echo img_url().$background_image; ?>);">
 	<div class="container container-head">
 		<nav class="navbar navbar-dark navbar-main bg-transparent row">
-			<a class="navbar-brand hidden-print" href="<?php echo base_url();?>brands/overview"><span class="brand-logo hide-text">Timeframe</span></a>
+			<a class="navbar-brand hidden-print" href="<?php echo base_url();?>brands/overview"><span class="brand-logo hide-text">CoFrame</span></a>
 			<div class="go-to-brands">
 				<a href="#" class="hide-text show-brands-toggler animated infinite pulse popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/brand_list/'.$this->user_id; ?>" data-title="Go To" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-brand-list" data-attachment="top left" data-target-attachment="bottom left" data-offset-x="-24" data-offset-y="6" data-popover-arrow="true" data-arrow-corner="top left" data-popover-container="body">Go To Brand</a>
 		  	</div>
