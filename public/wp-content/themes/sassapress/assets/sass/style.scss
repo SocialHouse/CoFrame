@@ -260,7 +260,7 @@ a {
 	display: block;
 	padding: 0;
 	height: inherit;
-	margin: 19px 0 16px;
+	margin: 0;
 	position: relative;
 	z-index: 9999;
 	a {
@@ -270,7 +270,7 @@ a {
 		display: block;
 		background-size: contain;
 		background-repeat: no-repeat;
-		height: 42px;
+		height: 60px;
 		width: 212px;
 		-webkit-transition: all 500ms;
 		-moz-transition: all 500ms;
@@ -979,7 +979,7 @@ a {
 		}
 		.brand-logo {
 			width: 318px;
-			height: 64px;
+			height: 85px;
 			margin: 0px auto;
 			padding-bottom: 9.6875rem;
 		}
