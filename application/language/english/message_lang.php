@@ -163,11 +163,7 @@
 	$lang['duplicated_success'] = 'Post has been duplicated successfully';
 
 	// $lang['trial_period_expiring_days'] = 'Your trial period going to expired within %days% days. Please make a payment to continue.';
-	$lang['trial_period_expiring_days'] = 'Your in trial period.';
+	$lang['trial_period_expiring_days'] = 'You are in trial period.';
 	$lang['trial_period_expiried'] = 'Your trial period has expired.';
 	
-
-	
 ?>
-
-
