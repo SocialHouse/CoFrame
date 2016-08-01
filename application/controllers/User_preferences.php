@@ -205,7 +205,9 @@ class User_preferences extends CI_Controller {
 	        	$condition = array('id' => $this->user_data['user_info_id']);
 				$select =array('stripe_customer_id','stripe_subscription_id');
 				$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
-				$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+				
+				$this->load->model('transaction_model');
+				$last_transaction = $this->transaction_model->get_last_transaction($this->user_id);
 				
 				if(!empty($last_transaction))
 				{
@@ -294,7 +296,9 @@ class User_preferences extends CI_Controller {
 					$condition = array('id' => $this->user_data['user_info_id']);
 					$select =array('stripe_customer_id','stripe_subscription_id');
 					$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
-					$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+					
+					$this->load->model('transaction_model');
+					$last_transaction = $this->transaction_model->get_last_transaction($this->user_id);
 					if(!empty($last_transaction))
 					{
 						$customer = \Stripe\Customer::retrieve($strip_info[0]->stripe_customer_id);

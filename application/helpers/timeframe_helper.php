@@ -852,7 +852,10 @@ if(!function_exists('deleteDirectory'))
         }
         return rmdir($dir);
     }
+}
 
+if(!function_exists('get_company_name'))
+{
     function get_company_name($id)
     {
         $CI = &get_instance();
@@ -864,7 +867,10 @@ if(!function_exists('deleteDirectory'))
         }
         return FALSE;
     }
+}
 
+if(!function_exists('get_users_full_name'))
+{
     function get_users_full_name()
     {
         $CI = &get_instance();
@@ -875,6 +881,20 @@ if(!function_exists('deleteDirectory'))
             return ucfirst($result[0]->first_name).' '.ucfirst($result[0]->last_name);
         }
         return FALSE;
+    }
+}
+
+if(!function_exists('calculate_date_diff'))
+{
+    function calculate_date_diff($first_date,$second_date = '')
+    {
+        // $first_date = date('Y-m-d',strtotime($first_date));
+        $first_date = strtotime($first_date);
+        if(empty($second_date)){
+             $second_date = strtotime(date('Y-m-d'));
+        }
+        $offset = $second_date-$first_date; 
+        return floor($offset/60/60/24);
     }
 }
 

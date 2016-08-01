@@ -66,6 +66,7 @@ class Payment extends CI_Controller {
 	public function save_payment()
 	{
 		$user_id = $this->user_id;
+
 		$user_token =  $this->input->post('stripe_token');
 
 		if(!empty($user_token) && !empty($user_id))
@@ -85,7 +86,10 @@ class Payment extends CI_Controller {
 				$condition = array('id' => $this->user_data['user_info_id']);
 				$select =array('stripe_customer_id','stripe_subscription_id');
 				$strip_info = $this->timeframe_model->get_data_by_condition('user_info',$condition,$select);
-				$last_transaction = $this->user_model->get_last_transaction($this->user_id);
+
+				$this->load->model('transaction_model');
+				$last_transaction = $this->transaction_model->get_last_transaction($this->user_id);
+				
 				if(!empty($last_transaction))
 				{
 					$cu = \Stripe\Customer::retrieve($strip_info[0]->stripe_customer_id);

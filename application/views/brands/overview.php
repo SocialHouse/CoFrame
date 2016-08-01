@@ -20,6 +20,15 @@
 		</header>
 		<div id="brand-sort">
 			<?php
+        	if(!empty($trial_message))
+        	{
+        		?>
+       			<div class="col-md-12 center-title">
+       				<strong><?php echo $trial_message ?></strong>
+       			</div>
+           		<?php
+           	}
+           	
 			foreach($brands as $key=>$brand)
 			{
 				?>

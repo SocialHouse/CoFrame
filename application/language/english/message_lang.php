@@ -162,6 +162,9 @@
 	$lang['duplicate_error'] = 'Unable to duplicate post please try again';
 	$lang['duplicated_success'] = 'Post has been duplicated successfully';
 
+	// $lang['trial_period_expiring_days'] = 'Your trial period going to expired within %days% days. Please make a payment to continue.';
+	$lang['trial_period_expiring_days'] = 'Your in trial period.';
+
 	
 ?>
 

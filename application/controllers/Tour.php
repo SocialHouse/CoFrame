@@ -48,6 +48,19 @@ class Tour extends CI_Controller {
             // $is_exists = $this->user_model->check_login_attempt($user_id);
             // if($is_exists)
             // {
+           
+                $created_at = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$this->user_data['account_id']),'DATE_FORMAT(created_at,"%Y-%m-%d") AS created_at');
+                
+                $date_diff = calculate_date_diff($created_at[0]->created_at,'');
+                
+                if($date_diff >= 25 && $date_diff <= 30){
+
+                    $this->load->model('transaction_model');
+                    $is_any_record = $this->transaction_model->get_last_transaction($this->user_data['account_id']);
+                    if(!$is_any_record){
+                        // Account Banned or Suspended
+                    }
+                }
                 
                 $user = $this->user_model->get_user($user_id);
 

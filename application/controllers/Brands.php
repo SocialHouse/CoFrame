@@ -649,10 +649,27 @@ class Brands extends CI_Controller {
 
 	public function overview()
 	{
+		
 		$this->data = array();
+		$this->data['trial_message'] ='';
 		$user_id = $this->user_id;
 		$this->data['brands'] = $this->brand_model->get_users_brands($user_id);
 		
+		$created_at = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$this->user_data['account_id']),'DATE_FORMAT(created_at,"%Y-%m-%d") AS created_at');
+		
+	    $date_diff = calculate_date_diff($created_at[0]->created_at,'');
+	    
+	    if($date_diff >= 20 && $date_diff < 25){
+
+	    	$this->load->model('transaction_model');
+	    	$is_any_record = $this->transaction_model->get_last_transaction($this->user_data['account_id']);
+	    	if(!$is_any_record){
+	    		//echo 'is_trial_account';
+	    		$this->data['trial_message']= str_replace("%days%", 30-$date_diff,  $this->lang->line('trial_period_expiring_days'));
+	    	}
+	    }
+	   // echo  $date_diff;
+
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js',js_url().'reorder-brands.js?ver=1.0.0');
 		
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
