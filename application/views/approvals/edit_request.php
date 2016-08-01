@@ -80,10 +80,10 @@
 					</footer>
 				</div>
 			</div>
-				<div class="col-md-8">
+				<div class="col-md-8 equal-height">
 					<div class="container-post-discussion post-content">
 						<h4 class="text-xs-center">Edit Requests</h4>
-						<div class="bg-gray-lightest border-top border-bottom padding-22px">
+						<div class="bg-gray-lightest border-top padding-22px">
 						<?php 
 	                    	$i = 0;
 	                    	$len = count($phase);
@@ -307,7 +307,6 @@
 											<!-- Pending Approvals End -->
 
 										</div>
-										<div class="clearfix">&nbsp;</div>
 										<footer class="post-content-footer text-xs-center">
 												<?php
 												$approver_status = '';

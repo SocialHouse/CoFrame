@@ -8640,7 +8640,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8668,10 +8668,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -10762,8 +10762,10 @@ a {
     height: auto;
     padding-bottom: 1.5rem;
     margin: 0 -1rem; }
+.container-post-discussion > .padding-22px {
+  min-height: calc(100% - 44px); }
 .container-post-discussion > .post-content-footer {
-  border: 0; }
+  margin-right: 0; }
 .container-post-discussion .current-user {
   margin: 2rem 0 0; }
 .container-post-discussion .suggest-edit {
@@ -10799,8 +10801,6 @@ a {
   .container-post-discussion .container-view-approvals .post-content-footer {
     border: 0;
     bottom: 1rem; }
-.container-post-discussion .post-actions {
-  margin-right: 1rem; }
 
 .author {
   margin-bottom: .5rem; }

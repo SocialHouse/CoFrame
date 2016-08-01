@@ -2397,8 +2397,11 @@ a {
 			margin: 0 -1rem;
 		}
 	}
+	> .padding-22px {
+		min-height: calc(100% - 44px);
+	}
 	> .post-content-footer {
-		border: 0;
+		margin-right: 0;
 	}
 	.current-user {
 		margin: 2rem 0 0;
@@ -2448,9 +2451,6 @@ a {
 			border: 0;
 			bottom: 1rem;
 		}
-	}
-	.post-actions {
-		margin-right: 1rem;
 	}
 }
 .author {
