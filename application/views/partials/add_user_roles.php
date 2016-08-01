@@ -15,9 +15,12 @@
 			{
 				foreach($groups as $group)
 				{
-					?>
-					<option value="<?php echo strtolower($group->name); ?>"><?php echo $group->name; ?></option>
-					<?php
+					if ($group->name != 'Admin' && $group->name != 'Billing' )
+					{
+						?>
+						<option value="<?php echo strtolower($group->name); ?>"><?php echo $group->name; ?></option>
+						<?php
+					}
 				}
 			}
 			?>			

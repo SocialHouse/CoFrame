@@ -8,15 +8,19 @@
 					<li>
 						<div class="pull-sm-left">
 						<?php 
+						if(!empty($phases['hidden'])){
 							if (in_array($user->aauth_user_id, $phases['hidden']))
 							{
 								$cls = " selected disabled";
 								$checked = 'checked="checked"';
 							}
+						}
+						if(!empty($phases['selceted'])){
 							if (in_array($user->aauth_user_id, $phases['selceted'])){
 								$cls = " selected";
 								$checked = 'checked="checked"';
 							}
+						}
 						?>
 							
 							<input type="checkbox" class="hidden-xs-up approvers"  name="phase[<?php echo $phase_details->phase; ?>][approver][]" value="<?php echo $user->aauth_user_id; ?> <?php echo $checked; ?>">
