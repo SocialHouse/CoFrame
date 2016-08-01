@@ -399,3 +399,6 @@ ALTER TABLE `brands` ADD `account_id` INT NOT NULL AFTER `slug`;
 
 --- 30-07-2016
 ALTER TABLE `reminders` ADD `added_through_cron` TINYINT NOT NULL DEFAULT '0' ;
+
+--- 1-08-2016
+ALTER TABLE `user_info` ADD `is_trial_period_expired` TINYINT NULL DEFAULT '0' COMMENT '1: Yes, 0: No' AFTER `img_folder`;

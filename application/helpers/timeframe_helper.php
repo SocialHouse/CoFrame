@@ -888,7 +888,7 @@ if(!function_exists('calculate_date_diff'))
 {
     function calculate_date_diff($first_date,$second_date = '')
     {
-        // $first_date = date('Y-m-d',strtotime($first_date));
+        $first_date = date('Y-m-d',strtotime($first_date));
         $first_date = strtotime($first_date);
         if(empty($second_date)){
              $second_date = strtotime(date('Y-m-d'));

@@ -48,21 +48,13 @@ class Tour extends CI_Controller {
             // $is_exists = $this->user_model->check_login_attempt($user_id);
             // if($is_exists)
             // {
-           
-                $created_at = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$this->user_data['account_id']),'DATE_FORMAT(created_at,"%Y-%m-%d") AS created_at');
-                
-                $date_diff = calculate_date_diff($created_at[0]->created_at,'');
-                
-                if($date_diff >= 25 && $date_diff <= 30){
-
-                    $this->load->model('transaction_model');
-                    $is_any_record = $this->transaction_model->get_last_transaction($this->user_data['account_id']);
-                    if(!$is_any_record){
-                        // Account Banned or Suspended
-                    }
-                }
-                
                 $user = $this->user_model->get_user($user_id);
+
+                if($user->is_trial_period_expired){
+                    echo json_encode(array('response' => 'fail','message'=>$this->lang->line('trial_period_expiried')));
+                    $this->aauth->logout();
+                    exit();
+                }
 
                 // get brand id to find my brand owner  
                 // if $my_brand_id (in else case ) id null then me as brand owner 
@@ -104,6 +96,22 @@ class Tour extends CI_Controller {
                 $user_info['account_id'] = $accounts[0];
                 $user_info['plan'] = strtolower(get_plan($accounts[0]));
                 $this->session->set_userdata('user_info',$user_info);
+
+                 $date_diff = calculate_date_diff($user->created_at,'');
+                
+                if($date_diff >= 25 && $date_diff <= 30){
+
+                    $this->load->model('transaction_model');
+                    $is_any_record = $this->transaction_model->get_last_transaction($accounts[0]);
+                    if(!$is_any_record){
+                        $data = array(' is_trial_period_expired '=>1);
+                       $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user_id));
+                        // Account Banned or Suspended
+                       echo json_encode(array('response' => 'fail','message'=>$this->lang->line('trial_period_expiried')));
+                       $this->aauth->logout();
+                       exit();
+                    }
+                }
                 
                 $remember_me = isset($post_data['remember_me']) ? $post_data['remember_me'] : '';
                 if(isset($remember_me) AND !empty($remember_me))
