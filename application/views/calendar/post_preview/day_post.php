@@ -140,7 +140,7 @@
 						<div class="col-md-10">
 							<h6>POST COPY</h6>
 							<div class="post-body">
-								<p><?php echo (!empty($post->content))? read_more($post->content, 100) :'&nbsp;';?></p>
+								<p><?php echo (!empty($post->content))? read_more(nl2br($post->content), 100) :'&nbsp;';?></p>
 							</div>
 							<span class="post-actions pull-xs-left">
 								<?php 

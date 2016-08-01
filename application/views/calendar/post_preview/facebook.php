@@ -34,7 +34,7 @@ if(!empty($post_images)){
 		</div>
 		<span class="post_copy_text">
 			<?php 
-				$content = $post_details->content;
+				$content =$post_details->content;
 				$content = replace_with_expression($content);
 				echo (!empty($content)) ? $content : '';
 			?>

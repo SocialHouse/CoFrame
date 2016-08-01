@@ -447,4 +447,34 @@ jQuery(document).ready(function(){
         }
     });
 
+      jQuery('#user_preferences_add_user').validate({
+    	onkeyup: false,
+        rules: {
+        	first_name: {required: true},
+        	last_name: {required: true},
+        	email: {
+        		required: true,
+        		remote: {
+        			url: base_url+"tour/check_username_exist",
+        			type: "post"
+        		}
+        	},
+        	selected_role: {required: true },
+        },
+        messages :{
+        	first_name: {required: language_message.enter_fname},
+        	last_name: {required: language_message.enter_lname},
+        	email: {
+        		required: language_message.enter_email ,
+        		email: language_message.valid_fname,
+        		remote: language_message.email_used
+        	},
+        	selected_role: {required: 'Please select role' }
+        },
+        submitHandler: function(form, event) {
+	        event.preventDefault();
+	        form.submit();
+        }
+    });
+
 });

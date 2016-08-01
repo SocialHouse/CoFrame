@@ -384,7 +384,7 @@ if(!function_exists('replace_with_expression'))
             }
         }
 
-        return $string;
+        return nl2br($string);
     }
 }
 

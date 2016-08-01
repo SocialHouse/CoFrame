@@ -4,15 +4,20 @@
 	$my_info = '';
 	$plan = '';
 	$billing = '';
+	$role = '';
+	$payment = '';
 	switch ($segment) {
 		case 'billing_info':
 			$billing = 'active';
 			break;
 		case 'save_payment':
-			$billing = 'active';
+			$payment = 'active';
 			break;
 		case 'user_plan':
 			$plan = 'active';
+			break;
+		case 'users':
+			$role = 'active';
 			break;
 		default:
 			$my_info = 'active';
@@ -26,6 +31,7 @@
 		?>
 		<a href="<?php echo base_url()?>user_preferences/user_plan" class="btn btn-sm <?php echo $plan; ?>">Plan</a>
 		<a href="<?php echo base_url()?>user_preferences/billing_info" class="btn btn-sm <?php echo $billing; ?>">Billing</a>
+		<a href="<?php echo base_url()?>user_preferences/users" class="btn btn-sm <?php echo $role; ?>">Change role</a>
 		<?php
 	// }
 	?>

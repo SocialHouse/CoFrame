@@ -55,7 +55,13 @@ if(!empty($post_images)){
 			
 		<div class="insta-post-copy">
 			<span class="post-user-name"><?php echo (!empty($post_details->user))? $post_details->user :''; ?> </span>
-			<span class="post_copy_text"><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></span>
+			<span class="post_copy_text">
+			<?php 
+				$content = $post_details->content;
+				$content = replace_with_expression($content);
+				echo (!empty($content)) ? $content : '';
+			?>
+			</span>
 		</div>
 	</div>
 </div>

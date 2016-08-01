@@ -88,5 +88,7 @@ $route['join-co-create/(:any)/(:any)'] = "tour/join_co_create/$1/$2";
 $route['user_preferences/change-plan'] = "user_preferences/change_plan";
 $route['user_preferences/save_payment'] = "user_preferences/save_payment";
 
+$route['user_preferences/add_user'] = "user_preferences/add_user";
 $route['user_preferences/(:any)'] = "user_preferences/index/$1";
+
 

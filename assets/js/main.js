@@ -26,10 +26,18 @@ jQuery(function($) {
 		}
 
 		// Prevent enter key from submitting forms.
-		$(window).keydown(function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				return false;
+		$(document).keydown(function(event) {
+			var allow_enter = 0;
+			if (event.keyCode === 13 && $(event.target)[0] != $('textarea')[0] ) {
+				$.each($('textarea'), function(i, item){
+					if($(item).attr('id') == $(event.target).attr('id')){
+						allow_enter = 1;
+					}
+				});
+				if(allow_enter == 0){
+					event.preventDefault();
+					return false;
+				}
 			}
 		});
 
@@ -197,64 +205,64 @@ jQuery(function($) {
 		 *	This is used to check or uncheck the checkox
 		 *
 		 */
-		var btnClicks = 0;
-		$('body').on('click', '.check-box', function() {
-			var $btn = $(this);
-			if ($btn.hasClass('has-archive')) {
+		 var btnClicks = 0;
+		 $('body').on('click', '.check-box', function() {
+		 	var $btn = $(this);
+		 	if ($btn.hasClass('has-archive')) {
 				/*
 				 *	This is used only for archive page only
 				 */
-				var $chk_box = '';
-				if ($btn.data('value') == 'check-all') {
-					$chk_box = $btn.closest('.timeframe-list').find('input');
+				 var $chk_box = '';
+				 if ($btn.data('value') == 'check-all') {
+				 	$chk_box = $btn.closest('.timeframe-list').find('input');
 					/*
 					 *	$chk_box = radio input is used to check or uncheck all the checkbox
 					 */
-					$.each($chk_box, function(a, input_btn) {
-						if ($btn.hasClass('selected')) {
-							$(input_btn).removeAttr('checked');
-						} else {
-							$(input_btn).attr('checked', 'checked');
-						}
-					});
+					 $.each($chk_box, function(a, input_btn) {
+					 	if ($btn.hasClass('selected')) {
+					 		$(input_btn).removeAttr('checked');
+					 	} else {
+					 		$(input_btn).attr('checked', 'checked');
+					 	}
+					 });
 
-				} else {
+					} else {
 					/*
 					 *	$chk_box = radio input is used to check or uncheck selected the checkbox
 					 */
-					$chk_box = $btn.siblings('input');
+					 $chk_box = $btn.siblings('input');
 
-					if ($btn.hasClass('selected')) {
-						$chk_box.removeAttr('checked');
-					} else {
-						$chk_box.attr('checked', 'checked');
+					 if ($btn.hasClass('selected')) {
+					 	$chk_box.removeAttr('checked');
+					 } else {
+					 	$chk_box.attr('checked', 'checked');
+					 }
 					}
+
+				}
+				if ($btn.hasClass('disabled')) {
+					return;
 				}
 
-			}
-			if ($btn.hasClass('disabled')) {
-				return;
-			}
+				var buttonVal = $btn.attr('data-value');
+				var checked = false;
+				var inputGroup = $btn.attr('data-group');
+				if (buttonVal !== "check-all") {
+					$btn.toggleClass('selected');
+				} else if (buttonVal === "check-all" && !$btn.hasClass('selected')) {
+					$('.check-box[data-group="' + inputGroup + '"]').addClass('selected');
+					$('input[name="' + inputGroup + '"]').prop('checked', true);
+				} else if (buttonVal === "check-all" && $btn.hasClass('selected')) {
+					$('.check-box[data-group="' + inputGroup + '"]').removeClass('selected');
+					$('input[name="' + inputGroup + '"]').prop('checked', false);
+				}
+				if ($btn.hasClass('selected')) {
+					checked = true;
+				} else {
+					checked = false;
+				}
 
-			var buttonVal = $btn.attr('data-value');
-			var checked = false;
-			var inputGroup = $btn.attr('data-group');
-			if (buttonVal !== "check-all") {
-				$btn.toggleClass('selected');
-			} else if (buttonVal === "check-all" && !$btn.hasClass('selected')) {
-				$('.check-box[data-group="' + inputGroup + '"]').addClass('selected');
-				$('input[name="' + inputGroup + '"]').prop('checked', true);
-			} else if (buttonVal === "check-all" && $btn.hasClass('selected')) {
-				$('.check-box[data-group="' + inputGroup + '"]').removeClass('selected');
-				$('input[name="' + inputGroup + '"]').prop('checked', false);
-			}
-			if ($btn.hasClass('selected')) {
-				checked = true;
-			} else {
-				checked = false;
-			}
-
-			$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
+				$('input[value="' + buttonVal + '"]').prop('checked', checked).trigger('change');
 
 			//add selected users to list from popover
 			if ($btn.closest('.popover-users').length) {
@@ -558,64 +566,64 @@ jQuery(function($) {
 						/*	used for display selected and not selected (hide) Approvals list
 						 *	This is use to disable users which are already selected in next phase for only first phase on edit post overlay page
 						 */
-						if ($target.hasClass('first-new-phase')) {
-							var $activePhase = $target.closest('.approval-phase');
-							var phaseId = $activePhase.attr('id');
-							var users = $(modal).find('.user-list li');
-							$.each(users, function(c, user) {
-								var ttipUser = $(user).find('input[name="post-approver"]').val();
-								var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
-								if($phaseUser.length) {
-									var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
-									if(phaseId === selectedPhase) {
-										$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
-									}
-									else {
-										$(user).find('[data-group="post-approver"]').addClass('disabled selected');
-									}
-								}
-							});
+						 if ($target.hasClass('first-new-phase')) {
+						 	var $activePhase = $target.closest('.approval-phase');
+						 	var phaseId = $activePhase.attr('id');
+						 	var users = $(modal).find('.user-list li');
+						 	$.each(users, function(c, user) {
+						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
+						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		if($phaseUser.length) {
+						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
+						 			if(phaseId === selectedPhase) {
+						 				$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
+						 			}
+						 			else {
+						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
+						 			}
+						 		}
+						 	});
+						 }
 						}
+					},
+					id: pid,
+					position: {
+						adjust: {
+							x: poffsetX,
+							y: poffsetY
+						},
+						at: ptattachment,
+						my: pattachment,
+						container: $(pcontainer),
+						target: $target,
+						viewport: pconstrain
+					},
+					show: {
+						effect: function() {
+							$(this).fadeIn();
+						},
+						event: e.type,
+						ready: true,
+						solo: true
+					},
+					hide: {
+						effect: function() {
+							$(this).fadeOut();
+						},
+						event: phide
+					},
+					overwrite: false,
+					style: {
+						classes: 'qtip-shadow ' + pclass,
+						tip: {
+							width: tipW,
+							height: tipH,
+							corner: true,
+							mimic: 'center'
+						},
+						width: pwidth
 					}
-				},
-				id: pid,
-				position: {
-					adjust: {
-						x: poffsetX,
-						y: poffsetY
-					},
-					at: ptattachment,
-					my: pattachment,
-					container: $(pcontainer),
-					target: $target,
-					viewport: pconstrain
-				},
-				show: {
-					effect: function() {
-						$(this).fadeIn();
-					},
-					event: e.type,
-					ready: true,
-					solo: true
-				},
-				hide: {
-					effect: function() {
-						$(this).fadeOut();
-					},
-					event: phide
-				},
-				overwrite: false,
-				style: {
-					classes: 'qtip-shadow ' + pclass,
-					tip: {
-						width: tipW,
-						height: tipH,
-						corner: true,
-						mimic: 'center'
-					},
-					width: pwidth
-				}
-			}, e);
+				}, e);
 		});
 
 		//Get popover content from an external source
@@ -700,47 +708,47 @@ jQuery(function($) {
 						 *	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
 						 *
 						 */
-						if ($target.hasClass('first-new-phase')) {
-							var $activePhase = $target.closest('.approval-phase');
-							var phaseId = $activePhase.attr('id');
-							var users = $(modal).find('.user-list li');
-							$.each(users, function(c, user) {
-								var ttipUser = $(user).find('input[name="post-approver"]').val();
-								var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
-								if($phaseUser.length) {
-									var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
-									if(phaseId === selectedPhase) {
-										$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
-									}
-									else {
-										$(user).find('[data-group="post-approver"]').addClass('disabled selected');
-									}
-								}
-							});
-						}
-					},
-					'hide.event': 'unfocus',
-					'position.adjust.x': poffsetX,
-					'position.adjust.y': poffsetY,
-					'position.at': ptattachment,
-					'position.my': pattachment,
-					'position.container': $(pcontainer),
-					'position.target': $target,
-					'overwrite': false,
-					'style.classes': 'qtip-shadow ' + pclass,
-					'style.tip.corner': arrowcorner,
-					'style.tip.mimic': 'center',
-					'style.tip.height': tipH,
-					'style.tip.width': tipW
-				}).show({
-					effect: function() {
-						$(this).fadeIn();
-					},
-					event: e.type,
-					ready: true
-				}, e);
-			}
-		});
+						 if ($target.hasClass('first-new-phase')) {
+						 	var $activePhase = $target.closest('.approval-phase');
+						 	var phaseId = $activePhase.attr('id');
+						 	var users = $(modal).find('.user-list li');
+						 	$.each(users, function(c, user) {
+						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
+						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		if($phaseUser.length) {
+						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
+						 			if(phaseId === selectedPhase) {
+						 				$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
+						 			}
+						 			else {
+						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
+						 			}
+						 		}
+						 	});
+						 }
+						},
+						'hide.event': 'unfocus',
+						'position.adjust.x': poffsetX,
+						'position.adjust.y': poffsetY,
+						'position.at': ptattachment,
+						'position.my': pattachment,
+						'position.container': $(pcontainer),
+						'position.target': $target,
+						'overwrite': false,
+						'style.classes': 'qtip-shadow ' + pclass,
+						'style.tip.corner': arrowcorner,
+						'style.tip.mimic': 'center',
+						'style.tip.height': tipH,
+						'style.tip.width': tipW
+					}).show({
+						effect: function() {
+							$(this).fadeIn();
+						},
+						event: e.type,
+						ready: true
+					}, e);
+				}
+			});
 
 		//Get popover content from an inline div
 		$('body').on('click', '[data-toggle="popover-inline"]', function(e) {
@@ -1709,144 +1717,144 @@ jQuery(function($) {
 	 * change the status comment(Accept, Reject)
 	 */
 
-	$(document).on('click', '.change-status', function() {
-		var comment_id = $(this).data('id');
-		var status = $(this).data('status');
+	 $(document).on('click', '.change-status', function() {
+	 	var comment_id = $(this).data('id');
+	 	var status = $(this).data('status');
 
-		var data = {
-			'comment_id': comment_id,
-			'status': status
-		};
-		var control = this;
-		$.ajax({
-			type: 'POST',
-			url: base_url + 'approvals/change_comment_status',
-			data: data,
-			success: function(response) {
-				if (response == 1) {
-					$(control).parent().parent().children('p:last').html('Status: ' + status);
-					$(control).parent().children('button').prop('disabled', true);
-				} else {
-					alert(language_message.unable_to_change_status);
-				}
-			}
-		});
-	});
+	 	var data = {
+	 		'comment_id': comment_id,
+	 		'status': status
+	 	};
+	 	var control = this;
+	 	$.ajax({
+	 		type: 'POST',
+	 		url: base_url + 'approvals/change_comment_status',
+	 		data: data,
+	 		success: function(response) {
+	 			if (response == 1) {
+	 				$(control).parent().parent().children('p:last').html('Status: ' + status);
+	 				$(control).parent().children('button').prop('disabled', true);
+	 			} else {
+	 				alert(language_message.unable_to_change_status);
+	 			}
+	 		}
+	 	});
+	 });
 
-	$(document).on('click', '.schedule-post', function() {
-		var id = $(this).attr('id');
-		var btn = this;
-		if (id) {
-			$.ajax({
-				'type': 'POST',
-				url: base_url + 'posts/schedule_post',
-				data: {
-					'post_id': id
-				},
-				success: function(response) {
-					if (response == 1) {
-						$(btn).html('Scheduled');
-						$(btn).prop('disabled', true);
-						$(btn).addClass('btn-disabled');
-						$(btn).addClass('btn-secondary');
-						$(btn).removeClass('btn-default');
-					} else {
-						alert(language_message.unable_to_post);
-					}
-				}
-			});
-		}
-	});
+	 $(document).on('click', '.schedule-post', function() {
+	 	var id = $(this).attr('id');
+	 	var btn = this;
+	 	if (id) {
+	 		$.ajax({
+	 			'type': 'POST',
+	 			url: base_url + 'posts/schedule_post',
+	 			data: {
+	 				'post_id': id
+	 			},
+	 			success: function(response) {
+	 				if (response == 1) {
+	 					$(btn).html('Scheduled');
+	 					$(btn).prop('disabled', true);
+	 					$(btn).addClass('btn-disabled');
+	 					$(btn).addClass('btn-secondary');
+	 					$(btn).removeClass('btn-default');
+	 				} else {
+	 					alert(language_message.unable_to_post);
+	 				}
+	 			}
+	 		});
+	 	}
+	 });
 
-	$(document).on("click", ".edit_post", function(event) {
+	 $(document).on("click", ".edit_post", function(event) {
 		//.qtip is my qtip element from the parent page and then I hide it.
 		$('.qtip', window.parent.document).qtip("hide");
 	});
 
-	$(document).on('click', '.got-to-calender', function(e) {
-		e.preventDefault();
-		$('#selected_date').val($(this).data('post-date'));
-		$('#summary-form').submit();
+	 $(document).on('click', '.got-to-calender', function(e) {
+	 	e.preventDefault();
+	 	$('#selected_date').val($(this).data('post-date'));
+	 	$('#summary-form').submit();
+	 });
+
+	 $('body').on('click', '.toggleActive', function(e) {
+	 	e.preventDefault();
+	 	$(this).closest('.approval-phase').toggleClass('active inactive');
+	 	$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
+	 	equalColumns();
+	 });
+
+
+
+	 $(document).on('click', '.delete-phase', function(event) {
+	 	event.preventDefault();
+	 	$btn = $(this);
+	 	var post_id, phase_id;
+	 	post_id = $btn.data('post-id');
+	 	phase_id = $btn.data('phase-id');
+
+	 	if (confirm(language_message.confirm_delete_phase)) {
+	 		$.ajax({
+	 			'type': 'POST',
+	 			dataType: 'json',
+	 			url: base_url + 'phases/delete',
+	 			data: {
+	 				'post_id': post_id,
+	 				'phase_id': phase_id
+	 			},
+	 			success: function(response) {
+	 				if (response.status == 'success') {
+	 					window.location.reload();
+	 					$('.modal-hide').click();
+	 				} else {
+	 					alert(language_message.try_again);
+	 					$('.modal-hide').click();
+	 				}
+	 			}
+	 		});
+	 	}
+	 });
+
+	 $(document).on('click', '.go_back', function() {
+	 	$btn = $(this).next("button");
+	 	$.each($btn.data(), function(i, k) {
+	 		var attr_name = i.split(/(?=[A-Z])/);
+	 		var str = attr_name[0] + '-' + attr_name[1];
+	 		$btn.removeAttr("data-" + str.toLowerCase());
+	 	});
+	 });
+
+	 $(document).on('change', 'select[name="time_zone"]', function() {
+	 	var selected_abb;
+	 	selected_abb = $(this).find(':selected').data('abbreviation');
+	 	$('#timezone_abbreviation').text(selected_abb);
+	 });
+
+	 $('.collapse').on('shown.bs.collapse', function(){
+	 	$(this).next().text('Less');
+	 }).on('hidden.bs.collapse', function(){
+	 	$(this).next().text('See more');		
+	 });
+
+	 toggleBtnClass = function(btnClass, btnState) {
+	 	$(btnClass).prop('disabled', btnState);
+	 	if (btnState) {
+	 		$(btnClass).addClass('btn-disabled');
+	 	} else {
+	 		$(btnClass).removeClass('btn-disabled');
+	 	}
+	 };
+
+	 $('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
+
+	 if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+	 {
+	 	if(Notification.permission !== 'granted'){
+	 		Notification.requestPermission();
+	 	}
+	 	//alert_notification();
+	 }
 	});
-
-	$('body').on('click', '.toggleActive', function(e) {
-		e.preventDefault();
-		$(this).closest('.approval-phase').toggleClass('active inactive');
-		$(this).find('.fa').toggleClass('fa-angle-right fa-angle-down');
-		equalColumns();
-	});
-
-
-
-	$(document).on('click', '.delete-phase', function(event) {
-		event.preventDefault();
-		$btn = $(this);
-		var post_id, phase_id;
-		post_id = $btn.data('post-id');
-		phase_id = $btn.data('phase-id');
-
-		if (confirm(language_message.confirm_delete_phase)) {
-			$.ajax({
-				'type': 'POST',
-				dataType: 'json',
-				url: base_url + 'phases/delete',
-				data: {
-					'post_id': post_id,
-					'phase_id': phase_id
-				},
-				success: function(response) {
-					if (response.status == 'success') {
-						window.location.reload();
-						$('.modal-hide').click();
-					} else {
-						alert(language_message.try_again);
-						$('.modal-hide').click();
-					}
-				}
-			});
-		}
-	});
-
-	$(document).on('click', '.go_back', function() {
-		$btn = $(this).next("button");
-		$.each($btn.data(), function(i, k) {
-			var attr_name = i.split(/(?=[A-Z])/);
-			var str = attr_name[0] + '-' + attr_name[1];
-			$btn.removeAttr("data-" + str.toLowerCase());
-		});
-	});
-
-	$(document).on('change', 'select[name="time_zone"]', function() {
-		var selected_abb;
-		selected_abb = $(this).find(':selected').data('abbreviation');
-		$('#timezone_abbreviation').text(selected_abb);
-	});
-
-	$('.collapse').on('shown.bs.collapse', function(){
-		$(this).next().text('Less');
-	}).on('hidden.bs.collapse', function(){
-		$(this).next().text('See more');		
-	});
-
-	toggleBtnClass = function(btnClass, btnState) {
-		$(btnClass).prop('disabled', btnState);
-		if (btnState) {
-			$(btnClass).addClass('btn-disabled');
-		} else {
-			$(btnClass).removeClass('btn-disabled');
-		}
-	};
-
-	$('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
-
-	if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
-	{
-		if(Notification.permission !== 'granted'){
-			Notification.requestPermission();
-		}
-		alert_notification();
-	}
-});
 
 function alert_notification() {
 	setTimeout(function() {

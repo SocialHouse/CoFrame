@@ -244,7 +244,7 @@
 												</div>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
-													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no;?>][note]"><?php echo $obj[0]->note; ?></textarea>
+													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $phase_no;?>][note]"><?php echo nl2br($obj[0]->note); ?></textarea>
 												</div>
 												<div class="form-group">
 													<?php 
@@ -303,7 +303,7 @@
 												{
 												?>
 													<div class="approval-note">
-														NOTE: <?php echo $obj[0]->note ?>
+														NOTE: <?php echo nl2br($obj[0]->note); ?>
 													</div>
 												<?php
 												}
@@ -393,7 +393,7 @@
 													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 												</div>
 												<div class="approval-note">
-													NOTE: <?php echo $obj[0]->note; ?>
+													NOTE: <?php echo nl2br($obj[0]->note); ?>
 												</div>
 											</div>
 									<?php

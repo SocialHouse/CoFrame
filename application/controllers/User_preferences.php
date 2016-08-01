@@ -41,6 +41,7 @@ class User_preferences extends CI_Controller {
 		}
 
 		$this->data['css_files'] = array(css_url().'intlTelInput.css',css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css',css_url().'custom.css');
+
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js', js_url().'reorder-brands.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'vendor/intlTelInput.min.js?ver=9.0.2', js_url().'user_preference.js?ver=2.11.0');
 
 		$this->data['background_image'] = 'bg-admin-overview.jpg';
@@ -84,6 +85,11 @@ class User_preferences extends CI_Controller {
 				$this->data['js_files'][] = js_url().'stripe.js?ver=2.11.0';
 			}
 			
+			if($page == 'users')
+			{
+				$this->data['js_files'][] = array(js_url().'add-brand.js?ver=2.11.0',js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3');
+				$this->data['groups'] = $this->aauth->list_groups();
+			}
 			_render_view($this->data);
 		// }
 		// else
@@ -402,6 +408,136 @@ class User_preferences extends CI_Controller {
 		        _render_view($this->data);
 			}
 		}
+	}
+
+
+    public function add_user()
+    {
+    	$post_data = $this->input->post();
+
+    	if(!empty($post_data))
+    	{        	
+            try
+            {
+            	$user_in_other_brand = 0;
+	    		$password = uniqid();
+	        	$user_data = array(
+	        					'first_name' => $this->input->post('first_name'),
+	        					'last_name' => $this->input->post('last_name'),
+	        					'title' => $this->input->post('title'),	  
+	                            'created_at' => date('Y-m-d H:i:s'),
+	                            'password' => $password,
+	                            'username' => $this->input->post('email')
+	        				);
+
+	        	$this->load->helper('email');
+
+	        	$this->data['user'] = $user_data;
+                
+            	$inserted_id = $this->aauth->create_user_without_email($post_data['email'],$password);
+            	unset($user_data['password']);
+            	unset($user_data['username']);
+	                
+	           
+            	$group_id = $this->aauth->get_group_id($post_data['selected_role']);
+            	if($inserted_id)
+            	{
+            		$brand_status = array(
+            							'is_hidden' => 0	
+            						);
+                    $condition = array(
+                    				'id' => ''
+                    			);                 
+                   $this->timeframe_model->update_data('brands',$brand_status,$condition);
+
+                	$this->aauth->add_member($inserted_id,$group_id,'');
+
+                	$user_data['aauth_user_id'] = $inserted_id;
+                	$user_data['img_folder'] = $this->user_data['img_folder'];
+
+
+                	
+                	$this->timeframe_model->insert_data('user_info',$user_data);
+                	
+
+                	$user_img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $inserted_id),'img_folder');
+                	
+                	//add permission to user
+            
+                	
+                	if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64'])){
+                		$base64_image = $post_data['user_pic_base64'];
+	        		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+			        	//decode base64 string
+				        $decoded = base64_decode($base64_str);
+
+				        //create jpeg from decoded base 64 string and save the image in the parent folder
+
+				        if(!is_dir(upload_path().$user_img_folder[0]->img_folder.'/users/')){
+				        	mkdir(upload_path().$user_img_folder[0]->img_folder.'/users/',0755,true);
+				        }
+				        $url = upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';	
+				        $result = file_put_contents($url, $decoded);
+
+				        $source_url = imagecreatefrompng($url);
+				        
+				        header('Content-Type: image/png');
+				        imagepng($source_url, $url, 8);
+		        	}
+                	
+                	
+                    $brand_user_map = array(
+                    							'brand_id' => '',
+                    							'access_user_id' => $inserted_id
+                    						);
+                    
+                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+
+                    
+
+                    $image_path = img_url().'default_profile.jpg';
+					if(file_exists(upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png'))
+					{
+						$image_path = upload_url().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';
+					}
+
+                   	$this->load->model('brand_model');
+					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
+
+					if(isset($is_present))
+					{
+						
+						$this->data['selected_role'] = $post_data['selected_role'];
+						try
+					    {
+					    	$email = $post_data['email'];
+					    	$subject = "You have been addded in new account";
+					    	$content = $this->load->view('mails/new_account_info',$this->data,true);
+					    	$mail_send = email_send($email, $subject,$content);
+					    }
+						catch (SomeException $e)
+						{
+						  // do nothing... php will ignore and continue    
+						}
+						
+		                
+					}
+					redirect(base_url().'user_preferences/users');
+                    //echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id,'all_user_count' => $all_users));
+                }
+                else
+                {
+                	redirect(base_url().'user_preferences/users');
+             		//echo json_encode(array('response' => 'fail'));   	
+                }            
+            }
+            catch(Exception $ex)
+            {
+            	redirect(base_url().'user_preferences/users');
+                //echo json_encode(array('response' => 'fail'));
+            }
+    	}
 	}
 
 }
