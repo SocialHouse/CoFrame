@@ -100,6 +100,33 @@ class Timeframe_model extends CI_Model
 			$result = array_column($result,'account_id');
 			return $result;
 		}
+		else
+		{
+			$this->db->select('aauth_users.id as aauth_user_id,parent_id');
+			$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+	        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+	        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+	        $this->db->where('aauth_user_to_group.user_id',$this->user_id);
+	        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+	        $query = $this->db->get('aauth_user_to_group');
+
+	        if($query->num_rows() > 0)
+	        {
+
+				$this->db->select('account_id');
+				$this->db->join('brand_user_map','brand_user_map.brand_id = brands.id','left');
+				$this->db->where('account_id', $query->row()->parent_id);
+				$this->db->order_by('brands.id','ASC');
+				$this->db->group_by('account_id');
+				$query = $this->db->get('brands');				
+				if($query->num_rows() > 0)
+				{
+					return $query->row()->account_id;
+				}
+	        }
+		}
+
 		$result[0] = $this->user_id;
 		return $result;
 	}	
