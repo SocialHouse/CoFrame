@@ -1545,10 +1545,20 @@ jQuery(function($) {
 		element.qtip({
 			content: {
 				text: 'Loading...',
-				ajax: {
-					url: base_url + "posts/get_post_info/" + id + '/' + $('#calendar_type').val(),
-					type: 'GET',
-					once: true
+				text: function(event, api) {
+					$.ajax({
+						url: base_url + "posts/get_post_info/" + id + '/' + $('#calendar_type').val()
+					}).then(function(content) {
+						// Set the tooltip content upon successful retrieval
+						api.set('content.text', content);
+						setTimeout(function() {
+							api.reposition();
+						}, 200);
+					}, function(xhr, status, error) {
+						// Upon failure... set the tooltip content to the status and error value
+						api.set('content.text', status + ': ' + error);
+					});
+					return 'Loading...'; // Set some initial text
 				}
 			},
 			events: {
