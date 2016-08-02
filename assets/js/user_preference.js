@@ -54,13 +54,17 @@ $(document).ready(function(){
 		{
 			var current_users = $(this).data('current_users');
 			var current_brand_count = $(this).data('current_brand_count');
+			var current_master_users = $(this).data('current_master_users');
+
 			var brand_wise_tags = $('#brand_wise_tags').val();	
 			var brand_wise_outlets = $('#brand_wise_outlets').val();			
 
 			var users_allowed = $(this).data('users');
 			var brands_allowed = $(this).data('brands');
+			var master_users_allowed = $(this).data('master_users');
 
 			var user_error = 0;
+			var master_user_error = 0;
 			var brand_error = 0;
 			var tag_error = 0;
 			var outlet_error = 0;
@@ -78,11 +82,27 @@ $(document).ready(function(){
 				user_error = 1;				
 			}
 
+			console.log(current_master_users);
+			console.log(master_users_allowed);
+			if(current_master_users > master_users_allowed)
+			{
+				var additional_count = current_master_users - master_users_allowed;
+				master_user_msg = language_message.master_users_limit_downgrade.replace('%master_users_number%',additional_count)
+				if(user_error)
+				{
+					error_msg += 'and';
+					master_user_msg = master_user_msg.replace('Please remove','');
+				}
+				
+				error_msg += master_user_msg;
+				master_user_error = 1;
+			}
+
 			if(current_brand_count > brands_allowed)
 			{
 				var additional_count = current_brand_count - brands_allowed;
 				brand_msg = language_message.brand_limit_downgrade.replace('%brand_number%',additional_count)
-				if(user_error)
+				if(user_error || master_user_error)
 				{
 					error_msg += 'and';
 					brand_msg = brand_msg.replace('Please remove','');
@@ -108,7 +128,7 @@ $(document).ready(function(){
 			if(tag_error)
 			{
 				tag_msg = language_message.tag_limit_downgrade.replace('%message%',tag_error_string);
-				if(user_error || brand_error)
+				if(user_error || brand_error || master_user_error)
 				{
 					error_msg += 'and';
 					tag_msg = tag_msg.replace('Please remove','');
@@ -136,7 +156,7 @@ $(document).ready(function(){
 			if(outlet_error)
 			{
 				outlet_msg = language_message.outlet_limit_downgrade.replace('%message%',tag_error_string);
-				if(user_error || brand_error || tag_error)
+				if(user_error || brand_error || tag_error || master_user_error)
 				{
 					error_msg += 'and';
 					outlet_msg = outlet_msg.replace('Please remove','');
@@ -144,7 +164,7 @@ $(document).ready(function(){
 				error_msg += outlet_msg;
 			}
 
-			if(outlet_error || tag_error || user_error || brand_error)
+			if(outlet_error || tag_error || user_error || brand_error || master_user_error)
 			{
 				alert(error_msg);
 				return false;

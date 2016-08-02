@@ -272,20 +272,39 @@ class Brand_model extends CI_Model
 		//whe nwe complete with functionality like add multiple master users we need to change this
 		$all_users = $query->num_rows() + 1;
 
-		// $this->db->select('aauth_users.id as aauth_user_id');
-		// $this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
-  //       $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+		$this->db->select('aauth_users.id as aauth_user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
 
-  //       $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
-  //       $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
-  //       $this->db->where('aauth_user_to_group.brand_id' , NULL);
-  //       $query = $this->db->get('aauth_user_to_group');
+        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
+        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+        $query = $this->db->get('aauth_user_to_group');
 
-  //       if($query->num_rows() > 0)
-  //       {
-  //          $all_users = $query->num_rows() + $all_users;
-  //       }
+        if($query->num_rows() > 0)
+        {
+           $all_users = $query->num_rows() + $all_users;
+        }
         return $all_users;
+	}
+
+	function get_all_master_users()
+	{
+		$this->db->select('aauth_users.id as aauth_user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
+        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+        $query = $this->db->get('aauth_user_to_group');
+
+        if($query->num_rows() > 0)
+        {
+           $master_users = $query->num_rows() + 1;
+           return $master_users;
+        }
+        return 1;
 	}
 
 	function get_brand_wise_tags()

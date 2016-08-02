@@ -64,6 +64,8 @@ class User_preferences extends CI_Controller {
 				$this->load->model('brand_model');
 				$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
 
+				$this->data['master_users'] = $this->brand_model->get_all_master_users($this->user_data['account_id']);
+
 				$brands = $this->timeframe_model->get_data_by_condition('brands',array('account_id' => $this->user_data['account_id']),'id');
 				$this->data['brand_count'] = 0;
 				if(!empty($brands))

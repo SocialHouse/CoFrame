@@ -53,7 +53,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-		        <a class="navbar-brand hidden-print" href="/">
+		        <a class="navbar-brand hidden-print" href="<?php echo base_url(); ?>">
 	            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
 	        	</a>
 				<div class="visible-print-block logo-print">

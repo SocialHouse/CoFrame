@@ -66,7 +66,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									$plan_config = $this->config->item('plans')['start-up'];
 									$plan_change = 'downgrade';
 									?>
-									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="START-UP" data-price="$99.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-current_master_users="<?php echo $master_users; ?>" data-master_users="<?php echo $plan_config['master_admins']; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="START-UP" data-price="$99.00">Select</a>
 									<?php
 								}
 							?>
@@ -101,7 +101,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 										$plan_change = 'downgrade';
 									}
 									?>
-									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="BUSINESS" data-price="$199.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-current_master_users="<?php echo $master_users; ?>" data-master_users="<?php echo $plan_config['master_admins']; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="BUSINESS" data-price="$199.00">Select</a>
 									<?php
 								}
 							?>	
@@ -136,7 +136,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									}
 
 									?>
-									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="CORPORATE" data-price="$299.00">Select</a>
+									<a data-plan_change="<?php echo $plan_change; ?>" data-current_brand_count="<?php echo $brand_count; ?>" data-current_users="<?php echo $all_users; ?>" data-current_master_users="<?php echo $master_users; ?>" data-master_users="<?php echo $plan_config['master_admins']; ?>" data-users="<?php echo $plan_config['users']; ?>" data-tags="<?php echo $plan_config['tags']; ?>" data-outlets="<?php echo $plan_config['outlets']; ?>" data-brands="<?php echo $plan_config['brands']; ?>" class="btn btn-secondary btn-sm btn-choose-plan change_plan" data-plan="CORPORATE" data-price="$299.00">Select</a>
 									<?php
 								}
 							?>
