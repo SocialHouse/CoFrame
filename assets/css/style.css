@@ -2224,7 +2224,7 @@ input[type="button"].btn-block {
   color: #000;
   text-align: left;
   list-style: none;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #fff;
   background-clip: padding-box;
   border: 0 solid rgba(0, 0, 0, 0.15);
   border-radius: 8px; }
@@ -9160,9 +9160,8 @@ a {
   .navbar-main .navbar-nav {
     position: relative;
     z-index: 2; }
-  @media (max-width: 1280px) {
-    .navbar-main .nav-item + .nav-item {
-      margin-left: .5rem; } }
+  .navbar-main .nav-item + .nav-item {
+    margin-left: 0; }
   .navbar-main .nav-link {
     text-transform: uppercase;
     letter-spacing: .25rem;
@@ -9181,13 +9180,15 @@ a {
   animation: fadeInUp 300ms; }
 
 .dropdown-menu {
-  border-radius: 0;
   margin-top: 0;
-  padding: 0; }
+  padding: 0;
+  border-radius: 6px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.5); }
   .dropdown-menu .nav-link {
     font-size: inherit;
     text-transform: none;
-    letter-spacing: inherit; }
+    letter-spacing: inherit;
+    border-radius: 6px; }
     .navbar-dark .dropdown-menu .nav-link {
       color: #000; }
       .navbar-dark .dropdown-menu .nav-link:hover {
@@ -9195,6 +9196,41 @@ a {
         background: #fff; }
   .dropdown-menu .nav-item + .nav-item {
     margin-left: 0; }
+
+.dropdown-user > .nav-link {
+  padding-top: 0;
+  position: relative;
+  z-index: 1050; }
+.dropdown-user .circle-img {
+  border-color: #fff;
+  border-width: 2px; }
+.dropdown-user .dropdown-menu {
+  top: -10px;
+  left: inherit;
+  right: 0;
+  padding-top: 50px;
+  text-align: right;
+  min-width: 240px; }
+  .dropdown-user .dropdown-menu li + li {
+    border-top: 1px solid #bfbfbf; }
+  .dropdown-user .dropdown-menu li .nav-link {
+    padding: 1.5rem 0;
+    display: block;
+    text-transform: uppercase;
+    padding-right: 1.09375rem; }
+  .dropdown-user .dropdown-menu .user-info {
+    font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-right: 1.09375rem; }
+  .dropdown-user .dropdown-menu .user-role {
+    color: #808080;
+    border: 1px solid #bfbfbf;
+    font-size: 0.8rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0 5px; }
 
 .navbar-brand {
   display: block;
@@ -9372,7 +9408,11 @@ a {
   letter-spacing: .25rem;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
   .current-user-details .user-name {
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    cursor: default; }
+    .current-user-details .user-name:hover {
+      background: #000;
+      color: #fff; }
   .current-user-details .current-time {
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
     border-left: 1px solid #000;

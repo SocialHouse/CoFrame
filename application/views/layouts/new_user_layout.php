@@ -18,7 +18,7 @@
 	        <?php
 	    }
 	}
-	// create json messafe file
+	// create json message file
 	if($this->config->item('compile_json_message_js')){
 		$msg_file = $this->config->item('json_msg_file');
 		$json_message = $this->lang->language;
@@ -26,6 +26,8 @@
 		@unlink($msg_file);
 		file_put_contents($msg_file, $json_str);
 	}
+
+	$brand_id = get_my_brand($this->user_id);
 ?>
 
 <script type="text/javascript">
@@ -69,9 +71,13 @@
 						?>
 					</ul>
 		    	</li>
-
-		    	<li class="nav-item">
-		      		<a class="btn btn-default btn-sm" href="<?php echo base_url().'tour/logout' ?>">Log out</a>
+				<li class="nav-item dropdown dropdown-user">
+					<a class="nav-link" href="#"><?php echo print_user_image($this->user_data['img_folder'],$this->user_id); ?></a>
+					<ul class="dropdown-menu">
+						<li class="user-info"><?php echo $this->user_data['first_name'] . " " . $this->user_data['last_name']; ?><br>
+						<span class="user-role"><?php echo get_user_groups($this->user_id,$brand_id); ?></span></li>
+						<li><a class="nav-link" href="<?php echo base_url().'tour/logout' ?>">Log out</a></li>
+					</ul>
 		    	</li>
 		  	</ul>
 		</nav>

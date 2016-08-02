@@ -367,9 +367,7 @@ a {
 		z-index: 2;
 	}
 	.nav-item + .nav-item {
-		@media (max-width: 1280px) {
-			margin-left: .5rem;
-		}
+		margin-left: 0;
 	}
 	.nav-link {
 		text-transform: uppercase;
@@ -397,13 +395,15 @@ a {
 	}
 }
 .dropdown-menu {
-	border-radius: 0;
 	margin-top: 0;
 	padding: 0;
+	border-radius: 6px;
+	box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.5);
 	.nav-link {
 		font-size: inherit;
 		text-transform: none;
 		letter-spacing: inherit;
+		border-radius: 6px;
 		.navbar-dark & {
 			color: #000;
 			&:hover {
@@ -414,6 +414,51 @@ a {
 	}
 	.nav-item + .nav-item {
 		margin-left: 0;
+	}
+}
+.dropdown-user {
+	> .nav-link {
+		padding-top: 0;
+		position: relative;
+		z-index: 1050;
+	}
+	.circle-img {
+		border-color: #fff;
+		border-width: 2px;
+	}
+	.dropdown-menu {
+		top: -10px;
+		left: inherit;
+		right: 0;
+		padding-top: 50px;
+		text-align: right;
+		min-width: 240px;
+		li {
+			+ li {
+				border-top: 1px solid $gray-lighter;
+			}
+			.nav-link {
+				padding: 1.5rem 0;
+				display: block;
+				text-transform: uppercase;
+				padding-right: 1.09375rem;
+			}
+		}
+		.user-info {
+			font-family: $futura-light;
+			font-size: remCalc(18px);
+			margin-bottom: 1rem;
+			padding-right: 1.09375rem;
+		}
+		.user-role {
+			color: #808080;
+			border: 1px solid $gray-lighter;
+			font-size: remCalc(12px);
+			letter-spacing: .25em;
+			text-transform: uppercase;
+			display: inline-block;
+			padding: 0 5px;
+		}
 	}
 }
 .navbar-brand {
@@ -618,6 +663,11 @@ a {
 	font-family: $futura;
 	.user-name {
 		margin-bottom: 1rem;
+		cursor: default;
+		&:hover {
+			background: #000;
+			color: #fff;
+		}
 	}
 	.current-time {
 		font-family: $futura;
