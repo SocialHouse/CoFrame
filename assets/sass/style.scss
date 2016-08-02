@@ -321,9 +321,8 @@ h5 {
 }
 .btn-group {
 	.btn {
-		border-left: 0;
-		&:first-child {
-			border-left: 1px solid;
+		+.btn {
+			border-left: 0;
 		}
 	}
 }
@@ -2874,6 +2873,7 @@ a {
 	}
 	.post-content {
 		padding-top: 2rem;
+		padding-bottom: 2rem;
 	}
 	.post-meta {
 		margin-bottom: 3rem;
@@ -2924,6 +2924,9 @@ a {
 			margin-bottom: .25rem;
 		}
 	}
+	.post-actions {
+		margin-right: 1rem;
+	}
 }
 .post-actions {
 	text-align: center;
@@ -2942,7 +2945,7 @@ a {
 		text-decoration: none;
 		font-size: 11px;
 	}
-	.btn + .btn {
+	:not(.btn-group) .btn + .btn {
 		margin-left: 1rem;
 	}
 }

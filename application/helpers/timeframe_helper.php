@@ -510,7 +510,7 @@ if(!function_exists('get_approval_list_buttons'))
             }            
             elseif($approver_status == 'approved')
             {
-                $html_to_return .= '<a class="btn btn-sm btn-disabled btn-default color-success">Approved</a>';
+                $html_to_return .= '<a class="btn btn-sm btn-disabled btn-default color-success">Approved</a> ';
             }
 
             if(!empty($approver_status))

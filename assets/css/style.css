@@ -9125,10 +9125,8 @@ h5, .qtip-titlebar {
   color: #808080;
   border-color: #808080; }
 
-.btn-group .btn {
+.btn-group .btn + .btn {
   border-left: 0; }
-  .btn-group .btn:first-child {
-    border-left: 1px solid; }
 
 .btn-thirds .btn {
   width: 33%; }
@@ -11151,7 +11149,8 @@ a {
   .post-day .post-img {
     padding-left: 0; }
   .post-day .post-content {
-    padding-top: 2rem; }
+    padding-top: 2rem;
+    padding-bottom: 2rem; }
   .post-day .post-meta {
     margin-bottom: 3rem; }
     .post-day .post-meta span {
@@ -11183,6 +11182,8 @@ a {
     margin-bottom: 3rem; }
     .post-day .post-body p {
       margin-bottom: .25rem; }
+  .post-day .post-actions {
+    margin-right: 1rem; }
 
 .post-actions {
   text-align: center; }
@@ -11195,7 +11196,7 @@ a {
   .post-actions .btn-sm, .post-actions .btn-group-sm > .btn {
     text-decoration: none;
     font-size: 11px; }
-  .post-actions .btn + .btn {
+  .post-actions :not(.btn-group) .btn + .btn {
     margin-left: 1rem; }
 
 .before-approve, .after-approve {
