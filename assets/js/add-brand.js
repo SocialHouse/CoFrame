@@ -229,11 +229,9 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('#selectBrandTags .tag').unbind('click').click(function(event) {
-			alert('test');
 			if ($(this).hasClass('save-list-tag')) {
 				return;
 			}
-			//alert('test');
 			if ($(this).hasClass('saved')) {
 				return;
 			}
@@ -348,7 +346,6 @@ jQuery(function($) {
 			var control = this;
 			if ($('#tagLabel').hasClass('edit-process')) {
 				if (numberSelected > 0) {
-					// alert('test');
 					$.each($selectedList.children('li'), function(a, b) {
 						if ($('#tagLabel').attr('data-edit_index') == $(b).attr('data-index')) {
 							$(b).attr('data-tag', $selectedItem.attr('data-value'));

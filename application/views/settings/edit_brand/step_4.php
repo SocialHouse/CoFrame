@@ -55,7 +55,7 @@
 					</ul>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="tagLabel" id="tagLabel">
+					<input type="text" class="form-control" name="tagLabel" id="tagLabel" placeholder="Enter tag label">
 					<!-- <select class="form-control" name="tagLabel" id="tagLabel">								
 						<option value="">Select Label</option>
 						<?php 
