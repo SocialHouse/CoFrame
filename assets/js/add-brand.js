@@ -144,7 +144,8 @@ jQuery(function($) {
 		})
 
 		// Clear tag field when adding a second tag.
-		$('#addTagLink').on('click', function() {
+		$('#addTagLink').on('click', function() {		
+
 			$('#newLabel').val("");
 			$('#tagLabel').val("");
 			$('#tagLabel').attr('data-edit_color', '');
@@ -159,30 +160,26 @@ jQuery(function($) {
 			$.each(selected_tag, function(a, b) {
 				$.each($('.tag-list').children('.tags-to-add').find('li'), function(c, d) {
 					if ($(d).attr('data-color') == $(b).find('a:last').attr('data-color')) {
-						$(d).attr('data-value', $(b).attr('data-value'));
-						$(d).removeClass('selected');
-						$(d).addClass('saved');
+						// if(!$(d).hasClass('tag-custom'))
+						// {
+							console.log($(d));
+							$(d).attr('data-value', $(b).attr('data-value'));
+							$(d).removeClass('selected');
+							$(d).addClass('saved');
+						// }
 					}
 				});
 			});
+
+			$custom_tag = $(".tags-to-add").find('li.custom-tag');			
+			console.log($custom_tag);
+			$custom_tag.removeClass('selected');
+			$custom_tag.removeClass('saved');
+			$custom_tag.addClass('hidden');
+			$custom_tag.hide();
+			$custom_tag.attr('data-value','');
+
 			toggleBtnClass('#addTag', true);
-			// if($('.tags-to-add').children('.saved').length && $('#tagLabel').val())
-			// {
-			// 	if($('#tagLabel').val() && $('#tagLabel').val() == 'other' && $('#newLabel').val())
-			// 	{
-			// 		toggleBtnClass('#addTag',false);
-			// 	}
-			// 	else
-			// 	{
-			// 		toggleBtnClass('#addTag',true);	
-			// 	}
-
-			// 	if($('#tagLabel').val() != 'other')
-			// 	{
-			// 		toggleBtnClass('#addTag',false);	
-			// 	}
-
-			// }
 		});
 
 		$('#userRoleSelect').on('change', function() {
@@ -232,6 +229,7 @@ jQuery(function($) {
 		/*Tag Functions*/
 		//assign tags to brand
 		$('#selectBrandTags .tag').unbind('click').click(function(event) {
+			alert('test');
 			if ($(this).hasClass('save-list-tag')) {
 				return;
 			}
@@ -278,7 +276,7 @@ jQuery(function($) {
 			customTag = true;
 		});
 
-		$('#tagLabel').on('change', function() {
+		$('#tagLabel').on('keyup change', function() {
 			var $tag = $('#selectBrandTags .selected');
 			var label = $(this).val();
 			if (label) {
@@ -291,9 +289,7 @@ jQuery(function($) {
 					var add_flag = 1;
 					var control = this;
 					setTimeout(function() {
-						$.each(selected_tag, function(a, b) {
-							//console.log($(control).val());
-							//console.log($(b).data('value'));
+						$.each(selected_tag, function(a, b) {							
 							if ($(b).data('value') == $(control).val()) {
 								add_flag = 0;
 								$('#labelSelectValid').removeClass('hide');
@@ -328,7 +324,7 @@ jQuery(function($) {
 					}
 				}
 			} else {
-				$('#addTag').prop('disabled', true);
+				toggleBtnClass('#addTag', true);
 			}
 		});
 
@@ -380,18 +376,18 @@ jQuery(function($) {
 				if (numberSelected > 0) {
 					var $clone = $selectedItem.clone();
 
-					var $listItem = $clone.remove('input').removeClass('selected');
-					$listItem.children('.color').attr('name', 'selected_tags[]');
+					var $listItem = $clone.remove('input').removeClass('selected');					
 					$('.submit_tag').prop('disabled', true);
 					setTimeout(function() {
+						$listItem.children('.color').attr('name', 'selected_tags[]');						
 						var tagTitle = $selectedItem.attr('data-value');
 						var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
 						//reset custom tags so that another can be added
 						if (customTag === true) {
-							var $custom = $('#selectBrandTags .custom-tag');
-							var $newCustom = $custom.clone();
-							$newCustom.insertAfter($custom).removeClass('selected').hide();
-							$custom.removeClass('custom-tag');
+							// var $custom = $('#selectBrandTags .custom-tag');
+							// var $newCustom = $custom.clone();
+							// $newCustom.insertAfter($custom).removeClass('selected').hide();
+							// $custom.remove('custom-tag');
 							customTag = false;
 						}
 
@@ -408,10 +404,17 @@ jQuery(function($) {
 		});
 
 		$('.edit-tag').unbind('click').click(function() {
+			$custom_tag = $(".tags-to-add").find('li.custom-tag');
+			$custom_tag.removeClass('selected');
+			$custom_tag.removeClass('saved');
+			$custom_tag.addClass('hidden');
+			$custom_tag.attr('data-value','');
+
 			control = this;
 			var li = $(".tags-to-add").children('li');
 			var selected = 0;
 			var selected_tag = $('#selectedTags').find('li');
+
 			$.each(selected_tag, function(a, b) {
 				$.each($('.tag-list').children('.tags-to-add').find('li'), function(c, d) {
 					if ($(d).attr('data-color') == $(b).children('a:last').attr('data-color')) {
@@ -421,16 +424,27 @@ jQuery(function($) {
 					}
 				});
 			});
+			var color_found = 0;
 			$.each(li, function(a, b) {
 				if ($(b).attr('data-color') == $(control).attr('data-color') && $(b).attr('data-value') == $(control).data('value')) {
 					$(b).removeClass('saved');
+					$(b).removeClass('hidden');
 					$(b).addClass('selected');
 					var data_tag_val = $(b).attr('data-value');
-
-					// $("#tagLabel").val($(b).attr('data-value'));
-					// $("#tagLabel").trigger('change');
+					color_found = 1;
 				}
-			});
+			});			
+			
+			if(color_found == 0)
+			{
+				$custom_tag.addClass('selected');
+				$custom_tag.attr('data-value',$(control).attr('data-value'));
+				$custom_tag.attr('data-color',$(control).attr('data-color'));
+				$custom_tag.removeClass('hidden');
+				$custom_tag.removeClass('saved');
+				$custom_tag.find('input[type="checkbox"]').val($(control).attr('data-color'));
+			}	
+
 			$('#tagLabel').addClass('edit-process');
 			$('#tagLabel').attr('data-edit_value', $(this).attr('data-value'));
 			$('#tagLabel').attr('data-edit_color', $(this).attr('data-color'));
@@ -593,10 +607,17 @@ jQuery(function($) {
 								alert(language_message.try_again);
 								return false;
 							}
+							else
+							{
+								window.location = base_url + 'brands/overview';
+							}
 						}
 					});
 				}
-				window.location = base_url + 'brands/overview';
+				else
+				{
+					window.location = base_url + 'brands/overview';
+				}
 			}
 		});
 

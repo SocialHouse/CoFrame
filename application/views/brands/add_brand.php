@@ -171,12 +171,13 @@
 									</ul>
 								</div>
 								<div class="form-group">
-									<select class="form-control" name="tagLabel" id="tagLabel">								
+									<input type="text" class="form-control" name="tagLabel" id="tagLabel">
+									<!-- <select class="form-control" name="tagLabel" id="tagLabel">								
 										<option value="">Select Label</option>
 										<option value="Marketing">Marketing</option>
 										<option value="E-Commerce">E-Commerce</option>
 										<option value="other">+ Add Label</option>
-									</select>
+									</select> -->
 									<br>
 									<div id="labelSelectValid" class="error hide">This label is already been used.</div>
 								</div>

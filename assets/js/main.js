@@ -28,12 +28,18 @@ jQuery(function($) {
 		// Prevent enter key from submitting forms.
 		$(document).keydown(function(event) {
 			var allow_enter = 0;
-			if (event.keyCode === 13 && $(event.target)[0] != $('textarea')[0] ) {
+			if (event.keyCode === 13) {
 				$.each($('textarea'), function(i, item){
 					if($(item).attr('id') == $(event.target).attr('id')){
 						allow_enter = 1;
 					}
 				});
+
+				if($(event.target).data('step-no') == 4 || $(event.target).attr('id') == 'addTag')
+				{
+					allow_enter = 1;
+				}
+
 				if(allow_enter == 0){
 					event.preventDefault();
 					return false;

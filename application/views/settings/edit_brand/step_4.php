@@ -55,7 +55,8 @@
 					</ul>
 				</div>
 				<div class="form-group">
-					<select class="form-control" name="tagLabel" id="tagLabel">								
+					<input type="text" class="form-control" name="tagLabel" id="tagLabel">
+					<!-- <select class="form-control" name="tagLabel" id="tagLabel">								
 						<option value="">Select Label</option>
 						<?php 
 							foreach ($selected_tags as $st_tag) {
@@ -65,7 +66,7 @@
 							}
 						?>
 						<option value="other">+ Add Label</option>						
-					</select>
+					</select> -->
 					<div id="labelSelectValid" class="error hide">This label is already been used.</div>
 				</div>
 				<div class="form-group hidden" id="otherTagLabel">
