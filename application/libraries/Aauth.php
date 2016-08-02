@@ -1048,6 +1048,7 @@ class Aauth {
 
 			$config = $this->CI->config->item('smtp_config');
 	        $from = $this->CI->config->item('from_mail');
+	       
 	        $this->CI->load->library('email',$config);
 	        $this->CI->email->initialize($config);
 
@@ -1354,7 +1355,7 @@ class Aauth {
 	 * @param int|string $group_par Group id or name to add user to
 	 * @return bool Add success/failure
 	 */
-	public function add_member($user_id, $group_par,$brand_id) {
+	public function add_member($user_id, $group_par,$brand_id='',$parent_id='') {
 
 		$group_id = $this->get_group_id($group_par);
 
@@ -1364,15 +1365,27 @@ class Aauth {
 			return FALSE;
 		}
 
+		if( empty($brand_id) && empty($parent_id) ) {
+			return FALSE;
+		}
+
 		$query = $this->aauth_db->where('user_id',$user_id);
 		$query = $this->aauth_db->where('group_id',$group_id);
 		$query = $this->aauth_db->get($this->config_vars['user_to_group']);
 
+		if(empty($brand_id)){
+			$brand_id = null;
+		}
+		
+		if(empty($parent_id)){
+			$parent_id = null;
+		}
 		if ($query->num_rows() < 1) {
 			$data = array(
-				'user_id' => $user_id,
-				'group_id' => $group_id,
-				'brand_id' => $brand_id
+				'user_id' 	=> $user_id,
+				'group_id' 	=> $group_id,
+				'brand_id' 	=> $brand_id,
+				'parent_id' => $parent_id
 			);
 
 			return $this->aauth_db->insert($this->config_vars['user_to_group'], $data);
