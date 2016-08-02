@@ -1456,6 +1456,7 @@ be a descendant of the grid when it is being dragged.
 		overflow: visible;
 		height: 45px;
 		display: inline-block;
+		word-break: break-word;
 	}
 }
 #calendar-month {

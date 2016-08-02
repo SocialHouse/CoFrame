@@ -1223,7 +1223,8 @@ be a descendant of the grid when it is being dragged.
   #calendar-week .fc-title {
     overflow: visible;
     height: 45px;
-    display: inline-block; }
+    display: inline-block;
+    word-break: break-word; }
 
 #calendar-month {
   margin-top: -1rem; }
