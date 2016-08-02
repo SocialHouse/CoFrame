@@ -841,12 +841,12 @@ jQuery(function($) {
 						$toggler.removeClass('animated pulse');
 						setTimeout(function() {
 							$toggler.addClass('selected');
-						}, 150);
+						}, 300);
 					} else {
 						$toggler.removeClass('selected');
+						$('.popover-brand-list').qtip('hide');
 						setTimeout(function() {
 							$toggler.addClass('animated pulse');
-							$('.popover-brand-list').hide();
 						}, 200);
 					}
 				} else {
