@@ -89,6 +89,7 @@ $route['user_preferences/change-plan'] = "user_preferences/change_plan";
 $route['user_preferences/save_payment'] = "user_preferences/save_payment";
 
 $route['user_preferences/add_user'] = "user_preferences/add_user";
+$route['user_preferences/edit_user_info'] = "user_preferences/edit_user_info";
 $route['user_preferences/(:any)'] = "user_preferences/index/$1";
 
 

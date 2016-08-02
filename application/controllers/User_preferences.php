@@ -31,7 +31,7 @@ class User_preferences extends CI_Controller {
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}
 
-	function index()
+	public function index()
 	{
 		$page = $this->uri->segment(2);
 		
@@ -88,7 +88,15 @@ class User_preferences extends CI_Controller {
 			if($page == 'users')
 			{
 				$this->data['js_files'][] = array(js_url().'add-brand.js?ver=2.11.0',js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3');
+
 				$this->data['groups'] = $this->aauth->list_groups();
+
+				$this->load->model('brand_model');
+
+				$this->data['all_users'] = $this->brand_model->get_all_users();
+
+				$this->data['added_users']  = $this->user_model->get_users_by_parent_id( $this->user_data['account_id']);
+				
 			}
 			_render_view($this->data);
 		// }
@@ -98,7 +106,7 @@ class User_preferences extends CI_Controller {
 		// }
 	}
 
-	function edit_my_info()
+	public function edit_my_info()
 	{
 		$post_data = $this->input->post();
 		$email_notification = $desktop_notification = $urgent_notification = 1 ;
@@ -178,7 +186,7 @@ class User_preferences extends CI_Controller {
 		}
 	}
 
-	function change_plan()
+	public function change_plan()
 	{
 
 		if($this->user_data['account_id'] == $this->user_id)
@@ -410,134 +418,164 @@ class User_preferences extends CI_Controller {
 		}
 	}
 
+	public function add_user()
+	{
+    	$post_data = $this->input->post();
+    	$is_present = $this->aauth->user_exist_by_email($post_data['email']);
+    	$user_in_other_brand = 0;
+    	if($is_present)
+		{
+			$user_in_other_brand = 1;
+			$inserted_id = $this->aauth->get_user_id($post_data['email']);
+		}
+		else
+		{
+    		$password = uniqid();
+        	$user_data = array(
+        					'first_name' => $this->input->post('first_name'),
+        					'last_name' => $this->input->post('last_name'),
+        					'title' => $this->input->post('title'),
+        					'company_name' => $this->user_data['company_name'],
+        					'company_email' => $this->user_data['company_email'],
+        					'company_url' =>  $this->user_data['company_url'],
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'password' => $password,
+                            'username' => $this->input->post('first_name')
+        				);
 
-    public function add_user()
+        	$this->load->helper('email');
+
+        	$this->data['user'] = $user_data;
+            
+        	$inserted_id = $this->aauth->create_user_without_email($post_data['email'],$password);
+        	unset($user_data['password']);
+        	unset($user_data['username']);
+        }
+
+        $group_id = $this->aauth->get_group_id($post_data['role']);
+
+        if($inserted_id)
+    	{
+    		$this->aauth->add_member($inserted_id, $group_id, '' , $this->user_data['account_id']);
+
+        	$user_data['aauth_user_id'] = $inserted_id;
+        	$user_data['img_folder'] = $this->user_data['img_folder'];
+
+        	if($user_in_other_brand == 0)
+    		{
+        		$this->timeframe_model->insert_data('user_info',$user_data);
+        	}
+
+        	$user_img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $inserted_id),'img_folder');
+        	
+        	//add permission to user
+
+        	if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64'])){
+        		$base64_image = $post_data['user_pic_base64'];
+    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+
+	        	//decode base64 string
+		        $decoded = base64_decode($base64_str);
+
+		        //create jpeg from decoded base 64 string and save the image in the parent folder
+
+		        if(!is_dir(upload_path().$user_img_folder[0]->img_folder.'/users/')){
+		        	mkdir(upload_path().$user_img_folder[0]->img_folder.'/users/',0755,true);
+		        }
+		        $url = upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';	
+		        $result = file_put_contents($url, $decoded);
+
+		        $source_url = imagecreatefrompng($url);
+		        
+		        header('Content-Type: image/png');
+		        imagepng($source_url, $url, 8);
+        	}
+        	
+        	if(isset($is_present))
+			{
+				$this->data['company_name'] = get_company_name($this->user_data['account_id']);
+				$this->data['role'] = $post_data['role'];
+				try
+				{
+			    	$email = $post_data['email'];
+			    	$subject = "You have been addded in new account";
+			    	$content = $this->load->view('mails/new_account_info',$this->data,true);
+			    	//$mail_send = email_send($email, $subject,$content);
+			    	$this->session->set_flashdata('message', $this->lang->line('user_add_success'));
+			    }
+				catch (SomeException $e)
+				{
+					$this->session->set_flashdata('message', $this->lang->line('user_add_success'));
+				}
+			}
+			
+			redirect(base_url().'user_preferences/users');
+        }
+        else
+        {
+        	$this->session->set_flashdata('message',$this->lang->line('unable_to_add_user'));
+        	
+     		redirect();
+        }
+    }
+
+    public function edit_user_info()
     {
     	$post_data = $this->input->post();
+    	//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
+    	if(!empty($post_data['user_id']))
+    	{
+    		$user_id = $post_data['user_id'];
+    		$user_info = array(
+	        		'first_name'=> $post_data['first_name'],
+	        		'last_name'=> $post_data['last_name'],
+	        		'title'=> $post_data['title']
+	        	);
 
-    	if(!empty($post_data))
-    	{        	
-            try
-            {
-            	$user_in_other_brand = 0;
-	    		$password = uniqid();
-	        	$user_data = array(
-	        					'first_name' => $this->input->post('first_name'),
-	        					'last_name' => $this->input->post('last_name'),
-	        					'title' => $this->input->post('title'),	  
-	                            'created_at' => date('Y-m-d H:i:s'),
-	                            'password' => $password,
-	                            'username' => $this->input->post('email')
-	        				);
+    		$condition = array('aauth_user_id' => $user_id);
+	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
 
-	        	$this->load->helper('email');
+	        // Update user profile image
+    		$user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
+	        if($post_data['is_user_image'] == 'yes')
+	        {
+	        	 if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64']))
+	        	 {
+	        		$base64_image = $post_data['user_pic_base64'];
+	    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
 
-	        	$this->data['user'] = $user_data;
-                
-            	$inserted_id = $this->aauth->create_user_without_email($post_data['email'],$password);
-            	unset($user_data['password']);
-            	unset($user_data['username']);
-	                
-	           
-            	$group_id = $this->aauth->get_group_id($post_data['selected_role']);
-            	if($inserted_id)
-            	{
-            		$brand_status = array(
-            							'is_hidden' => 0	
-            						);
-                    $condition = array(
-                    				'id' => ''
-                    			);                 
-                   $this->timeframe_model->update_data('brands',$brand_status,$condition);
+		        	//decode base64 string
+			        $decoded = base64_decode($base64_str);
 
-                	$this->aauth->add_member($inserted_id,$group_id,'');
+			        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-                	$user_data['aauth_user_id'] = $inserted_id;
-                	$user_data['img_folder'] = $this->user_data['img_folder'];
+			        if(!is_dir(upload_path().$user_img[0]->img_folder.'/users/')){
+			        	mkdir(upload_path().$user_img[0]->img_folder.'/users/',0755,true);
+			        }
+			        $url = upload_path().$user_img[0]->img_folder.'/users/'.$user_id.'.png';	
+			        
+			        $result = file_put_contents($url, $decoded);
+			        
+			        $source_url = imagecreatefrompng($url);
+			        
+			        header('Content-Type: image/png');
+			        
+			        imagepng($source_url, $url, 8);
+	        	}
+	        }
+	        else if($post_data['is_user_image'] == 'no')
+	        {
+	        	$url = upload_path().$user_img[0]->img_folder.'/users/'.$user_id.'.png';
+	        	delete_file($url);
+	        }
 
-
-                	
-                	$this->timeframe_model->insert_data('user_info',$user_data);
-                	
-
-                	$user_img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $inserted_id),'img_folder');
-                	
-                	//add permission to user
-            
-                	
-                	if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64'])){
-                		$base64_image = $post_data['user_pic_base64'];
-	        		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
-
-			        	//decode base64 string
-				        $decoded = base64_decode($base64_str);
-
-				        //create jpeg from decoded base 64 string and save the image in the parent folder
-
-				        if(!is_dir(upload_path().$user_img_folder[0]->img_folder.'/users/')){
-				        	mkdir(upload_path().$user_img_folder[0]->img_folder.'/users/',0755,true);
-				        }
-				        $url = upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';	
-				        $result = file_put_contents($url, $decoded);
-
-				        $source_url = imagecreatefrompng($url);
-				        
-				        header('Content-Type: image/png');
-				        imagepng($source_url, $url, 8);
-		        	}
-                	
-                	
-                    $brand_user_map = array(
-                    							'brand_id' => '',
-                    							'access_user_id' => $inserted_id
-                    						);
-                    
-                    $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
-
-                    
-
-                    $image_path = img_url().'default_profile.jpg';
-					if(file_exists(upload_path().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png'))
-					{
-						$image_path = upload_url().$user_img_folder[0]->img_folder.'/users/'.$inserted_id.'.png';
-					}
-
-                   	$this->load->model('brand_model');
-					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
-
-					if(isset($is_present))
-					{
-						
-						$this->data['selected_role'] = $post_data['selected_role'];
-						try
-					    {
-					    	$email = $post_data['email'];
-					    	$subject = "You have been addded in new account";
-					    	$content = $this->load->view('mails/new_account_info',$this->data,true);
-					    	$mail_send = email_send($email, $subject,$content);
-					    }
-						catch (SomeException $e)
-						{
-						  // do nothing... php will ignore and continue    
-						}
-						
-		                
-					}
-					redirect(base_url().'user_preferences/users');
-                    //echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $inserted_id,'all_user_count' => $all_users));
-                }
-                else
-                {
-                	redirect(base_url().'user_preferences/users');
-             		//echo json_encode(array('response' => 'fail'));   	
-                }            
-            }
-            catch(Exception $ex)
-            {
-            	redirect(base_url().'user_preferences/users');
-                //echo json_encode(array('response' => 'fail'));
-            }
+	        //  Get user old Permissions and Groups and remove old and add New 
+        	$old_role = strtolower(get_user_groups($user_id));
+        	$group_id = $this->aauth->get_group_id($post_data['role']);
+	        $this->aauth->remove_member($user_id, $old_role);
+	       	$this->aauth->add_member($user_id, $group_id, '' , $this->user_data['account_id']);
+	       	redirect(base_url().'user_preferences/users');
     	}
-	}
+    }
 
 }

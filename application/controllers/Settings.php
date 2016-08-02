@@ -220,8 +220,7 @@ class Settings extends CI_Controller {
 	        $user_info = array(
 	        		'first_name'=> $post_data['first_name'],
 	        		'last_name'=> $post_data['last_name'],
-	        		'title'=> $post_data['title'],
-	        		'first_name'=> $post_data['first_name']
+	        		'title'=> $post_data['title']
 	        	);
 	        $condition = array('aauth_user_id' => $user_id);
 	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
@@ -269,7 +268,7 @@ class Settings extends CI_Controller {
 	        
 	       	$this->aauth->remove_member($user_id, $old_role);
 
-	       	$this->aauth->add_member($user_id,$group_id,$brand_id);
+	       	$this->aauth->add_member($user_id,$group_id,$brand_id,'');
 
 	        // echo '<pre>'; print_r( [$result,$group_id ,$old_role] );echo '</pre>'; die;
           	// add new Permission to user

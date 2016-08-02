@@ -120,14 +120,21 @@ class User_model extends CI_Model
     	return FALSE;
     }
 
-    public function get_last_transaction($user_id)
+    public function get_users_by_parent_id($parent_id)
     {
-        $this->db->select('card_id,');
-        $this->db->order_by('id','DESC');
-        $query = $this->db->get_where('transactions',array('user_id'=>$user_id));
+        $this->db->select('aauth_users.id as aauth_user_id, aauth_users.email, user_info.first_name, user_info.last_name, user_info.title, user_info.img_folder, aauth_groups.name as role');
+        $this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.parent_id',$parent_id);
+        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+
+        $query = $this->db->get('aauth_user_to_group');
+
         if($query->num_rows() > 0)
         {
-            return $query->row();
+            return $query->result();
         }
         return FALSE;
     }

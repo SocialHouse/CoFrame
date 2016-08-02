@@ -401,9 +401,9 @@ class Tour extends CI_Controller {
         // $this->form_validation->set_rules('phone','phone','regex_match[/^[0-9().-]+$/]',
         //                                     array('regex_match' => 'Please enter valid phone number')
         //                                 );
-        $this->form_validation->set_rules('company_email','company_email','valid_email',
-                                            array('valid_email' => 'Please enter valid email')
-                                        );        
+        // $this->form_validation->set_rules('company_email','company_email','valid_email',
+        //                                     array('valid_email' => 'Please enter valid email')
+        //                                 );        
 
         if ($this->form_validation->run() === FALSE)
         {

@@ -25,15 +25,20 @@
 					$my_info = '';
 					$plan = '';
 					$billing = '';
+					$role = '';
+					$payment = '';
 					switch ($segment) {
 						case 'billing_info':
 							$billing = 'active';
 							break;
 						case 'save_payment':
-							$billing = 'active';
+							$payment = 'active';
 							break;
 						case 'user_plan':
 							$plan = 'active';
+							break;
+						case 'users':
+							$role = 'active';
 							break;
 						default:
 							$my_info = 'active';

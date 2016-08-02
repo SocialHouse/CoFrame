@@ -459,7 +459,7 @@ jQuery(document).ready(function(){
         			type: "post"
         		}
         	},
-        	selected_role: {required: true },
+        	role: {required: true },
         },
         messages :{
         	first_name: {required: language_message.enter_fname},
@@ -469,11 +469,14 @@ jQuery(document).ready(function(){
         		email: language_message.valid_fname,
         		remote: language_message.email_used
         	},
-        	selected_role: {required: 'Please select role' }
+        	role: {required: 'Please select role' }
         },
         submitHandler: function(form, event) {
-	        event.preventDefault();
-	        form.submit();
+        	if(plan_data.users > $('#all_users').val() && !$('#user_preferences_add_user #user_id').length){
+        		event.preventDefault();
+	        	form.submit();
+        	}
+	        
         }
     });
 

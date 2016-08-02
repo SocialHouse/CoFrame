@@ -270,7 +270,22 @@ class Brand_model extends CI_Model
 		// plus one for master user who added the brand because above query only
 		// users who are present in brand can be calculated
 		//whe nwe complete with functionality like add multiple master users we need to change this
-		return $query->num_rows() + 1;
+		$all_users = $query->num_rows() + 1;
+
+		// $this->db->select('aauth_users.id as aauth_user_id');
+		// $this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+  //       $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+  //       $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+  //       $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
+  //       $this->db->where('aauth_user_to_group.brand_id' , NULL);
+  //       $query = $this->db->get('aauth_user_to_group');
+
+  //       if($query->num_rows() > 0)
+  //       {
+  //          $all_users = $query->num_rows() + $all_users;
+  //       }
+        return $all_users;
 	}
 
 	function get_brand_wise_tags()

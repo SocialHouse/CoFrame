@@ -360,7 +360,7 @@ class Brands extends CI_Controller {
                     			);                 
                     $this->timeframe_model->update_data('brands',$brand_status,$condition);
 
-                	$this->aauth->add_member($inserted_id,$group_id,$post_data['brand_id']);
+                	$this->aauth->add_member($inserted_id,$group_id,$post_data['brand_id'],null);
 
                 	$user_data['aauth_user_id'] = $inserted_id;
                 	$user_data['img_folder'] = $this->user_data['img_folder'];

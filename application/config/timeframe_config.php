@@ -39,9 +39,9 @@ $config['json_msg_file'] = 'assets/js/json_message.json';
 
 $config['plans'] = array(
 						'premiere' => array(
-								'brands' => 'unlimited',
-								'master_admins' => 'unlimited',
-								'users' => 'unlimited',
+								'brands' => 15,
+								'master_admins' => 70,
+								'users' => 70,
 								'outlets' => 8,
 								'real_time_notification' => 1,
 								'email_notification' => 1,
@@ -51,9 +51,9 @@ $config['plans'] = array(
 							),
 						'corporate' => array(
 								'brands' => 8,
-								'master_admins' => 'unlimited',
+								'master_admins' => 35,
 								'users' => 35,
-								'outlets' => 'unlimited',
+								'outlets' => 8,
 								'real_time_notification' => 1,
 								'email_notification' => 0,
 								'co_create' => 1,

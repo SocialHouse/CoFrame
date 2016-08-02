@@ -402,3 +402,7 @@ ALTER TABLE `reminders` ADD `added_through_cron` TINYINT NOT NULL DEFAULT '0' ;
 
 --- 1-08-2016
 ALTER TABLE `user_info` ADD `is_trial_period_expired` TINYINT NULL DEFAULT '0' COMMENT '1: Yes, 0: No' AFTER `img_folder`;
+
+--- 2-08-2016
+ALTER TABLE `aauth_user_to_group` CHANGE `brand_id` `brand_id` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `aauth_user_to_group` ADD `parent_id` INT(11) NULL DEFAULT NULL AFTER `brand_id`;
