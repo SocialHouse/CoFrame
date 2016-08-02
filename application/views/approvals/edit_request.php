@@ -74,10 +74,17 @@
 							</div>
 						</div>
 					</div>
-					<footer class="post-content-footer post-actions text-xs-center">
-						<a href="#" class="btn btn-default btn-sm" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/edit-request/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
-						
-					</footer>
+					<?php
+					if($post_details->outlet_name == $this->user_id)
+					{
+						?>
+						<footer class="post-content-footer post-actions text-xs-center">
+							<a href="#" class="btn btn-default btn-sm" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/edit-request/<?php echo $post_details->slug.'/'.$post_details->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+							
+						</footer>
+						<?php
+					}
+					?>
 				</div>
 			</div>
 				<div class="col-md-8 equal-height">

@@ -508,7 +508,7 @@ class Posts extends CI_Controller {
 				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
 				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
 				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
-				        $status = upload_file('uploadedimage',$randname,$post_data['user_id'].'/brands/'.$post_data['brand_id'].'/posts');
+				        $status = upload_file('uploadedimage',$randname,$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts');
 				      
 				        if(array_key_exists("upload_errors",$status))
 				        {

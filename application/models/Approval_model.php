@@ -16,6 +16,7 @@ class Approval_model extends CI_Model
 			$this->db->join('posts','posts.id = phases.post_id');
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
+			$this->db->where('posts.status !=','posted');
 
 			if(!empty($date))
 			{
