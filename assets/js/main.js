@@ -553,11 +553,17 @@ jQuery(function($) {
 			$target.qtip({
 				content: {
 					title: ptitle,
-					text: 'Loading...',
-					ajax: {
-						url: pcontent,
-						type: 'GET',
-						once: true
+					text: function(event, api) {
+						$.ajax({
+							url: pcontent
+						}).then(function(content) {
+							// Set the tooltip content upon successful retrieval
+							api.set('content.text', content);
+						}, function(xhr, status, error) {
+							// Upon failure... set the tooltip content to the status and error value
+							api.set('content.text', status + ': ' + error);
+						});
+						return 'Loading...'; // Set some initial text
 					}
 				},
 				events: {
@@ -624,7 +630,7 @@ jQuery(function($) {
 						tip: {
 							width: tipW,
 							height: tipH,
-							corner: true,
+							corner: arrowcorner,
 							mimic: 'center'
 						},
 						width: pwidth
