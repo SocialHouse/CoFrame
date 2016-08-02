@@ -11098,8 +11098,7 @@ a {
       display: inline-block;
       list-style: none;
       background: #f7f7f7;
-      border-radius: 18px;
-      padding: 10px;
+      padding: 5px;
       margin-left: 12px; }
       #selectedFilters .filter-list li .fa-circle {
         margin-right: 0; }
