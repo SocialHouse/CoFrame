@@ -76,7 +76,7 @@
                 aspX = $(this).width();
                 aspY = $(this).height();
                 file_display_area = $(this);
-                $('#fileInput').click();
+                //$('#fileInput').click();
                 //We need to send dropped files to Server
                 imageUpload($('#preview').get(0),files); 
             });
@@ -111,7 +111,7 @@
                 aspX = $(this).width();
                 aspY = $(this).height();
                 file_display_area = $(this);
-                $('#userfileInput').click();
+                //$('#userfileInput').click();
                 //We need to send dropped files to Server
                 imageUpload($('#preview').get(0),files); 
             });
@@ -133,7 +133,7 @@
                 $('#preview').delay(100).hide();
                 $('#modal').hide();
                 jcrop_api.destroy();
-                console.log(obj);
+                //console.log(obj);
                 if(obj== 'userfile_obj'){
                     $('.remove-user-img').removeClass('hide');
                     $('.remove-user-img').show();
@@ -287,7 +287,7 @@
                         }
 
                         // Add image to dropbox element
-                        console.log(current_image);
+                        //console.log(current_image);
                         dropbox.appendChild(current_image);
                         
                     }
@@ -296,7 +296,7 @@
                 }else{
                     //the browser doesn't support the FileReader Object, so do this
                     $('#photo').remove();
-                    console.log(file);
+                    //console.log(file);
                    // dropbox.appendChild(file[0]);
                      alert(language_message.browser_not_supported);
                     return false;
