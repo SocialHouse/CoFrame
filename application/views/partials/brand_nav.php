@@ -38,7 +38,7 @@
 		</ul>
 	</nav>
 	<div class="current-user-details">
-		<div class="user-name btn btn-secondary btn-xs"><?php echo $user_group;?></div>
+		<div class="user-name btn btn-secondary btn-xs"><?php echo get_user_groups($this->user_id,$brand_id); ?></div>
 		<div class="user-time row">
 			<div class="col-md-5">Current Brand Time </div>
 			<div class="col-md-7 text-md-right current-time">
