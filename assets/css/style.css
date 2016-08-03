@@ -10588,6 +10588,10 @@ a {
   [class*="container-"] h4 .btn[class*="pull-"] {
     margin-top: -6px; }
 
+.container-reminder-list {
+  padding-top: 2rem;
+  border-top: 1px solid transparent; }
+
 #overview .container-summary-list {
   background: none;
   border: none;
