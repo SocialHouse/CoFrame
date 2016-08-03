@@ -50,7 +50,7 @@
 							if($is_edit_request)
 							{
 								?>
-								<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'view-request/'.$post_details->id; ?>">Edit Requests</a>
+								<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'edit-request/'.$post_details->id; ?>">Edit Requests</a>
 								<?php
 							}
 							?>
