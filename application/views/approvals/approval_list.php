@@ -334,9 +334,13 @@
 										}
 										?>
 									</td>
-									<?php
-									echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
-									?>
+									<td class="text-xs-center">
+										<div class="d-inline-block">
+										<?php
+										echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
+										?>
+										</div>
+									</td>
 								</tr>
 								<?php
 							}

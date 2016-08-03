@@ -2950,7 +2950,10 @@ a {
 	}
 }
 .before-approve, .after-approve {
-	display: inline-block;
+	float: left;
+	+ .btn {
+		margin-left: .5rem;
+	}
 }
 .post-tags {
 	.fa {
@@ -3758,6 +3761,9 @@ textarea.form-control {
 }
 .hidden-xs-inline {
 	display: inline;
+}
+.d-inline-block {
+	display: inline-block;
 }
 .hidden {
 	display: none;

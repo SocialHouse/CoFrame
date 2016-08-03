@@ -494,7 +494,7 @@ if(!function_exists('get_approval_list_buttons'))
     function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id)
     {
         $CI = & get_instance(); 
-        $html_to_return = '<td class="text-xs-center">';
+        $html_to_return = '';
         if((check_user_perm($CI->user_id,'approve',$brand_id) OR ($CI->user_id == $CI->user_data['account_id'])) AND !empty($phase_status))
         {
             if($approver_status == 'pending' AND $post->status == 'pending')
@@ -589,7 +589,6 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             }
         }
-        $html_to_return .= '</td>';
         return $html_to_return;
     }
 }

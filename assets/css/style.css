@@ -11200,7 +11200,9 @@ a {
     margin-left: 1rem; }
 
 .before-approve, .after-approve {
-  display: inline-block; }
+  float: left; }
+  .before-approve + .btn, .after-approve + .btn {
+    margin-left: .5rem; }
 
 .post-tags .fa + .fa {
   margin-left: -9px; }
@@ -11838,6 +11840,9 @@ textarea.form-control {
 
 .hidden-xs-inline {
   display: inline; }
+
+.d-inline-block {
+  display: inline-block; }
 
 .hidden {
   display: none; }
