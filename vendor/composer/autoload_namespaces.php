@@ -7,7 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'org\\bovigo\\vfs' => array($vendorDir . '/mikey179/vfsStream/src/main/php'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'JohnStevenson\\JsonWorks' => array($vendorDir . '/aoberoi/json-works/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
+    'Google_Service_' => array($vendorDir . '/google/apiclient-services'),
+    'Google_' => array($vendorDir . '/google/apiclient/src'),
 );

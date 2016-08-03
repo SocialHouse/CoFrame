@@ -23,16 +23,16 @@ class Social_media extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		 is_user_logged();
+		is_user_logged();
 		$this->load->model('user_model');
-        $this->load->model('timeframe_model');
-        $this->load->config('twitter');
-        $this->user_data = $this->session->userdata('user_info');
-        $this->user_id = $this->session->userdata('id');
-        $this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
-        
+		$this->load->model('timeframe_model');
+		$this->load->config('twitter');
+		$this->user_data = $this->session->userdata('user_info');
+		$this->user_id = $this->session->userdata('id');
+		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
+
         //for twittr
-        $this->load->library('twitteroauth');
+		$this->load->library('twitteroauth');
   //       if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
 		// {
 			// If user already logged in
@@ -53,8 +53,8 @@ class Social_media extends CI_Controller {
 		$this->load->config('linkedin');       
 
 		//for youtube
-        $this->load->config('youtube');	
-        $this->client_id = $this->config->item('youtube_client_id');
+		$this->load->config('youtube');	
+		$this->client_id = $this->config->item('youtube_client_id');
 		$this->client_secret = $this->config->item('youtube_client_secret');
 		$this->redirect_uri = $this->config->item('redirect_uri');
 		$this->client = new Google_Client();
@@ -65,8 +65,8 @@ class Social_media extends CI_Controller {
 
 
 		//for tumblr
-        $this->load->library('tumblr');
-        $this->config->load('tumblr');
+		$this->load->library('tumblr');
+		$this->config->load('tumblr');
 		if(!isset($this->tumblr_consumer_key)) {
 			$this->tumblr_consumer_key = $this->config->item('tumblr_consumer_key');
 		}
@@ -118,18 +118,18 @@ class Social_media extends CI_Controller {
 		$this->data = array();
 		$this->data['view'] = 'social_media/facebook';  
         //addition js files to be added in page 
-         $this->data['js_files'] = array(js_url().'facebook.js');
-        _render_view($this->data);
+		$this->data['js_files'] = array(js_url().'facebook.js');
+		_render_view($this->data);
 	}	
 
 	public function save_fb_data()
 	{
 		$data = array(
-				'access_token' => $this->input->post('authResponse')['accessToken'],
-				'social_media_id' => $this->input->post('authResponse')['userID'],
-				'user_id' => $this->user_id,
-				'response' => json_encode($this->input->post()),
-				'type' => 'facebook'
+			'access_token' => $this->input->post('authResponse')['accessToken'],
+			'social_media_id' => $this->input->post('authResponse')['userID'],
+			'user_id' => $this->user_id,
+			'response' => json_encode($this->input->post()),
+			'type' => 'facebook'
 			);
 
 		$condition = array('user_id' =>  $this->user_id,'type' => 'facebook');
@@ -189,7 +189,7 @@ class Social_media extends CI_Controller {
 		else
 		{
 			$access_token = $this->connection->getAccessToken($this->input->get('oauth_verifier'));
-		
+
 			if ($this->connection->http_code == 200)
 			{
 				$this->session->set_userdata('access_token', $access_token['oauth_token']);
@@ -200,12 +200,12 @@ class Social_media extends CI_Controller {
 				$this->session->unset_userdata('request_token_secret');
 
 				$data = array(
-						'access_token' => $access_token['oauth_token'],
-						'access_token_secret' => $access_token['oauth_token_secret'],
-						'social_media_id' => $access_token['user_id'],
-						'user_id' => $this->user_id,
-						'response' => json_encode($access_token),
-						'type' => 'twitter'
+					'access_token' => $access_token['oauth_token'],
+					'access_token_secret' => $access_token['oauth_token_secret'],
+					'social_media_id' => $access_token['user_id'],
+					'user_id' => $this->user_id,
+					'response' => json_encode($access_token),
+					'type' => 'twitter'
 					);
 
 				$condition = array('user_id' => $this->user_id,'type' => 'twitter');
@@ -258,7 +258,7 @@ class Social_media extends CI_Controller {
 			if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
 			{
 				$content = $this->connection->get('account/verify_credentials');
-				echo "<pre>";
+				// echo "<pre>";
 				// print_r($content);
 				if(isset($content->errors))
 				{
@@ -278,21 +278,22 @@ class Social_media extends CI_Controller {
 					$data = array(
 						'media' => upload_path().'1/brands/1/1.png',
 						// 'in_reply_to_status_id' => $in_reply_to
-					);
+						);
 					print_r($data);
 					$file = file_get_contents(upload_path().'1/brands/1/1.png');
-			-        $base = base64_encode($file);
+					$base = base64_encode($file);
 					$data = array(
-								'media' => $base
+						'media' => $base
 								// 'in_reply_to_status_id' => $in_reply_to
-					);
+						);
 					$result = $this->connection->post('media/upload', $data);
 
 					echo "<pre>";
 					print_r($result);
+					echo "</pre>";
 					$parameters = [
-					    'status' => 'Meow Meow Meow',
-					    'media_ids' => $result->media_id_string
+					'status' => 'Meow Meow Meow',
+					'media_ids' => $result->media_id_string
 					];
 					$result = $this->connection->post('statuses/update', $parameters);
 					die;
@@ -349,7 +350,7 @@ class Social_media extends CI_Controller {
 		
 		$data = array('access_token' => $token['linkedin']['oauth_token'], 'access_token_secret' => $token['linkedin']['oauth_token_secret'], 'user_id' => $this->user_data["user_id"],'response' => json_encode($token),'type' => 'linkedin');
 		$this->timeframe_model->insert_data('social_media_keys',$data);		
- 		$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
+		$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
 		redirect($link);
 	}
 
@@ -380,13 +381,16 @@ class Social_media extends CI_Controller {
 
 	function youtube()
 	{
+		
 		$youtube_access_token = $this->session->userdata('youtube_access_token');
-		if(!empty($youtube_access_token))
+		
+		if(empty($youtube_access_token))
 		{
 			$this->client->authenticate($_GET['code']);
 			$this->session->set_userdata('youtube_access_token', $this->client->getAccessToken());
 		}
-		
+
+		//echo '<pre>'; print_r($youtube_access_token);echo '</pre>';die();
 		$youtube_access_token = $this->session->userdata('youtube_access_token');
 		if (isset($youtube_access_token)) 
 		{
@@ -395,14 +399,17 @@ class Social_media extends CI_Controller {
 		if ($this->client->getAccessToken()) 
 		{
 			$token_info = $this->client->getAccessToken();
-			$token_info = json_decode($token_info);
+
+			$token_info = json_decode(json_encode($token_info));
+			
 			$data = array(
-						'access_token' => $token_info->access_token,			
-						'user_id' => $this->user_data['user_id'],
-						'response' => json_encode($token_info),
-						'type' => 'youtube'
-					);
-			$this->timeframe_model->insert_data('social_media_keys',$data);
+				'access_token' => $token_info->access_token,
+				'user_id' => $this->user_id,
+				'response' => json_encode($token_info),
+				'type' => 'youtube'
+				);
+			
+			//$this->timeframe_model->insert_data('social_media_keys',$data);
 		}
 	}
 
@@ -419,11 +426,11 @@ class Social_media extends CI_Controller {
 		if(isset($auth_response->access_token))
 		{
 			$data = array(
-							'access_token' => $auth_response->access_token,			
-							'user_id' => $this->user_data['user_id'],
-							'response' => json_encode($auth_response),
-							'type' => 'instagram'
-						);
+				'access_token' => $auth_response->access_token,			
+				'user_id' => $this->user_data['user_id'],
+				'response' => json_encode($auth_response),
+				'type' => 'instagram'
+				);
 			$this->timeframe_model->insert_data('social_media_keys',$data);
 		}
 	}
@@ -482,11 +489,11 @@ class Social_media extends CI_Controller {
 				$this->session->unset_userdata('tumblr_request_token_secret');
 
 				$data = array(
-						'access_token' => $access_token['oauth_token'],
-						'access_token_secret' => $access_token['oauth_token_secret'],						
-						'user_id' => $this->user_data['user_id'],
-						'response' => json_encode($access_token),
-						'type' => 'tumblr'
+					'access_token' => $access_token['oauth_token'],
+					'access_token_secret' => $access_token['oauth_token_secret'],						
+					'user_id' => $this->user_data['user_id'],
+					'response' => json_encode($access_token),
+					'type' => 'tumblr'
 					);
 
 				$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
@@ -532,57 +539,57 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-    function pinterest_callback()
-    {
-    	$get = $this->input->get();
+	function pinterest_callback()
+	{
+		$get = $this->input->get();
 
-    	if(isset($get) AND isset($get['code']))
-    	{
-    		$url = "https://api.pinterest.com/v1/oauth/token";
-    		$post = array(
-	            "grant_type" => 'authorization_code',
-	            "client_id" => $this->config->item('pinterest_app_id'),
-	            "client_secret" => $this->config->item('pinterest_app_secret'),
-	            "code" => $get['code']
-	        );
-    		$response = $this->fetch_access_token($url,"POST",$post);
-    		if($response)
-    		{
-    			$response = json_decode($response);
-    			$data = array(
-						'access_token' => $response->access_token,
-						'user_id' => $this->user_data['user_id'],
-						'response' => json_encode($response),
-						'type' => 'pinterest'
+		if(isset($get) AND isset($get['code']))
+		{
+			$url = "https://api.pinterest.com/v1/oauth/token";
+			$post = array(
+				"grant_type" => 'authorization_code',
+				"client_id" => $this->config->item('pinterest_app_id'),
+				"client_secret" => $this->config->item('pinterest_app_secret'),
+				"code" => $get['code']
+				);
+			$response = $this->fetch_access_token($url,"POST",$post);
+			if($response)
+			{
+				$response = json_decode($response);
+				$data = array(
+					'access_token' => $response->access_token,
+					'user_id' => $this->user_data['user_id'],
+					'response' => json_encode($response),
+					'type' => 'pinterest'
 					);
 
-    			$condition = array('user_id' => $this->user_data['user_id'],'type' => 'pinterest');
+				$condition = array('user_id' => $this->user_data['user_id'],'type' => 'pinterest');
 				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 				if(empty($is_key_exist))
 				{
-    				$this->timeframe_model->insert_data('social_media_keys',$data);
-    			}
-    			else
-    			{
-    				$this->timeframe_model->update_data('social_media_keys',$data,$condition);
-    			}
-    		}
-    	}
-    }
+					$this->timeframe_model->insert_data('social_media_keys',$data);
+				}
+				else
+				{
+					$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+				}
+			}
+		}
+	}
 
 	function fetch_access_token($url, $method, $postfields = NULL) 
 	{
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-				CURLOPT_URL => $url."?client_id=".$postfields['client_id']."&client_secret=".$postfields['client_secret']."&code=".$postfields['code']."&grant_type=authorization_code",
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 30,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => "POST",
-				CURLOPT_SSL_VERIFYPEER => FALSE
+			CURLOPT_URL => $url."?client_id=".$postfields['client_id']."&client_secret=".$postfields['client_secret']."&code=".$postfields['code']."&grant_type=authorization_code",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_SSL_VERIFYPEER => FALSE
 			)
 		);
 
@@ -593,11 +600,11 @@ class Social_media extends CI_Controller {
 
 		if($err)
 		{
-		  	return 0;
+			return 0;
 		} 
 		else
 		{
-		  	return $response;
+			return $response;
 		}
 	}
 
@@ -643,7 +650,7 @@ class Social_media extends CI_Controller {
 			{
 				$this->data = array();
 				$this->data['view'] = 'social_media/vine_login'; 
-		        _render_view($this->data);
+				_render_view($this->data);
 			}
 		}
 	}
@@ -655,27 +662,27 @@ class Social_media extends CI_Controller {
 		if(isset($vine_key))
 		{
 			$header = array(
-					    "cache-control: no-cache",
-					    "vine-session-id: ".$vine_key
-					);
+				"cache-control: no-cache",
+				"vine-session-id: ".$vine_key
+				);
 		}
 		else
 		{
 			$header = array(
-					    "cache-control: no-cache"					    
-					);
+				"cache-control: no-cache"					    
+				);
 		}
 
 		curl_setopt_array($curl, array(
-				CURLOPT_URL => $url,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 30,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => $method,
-				CURLOPT_SSL_VERIFYPEER => FALSE,
-				CURLOPT_HTTPHEADER => $header
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => $method,
+			CURLOPT_SSL_VERIFYPEER => FALSE,
+			CURLOPT_HTTPHEADER => $header
 			)
 		);
 
@@ -686,11 +693,120 @@ class Social_media extends CI_Controller {
 
 		if($err)
 		{
-		  	return 0;
+			return 0;
 		} 
 		else
 		{
-		  	return $response;
+			return $response;
+		}
+	}
+
+	public function my_uplaod_lists()
+	{
+		// Define an object that will be used to make all API requests.
+		$this->youtube();
+		$youtube = new Google_Service_YouTube($this->client);
+		
+		// Check if an auth token exists for the required scopes
+		
+		// Check to ensure that the access token was successfully acquired.
+		if (!$this->session->userdata('access_token')) {
+			try {
+			    // Call the channels.list method to retrieve information about the
+			    // currently authenticated user's channel.
+				$channelsResponse = $youtube->channels->listChannels('contentDetails', array(
+					'mine' => 'true',
+					));
+				$htmlBody = '';
+				foreach ($channelsResponse['items'] as $channel) {
+			      // Extract the unique playlist ID that identifies the list of videos
+			      // uploaded to the channel, and then call the playlistItems.list method
+			      // to retrieve that list.
+					$uploadsListId = $channel['contentDetails']['relatedPlaylists']['uploads'];
+					$playlistItemsResponse = $youtube->playlistItems->listPlaylistItems('snippet', array(
+						'playlistId' => $uploadsListId,
+						'maxResults' => 50
+						));
+					$htmlBody .= "<h3>Videos in list $uploadsListId</h3><ul>";
+					foreach ($playlistItemsResponse['items'] as $playlistItem) {
+						
+						$htmlBody .= sprintf('<li>%s (%s)</li>', $playlistItem['snippet']['title'], $playlistItem['snippet']['resourceId']['videoId']);
+					}
+					$htmlBody .= '</ul>';
+				}
+			} catch (Google_Service_Exception $e) {
+				$htmlBody = sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			} catch (Google_Exception $e) {
+				$htmlBody = sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			}
+			echo $htmlBody;
+		}else{
+			
+		}
+	}
+
+	public function upload_video()
+	{
+		$this->youtube();
+		$youtube = new Google_Service_YouTube($this->client);
+		echo $this->session->userdata('access_token');
+    	// Check to ensure that the access token was successfully acquired.
+		if (!$this->session->userdata('access_token')) {
+			$htmlBody = '';
+			try{
+				$videoPath = upload_path().'1/brands/1/posts/57a1dbb6a8710.mp4';
+				
+				$snippet = new Google_Service_YouTube_VideoSnippet();
+				$snippet->setTitle("Test title");
+				$snippet->setDescription("Test description");
+				$snippet->setTags(array("tag1", "tag2"));
+	            // Numeric video category. See
+	            // https://developers.google.com/youtube/v3/docs/videoCategories/list
+				$snippet->setCategoryId("22");
+	            // Set the video's status to "public". Valid statuses are "public",
+	            // "private" and "unlisted".
+	            // 2016-08-04
+				$status = new Google_Service_YouTube_VideoStatus();
+				$status->privacyStatus = "private";
+				echo date("Y-m-d\TH:i:s.Z\Z", strtotime("3 day"));
+				$status->setPublishAt(date("Y-m-d\TH:i:s.z\Z", strtotime("3 day")));
+            	// Associate the snippet and status objects with a new video resource.
+				$video = new Google_Service_YouTube_Video();
+				$video->setSnippet($snippet);
+				$video->setStatus($status);
+				$chunkSizeBytes = 1 * 1024 * 1024;
+				$this->client->setDefer(true);
+            	// Create a request for the API's videos.insert method to create and upload the video.
+				$insertRequest = $youtube->videos->insert("status,snippet", $video);
+            	// Create a MediaFileUpload object for resumable uploads.
+				$media = new Google_Http_MediaFileUpload(
+					$this->client, $insertRequest, 'video/*', null, true, $chunkSizeBytes
+					);
+				$media->setFileSize(filesize($videoPath));
+            	// Read the media file and upload it chunk by chunk.
+				$status = false;
+				$handle = fopen($videoPath, "rb");
+				while (!$status && !feof($handle)) {
+					$chunk = fread($handle, $chunkSizeBytes);
+					$status = $media->nextChunk($chunk);
+				}
+				fclose($handle);
+            	// If you want to make other calls after the file upload, set setDefer back to false
+				$this->client->setDefer(false);
+
+				$htmlBody .= "<h3>Video Uploaded</h3><ul>";
+				$htmlBody .= sprintf('<li>%s (%s)</li>', $status['snippet']['title'], $status['id']);
+				$htmlBody .= '</ul>';
+			} catch (Google_Service_Exception $e) {
+				$errors = json_decode($e->getMessage())->error->errors[0];
+				echo '<pre>'; print_r($errors);echo '</pre>';
+				//$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			} catch (Google_Exception $e) {
+				$htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			}
+			echo $htmlBody;
+		}else{
+
 		}
 	}
 }
