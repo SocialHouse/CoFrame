@@ -11438,7 +11438,8 @@ a {
 /*User Prefs*/
 #user-preferences .user-info {
   position: relative;
-  z-index: 100; }
+  z-index: 100;
+  padding-bottom: 1rem; }
 #user-preferences .btn-group {
   margin: 0px auto 3rem; }
   #user-preferences .btn-group .btn {
@@ -11451,12 +11452,19 @@ a {
   margin-bottom: 1rem; }
 #user-preferences .page-divider {
   position: absolute;
-  top: 6.06667rem;
+  top: -.75rem;
   bottom: 0;
   left: 50%;
-  margin-left: -2px;
+  margin-left: -1px;
   border-left: 1px solid #000;
-  z-index: 1; }
+  z-index: 1;
+  width: 1px; }
+#user-preferences .brand-image {
+  position: relative; }
+  #user-preferences .brand-image .remove-upload {
+    left: 60%;
+    -webkit-transform: translateX(-60%);
+    transform: translateX(-60%); }
 #user-preferences .price-title h2 {
   border-width: 2px;
   margin-bottom: 3rem;
@@ -11846,6 +11854,9 @@ textarea.form-control {
 
 .d-inline-block {
   display: inline-block; }
+
+.pos-relative {
+  position: relative; }
 
 .hidden {
   display: none; }

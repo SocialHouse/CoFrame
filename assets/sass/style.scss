@@ -3275,6 +3275,7 @@ a {
 	.user-info {
 		position: relative;
 		z-index: 100;
+		padding-bottom: 1rem;
 	}
 	.btn-group {
 		margin: 0px auto 3rem;
@@ -3293,12 +3294,21 @@ a {
 	}
 	.page-divider {
 		position: absolute;
-		top: remCalc(91px);
+		top: -.75rem;
 		bottom: 0;
 		left: 50%;
-		margin-left: -2px;
+		margin-left: -1px;
 		border-left: 1px solid #000;
 		z-index: 1;
+		width: 1px;
+	}
+	.brand-image {
+		position: relative;
+		.remove-upload {
+			left: 60%;
+			-webkit-transform: translateX(-60%);
+			transform: translateX(-60%);
+		}
 	}
 	.price-title {
 		h2 {
@@ -3768,6 +3778,9 @@ textarea.form-control {
 }
 .d-inline-block {
 	display: inline-block;
+}
+.pos-relative {
+	position: relative;
 }
 .hidden {
 	display: none;

@@ -293,20 +293,3 @@ img.jcrop-preview {
   float: none;
   margin: 0 auto;
 }
-
-.remove-user-img .remove-upload{
-  left: 95%;
-  top: 25%;
-  z-index: 999999;
-}
-
-#step_3_edit .remove-user-img .remove-upload{
-  top:17% !important;
-  left: 95%;
-}
-
-.user-preference .remove-upload {
-  left: 68%;
-  top: 12%;
-  z-index: 999;
-}
