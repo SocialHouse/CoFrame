@@ -17,7 +17,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 					</div>
 					<form action="<?php echo base_url().'user_preferences/save_payment'; ?>" id="payment-form" method="post">
 						<input type="hidden" name="plan" value="<?php echo get_plan($this->user_data['account_id']); ?>">
-						<input type="hidden" name="email" value="<?php echo $this->email; ?>" >
+						<input type="hidden" name="email" value="<?php echo $email; ?>" >
 						<input type="hidden" name="billing_id" value="<?php echo set_value('billing_id') ? set_value('billing_id') : (isset($billing_details->id) ? $billing_details->id : '' ); ?>">
 						
 						<div class="field-group">

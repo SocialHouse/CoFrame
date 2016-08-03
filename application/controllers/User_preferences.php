@@ -26,7 +26,6 @@ class User_preferences extends CI_Controller {
         $this->load->model('user_model');
         $this->load->model('timeframe_model');
 		$this->user_id = $this->session->userdata('id');
-		$this->email = $this->session->userdata('email');
 		$this->user_data = $this->session->userdata('user_info');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 	}
@@ -55,9 +54,10 @@ class User_preferences extends CI_Controller {
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
 		}
 
+		$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
+
 		if($page == 'user_plan')
-		{
-			$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
+		{			
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);
 			$this->load->model('brand_model');
 			$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
@@ -77,9 +77,9 @@ class User_preferences extends CI_Controller {
 
 		if($page == 'billing_info')
 		{
-			$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
 			$this->data['plan'] = $this->user_model->get_current_plan($this->user_id);
 			$this->data['countries'] = $this->timeframe_model->get_table_data('countries');
+			$this->data['email'] = $this->session->userdata('email');
 			
 			$this->data['js_files'][] = 'https://js.stripe.com/v2/';
 			$this->data['js_files'][] = js_url().'stripe.js?ver=2.11.0';
