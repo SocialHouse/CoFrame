@@ -7,9 +7,9 @@ if(!empty($brands))
 		foreach($brands as $brand)
 		{
 			$image_path = img_url().'default_brand.png';
-			if(file_exists(upload_path().'brands/'.$brand->id))
+			if(file_exists(upload_path().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png'))
 			{
-				$image_path = upload_url().'brands/'.$brand->id;
+				$image_path = upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/'.$brand->id.'.png';
 			}
 			?>
 			<li class="ui-state-default" data-brand="<?php echo $brand->id; ?>">
