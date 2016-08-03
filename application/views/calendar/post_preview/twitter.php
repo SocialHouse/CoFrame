@@ -15,8 +15,8 @@ if(!empty($post_images)){
 		<div class="clearfix">
 			<div class="pull-left user-profile-img">
 				<?php 
-					if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png')) {
-						echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" />';
+					if (file_exists(upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png')) {
+						echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" />';
 					   }else{
 						echo '<img src="'.img_url().'default_profile_twitter.png">';	
 					   }

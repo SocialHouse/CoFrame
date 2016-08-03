@@ -25,9 +25,9 @@ if(!empty($post_details->brand_id)){
 									<?php
 									$path = img_url()."default_profile.jpg";
 									
-									if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$master_user[0]->aauth_user_id.'.png'))
+									if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png'))
 									{
-										$path = upload_url().$this->user_data['account_id'].'/users/'.$master_user[0]->aauth_user_id.'.png';
+										$path = upload_url().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png';
 									}
 									?>
 									<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name; ?>" class="circle-img"/>

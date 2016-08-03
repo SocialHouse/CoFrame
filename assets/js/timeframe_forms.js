@@ -447,17 +447,13 @@ jQuery(document).ready(function(){
         }
     });
 
-      jQuery('#user_preferences_add_user').validate({
+    jQuery('#user_preferences_add_user').validate({
     	onkeyup: false,
         rules: {
         	first_name: {required: true},
         	last_name: {required: true},
         	email: {
-        		required: true,
-        		remote: {
-        			url: base_url+"tour/check_username_exist",
-        			type: "post"
-        		}
+        		required: true        		
         	},
         	role: {required: true },
         },
@@ -472,9 +468,24 @@ jQuery(document).ready(function(){
         	role: {required: 'Please select role' }
         },
         submitHandler: function(form, event) {
-        	if(plan_data.users > $('#all_users').val() && !$('#user_preferences_add_user #user_id').length){
+        	if(plan_data.users > $('#all_users').val() && !$('#user_preferences_add_user #user_id').length && ( (plan_data.master_admins > $('#master_user_count').val() && $('#userRoleSelect').val() == 'master admin' ) || $('#userRoleSelect').val() == 'billing')){
         		event.preventDefault();
 	        	form.submit();
+        	}
+        	else if($('#user_preferences_add_user #user_id').length && ( (plan_data.master_admins > $('#master_user_count').val() && $('#userRoleSelect').val() == 'master admin' && $('#previous_group').val() != 'master admin') || $('#userRoleSelect').val() == 'billing') || ($('#userRoleSelect').val() == $('#previous_group').val())) {
+        		event.preventDefault();
+	        	form.submit();
+        	}
+        	else{
+        		if(plan_data.users <= $('#all_users').val())
+        		{
+        			alert(language_message.user_limit);
+        		}
+        		if(plan_data.master_admins <= $('#master_user_count').val() && $('#userRoleSelect').val() == 'master admin' )
+        		{
+        			alert(language_message.master_user_limit.replace('%master_user_number%',plan_data.master_admins));
+        		}
+        		
         	}
 	        
         }

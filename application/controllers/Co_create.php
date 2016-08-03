@@ -100,10 +100,9 @@ class Co_create extends CI_Controller {
 			$brand_id = $brand[0]->id;
 
 			$path = img_url()."default_profile.jpg";
-			upload_path().$brand[0]->account_id.'/users/'.$this->user_id.'.png';
-			if(file_exists(upload_path().$brand[0]->account_id.'/users/'.$this->user_id.'.png'))
+			if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
 			{
-				$path = upload_url().$brand[0]->account_id.'/users/'.$this->user_id.'.png';
+				$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
 			}
 
 			$connection_metadata = ucfirst($this->user_data['first_name']).",".$this->user_id.",".$path;			

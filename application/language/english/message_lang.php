@@ -149,6 +149,7 @@
 	$lang['outlet_limit'] = 'Your plan support only %outlet_number% outlets per brand';
 	$lang['tag_limit'] = 'You have reached your tag limit. Either delete a tag or upgrade your package';
 	$lang['user_limit'] = 'Your plan support only %user_number% users';
+	$lang['master_user_limit'] = 'Your plan support only %master_user_number% master users';
 
 	$lang['user_limit_downgrade'] = 'Please remove %user_number% users ';
 	$lang['master_users_limit_downgrade'] = 'Please remove %master_users_number% master users ';
@@ -157,7 +158,10 @@
 	$lang['outlet_limit_downgrade'] = 'Please remove outlets from brand %message% ';
 
 	$lang['email_present_in_current_brand'] = 'This user already present in current brand';
+	$lang['email_is_account_user'] = 'You can not add accounts user as a brand user.';
 	$lang['email_present_in_current_ac'] = 'This email address is already in use. Select the user from the dropdown to assign them a role for this brand';
+
+	$lang['present_in_current_ac_preference'] = 'This email address is already in use as a brand user. You can not add it as a account user';
 
 	$lang['master_admin_email'] = 'You can`t add accounts master admin in any brand of same account';
 	

@@ -97,9 +97,9 @@
 							foreach($brands_user as $user)
 							{
 								$image_path = img_url().'default_profile.jpg';
-								if(file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png'))
+								if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png'))
 								{
-									$image_path = upload_url().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png';
+									$image_path = upload_url().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png';
 								}
 								?>
 								<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">

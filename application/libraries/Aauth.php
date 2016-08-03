@@ -1048,8 +1048,8 @@ class Aauth {
 
 			$config = $this->CI->config->item('smtp_config');
 	        $from = $this->CI->config->item('from_mail');
-	       
-	        $this->CI->load->library('email',$config);
+	       	       
+	        $this->CI->load->library('email');
 	        $this->CI->email->initialize($config);
 
 			$this->CI->email->from($from, $this->config_vars['name']);
@@ -1215,7 +1215,7 @@ class Aauth {
 	 * @param int|bool $user_id User id to get or FALSE for current user
 	 * @return array Groups
 	 */
-	public function get_user_groups($user_id = FALSE,$brand_id){
+	public function get_user_groups($user_id = FALSE,$brand_id = NULL, $parent_id = NULL){
 
 		if ($user_id==FALSE) { $user_id = $this->CI->session->userdata('id'); }
 
@@ -1224,6 +1224,7 @@ class Aauth {
 		$this->aauth_db->join($this->config_vars['groups'], "id = group_id");
 		$this->aauth_db->where('user_id', $user_id);
 		$this->aauth_db->where('brand_id', $brand_id);
+		$this->aauth_db->where('parent_id', $parent_id);
 
 		return $query = $this->aauth_db->get()->result();
 	}
@@ -1402,11 +1403,13 @@ class Aauth {
 	 * @param int|string $group_par Group id or name to remove user from
 	 * @return bool Remove success/failure
 	 */
-	public function remove_member($user_id, $group_par) {
+	public function remove_member($user_id, $group_par,$brand_id = NULL, $parent_id = NULL) {
 
 		$group_par = $this->get_group_id($group_par);
 		$this->aauth_db->where('user_id', $user_id);
 		$this->aauth_db->where('group_id', $group_par);
+		$this->aauth_db->where('brand_id', $brand_id);
+		$this->aauth_db->where('parent_id', $parent_id);
 		return $this->aauth_db->delete($this->config_vars['user_to_group']);
 	}
 	
@@ -1691,7 +1694,7 @@ class Aauth {
 	 * @param int $perm_par Permission id or name to allow
 	 * @return bool Allow success/failure
 	 */
-	public function allow_user($user_id, $perm_par,$brand_id) {
+	public function allow_user($user_id, $perm_par,$brand_id=NULL,$parent_id = NULL) {
 
 		$perm_id = $this->get_perm_id($perm_par);
 
@@ -1699,18 +1702,32 @@ class Aauth {
 			return FALSE;
 		}
 
+		if( empty($brand_id) && empty($parent_id) ) {
+			return FALSE;
+		}
+
+		if(empty($brand_id)){
+			$brand_id = null;
+		}
+		
+		if(empty($parent_id)){
+			$parent_id = null;
+		}
+
 		$query = $this->aauth_db->where('user_id',$user_id);
 		$query = $this->aauth_db->where('brand_id',$brand_id);
+		$query = $this->aauth_db->where('parent_id',$parent_id);
 		$query = $this->aauth_db->where('perm_id',$perm_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
-
+		
 		// if not inserted before
 		if ($query->num_rows() < 1) {
 
 			$data = array(
 				'user_id' => $user_id,
 				'perm_id' => $perm_id,
-				'brand_id' => $brand_id
+				'brand_id' => $brand_id,
+				'parent_id' => $parent_id
 			);
 
 			return $this->aauth_db->insert($this->config_vars['perm_to_user'], $data);
@@ -1726,14 +1743,17 @@ class Aauth {
 	 * @param int $perm_par Permission id or name to deny
 	 * @return bool Deny success/failure
 	 */
-	public function deny_user($user_id, $perm_par) {
+	public function deny_user($user_id, $perm_par,$brand_id = NULL, $parent_id = NULL) {
 
 		$perm_id = $this->get_perm_id($perm_par);
 
 		$this->aauth_db->where('user_id', $user_id);
 		$this->aauth_db->where('perm_id', $perm_id);
+		$this->aauth_db->where('brand_id', $brand_id);
+		$this->aauth_db->where('parent_id', $parent_id);
 
-		return $this->aauth_db->delete($this->config_vars['perm_to_user']);
+		$status = $this->aauth_db->delete($this->config_vars['perm_to_user']);
+		return $status;
 	}
 
 	//tested
@@ -2469,15 +2489,27 @@ class Aauth {
 	 * @param int $user_id User id 
 	 * @return list of permission
 	 */
-	public function get_user_perm($user_id,$brand_id) {
+	public function get_user_perm($user_id,$brand_id=NULL,$parent_id =NULL) {
 
-		if( empty($user_id) && empty($brand_id) ) {
+		if( empty($user_id)) {
 			return FALSE;
 		}
 		$this->aauth_db->join($this->config_vars['perms'],"aauth_perms.id = aauth_perm_to_user.perm_id");		
 		$this->aauth_db->where('user_id', $user_id);
 		$this->aauth_db->where('brand_id', $brand_id);
+		$this->aauth_db->where('parent_id', $parent_id);
 		$query = $this->aauth_db->get($this->config_vars['perm_to_user']);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	function get_groups_perm($group_id)
+	{
+		$this->aauth_db->where('group_id', $group_id);
+		$query = $this->aauth_db->get($this->config_vars['perm_to_group']);
 		if($query->num_rows() > 0)
 		{
 			return $query->result();

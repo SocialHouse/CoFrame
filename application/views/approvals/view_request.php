@@ -28,8 +28,8 @@
 					<div class="post-preview-footer">
 						<div class="author clearfix">
 							<?php
-							if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png')) {
-			                	echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
+							if (file_exists(upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png')) {
+			                	echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" class="ccircle-img pull-sm-left" width="36" height="36" />';
 			                }else{
 			                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile_twitter.png">';	
 			                }
@@ -145,9 +145,9 @@
 								{
 									$path = img_url()."default_profile.jpg";
 								
-									if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png'))
+									if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png'))
 									{
-										$path = upload_url().$this->user_data['account_id'].'/users/'.$user->aauth_user_id.'.png';
+										$path = upload_url().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png';
 									}
 									?>
 									<li class="pull-sm-left <?php echo $user->status; ?>"><img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" class="circle-img"/></li>
@@ -200,9 +200,9 @@
 								{
 									$path = img_url()."default_profile.jpg";
 							
-									if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$comment->user_id.'.png'))
+									if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png'))
 									{
-										$path = upload_url().$this->user_data['account_id'].'/users/'.$comment->user_id.'.png';
+										$path = upload_url().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png';
 									}
 									?>
 									<li>
@@ -264,9 +264,9 @@
 													<li>
 														<?php
 														$path = img_url()."default_profile.jpg";						
-														if (file_exists(upload_path().$this->user_data['account_id'].'/users/'.$this->user_id.'.png'))
+														if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
 														{
-															$path = upload_url().$this->user_data['account_id'].'/users/'.$this->user_id.'.png';
+															$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
 														}
 														?>
 														<div class="author clearfix">

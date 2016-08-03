@@ -54,58 +54,52 @@ class User_preferences extends CI_Controller {
 			$this->data['timezones_list'] = $this->user_model->get_timezones();
 			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
 		}
-				
-		// if($this->user_id == $this->user_data['account_id'])
-		// {
-			if($page == 'user_plan')
+
+		if($page == 'user_plan')
+		{
+			$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
+			$this->data['user_details'] = $this->user_model->get_user($this->user_id);
+			$this->load->model('brand_model');
+			$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
+
+			$this->data['master_users'] = $this->brand_model->get_all_master_users($this->user_data['account_id']);
+
+			$brands = $this->timeframe_model->get_data_by_condition('brands',array('account_id' => $this->user_data['account_id']),'id');
+			$this->data['brand_count'] = 0;
+			if(!empty($brands))
 			{
-				$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
-				$this->data['user_details'] = $this->user_model->get_user($this->user_id);
-				$this->load->model('brand_model');
-				$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
-
-				$this->data['master_users'] = $this->brand_model->get_all_master_users($this->user_data['account_id']);
-
-				$brands = $this->timeframe_model->get_data_by_condition('brands',array('account_id' => $this->user_data['account_id']),'id');
-				$this->data['brand_count'] = 0;
-				if(!empty($brands))
-				{
-					$this->data['brand_count'] = count($brands);
-				}
-
-				$this->data['brand_wise_tags'] = $this->brand_model->get_brand_wise_tags();
-				$this->data['brand_wise_outlets'] = $this->brand_model->get_brand_wise_outlets();
+				$this->data['brand_count'] = count($brands);
 			}
 
-			if($page == 'billing_info')
-			{
-				$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
-				$this->data['plan'] = $this->user_model->get_current_plan($this->user_id);
-				$this->data['countries'] = $this->timeframe_model->get_table_data('countries');
-				
-				$this->data['js_files'][] = 'https://js.stripe.com/v2/';
-				$this->data['js_files'][] = js_url().'stripe.js?ver=2.11.0';
-			}
+			$this->data['brand_wise_tags'] = $this->brand_model->get_brand_wise_tags();
+			$this->data['brand_wise_outlets'] = $this->brand_model->get_brand_wise_outlets();
+		}
+
+		if($page == 'billing_info')
+		{
+			$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_id);
+			$this->data['plan'] = $this->user_model->get_current_plan($this->user_id);
+			$this->data['countries'] = $this->timeframe_model->get_table_data('countries');
 			
-			if($page == 'users')
-			{
-				$this->data['js_files'][] = array(js_url().'add-brand.js?ver=2.11.0',js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3');
+			$this->data['js_files'][] = 'https://js.stripe.com/v2/';
+			$this->data['js_files'][] = js_url().'stripe.js?ver=2.11.0';
+		}
+		
+		if($page == 'users')
+		{
+			$this->data['js_files'][] = js_url().'add-brand.js?ver=2.11.0';
+			$this->data['js_files'][] = js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3';
 
-				$this->data['groups'] = $this->aauth->list_groups();
+			$this->data['groups'] = $this->aauth->list_groups();
 
-				$this->load->model('brand_model');
+			$this->load->model('brand_model');
 
-				$this->data['all_users'] = $this->brand_model->get_all_users();
-
-				$this->data['added_users']  = $this->user_model->get_users_by_parent_id( $this->user_data['account_id']);
-				
-			}
-			_render_view($this->data);
-		// }
-		// else
-		// {
-		// 	_render_view($this->data);
-		// }
+			$this->data['all_users'] = $this->brand_model->get_all_users();
+			$this->data['master_user_count'] = $this->brand_model->get_all_master_users();
+			$this->data['added_users']  = $this->user_model->get_users_by_parent_id( $this->user_data['account_id']);
+			
+		}
+		_render_view($this->data);
 	}
 
 	public function edit_my_info()
@@ -442,7 +436,8 @@ class User_preferences extends CI_Controller {
         					'company_url' =>  $this->user_data['company_url'],
                             'created_at' => date('Y-m-d H:i:s'),
                             'password' => $password,
-                            'username' => $this->input->post('first_name')
+                            'username' => $this->input->post('first_name'),
+                            'img_folder' => $this->user_data['account_id']
         				);
 
         	$this->load->helper('email');
@@ -458,7 +453,16 @@ class User_preferences extends CI_Controller {
 
         if($inserted_id)
     	{
-    		$this->aauth->add_member($inserted_id, $group_id, '' , $this->user_data['account_id']);
+    		$this->aauth->add_member($inserted_id, $group_id, NULL , $this->user_data['account_id']);
+
+    		$permissions = $this->aauth->get_groups_perm($group_id);
+    		if(!empty($permissions))
+        	{
+        		foreach($permissions as $permission)
+        		{
+        			$this->aauth->allow_user($inserted_id,$permission->perm_id,NULL,$this->user_data['account_id']);
+        		}
+        	}
 
         	$user_data['aauth_user_id'] = $inserted_id;
         	$user_data['img_folder'] = $this->user_data['img_folder'];
@@ -524,7 +528,6 @@ class User_preferences extends CI_Controller {
     public function edit_user_info()
     {
     	$post_data = $this->input->post();
-    	//echo '<pre>'; print_r($post_data);echo '</pre>'; die;
     	if(!empty($post_data['user_id']))
     	{
     		$user_id = $post_data['user_id'];
@@ -572,10 +575,27 @@ class User_preferences extends CI_Controller {
 	        }
 
 	        //  Get user old Permissions and Groups and remove old and add New 
-        	$old_role = strtolower(get_user_groups($user_id));
+        	$old_role = strtolower(get_user_groups($user_id,NULL,$this->user_data['account_id']));
         	$group_id = $this->aauth->get_group_id($post_data['role']);
-	        $this->aauth->remove_member($user_id, $old_role);
+	        $this->aauth->remove_member($user_id, $old_role,NULL,$this->user_data['account_id']);
 	       	$this->aauth->add_member($user_id, $group_id, '' , $this->user_data['account_id']);
+	       	$old_permissions = $this->aauth->get_user_perm($user_id,NULL,$this->user_data['account_id']);
+	       	if(!empty($old_permissions)){
+        		foreach ($old_permissions as $key => $per_obj) {
+        			$this->aauth->deny_user($user_id, $per_obj->perm_id,NULL,$this->user_data['account_id']);
+        		}
+        	}
+        	$permissions = $this->aauth->get_groups_perm($group_id);
+        	
+	        if(!empty($permissions))
+        	{
+        		foreach($permissions as $permission)
+        		{
+	        		$this->aauth->allow_user($user_id,$permission->perm_id,NULL,$this->user_data['account_id']);
+        		}
+        	}
+
+
 	       	redirect(base_url().'user_preferences/users');
     	}
     }

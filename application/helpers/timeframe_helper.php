@@ -184,10 +184,10 @@ if(!function_exists('get_post_approvers'))
 
 if(!function_exists('get_user_groups')) 
 {
-    function get_user_groups($user_id,$brand_id) 
+    function get_user_groups($user_id,$brand_id = NULL,$parent_id=NULL) 
     {
         $CI = & get_instance();            
-        $user_group = $CI->aauth->get_user_groups($user_id,$brand_id);
+        $user_group = $CI->aauth->get_user_groups($user_id,$brand_id,$parent_id);
         if($user_group)
         {
             return $user_group[0]->name;

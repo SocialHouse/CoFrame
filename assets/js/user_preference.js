@@ -214,6 +214,14 @@ $(document).ready(function(){
 			    name: 'user_id',
 			    value:aauth_user_id
 			}).appendTo('#user_preferences_add_user');
+
+		$('<input>').attr({
+			    type: 'hidden',
+			    id: 'previous_group',
+			    name: 'previous_group',
+			    value:role.toLowerCase()
+			}).appendTo('#user_preferences_add_user');
+
 		$('#userEmail').prop('readonly', true);
 		$('#userEmail').attr('name', 'old_email');
 		$('#user_preferences_add_user').attr('action',base_url+'user_preferences/edit_user_info')	;	
@@ -224,6 +232,7 @@ $(document).ready(function(){
 		$('#user_preferences_add_user')[0].reset();
 		$('#user_preferences_add_user  #new_user_pic').empty();
 		$('#user_preferences_add_user #user_id').remove();
+		$('#user_preferences_add_user #previous_group').remove();
 		$('#is_user_image').val('');
 		$(".remove-user-img").addClass('hide');
 		$("#user_preferences_add_user #new_user_pic").removeClass('hasUpload');

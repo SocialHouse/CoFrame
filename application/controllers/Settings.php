@@ -262,11 +262,11 @@ class Settings extends CI_Controller {
 
         	if(!empty($old_permissions)){
         		foreach ($old_permissions as $key => $per_obj) {
-        			$this->aauth->deny_user($user_id, $per_obj->perm_id);
+        			$this->aauth->deny_user($user_id, $per_obj->perm_id,$brand_id);
         		}
         	}
 	        
-	       	$this->aauth->remove_member($user_id, $old_role);
+	       	$this->aauth->remove_member($user_id, $old_role,$brand_id);
 
 	       	$this->aauth->add_member($user_id,$group_id,$brand_id,'');
 

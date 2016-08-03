@@ -95,6 +95,13 @@ class Tour extends CI_Controller {
                 $user_info['accounts'] = $accounts;
                 $user_info['account_id'] = $accounts[0];
                 $user_info['plan'] = strtolower(get_plan($accounts[0]));
+                //is user added through account preference means he is account user or brand user
+                $check_user = $this->timeframe_model->check_user_is_account_user($accounts[0]);
+                if($check_user)
+                {
+                    $user_info['user_group'] = $check_user;
+                }
+
                 $this->session->set_userdata('user_info',$user_info);
 
                  $date_diff = calculate_date_diff($user->created_at,'');

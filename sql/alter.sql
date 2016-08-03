@@ -406,3 +406,7 @@ ALTER TABLE `user_info` ADD `is_trial_period_expired` TINYINT NULL DEFAULT '0' C
 --- 2-08-2016
 ALTER TABLE `aauth_user_to_group` CHANGE `brand_id` `brand_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `aauth_user_to_group` ADD `parent_id` INT(11) NULL DEFAULT NULL AFTER `brand_id`;
+
+--- 3-08-2016
+ALTER TABLE `aauth_perm_to_user` ADD `parent_id` INT NULL AFTER `brand_id`;
+ALTER TABLE `aauth_perm_to_user` CHANGE `brand_id` `brand_id` INT(11) NULL DEFAULT NULL;

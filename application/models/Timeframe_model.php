@@ -83,51 +83,72 @@ class Timeframe_model extends CI_Model
 
 	public function get_accounts()
 	{
+		$brand_user_result = [];
+		$account_user_result = [];
+		$owner_user_result = [];
+
+		//check user associates with any brand and get account_id from there
 		$this->db->select('account_id');
 		$this->db->join('brand_user_map','brand_user_map.brand_id = brands.id','left');
-		// $this->db->where('access_user_id',$this->user_id);
-		$this->db->group_start();
-		$this->db->where('account_id', $this->user_id);
 		$this->db->or_where('access_user_id',$this->user_id);
-		$this->db->group_end();
 
 		$this->db->order_by('brands.id','ASC');
 		$this->db->group_by('account_id');
 		$query = $this->db->get('brands');
 		if($query->num_rows() > 0)
 		{
-			$result = $query->result_array();
-			$result = array_column($result,'account_id');
-			return $result;
+			$brand_user_result = $query->result_array();
+			$brand_user_result = array_column($brand_user_result,'account_id');
 		}
-		else
+
+		//if current user is owner
+		$this->db->select('aauth_user_id');
+		$this->db->where('(plan IS NOT NULL)');
+		$this->db->where('aauth_user_id',$this->user_id);
+		$query = $this->db->get('user_info');
+		if($query->num_rows() > 0)
 		{
-			$this->db->select('aauth_users.id as aauth_user_id,parent_id');
-			$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
-	        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
-
-	        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
-	        $this->db->where('aauth_user_to_group.user_id',$this->user_id);
-	        $this->db->where('aauth_user_to_group.brand_id' , NULL);
-	        $query = $this->db->get('aauth_user_to_group');
-
-	        if($query->num_rows() > 0)
-	        {
-
-				$this->db->select('account_id');
-				$this->db->join('brand_user_map','brand_user_map.brand_id = brands.id','left');
-				$this->db->where('account_id', $query->row()->parent_id);
-				$this->db->order_by('brands.id','ASC');
-				$this->db->group_by('account_id');
-				$query = $this->db->get('brands');				
-				if($query->num_rows() > 0)
-				{
-					return $query->row()->account_id;
-				}
-	        }
+			$owner_user_result = $query->result_array();
+			$owner_user_result = array_column($owner_user_result,'aauth_user_id');
 		}
+
+
+		$this->db->select('aauth_users.id as aauth_user_id,parent_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.user_id',$this->user_id);
+        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+        $query = $this->db->get('aauth_user_to_group');
+        if($query->num_rows() > 0)
+		{
+			$account_user_result = $query->result_array();			
+			$account_user_result = array_column($account_user_result,'parent_id');				
+		}
+
+        if(!empty($brand_user_result) OR !empty($account_user_result) OR !empty($owner_user_result))
+        {
+        	$result = array_merge($brand_user_result,$account_user_result);
+        	$result = array_merge($result,$owner_user_result);
+        	return $result;
+        }
 
 		$result[0] = $this->user_id;
 		return $result;
+	}
+
+	function check_user_is_account_user($parent_id)
+	{
+		$this->db->select('name');
+		$this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.user_id',$this->user_id);
+        $this->db->where('aauth_user_to_group.parent_id',$parent_id);
+        $query = $this->db->get('aauth_user_to_group');
+        if($query->num_rows() > 0)
+        {
+        	return $query->row()->name;
+        }
+        return FALSE;
 	}	
 }

@@ -598,61 +598,13 @@ class Brands extends CI_Controller {
     	}
     }
 
-	public function edit($brand_id)
-	{
-		$this->data = array();
-		$this->load->model('user_model');
-		$this->data['timezones'] = $this->user_model->get_timezones();
-		$brand = get_users_brand($brand_id);
-		if(!empty($brand))
-		{
-			$this->data['brand'] = $brand[0];
-			$this->data['view'] = 'brands/add_brand';
-	        _render_view($this->data);
-	    }
-	    else
-	    {
-	    	$this->session->set_flashdata('error','Brand is not available');
-	    	redirect(base_url().'brands');
-	    }
-	}
-
-	public function hide_brand($brand_id)
-	{
-		$brand = get_users_brand($brand_id);
-		if(!empty($brand))
-		{
-			$brand_data = array(
-								'is_hidden' => 1
-							);
-			$condition = array('id' => $brand_id);
-			$this->timeframe_model->update_data('brands',$brand_data,$condition);
-			$this->session->set_flashdata('message','Brand hide successfull');
-			redirect(base_url().'brands');
-		}
-	}
-
-	public function un_hide_brand($brand_id)
-	{
-		$brand = get_users_brand($brand_id);
-		if(!empty($brand))
-		{
-			$brand_data = array(
-								'is_hidden' => 0
-							);
-			$condition = array('id' => $brand_id);
-			$this->timeframe_model->update_data('brands',$brand_data,$condition);
-			$this->session->set_flashdata('message','Brand unhide successfull');
-			redirect(base_url().'brands');
-		}
-	}
-
 	public function overview()
 	{
 		
 		$this->data = array();
 		$this->data['trial_message'] ='';
 		$user_id = $this->user_id;
+
 		$this->data['brands'] = $this->brand_model->get_users_brands($user_id);
 		
 		$created_at = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id'=>$this->user_data['account_id']),'DATE_FORMAT(created_at,"%Y-%m-%d") AS created_at');
@@ -832,7 +784,14 @@ class Brands extends CI_Controller {
 		if($account_id)
 		{
 			$session_data = $this->user_data;
+			
+			$check_user = $this->timeframe_model->check_user_is_account_user($account_id);
+            if($check_user)
+            {
+                $session_data['user_group'] = $check_user;
+            }			
 			$session_data['account_id'] = $account_id;
+
 			$session_data['plan'] = strtolower(get_plan($account_id));
 
 			$this->session->set_userdata('user_info',$session_data);			

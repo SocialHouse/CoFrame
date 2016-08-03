@@ -568,12 +568,21 @@ jQuery(function($) {
 							$('#emailUniqueValid').text(language_message.email_present_in_current_brand);
 							$('#emailUniqueValid').removeClass('hide');
 						} else if (data.response == 'current_account') {
+							var message = language_message.email_present_in_current_ac;
+							if($('#userEmail').data('user_preference'))
+							{
+								message = language_message.present_in_current_ac_preference;
+							}
 							validEmail = false;
-							$('#emailUniqueValid').text(language_message.email_present_in_current_ac);
+							$('#emailUniqueValid').text(message);
 							$('#emailUniqueValid').removeClass('hide');
 						} else if (data.response == 'current_admin') {
 							validEmail = false;
 							$('#emailUniqueValid').text(language_message.master_admin_email);
+							$('#emailUniqueValid').removeClass('hide');
+						} else if (data.response == 'account_user') {
+							validEmail = false;
+							$('#emailUniqueValid').text(language_message.email_is_account_user);
 							$('#emailUniqueValid').removeClass('hide');
 						} else {
 							validEmail = true;

@@ -14,8 +14,8 @@
 	<div class="post-container clearfix">
 		<div class="pull-left">
 			<?php 
-				if (file_exists(upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png')) {
-					echo '<img src="'.upload_url().$this->user_data['account_id'].'/users/'.$post_details->user_id.'.png" class="user-profile-img" />';
+				if (file_exists(upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png')) {
+					echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" class="user-profile-img" />';
 				   }else{
 					echo '<img class="user-profile-img" src="'.img_url().'default_profile.jpg" width="40">';	
 				}

@@ -30,10 +30,18 @@ class Brand_model extends CI_Model
 		if($brand_id > 0)
 			$this->db->where('brands.id', $brand_id);
 		
-		$this->db->group_start();
-		$this->db->where('created_by', $user_id);
-		$this->db->or_where('access_user_id',$user_id);
-		$this->db->group_end();
+		
+		if(isset($this->user_data['user_group']) AND $this->user_data['user_group'] == 'Master Admin')
+		{
+			$this->db->where('account_id', $this->user_data['account_id']);
+		}
+		else
+		{
+			$this->db->group_start();
+			$this->db->where('account_id', $user_id);
+			$this->db->or_where('access_user_id',$user_id);
+			$this->db->group_end();
+		}		
 		// $this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
 		$this->db->where('is_hidden',0);
 		$this->db->where('account_id',$this->user_data['account_id']);
@@ -55,10 +63,17 @@ class Brand_model extends CI_Model
 			$this->db->where('brands.slug', $slug);
 		}
 		$this->db->where('brands.account_id',$this->user_data['account_id']);
-		$this->db->group_start();
-		$this->db->where('created_by', $user_id);
-		$this->db->or_where('access_user_id',$user_id);
-		$this->db->group_end();		
+		if(isset($this->user_data['user_group']) AND $this->user_data['user_group'] == 'Master Admin')
+		{
+			$this->db->where('account_id', $this->user_data['account_id']);
+		}
+		else
+		{
+			$this->db->group_start();
+			$this->db->where('account_id', $user_id);
+			$this->db->or_where('access_user_id',$user_id);
+			$this->db->group_end();
+		}		
 		$this->db->where('is_hidden',0);
 		$this->db->group_by('brands.id');
 		$query = $this->db->get($this->table);
@@ -115,21 +130,42 @@ class Brand_model extends CI_Model
 	//get user assosiate who have approve permission
 	public function get_approvers($brand_id)
 	{
-		$this->db->where('name', 'approve.approve_post');
-		$query = $this->db->get('aauth_perms');
-		if($query->num_rows() > 0)
+		$this->db->like('name', 'approve');
+		$perm_query = $this->db->get('aauth_perms');
+		if($perm_query->num_rows() > 0)
 		{
+			$brand_user_result = [];
+			$account_user_result = [];
+
 			$this->db->select('user_info.aauth_user_id,first_name,last_name,perm_id,aauth_perm_to_user.user_id,img_folder');
 			$this->db->join('user_info','user_info.aauth_user_id = access_user_id');
 			$this->db->join('aauth_perm_to_user','aauth_perm_to_user.user_id = access_user_id');
-			$this->db->where('perm_id',$query->row()->id);
+			$this->db->where('perm_id',$perm_query->row()->id);
 			$this->db->where('aauth_perm_to_user.user_id != ',$this->user_id);
 			$this->db->where('aauth_perm_to_user.brand_id',$brand_id);
 			$this->db->group_by('user_info.aauth_user_id');
-			$query = $this->db->get('brand_user_map');			
+			$query = $this->db->get('brand_user_map');
 			if($query->num_rows() > 0)
 			{
-				return $query->result();
+				$brand_user_result = $query->result();
+			}
+
+			$this->db->select('user_info.aauth_user_id,first_name,last_name,perm_id,aauth_perm_to_user.user_id,img_folder');
+			$this->db->join('aauth_perm_to_user','aauth_perm_to_user.user_id = user_info.aauth_user_id');
+			$this->db->where('perm_id',$perm_query->row()->id);
+			$this->db->where('aauth_perm_to_user.user_id != ',$this->user_id);
+			$this->db->where('aauth_perm_to_user.brand_id',NULL);
+			$this->db->where('aauth_perm_to_user.parent_id',$this->user_data['account_id']);
+			$this->db->group_by('user_info.aauth_user_id');
+			$query = $this->db->get('user_info');
+			if($query->num_rows() > 0)
+			{
+				$account_user_result = $query->result();
+			}
+			if(!empty($brand_user_result) OR $account_user_result)
+			{
+				$result = array_merge($brand_user_result,$account_user_result);
+				return $result;
 			}
 		}
 		return FALSE;
@@ -335,20 +371,23 @@ class Brand_model extends CI_Model
 		return FALSE;
 	}
 
-	function check_user_exist_in_account($email,$brand_id)
+	function check_user_exist_in_account($email,$brand_id = '')
 	{
-		//check user is already present in current brand
-		$this->db->select('brand_user_map.id');
-		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
-		$this->db->join('brands','brands.id = brand_user_map.brand_id');
-		$this->db->where('aauth_users.email',$email);
-		$this->db->where('brands.id',$brand_id);
-		$query = $this->db->get('brand_user_map');
-		if($query->num_rows() > 0)
+		if($brand_id)
 		{
-			return array('response'=> 'current_brand');
+			//check user is already present in current brand
+			$this->db->select('brand_user_map.id');
+			$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
+			$this->db->join('brands','brands.id = brand_user_map.brand_id');
+			$this->db->where('aauth_users.email',$email);
+			$this->db->where('brands.id',$brand_id);
+			$query = $this->db->get('brand_user_map');
+			if($query->num_rows() > 0)
+			{
+				return array('response'=> 'current_brand');
+			}
 		}
-
+		
 		//check user is already present in current account
 		$this->db->select('brand_user_map.id');
 		$this->db->join('aauth_users','aauth_users.id = brand_user_map.access_user_id');
@@ -381,7 +420,41 @@ class Brand_model extends CI_Model
 		if($query->num_rows() > 0)
 		{
 			return array('response'=> 'other_account');
+		}		
+
+		//check user is already present in other account as a account user not brand user
+		$this->db->select('aauth_user_to_group.user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+		$this->db->where('aauth_users.email',$email);
+		$this->db->where('parent_id !=',$this->user_data['account_id']);
+		$this->db->where('brand_id',NULL);
+		$quewry = $this->db->get('aauth_user_to_group');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'other_account');
 		}
+
+		//check user is account user not brand_user of same account
+		$this->db->select('aauth_user_to_group.user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+		$this->db->where('aauth_users.email',$email);
+		$this->db->where('parent_id',$this->user_data['account_id']);
+		$this->db->where('brand_id',NULL);
+		$quewry = $this->db->get('aauth_user_to_group');
+		if($quewry->num_rows() > 0)
+		{
+			return array('response'=> 'account_user');
+		}
+
+		//check user is owner of other account
+		$this->db->select('id');
+		$this->db->where('aauth_users.email',$email);
+		$query = $this->db->get('aauth_users');
+		if($query->num_rows() > 0)
+		{
+			return array('response'=> 'other_account');
+		}
+
 		return array('response' => 'false');
 	}
 }
