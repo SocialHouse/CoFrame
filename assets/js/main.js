@@ -1544,16 +1544,26 @@ jQuery(function($) {
 		}
 		element.qtip({
 			content: {
-				text: 'Loading...',
 				text: function(event, api) {
 					$.ajax({
 						url: base_url + "posts/get_post_info/" + id + '/' + $('#calendar_type').val()
 					}).then(function(content) {
 						// Set the tooltip content upon successful retrieval
 						api.set('content.text', content);
-						setTimeout(function() {
-							api.reposition();
-						}, 200);
+						var tipId = api.get('id');
+						//reposition tooltip after images load
+                        document.getElementById(tipId).addEventListener('load', function(event){
+                            var elm = event.target;
+                            if( elm.nodeName.toLowerCase() === 'img' && !$(elm).hasClass('loaded')){
+                                $(elm).addClass('loaded');
+                                if($('#' + tipId + ' img.loaded').length === $('#' + tipId + ' img').length) {          
+                                    // All images loaded
+									api.reposition();
+                                }
+                            }
+                        },
+                        true
+                        );
 					}, function(xhr, status, error) {
 						// Upon failure... set the tooltip content to the status and error value
 						api.set('content.text', status + ': ' + error);
