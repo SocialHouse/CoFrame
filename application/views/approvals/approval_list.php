@@ -261,7 +261,7 @@
 										<?php
 									}
 									?>										
-									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo date('h:i A',strtotime($post->slate_date_time)); ?></td>
+									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo date('g:i A',strtotime($post->slate_date_time)); ?></td>
 
 									<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 										<div class="post-tags">
@@ -294,7 +294,7 @@
 											<?php
 											if(!empty($deadline))
 											{
-												echo date('m/d/Y h:i A',strtotime($deadline));
+												echo date('n/d/y g:i A',strtotime($deadline));
 											}
 											else
 											{

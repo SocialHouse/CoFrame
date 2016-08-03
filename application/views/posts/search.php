@@ -117,8 +117,8 @@
 
 							?>
 							<tr onClick="showPostPopover(jQuery(this).find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');" data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet); ?>">
-								<td><?php echo date('L m/d',strtotime($post->slate_date_time)); ?></td>
-								<td><?php echo date('h:i A',strtotime($post->slate_date_time)); ?></td>
+								<td><?php echo date('D m/d',strtotime($post->slate_date_time)); ?></td>
+								<td><?php echo date('g:i A',strtotime($post->slate_date_time)); ?></td>
 								<td class="text-xs-center">
 									<div class="post-tags">
 										<?php													

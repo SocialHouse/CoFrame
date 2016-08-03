@@ -35,7 +35,7 @@
 								<td class="text-xs-center">
 									<div class="select-box" data-value="<?php echo $draft->id ?>" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square checkbox-top"></i></i></div>
 								</td>
-								<td><?php echo date('d M,Y',strtotime($draft->updated_at)); ?></td>
+								<td><?php echo date('D n/d',strtotime($draft->updated_at)); ?> at <?php echo date('g:ia',strtotime($draft->updated_at)); ?></td>
 								<td class="text-xs-center">
 									<div class="post-tags">
 										<?php
