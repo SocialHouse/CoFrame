@@ -359,7 +359,7 @@ class Calendar extends CI_Controller {
 	    								'type' => 'reminder',
 	    								'brand_id' => $post_details->brand_id,
 	    								'due_date' => $approver['approve_by'],
-	    								'text' => 'Date change: '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('Y-m-d h:i a',strtotime($schedule_date)).' by '.get_users_full_name($post_details->user_id)
+	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($schedule_date)).' by '.get_users_full_name($post_details->user_id)
     								);
 
 					$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -747,7 +747,7 @@ class Calendar extends CI_Controller {
 	    								'type' => 'reminder',
 	    								'brand_id' => $post_details->brand_id,
 	    								'due_date' => $approver['approve_by'],
-	    								'text' => 'Date change: '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('Y-m-d h:i a',strtotime($date_time)).' by '.get_users_full_name($post_details->user_id)
+	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($date_time)).' by '.get_users_full_name($post_details->user_id)
     								);
 					$this->timeframe_model->insert_data('reminders',$reminder_data);
 				}

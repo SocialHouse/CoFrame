@@ -219,7 +219,7 @@ class Posts extends CI_Controller {
 		    								'type' => 'reminder',
 		    								'brand_id' => $post_data['brand_id'],
 		    								'due_date' => $approve_date_time,
-		    								'text' => 'Approve '.date('m/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
+		    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
 		    								);
 
 	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
