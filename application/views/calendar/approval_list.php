@@ -42,7 +42,14 @@ if(!empty($pending)){
 			?>
 			<li class="pending">
 				<div class="pull-sm-left">
-				<img width="36" height="36" class="circle-img" alt="<?php echo $name; ?>" src="http://localhost/timeframe_server/assets/images/default_profile.jpg" />
+				<?php
+					$image_path = img_url().'default_profile.jpg';
+					if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$current_phase->user_id.'.png'))
+					{
+						$image_path = upload_url().$this->user_data['img_folder'].'/users/'.$current_phase->user_id.'.png';
+					}
+				?>
+				<img width="36" height="36" class="circle-img" alt="<?php echo $name; ?>" src="<?php echo $image_path; ?>" />
 				</div>
 				<div class="pull-sm-left"><?php echo $name; ?></div>
 			</li>		
