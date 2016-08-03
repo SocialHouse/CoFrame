@@ -315,6 +315,7 @@
 
 										</div>
 										<footer class="post-content-footer text-xs-center">
+											<div class="d-inline-block">
 												<?php
 												$approver_status = '';
 												$phase_status = '';
@@ -374,6 +375,7 @@
 													<?php
 												}
 												?>
+											</div>
 										</footer>
 									</div>
 									<?php
