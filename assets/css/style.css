@@ -10684,6 +10684,8 @@ a {
     font-size: 12px;
     letter-spacing: normal; }
 
+.table-approvals .calendar-app {
+  opacity: 0; }
 .table-approvals tr {
   cursor: pointer; }
 .table-approvals td {
@@ -11239,7 +11241,8 @@ a {
 .post-filters .square-border, .select-box .square-border {
   width: 16px;
   height: 16px;
-  margin-right: 10px; }
+  margin-right: 10px;
+  line-height: normal; }
   .post-filters .square-border .fa, .select-box .square-border .fa {
     margin: 0;
     position: relative;

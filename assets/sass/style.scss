@@ -2293,6 +2293,9 @@ a {
 }
 
 .table-approvals {
+	.calendar-app {
+		opacity: 0;
+	}
 	tr {
 		cursor: pointer;
 	}
@@ -3003,6 +3006,7 @@ a {
 		width: 16px;
 		height: 16px;
 		margin-right: 10px;
+		line-height: normal;
 		.fa {
 			margin: 0;
 			position: relative;
