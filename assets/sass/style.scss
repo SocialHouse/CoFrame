@@ -1559,6 +1559,15 @@ a {
 		text-align: center;
 		margin-top: 7px;
 	}
+	&.reminder-list {
+		li {
+			line-height: normal;
+			padding: 7px 0;
+		}
+		a {
+			font-family: $futura-light;
+		}
+	}
 	&.brand-list {
 		border-top: 1px solid #000;
 		padding-top: remCalc(24px);

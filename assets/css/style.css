@@ -10144,6 +10144,11 @@ a {
     line-height: 17px;
     text-align: center;
     margin-top: 7px; }
+  .timeframe-list.reminder-list li {
+    line-height: normal;
+    padding: 7px 0; }
+  .timeframe-list.reminder-list a {
+    font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif; }
   .timeframe-list.brand-list {
     border-top: 1px solid #000;
     padding-top: 1.6rem;
