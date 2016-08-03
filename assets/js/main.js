@@ -1552,11 +1552,11 @@ jQuery(function($) {
 						api.set('content.text', content);
 						var tipId = api.get('id');
 						//reposition tooltip after images load
-                        document.getElementById(tipId).addEventListener('load', function(event){
+                        document.getElementById('qtip-' + tipId).addEventListener('load', function(event){
                             var elm = event.target;
                             if( elm.nodeName.toLowerCase() === 'img' && !$(elm).hasClass('loaded')){
                                 $(elm).addClass('loaded');
-                                if($('#' + tipId + ' img.loaded').length === $('#' + tipId + ' img').length) {          
+                                if($('#qtip-' + tipId + ' img.loaded').length === $('#qtip-' + tipId + ' img').length) {
                                     // All images loaded
 									api.reposition();
                                 }
