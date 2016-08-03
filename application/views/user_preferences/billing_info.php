@@ -6,8 +6,8 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 		<header class="page-main-header">
 			<h1 class="center-title section-title">User Preferences</h1>
 		</header>
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4 text-xs-center">
+		<div class="row equal-columns">
+			<div class="col-xl-4 col-xl-offset-4 col-md-6 col-md-offset-3 text-xs-center equal-height">
 				<div class="user-info">
 					<?php 
 						$this->load->view('user_preferences/preference_nav');
@@ -116,8 +116,8 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 						<button id="make_payment" type="button" class="btn btn-secondary btn-sm">Save Changes</button>
 					</form>
 				</div>
+				<div class="page-divider"></div>
 			</div>
-			<div class="page-divider"></div>
 		</div>
 	</section>
 	<?php

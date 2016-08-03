@@ -2,8 +2,8 @@
 	<header class="page-main-header">
 		<h1 class="center-title section-title">User Preferences</h1>
 	</header>
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4 text-xs-center">
+	<div class="row equal-columns">
+		<div class="col-xl-4 col-xl-offset-4 col-md-6 col-md-offset-3 text-xs-center equal-height">
 			<div class="user-info">
 				<?php 
 				$this->load->view('user_preferences/preference_nav');
@@ -145,7 +145,7 @@
 						</div>
 					</div>
 					<label class="section-label">Notification</label>
-					<div class="field-group" style="float:left">
+					<div class="field-group text-xs-left">
 						<fieldset class="form-group">
 							<label>
 								<input type="checkbox" value="yes" <?php echo $email_check ?> name="email_notification" >&nbsp;Email &nbsp;
@@ -158,16 +158,15 @@
 							</label>
 						</fieldset>
 					</div>
-					<div class="clearfix" ></div>
 					<button type="submit" class="btn btn-secondary btn-sm">Save Changes</button>
 				</form>
 					<?php			
 				}
 				?>
 			</div>
-		</div>
 
-		<div class="page-divider" ></div>
+			<div class="page-divider" ></div>
+		</div>
 	</div>
 </section>
 
