@@ -489,7 +489,7 @@ jQuery(function($) {
 			nextStep(next);
 		});
 
-		$('body').on('change', '#userSelect select', function() {
+		$( '#userSelect select' ).unbind( "change").bind("change", function() {
 			if ($(this).val() === "Add New") {
 				toggleBtnClass('#addRole', true);
 				$('#userSelect').slideUp(function() {
@@ -498,9 +498,27 @@ jQuery(function($) {
 					});
 				});
 			} else if ($(this).val() !== "") {
-				//console.log($(this).val());
+				var img_src = $(this).find(':selected').data('img-url');
+				$('#new_user_pic').empty();
+				$('#user_pic_base64').val('');
+				if(img_src.search('default_profile.jpg') == -1){
+					$("#new_user_pic").addClass('hasUpload');
+					if(!$(".remove-user-img").hasClass('hide')){
+						$(".remove-user-img").addClass('hide');
+					}
+					$('#new_user_pic').prepend($('<img>',{src:img_src}));
+					$('#is_user_image').val('already_exists');
+				}else{
+					$("#new_user_pic").removeClass('hasUpload');
+					$('#is_user_image').val('');
+				}
 				// if($('#user-selected-outlet li'))
-				toggleBtnClass('#addRole', false);
+				$.each($('#user-selected-outlet li'), function(i, element) {
+					if($(element).hasClass('selected')){
+						toggleBtnClass('#addRole', false);
+					}
+				});
+				
 			} else {
 				toggleBtnClass('#addRole', true);
 			}

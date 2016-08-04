@@ -119,11 +119,11 @@ class Tour extends CI_Controller {
                     $is_any_record = $this->transaction_model->get_last_transaction($accounts[0]);
                     if(!$is_any_record){
                         $data = array(' is_trial_period_expired '=>1);
-                       $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user_id));
+                        $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user_id));
                         // Account Banned or Suspended
-                       echo json_encode(array('response' => 'fail','message'=>$this->lang->line('trial_period_expiried')));
-                       $this->aauth->logout();
-                       exit();
+                        echo json_encode(array('response' => 'fail','message'=>$this->lang->line('trial_period_expiried')));
+                        $this->aauth->logout();
+                        exit();
                     }
                 }
                 
@@ -426,16 +426,16 @@ class Tour extends CI_Controller {
         else
         {
             $user_data = array(
-                            'first_name' => $this->input->post('first_name'),
-                            'last_name' => $this->input->post('last_name'),
-                            'phone' => $this->input->post('phone'),
-                            'timezone' => $this->input->post('timezone'),
-                            'company_name' => $this->input->post('company_name'),
-                            'title' => $this->input->post('title'),
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'phone' => $this->input->post('phone'),
+                'timezone' => $this->input->post('timezone'),
+                'company_name' => $this->input->post('company_name'),
+                'title' => $this->input->post('title'),
                             //'company_url' => $this->input->post('company_url'),
-                            'created_at' => date('Y-m-d H:i:s'),
-                            'plan' => $this->input->post('plan')
-                        );
+                'created_at' => date('Y-m-d H:i:s'),
+                'plan' => $this->input->post('plan')
+                );
             
             $inserted_id = $this->aauth->create_user($this->input->post('email'),$this->input->post('password'),$this->input->post('username'));
             
@@ -445,10 +445,10 @@ class Tour extends CI_Controller {
                 $user_data['img_folder']= $inserted_id;
                 $this->timeframe_model->insert_data('user_info',$user_data);
                 $login_attempt = array(
-                            'ip_address' => $_SERVER['REMOTE_ADDR'],
-                            'user_name' => $this->input->post('email'),
-                            'user_id' => $inserted_id
-                        );
+                    'ip_address' => $_SERVER['REMOTE_ADDR'],
+                    'user_name' => $this->input->post('email'),
+                    'user_id' => $inserted_id
+                    );
                 $this->timeframe_model->insert_data('login_attempts',$login_attempt);
                 echo json_encode(array('response' => 'success','message' => $this->lang->line('registered_success_link')));
             }
