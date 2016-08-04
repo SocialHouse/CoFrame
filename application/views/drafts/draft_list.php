@@ -2,11 +2,11 @@
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<header class="page-main-header calendar-header">
 		<div class="clearfix">
-			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft btn-secondary" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
-			
-			<div class="pull-md-right toolbar">
+			<a class="btn btn-xs btn-disabled pull-xs-left delete-draft btn-secondary hidden-print" disabled data-toggle="" data-target="#deleteDrafts"><i class="fa fa-trash"></i>Delete</a>
+			<div class="pull-md-right toolbar hidden-print">
 				<?php $this->load->view('partials/search_form') ?>
 			</div>
+			<h2 class="date-header center-title">Drafts</h2>
 		</div>
 	</header>
 	<div class="row">
@@ -14,14 +14,14 @@
 			<table class="table table-striped table-approvals">
 				<thead>
 					<tr>
-						<th>
+						<th class="hidden-print">
 							<div class="select-box" data-value="check-all" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square"></i></i></div>
 						</th>
 						<th class="text-xs-left">Last Saved</th>
 						<th>Tags</th>
 						<th>Outlet</th>
 						<th>Post Copy</th>
-						<th>Actions</th>
+						<th class="hidden-print">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,7 +32,7 @@
 						{
 							?>
 							<tr>
-								<td class="text-xs-center">
+								<td class="text-xs-center hidden-print">
 									<div class="select-box" data-value="<?php echo $draft->id ?>" data-group="delete-draft"><i class="tf-icon square-border border-black"><i class="fa fa-square checkbox-top"></i></i></div>
 								</td>
 								<td><?php echo date('D n/d',strtotime($draft->updated_at)); ?> at <?php echo date('g:ia',strtotime($draft->updated_at)); ?></td>
@@ -59,7 +59,7 @@
 									<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
 								</td>
 								<td><span class="post-excerpt"><?php echo $draft->content; ?></span></td>
-								<td class="text-xs-center">
+								<td class="text-xs-center hidden-print">
 									<a href="#" class="btn btn-xs btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/drafts/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
 									<a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a>
 								</td>

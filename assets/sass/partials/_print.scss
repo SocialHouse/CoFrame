@@ -8,6 +8,11 @@
 	.row {
 		margin: 0;
 	}
+	.timeframe-list.approval-list .pending:before,
+	.btn, .post-content-footer,
+	.brand-settings .brand-step h4 {
+		display: none;
+	}
 	.center-block {
 		margin: 0;
 	}
@@ -31,8 +36,11 @@
 	#brand-manage .calendar-header, #brand-manage .search-header {
 		padding-top: 0;
 	}
-	.calendar-header, .search-header {
+	.calendar-header, .search-header, #brand-manage .page-main-header {
 		margin-bottom: 10px;
+	}
+	.center-title {
+		text-align: left;
 	}
 	.table {
 		max-width: inherit;
@@ -41,8 +49,12 @@
 		padding-left: 0;
 		vertical-align: top;
 	}
-	.timeframe-list.approval-list .pending:before {
-		display: none;
+	.equal-height {
+		height: auto !important;
+	}
+	.equal-columns [class*="container-"] {
+		height: auto;
+		padding-bottom: 0;
 	}
 	.table-approvals .timeframe-list.approval-list li {
 		float: none;
@@ -50,5 +62,17 @@
 		+ li {
 			padding-left: 0;
 		}
+	}
+	#brandStep1 {
+		padding-top: 0;
+	}
+	.brand-step .brand-logo,
+	.brand-step .saved-items.outlet-list,
+	.brand-step .saved-items.tag-list {
+		margin-top: 0;
+	}
+	.brand-step .saved-items {
+		margin-top: 20px;
+		border-bottom: 0;
 	}
 }
