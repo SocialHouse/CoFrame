@@ -29,8 +29,13 @@
 					{
 						if(!empty($brand_id)){
 							if(!is_set_permmition($user->aauth_user_id ,$brand_id)){
+								$img_url=img_url()."default_profile.jpg";
+								if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png'))
+						        {
+						            $img_url = upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png?'.uniqid();
+						        }
 								?>
-								<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
+									<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>" data-img-url="<?php echo $img_url; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
 								<?php
 							}
 						}					
@@ -43,8 +48,14 @@
 				{
 					foreach($users as $user)
 					{
+						$img_url=img_url()."default_profile.jpg";
+						if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png'))
+				        {
+				            $img_url = upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png?'.uniqid();
+				        }
 						?>
-						<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
+						?>
+						<option data-fname="<?php echo ucfirst($user->first_name) ?>" data-img-url="<?php echo $img_url; ?>" data-lname="<?php echo ucfirst($user->last_name) ?>" value="<?php echo $user->aauth_user_id; ?>"><?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?></option>
 						<?php
 					}
 				}

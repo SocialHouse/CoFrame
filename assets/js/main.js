@@ -71,7 +71,7 @@ jQuery(function($) {
 		$(document).on('click', '.sub-user-outlet', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
-
+			console.log($(this));
 			var thisOutlet = $(this).data('selectedOutlet');
 			$(this).toggleClass('disabled selected');
 			if ($(this).hasClass('selected')) {
@@ -79,6 +79,9 @@ jQuery(function($) {
 					newOutlets.push(savedOutlets);
 				}
 				newOutlets.push(thisOutlet);
+				if($('#userSelect select').val() != ''){
+					toggleBtnClass('#addRole', false);
+				}
 			} else {
 				savedOutlets = savedOutlets.split(',');
 				var index = savedOutlets.indexOf(thisOutlet + "");
