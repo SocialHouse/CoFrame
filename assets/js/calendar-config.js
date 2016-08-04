@@ -439,7 +439,7 @@ jQuery(function($) {
 		$('body').on('click', '#calendar-change-day #getPostsByDate', function() {
 			var date = moment(daySelectedDate);
 			selectedmonth = moment(daySelectedDate).format('MMM');
-			selectedday = moment(daySelectedDate).format('DD \, YYYY');
+			selectedday = moment(daySelectedDate).format('DD, YYYY');
 			$('#calendarCurrentdate').text(selectedday);
 			$('#calendarCurrentMonth').text(selectedmonth);
 			if($(this).hasClass('approval-date-filter'))
@@ -818,7 +818,7 @@ jQuery(function($) {
 	{
 		var date = moment(selected_day);
 		selectedmonth = moment(selected_day).format('MMM');
-		selectedday = moment(selected_day).format('DD \, YYYY');
+		selectedday = moment(selected_day).format('DD, YYYY');
 		$('#calendarCurrentdate').text(selectedday);
 		$('#calendarCurrentMonth').text(selectedmonth);
 		// $('#calendar-change-day #getPostsByDate').trigger('click');

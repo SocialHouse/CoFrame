@@ -39,6 +39,9 @@
 	.calendar-header, .search-header, #brand-manage .page-main-header {
 		margin-bottom: 10px;
 	}
+	.calendar-header .date-header, .search-header .date-header {
+		margin-left: 0;
+	}
 	.center-title {
 		text-align: left;
 	}
@@ -63,6 +66,7 @@
 			padding-left: 0;
 		}
 	}
+	/*brand settings*/
 	#brandStep1 {
 		padding-top: 0;
 	}
@@ -74,5 +78,48 @@
 	.brand-step .saved-items {
 		margin-top: 20px;
 		border-bottom: 0;
+	}
+	/*Outlet Icons*/
+	.outlet-list, .post-tags {
+		text-align: left !important;
+	}
+	.outlet-list .fa, .outlet-list [class^='icon-'] {
+		color: #000;
+		width: auto;
+		line-height: normal;
+		text-align: left;
+	}
+	.bg-outlet {
+		display: none;
+	}
+	/*Calendar*/
+	.calendar-day {
+		height: auto !important;
+	}
+	.post-day {
+		box-shadow: none;
+		margin: 0;
+		width: auto;
+		left: inherit !important;
+		top: inherit !important;
+		position: relative !important;
+	}
+	.post-day .post-img {
+		width: 30%;
+		float: left;
+		img {
+			width: auto;
+		}
+	}
+	.post-day .post-content {
+		float: left;
+		width: 70%;
+		padding: 0;
+	}
+	.post-day .post-meta {
+		margin-bottom: 20px;
+	}
+	.post-day .post-body p {
+		word-break: break-all;
 	}
 }
