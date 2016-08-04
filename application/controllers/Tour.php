@@ -94,6 +94,13 @@ class Tour extends CI_Controller {
                 $accounts = $this->timeframe_model->get_accounts();
                 $user_info['accounts'] = $accounts;
                 $user_info['account_id'] = $accounts[0];
+
+                //if current user is owner of any account then it should redirect to that account
+                if(in_array($user_id, $accounts))
+                {
+                    $user_info['account_id'] = $user_id;
+                }
+
                 $user_info['plan'] = strtolower(get_plan($accounts[0]));
                 //is user added through account preference means he is account user or brand user
                 $check_user = $this->timeframe_model->check_user_is_account_user($accounts[0]);

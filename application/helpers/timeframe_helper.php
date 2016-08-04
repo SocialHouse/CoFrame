@@ -167,12 +167,12 @@ if(!function_exists('get_outlet_by_id'))
 
 if(!function_exists('get_post_approvers')) 
 {
-    function get_post_approvers($post_id) 
+    function get_post_approvers($post_id,$status='') 
     {
         $CI = & get_instance();
 
         $CI->load->model('approval_model');
-        $approvers = $CI->approval_model->get_post_approvers($post_id);
+        $approvers = $CI->approval_model->get_post_approvers($post_id,$status);
         if($approvers)
         {
             return $approvers;
@@ -491,7 +491,7 @@ if(!function_exists('get_master_user'))
 
 if(!function_exists('get_approval_list_buttons'))
 {
-    function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id)
+    function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id,$is_any_pending_approver)
     {
         $CI = & get_instance(); 
         $html_to_return = '';
@@ -534,8 +534,15 @@ if(!function_exists('get_approval_list_buttons'))
             }
             elseif($post->status == 'pending' OR $post->status == 'approved')
             {
+                $btn_class = 'change-approve-status';
+                $modal_attr = '';
+                if($is_any_pending_approver == 1)
+                {
+                    $btn_class = 'set_schedule_id';
+                    $modal_attr = 'data-toggle="modal" data-target="#schedule_post"';
+                }
                 $html_to_return .= '<div class="before-approve">
-                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled">Schedule</a>
+                    <a class="btn btn-sm btn-default color-success '.$btn_class.'" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled" '.$modal_attr.'>Schedule</a>
                 </div>
 
                 <div class="after-approve hide post-actions">
@@ -870,11 +877,11 @@ if(!function_exists('get_company_name'))
 
 if(!function_exists('get_users_full_name'))
 {
-    function get_users_full_name()
+    function get_users_full_name($user_id)
     {
         $CI = &get_instance();
         $CI->load->model('timeframe_model');
-        $result = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $CI->user_id),'first_name,last_name');
+        $result = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'first_name,last_name');
         if(!empty($result))
         {
             return ucfirst($result[0]->first_name).' '.ucfirst($result[0]->last_name);

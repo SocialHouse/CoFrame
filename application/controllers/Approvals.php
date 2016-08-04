@@ -351,4 +351,33 @@ class Approvals extends CI_Controller {
 		}
 		echo $this->load->view('approvals/phase_user_list', $this->data, TRUE);
 	}
+
+	function send_mail_pending_approvers()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$approvers = $this->approval_model->get_post_approvers($post_data['post_id'],'pending');
+			if(!empty($approvers) AND isset($approvers['result']) AND !empty($approvers['result']))
+			{
+				$this->data['post_details'] = $this->post_model->get_post($approvers['result'][0]['post_id']);
+				$this->data['owner_id'] = $approvers['owner_id'];
+				foreach($approvers['result'] as $approver)
+				{
+					$user = $this->timeframe_model->get_data_by_condition('aauth_users',array('id' => $approver['user_id']),'email');					
+					if(!empty($user))
+					{
+						$this->data['name'] = ucfirst($approver['first_name'].' '.ucfirst($approver['last_name']));						 
+						$message = $this->load->view('mails/approve_post_request',$this->data,true);
+						email_send($user[0]->email,'Approve post',$message);
+					}
+				}
+			}
+			echo "1";
+		}
+		else
+		{
+			echo "0";
+		}
+	}
 }

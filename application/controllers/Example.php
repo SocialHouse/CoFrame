@@ -43,7 +43,6 @@ class Example extends CI_Controller {
         $a = $this->aauth->create_group("Manager");
         $a = $this->aauth->create_group("Creator");
         $a = $this->aauth->create_group("Approver");
-        $a = $this->aauth->create_group("Analyst");
         $a = $this->aauth->create_group("Billing");
 
         $a = $this->aauth->create_perm("create","Create new post drafts");

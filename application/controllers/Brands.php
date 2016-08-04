@@ -363,7 +363,7 @@ class Brands extends CI_Controller {
                 	$this->aauth->add_member($inserted_id,$group_id,$post_data['brand_id'],null);
 
                 	$user_data['aauth_user_id'] = $inserted_id;
-                	$user_data['img_folder'] = $this->user_data['img_folder'];
+                	$user_data['img_folder'] = $this->user_data['account_id'];
 
 
                 	if($post_data['selected_user'] == 'Add New' AND $user_in_other_brand == 0)

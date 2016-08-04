@@ -75,6 +75,8 @@ $route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";
 $route['brands/save-existing-user'] = "brand_users/save_existing_user";
 
 $route['drafts/(:any)'] = "drafts/index/$1";
+
+$route['send_mail_pending_approvers'] = "approvals/send_mail_pending_approvers";
 $route['approvals/(:any)'] = "approvals/index/$1";
 $route['archives/export_post/(:any)'] = "archives/export_post/$1";
 $route['archives/(:any)'] = "archives/index/$1";

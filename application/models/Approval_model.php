@@ -81,7 +81,7 @@ class Approval_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_post_approvers($post_id)
+	public function get_post_approvers($post_id,$status = '')
 	{
 		$this->db->select('account_id');
 		$this->db->join('brands','brands.id = posts.brand_id');
@@ -96,6 +96,12 @@ class Approval_model extends CI_Model
 			$this->db->join('phases','phases.id = phases_approver.phase_id');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 			$this->db->where('phases.post_id',$post_id);
+
+			if(!empty($status))
+			{
+				$this->db->where('phases_approver.status',$status);
+			}
+
 			$this->db->order_by('phases_approver.status','desc');
 			$query = $this->db->get('phases_approver');
 		

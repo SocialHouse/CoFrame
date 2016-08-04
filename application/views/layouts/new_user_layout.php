@@ -58,18 +58,28 @@
 		   		<li class="nav-item dropdown">
 		      		<a class="nav-link" href="#"><?php echo get_company_name($this->user_data['account_id']); ?></a>
 					<!-- if multiple companies-->
-					<ul class="dropdown-menu">
-						<?php
-						foreach($this->user_data['accounts'] as $id)
-						{
-							?>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo base_url().'brands/change_account/'.$id; ?>"><?php echo get_company_name($id); ?></a>
-							</li>
-							<?php
-						}
+					<?php
+					if(count($this->user_data['accounts']) > 1)
+					{
 						?>
-					</ul>
+						<ul class="dropdown-menu">
+							<?php
+							foreach($this->user_data['accounts'] as $id)
+							{
+								if($this->user_data['account_id'] != $id)
+								{
+									?>
+									<li class="nav-item">
+										<a class="nav-link" href="<?php echo base_url().'brands/change_account/'.$id; ?>"><?php echo get_company_name($id); ?></a>
+									</li>
+									<?php
+								}
+							}
+							?>
+						</ul>
+						<?php
+					}
+					?>
 		    	</li>
 				<li class="nav-item dropdown dropdown-user">
 					<a class="nav-link" href="#"><?php echo print_user_image($this->user_data['img_folder'],$this->user_id); ?></a>

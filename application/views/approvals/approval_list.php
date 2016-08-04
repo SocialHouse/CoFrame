@@ -160,6 +160,7 @@
 								}
 							}
 
+							$is_any_pending_approver = 0;
 							foreach($approval as $post)
 							{
 								$approvers = get_post_approvers($post->id);
@@ -174,7 +175,7 @@
 									{
 										$approver_count = 0;
 										$show_additional_approvers = 0;
-										$additional_approvers_html = '<ul class="timeframe-list approval-list"><li>
+										$additional_approvers_html = '<li>
 																<button class="btn-icon btn-circle btn-menu showInvisible"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
 												<ul class="timeframe-list approval-list invisible">';
 										$simple_user_list = '<ul class="timeframe-list approval-list">';
@@ -193,28 +194,32 @@
 												$phase_id = $approver['id'];
 												$deadline = $approver['approve_by'];
 											}
-											$image_path = img_url().'default_profile.jpg';
-											if(file_exists(upload_path().$approver['img_folder'].'/users/'.$approver['user_id'].'.png'))
-											{
-												$image_path = upload_url().$approver['img_folder'].'/users/'.$approver['user_id'].'.png';
-											}
-											$approver_count++;
-											if($approver_count >= 4)
-											{				
-												$additional_approvers_html .= '<li class="'.$approver['status'].'">
-													<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
-												</li>';
-											
-												$show_additional_approvers = 1;
-											}
-											else												
-											{
-												$approvers_html = '<li class="'.$approver['status'].'">
-													<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
-												</li>';
 
-												$simple_user_list .= $approvers_html;
-												$additional_approvers_html .= $approvers_html;
+											if($approver['status'] == 'pending')
+											{
+												$is_any_pending_approver = 1;
+												$image_path = img_url().'default_profile.jpg';
+												if(file_exists(upload_path().$approver['img_folder'].'/users/'.$approver['user_id'].'.png'))
+												{
+													$image_path = upload_url().$approver['img_folder'].'/users/'.$approver['user_id'].'.png';
+												}
+												$approver_count++;
+												if($approver_count >= 4)
+												{				
+													$additional_approvers_html .= '<li class="'.$approver['status'].'">
+														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+													</li>';
+												
+													$show_additional_approvers = 1;
+												}
+												else												
+												{
+													$approvers_html = '<li class="'.$approver['status'].'">
+														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+													</li>';
+													$simple_user_list .= $approvers_html;
+													$additional_approvers_html .= $approvers_html;
+												}
 											}
 										}
 									}
@@ -320,7 +325,7 @@
 												<?php
 												if($show_additional_approvers == 1)
 												{
-													echo $additional_approvers_html.'<li>
+													echo $simple_user_list.$additional_approvers_html.'<li>
 														<button class="btn-icon btn-circle btn-menu btn-close hideVisible">X</button>
 													</li></ul>';
 												}
@@ -337,7 +342,7 @@
 									<td class="text-xs-center">
 										<div class="d-inline-block">
 										<?php
-										echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id);
+										echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id,$is_any_pending_approver);
 										?>
 										</div>
 									</td>
@@ -361,3 +366,19 @@
 		</div>
 	</div>
 </section>
+
+<div class="modal alert-modal fade" id="schedule_post" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-white">
+			<div class="modal-body">
+				<h2 class="text-xs-center">Alert</h2>
+				<p class="text-xs-center"><?php echo $this->lang->line('schedule_post_modal_msg'); ?></p>
+				<footer class="overlay-footer">
+					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+					<button id='schedule-post' type="button" class="btn btn-sm pull-sm-right btn-primary">Yes</button>
+					<button id='send-mail' type="button" class="btn btn-sm pull-sm-right btn-secondary">Send Mail</button>
+				</footer>
+			</div>
+		</div>
+	</div>
+</div>

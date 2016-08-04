@@ -1862,6 +1862,54 @@ jQuery(function($) {
 	 	$('#timezone_abbreviation').text(selected_abb);
 	 });
 
+	$(document).on('click','.set_schedule_id',function(){
+    	var post_id = $(this).data('post-id');
+    	$('#schedule-post').attr('data-post-id',post_id);
+    	$('#send-mail').attr('data-post-id',post_id);
+    });
+
+    $(document).on('click','#schedule-post',function(){
+    	var post_id = $(this).attr('data-post-id');
+    	$.ajax({
+    		url:base_url+'posts/schedule_post',
+    		data:{post_id:post_id},
+    		type:'POST',
+    		success:function(response)
+    		{
+    			if(response == '1')
+    			{
+    				window.location.reload();
+    			}
+    			else
+    			{
+    				alert(language_message.unable_to_schedule);
+    			}
+
+    		}
+    	});
+    });
+
+	$(document).on('click','#send-mail',function(){
+    	var post_id = $(this).attr('data-post-id');
+    	$.ajax({
+    		url:base_url+'send_mail_pending_approvers',
+    		data:{post_id:post_id},
+    		type:'POST',
+    		success:function(response)
+    		{
+    			if(response == "1")
+    			{
+    				window.location.reload();
+    			}
+    			else
+    			{
+    				alert(language_message.unable_to_schedule);
+    			}
+
+    		}
+    	});
+    });
+
 	 $('.collapse').on('shown.bs.collapse', function(){
 	 	$(this).next().text('Less');
 	 }).on('hidden.bs.collapse', function(){

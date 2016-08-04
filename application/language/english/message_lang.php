@@ -171,5 +171,9 @@
 	// $lang['trial_period_expiring_days'] = 'Your trial period going to expired within %days% days. Please make a payment to continue.';
 	$lang['trial_period_expiring_days'] = 'You are in trial period.';
 	$lang['trial_period_expiried'] = 'Your trial period has expired.';
+
+
+	$lang['unable_to_schedule'] = "Unable to schedule post. Please try again";
+	$lang['schedule_post_modal_msg'] = "You have not received all approvals. Send mail to them or schedule as it is?";
 	
 ?>
