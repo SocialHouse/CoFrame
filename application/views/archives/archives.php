@@ -10,19 +10,19 @@
 		<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
 		<div class="row equal-columns relative-wrapper archives">
 			<!-- archive-date-select -->
-			<div class="col-md-3 col-sm-6 equal-height">
+			<div class="col-md-3 col-sm-6">
 				<?php $this->load->view('archives/date_select'); ?>
 			</div>
 			<!-- archive-outlet-select -->
-			<div class="col-md-3 col-sm-6 equal-height">
+			<div class="col-md-3 col-sm-6">
 				<?php $this->load->view('archives/outlet_select'); ?>
 			</div>
 			<!-- archive-tag-select -->
-			<div class="col-md-3 col-sm-6 equal-height">
+			<div class="col-md-3 col-sm-6">
 				<?php $this->load->view('archives/tag_select'); ?>
 			</div>
 			<!-- archive-export -->
-			<div class="col-md-3 col-sm-6 equal-height">
+			<div class="col-md-3 col-sm-6">
 				<div class="container-archive">
 					<h2 class="text-xs-center">Export Foramt</h2>
 					<ul class="timeframe-list">
