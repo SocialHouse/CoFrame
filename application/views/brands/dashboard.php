@@ -7,7 +7,7 @@
 		<h1 class="center-title section-title">Brand Dashboard</h1>
 		<div class="date-header header-w-search clearfix">
 			<h2 class="pull-md-left"><strong><?php echo date('F'); ?></strong> <?php echo date('d') . ", " . date('Y'); ?></h2>
-			<div class="pull-md-right toolbar">
+			<div class="pull-md-right toolbar hidden-print">
 				<?php $this->load->view('partials/search_form'); ?>
 			</div>
 		</div>

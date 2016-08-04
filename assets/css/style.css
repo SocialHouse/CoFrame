@@ -12173,8 +12173,8 @@ textarea.form-control {
     height: auto;
     overflow: visible; }
 
-  .page-main#brand-manage,
   .page-main#overview,
+  .page-main#brand-manage,
   .table {
     padding: 0; }
 
@@ -12182,10 +12182,19 @@ textarea.form-control {
     padding-left: 0;
     margin-top: 20px; }
 
+  #brand-manage .container-summary-list {
+    background: none;
+    border: 0;
+    margin: 20px 0;
+    padding: 0; }
+
   .summary-list li .pull-sm-right {
     float: none !important;
     display: inline-block;
     font-weight: 700; }
+
+  .container-reminder-list {
+    padding-top: 0; }
 
   #brand-manage .calendar-header, #brand-manage .search-header {
     padding-top: 0; }
