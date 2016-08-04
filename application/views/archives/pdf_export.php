@@ -5,9 +5,8 @@
 	<title>CoFrame</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="<?php echo css_url(); ?>bootstrap.min.css"> 
-	<!-- <link rel="stylesheet" href="<?php echo css_url(); ?>style.css"/> -->
-	<link rel="stylesheet" href="<?php echo css_url(); ?>search.css"/>
+	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
+	<link rel="stylesheet" href="<?php echo css_url(); ?>print.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css"/>
 	  <style type="text/css">
 	  .fa {
@@ -15,7 +14,7 @@
 	    font-style: normal;
 	    font-variant: normal;
 	    font-weight: normal;
-	    font-size: 14px
+	    font-size: 14px;
 	    line-height: 1;
 	    font-family: FontAwesome;
 	    font-size: inherit;
@@ -23,18 +22,15 @@
 	    -webkit-font-smoothing: antialiased;
 	    -moz-osx-font-smoothing: grayscale;
 	  }
-	  .bg-outlet {
-			left: -9px;
-			position: absolute;
-			top: -0.667rem;
-			z-index: 0;
-		}
 	  </style>
 </head>
 
 	<body class="page-global">
-		<!-- <div class="container container-head"> -->
-			<?php 
+		<div class="logo-print">
+			<img src="<?php echo base_url(); ?>assets/images/logo-black.png" height="67" width="250" alt="">
+		</div>
+		<h1>Archive Export: <?php //insert date range here ?></h1>
+		<?php 
 			if(!empty($post_details))
 			{
 				//echo '<pre>'; print_r($post_details);echo '</pre>'; die;
@@ -59,81 +55,10 @@
 						$style_prop = 'transform: rotate(140deg); margin-top: 2.06%; left: -13px;';
 					}
 					?>
-					<div  class="row bg-white clearfix post-day" style="margin:2rem 10px 0; <?php echo $style?>" >
-						<div class="col-md-7" style="float: right; width:45%;margin:0px;padding:0px;"">
-							<div class="row clearfix" style="margin:0px;padding:0px;"">
-								<div class="col-md-12 outlet-list outlet-list">
-									<i class="fa fa-<?php echo $outlet_name; ?>">
-										<span class="bg-outlet bg-<?php echo $outlet_name; ?>" style="<?php echo $style_prop; ?>"></span>
-										<?php echo $outlet_name; ?>
-									</i>
-								</div>
-								<br/>
-								<div class="col-md-12 post-meta" style="padding-top:5px">
-									<div class="post-author">
-										<br/>Post By <?php echo (!empty($post->user))?$post->user :'';?>:
-									</div>
-									<div class="post-date">
-										<?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST 
-									</div>
-									<?php 
-									if($post->status == 'scheduled')
-									{
-										?>
-										<span class="post-approval">
-											<strong>All Approvals Received 
-												<i class="fa fa-check-circle color-success"></i>
-											</strong>
-										</span>
-										<?php 
-									}
-									if($post->status == 'pending')
-									{
-										?>
-										<span class="post-approval">
-											<strong>Pending Approvals</strong>
-										</span>
-										<?php
-									}
-									if($post->status == 'posted')
-									{
-										?>
-										<span class="post-approval">
-											<strong>Published 
-												<i class="fa fa-globe color-gray-lighter"></i>
-											</strong>
-										</span>
-										<?php
-									}
-									?>
-								</div>
-							</div>
-							<div class="row" >
-								<div class="col-md-2" style="margin:0px;padding-top:0px;" >
-									<?php 
-									if(!empty($post->post_tags))
-									{
-										foreach ($post->post_tags as $key_1 => $val) 
-										{
-											?>
-											<i class="fa fa-circle" style="color:<?php echo $val["tag_color"]; ?>"></i> <?php echo $val["name"];?><br/>
-											<?php
-										}
-										
-									}
-									?>
-								</div>
-								<div class="col-md-10" style="padding-top:10px">
-									<h6>POST COPY</h6>
-									<div class="post-body">
-										<p><?php echo (!empty($post->content))? $post->content:'&nbsp;';?></p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-5" style="width:45%;" >
+					<div class="clearfix post-day" style="margin:2rem 10px 0; <?php echo $style?>">
+						<div class="post-img day-image">
 							<?php 
-								$img_src = base_url().'assets/images/post-img-3.jpg';
+								$img_src = '';
 								if(!empty($post->post_images))
 								{
 									foreach ($post->post_images as $img) 
@@ -147,15 +72,77 @@
 										}
 									}
 								}
+								if($img_src) {
 							?>
-							<img style="width:300px;display: inline; display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
+								<img style="display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
+							<?php } ?>
+						</div>
+						<div class="post-content">
+							<div class="outlet-list">
+								<i class="fa fa-<?php echo $outlet_name; ?>"></i>
+							</div>
+							<div class="post-meta">
+								<div class="post-author">
+									Post By <?php echo (!empty($post->user))?$post->user :'';?>:
+								</div>
+								<div class="post-date">
+									<?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST 
+								</div>
+								<?php 
+								if($post->status == 'scheduled')
+								{
+								?>
+									<span class="post-approval">
+										<strong>All Approvals Received 
+										</strong>
+									</span>
+								<?php 
+								}
+								if($post->status == 'pending')
+								{
+								?>
+									<span class="post-approval">
+										<strong>Pending Approvals</strong>
+									</span>
+								<?php
+								}
+								if($post->status == 'posted')
+								{
+								?>
+									<span class="post-approval">
+										<strong>Published 
+										</strong>
+									</span>
+								<?php
+								}
+								?>
+							</div>
+							<div class="post-tags">
+									<?php 
+									if(!empty($post->post_tags))
+									{
+										echo '<strong>TAGS:</strong> ';
+										foreach ($post->post_tags as $key_1 => $val) 
+										{
+										?>
+											<?php echo $val["name"];?>  
+										<?php
+										}
+									}
+									?>
+							</div>
+							<div>
+								<h6>POST COPY</h6>
+								<div class="post-body">
+									<p><?php echo (!empty($post->content))? $post->content:'&nbsp;';?></p>
+								</div>
+							</div>
 						</div>
 					</div>
 					<?php
 					$count++;
 				}
 			}
-			?>
-		<!-- </div> -->
+		?>
 	</body>
 </html>

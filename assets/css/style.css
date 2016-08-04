@@ -12260,7 +12260,7 @@ textarea.form-control {
 
   .post-day {
     box-shadow: none;
-    margin: 0;
+    margin: 0 0 20px 0;
     width: auto;
     left: inherit !important;
     top: inherit !important;
@@ -12274,8 +12274,8 @@ textarea.form-control {
 
   .post-day .post-content {
     float: left;
-    width: 70%;
-    padding: 0; }
+    width: 68%;
+    padding: 0 0 0 2%; }
 
   .post-day .post-meta {
     margin-bottom: 20px; }
