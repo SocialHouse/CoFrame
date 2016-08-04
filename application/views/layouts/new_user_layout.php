@@ -43,11 +43,14 @@
 	<div class="container container-head">
 		<nav class="navbar navbar-dark navbar-main bg-transparent row">
 			<a class="navbar-brand hidden-print" href="<?php echo base_url();?>brands/overview"><span class="brand-logo hide-text">CoFrame</span></a>
-			<div class="go-to-brands">
+			<div class="visible-print-block logo-print">
+				<img src="/assets/images/logo-black.png" height="67" width="250" alt="">
+			</div>
+			<div class="go-to-brands hidden-print">
 				<a href="#" class="hide-text show-brands-toggler animated infinite pulse popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/brand_list/'.$this->user_id; ?>" data-title="Go To" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-brand-list" data-attachment="top left" data-target-attachment="bottom left" data-offset-x="-24" data-offset-y="6" data-popover-arrow="true" data-arrow-corner="top left" data-popover-container="body">Go To Brand</a>
 		  	</div>
 
-		  	<ul class="nav navbar-nav pull-sm-right">
+		  	<ul class="nav navbar-nav pull-sm-right hidden-print">
 		    	<li class="nav-item">
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
 		    	</li>

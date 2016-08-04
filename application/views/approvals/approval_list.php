@@ -14,7 +14,7 @@
 		<div class="clearfix">
 			<h2 class="date-header pull-xs-left">My Approvals</h2>	
 
-			<div class="pull-md-right toolbar">
+			<div class="pull-md-right toolbar hidden-print">
 				<?php $this->load->view('partials/search_form'); ?>				
 				<a href="#" class="tf-icon-circle pull-xs-left  post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/post_filters/'.$brand_id; ?>" data-popover-width="100%" data-popover-class="popover-post-filters popover-clickable popover-lg" data-popover-id="calendar-post-filters" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="70" data-hide="false"><i class="tf-icon-filter"></i></a>
 				<a href="#" class="tf-icon-circle pull-xs-left post-filter-popup" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/print_posts/'.$brand_id; ?>" data-popover-width="50%" data-popover-class="popover-post-print popover-clickable popover-lg" data-popover-id="calendar-post-print" data-attachment="top right" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container=".page-main-header" data-offset-x="20" data-hide="false"><i class="tf-icon-print"></i></a>
@@ -133,7 +133,7 @@
 							<?php
 						}
 						?>
-						<th>Actions</th>
+						<th class="hidden-print">Actions</th>
 					</tr>
 				</thead>
 				<tbody class="calendar-app">
@@ -176,7 +176,7 @@
 										$approver_count = 0;
 										$show_additional_approvers = 0;
 										$additional_approvers_html = '<li>
-																<button class="btn-icon btn-circle btn-menu showInvisible"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
+																<button class="btn-icon btn-circle btn-menu showInvisible hidden-print"><i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i> <i class="fa fa-circle-o"></i></button>
 												<ul class="timeframe-list approval-list invisible">';
 										$simple_user_list = '<ul class="timeframe-list approval-list">';
 										$approved_status = [];
@@ -207,7 +207,8 @@
 												if($approver_count >= 4)
 												{				
 													$additional_approvers_html .= '<li class="'.$approver['status'].'">
-														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+														<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
 													</li>';
 												
 													$show_additional_approvers = 1;
@@ -215,7 +216,8 @@
 												else												
 												{
 													$approvers_html = '<li class="'.$approver['status'].'">
-														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+														<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
 													</li>';
 													$simple_user_list .= $approvers_html;
 													$additional_approvers_html .= $approvers_html;
@@ -339,7 +341,7 @@
 										}
 										?>
 									</td>
-									<td class="text-xs-center">
+									<td class="text-xs-center hidden-print">
 										<div class="d-inline-block">
 										<?php
 										echo get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand->id,$is_any_pending_approver);

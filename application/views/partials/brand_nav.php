@@ -1,4 +1,4 @@
-<section class="brand-navigation bg-white opaque-88 col-sm-2">
+<section class="brand-navigation bg-white opaque-88 col-sm-2 hidden-print">
 	<nav class="navbar navbar-light navbar-brand-manage bg-transparent">
 		<?php
 		$image_path = img_url().'default_brand.png';
