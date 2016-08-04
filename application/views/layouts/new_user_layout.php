@@ -56,7 +56,7 @@
 		    	</li>
 
 		   		<li class="nav-item dropdown">
-		      		<a class="nav-link" href="#"><?php echo get_company_name($this->user_data['account_id']); ?></a>
+					<span class="company-name" href="#"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 					<!-- if multiple companies-->
 					<?php
 					if(count($this->user_data['accounts']) > 1)
