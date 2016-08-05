@@ -106,10 +106,6 @@
     color: #fff;
 }
 
-  footer.post-content-footer .after-approve{
-    float: left;
-  }
-
   .overlay-footer button.btn-default{
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: 1px solid #000;

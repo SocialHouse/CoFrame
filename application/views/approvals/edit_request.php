@@ -339,7 +339,6 @@
 																if($phase_status == 'pending' && $post_details->status == 'pending')
 																{
 																	?>
-																	<br/>
 																	<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
 																	<?php
 																}
@@ -384,20 +383,14 @@
 						}
 						?>
 						</div>
-						<footer class="post-content-footer post-actions text-xs-right">
+						<footer class="post-content-footer text-xs-right">
 							<?php 
 							if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id))
 							{
-								if($post_details->status != 'posted')
-								{
-									?>
-									<a href="#"  data-target="#postNow" data-toggle="modal" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm">Post Now</a>
-									<?php
-								}
 								if($post_details->status == 'scheduled' )
 								{
 									?>
-									<div class="before-approve">
+									<div class="before-approve post-actions">
 					               		<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
 					                    <a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>"  data-phase-status="unschedule" href="#">Undo</a>
 					                </div>
@@ -409,13 +402,19 @@
 								else
 								{
 									?>
-									<div class="before-approve hide">
+									<div class="before-approve hide post-actions">
 					               		<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
 					                    <a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
 					                </div>
 					                <div class="after-approve">
 					                    <a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
 					                </div>
+									<?php
+								}
+								if($post_details->status != 'posted')
+								{
+									?>
+									<a href="#" data-target="#postNow" data-toggle="modal" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm pull-sm-right">Post Now</a>
 									<?php
 								}
 							}

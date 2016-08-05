@@ -2246,15 +2246,18 @@ a {
 	}
 	> .row {
 		margin-left: -1rem;
-		margin-right: -1rem;
+		margin-right: -1rem;	
 	}
 	h2 {
-		font-size: remCalc(13px);
+		font-size: 13px;
 		font-family: $futura;
 		border-color: #808080;
 		line-height: 30px;
 		padding-bottom: 8px;
 		margin-bottom: 0;
+		a {
+			text-decoration: none;
+		}
 	}
 	&.active {
 		h2, h2 a {
@@ -2354,6 +2357,11 @@ a {
 				left: -4px;
 			}
 		}
+		@media (max-width: 1599px) {
+			> li:nth-child(3) {
+				display: none;
+			}
+		}
 		ul {
 			position: absolute;
 			background: #fff;
@@ -2366,6 +2374,11 @@ a {
 			z-index: 3;
 			li {
 				position: relative;
+				@media (max-width: 1599px) {
+					&:nth-child(3) {
+						display: block;
+					}
+				}
 			}
 		}
 		.circle-img {
@@ -2394,6 +2407,14 @@ a {
 			float: none;
 		}
 	}
+	.btn {
+		@media (max-width: 1599px) {
+			display: inline-block;
+			+ .btn {
+				margin-top: .5rem;
+			}
+		}
+	}
 	.btn-close {
 		font-size: 20px;
 		font-family: $futura;
@@ -2406,6 +2427,19 @@ a {
 	.btn-xs {
 		padding: 5px 7px;
 		font-size: 10px;
+	}
+	.before-approve, .after-approve {
+		@media (min-width: 1600px) {
+			float: left;
+			+ .btn {
+				margin-left: .5rem;
+			}
+		}
+		@media (max-width: 1599px) {
+			+ .btn {
+				margin-top: .5rem;
+			}
+		}
 	}
 	.post-excerpt {
 		overflow: visible;
@@ -2646,6 +2680,11 @@ a {
 	.alert-modal & {
 		position: relative;
 		bottom: inherit;
+	}
+	.before-approve, .after-approve {
+		+ .btn {
+			margin-left: .5rem;
+		}
 	}
 }
 .overlay-footer {
@@ -2985,12 +3024,13 @@ a {
 	:not(.btn-group) .btn + .btn {
 		margin-left: 1rem;
 	}
-}
-.before-approve, .after-approve {
-	float: left;
-	+ .btn {
-		margin-left: .5rem;
+	.change-approve-status {
+		display: block;
 	}
+}
+
+.before-approve, .after-approve {
+	display: inline-block;
 }
 .post-tags {
 	.fa {

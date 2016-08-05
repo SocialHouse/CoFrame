@@ -10655,12 +10655,14 @@ a {
     margin-left: -1rem;
     margin-right: -1rem; }
   .approval-phase h2 {
-    font-size: 0.86667rem;
+    font-size: 13px;
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
     border-color: #808080;
     line-height: 30px;
     padding-bottom: 8px;
     margin-bottom: 0; }
+    .approval-phase h2 a {
+      text-decoration: none; }
   .approval-phase.active h2, .approval-phase.active h2 a {
     font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif; }
   .approval-phase.active.editing:after {
@@ -10730,6 +10732,9 @@ a {
       padding-left: 7px; }
     .table-approvals .timeframe-list.approval-list li:first-child:before {
       left: -4px; }
+  @media (max-width: 1599px) {
+    .table-approvals .timeframe-list.approval-list > li:nth-child(3) {
+      display: none; } }
   .table-approvals .timeframe-list.approval-list ul {
     position: absolute;
     background: #fff;
@@ -10742,6 +10747,9 @@ a {
     z-index: 3; }
     .table-approvals .timeframe-list.approval-list ul li {
       position: relative; }
+      @media (max-width: 1599px) {
+        .table-approvals .timeframe-list.approval-list ul li:nth-child(3) {
+          display: block; } }
   .table-approvals .timeframe-list.approval-list .circle-img {
     margin: 0;
     display: block; }
@@ -10763,6 +10771,11 @@ a {
     margin-right: 0;
     display: inline-block;
     float: none; }
+@media (max-width: 1599px) {
+  .table-approvals .btn {
+    display: inline-block; }
+    .table-approvals .btn + .btn {
+      margin-top: .5rem; } }
 .table-approvals .btn-close {
   font-size: 20px;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
@@ -10773,6 +10786,14 @@ a {
 .table-approvals .btn-xs {
   padding: 5px 7px;
   font-size: 10px; }
+@media (min-width: 1600px) {
+  .table-approvals .before-approve, .table-approvals .after-approve {
+    float: left; }
+    .table-approvals .before-approve + .btn, .table-approvals .after-approve + .btn {
+      margin-left: .5rem; } }
+@media (max-width: 1599px) {
+  .table-approvals .before-approve + .btn, .table-approvals .after-approve + .btn {
+    margin-top: .5rem; } }
 .table-approvals .post-excerpt {
   overflow: visible;
   height: 29px;
@@ -10960,6 +10981,8 @@ a {
   .alert-modal .post-content-footer {
     position: relative;
     bottom: inherit; }
+  .post-content-footer .before-approve + .btn, .post-content-footer .after-approve + .btn {
+    margin-left: .5rem; }
 
 .overlay-footer {
   border-top: 1px solid #000;
@@ -11227,11 +11250,11 @@ a {
     font-size: 11px; }
   .post-actions :not(.btn-group) .btn + .btn {
     margin-left: 1rem; }
+  .post-actions .change-approve-status {
+    display: block; }
 
 .before-approve, .after-approve {
-  float: left; }
-  .before-approve + .btn, .after-approve + .btn {
-    margin-left: .5rem; }
+  display: inline-block; }
 
 .post-tags .fa + .fa {
   margin-left: -9px; }
