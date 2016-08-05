@@ -133,6 +133,9 @@ jQuery(function($) {
 			modalClick = false;
 		}
 	});
+	$('#loginModal').on('shown.bs.modal', function() {
+		$('#email_id').focus();
+	});
 	$('.modal').on('hidden.bs.modal', function() {
 		if(!modalClick) {
 			
