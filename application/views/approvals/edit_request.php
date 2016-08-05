@@ -282,9 +282,9 @@
 															<li class="pull-sm-left <?php echo $user->status ?>">
 																<?php
 																	if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
-													                	echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" />';
+																		echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" />';
 													                }else{
-													                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg">';	
+																		echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'">';
 													                }
 																?>
 															</li>
