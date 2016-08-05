@@ -9111,6 +9111,8 @@ h5, .qtip-titlebar {
   .btn-menu .fa {
     font-size: 6px; }
 
+[class*="btn-arrow-"].btn-sm, .btn-group-sm > [class*="btn-arrow-"].btn {
+  font-size: 12px; }
 [class*="btn-arrow-"] .fa {
   line-height: .7;
   font-size: 18px; }
@@ -9407,13 +9409,16 @@ a {
 
 .current-user-details {
   position: absolute;
-  bottom: 1.6rem;
+  bottom: 1rem;
   left: 2rem;
   right: 2rem;
   text-transform: uppercase;
   font-size: 0.66667rem;
   letter-spacing: .25rem;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
+  @media (min-width: 1281px) {
+    .current-user-details {
+      bottom: 1.6rem; } }
   .current-user-details .user-name {
     margin-bottom: 1rem;
     cursor: default; }
@@ -10107,7 +10112,7 @@ a {
   border-radius: 100%;
   text-align: center; }
   .circle-border.selected {
-    border-width: 2px; }
+    border-width: 2px !important; }
 
 .square-border {
   border: 1px solid;
@@ -10771,11 +10776,6 @@ a {
     margin-right: 0;
     display: inline-block;
     float: none; }
-@media (max-width: 1599px) {
-  .table-approvals .btn {
-    display: inline-block; }
-    .table-approvals .btn + .btn {
-      margin-top: .5rem; } }
 .table-approvals .btn-close {
   font-size: 20px;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
@@ -10783,6 +10783,9 @@ a {
   font-size: 10px;
   padding: 10px 7px;
   width: 100px; }
+  @media (max-width: 1599px) {
+    .table-approvals .btn-sm + .btn, .table-approvals .btn-group-sm > .btn + .btn {
+      margin-top: .5rem; } }
 .table-approvals .btn-xs {
   padding: 5px 7px;
   font-size: 10px; }
@@ -11239,10 +11242,9 @@ a {
 
 .post-actions {
   text-align: center; }
-  .post-actions a {
-    font-size: 10px; }
-    .post-actions a:not(.btn) {
-      text-decoration: underline; }
+  .post-actions a:not(.btn) {
+    font-size: 10px;
+    text-decoration: underline; }
   .post-actions .btn-group .btn {
     margin: 0; }
   .post-actions .btn-sm, .post-actions .btn-group-sm > .btn {
