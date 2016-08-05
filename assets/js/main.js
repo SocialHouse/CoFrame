@@ -433,24 +433,33 @@ jQuery(function($) {
 		});
 
 		//popover triggers
-		$('[data-toggle="popover-hover"]').qtip({
-			content: {
-				text: function(event, api) {
-					return $(this).attr('data-content');
+		$('body').on('mouseover', '[data-toggle="popover-hover"]', function(e) {
+			var $target = $(this);
+			var pcontent = $target.data('content');
+			$target.qtip({
+				content: {
+					text: pcontent
+				},
+				position: {
+					my: 'top center',
+					at: 'bottom center',
+					viewport: $('.content-area')
+				},
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true
+				},
+				style: {
+					classes: 'qtip-shadow',
+					tip: {
+						width: 20,
+						height: 10
+					}
 				}
-			},
-			position: {
-				my: 'top center',
-				at: 'bottom center',
-				viewport: $('.content-area')
-			},
-			style: {
-				classes: 'qtip-shadow',
-				tip: {
-					width: 20,
-					height: 10
-				}
-			}
+			}, e);
 		});
 
 		$('body').on('click', '[data-toggle="popover"]', function(e) {

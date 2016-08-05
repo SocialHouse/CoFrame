@@ -222,7 +222,7 @@
 														<div class="pull-sm-left">
 															<i class="tf-icon tf-icon-plus circle-border bg-black autoUserList">+</i>
 														</div>
-														<div class="pull-sm-left post-approver-name">Add <br>Approvers</div>
+														<div class="add-approver">Add <br>Approvers</div>
 													</li>
 												</ul>
 												<input type="hidden"  value="<?php echo $obj[0]->phase_id; ?>" name="phase[<?php echo $phase_no;?>][phase_id]" >
@@ -289,7 +289,7 @@
 														}
 													?>
 														<li class="pull-sm-left <?php echo $user->status; ?>">
-															<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
+															<img width="36" height="36" class="circle-img" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>"  alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" data-toggle="popover-hover" data-content="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>">
 														</li>
 													<?php
 													}
@@ -336,7 +336,7 @@
 														<div class="pull-sm-left">
 															<i class="tf-icon tf-icon-plus circle-border bg-black">+</i>
 														</div>
-														<div class="pull-sm-left post-approver-name">Add <br>Approvers</div>
+														<div class="add-approver">Add <br>Approvers</div>
 													</li>
 												</ul>
 												<div class="clearfix">

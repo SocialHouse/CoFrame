@@ -43,7 +43,7 @@ if(!empty($users))
 				?>
 				<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
 			</div>
-			<div class="pull-sm-left post-approver-name">
+			<div class="post-approver-name">
 				<strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong>
 				<?php echo get_user_groups($user->aauth_user_id,$brand_id); ?>
 			</div>

@@ -51,6 +51,6 @@
 		<li class="option-all-users">
 			<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="post-approver"><i class="fa fa-check"></i></i></div>
 			<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
-			<div class="pull-sm-left post-approver-name">Check<br>All</div>
+			<div class="post-approver-name">Check<br>All</div>
 		</li>
 	</ul>

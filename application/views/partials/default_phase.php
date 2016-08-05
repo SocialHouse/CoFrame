@@ -32,7 +32,7 @@ if(!empty($post_details->brand_id)){
 									?>
 									<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name; ?>" class="circle-img"/>
 								</div>
-								<div class="pull-sm-left post-approver-name">
+								<div class="post-approver-name">
 									<strong><?php echo ucfirst($master_user[0]->first_name)." ".ucfirst($master_user[0]->last_name); ?></strong>
 									Master Admin
 								</div>
@@ -59,7 +59,7 @@ if(!empty($post_details->brand_id)){
 									?>
 									<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
 								</div>
-								<div class="pull-sm-left post-approver-name">
+								<div class="post-approver-name">
 									<strong>
 									<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
 									</strong>
@@ -72,7 +72,7 @@ if(!empty($post_details->brand_id)){
 						<li class="option-all-users">
 							<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
 							<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
-							<div class="pull-sm-left post-approver-name">Check<br>All</div>
+							<div class="post-approver-name">Check<br>All</div>
 						</li>
 					<?php
 					}

@@ -50,7 +50,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 																<span class="title"><?php echo $user->title; ?></span>
 																<span class="email"><?php echo $user->email; ?></span>
 															</div>
-															<div class="pull-sm-left post-approver-name">
+															<div class="post-approver-name">
 																<strong>
 																	<span class="first_name"><?php echo $user->first_name; ?></span>
 																	&nbsp;
