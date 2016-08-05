@@ -8640,7 +8640,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8668,10 +8668,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -10219,6 +10219,9 @@ a {
       .timeframe-list.user-list li:first-child {
         border: 0; }
     .timeframe-list.user-list .post-approver-name {
+      padding-top: 4px;
+      margin-left: 86px; }
+    .timeframe-list.user-list .add-approver {
       padding-top: 4px; }
     .timeframe-list.user-list .tf-icon {
       height: 36px;
@@ -10232,7 +10235,7 @@ a {
       line-height: normal;
       margin: 5px 1rem 0 0; }
       .timeframe-list.user-list .check-box .fa {
-        font-size: 1rem;
+        font-size: 15px;
         line-height: 21px;
         float: none; }
       .timeframe-list.user-list .check-box.disabled {
@@ -10285,6 +10288,9 @@ a {
   text-transform: uppercase; }
   .post-approver-name strong {
     display: block; }
+
+.add-approver {
+  text-transform: uppercase; }
 
 /*Add brands*/
 .brand-steps {
@@ -10645,6 +10651,9 @@ a {
   transition: height 500ms; }
   .approval-phase:last-child {
     margin-bottom: 0; }
+  .approval-phase > .row {
+    margin-left: -1rem;
+    margin-right: -1rem; }
   .approval-phase h2 {
     font-size: 0.86667rem;
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
@@ -10957,7 +10966,7 @@ a {
   padding-top: 1rem;
   margin-top: 2rem; }
 
-#live-post-preview {
+#live-post-preview, #live-post-preview-approver {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4); }
 
 .auto-save {

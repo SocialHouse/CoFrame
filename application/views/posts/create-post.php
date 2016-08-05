@@ -252,7 +252,7 @@
 													echo print_user_image($master_user[0]->img_folder, $this->user_id);
 													?>
 												</div>
-												<div class="pull-sm-left post-approver-name">
+												<div class="post-approver-name">
 													<strong><?php echo ucfirst($master_user[0]->first_name)." ".ucfirst($master_user[0]->last_name); ?></strong>
 													Master Admin
 												</div>
@@ -274,7 +274,7 @@
 															echo print_user_image($user->img_folder, $user->aauth_user_id);
 														?>
 													</div>
-													<div class="pull-sm-left post-approver-name">
+													<div class="post-approver-name">
 														<strong>
 														<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
 														</strong>
@@ -288,7 +288,7 @@
 											<li class="option-all-users">
 												<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
 												<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
-												<div class="pull-sm-left post-approver-name">Check<br>All</div>
+												<div class="post-approver-name">Check<br>All</div>
 											</li>
 										<?php
 									}

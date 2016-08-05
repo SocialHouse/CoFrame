@@ -1649,6 +1649,10 @@ a {
 		}
 		.post-approver-name {
 			padding-top: 4px;
+			margin-left: 86px;
+		}
+		.add-approver {
+			padding-top: 4px;
 		}
 		.tf-icon {
 			height: 36px;
@@ -1663,7 +1667,7 @@ a {
 			line-height: normal;
 			margin: 5px 1rem 0 0;
 			.fa {
-				font-size: 1rem;
+				font-size: 15px;
 				line-height: 21px;
 				float: none;
 			}
@@ -1739,6 +1743,9 @@ a {
 	strong {
 		display: block;
 	}
+}
+.add-approver {
+	text-transform: uppercase;
 }
 
 /*Add brands*/
@@ -2237,6 +2244,10 @@ a {
 	&:last-child {
 		margin-bottom: 0;
 	}
+	> .row {
+		margin-left: -1rem;
+		margin-right: -1rem;
+	}
 	h2 {
 		font-size: remCalc(13px);
 		font-family: $futura;
@@ -2642,7 +2653,7 @@ a {
 	padding-top: 1rem;
 	margin-top: 2rem;
 }
-#live-post-preview {
+#live-post-preview, #live-post-preview-approver {
 	box-shadow: 0px 0px 5px rgba(0,0,0,.4);
 }
 
