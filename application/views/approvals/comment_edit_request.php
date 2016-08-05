@@ -7,9 +7,9 @@ foreach ($replies as $key => $obj) {
 			<div class="author clearfix">
 				<?php
 				$path = img_url()."default_profile.jpg";
-				if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$obj->user_id.'.png'))
+				if (file_exists(upload_path().$obj->img_folder.'/users/'.$obj->user_id.'.png'))
 				{
-					$path = upload_url().$this->user_data['img_folder'].'/users/'.$obj->user_id.'.png';
+					$path = upload_url().$obj->img_folder.'/users/'.$obj->user_id.'.png';
 				}
 				?>
 				<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>	" class="circle-img pull-sm-left">

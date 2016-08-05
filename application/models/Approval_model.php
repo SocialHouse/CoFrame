@@ -194,7 +194,7 @@ class Approval_model extends CI_Model
 
 	function get_comment_reply($comment_id)
 	{
-		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media');
+		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media,user_info.img_folder');
 		$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
 		$this->db->where('parent_id',$comment_id);
 		$this->db->order_by('created_at','ASC');

@@ -465,7 +465,7 @@ class User_preferences extends CI_Controller {
         	}
 
         	$user_data['aauth_user_id'] = $inserted_id;
-        	$user_data['img_folder'] = $this->user_data['img_folder'];
+        	$user_data['img_folder'] = $this->user_data['account_id'];
 
         	if($user_in_other_brand == 0)
     		{
