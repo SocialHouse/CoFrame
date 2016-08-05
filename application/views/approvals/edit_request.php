@@ -281,8 +281,8 @@
 															?>
 															<li class="pull-sm-left <?php echo $user->status ?>">
 																<?php
-																	if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png')) {
-													                	echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" />';
+																	if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
+													                	echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" />';
 													                }else{
 													                	echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg">';	
 													                }
