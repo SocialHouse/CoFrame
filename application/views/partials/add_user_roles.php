@@ -15,7 +15,7 @@
 			{
 				foreach($groups as $group)
 				{
-					if ($group->name != 'Admin' && $group->name != 'Billing' )
+					if ($group->name != 'Master Admin' && $group->name != 'Billing' )
 					{
 						?>
 						<option value="<?php echo strtolower($group->name); ?>"><?php echo $group->name; ?></option>
@@ -26,7 +26,7 @@
 			?>			
 		</select>
 	</div>
-	<div id="adminPermissions" class="permission-details hidden">
+<!-- 	<div id="adminPermissions" class="permission-details hidden">
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="adminPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 
@@ -39,12 +39,11 @@
 			<li>Master <input type="checkbox" class="hidden-xs-up" name="admin-permissions[]" value="master" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="master" data-group="admin-permissions[]"><i class="fa fa-check"></i></i></li>
 			
 		</ul>
-	</div>
+	</div> -->
 	<div id="managerPermissions" class="permission-details hidden">
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="managerPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
-			<li>Edit <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>Approve <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="approve" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="approve" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="manager-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="manager-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -56,7 +55,6 @@
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="creatorPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li>Create <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
-			<li>Edit <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Approve <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="approve"><i class="tf-icon check-box circle-border pull-sm-right" data-value="approve" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="creator-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -67,8 +65,8 @@
 	<div id="approverPermissions" class="permission-details hidden">
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="approverPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
-			<li class="hidden">Create <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="create"><i class="tf-icon check-box circle-border pull-sm-right" data-value="create" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
-			<li>Edit <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
+			<li>Create <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="create" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="create" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
+			<!-- <li>Edit <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="edit" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="edit" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li> -->
 			<li>Approve <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="approve" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="approve" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li>View Content <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="view" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="view" data-group="creator-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Brand Settings <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="settings"><i class="tf-icon check-box circle-border pull-sm-right" data-value="settings" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -76,7 +74,7 @@
 			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="approver-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="approver-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
 	</div>
-	<div id="billingPermissions" class="permission-details hidden">
+	<!-- <div id="billingPermissions" class="permission-details hidden">
 		<p class="clearfix"><span class="permissions-label">Default Permissions</span>: <button type="button" title="Edit Phase" class="btn-icon btn-gray pull-sm-right edit-permissions" data-section="billingPermissions"><i class="fa fa-pencil"></i></button></p>
 		<ul class="timeframe-list permissions-list view">
 			<li class="hidden">Create <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="create"><i class="tf-icon check-box circle-border pull-sm-right" data-value="create" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
@@ -87,7 +85,7 @@
 			<li>Billing <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="billing" checked><i class="tf-icon check-box circle-border pull-sm-right selected" data-value="billing" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 			<li class="hidden">Master <input type="checkbox" class="hidden-xs-up" name="billing-permissions[]" value="master"><i class="tf-icon check-box circle-border pull-sm-right" data-value="master" data-group="billing-permissions[]"><i class="fa fa-check"></i></i></li>
 		</ul>
-	</div>
+	</div> -->
 </div>
 
 <div id="set-role" class="hidden">

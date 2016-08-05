@@ -120,12 +120,12 @@
 							</td>										
 							<td class="text-xs-center">
 								<?php 
-								$is_edit_request = is_edit_request($post->id);
-								$btn_class = 'btn-disabled';
-								if($is_edit_request)
-								{
-									$btn_class = 'btn-secondary';
-								}
+								// $is_edit_request = is_edit_request($post->id);
+								// $btn_class = 'btn-disabled';
+								// if($is_edit_request)
+								// {
+								// 	$btn_class = 'btn-secondary';
+								// }
 
 								if($approver_status == 'approved')
 								{
@@ -143,7 +143,7 @@
 
 								?>
 								
-								<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">View Edit<br>Requests</a></td>
+								<a href="<?php echo base_url().'edit-request/'.$post->id; ?>" class="btn btn-xs btn-wrap btn-default">Edit<br>Request</a></td>
 						</tr>
 						<?php
 					}

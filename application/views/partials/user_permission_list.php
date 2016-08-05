@@ -4,9 +4,9 @@
 			<div class="table-header">
 				<div class="permission">Create</div>
 			</div>
-			<div class="table-header">
+			<!-- <div class="table-header">
 				<div class="permission">Edit</div>
-			</div>
+			</div> -->
 			<div class="table-header">
 				<div class="permission">Approve</div>
 			</div>

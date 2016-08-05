@@ -184,7 +184,7 @@ jQuery(function($) {
 			});
 
 			// combine inclusive filters
-			var filterValue = inclusives.length ? inclusives.join(', ') : '*';
+			var filterValue = inclusives.length ? inclusives.join('') : '*';
 			$('#outlet_ids').val(outlet_ids.join());
 			$('#statuses').val(statuses.join());
 			$('#tags').val(tags.join());
@@ -248,11 +248,10 @@ jQuery(function($) {
 		});	
 
 		// combine inclusive filters
-		var filterValue = inclusives.length ? inclusives.join(', ') : '*';		
+		var filterValue = inclusives.length ? inclusives.join('') : '*';		
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
-
 		if($container.length)
 			$container.isotope({ filter: filterValue });
 		if($containerApp.length)

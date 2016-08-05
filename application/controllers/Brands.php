@@ -452,12 +452,7 @@ class Brands extends CI_Controller {
 						$response .= '<i class="fa fa-check"></i>';
 					}
 					$response .= '</div>';
-					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
-					if(in_array('edit',$post_data['permissions']))
-					{ 
-						$response .= '<i class="fa fa-check"></i>';
-					}
-					$response .= '</div>';
+					
 					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
 					if(in_array('approve',$post_data['permissions']))
 					{ 

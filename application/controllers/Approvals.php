@@ -50,11 +50,6 @@ class Approvals extends CI_Controller {
 				$additional_group = $this->data['user_group'];
 			}
 
-			if(check_user_perm($this->user_id,'edit',$brand[0]->id))
-			{
-				$additional_group = $this->data['user_group'];
-			}
-
 			if(check_user_perm($this->user_id,'master',$brand[0]->id))
 			{
 				$additional_group = $this->data['user_group'];

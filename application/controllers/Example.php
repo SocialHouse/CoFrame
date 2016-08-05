@@ -46,7 +46,6 @@ class Example extends CI_Controller {
         $a = $this->aauth->create_group("Billing");
 
         $a = $this->aauth->create_perm("create","Create new post drafts");
-        $a = $this->aauth->create_perm("edit","Edit posts");
         $a = $this->aauth->create_perm("approve","Approve posts");
         $a = $this->aauth->create_perm("view","View posts");
         $a = $this->aauth->create_perm("settings","Edit application settings");
@@ -56,21 +55,24 @@ class Example extends CI_Controller {
 
 
         $a = $this->aauth->allow_group("Admin","create");
-        $a = $this->aauth->allow_group("Admin","edit"); 
         $a = $this->aauth->allow_group("Admin","approve");
         $a = $this->aauth->allow_group("Admin","view");
         $a = $this->aauth->allow_group("Admin","settings");
         $a = $this->aauth->allow_group("Admin","billing");
         $a = $this->aauth->allow_group("Admin","master");
+        
         $a = $this->aauth->allow_group("Manager","create");
-        $a = $this->aauth->allow_group("Manager","edit");
         $a = $this->aauth->allow_group("Manager","approve");
         $a = $this->aauth->allow_group("Manager","view");
         $a = $this->aauth->allow_group("Manager","settings");
+
         $a = $this->aauth->allow_group("Creator","create");
-        $a = $this->aauth->allow_group("Creator","edit");
         $a = $this->aauth->allow_group("Creator","view");
+
         $a = $this->aauth->allow_group("Approver","approve");
+        $a = $this->aauth->allow_group("Approver","view");
+        $a = $this->aauth->allow_group("Approver","create");
+
         $a = $this->aauth->allow_group("Billing","billing");
     }
 

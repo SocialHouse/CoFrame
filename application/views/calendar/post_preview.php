@@ -46,13 +46,13 @@
 						</span>
 						<div class="btn-group" role="group">
 							<?php
-							$is_edit_request = is_edit_request($post_details->id);
-							if($is_edit_request)
-							{
+							// $is_edit_request = is_edit_request($post_details->id);
+							// if($is_edit_request)
+							// {
 								?>
 								<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'edit-request/'.$post_details->id; ?>">Edit Requests</a>
 								<?php
-							}
+							// }
 							?>
 						</div>
 					</footer>

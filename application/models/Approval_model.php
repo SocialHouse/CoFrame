@@ -126,7 +126,7 @@ class Approval_model extends CI_Model
 		{
 
 			$phase_id = $query->row()->id;
-			$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status');
+			$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status,user_info.img_folder');
 			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
 			$this->db->join('phases','phases_approver.phase_id = phases.id');		
 			$this->db->where_in('phases_approver.phase_id',$phase_id);

@@ -14,9 +14,9 @@
 						<div class="table-header">
 							<div class="permission">Create</div>
 						</div>
-						<div class="table-header">
+						<!-- <div class="table-header">
 							<div class="permission">Edit</div>
-						</div>
+						</div> -->
 						<div class="table-header">
 							<div class="permission">Approve</div>
 						</div>
@@ -67,7 +67,7 @@
 										}
 									?> 
 								</div>
-								<div class="table-cell text-xs-center vertical-middle has-permission">
+								<!-- <div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
 										if (check_user_perm($user->aauth_user_id,"edit",$brand->id)) {
 											?> 
@@ -75,7 +75,7 @@
 											<?php
 										}
 									?> 
-								</div>
+								</div> -->
 								<div class="table-cell text-xs-center vertical-middle has-permission">
 									<?php 
 										if (check_user_perm($user->aauth_user_id,"approve",$brand->id)) {

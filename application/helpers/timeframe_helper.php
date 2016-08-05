@@ -513,11 +513,11 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<a class="btn btn-sm btn-disabled btn-default color-success">Approved</a> ';
             }
 
-            if(!empty($approver_status))
-            {
+            // if(!empty($approver_status))
+            // {
                 // $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
-            }
+            // }
         }
         elseif(check_user_perm($CI->user_id,'create',$brand_id) OR $post->user_id == $CI->user_id)
         {
@@ -555,11 +555,11 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
             }
 
-            $is_edit_request = is_edit_request($post->id);
-            if($is_edit_request AND empty($approver_status))
-            {
+            // $is_edit_request = is_edit_request($post->id);
+            // if($is_edit_request AND empty($approver_status))
+            // {
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
-            }
+            // }
         }
         else
         {
@@ -590,11 +590,11 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<button class="btn btn-approved btn-sm btn-default">View Live</button>';
             }
 
-            $is_edit_request = is_edit_request($post->id);
-            if($is_edit_request AND empty($approver_status))
-            {
+            // $is_edit_request = is_edit_request($post->id);
+            // if($is_edit_request AND empty($approver_status))
+            // {
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
-            }
+            // }
         }
         return $html_to_return;
     }

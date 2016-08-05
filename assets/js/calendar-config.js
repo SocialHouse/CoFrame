@@ -30,8 +30,14 @@ jQuery(function($) {
 				$('#calendar-change-month .date-select-calendar').fullCalendar('destroy');
 			}
 			else
-			{				
-				findPostbyDate(new Date().toJSON().slice(0,10));
+			{
+				$('#calendar-change-day .date-select-calendar').fullCalendar('destroy');
+				var date = new Date().toJSON().slice(0,10);
+				var month = moment(date).format('MMM');
+				var day = moment(date).format('DD, YYYY');
+				$('#calendarCurrentdate').text(day);
+				$('#calendarCurrentMonth').text(month);
+				findPostbyDate(date);
 			}
 		});
 
