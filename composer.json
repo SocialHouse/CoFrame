@@ -14,7 +14,8 @@
 		"php": ">=5.2.4",
 		"stripe/stripe-php": "^3.9",
 		"google/apiclient": "~2.0",
-		"opentok/opentok": "2.2.*"
+		"opentok/opentok": "2.2.*",
+		"dirkgroenen/Pinterest-API-PHP": "^0.2.11"
 	},	
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5dda1c95488c713d72fc827fcf0fa3f7",
-    "content-hash": "366255cfe1b475d6705b720376b12223",
+    "hash": "6fa12d2723b39025406fa03489a72593",
+    "content-hash": "18989a99020c618d612242cc6fc474fa",
     "packages": [
         {
             "name": "aoberoi/json-works",
@@ -51,6 +51,53 @@
                 "schema"
             ],
             "time": "2015-04-29 05:52:18"
+        },
+        {
+            "name": "dirkgroenen/pinterest-api-php",
+            "version": "0.2.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dirkgroenen/Pinterest-API-PHP.git",
+                "reference": "afd5e531059c09774e958e142b859d201aa00c79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dirkgroenen/Pinterest-API-PHP/zipball/afd5e531059c09774e958e142b859d201aa00c79",
+                "reference": "afd5e531059c09774e958e142b859d201aa00c79",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.7.*",
+                "vlucas/phpdotenv": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DirkGroenen\\Pinterest\\": "src/Pinterest"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Dirk Groenen",
+                    "email": "dirk@bitlabs.nl",
+                    "homepage": "http://dirkgroenen.nl",
+                    "role": "Creator/Developer"
+                }
+            ],
+            "description": "PHP Wrapper for the official Pinterest API",
+            "keywords": [
+                "api",
+                "pinterest",
+                "wrapper"
+            ],
+            "time": "2016-05-10 15:36:53"
         },
         {
             "name": "firebase/php-jwt",
