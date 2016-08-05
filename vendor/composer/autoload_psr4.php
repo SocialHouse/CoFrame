@@ -18,4 +18,5 @@ return array(
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Google\\Auth\\' => array($vendorDir . '/google/auth/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
+    'DirkGroenen\\Pinterest\\' => array($vendorDir . '/dirkgroenen/pinterest-api-php/src/Pinterest'),
 );

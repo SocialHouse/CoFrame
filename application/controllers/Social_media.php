@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once('vendor/autoload.php');
+use DirkGroenen\Pinterest\Pinterest;
 
 class Social_media extends CI_Controller {
 
@@ -30,8 +31,9 @@ class Social_media extends CI_Controller {
 		$this->user_data = $this->session->userdata('user_info');
 		$this->user_id = $this->session->userdata('id');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
-
-        //for twittr
+		$token = $this->session->userdata("pinterest_access_token");
+		$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
+		//for twittr
 		$this->load->library('twitteroauth');
   //       if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
 		// {
@@ -86,6 +88,7 @@ class Social_media extends CI_Controller {
 		if(!isset($this->auth_callback)) {
 			$this->auth_callback = $this->config->item('auth_callback');
 		}
+
 		
 		/*
 		 * Establish a connection
@@ -361,7 +364,7 @@ class Social_media extends CI_Controller {
 		$this->data['callbackUrl'] = $this->config->item('callback_url');
 		$this->load->library('linkedin', $this->data);
 		$this->linkedin->setResponseFormat(LINKEDIN::_RESPONSE_JSON);		
-		$condition = array('user_id' => $this->user_data['user_id'],'type' => 'linkedin');
+		$condition = array('user_id' => $this->user_id,'type' => 'linkedin');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 
 		$oauth_token = $is_key_exist[0]->access_token;
@@ -408,8 +411,17 @@ class Social_media extends CI_Controller {
 				'response' => json_encode($token_info),
 				'type' => 'youtube'
 				);
-			
-			//$this->timeframe_model->insert_data('social_media_keys',$data);
+
+			$condition = array('user_id' => $this->user_id,'type' => 'youtube');
+			$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+			if(empty($is_key_exist))
+			{
+				$this->timeframe_model->insert_data('social_media_keys',$data);
+			}
+			else
+			{
+				$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+			}
 		}
 	}
 
@@ -427,7 +439,7 @@ class Social_media extends CI_Controller {
 		{
 			$data = array(
 				'access_token' => $auth_response->access_token,			
-				'user_id' => $this->user_data['user_id'],
+				'user_id' => $this->user_id,
 				'response' => json_encode($auth_response),
 				'type' => 'instagram'
 				);
@@ -491,7 +503,7 @@ class Social_media extends CI_Controller {
 				$data = array(
 					'access_token' => $access_token['oauth_token'],
 					'access_token_secret' => $access_token['oauth_token_secret'],						
-					'user_id' => $this->user_data['user_id'],
+					'user_id' => $this->user_id,
 					'response' => json_encode($access_token),
 					'type' => 'tumblr'
 					);
@@ -528,55 +540,6 @@ class Social_media extends CI_Controller {
 		$this->session->unset_userdata('tumblr_request_token_secret');
 	}
 
-	function pinterest()
-	{
-		$condition = array('user_id' => $this->user_data['user_id'],'type' => 'pinterest');
-		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
-		if(empty($is_key_exist))
-		{
-			$auth_url = "https://api.pinterest.com/oauth/?response_type=code&redirect_uri=".$this->config->item('pinterest_callback_url')."&client_id=".$this->config->item('pinterest_app_id')."&scope=read_public,write_public&state=".uniqid();
-			redirect($auth_url);
-		}
-	}
-
-	function pinterest_callback()
-	{
-		$get = $this->input->get();
-
-		if(isset($get) AND isset($get['code']))
-		{
-			$url = "https://api.pinterest.com/v1/oauth/token";
-			$post = array(
-				"grant_type" => 'authorization_code',
-				"client_id" => $this->config->item('pinterest_app_id'),
-				"client_secret" => $this->config->item('pinterest_app_secret'),
-				"code" => $get['code']
-				);
-			$response = $this->fetch_access_token($url,"POST",$post);
-			if($response)
-			{
-				$response = json_decode($response);
-				$data = array(
-					'access_token' => $response->access_token,
-					'user_id' => $this->user_data['user_id'],
-					'response' => json_encode($response),
-					'type' => 'pinterest'
-					);
-
-				$condition = array('user_id' => $this->user_data['user_id'],'type' => 'pinterest');
-				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
-				if(empty($is_key_exist))
-				{
-					$this->timeframe_model->insert_data('social_media_keys',$data);
-				}
-				else
-				{
-					$this->timeframe_model->update_data('social_media_keys',$data,$condition);
-				}
-			}
-		}
-	}
-
 	function fetch_access_token($url, $method, $postfields = NULL) 
 	{
 		$curl = curl_init();
@@ -594,6 +557,7 @@ class Social_media extends CI_Controller {
 		);
 
 		$response = curl_exec($curl);
+		
 		$err = curl_error($curl);
 
 		curl_close($curl);
@@ -704,13 +668,31 @@ class Social_media extends CI_Controller {
 	public function my_uplaod_lists()
 	{
 		// Define an object that will be used to make all API requests.
-		$this->youtube();
+		//$this->youtube();
+		$this->load->model('social_media_model');
+		$my_tokens = $this->social_media_model->get_user_tokens()[0];
+		if($my_tokens)
+		{
+			$json_token = json_decode($my_tokens->response);
+			//$this->session->userdata('youtube_access_token');
+			$token['access_token'] = $json_token->access_token;
+			$token['token_type'] = $json_token->token_type;
+			$token['expires_in'] = $json_token->expires_in;
+			$token['created'] = date('H:i:s',strtotime( $json_token->created));
+			$this->session->set_userdata( 'youtube_access_token',$token );
+			$this->client->setAccessToken($this->session->userdata('youtube_access_token'));
+		}else{
+			$this->session->unset_userdata('youtube_access_token');
+			$this->youtube();
+		}
+
+		
 		$youtube = new Google_Service_YouTube($this->client);
 		
 		// Check if an auth token exists for the required scopes
 		
 		// Check to ensure that the access token was successfully acquired.
-		if (!$this->session->userdata('access_token')) {
+		if ($this->session->userdata('youtube_access_token')) {
 			try {
 			    // Call the channels.list method to retrieve information about the
 			    // currently authenticated user's channel.
@@ -749,9 +731,9 @@ class Social_media extends CI_Controller {
 	{
 		$this->youtube();
 		$youtube = new Google_Service_YouTube($this->client);
-		echo $this->session->userdata('access_token');
+		echo $this->session->userdata('youtube_access_token');
     	// Check to ensure that the access token was successfully acquired.
-		if (!$this->session->userdata('access_token')) 
+		if ($this->session->userdata('youtube_access_token')) 
 		{
 			$htmlBody = '';
 			try
@@ -816,7 +798,7 @@ class Social_media extends CI_Controller {
 			{
 				$htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
 			}
-				
+
 			echo $htmlBody;
 		}
 		else
@@ -824,4 +806,113 @@ class Social_media extends CI_Controller {
 
 		}
 	}
+
+	public function pinterest_me()
+	{
+		$token = $this->session->userdata("pinterest_access_token");
+		if(!empty($token['access_token']))
+		{
+			$this->p->auth->setOAuthToken($token['access_token']);
+			$me =$this->p->users->me(array(
+					'fields' => 'username,first_name,last_name,image[small,large]'
+					)
+			);
+			echo $me;
+		}
+		else
+		{
+			$this->pinterest();
+		}
+	}
+
+
+
+	function pinterest()
+	{
+		$condition = array('user_id' => $this->user_id,'type' => 'pinterest');
+		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+
+		if(empty($is_key_exist))
+		{
+			$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
+			$loginurl = $this->p->auth->getLoginUrl($this->config->item('pinterest_callback_url'), array('read_public', 'write_public'));
+			echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
+		}else{
+			$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist[0]));
+			//$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+			$this->pinterest_me();
+		}
+	}
+
+	function pinterest_callback()
+	{
+		$token = $this->session->userdata("pinterest_access_token");
+		if(empty($token['access_token']))
+		{
+			$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
+			if(isset($_GET["code"]))
+			{
+				$data =array();
+			    $token = $this->p->auth->getOAuthToken($_GET["code"]);
+			    $temp_array = array(
+				    	'access_token' =>$token->access_token,
+				    	'token_type' =>$token->token_type,
+				    	'scope' => implode(",",$token->scope),
+				    	'code'	=> $_GET["code"]
+			    	);
+			    	
+			   	$this->p->auth->setOAuthToken($token->access_token);
+			    $data['access_token'] = $token->access_token;			   
+			    $data['type'] = 'pinterest';
+			    $data['response'] =json_encode($temp_array);
+			    
+			    $this->timeframe_model->insert_data('social_media_keys',$data);
+
+			    $this->session->set_userdata('pinterest_access_token', $temp_array);
+			    
+			    redirect(base_url().'social_media/pinterest_me');
+			}
+		}
+		else
+		{
+			redirect(base_url().'social_media/pinterest_me');
+		}
+	}
+
+	public function create_my_bord()
+	{
+		//$this->session->unset_userdata('pinterest_access_token');
+		$token = $this->session->userdata("pinterest_access_token");
+		//$token['access_token'] = 'AXAq9P9cswx5zN_lFMNWADqL2vKLFGfS2XJyMMlC7jcufCArZgAAAAA';
+
+		$this->p->auth->setOAuthToken($token['access_token']);
+		$result = $this->p->boards->create(
+                array(
+                    'name'          => 'ioewbh jhg g',
+                    'description'   => 'You are 987a asdasd'
+                )
+            );
+		$result = json_decode($result);
+		if(!empty($result->id)){
+			echo '<pre>'; print_r( $result);echo '</pre>';
+		}else{
+			echo $result->id;
+		}
+	}
+
+
+	public function create_pin()
+	{
+		$result = '';
+		$token = $this->session->userdata("pinterest_access_token");		
+		$this->p->auth->setOAuthToken($token['access_token']);
+		$result = $this->p->pins->create(array(
+		    "note"          => "Test board from API KJK kj hkljhlkjh jkh ",
+		    "image_url"     => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce",
+		    "board"         => "309481874332798657"
+		));
+		echo $result;
+	}
+
 }
+?>

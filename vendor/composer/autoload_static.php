@@ -47,6 +47,10 @@ class ComposerStaticInit6bdee07d43504d886ab057faf5574d54
         array (
             'Firebase\\JWT\\' => 13,
         ),
+        'D' => 
+        array (
+            'DirkGroenen\\Pinterest\\' => 22,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -97,6 +101,10 @@ class ComposerStaticInit6bdee07d43504d886ab057faf5574d54
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'DirkGroenen\\Pinterest\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dirkgroenen/pinterest-api-php/src/Pinterest',
         ),
     );
 
