@@ -10,7 +10,7 @@ class Approval_model extends CI_Model
 	function get_approvals($user_id,$brand_id,$user_group,$date='')
 	{
 		$result = [];
-		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id'])
+		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id']  OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id');
 			$this->db->join('posts','posts.id = phases.post_id');
@@ -31,7 +31,7 @@ class Approval_model extends CI_Model
 				$result =  $query->result();
 			}
 		}
-		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['account_id'])
+		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
 			$this->db->join('posts','posts.id = phases.post_id');

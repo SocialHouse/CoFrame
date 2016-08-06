@@ -4,7 +4,7 @@
 		if(!empty($brands))
 		{
 			$show = 0;
-			if($this->user_id == $this->user_data['account_id'])
+			if($this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group']) == "Master Admin")
 			{
 				$show = 1;
 				if(count($brands) < $this->plan_data['brands'] OR $this->plan_data['brands'] == 'unlimited')
@@ -161,7 +161,7 @@
 		?>
 		<header class="page-main-header">
 			<?php
-			if($this->user_id == $this->user_data['account_id'])
+			if($this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 			{
 				?>
 				<a href="<?php echo base_url().'brands/add'; ?>" class="btn btn-secondary btn-sm pull-sm-left" data-toggle="popover-onload" data-content="CLICK THIS BUTTON TO ADD YOUR FIRST BRAND<br><br>Your brands will appear on this overview page. You will see all the reminders, notifications and summary for each brand.">Add a Brand</a>

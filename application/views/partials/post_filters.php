@@ -20,20 +20,20 @@ if(!empty($filters))
 
 		<div class="form-group filter <?php echo in_array('posted', $selected_statuses) ? 'checked' : ''; ?>" data-status="posted" data-value="f-posted" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-posted">Posted</label></div>			
 		<?php
-		if(check_user_perm($this->user_id,'create',$brand_id) OR $this->user_id == $this->user_data['account_id'])
+		if(check_user_perm($this->user_id,'create',$brand_id) OR $this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			?>
 			<div class="form-group filter <?php echo in_array('draft', $selected_statuses) ? 'checked' : ''; ?>" data-status="draft" data-value="f-draft" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-draft">Draft</label></div>
 			<?php
 		}
 
-		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['account_id'])
+		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			?>
 			<div class="form-group filter <?php echo in_array('scheduled', $selected_statuses) ? 'checked' : ''; ?>" data-status="scheduled" data-value="f-scheduled" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-scheduled">Scheduled</label></div>
 			<?php
 		}
-		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['account_id'])
+		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'approve',$brand_id) OR $this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			?>
 			<div class="form-group filter <?php echo in_array('pending', $selected_statuses) ? 'checked' : ''; ?>" data-status="pending" data-value="f-pending" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-pending">Pending</label></div>

@@ -50,6 +50,7 @@ if(!function_exists('_render_view'))
             }
 
             $CI->data['yield'] = $CI->load->view($data['view'],$data,true);
+            $CI->data['current_brand'] = isset($data['brand_id']) ? $data['brand_id'] : NULL;
             echo $CI->load->view($data['layout'],$CI->data,true);
         }
         else

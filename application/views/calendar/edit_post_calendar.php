@@ -75,7 +75,7 @@
 								$class = 1;
 								foreach ($post_images as $key) {
 									if($key->type =='images'){
-										echo '<div class="form__preview-wrapper"><i data-delete-id="'.$key->id.'" class="tf-icon-circle remove-upload">x</i><img src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$this->user_data['account_id'].'/posts/'. $key->name.'" class="form__file-preview delete-img" data-delete="'.$class.'" /></div>';
+										echo '<div class="form__preview-wrapper"><i data-delete-id="'.$key->id.'" class="tf-icon-circle remove-upload">x</i><img src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'" class="form__file-preview delete-img" data-delete="'.$class.'" /></div>';
 										$class++;
 									}else if($key->type =='video'){
 										echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';

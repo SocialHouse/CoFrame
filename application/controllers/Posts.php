@@ -59,7 +59,7 @@ class Posts extends CI_Controller {
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
 			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
-			if($this->user_id == $this->user_data['account_id'])
+			if($this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 			{
 				$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand_id);
 			}

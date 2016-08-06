@@ -35,7 +35,7 @@ jQuery(function($) {
 					}
 				});
 
-				if($(event.target).data('step-no') == 4 || $(event.target).attr('id') == 'addTag')
+				if($(event.target).data('step-no') == 4 || $(event.target).attr('id') == 'addTag' || $(event.target).hasClass('input-search'))
 				{
 					allow_enter = 1;
 				}
@@ -1984,10 +1984,20 @@ function atToLink(text) {
 }
 
 function setUserTime() {
-	var today = new Date();
+	d = new Date();
+	var localTime = d.getTime();
+	localOffset = d.getTimezoneOffset() * 60000;
+	utc = localTime + localOffset; 	
+	today = utc + (3600000*user_data.timezone); 
+	today = new Date(today);
+	
+	// var today = new Date();
 	var h = today.getHours();
 	var m = today.getMinutes();
 	var s = today.getSeconds();
+
+	var ampm = h >= 12 ? 'pm' : 'am';
+
 	// add leading 0
 	if (s < 10) {
 		s = "0" + s;
@@ -1999,7 +2009,7 @@ function setUserTime() {
 	//set timezone
 	var tz = moment.tz.guess();
 	var zoneAbbr = moment.tz(tz).zoneAbbr();
-	var ampm = moment().format('a');
+	// var ampm = moment().format('a');
 	document.getElementById('userTimeZone').innerHTML = ampm + " " + zoneAbbr;
 	//realtime time updates
 	var t = setTimeout(setUserTime, 500);

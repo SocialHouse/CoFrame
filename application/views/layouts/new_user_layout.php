@@ -88,7 +88,14 @@
 					<a class="nav-link" href="#"><?php echo print_user_image($this->user_data['img_folder'],$this->user_id); ?></a>
 					<ul class="dropdown-menu">
 						<li class="user-info"><?php echo $this->user_data['first_name'] . " " . $this->user_data['last_name']; ?><br>
-						<span class="user-role"><?php echo get_user_groups($this->user_id,$brand_id); ?></span></li>
+						<?php
+						$parent_id = NULL;
+						if(empty($current_brand) AND isset($this->user_data['user_group']))
+						{
+							$parent_id = $this->user_data['account_id'];
+						}
+						?>
+						<span class="user-role"><?php echo get_user_groups($this->user_id,$current_brand,$parent_id); ?></span></li>
 						<li><a class="nav-link" href="<?php echo base_url().'tour/logout' ?>">Log out</a></li>
 					</ul>
 		    	</li>
@@ -122,6 +129,8 @@
 	<script type="text/javascript">
 		var plan_data = '<?php echo json_encode($this->plan_data); ?>';	
 		plan_data = jQuery.parseJSON(plan_data);
+		var user_data = '<?php echo json_encode($this->user_data); ?>';	
+		user_data = jQuery.parseJSON(user_data);
 	</script>
 	
 	<?php       

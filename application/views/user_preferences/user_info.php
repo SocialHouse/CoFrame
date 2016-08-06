@@ -122,7 +122,7 @@
 					</div>
 					<?php
 					$class = 'hide';
-					if(check_user_perm($this->user_id,'master') OR $this->user_id == $this->user_data['account_id'])
+					if(check_user_perm($this->user_id,'master') OR $this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 					{
 						$class = '';
 					}
