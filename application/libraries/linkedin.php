@@ -279,26 +279,27 @@ class LinkedIn {
 	 * @return arr
 	 * 	       An array containing a LinkedIn response with appropriate values
 	 */
+	
 	private function checkResponse($http_code_required, $response) {
 		// check passed data
-    if(!is_array($response)) {
-			throw new LinkedInException('LinkedIn->checkResponse(): $response must be an array');
+	    if(!is_array($response)) {
+				throw new LinkedInException('LinkedIn->checkResponse(): $response must be an array');
+			}
+			if(!is_int($http_code_required)) {
+				throw new LinkedInException('LinkedIn->checkResponse(): $http_code_required must be an integer value');
+			}
+			
+			// check the response
+			if($response['info']['http_code'] == $http_code_required) {
+			  //request successful
+			  $response['success'] = TRUE;
+			} else {
+				//request failed
+				$response['success'] = FALSE;
+				$response['error']   = 'HTTP response from LinkedIn end-point was not code ' . $http_code_required;
+			}
+			return $response;
 		}
-		if(!is_int($http_code_required)) {
-			throw new LinkedInException('LinkedIn->checkResponse(): $http_code_required must be an integer value');
-		}
-		
-		// check the response
-		if($response['info']['http_code'] == $http_code_required) {
-		  //request successful
-		  $response['success'] = TRUE;
-		} else {
-			//request failed
-			$response['success'] = FALSE;
-			$response['error']   = 'HTTP response from LinkedIn end-point was not code ' . $http_code_required;
-		}
-		return $response;
-	}
 	
 	/**
 	 * Close a job.

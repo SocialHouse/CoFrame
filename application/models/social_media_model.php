@@ -8,26 +8,58 @@ class Social_media_model extends CI_Model
 		$this->table = 'social_media_keys';
 	}
 
-	public function get_user_tokens($type = '', $user_id ='')
+	public function get_token($type = '', $user_id ='')
 	{
-		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, 	type');	
-		if(!empty($user_id)){
-			$this->db->where('user_id',$user_id);
-		}else{
-			$this->db->where('user_id',$this->user_id);  
-		}
-		if(!empty($type)){
-			$this->db->where('type',$type);
-		}
-		$query = $this->db->get($this->table);
+		if(empty($type)) return false;
 		
+		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type');
+		if(empty($user_id))
+		{
+			$user_id = $this->user_id;
+		}
+		$this->db->where('user_id',$user_id);
+		$this->db->where('type',$type);
+		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)
 		{
-			return $query->result();
+			return $query->row();
+		}
+		return FALSE;
+	}
+
+
+	function save_token($data) {
+		if(empty($data['type'])) return false;
+
+		if(empty($data['user_id']))
+		{
+			$user_id = $this->user_id;
+		}
+		else
+		{
+			$user_id = $data['user_id'];
 		}
 
+		$this->db->where('user_id',$user_id);
+		$this->db->where('type',$data['type']);
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0)
+		{
+			// Update record
+			$this->db->where('user_id',$user_id);
+			$this->db->update($this->table, $data);
+			return true;
+		}
+		else
+		{
+			// Insert record
+			$data['created_at'] = date('Y-m-d h:i:s');
+			$this->db->insert($this->table, $data);
+			$last_id = $this->db->insert_id();
+			return true;
+		}
 		return FALSE;
-
 	}
+
 
 }

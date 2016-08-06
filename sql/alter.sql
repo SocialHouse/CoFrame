@@ -400,14 +400,17 @@ ALTER TABLE `brands` ADD `account_id` INT NOT NULL AFTER `slug`;
 --- 30-07-2016
 ALTER TABLE `reminders` ADD `added_through_cron` TINYINT NOT NULL DEFAULT '0' ;
 
---- 1-08-2016
+--- 01-08-2016
 ALTER TABLE `user_info` ADD `is_trial_period_expired` TINYINT NULL DEFAULT '0' COMMENT '1: Yes, 0: No' AFTER `img_folder`;
 
---- 2-08-2016
+--- 02-08-2016
 ALTER TABLE `aauth_user_to_group` CHANGE `brand_id` `brand_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `aauth_user_to_group` ADD `parent_id` INT(11) NULL DEFAULT NULL AFTER `brand_id`;
 
---- 3-08-2016
+--- 03-08-2016
 ALTER TABLE `aauth_perm_to_user` ADD `parent_id` INT NULL AFTER `brand_id`;
 ALTER TABLE `aauth_perm_to_user` CHANGE `brand_id` `brand_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `aauth_user_to_group` CHANGE `brand_id` `brand_id` INT(11) NULL;
+
+--- 06-08-2016
+ALTER TABLE `social_media_keys` ADD `created_at` DATETIME NULL DEFAULT NULL AFTER `type`, ADD `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_at`; 

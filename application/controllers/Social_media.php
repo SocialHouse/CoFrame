@@ -17,7 +17,7 @@ class Social_media extends CI_Controller {
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
+	 * map to /index.php/welcome/<method_name></method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
@@ -27,6 +27,7 @@ class Social_media extends CI_Controller {
 		is_user_logged();
 		$this->load->model('user_model');
 		$this->load->model('timeframe_model');
+		$this->load->model('social_media_model');
 		$this->load->config('twitter');
 		$this->user_data = $this->session->userdata('user_info');
 		$this->user_id = $this->session->userdata('id');
@@ -344,24 +345,34 @@ class Social_media extends CI_Controller {
 
 	public function linkedin()
 	{
-		$this->data['appKey'] = $this->config->item('api_key');
-		$this->data['appSecret'] = $this->config->item('secret_key');
-		$this->data['callbackUrl'] = $this->config->item('callback_url');
+		$this->data['appKey'] = $this->config->item('linked_in_api_key');
+		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
+		$this->data['callbackUrl'] = $this->config->item('linked_in_callback_url');
 		$this->load->library('linkedin', $this->data);
 		$this->linkedin->setResponseFormat(LINKEDIN::_RESPONSE_JSON);
 		$token = $this->linkedin->retrieveTokenRequest();
+		$condition = array('user_id' => $this->user_id,'type' => 'linkedin');
+		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
 		
-		$data = array('access_token' => $token['linkedin']['oauth_token'], 'access_token_secret' => $token['linkedin']['oauth_token_secret'], 'user_id' => $this->user_data["user_id"],'response' => json_encode($token),'type' => 'linkedin');
-		$this->timeframe_model->insert_data('social_media_keys',$data);		
+		$data = array('access_token' => $token['linkedin']['oauth_token'], 'access_token_secret' => $token['linkedin']['oauth_token_secret'], 'user_id' => $this->user_id,'response' => json_encode($token),'type' => 'linkedin');
+		if(empty($is_key_exist))
+		{
+			$this->timeframe_model->insert_data('social_media_keys',$data);
+		}
+		else
+		{
+			$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+		}
+		$this->session->set_userdata('linked_token' ,$data );
 		$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
 		redirect($link);
 	}
 
-	function callback_linked_in() 
+	public function callback_linked_in() 
 	{
-		$this->data['appKey'] = $this->config->item('api_key');
-		$this->data['appSecret'] = $this->config->item('secret_key');
-		$this->data['callbackUrl'] = $this->config->item('callback_url');
+		$this->data['appKey'] = $this->config->item('linked_in_api_key');
+		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
+		$this->data['callbackUrl'] = $this->config->item('linked_in_callback_url');
 		$this->load->library('linkedin', $this->data);
 		$this->linkedin->setResponseFormat(LINKEDIN::_RESPONSE_JSON);		
 		$condition = array('user_id' => $this->user_id,'type' => 'linkedin');
@@ -370,10 +381,48 @@ class Social_media extends CI_Controller {
 		$oauth_token = $is_key_exist[0]->access_token;
 		$oauth_token_secret = $is_key_exist[0]->access_token_secret;
 		$oauth_verifier = $this->input->get('oauth_verifier');
-		
+		if(!empty($oauth_verifier)){
+			$this->session->set_userdata('oauth_verifier',$oauth_verifier );		
+		}
 		$response = $this->linkedin->retrieveTokenAccess($oauth_token, $oauth_token_secret, $oauth_verifier);
+		
+		$data = array('access_token' => $response['linkedin']['oauth_token'], 'access_token_secret' => $response['linkedin']['oauth_token_secret'], 'user_id' => $this->user_id,'response' => json_encode($response['linkedin']),'type' => 'linkedin');
+		$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+		$this->session->set_userdata( 'oauth_linkedin_access',$response['linkedin']);
 		$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
+		echo '<pre>'; print_r($profile );echo '</pre>'; 
 	}
+
+	public function linkedin_create_post() 
+	{
+		$this->data['appKey'] = $this->config->item('linked_in_api_key');
+		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
+		$this->data['callbackUrl'] = $this->config->item('linked_in_callback_url');
+		$this->load->library('linkedin', $this->data);
+		$this->linkedin->setResponseFormat(LINKEDIN::_RESPONSE_JSON);		
+		
+		$condition = array('user_id' => $this->user_id,'type' => 'linkedin');
+		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+		$token = json_decode($is_key_exist[0]->response);
+
+		$oauth = $this->session->userdata('oauth_linkedin_access');
+		
+		$json_data = json_decode(json_encode($token));
+		
+
+		$data['oauth_token'] = $json_data->oauth_token;
+		$data['oauth_token_secret'] = $json_data->oauth_token_secret;
+		$data['oauth_expires_in'] = $json_data->oauth_expires_in;
+		$data['oauth_authorization_expires_in'] = $json_data->oauth_authorization_expires_in;
+		echo '<br/>oauth_expires_in : '.$this->seconds_to_time($data['oauth_expires_in']);
+		echo '<br/>oauth_authorization_expires_in : '.$this->seconds_to_time($data['oauth_authorization_expires_in']);
+		$this->linkedin->setToken($oauth);
+		$response = $this->linkedin->getToken();
+		
+		$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
+		echo '<pre>'; print_r($profile );echo '</pre>'; 
+	}
+
 
 	function youtube_auth()
 	{	
@@ -669,8 +718,8 @@ class Social_media extends CI_Controller {
 	{
 		// Define an object that will be used to make all API requests.
 		//$this->youtube();
-		$this->load->model('social_media_model');
-		$my_tokens = $this->social_media_model->get_user_tokens()[0];
+		
+		$my_tokens = $this->social_media_model->get_token('youtube');
 		if($my_tokens)
 		{
 			$json_token = json_decode($my_tokens->response);
@@ -806,9 +855,9 @@ class Social_media extends CI_Controller {
 
 		}
 	}
-
+// {"id":"309481874332798657","name":"AXAq9P9cswx5zN_lFMNWADqL2vKLFGfS2XJyMMlC7jcufCArZgAAAAA","url":"https:\/\/www.pinterest.com\/ninad_g\/axaq9p9cswx5zn_lfmnwadql2vklfgfs2xjymmlc7jcufcarzg\/","description":null,"creator":null,"created_at":null,"counts":null,"image":null}
 	public function pinterest_me()
-	{
+	{	
 		$token = $this->session->userdata("pinterest_access_token");
 		if(!empty($token['access_token']))
 		{
@@ -817,29 +866,57 @@ class Social_media extends CI_Controller {
 					'fields' => 'username,first_name,last_name,image[small,large]'
 					)
 			);
-			echo $me;
+			$mybords =$this->p->users->getMeBoards();
+			$my_pins = array();
+			echo '<div><table><thead><tr><th>Id</th><th>Name</th><th>Name</th><th>Description</th></tr></thead><tbody>';
+			foreach ($mybords as $key => $board) {
+				$result = json_decode($this->p->pins->fromBoard($board->id));
+				if(!empty($result->data)){
+					$my_pins[] = $result->data;
+				}
+				echo '<tr>';
+				echo '<td>'.$board->id.'</td>';
+				echo '<td>&nbsp;&nbsp;&nbsp;&nbsp;'.$board->name.'</td>';
+				echo '<td>'.$board->url.'</td>';
+				echo '<td>'.$board->description.'</td>';
+				echo '</tr>';
+			}
+			echo '</tbody></table><br/><br/><br/>';
+			echo '<p>Id : '.$me->id.'</p>';
+			echo '<p>Username : '.$me->username.'</p>';
+			echo '<p>first name : '.$me->first_name.'&nbsp;&nbsp;'.$me->last_name.'</p>';
+			echo 'My Pins';
+			foreach ($my_pins as $key => $pins) {
+				foreach ($pins as $obj => $pin) {
+					echo '<pre>'; print_r($pin);echo '</pre>';
+					echo '<br/><br/>';
+				}
+			}
+			echo '</div>';
 		}
 		else
 		{
-			$this->pinterest();
+			$is_key_exist = $this->social_media_model->get_token('pinterest');
+			if($is_key_exist){
+				$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist));
+				$this->pinterest_me();
+			}
+			else{
+				$this->pinterest();
+			}
 		}
 	}
 
-
-
 	function pinterest()
 	{
-		$condition = array('user_id' => $this->user_id,'type' => 'pinterest');
-		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
-
+		$is_key_exist = $this->social_media_model->get_token('pinterest');
 		if(empty($is_key_exist))
 		{
 			$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
 			$loginurl = $this->p->auth->getLoginUrl($this->config->item('pinterest_callback_url'), array('read_public', 'write_public'));
-			echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
+			redirect($loginurl);
 		}else{
-			$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist[0]));
-			//$this->timeframe_model->update_data('social_media_keys',$data,$condition);
+			$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist));
 			$this->pinterest_me();
 		}
 	}
@@ -857,16 +934,16 @@ class Social_media extends CI_Controller {
 			    $temp_array = array(
 				    	'access_token' =>$token->access_token,
 				    	'token_type' =>$token->token_type,
-				    	'scope' => implode(",",$token->scope),
-				    	'code'	=> $_GET["code"]
+				    	'scope' => implode(",",$token->scope)
 			    	);
 			    	
 			   	$this->p->auth->setOAuthToken($token->access_token);
 			    $data['access_token'] = $token->access_token;			   
 			    $data['type'] = 'pinterest';
+			    $data['user_id'] = $this->user_id;
 			    $data['response'] =json_encode($temp_array);
 			    
-			    $this->timeframe_model->insert_data('social_media_keys',$data);
+			    $this->social_media_model->save_token($data);
 
 			    $this->session->set_userdata('pinterest_access_token', $temp_array);
 			    
@@ -907,12 +984,12 @@ class Social_media extends CI_Controller {
 		$token = $this->session->userdata("pinterest_access_token");		
 		$this->p->auth->setOAuthToken($token['access_token']);
 		$result = $this->p->pins->create(array(
-		    "note"          => "Test board from API KJK kj hkljhlkjh jkh ",
-		    "image_url"     => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce",
+		    "note"          => "ya hooooooo  ",
+		    "image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/57a48a5a885c7.mp4',
+		    "media"     	=> 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/57a48a5a885c7.mp4',
 		    "board"         => "309481874332798657"
 		));
 		echo $result;
 	}
-
 }
 ?>
