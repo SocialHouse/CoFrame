@@ -341,6 +341,8 @@ class Social_media extends CI_Controller {
 		$this->session->unset_userdata('request_token_secret');
 		$this->session->unset_userdata('twitter_user_id');
 		$this->session->unset_userdata('twitter_screen_name');
+		$this->session->unset_userdata('youtube_access_token');
+		$this->session->unset_userdata('pinterest_access_token');
 	}
 
 	public function linkedin()
@@ -731,7 +733,7 @@ class Social_media extends CI_Controller {
 			$this->session->set_userdata( 'youtube_access_token',$token );
 			$this->client->setAccessToken($this->session->userdata('youtube_access_token'));
 		}else{
-			$this->session->unset_userdata('youtube_access_token');
+
 			$this->youtube();
 		}
 
@@ -858,13 +860,14 @@ class Social_media extends CI_Controller {
 // {"id":"309481874332798657","name":"AXAq9P9cswx5zN_lFMNWADqL2vKLFGfS2XJyMMlC7jcufCArZgAAAAA","url":"https:\/\/www.pinterest.com\/ninad_g\/axaq9p9cswx5zn_lfmnwadql2vklfgfs2xjymmlc7jcufcarzg\/","description":null,"creator":null,"created_at":null,"counts":null,"image":null}
 	public function pinterest_me()
 	{	
+
 		$token = $this->session->userdata("pinterest_access_token");
 		if(!empty($token['access_token']))
 		{
 			$this->p->auth->setOAuthToken($token['access_token']);
 			$me =$this->p->users->me(array(
-					'fields' => 'username,first_name,last_name,image[small,large]'
-					)
+				'fields' => 'username,first_name,last_name,image[small,large]'
+				)
 			);
 			$mybords =$this->p->users->getMeBoards();
 			$my_pins = array();
@@ -930,24 +933,24 @@ class Social_media extends CI_Controller {
 			if(isset($_GET["code"]))
 			{
 				$data =array();
-			    $token = $this->p->auth->getOAuthToken($_GET["code"]);
-			    $temp_array = array(
-				    	'access_token' =>$token->access_token,
-				    	'token_type' =>$token->token_type,
-				    	'scope' => implode(",",$token->scope)
-			    	);
-			    	
-			   	$this->p->auth->setOAuthToken($token->access_token);
-			    $data['access_token'] = $token->access_token;			   
-			    $data['type'] = 'pinterest';
-			    $data['user_id'] = $this->user_id;
-			    $data['response'] =json_encode($temp_array);
-			    
-			    $this->social_media_model->save_token($data);
+				$token = $this->p->auth->getOAuthToken($_GET["code"]);
+				$temp_array = array(
+					'access_token' =>$token->access_token,
+					'token_type' =>$token->token_type,
+					'scope' => implode(",",$token->scope)
+					);
 
-			    $this->session->set_userdata('pinterest_access_token', $temp_array);
-			    
-			    redirect(base_url().'social_media/pinterest_me');
+				$this->p->auth->setOAuthToken($token->access_token);
+				$data['access_token'] = $token->access_token;			   
+				$data['type'] = 'pinterest';
+				$data['user_id'] = $this->user_id;
+				$data['response'] =json_encode($temp_array);
+
+				$this->social_media_model->save_token($data);
+
+				$this->session->set_userdata('pinterest_access_token', $temp_array);
+
+				redirect(base_url().'social_media/pinterest_me');
 			}
 		}
 		else
@@ -956,19 +959,17 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function create_my_bord()
+	public function create_board()
 	{
-		//$this->session->unset_userdata('pinterest_access_token');
+		//
 		$token = $this->session->userdata("pinterest_access_token");
-		//$token['access_token'] = 'AXAq9P9cswx5zN_lFMNWADqL2vKLFGfS2XJyMMlC7jcufCArZgAAAAA';
-
 		$this->p->auth->setOAuthToken($token['access_token']);
 		$result = $this->p->boards->create(
-                array(
-                    'name'          => 'ioewbh jhg g',
-                    'description'   => 'You are 987a asdasd'
-                )
-            );
+			array(
+				'name'          => 'ioewbh jhg g',
+				'description'   => 'You are 987a asdasd'
+				)
+			);
 		$result = json_decode($result);
 		if(!empty($result->id)){
 			echo '<pre>'; print_r( $result);echo '</pre>';
@@ -984,11 +985,11 @@ class Social_media extends CI_Controller {
 		$token = $this->session->userdata("pinterest_access_token");		
 		$this->p->auth->setOAuthToken($token['access_token']);
 		$result = $this->p->pins->create(array(
-		    "note"          => "ya hooooooo  ",
-		    "image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/57a48a5a885c7.mp4',
-		    "media"     	=> 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/57a48a5a885c7.mp4',
-		    "board"         => "309481874332798657"
-		));
+			"note"          => "ya hooooooo  ",
+			"image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
+			"media"     	=> 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
+			"board"         => "309481874332798657"
+			));
 		echo $result;
 	}
 }
