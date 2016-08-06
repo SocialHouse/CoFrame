@@ -46,6 +46,7 @@ class Social_media_model extends CI_Model
 		if($query->num_rows() > 0)
 		{
 			// Update record
+			$this->db->where('type',$data['type']);
 			$this->db->where('user_id',$user_id);
 			$this->db->update($this->table, $data);
 			return true;
