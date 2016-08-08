@@ -14,9 +14,9 @@
 	<div class="text-xs-center form-inline">
 		<label for="approvalPhases">How many approval phases would you like to add? (1-3)</label>
 		<select class="form-control" id="approvalPhases">
-			<option value="">1</option>
-			<option value="">2</option>
-			<option value="">3</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
 		</select>
 	</div>
 	<footer class="form-footer">

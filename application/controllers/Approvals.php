@@ -41,6 +41,7 @@ class Approvals extends CI_Controller {
 		
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 
 			$additional_group = '';

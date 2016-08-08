@@ -43,6 +43,7 @@ class Archives extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];

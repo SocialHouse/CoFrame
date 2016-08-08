@@ -42,6 +42,7 @@ class Co_create extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 			//check plan have access to this page
@@ -90,6 +91,7 @@ class Co_create extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['full_name'] = ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']);
 			$brand_id = $brand[0]->id;

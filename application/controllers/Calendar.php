@@ -40,6 +40,7 @@ class Calendar extends CI_Controller {
 		$post_data = $this->input->post();
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 
 			$additional_group = '';
@@ -90,6 +91,7 @@ class Calendar extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 
 			$additional_group = '';
@@ -134,6 +136,7 @@ class Calendar extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 
 			$additional_group = '';
@@ -280,6 +283,7 @@ class Calendar extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['brand'] = $brand[0];
@@ -375,7 +379,11 @@ class Calendar extends CI_Controller {
 					$this->data['phases'][$phase->phase][] = $phase;
 				}
 			}
-			$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			// $this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
+			// echo "<pre>";
+			// print_r($this->data['users']);
+			// echo "</pre>";
 			$this->data['current_phase'] = $phase_count;
 			$this->data['brand_id'] = $brand_id;
 			// echo '<pre>'; print_r($this->data);echo '</pre>'; 
