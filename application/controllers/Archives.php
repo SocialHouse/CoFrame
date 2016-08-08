@@ -137,6 +137,8 @@ class Archives extends CI_Controller {
 						ob_start();
 						$this->data['brand_id'] = $brand_id;
 						$this->data['post_details'] = $posts;
+						$this->data['start_date'] = $daterange['start_date'];
+						$this->data['end_date'] = $daterange['end_date'];
 						//$this->load->view('archives/pdf_export', $this->data);
 						$html = $this->load->view('archives/pdf_export', $this->data, true);
 						$this->pdf_create( $html,$brand_id.'.pdf');
@@ -221,6 +223,7 @@ class Archives extends CI_Controller {
 	    	
 	    	$options = new Options();
 	    	$options->set('isRemoteEnabled', TRUE);
+	    	
 	    	$options->set('isJavascriptEnabled', TRUE);
 		    $dompdf = new Dompdf($options);
 		    

@@ -395,12 +395,12 @@ class Post_model extends CI_Model
 
 
 	public function export_post($brand_id,$start_date,$end_date,$type, $tags, $outlets){
-		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id,post_tags.brand_tag_id');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','LEFT');
 		$this->db->join('brands','brands.id = posts.brand_id','LEFT');
 		$this->db->join('post_tags','post_tags.post_id = posts.id','LEFT');
-		$this->db->join('brand_tags','brand_tags.id = post_tags.brand_tag_id ','LEFT');
+		$this->db->join('brand_tags','brand_tags.id = post_tags.brand_tag_id','LEFT');
 		$this->db->where('posts.status != "deleted"');
 		$this->db->where('posts.status != "draft"');
 		
@@ -413,10 +413,9 @@ class Post_model extends CI_Model
 		}
 		if(!empty($tags))
 		{
-			$this->db->where_in('brand_tags.id',$tags);
+			$tags_str = implode(', ', $tags);
+			$this->db->where('`posts`.`id` in (SELECT DISTINCT (post_tags.post_id) FROM post_tags WHERE post_tags.brand_tag_id in ('.$tags_str.'))');
 		}
-
-
 		$this->db->group_by('posts.id');
 		$query = $this->db->get('posts');
 		//echo $this->db->last_query();	

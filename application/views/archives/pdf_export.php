@@ -27,13 +27,13 @@
 
 	<body class="page-global">
 		<div class="logo-print">
-			<img src="<?php echo base_url(); ?>assets/images/logo-black.png" height="67" width="250" alt="">
+			<img alt="logo" src="assets/images/logo-black.png">
 		</div>
-		<h1>Archive Export: <?php //insert date range here ?></h1>
+		<h1>Archive Export: <?php echo $start_date.' - '.$end_date; ?></h1>
 		<?php 
 			if(!empty($post_details))
 			{
-				//echo '<pre>'; print_r($post_details);echo '</pre>'; die;
+				// echo '<pre>'; print_r($post_details);echo '</pre>'; die;
 				$selected_date =  date('Y-m-d',strtotime($post_details[0]->slate_date_time));
 				$count = 1;
 				foreach ($post_details as $key => $post) 
@@ -41,40 +41,30 @@
 					$outlet_name = strtolower($post->outlet_name);
 					$brand_onwer = $this->user_data['account_id'];
 					$brand_id = $post->brand_id;
-					$style = '';
-					$style_prop = '';
-					if($count > 1)
-					{
-						// send page
-						$style .= ' page-break-before:always;';
-						$style_prop = ' transform: rotate(140deg);margin-top: 3.6%; left: 1px;';
-					}
-					else
-					{
-						// first page
-						$style_prop = 'transform: rotate(140deg); margin-top: 2.06%; left: -13px;';
-					}
+									
 					?>
-					<div class="clearfix post-day" style="margin:2rem 10px 0; <?php echo $style?>">
+					<div class="clearfix post-day" style="margin:2rem 10px 0;">
 						<div class="post-img day-image">
 							<?php 
 								$img_src = '';
+								
 								if(!empty($post->post_images))
 								{
 									foreach ($post->post_images as $img) 
 									{
+
 										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$img->name)) 
 										{
 											if($img->type == 'images'){
-												$img_src = base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name;
+												$img_src ='uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $img->name;
 												break;
 											}
 										}
 									}
 								}
-								if($img_src) {
+								if($img_src) {									
 							?>
-								<img style="display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
+								<img  alt="Image" height="500" style="display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
 							<?php } ?>
 						</div>
 						<div class="post-content">
