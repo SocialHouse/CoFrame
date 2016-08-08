@@ -31,7 +31,7 @@
 		?>
 		<a href="<?php echo base_url()?>user_preferences/user_plan" class="btn btn-sm <?php echo $plan; ?>">Plan</a>
 		<a href="<?php echo base_url()?>user_preferences/billing_info" class="btn btn-sm <?php echo $billing; ?>">Billing</a>
-		<a href="<?php echo base_url()?>user_preferences/users" class="btn btn-sm <?php echo $role; ?>">Users</a>
+		<a href="<?php echo base_url()?>user_preferences/users" class="btn btn-sm <?php echo $role; ?>">Account Users</a>
 		<?php
 	// }
 	?>
