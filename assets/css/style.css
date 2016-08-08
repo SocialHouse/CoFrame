@@ -11500,6 +11500,9 @@ a {
   position: relative;
   z-index: 100;
   padding-bottom: 1rem; }
+  #user-preferences .user-info .post-content-footer {
+    position: relative;
+    bottom: inherit; }
 #user-preferences .btn-group {
   margin: 0px auto 3rem; }
   #user-preferences .btn-group .btn {

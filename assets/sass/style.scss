@@ -3364,6 +3364,10 @@ a {
 		position: relative;
 		z-index: 100;
 		padding-bottom: 1rem;
+		.post-content-footer {
+			position: relative;
+			bottom: inherit;
+		}
 	}
 	.btn-group {
 		margin: 0px auto 3rem;

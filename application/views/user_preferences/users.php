@@ -12,8 +12,8 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 					<?php 
 						$this->load->view('user_preferences/preference_nav');
 					?>
-					<div class="row equal-columns relative-wrapper ">
-						<div class="brand-step equal-height col-md-12" id="brandStep3">
+					<div class="row relative-wrapper ">
+						<div class="brand-step col-md-12" id="brandStep3">
 							<?php
 								
 								$message = $this->session->flashdata('message');
