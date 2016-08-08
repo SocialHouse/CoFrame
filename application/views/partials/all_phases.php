@@ -2,6 +2,7 @@
 if(!empty($post_details->brand_id)){
 	$brand_id = $post_details->brand_id;
 }
+$timezone_list = timezone_list();
 ?>
 	<div class="bg-white approval-phase active animated fadeIn" id="approvalPhase1" data-id="0">
 		<h2 class="clearfix">Phase 1 </h2>
@@ -24,6 +25,19 @@ if(!empty($post_details->brand_id)){
 					</div>
 				</div>
 			</div>
+			<div class="form-group slate-post-tz">
+				<select class="form-control approval_timezone" name="phase[0][time_zone]">
+					<!--<option value="">--Please select timezone--</option>-->
+					<?php 
+						// Display remaining timezones
+						foreach ($timezone_list as $key => $obj) {
+							?>
+							<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+							<?php
+						}
+					?>
+				</select>
+			</div>
 		</div>
 		<label class="phase-one-error-all error hide clearfix"></label>
 		<div class="form-group">
@@ -41,6 +55,9 @@ if(!empty($post_details->brand_id)){
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+		</div>
+		<div class="timezones-preview">
+			<span class="uppercase">Selected timezone:</span> <span class="zone"></span> 
 		</div>
 		<div class="approval-note">
 			
@@ -69,6 +86,19 @@ if(!empty($post_details->brand_id)){
 					</div>
 				</div>
 			</div>
+			<div class="form-group slate-post-tz">
+				<select class="form-control approval_timezone" name="phase[1][time_zone]">
+					<!--<option value="">--Please select timezone--</option>-->
+					<?php 
+						// Display remaining timezones
+						foreach ($timezone_list as $key => $obj) {
+							?>
+							<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+							<?php
+						}
+					?>
+				</select>
+			</div>
 		</div>
 		<label class="phase-two-error error hide clearfix"></label>
 		<div class="form-group">
@@ -86,6 +116,9 @@ if(!empty($post_details->brand_id)){
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+		</div>
+		<div class="timezones-preview">
+			<span class="uppercase">Selected timezone:</span> <span class="zone"></span> 
 		</div>
 		<div class="approval-note">
 			
@@ -114,6 +147,19 @@ if(!empty($post_details->brand_id)){
 					</div>
 				</div>
 			</div>
+			<div class="form-group slate-post-tz">
+				<select class="form-control approval_timezone" name="phase[2][time_zone]">
+					<!--<option value="">--Please select timezone--</option>-->
+					<?php 
+						// Display remaining timezones
+						foreach ($timezone_list as $key => $obj) {
+							?>
+							<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+							<?php
+						}
+					?>
+				</select>
+			</div>
 		</div>
 		<label class="phase-three-error error hide clearfix"></label>
 		<div class="form-group">
@@ -131,6 +177,9 @@ if(!empty($post_details->brand_id)){
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+		</div>
+		<div class="timezones-preview">
+			<span class="uppercase">Selected timezone:</span> <span class="zone"></span> 
 		</div>
 		<div class="approval-note">
 			

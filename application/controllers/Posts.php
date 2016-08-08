@@ -70,7 +70,7 @@ class Posts extends CI_Controller {
 			}
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
 			$this->data['timezones'] = $this->user_model->get_timezones();
-			
+			$this->data['timezone_list'] = $this->data['timezones'];
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 			//echo '<pre>'; print_r($this->user_data);echo '</pre>';
@@ -201,6 +201,7 @@ class Posts extends CI_Controller {
 		    										'brand_id' => $post_data['brand_id'],
 		    										'post_id' => $inserted_id,
 		    										'approve_by' => $approve_date_time,
+		    										'time_zone' => $phase['time_zone'],
 			    									'note' => $phase['note']
 		    									);
 		    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);

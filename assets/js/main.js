@@ -304,9 +304,9 @@ jQuery(function($) {
 
 					btnClicks++;
 				} else {
-					var phase_number = $activePhase.data('id');					
+					var phase_number = $activePhase.data('id');
 					$('#preview_edit_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent('li').remove();
-					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();					
+					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();
 					$('#preview_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent().remove();
 					
 					// $activePhase.next('.approval-phase').find('img[data-id="' + buttonVal + '"]').parent().remove();
@@ -1330,9 +1330,16 @@ jQuery(function($) {
 		$('.saved-phase[data-id="' + phaseId + '"]').find('.approval-note').html('NOTE: ' + $(this).val().replace(/\r?\n/g, '<br/>'));
 	});
 
+	$(document).on('change', '.approval_timezone', function() {
+		var phaseId = $(this).closest('.approval-phase.active').data('id');
+		console.log($('option:selected',this).text());
+		console.log('#preview_approvalPhase'+phaseId);
+		console.log($('#preview_approvalPhase' + phaseId ).find('.timezones-preview'));
+		$('#preview_approvalPhase' + phaseId ).find('.timezones-preview').text($('option:selected',this).text());
+	});
+
 	$(document).on('click', '.save-phases', function() {
 		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
-
 		$.each(phases, function() {
 			var phaseId = $(this).data('id');
 			$(this).addClass('hide').removeClass('active');
@@ -1340,7 +1347,6 @@ jQuery(function($) {
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
 			}
 		});
-
 		$('#save-phase-btns, .modal-contain').hide();
 		$('#submit-approval-btns').show();
 	});
@@ -2122,8 +2128,6 @@ function showContent(obj) {
 function setPhaseBtnsCreatePost(activePhase,phaseCount) {
 	// var phaseId = activePhase.data('id');
 	var btn_num = 0;
-	console.log(phaseCount);
-	console.log(jQuery(activePhase).data('id'));
 	if(jQuery(activePhase).data('id') == phaseCount)
 	{
 		console.log(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'));

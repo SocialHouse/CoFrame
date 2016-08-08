@@ -414,3 +414,6 @@ ALTER TABLE `aauth_user_to_group` CHANGE `brand_id` `brand_id` INT(11) NULL;
 
 --- 06-08-2016
 ALTER TABLE `social_media_keys` ADD `created_at` DATETIME NULL DEFAULT NULL AFTER `type`, ADD `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_at`; 
+
+--- 08-08-2016
+ALTER TABLE `phases` ADD `time_zone` VARCHAR(20) NULL DEFAULT NULL AFTER `status`;

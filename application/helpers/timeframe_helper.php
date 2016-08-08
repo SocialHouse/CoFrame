@@ -905,4 +905,19 @@ if(!function_exists('calculate_date_diff'))
     }
 }
 
+if(!function_exists('timezone_list'))
+{
+    function timezone_list()
+    {
+        $CI = & get_instance();
+        $timezone = $CI->timeframe_model->get_table_data('timezone');
+        if($timezone)
+        {
+            return $timezone;
+        }
+        return FALSE;
+
+    }
+}
+
 

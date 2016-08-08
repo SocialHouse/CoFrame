@@ -316,9 +316,10 @@ class Calendar extends CI_Controller {
 				}
 				
 			}
+			$this->data['timezone_list'] = timezone_list();
 			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css');
 			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'datepicker.js',js_url().'timepicker.js');
-			// echo '<pre>'; print_r($post_phases);echo '</pre>';
+			// echo '<pre>'; print_r($this->data['timezone_list']);echo '</pre>';
 			$this->load->view('calendar/edit_post_calendar', $this->data);
 		}
 	}
