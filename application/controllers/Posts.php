@@ -55,6 +55,7 @@ class Posts extends CI_Controller {
 		check_access('create',$brand);
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);		
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
@@ -771,6 +772,7 @@ class Posts extends CI_Controller {
 
 			if(!empty($brand))
 			{
+				$this->user_data['timezone'] = $brand[0]->timezone;
 				$this->data['search'] = $get_data['search'];
 				$brand_id = $brand[0]->id;				
 				$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);

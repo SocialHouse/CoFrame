@@ -44,6 +44,7 @@ class Settings extends CI_Controller {
 
 		if(!empty($brand))
 		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;
 			$this->data['added_users'] = $this->brand_model->get_brand_users($brand_id);
@@ -79,7 +80,7 @@ class Settings extends CI_Controller {
 		$this->data['brand'] = $brand[0];
 
 		if(!empty($step_number) && !empty($slug)){
-
+			
 			if($step_number == 1 ){
 				$timezone_str = $this->brand_model->get_brand_timezone_string($brand[0]->id);
 				$this->data['timezone'] = $timezone_str[0]->timezone; 

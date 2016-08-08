@@ -37,8 +37,7 @@ if(!empty($post_details->brand_id)){
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase1" data-id="0">
 		<h2 class="clearfix">Phase 1 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
-		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
-			
+		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
@@ -83,8 +82,7 @@ if(!empty($post_details->brand_id)){
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase2" data-id="1">
 		<h2 class="clearfix">Phase 2 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
-		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						
-			
+		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>			
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
@@ -129,7 +127,7 @@ if(!empty($post_details->brand_id)){
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase" data-id="2">
 		<h2 class="clearfix">Phase 3 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
-			
+			<li></li>
 		</ul>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>

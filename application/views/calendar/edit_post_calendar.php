@@ -266,7 +266,7 @@
 													<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 2;?>" disabled="disabled">Next Phase</button>
 												</div>
 											</div>
-											<div class="bg-white approval-phase saved-phase animated fadeIn" id="preview_approvalPhase<?php echo $phase_no + 1;?>" data-id="<?php  echo $phase_no;?>">
+											<div class="bg-white approval-phase saved-phase animated fadeIn" id="preview_edit_approvalPhase<?php echo $phase_no + 1;?>" data-id="<?php  echo $phase_no;?>">
 												<h2 class="clearfix">Phase <?php echo $phase_no + 1;?> 
 													<button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button>
 													<?php
@@ -385,7 +385,7 @@
 													?>
 												</div>													
 											</div>
-											<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase<?php echo $i; ?>" data-id="<?php echo $i - 1; ?>">
+											<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_edit_approvalPhase<?php echo $i; ?>" data-id="<?php echo $i - 1; ?>">
 												<h2 class="clearfix">Phase <?php echo $i?> <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 												<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 												</ul>													
@@ -400,7 +400,7 @@
 										}
 									}
 									?>
-									<footer class="post-content-footer">
+									<footer class="post-content-footer hide phase-footer">
 										<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
 										<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled btn-secondary" disabled="disabled">Save Phases</button>
 									</footer>

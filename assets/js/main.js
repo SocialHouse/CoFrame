@@ -71,7 +71,6 @@ jQuery(function($) {
 		$(document).on('click', '.sub-user-outlet', function() {
 			var savedOutlets = $('#userOutlet').val();
 			var newOutlets = [];
-			console.log($(this));
 			var thisOutlet = $(this).data('selectedOutlet');
 			$(this).toggleClass('disabled selected');
 			if ($(this).hasClass('selected')) {
@@ -279,6 +278,9 @@ jQuery(function($) {
 				$(userImg).attr('data-id', buttonVal);
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
+				var previewImgDiv = userImg.parent().clone();
+				var li=document.createElement('li');
+				var previewImgDivEdit = $(li).append(userImg.clone());
 				var newImage = userImg.clone();
 				// var img = imgDiv;
 				var $activePhase = $('#phaseDetails').find('.active');
@@ -286,8 +288,14 @@ jQuery(function($) {
 				if ($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
 					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
-					$activePhase.find('.user-list li').prepend(imgDiv);
+					$activePhase.find('.user-list li').prepend(imgDiv);	
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
+					$('#preview_'+$activePhase.attr('id')).find('li').append(previewImgDiv);
+
+					$('#preview_edit_'+$activePhase.attr('id')).find('ul').append(previewImgDivEdit);
+					
+
+
 					$btn.attr('data-linked-phase', activePhaseId);
 
 					setTimeout(function() {
@@ -296,8 +304,12 @@ jQuery(function($) {
 
 					btnClicks++;
 				} else {
-					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();
-					$activePhase.next('.approval-phase').find('img[data-id="' + buttonVal + '"]').parent().remove();
+					var phase_number = $activePhase.data('id');					
+					$('#preview_edit_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent('li').remove();
+					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();					
+					$('#preview_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent().remove();
+					
+					// $activePhase.next('.approval-phase').find('img[data-id="' + buttonVal + '"]').parent().remove();
 
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
@@ -584,12 +596,15 @@ jQuery(function($) {
 					},
 					visible: function() {
 						var modal = this;
+						$(modal).attr('id','qtip-'+pid);
+						$(modal).find('qtip-content').attr('id','qtip-'+pid+'-content');
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
 						/*	used for display selected and not selected (hide) Approvals list
 						 *	This is use to disable users which are already selected in next phase for only first phase on edit post overlay page
 						 */
+						 
 						 if ($target.hasClass('first-new-phase')) {
 						 	var $activePhase = $target.closest('.approval-phase');
 						 	var phaseId = $activePhase.attr('id');
@@ -608,51 +623,76 @@ jQuery(function($) {
 						 		}
 						 	});
 						 }
-						}
-					},
-					id: pid,
-					position: {
-						adjust: {
-							x: poffsetX,
-							y: poffsetY
-						},
-						at: ptattachment,
-						my: pattachment,
-						container: $(pcontainer),
-						target: $target,
-						viewport: pconstrain
-					},
-					show: {
-						effect: function() {
-							$(this).fadeIn();
-						},
-						event: e.type,
-						ready: true,
-						solo: true
-					},
-					hide: {
-						effect: function() {
-							$(this).fadeOut();
-						},
-						event: phide
-					},
-					overwrite: false,
-					style: {
-						classes: 'qtip-shadow ' + pclass,
-						tip: {
-							width: tipW,
-							height: tipH,
-							corner: arrowcorner,
-							mimic: 'center'
-						},
-						width: pwidth
+						 else
+						 {
+						 	//if user added one phase with all user and on edit post
+						 	//he removed one user from first user and then go to next phase
+						 	//it should not disable all user except which removed
+						 	var $activePhase = $target.closest('.approval-phase');
+						 	var phaseId = $activePhase.attr('id');
+						 	var users = $(modal).find('.user-list li');
+						 	$.each(users, function(c, user) {
+						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
+						 		
+						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		
+						 		if($phaseUser.length) {
+						 		}
+						 		else
+						 		{
+						 			$(user).find('i.check-box').removeClass('disabled');
+						 			$(user).find('i.check-box').removeClass('selected');
+						 			$(user).find('i.check-box').attr('data-linked-phase','');
+						 			
+						 		}
+						 	});
+					 	}
 					}
-				}, e);
+				},
+				id: pid,
+				position: {
+					adjust: {
+						x: poffsetX,
+						y: poffsetY
+					},
+					at: ptattachment,
+					my: pattachment,
+					container: $(pcontainer),
+					target: $target,
+					viewport: pconstrain
+				},
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true,
+					solo: true
+				},
+				hide: {
+					effect: function() {
+						$(this).fadeOut();
+					},
+					event: phide
+				},
+				overwrite: false,
+				style: {
+					classes: 'qtip-shadow ' + pclass,
+					tip: {
+						width: tipW,
+						height: tipH,
+						corner: arrowcorner,
+						mimic: 'center'
+					},
+					width: pwidth
+				}
+			}, e);
 		});
 
 		//Get popover content from an external source
-		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {
+		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {			
 			var $target = $(this);
+			console.log($target);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
 			var pattachment = $target.data('attachment');
@@ -717,7 +757,6 @@ jQuery(function($) {
 					'style.width': pwidth
 				}, e);
 			} else {
-
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
 					'content.title': ptitle,
@@ -731,7 +770,7 @@ jQuery(function($) {
 						/*	used for display selected and not selected (hide) Approvals list
 						 *	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
 						 *
-						 */
+						 */		 
 						 if ($target.hasClass('first-new-phase')) {
 						 	var $activePhase = $target.closest('.approval-phase');
 						 	var phaseId = $activePhase.attr('id');
@@ -743,6 +782,25 @@ jQuery(function($) {
 						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
 						 			if(phaseId === selectedPhase) {
 						 				$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
+						 			}
+						 			else {
+						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
+						 			}
+						 		}
+						 	});
+						 }
+						 else
+						 {
+						 	var $activePhase = $target.closest('.approval-phase');
+						 	var phaseId = $activePhase.attr('id');
+						 	var users = $(modal).find('.user-list li');
+						 	$.each(users, function(c, user) {
+						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
+						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		if($phaseUser.length) {
+						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
+						 			if(phaseId === selectedPhase) {
+						 				$(user).find('[data-group="post-approver"]').addClass('selected').removeClass('disabled').attr('data-linked-phase', phaseId);
 						 			}
 						 			else {
 						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
@@ -1153,6 +1211,8 @@ jQuery(function($) {
 		if ($(this).hasClass('phase-num')) {
 			$(this).trigger('click');
 		}
+		console.log($('#qtip-popover-user-list'));
+		$('#qtip-popover-user-list').remove();
 	});
 
 	$(document).on('click', '.cancel-edit-phase', function() {
@@ -1166,6 +1226,7 @@ jQuery(function($) {
 				$(this).addClass('hide');
 			}
 		});
+		$('.phase-footer').addClass('hide');
 	});
 
 	$('body').on('contentShown', '#phaseDetails', function() {
@@ -1293,12 +1354,13 @@ jQuery(function($) {
 		$.each(phases, function() {
 			$(this).removeClass('hide').addClass('inactive');
 		});
+		$('.phase-footer').removeClass('hide');
 		
 		//hide saved phase view
 		$('#phaseDetails .saved-phase').each(function() {
 			$(this).addClass('hide').removeClass('active');
 		});
-		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]');
+		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]:not(.saved-phase)');
 		$activePhase.removeClass('inactive').addClass('active');
 
 		setPhaseBtns($activePhase);
@@ -1425,7 +1487,7 @@ jQuery(function($) {
 		var phaseId = activePhase.data('id');
 		var btn_num = 0;
 		if (activePhase.find('.approver-selected .user-img').length) {
-			if (activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val()) {
+			if (activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val()) {				
 				if (activePhase.find('[data-new-phase]').length > 1) {
 					btn_num = phaseId;
 				}
