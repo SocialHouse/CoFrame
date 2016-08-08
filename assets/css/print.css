@@ -126,14 +126,20 @@ h1 {
 /*Calendar*/
 .calendar-day {
 	height: auto !important;
+	margin: 0;
 }
 .post-day {
 	box-shadow: none;
 	margin: 0;
+	padding-top: 30px;
 	width: auto;
 	left: inherit !important;
 	top: inherit !important;
-	position: relative !important;
+	position: static !important;
+	border-top: 1px solid #ccc;
+}
+.post-day:first-child {
+	border: 0;
 }
 .post-day .post-img {
 	width: 30%;
@@ -141,6 +147,9 @@ h1 {
 }
 .post-day .post-img img {
 	width: auto;
+	height: auto;
+	display: block;
+	margin-bottom: 30px;
 }
 .post-day .post-content {
 	float: left;
@@ -161,6 +170,7 @@ h1 {
 .post-day .post-body {
 	font-size: 17px;
 	font-family: "Times New Roman", serif;
+	padding-bottom: 30px;
 }
 .post-day h6 {
 	margin: 0 0 5px;
@@ -176,8 +186,7 @@ h1 {
 	margin-bottom: 5px;
 	margin-top: 0;
 }
-.clearfix::after {
-	content: "";
-	display: table;
+.clearfix {
 	clear: both;
+	width: 100%;
 }

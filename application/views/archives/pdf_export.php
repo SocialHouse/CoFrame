@@ -5,7 +5,7 @@
 	<title>CoFrame</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
+	<link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 	<link rel="stylesheet" href="<?php echo css_url(); ?>print.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css"/>
 	  <style type="text/css">
@@ -29,7 +29,7 @@
 		<div class="logo-print">
 			<img alt="logo" src="assets/images/logo-black.png">
 		</div>
-		<h1>Archive Export: <?php echo $start_date.' - '.$end_date; ?></h1>
+		<h1>Archive Export: <?php echo date("n/j/Y", strtotime($start_date)) .' - '. date("n/j/Y", strtotime($end_date)); ?></h1>
 		<?php 
 			if(!empty($post_details))
 			{
@@ -43,7 +43,7 @@
 					$brand_id = $post->brand_id;
 									
 					?>
-					<div class="clearfix post-day" style="margin:2rem 10px 0;">
+					<div class="clearfix post-day">
 						<div class="post-img day-image">
 							<?php 
 								$img_src = '';
@@ -65,6 +65,8 @@
 								if($img_src) {									
 							?>
 								<img  alt="Image" height="500" style="display: -dompdf-image !important;" src="<?php echo $img_src; ?>">
+							<?php } else {?>
+							&nbsp;
 							<?php } ?>
 						</div>
 						<div class="post-content">
@@ -76,15 +78,14 @@
 									Post By <?php echo (!empty($post->user))?$post->user :'';?>:
 								</div>
 								<div class="post-date">
-									<?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST 
+									<?php echo date('l, n/j/y \a\t g:i A' , strtotime($post->slate_date_time )); ?>
 								</div>
 								<?php 
 								if($post->status == 'scheduled')
 								{
 								?>
 									<span class="post-approval">
-										<strong>All Approvals Received 
-										</strong>
+										<strong>All Approvals Received</strong>
 									</span>
 								<?php 
 								}
@@ -100,8 +101,7 @@
 								{
 								?>
 									<span class="post-approval">
-										<strong>Published 
-										</strong>
+										<strong>Published</strong>
 									</span>
 								<?php
 								}

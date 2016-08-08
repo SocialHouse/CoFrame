@@ -8640,7 +8640,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8668,10 +8668,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -12290,11 +12290,12 @@ textarea.form-control {
 
   /*Calendar*/
   .calendar-day {
-    height: auto !important; }
+    height: auto !important;
+    margin: 0; }
 
   .post-day {
     box-shadow: none;
-    margin: 0 0 20px 0;
+    margin: 0 0 30px 0;
     width: auto;
     left: inherit !important;
     top: inherit !important;
@@ -12308,8 +12309,8 @@ textarea.form-control {
 
   .post-day .post-content {
     float: left;
-    width: 68%;
-    padding: 0 0 0 2%; }
+    width: 67%;
+    padding: 0 0 0 3%; }
 
   .post-day .post-meta {
     margin-bottom: 20px; }
