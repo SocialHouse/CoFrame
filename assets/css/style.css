@@ -10994,6 +10994,8 @@ a {
 
 #live-post-preview, #live-post-preview-approver {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4); }
+  .qtip-calendar-post #live-post-preview, .qtip-calendar-post #live-post-preview-approver {
+    box-shadow: none; }
 
 .auto-save {
   font-size: 1.2rem;

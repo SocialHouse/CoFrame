@@ -18,7 +18,7 @@ if(!empty($post_images)){
 			</div>
 			<div class="user-profile-details">
 				<div class="post-header">
-					<div class="post-user-name pull-left"><?php echo (!empty($post_details->user))? $post_details->user :''; ?></div>
+					<div class="post-user-name pull-left"><?php echo get_company_name($this->user_data['account_id']); ?></div>
 					<span class="time-color pull-right">0s</span>
 				</div>
 				<div class="post_copy_text">

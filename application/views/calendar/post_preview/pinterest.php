@@ -38,7 +38,7 @@ if(!empty($post_details)){
 					?>	
 				</div>
 				<div class="post-user-name pull-left">
-					by <?php echo (!empty($post_details->user))? $post_details->user :''; ?>
+					by <?php echo get_company_name($this->user_data['account_id']); ?>
 				</div>
 			</div>
 			<div class="post_copy_text">

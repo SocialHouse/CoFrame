@@ -8,7 +8,7 @@
 					</div>
 					<div class="user-profile-details">
 						<span class="post-user-name">
-							<?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?><span class="no-of-photos"></span>
+							<?php echo get_company_name($this->user_data['account_id']); ?><span class="no-of-photos"></span>
 						</span>
 						<span class="time-color">
 							Just now
@@ -30,7 +30,7 @@
 					<div class="pull-left">
 						<img src="<?php echo img_url().'default_profile.jpg'; ?>" class="img-circle user-profile-img">
 					</div>
-					<span class="post-user-name pull-left">Ninad</span>
+					<span class="post-user-name pull-left"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 					<div class="pull-right time-color">0m</div>
 				</div>
 				<div class="insta-img-div img-div">
@@ -38,7 +38,7 @@
 				</div>	
 					
 				<div class="insta-post-copy">
-					<span class="post-user-name">Ninad</span>
+					<span class="post-user-name"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 					<span class="post_copy_text"></span>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 						<img src="<?php echo img_url(); ?>default_profile_twitter.png">
 					</div>
 					<div class="user-profile-details">
-						<div class="post-user-name"><?php echo $this->user_data['first_name'].' '.$this->user_data['last_name'] ?> <span class="time-color">@ninadgaikwad - 1s</span></div>
+						<div class="post-user-name"><?php echo get_company_name($this->user_data['account_id']); ?> <span class="time-color">@<?php echo get_company_name($this->user_data['account_id']); ?> - 1s</span></div>
 						<div class="post_copy_text">
 						</div>
 						<div class="twitter-img-div img-div">			
@@ -74,7 +74,7 @@
 					</div>
 					<div class="user-profile-details">
 						<div class="post-header">
-							<div class="post-user-name pull-left">ninad g</div>
+							<div class="post-user-name pull-left"><?php echo get_company_name($this->user_data['account_id']); ?></div>
 							<span class="time-color pull-right">0s</span>
 						</div>
 						<div class="post_copy_text"></div>
@@ -93,7 +93,7 @@
 						<img class="user-profile-img circle-img" src="<?php echo img_url(); ?>default_profile.jpg">
 					</div>
 					<div class="pull-left">
-						<div class="post-user-name">Tragic Tofu</div>
+						<div class="post-user-name"><?php echo get_company_name($this->user_data['account_id']); ?></div>
 						<div class="time-color">May 5, 2016</div>
 					</div>
 				</div>
@@ -113,7 +113,7 @@
 				</div>
 				<div class="post-details">
 					<div class="post-user-name">
-						Tragic Tofu
+						<?php echo get_company_name($this->user_data['account_id']); ?>
 					</div>
 					<div class="img-div">
 					</div>
@@ -135,7 +135,7 @@
 						<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">
 					</div>
 					<div class="pull-left">
-						<div class="post-user-name">Tragic Tofu</div>
+						<div class="post-user-name"><?php echo get_company_name($this->user_data['account_id']); ?></div>
 					</div>
 				</div>
 				<div class="post-section">
@@ -158,7 +158,7 @@
 							<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg" width="40">
 						</div>
 						<div class="post-user-name pull-left">
-							by Pinterest Username
+							by <?php echo get_company_name($this->user_data['account_id']); ?>
 						</div>
 					</div>
 					<div class="post_copy_text"></div>

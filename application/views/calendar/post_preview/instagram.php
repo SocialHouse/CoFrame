@@ -22,7 +22,7 @@ if(!empty($post_images)){
 					}
 				?>
 			</div>
-			<span class="post-user-name pull-left"><?php echo (!empty($post_details->user))? $post_details->user :''; ?></span>
+			<span class="post-user-name pull-left"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 			<div class="pull-right time-color">0m</div>
 		</div>
 	

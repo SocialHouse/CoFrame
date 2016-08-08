@@ -23,7 +23,7 @@
 		</div>
 		<div class="post-details">
 			<div class="post-user-name">
-				Tragic Tofu
+				<?php echo get_company_name($this->user_data['account_id']); ?>
 			</div>
 			<div class="img-div">
 				<?php
