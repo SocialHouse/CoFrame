@@ -24,7 +24,7 @@ if(!empty($post_id) && !empty($slug)){
 			else
 			{
 				?>
-				<li><a href="<?php echo base_url().'view-request/'.$post_id; ?>">Edit Requests</a></li>
+				<li><a href="<?php echo base_url().'edit-request/'.$post_id; ?>">Edit Requests</a></li>
 				<?php
 			}
 			?>				
