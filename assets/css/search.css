@@ -1,79 +1,3 @@
-#post-details .error {
-  color: red;
-  text-transform: none !important;
-  font-size: 12px;
-  clear: both; }
-
-#payment-form .error {
-  color: red;
-  float:left;
-  text-transform: none !important;
-  font-size: 12px;
-  clear: both; }
-
-#step_4_edit .error {
-  color: red;
-  text-transform: none !important;
-  clear: both; }
-
-#step_3_edit .error {
-  color: red;
-  text-transform: none !important;
-  clear: both; }
-
-#reschedule_post .error, #reshedule_date .error{
-  color: red;
-  text-transform: none !important;
-  clear: both;
-  text-decoration: none;
-}  
-
-/*
-  pinterest preview 
-*/
-.pinterest-img-div img{
-    border-radius: 14px  14px 0 0;
-  }
-  .pinterest-post{
-    color: #777;
-    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
-    font-size: 12px;
-  }
-
-  .pinterest-post .post_copy_text{
-    color: #333;
-    font-size: 13px;
-    line-height: 17px;
-    word-wrap: break-word
-  }
-  .creditItem{
-    color: #777;
-    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
-    font-weight: bold;
-  }
-  .creditTitle {
-    color: #777;
-    font-size: 8px;
-    font-family: "Helvetica","Hiragino Kaku Gothic Pro","Meiryo",sans-serif;
-  } 
-  .pinterest-comment-div{
-    padding: 15px 15px 0px 15px;
-    border-bottom: 1px solid #333;
-  }
-  .pinterest-sharing-option{
-    padding: 5px 15px 5px 15px;
-    border-top-color: #e7e7e7;
-      border-top-style: solid;
-      border-top-width: 1px;
-  }
-  .pinterest-userinfo {
-      padding-left: 50px;
-      padding-top: 5px;
-  }
-  .pintereat-comment {
-    border-radius: 15px;
-    border-color: #777;
-  }
   .add-phases-footer .btn-default,.post-content-footer .btn-default{
     border: 1px solid #000;
     color: #000;
@@ -83,13 +7,6 @@
     background: #000 none repeat scroll 0 0;
     border-color: #000;
     color: #fff;
-  }
-
-  .error{
-    clear: both;
-    color: red;
-    font-size: 12px;
-    text-transform: none !important;
   }
 
   button.modal-hide{

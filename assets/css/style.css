@@ -12106,13 +12106,21 @@ textarea.form-control {
 .user-upload-img {
   font-style: italic; }
 
-#add-brand-details .error {
-  color: red;
-  text-transform: none;
+.error {
   clear: both;
+  color: #C71F2A;
+  text-transform: none !important;
   letter-spacing: normal;
+  font-size: .85rem; }
+
+#add-brand-details .error {
   margin-top: -.75rem;
   margin-bottom: 0.75rem; }
+
+#payment-form .error {
+  display: block;
+  text-align: left;
+  padding-left: 5px; }
 
 .no-data {
   width: calc(100% - 15px);
