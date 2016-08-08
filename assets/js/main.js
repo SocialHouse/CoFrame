@@ -1484,7 +1484,14 @@ jQuery(function($) {
 	}
 
 	function setPhaseBtns(activePhase) {
-		var phaseId = activePhase.data('id');
+		var phaseId = activePhase.data('id');		
+		//to hide next button for last phase
+		if(phaseId == $('#phaseDetails').find('.approval-phase:not(".saved-phase"):not(".hide")').length - 1)
+		{
+			activePhase.find('[data-new-phase]:eq(' + 1 + ')').addClass('hide');
+		}
+
+
 		var btn_num = 0;
 		if (activePhase.find('.approver-selected .user-img').length) {
 			if (activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val()) {				
@@ -2095,6 +2102,66 @@ function showContent(obj) {
 	obj.fadeIn(function() {
 		obj.trigger('contentShown');
 	});
+
+	if(jQuery('#phaseDetails').attr('id') == jQuery(obj).attr('id'))
+	{		
+		var phases = jQuery('.add_phases_num #approvalPhases').val();
+		jQuery.each(jQuery('#phaseDetails').find('.approval-phase'),function(index,obj){			
+
+			if(jQuery(this).data('id') >= phases)
+			{
+				jQuery(this).addClass('hide');
+			}
+		});
+
+		setPhaseBtnsCreatePost(jQuery('#phaseDetails').find('.approval-phase:first'),phases - 1);
+
+	}
+}
+
+function setPhaseBtnsCreatePost(activePhase,phaseCount) {
+	// var phaseId = activePhase.data('id');
+	var btn_num = 0;
+	console.log(phaseCount);
+	console.log(jQuery(activePhase).data('id'));
+	if(jQuery(activePhase).data('id') == phaseCount)
+	{
+		console.log(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'));
+		activePhase.find('[data-new-phase]:eq(' + btn_num + ')').addClass('hide');
+		// toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), false);
+	}
+
+	// if (activePhase.find('.approver-selected .user-img').length) {
+	// 	if (activePhase.find('.phase-date-time-input').val() && activePhase.find('.hour-select').val() && activePhase.find('.minute-select').val()) {				
+	// 		if (activePhase.find('[data-new-phase]').length > 1) {
+	// 			btn_num = phaseId;
+	// 		}
+
+	// 		toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), false);
+
+	// 		if (phaseId === 0) {
+	// 			toggleBtnClass($('.save-phases'), false);
+	// 		}
+	// 	} else {
+	// 		if (activePhase.find('[data-new-phase]').length) {
+	// 			btn_num = phaseId;
+	// 		}
+	// 		toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), true);
+
+	// 		if (phaseId === 0) {
+	// 			toggleBtnClass($('.save-phases'), true);
+	// 		}
+	// 	}
+	// } else {
+	// 	if (activePhase.find('[data-new-phase]').length > 1) {
+	// 		btn_num = phaseId;
+	// 	}
+	// 	toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), true);
+
+	// 	if (phaseId === 0) {
+	// 		toggleBtnClass($('.save-phases'), true);
+	// 	}
+	// }
 }
 
 function hideContent(obj) {
