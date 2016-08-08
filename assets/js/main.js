@@ -2050,7 +2050,7 @@ function convertToLink(text) {
 
 function hashtagToLink(text) {
 	var exp = /(?:^|\W)#(\w+)(?!\w)/g;
-	return text.replace(exp, "<a href='$1' target='_blank'>#$1</a>");
+	return text.replace(exp, " <a href='$1' target='_blank'>#$1</a>");
 }
 
 function atToLink(text) {
