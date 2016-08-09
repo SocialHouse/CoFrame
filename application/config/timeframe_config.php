@@ -72,14 +72,14 @@ $config['plans'] = array(
 								'phase_approvals' => 1
 							),
 						'start-up' => array(
-								'brands' => 10,
-								'master_admins' => 10,
-								'users' => 30,
+								'brands' => 1,
+								'master_admins' => 1,
+								'users' => 3,
 								'outlets' => 3,
 								'real_time_notification' => 1,
 								'email_notification' => 0,
-								'co_create' => 1,
+								'co_create' => 0,
 								'tags' => 3,
-								'phase_approvals' => 1
+								'phase_approvals' => 0
 							)
 					);
