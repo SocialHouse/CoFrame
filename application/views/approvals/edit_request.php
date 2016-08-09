@@ -247,7 +247,7 @@
 																	{
 																		?>
 																		<div class="comment-btns">
-																			<a href="#" class="reply-link show-hide-replay" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
+																			<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
 																		</div>
 																		<?php 
 																	}
@@ -446,7 +446,7 @@
 			</div>
 			<div class="suggest-edit">
 				<div class="form-group">
-					<textarea class="form-control" rows="2" name="comment" id="replay_comment_copy" placeholder="Suggest an edit here..."></textarea>
+					<textarea class="form-control" rows="2" name="comment" id="reply_comment_copy" placeholder="Suggest an edit here..."></textarea>
 				</div>
 				<div class="form-group clearfix">
 					<div class="attachment pull-sm-left">

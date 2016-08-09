@@ -115,40 +115,31 @@ jQuery(function($) {
         }
     });
 
-    $(document).on('click', '.show-hide-replay', function(e) {
+    $(document).on('click', '.show-hide-reply', function(e) {
         e.preventDefault();
         var $trigger = $(this);
         var show =  $(this).data('show');
-        var replay_id =  show.substring(1);
+        var reply_id =  show.substring(1);
         var html_body = $('#commentReplyStatic').html();
-        $comment = $trigger.parent().parent();
+        var $comment = $trigger.closest('.comment');
 
         if($trigger.hasClass('active')){
             $(show).slideUp(function() {
                 $(show).remove();
+				equalColumns();
             });
+			$comment.removeClass('has-reply');
         }else{
-            $comment.prepend(html_body);
-            $comment.find('.emptyCommentReply').attr('id',replay_id);
-            $comment.find('.reply-comment-submit').attr('data-parent-id',replay_id.split("_")[1]);
+            $comment.append(html_body);
+            $comment.find('.emptyCommentReply').attr('id',reply_id);
+            $comment.find('.reply-comment-submit').attr('data-parent-id',reply_id.split("_")[1]);
             $(show).removeClass('emptyCommentReply');
+			$comment.addClass('has-reply');
+			$trigger.addClass('active');
         }
 
-        $.each($trigger.parentsUntil('.approval-phase'), function(i, cntrl){
-            if($(cntrl).hasClass('equal-section') && $(cntrl).hasClass('col-md-8') ){
-                if($trigger.hasClass('active')){
-                    $trigger.removeClass('active');
-                    setTimeout(function() {
-                        $(cntrl).height("-=240");
-                    },300);
-                }else{
-                    $trigger.addClass('active');
-                    $(cntrl).height("+=240").slideDown();
-                }
-            }
-        });
-
         $(show).slideToggle(function(){
+			equalColumns();
             $(show).trigger('contentSlidDown', [$trigger]);
         });         
     });
@@ -165,7 +156,7 @@ jQuery(function($) {
         }
     });
 
-    $(document).on('keyup blur','#replay_comment_copy',function(){
+    $(document).on('keyup blur','#reply_comment_copy',function(){
         $suggest_edit =  $(this).parent().parent();
         if($.trim($(this).val()))
         {

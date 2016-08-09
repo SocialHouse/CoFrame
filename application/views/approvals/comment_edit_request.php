@@ -47,7 +47,7 @@ foreach ($replies as $key => $obj) {
 				{
 					?>
 					<div class="comment-btns">
-						<a href="#" class="reply-link show-hide-replay" data-show="#commentReply_<?php echo $obj->id; ?>">Reply</a>
+						<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $obj->id; ?>">Reply</a>
 					</div>
 					<?php 
 				}
