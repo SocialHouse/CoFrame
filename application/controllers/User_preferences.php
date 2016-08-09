@@ -538,14 +538,14 @@ class User_preferences extends CI_Controller {
 	        	);
 
     		$condition = array('aauth_user_id' => $user_id);
-	        $this->timeframe_model->update_data('user_info',$user_info,$condition);
+	       $this->timeframe_model->update_data('user_info',$user_info,$condition);
 
 	        // Update user profile image
     		$user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
 	        if($post_data['is_user_image'] == 'yes')
 	        {
-	        	 if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64']))
-	        	 {
+	        	if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64']))
+	        	{
 	        		$base64_image = $post_data['user_pic_base64'];
 	    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
 
@@ -594,9 +594,7 @@ class User_preferences extends CI_Controller {
 	        		$this->aauth->allow_user($user_id,$permission->perm_id,NULL,$this->user_data['account_id']);
         		}
         	}
-
-
-	       	redirect(base_url().'user_preferences/users');
+        	redirect(base_url().'user_preferences/users');
     	}
     }
 

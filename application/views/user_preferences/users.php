@@ -30,10 +30,36 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								<div class="brand-fields">
 									<input type="hidden" name="all_users" id="all_users" value="<?php echo $all_users; ?>">
 									<div id="users_list" class="user-permissions-list">
+										<div class="clearfix">
+											<div class="pull-md-right">
+												<div class="table-header">
+													<div class="permission">Create</div>
+												</div>
+												<!-- <div class="table-header">
+													<div class="permission">Edit</div>
+												</div> -->
+												<div class="table-header">
+													<div class="permission">Approve</div>
+												</div>
+												<div class="table-header">
+													<div class="permission">View Content</div>
+												</div>
+												<div class="table-header">
+													<div class="permission">Brand Settings</div>
+												</div>
+												<div class="table-header">
+													<div class="permission">Billing</div>
+												</div>
+												<div class="table-header">
+													<div class="permission">Master</div>
+												</div>
+											</div>
+										</div>
 										<?php
 											$master_user_count = 1;
 											if(!empty($added_users))
 											{ 
+												// echo '<pre>'; print_r($added_users);echo '</pre>'; die;
 												foreach($added_users as $user)
 												{ 
 													?> 
@@ -50,7 +76,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 																<span class="title"><?php echo $user->title; ?></span>
 																<span class="email"><?php echo $user->email; ?></span>
 															</div>
-															<div class="post-approver-name">
+															<div class="pull-sm-left post-approver-name">
 																<strong>
 																	<span class="first_name"><?php echo $user->first_name; ?></span>
 																	&nbsp;
@@ -58,8 +84,66 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 																</strong>
 																	<span class="role pull-sm-left role"><?php echo $user->role; ?></span>
 															</div>
+
 														</div>
-													</div> 
+														
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"create",'','')) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div>
+														
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"approve",'', $this->user_data['account_id'])) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div>
+															
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"view",'', $this->user_data['account_id'])) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div>
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"settings",'', $this->user_data['account_id'])) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div>
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"billing",'', $this->user_data['account_id'])) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div>
+															<div class="table-cell text-xs-center vertical-middle has-permission">
+																<?php 
+																	if (check_user_perm($user->aauth_user_id,"master",'', $this->user_data['account_id'])) {
+																		?> 
+																		<i class="fa fa-check"></i>
+																		<?php
+																	}
+																?> 
+															</div> 
+													</div>
 													<?php
 													if($user->role == 'Master Admin'){
 														$master_user_count++;
@@ -68,7 +152,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 											}
 										?>
 									</div>
-									<div id="addNewUser" class="hidden">										
+									<div id="addNewUser" class="hidden">
 										<form id="user_preferences_add_user" data method="POST" class="file-upload clearfix has-advanced-upload " action="<?php echo base_url()?>user_preferences/add_user" enctype="multipart/form-data">
 											<h5 class="text-xs-center border-bottom border-black ">Add a User<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="User Images...Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h5>
 											<div class="form-group">

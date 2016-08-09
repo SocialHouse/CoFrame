@@ -249,10 +249,10 @@ if(!function_exists('get_abbreviation'))
 
 if(!function_exists('check_user_perm'))
 {
-    function check_user_perm($permission,$perm,$brand_id = '')
+    function check_user_perm($permission,$perm,$brand_id = NULL, $account_id = NULL)
     {
         $CI = & get_instance();        
-        return $CI->aauth->check_user_perm($permission,$perm,$brand_id);
+        return $CI->aauth->check_user_perm($permission,$perm,$brand_id,$account_id);
     }
 }
 
