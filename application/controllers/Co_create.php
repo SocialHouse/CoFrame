@@ -131,7 +131,8 @@ class Co_create extends CI_Controller {
 			        		'session_id' => $this->data['sessionId'],			        		
 			        		'request_string' => uniqid(),
 			        		'brand_slug' => $slug,
-			        		'user_id' => $this->user_id
+			        		'user_id' => $this->user_id,
+			        		'account_id' => $this->user_data['account_id']
 			        	);
 
 			        $this->timeframe_model->insert_data('co_create_requests',$request_data);

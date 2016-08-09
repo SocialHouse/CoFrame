@@ -22,10 +22,11 @@ jQuery(document).ready(function(){
 			var remember_me = jQuery('#remember_me:checked').val();
 			var slug = jQuery('#slug').val();
 			var request_string = jQuery('#request_string').val();
+			var account_id = jQuery('#account_id').val();
 			
 			jQuery.ajax({
 				"url": base_url+'tour/check_login',
-				"data":{"email":username,"password":password,'remember_me':remember_me,'slug':slug,'request_string':request_string},
+				"data":{"email":username,"password":password,'remember_me':remember_me,'slug':slug,'request_string':request_string,'account_id' => account_id},
 				"type":"POST",
 				success: function(response)
 		        {

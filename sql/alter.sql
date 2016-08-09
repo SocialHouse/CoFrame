@@ -417,3 +417,6 @@ ALTER TABLE `social_media_keys` ADD `created_at` DATETIME NULL DEFAULT NULL AFTE
 
 --- 08-08-2016
 ALTER TABLE `phases` ADD `time_zone` VARCHAR(20) NULL DEFAULT NULL AFTER `status`;
+
+--- 09-08-2016
+ALTER TABLE `co_create_requests` ADD `account_id` INT NOT NULL ;

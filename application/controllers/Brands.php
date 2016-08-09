@@ -483,7 +483,7 @@ class Brands extends CI_Controller {
 
 					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
 
-					if(isset($is_present))
+					if(isset($is_present) AND !empty($is_present))
 					{
 						$this->data['company_name'] = get_company_name($this->user_data['account_id']);
 						$this->data['role'] = $post_data['role'];

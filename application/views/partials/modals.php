@@ -25,6 +25,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
         <form id="loginForm">
         	<input type="hidden" id="slug" name="slug" value="<?php echo isset($slug) ? $slug : ''; ?>" />
         	<input type="hidden" id="request_string" name="request_string" value="<?php echo isset($request_string) ? $request_string : ''; ?>" />
+        	<input type="hidden" id="account_id" name="account_id" value="<?php echo isset($account_id) ? $account_id : ''; ?>" />
 			<div class="form-group">
 				<label class="sr-only" for="username">Username</label>
 

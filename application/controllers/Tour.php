@@ -94,11 +94,15 @@ class Tour extends CI_Controller {
                 $accounts = $this->timeframe_model->get_accounts();
                 $user_info['accounts'] = $accounts;
                 $user_info['account_id'] = $accounts[0];
-
                 //if current user is owner of any account then it should redirect to that account
                 if(in_array($user_id, $accounts))
                 {
                     $user_info['account_id'] = $user_id;
+                }
+                //if login through join request so it should redirect to account form which he got request
+                if(isset($post_data['account_id']) AND !empty($post_data['account_id'])
+                {
+                    $user_info['account_id'] = $post_data['account_id'];
                 }
 
                 $user_info['plan'] = strtolower(get_plan($accounts[0]));
@@ -322,6 +326,7 @@ class Tour extends CI_Controller {
             $this->data['slug'] = $slug;
             $this->data['request_string'] = $request_string;
             $this->data['request_id'] = $request[0]->id;
+            $this->data['account_id'] = $request[0]->id;
         }
         else
         {

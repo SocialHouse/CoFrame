@@ -233,7 +233,7 @@ class Posts extends CI_Controller {
 	    					if($phase_number == 1 AND $status != 'draft')
 	    					{
 	    						$post = array(
-		    							'status' => 'scheduled'
+		    							'status' => 'approved'
 		    						);
 
 	    						$condition = array('id' => $inserted_id);
