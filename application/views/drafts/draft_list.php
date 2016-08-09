@@ -60,8 +60,8 @@
 								</td>
 								<td><span class="post-excerpt"><?php echo $draft->content; ?></span></td>
 								<td class="text-xs-center hidden-print">
-									<a href="#" class="btn btn-xs btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/drafts/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
-									<a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-xs btn-default">Duplicate</a>
+									<a href="#" class="btn btn-sm btn-secondary" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/drafts/<?php echo $brand->slug.'/'.$draft->id; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $draft->id; ?>" data-modal-size="lg">Edit</a>
+									<a href="<?php echo base_url().'drafts/duplicate/'.$brand->slug.'/'.$draft->id; ?>" class="btn btn-sm btn-default">Duplicate</a>
 								</td>
 							</tr>
 							<?php
