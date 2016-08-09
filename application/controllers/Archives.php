@@ -203,7 +203,7 @@ class Archives extends CI_Controller {
     
         # Start the ouput
         $output = fopen("php://output", "w");
-       // fputcsv($output, array('ID', 'CONTENT', 'BRAND' ,'SLATE_DATE_TIME','STATUS','USER','OUTLETS','CREATED_AT','MEDIA','TAGS')); //The column heading row of the csv file
+       	fputcsv($output, array('ID', 'CONTENT', 'BRAND' ,'SLATE_DATE_TIME','STATUS','USER','OUTLETS','CREATED_AT','MEDIA','TAGS')); //The column heading row of the csv file
         
          # Then loop through the rows
         

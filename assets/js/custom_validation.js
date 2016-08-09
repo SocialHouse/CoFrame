@@ -127,7 +127,6 @@ jQuery(function($) {
 	$(document).on( 'click blur change keyup', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm, .1-phase-time-input .incrementer i',
 		function( e )
 		{
-			console.log($(this));
 			var $div 		= $(this).closest('div.form-group'),
 				date_error =  $('.phase-one-error-all'),
 				phase_no 	= 0 ,

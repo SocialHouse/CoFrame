@@ -1331,17 +1331,20 @@ jQuery(function($) {
 	});
 
 	$(document).on('change', '.approval_timezone', function() {
-		var phaseId = $(this).closest('.approval-phase.active').data('id');
-		console.log($('option:selected',this).text());
-		console.log('#preview_approvalPhase'+phaseId);
-		console.log($('#preview_approvalPhase' + phaseId ).find('.timezones-preview'));
-		$('#preview_approvalPhase' + phaseId ).find('.timezones-preview').text($('option:selected',this).text());
+		var phaseId = $(this).closest('.approval-phase.active').attr('id');
+		$('#preview_edit_' + phaseId ).find('.timezones-preview .zone').text($('option:selected',this).text());
+		$('#preview_' + phaseId ).find('.timezones-preview .zone').text($('option:selected',this).text());
 	});
 
 	$(document).on('click', '.save-phases', function() {
 		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
 		$.each(phases, function() {
 			var phaseId = $(this).data('id');
+			var id =  $(this).attr('id');
+			var selected_timezone = $(this).find('.approval_timezone option:selected').text();
+
+			$('#preview_approvalPhase1' + parseInt(phaseId)+1 ).find('.timezones-preview .zone').text($('option:selected',this).text());
+			
 			$(this).addClass('hide').removeClass('active');
 			if ($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
@@ -2130,7 +2133,6 @@ function setPhaseBtnsCreatePost(activePhase,phaseCount) {
 	var btn_num = 0;
 	if(jQuery(activePhase).data('id') == phaseCount)
 	{
-		console.log(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'));
 		activePhase.find('[data-new-phase]:eq(' + btn_num + ')').addClass('hide');
 		// toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), false);
 	}
