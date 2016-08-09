@@ -423,6 +423,7 @@ class User_preferences extends CI_Controller {
 		{
 			$user_in_other_brand = 1;
 			$inserted_id = $this->aauth->get_user_id($post_data['email']);
+			$this->user_model->delete_user_permissions($inserted_id,$this->user_data['account_id']);
 		}
 		else
 		{
@@ -448,7 +449,7 @@ class User_preferences extends CI_Controller {
         	unset($user_data['password']);
         	unset($user_data['username']);
         }
-
+       
         $group_id = $this->aauth->get_group_id($post_data['role']);
 
         if($inserted_id)
@@ -506,7 +507,7 @@ class User_preferences extends CI_Controller {
 			    	$email = $post_data['email'];
 			    	$subject = "You have been addded in new account";
 			    	$content = $this->load->view('mails/new_account_info',$this->data,true);
-			    	//$mail_send = email_send($email, $subject,$content);
+			    	$mail_send = email_send($email, $subject,$content);
 			    	$this->session->set_flashdata('message', $this->lang->line('user_add_success'));
 			    }
 				catch (SomeException $e)

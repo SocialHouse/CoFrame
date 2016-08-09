@@ -138,4 +138,36 @@ class User_model extends CI_Model
         }
         return FALSE;
     }
+
+    public function delete_user_permissions($user_id,$account_id)
+    {   
+        $this->db->select('brands.id as brand_id');
+        $this->db->join('brands','brands.id = brand_user_map.brand_id');
+        $this->db->where('brand_user_map.access_user_id', $user_id);
+        $this->db->where('brands.account_id', $account_id);
+        $query = $this->db->get('brand_user_map');
+       
+        if($query->num_rows() > 0)
+        {
+            //delete from user to permission table 
+            $brand_ids = $query->result_array();
+            $brand_ids = array_column($brand_ids, 'brand_id');
+            $this->db->where_in('brand_id', $brand_ids);
+            $this->db->where('user_id', $user_id);
+            $this->db->delete('aauth_perm_to_user');
+
+            // delete  from brand_user_map table 
+            $this->db->where_in('brand_id', $brand_ids);
+            $this->db->where('access_user_id', $user_id);
+            $this->db->delete('brand_user_map');
+
+
+            // delete  from aauth_user_to_group table 
+            $this->db->where_in('brand_id', $brand_ids);
+            $this->db->where('user_id', $user_id);
+            $this->db->delete('aauth_user_to_group');
+          
+        }
+        return TRUE;
+    }
 }

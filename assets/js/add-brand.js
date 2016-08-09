@@ -589,11 +589,17 @@ jQuery(function($) {
 							var message = language_message.email_present_in_current_ac;
 							if($('#userEmail').data('user_preference'))
 							{
-								message = language_message.present_in_current_ac_preference;
+								validEmail = true;
+								if($('#emailUniqueValid').hasClass('hide')){
+									$('#emailUniqueValid').addClass('hide');
+								}
+								//message = language_message.present_in_current_ac_preference;
+							}else{
+								validEmail = false;
+								$('#emailUniqueValid').text(message);
+								$('#emailUniqueValid').removeClass('hide');
 							}
-							validEmail = false;
-							$('#emailUniqueValid').text(message);
-							$('#emailUniqueValid').removeClass('hide');
+						
 						} else if (data.response == 'current_admin') {
 							validEmail = false;
 							$('#emailUniqueValid').text(language_message.master_admin_email);
