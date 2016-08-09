@@ -28,12 +28,25 @@
 		  		<a class="nav-link" href="<?php echo base_url().'drafts/'.$brand->slug; ?>">Drafts</a>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-user">
+		<ul class="nav navbar-nav navbar-section">
 			<li class="nav-item">
 		  		<a class="nav-link" href="<?php echo base_url().'settings/view/'.$brand->slug; ?>">Settings</a>
 			</li>
 			<li class="nav-item">
 	  			<a class="nav-link" href="<?php echo base_url().'archives/'.$brand->slug; ?>">Archive</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-section">
+			<li class="nav-item dropdown">
+		  		<a class="nav-link" href="#">More</a>
+				<ul class="dropdown-menu">
+					<li><a href="#" class="nav-link" target="_blank">Contact Us</a></li>
+					<li><a href="#" class="nav-link" target="_blank">Terms of Use</a></li>
+					<li><a href="#" class="nav-link" target="_blank">Privacy Policy</a></li>
+					<li><a href="#" class="nav-link" target="_blank">FAQ</a></li>
+					<li><a href="#" class="nav-link" target="_blank">Careers</a></li>
+					<li><a href="#" class="nav-link" target="_blank">Help Center</a></li>
+				</ul>
 			</li>
 		</ul>
 	</nav>

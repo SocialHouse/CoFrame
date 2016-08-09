@@ -16,13 +16,13 @@ switch ($segment) {
 		break;
 }
 ?>
-<div class="btn-group-calendar pull-sm-left hidden-print">
+<div class="btn-group-background pull-sm-left hidden-print">
 	<a href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>" class="btn btn-sm <?php echo $day; ?>">Day</a>
 	<a href="<?php echo base_url().'calendar/week/'.$brand->slug; ?>" class="btn btn-sm <?php echo $week; ?>">Week</a>
 	<a href="<?php echo base_url().'calendar/month/'.$brand->slug; ?>" class="btn btn-sm <?php echo $month; ?>">Month</a>
 </div>
 
-<div class="btn-group-calendar pull-sm-left hidden-print">
+<div class="btn-group-background pull-sm-left hidden-print">
 	<a class="btn btn-sm active" href="#" id="calendarBtnToday">Today</a>
 </div>
 

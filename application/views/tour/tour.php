@@ -363,10 +363,10 @@
 								</div>
 								<hr>
 								<div class="row">
-									<div class="col-sm-6">
+									<div class="col-sm-5">
 									COPYRIGHT &copy; <?php echo date('Y'); ?> SOCIAL HOUSE, INC. ALL RIGHTS RESERVED.
 									</div>
-									<div class="col-sm-6 text-sm-right">
+									<div class="col-sm-7 text-sm-right">
 										<ul class="nav navbar-nav">
 											<li><a href="#" target="_blank">Contact Us</a></li>
 											<li><a href="#" target="_blank">Terms of Use</a></li>

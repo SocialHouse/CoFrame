@@ -1,4 +1,4 @@
-<div class="btn-group">
+<div class="btn-group-background">
 	<?php
 	$segment = $this->uri->segment(2);
 	$my_info = '';

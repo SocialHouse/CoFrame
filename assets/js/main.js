@@ -209,6 +209,19 @@ jQuery(function($) {
 			}
 		});
 
+		/*show brand nav dropdown
+		 *use timeout to prevent immediate hide on mouse out
+		*/
+		var hoverTimeout;
+		$('.navbar-brand-manage .dropdown').hover(function() {
+			clearTimeout(hoverTimeout);
+			$(this).addClass('open');
+		}, function() {
+			var $self = $(this);
+			hoverTimeout = setTimeout(function() {
+				$self.removeClass('open');
+			}, 400);
+		});
 		/*	fake check box select
 		 *	This is used to check or uncheck the checkox
 		 *
