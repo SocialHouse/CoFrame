@@ -12032,7 +12032,7 @@ textarea.form-control {
   bottom: 0;
   left: -15px;
   right: -15px; }
-  #overview #global-footer {
+  .overview-main #global-footer {
     left: -2.66667rem;
     right: -2.66667rem; }
   #global-footer > .row {
@@ -12141,14 +12141,14 @@ textarea.form-control {
 
 .relative-wrapper {
   position: relative; }
-  #overview .relative-wrapper, #user-preferences .relative-wrapper {
+  .overview-main .relative-wrapper, #user-preferences .relative-wrapper {
     height: auto;
     min-height: 100%;
     padding-bottom: 9.66667rem; }
-  #overview .relative-wrapper {
+  .overview-main .relative-wrapper {
     padding-bottom: 10rem; }
     @media (min-width: 768px) {
-      #overview .relative-wrapper {
+      .overview-main .relative-wrapper {
         padding-bottom: 11.33333rem; } }
 
 .table {
@@ -12265,6 +12265,9 @@ textarea.form-control {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   white-space: nowrap; }
+
+.width_100 {
+  width: 100%; }
 
 /*edit request*/
 .replay {

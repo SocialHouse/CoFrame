@@ -1,4 +1,4 @@
-<section id="overview" class="page-main bg-white col-sm-12">
+<section id="overview" class="page-main overview-main bg-white col-sm-12">
 	<div class="relative-wrapper">
 		<header class="page-main-header">
 			<?php

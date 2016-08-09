@@ -3924,7 +3924,7 @@ textarea.form-control {
 	bottom: 0;
 	left: -15px;
 	right: -15px;
-	#overview & {
+	.overview-main & {
 		left: -2.66667rem;
 		right: -2.66667rem;
 	}
@@ -4050,12 +4050,12 @@ textarea.form-control {
 }
 .relative-wrapper {
 	position: relative;
-	#overview &, #user-preferences & {
+	.overview-main &, #user-preferences & {
 		height: auto;
 		min-height: 100%;
 		padding-bottom: remCalc(145px);
 	}
-	#overview & {
+	.overview-main & {
 		padding-bottom: remCalc(150px);
 		@include media-breakpoint-up(sm) {
 			padding-bottom: remCalc(170px);
@@ -4192,6 +4192,9 @@ textarea.form-control {
     white-space: nowrap;
   }
 
+.width_100{
+  width:100%;
+}
 
 /*edit request*/
 .replay{
