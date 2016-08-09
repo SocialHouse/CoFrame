@@ -96,18 +96,18 @@
 	$lang['date_less_than_sdate'] ="Date must be less than Sdate";
 	$lang['select_image_video'] ="Please select images or video";	
 	$lang['enter_post_content'] ="Please enter post content";
-	$lang['date_greater_than_today'] ="Please select valid date Date must be grether than todays date";
-	$lang['video_audio_not_enabled'] ="Video and audio not enabled, atleast enable one";
-	$lang['disconnected_from_session'] ="You were disconnected from the session. ";
+	$lang['date_greater_than_today'] ="Please select valid date. Date must be greater than todays date";
+	$lang['video_audio_not_enabled'] ="Video and audio not enabled, at least enable one";
+	$lang['disconnected_from_session'] ="You were disconnected from the session.";
 	$lang['connecting_error_session'] ="There was an error connecting to the session: ";
 	$lang['valid_date'] ="Please select the valid date";
 	$lang['select_re_date'] ="Please select date";
 	$lang['post_update_successful'] ="Your post has been update successfully.";
 	$lang['unable_to_add_user'] ="Unable to add user, Please try again";
 	$lang['user_add_success'] ="User added successfully!!";
-	$lang['phase_one_date_error'] ="Date must be greter than today's date and less than Slate date";
-	$lang['phase_two_date_error'] ="Date must be greter than phase one approver date and less than Slate date";
-	$lang['phase_three_date_error'] ="Date must be greter than phase two approver date and less than Slate date";
+	$lang['phase_one_date_error'] ="Date must be greater than today's date and less than Slate date";
+	$lang['phase_two_date_error'] ="Date must be greater than phase one approver date and less than Slate date";
+	$lang['phase_three_date_error'] ="Date must be greater than phase two approver date and less than Slate date";
 
 	
 
