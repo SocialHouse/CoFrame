@@ -9768,6 +9768,9 @@ a {
   .bg-white.opaque-88 {
     background: rgba(255, 255, 255, 0.88); }
 
+.bg-orange {
+  background: #F58235; }
+
 .bg-black {
   background: #000;
   color: #fff; }
