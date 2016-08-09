@@ -2,10 +2,6 @@
 	display: none;
 }
 
-.hide {
-	display: none;
-}
-
 #register_form label.error {
 	font-family: "Futura LT W01 Light",Arial,Helvetica,sans-serif;
 	font-size: 16px !important;
