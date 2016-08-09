@@ -39,7 +39,7 @@ class User_preferences extends CI_Controller {
 			$page = 'user_info';
 		}
 
-		$this->data['css_files'] = array(css_url().'intlTelInput.css',css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css',css_url().'custom.css');
+		$this->data['css_files'] = array(css_url().'intlTelInput.css',css_url().'fullcalendar.css',css_url().'jquery.Jcrop.css');
 
 		$this->data['js_files'] = array(js_url().'vendor/jquery-ui-sortable.min.js',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'jquery.mask.min.js?ver=2.11.0', js_url().'jquery.validate.min.js?ver=2.11.0', js_url().'timeframe_forms.js?ver=2.11.0',js_url().'jquery.Jcrop.js?ver=1.0.0',js_url().'jquery.SimpleCropper.js?ver=1.0.0', js_url().'vendor/intlTelInput.min.js?ver=9.0.2', js_url().'user_preference.js?ver=2.11.0');
 

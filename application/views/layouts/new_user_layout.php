@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 <link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>style.css" media="all">
-<link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>search.css" media="all">
+<link type="text/css" rel="stylesheet" href="<?php echo css_url(); ?>custom.css" media="all">
 <?php    
 	if(isset($css_files))
 	{

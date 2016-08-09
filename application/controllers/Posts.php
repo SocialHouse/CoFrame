@@ -102,7 +102,7 @@ class Posts extends CI_Controller {
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
 			$this->data['background_image'] = 'bg-brand-management.jpg';
-			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'search.css', 'https://fonts.googleapis.com/css?family=Roboto:400,500');
+			$this->data['css_files'] = array(css_url().'fullcalendar.css', 'https://fonts.googleapis.com/css?family=Roboto:400,500');
 			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0');
 
 			_render_view($this->data);
