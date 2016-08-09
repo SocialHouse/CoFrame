@@ -227,7 +227,7 @@
 												</ul>
 												<input type="hidden"  value="<?php echo $obj[0]->phase_id; ?>" name="phase[<?php echo $phase_no;?>][phase_id]" >
 												<div class="clearfix">
-													<div class="form-group form-inline pull-sm-left phase-date-time-div">
+													<div class="form-group form-inline pull-sm-left date-time-div">
 														<div class="hide-top-bx-shadow">
 															<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" name="phase[<?php echo $phase_no;?>][approve_date]" value="<?php echo date('m/d/Y' , strtotime($obj[0]->approve_by))?>">
 														</div>
@@ -361,7 +361,7 @@
 													</li>
 												</ul>
 												<div class="clearfix">
-													<div class="form-group form-inline pull-sm-left phase-date-time-div">
+													<div class="form-group form-inline pull-sm-left date-time-div">
 														<div class="hide-top-bx-shadow">
 															<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" name="phase[<?php echo $i- 1;?>][approve_date]">
 														</div>

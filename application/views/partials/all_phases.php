@@ -11,7 +11,7 @@ $timezone_list = timezone_list();
 		</ul>
 
 		<div class="clearfix">
-			<div class="form-group form-inline pull-sm-left phase-date-time-div">
+			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
 					<input type="text" id="ph_one_date" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
 				</div>
@@ -72,7 +72,7 @@ $timezone_list = timezone_list();
 		</ul>
 
 		<div class="clearfix">
-			<div class="form-group form-inline pull-sm-left phase-date-time-div">
+			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
 					<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[1][approve_date]">
 				</div>
@@ -133,7 +133,7 @@ $timezone_list = timezone_list();
 		</ul>
 		
 		<div class="clearfix">
-			<div class="form-group form-inline pull-sm-left phase-date-time-div">
+			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
 					<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[2][approve_date]">
 				</div>
