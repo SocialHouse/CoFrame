@@ -1729,9 +1729,10 @@ jQuery(function($) {
 		var outlet_id = $('#postOutlet').val();
 		var selected_outlet = $('#postOutlet').attr('data-outlet-const');
 		var post_copy;
-		if ($('#postCopy').val())
-			post_copy = $('#postCopy').val().replace(/\r?\n/g, '<br/>')
-		$('#outlet_' + outlet_id + ' .post_copy_text').html(post_copy);
+		if ($('#postCopy').val()) {
+			post_copy = $('#postCopy').val().replace(/\r?\n/g, '<br/>');
+			$('#outlet_' + outlet_id + ' .post_copy_text').html(post_copy);
+		}
 		$('#live-post-preview').append($('#outlet_' + selected_outlet).html());
 	}
 
