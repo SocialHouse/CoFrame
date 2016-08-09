@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 			
 			jQuery.ajax({
 				"url": base_url+'tour/check_login',
-				"data":{"email":username,"password":password,'remember_me':remember_me,'slug':slug,'request_string':request_string,'account_id' => account_id},
+				"data":{"email":username,"password":password,'remember_me':remember_me,'slug':slug,'request_string':request_string,'account_id': account_id},
 				"type":"POST",
 				success: function(response)
 		        {
