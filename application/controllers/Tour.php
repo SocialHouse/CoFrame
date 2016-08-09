@@ -100,7 +100,7 @@ class Tour extends CI_Controller {
                     $user_info['account_id'] = $user_id;
                 }
                 //if login through join request so it should redirect to account form which he got request
-                if(isset($post_data['account_id']) AND !empty($post_data['account_id'])
+                if(isset($post_data['account_id']) AND !empty($post_data['account_id']))
                 {
                     $user_info['account_id'] = $post_data['account_id'];
                 }
@@ -326,7 +326,7 @@ class Tour extends CI_Controller {
             $this->data['slug'] = $slug;
             $this->data['request_string'] = $request_string;
             $this->data['request_id'] = $request[0]->id;
-            $this->data['account_id'] = $request[0]->id;
+            $this->data['account_id'] = $request[0]->user_id;
         }
         else
         {
