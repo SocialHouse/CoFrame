@@ -111,7 +111,7 @@
 	<!-- Blank Modal -->
 	<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content bg-white">
 		  <div class="modal-body">
 		  </div>
 		</div>
