@@ -310,19 +310,18 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group slate-post-tz">
-										<select class="form-control approval_timezone" name="name="phase[0][time_zone]">
-											<!--<option value="">--Please select timezone--</option>-->
-											<?php 
-												// Display remaining timezones
-												foreach ($timezone_list as $key => $obj) {
-													?>
-													<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
-													<?php
-												}
-											?>
-										</select>
-									</div>
+								</div>
+								<div class="form-group slate-post-tz">
+									<select class="form-control approval_timezone" name="phase[0][time_zone]">
+										<?php 
+											// Display remaining timezones
+											foreach ($timezone_list as $key => $obj) {
+												?>
+												<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+												<?php
+											}
+										?>
+									</select>
 								</div>
 								<label class="phase-one-error error hide clearfix"></label>
 								<div class="form-group">
