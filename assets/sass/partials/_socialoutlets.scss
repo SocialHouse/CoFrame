@@ -1,4 +1,9 @@
 /* Scss Document */
+.post-container {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .img-div, .img-wrapper {
 	@extend .clearfix;
 	position: relative;
@@ -346,6 +351,12 @@
 	video {
 		display: block;
 	}
+}
+.tweet-chars {
+	margin-top: 5px;
+}
+#charsLeft {
+	font-weight: 600;
 }
 
 /*Vine Post Styles*/

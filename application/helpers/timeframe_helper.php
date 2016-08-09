@@ -696,7 +696,7 @@ if(!function_exists('week_month_overlay_buttons'))
 
                 <div class="after-approve hide post-actions">
                     <button class="btn btn-secondary btn-disabled btn-xs" disabled>Approved</button>
-                    <a class="change-approve-status small_font_size" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
+                    <a class="change-approve-status" data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
                 </div>';
             }
             elseif($phase_status == 'posted')
@@ -709,7 +709,7 @@ if(!function_exists('week_month_overlay_buttons'))
                     <button class="btn btn-default btn-disabled btn-xs" disabled>Approved</button>';                    
                     if($phase_status == 'pending')
                     {                                       
-                        $html_to_return .= '<a  class="change-approve-status small_font_size"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>';
+                        $html_to_return .= '<a  class="change-approve-status"  data-post-id="'.$post_details->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>';
                     }
                 $html_to_return .= '</div>';
 
