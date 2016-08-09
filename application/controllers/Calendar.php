@@ -573,7 +573,8 @@ class Calendar extends CI_Controller {
 		    										'brand_id' => $post_data['brand_id'],
 		    										'post_id' =>$post_data['post_id'],
 		    										'approve_by' => $approve_date_time,
-			    									'note' => $new_phase['note']
+			    									'note' => $new_phase['note'],
+			    									'time_zone' => $new_phase['time_zone']
 		    									);
 		    					$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
 
@@ -634,6 +635,7 @@ class Calendar extends CI_Controller {
 								$ph_condition = array('id' =>$new_phase['phase_id'] );	
 								$phase_data['approve_by'] = $approve_date_time;
 			    				$phase_data['note'] = $new_phase['note'];
+			    				$phase_data['time_zone'] = $new_phase['time_zone'];
 								
 		    					$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);
 

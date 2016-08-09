@@ -117,7 +117,7 @@ $timezone_list = timezone_list();
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
-		<div class="timezones-preview">
+		<div class="timezones-preview approval-date">
 			<span class="uppercase">Selected timezone:</span> <span class="zone"></span> 
 		</div>
 		<div class="approval-note">
