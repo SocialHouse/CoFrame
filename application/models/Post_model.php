@@ -395,7 +395,7 @@ class Post_model extends CI_Model
 
 
 	public function export_post($brand_id,$start_date,$end_date,$type, $tags, $outlets){
-		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id,post_tags.brand_tag_id');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, user.aauth_user_id as user_id,,brands.name, posts.slate_date_time,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,LOWER(outlets.outlet_constant) as outlet_name,brands.created_by,posts.created_at,brands.id as brand_id');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','LEFT');
 		$this->db->join('brands','brands.id = posts.brand_id','LEFT');
@@ -443,11 +443,11 @@ class Post_model extends CI_Model
 							{
 								if(!empty($result[$key]->media))
 								{
-									$result[$key]->media .= ', '.upload_path().$created_by.'/brands/'.$brand_id.'/'.$value->name ;
+									$result[$key]->media .= ', '.base_url().$created_by.'/brands/'.$brand_id.'/'.$value->name ;
 								}
 								else
 								{
-									$result[$key]->media =upload_path().$created_by.'/brands/'.$brand_id.'/'. $value->name ;
+									$result[$key]->media =base_url().$created_by.'/brands/'.$brand_id.'/'. $value->name ;
 								}
 							}
 						}

@@ -141,8 +141,9 @@ class Archives extends CI_Controller {
 						$this->data['start_date'] = $daterange['start_date'];
 						$this->data['end_date'] = $daterange['end_date'];
 						//$this->load->view('archives/pdf_export', $this->data);
+						$file_name = $daterange['start_date']."To".$daterange['end_date'].'.pdf';
 						$html = $this->load->view('archives/pdf_export', $this->data, true);
-						$this->pdf_create( $html,$brand_id.'.pdf');
+						$this->pdf_create( $html,$file_name);
 						ob_end_flush();
 					}
 					
@@ -152,7 +153,8 @@ class Archives extends CI_Controller {
 					if(!empty($daterange['start_date']) && !empty($daterange['end_date']))
 					{
 						$posts = object_to_array($posts);
-						$this->outputCSV($posts);
+						$file_name = $daterange['start_date']."To".$daterange['end_date'].'.csv';
+						$this->outputCSV($posts,$file_name);
 					}
 				}
 				
@@ -201,15 +203,28 @@ class Archives extends CI_Controller {
     
         # Start the ouput
         $output = fopen("php://output", "w");
-        fputcsv($output, array('ID', 'CONTENT', 'BRAND' ,'SLATE_DATE_TIME','STATUS','USER','OUTLETS','CREATED_AT','MEDIA','TAGS')); //The column heading row of the csv file
+       // fputcsv($output, array('ID', 'CONTENT', 'BRAND' ,'SLATE_DATE_TIME','STATUS','USER','OUTLETS','CREATED_AT','MEDIA','TAGS')); //The column heading row of the csv file
         
          # Then loop through the rows
-        foreach ($data as $row) {
-            # Add the rows to the body
-            fputcsv($output, $row); // here you can change delimiter/enclosure
-        }
+        
+    	foreach ($data as $row) {
+        # Add the rows to the body
+            // fputcsv($output, $row); // here you can change delimiter/enclosure
+            $temp['id']	= (!empty($row['id']))? $row['id'] : '';
+			$temp['content'] = (!empty($row['content']))? $row['content'] : ''; 	
+			$temp['name']	= (!empty($row['name']))? $row['name'] : '';
+			$temp['slate_date_time'] = !empty($row['slate_date_time'])? $row['slate_date_time'] : '';
+			$temp['status']	= !empty($row['status'])? $row['status'] : '';
+			$temp['user'] = !empty($row['user'])? $row['user'] : '';
+			$temp['outlet_name'] = !empty($row['outlet_name'])? $row['outlet_name'] : '';
+			$temp['created_at']	= !empty($row['created_at'])? $row['created_at'] : '';
+			$temp['media'] = !empty($row['media'])? $row['media'] : '';
+			$temp['post_tags'] = !empty($row['post_tags'])? $row['post_tags'] : '';
+			fputcsv($output, $temp);
+    	}
+        
         # Close the stream off
-        fclose($output);
+        //fclose($output);
     }
 
     function pdf_create( $html, $filename, $output_type = 'stream' )
