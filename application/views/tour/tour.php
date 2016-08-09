@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  	<title>CoFrame | Create, Manage &amp; Approve Your Social Media Calendars, All On One Easy-To-Use Platform.</title>
 	  	<link rel="profile" href="http://gmpg.org/xfn/11">
-
+		<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
 		<link rel="shortcut icon" href="<?php echo img_url(); ?>ico/favicon.ico" ><meta name='robots' content='noindex,follow' />
 		<link rel='stylesheet' id='style-css'  href='<?php echo css_url(); ?>tour_style.css?ver=1.0' type='text/css' media='all' />
 		<link rel='stylesheet' href='<?php echo css_url(); ?>custom.css?ver=1.0' type='text/css' media='all' />
@@ -37,7 +37,6 @@
 		<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
-		<script type='text/javascript' src='//fast.fonts.net/jsapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.js?ver=4.4.2'></script>
 		<!--[if lt IE 9]><script src="assets/js/html5shiv.js"></script><![endif]-->	
 	</head><!--/head-->
 <body class="home page page-id-6 page-template-default" data-spy="scroll" data-target=".navbar-main">
