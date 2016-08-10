@@ -645,14 +645,19 @@ a {
 			top: -1rem;
 			left: 100%;
 			margin-left: 2rem;
-			padding: 1rem 2rem 1rem 1rem;
+			padding: 1rem 0;
 			min-width: 190px;
 			z-index: 1050;
 			.nav-link {
 				text-transform: uppercase;
 				font-size: 12px;
 				letter-spacing: .2rem;
-				padding: .5rem 0;
+				padding: .5rem 2rem .5rem 1rem;
+				&:hover {
+					background: $gray-lightest;
+					font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif;
+					color: #000;
+				}
 			}
 		}
 	}

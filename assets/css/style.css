@@ -9463,14 +9463,18 @@ a {
     top: -1rem;
     left: 100%;
     margin-left: 2rem;
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 1rem 0;
     min-width: 190px;
     z-index: 1050; }
     .brand-navigation .navbar-nav .dropdown-menu .nav-link {
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: .2rem;
-      padding: .5rem 0; }
+      padding: .5rem 2rem .5rem 1rem; }
+      .brand-navigation .navbar-nav .dropdown-menu .nav-link:hover {
+        background: #f7f7f7;
+        font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif;
+        color: #000; }
 
 .navbar-brand-manage .navbar-nav {
   margin-top: 2rem; }
