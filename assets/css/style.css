@@ -9564,7 +9564,7 @@ a {
     .page-main {
       height: 100%;
       min-height: inherit; } }
-  .page-main#overview {
+  .page-main#overview, .page-main#content-page {
     padding: 0 2.66667rem; }
   .page-main#brand-manage {
     padding: 0 2rem; }
@@ -9579,7 +9579,7 @@ a {
   padding: 0;
   margin: 0;
   line-height: 40px; }
-#brand-manage .page-main-header {
+#brand-manage .page-main-header, #content-page .page-main-header {
   padding: 3rem 0 2rem; }
 #overview .page-main-header {
   padding: 1.73333rem 0; }
@@ -9618,6 +9618,10 @@ a {
     margin-top: 0; }
     .date-header .form-search .btn {
       top: 20px; }
+
+.content-body {
+  font-size: 1.33333rem;
+  padding: 2rem 6.66667rem; }
 
 /*animated sections*/
 .animate-delay-300 {
@@ -12037,7 +12041,7 @@ textarea.form-control {
   bottom: 0;
   left: -15px;
   right: -15px; }
-  .overview-main #global-footer {
+  .overview-main #global-footer, #content-page #global-footer {
     left: -2.66667rem;
     right: -2.66667rem; }
   #global-footer > .row {
@@ -12150,10 +12154,10 @@ textarea.form-control {
     height: auto;
     min-height: 100%;
     padding-bottom: 9.66667rem; }
-  .overview-main .relative-wrapper {
+  .overview-main .relative-wrapper, #content-page .relative-wrapper {
     padding-bottom: 10rem; }
     @media (min-width: 768px) {
-      .overview-main .relative-wrapper {
+      .overview-main .relative-wrapper, #content-page .relative-wrapper {
         padding-bottom: 11.33333rem; } }
 
 .table {

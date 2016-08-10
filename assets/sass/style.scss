@@ -763,7 +763,7 @@ a {
 		height: 100%;
 		min-height: inherit;
 	}
-	&#overview {
+	&#overview, &#content-page {
 		padding:  0 remCalc(40px);
 	}
 	&#brand-manage {
@@ -783,7 +783,7 @@ a {
 		margin: 0;
 		line-height: 40px;
 	}
-	#brand-manage & {
+	#brand-manage &, #content-page & {
 		padding: remCalc(45px) 0 2rem;
 	}
 	#overview & {
@@ -835,6 +835,11 @@ a {
 			top: 20px;
 		}
 	}
+}
+
+.content-body {
+	font-size: remCalc(20px);
+	padding: 2rem remCalc(100px);
 }
 /*animated sections*/
 .animate-delay-300 {
@@ -3930,7 +3935,7 @@ textarea.form-control {
 	bottom: 0;
 	left: -15px;
 	right: -15px;
-	.overview-main & {
+	.overview-main &, #content-page & {
 		left: -2.66667rem;
 		right: -2.66667rem;
 	}
@@ -4061,7 +4066,7 @@ textarea.form-control {
 		min-height: 100%;
 		padding-bottom: remCalc(145px);
 	}
-	.overview-main & {
+	.overview-main &, #content-page & {
 		padding-bottom: remCalc(150px);
 		@include media-breakpoint-up(sm) {
 			padding-bottom: remCalc(170px);
