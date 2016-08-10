@@ -127,8 +127,12 @@ jQuery(function($) {
             $(show).slideUp(function() {
                 $(show).remove();
 				equalColumns();
+				$trigger.removeClass('active');
+				//if there are replys, don't remove reply class
+				if(!$comment.find('.commentReply').length) {
+					$comment.removeClass('has-reply');
+				}
             });
-			$comment.removeClass('has-reply');
         }else{
             $comment.append(html_body);
             $comment.find('.emptyCommentReply').attr('id',reply_id);
