@@ -11264,7 +11264,10 @@ a {
   .calendar-header .date-header, .search-header .date-header {
     border: 0;
     line-height: 40px;
-    margin: 0 6.66667rem 0 10px; }
+    margin: 0 2.66667rem 0 10px; }
+    @media (min-width: 1440px) {
+      .calendar-header .date-header, .search-header .date-header {
+        margin: 0 6.66667rem 0 10px; } }
   .calendar-header .btn-xs, .search-header .btn-xs {
     margin-top: 10px; }
 
@@ -11414,7 +11417,7 @@ a {
 
 .edit-menu {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 0.73333rem;
   letter-spacing: .25em; }
   .edit-menu .list-group-item {
     list-style: none;

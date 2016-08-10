@@ -710,7 +710,6 @@ jQuery(function($) {
 		//Get popover content from an external source
 		$('body').on('click', '[data-toggle="popover-ajax-inline"]', function(e) {			
 			var $target = $(this);
-			console.log($target);
 			var pid = $target.data('popoverId');
 			var pclass = $target.data('popoverClass');
 			var pattachment = $target.data('attachment');
@@ -742,7 +741,7 @@ jQuery(function($) {
 				phide = 'click unfocus';
 			}
 
-			if ($(this).hasClass('post-filter-popup')) {
+			if (!$target.hasClass('approver-selected')) {
 
 				$('#qtip-' + pid).qtip('api').set({
 					'content.title': ptitle,
