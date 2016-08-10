@@ -55,7 +55,7 @@ class Posts extends CI_Controller {
 		check_access('create',$brand);
 		if(!empty($brand))
 		{
-			$this->user_data['timezone'] = $brand[0]->timezone;
+			//$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);		
 			$brand_id = $brand[0]->id;
 			//get user who as permission to approve
@@ -69,35 +69,34 @@ class Posts extends CI_Controller {
 				$this->data['outlets'] = $this->post_model->get_user_outlets($brand_id,$this->user_id);
 			}
 			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
-			$this->data['timezones'] = $this->user_model->get_timezones();
-			$this->data['timezone_list'] = $this->data['timezones'];
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
+			$this->data['timezones'] = $this->user_model->get_timezones();
 			//echo '<pre>'; print_r($this->user_data);echo '</pre>';
-			foreach ($this->data['timezones']  as $key => $value) 
+			foreach ($this->data['timezones']  as $key => $values) 
 			{
-				if($this->data['brand']->timezone  == $value->value)
+				if($this->data['brand']->timezone  == $values->value)
 				{
 					$this->data['brand_timezone'] = array(
-											'name' =>  $value->timezone,
-											'value' => $value->value
+											'name' =>  $values->timezone,
+											'value' => $values->value
 											);
-					 unset($this->data['timezones'] [$key]);
+					unset($this->data['timezones'] [$key]);
 				}
 				
-				if($this->user_data['timezone'] == $value->value)
+				if($this->user_data['timezone'] == $values->value)
 				{
 					$this->data['user_timezone'] = array(
-										'name' =>  $value->timezone,
-										'value' => $value->value
+										'name' =>  $values->timezone,
+										'value' => $values->value
 										);
 					if($this->data['brand']->timezone  != $this->user_data['timezone'] )
 					{
 						unset($this->data['timezones'] [$key]);
 					}
 				}
-			}			
-
+			}
+			
 			$this->data['view'] = 'posts/create-post';
 			$this->data['layout'] = 'layouts/new_user_layout';		
 			
@@ -555,6 +554,32 @@ class Posts extends CI_Controller {
 	{
 		$this->data = array();
 		$this->data['brand_id'] = $brand_id;
+		$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
+		$this->data['timezone_list'] = $this->user_model->get_timezones();
+		//echo '<pre>'; print_r($this->user_data);echo '</pre>';
+		foreach ($this->data['timezone_list']  as $key => $value) 
+		{
+			if($this->data['brand']->timezone  == $value->value)
+			{
+				$this->data['brand_timezone'] = array(
+										'name' =>  $value->timezone,
+										'value' => $value->value
+										);
+				 unset($this->data['timezone_list'][$key]);
+			}
+			
+			if($this->user_data['timezone'] == $value->value)
+			{
+				$this->data['user_timezone'] = array(
+									'name' =>  $value->timezone,
+									'value' => $value->value
+									);
+				if($this->data['brand']->timezone  != $this->user_data['timezone'] )
+				{
+					unset($this->data['timezone_list'][$key]);
+				}
+			}
+		}	
 		echo $this->load->view('posts/add_phase_details',$this->data,true);
 	}
 

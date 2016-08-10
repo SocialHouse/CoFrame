@@ -126,8 +126,18 @@
 								<?php 
 									foreach ($timezones as $key => $obj) {
 										$selected_tz = '';
-										if( $obj->value == $post_details->time_zone ){
-											$selected_tz = 'selected="selected"';
+										if(!empty($post_details->time_zone))
+										{
+											if( $obj->value == $post_details->time_zone ){
+												$selected_tz = 'selected="selected"';
+											}
+										}
+										else
+										{
+											if( $obj->value == $brand->timezone)
+											{
+												$selected_tz = 'selected = "selected"';
+											}
 										}
 										?>
 										<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
@@ -176,7 +186,8 @@
 			if(empty($phases))
 			{
 				$data['is_edit'] = 'true';
-				$this->load->view('partials/default_phase');
+				$data['brand'] = $brand;
+				$this->load->view('partials/default_phase' ,$data);
 			} 
 			else
 			{ 
@@ -242,16 +253,28 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control approval_timezone" name="phase[<?php echo $phase_no;?>][time_zone]">
+														<select class="form-control approval_timezone" name="phase[<?php echo $phase_no ;?>][time_zone]">
 															<!--<option value="">--Please select timezone--</option>-->
 															<?php 
 																// Display remaining timezones
-																foreach ($timezone_list as $ti_key => $time) {
+
+																foreach ($timezones as $ti_key => $time) 
+																{
 																	$selected = '';
-																	if($time->value == $obj[0]->time_zone){
-																		$selected = 'selected = "selected"';	
+																	if(!empty($obj[0]->time_zone))
+																	{
+																		if($time->value == $obj[0]->time_zone){
+																			$selected = 'selected = "selected"';	
+																		}
 																	}
-																	
+																	else
+																	{
+																		if( $time->value == $brand->timezone)
+																		{
+																			$selected = 'selected = "selected"';
+																		}
+																	}
+
 																	?>
 																	<option value="<?php echo $time->value; ?>" <?php echo $selected;?>><?php echo $time->timezone; ?></option>
 																	<?php
@@ -376,14 +399,19 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control approval_timezone" name="phase[<?php echo $phase_no;?>][time_zone]">
+														<select class="form-control approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">
 															<!--<option value="">--Please select timezone--</option>-->
 															<?php 
 																// Display remaining timezones
-																foreach ($timezone_list as $ti_key => $time) 
+																foreach ($timezones as $ti_key => $time) 
 																{
+																	$selected = '';
+																	if( $time->value == $brand->timezone)
+																	{
+																		$selected = 'selected = "selected"';
+																	}
 																	?>
-																	<option value="<?php echo $time->value; ?>" ><?php echo $time->timezone; ?></option>
+																	<option value="<?php echo $time->value; ?>" <?php echo $selected;?>><?php echo $time->timezone; ?></option>
 																	<?php
 																}
 															?>

@@ -2,7 +2,6 @@
 if(!empty($post_details->brand_id)){
 	$brand_id = $post_details->brand_id;
 }
-$timezone_list = timezone_list();
 ?>
 	<div class="bg-white approval-phase active animated fadeIn" id="approvalPhase1" data-id="0">
 		<h2 class="clearfix">Phase 1 </h2>
@@ -29,9 +28,19 @@ $timezone_list = timezone_list();
 		<div class="form-group slate-post-tz">
 			<select class="form-control approval_timezone" name="phase[0][time_zone]">
 				<!--<option value="">--Please select timezone--</option>-->
+				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
+					//  If brand time zone and  user time are not same 
+					if($brand_timezone['value'] != $user_timezone['value'] )
+					{
+						?>
+						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+						<?php 
+					}
+					
 					// Display remaining timezones
-					foreach ($timezone_list as $key => $obj) {
+					foreach ($timezone_list as $key => $obj) 
+					{
 						?>
 						<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 						<?php
@@ -89,10 +98,19 @@ $timezone_list = timezone_list();
 		</div>
 		<div class="form-group slate-post-tz">
 			<select class="form-control approval_timezone" name="phase[1][time_zone]">
-				<!--<option value="">--Please select timezone--</option>-->
+				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
+					//  If brand time zone and  user time are not same 
+					if($brand_timezone['value'] != $user_timezone['value'] )
+					{
+						?>
+						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+						<?php 
+					}
+					
 					// Display remaining timezones
-					foreach ($timezone_list as $key => $obj) {
+					foreach ($timezone_list as $key => $obj) 
+					{
 						?>
 						<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 						<?php
@@ -150,10 +168,19 @@ $timezone_list = timezone_list();
 		</div>
 		<div class="form-group slate-post-tz">
 			<select class="form-control approval_timezone" name="phase[2][time_zone]">
-				<!--<option value="">--Please select timezone--</option>-->
+				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
+					//  If brand time zone and  user time are not same 
+					if($brand_timezone['value'] != $user_timezone['value'] )
+					{
+						?>
+						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+						<?php 
+					}
+					
 					// Display remaining timezones
-					foreach ($timezone_list as $key => $obj) {
+					foreach ($timezone_list as $key => $obj) 
+					{
 						?>
 						<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 						<?php

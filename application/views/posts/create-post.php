@@ -178,22 +178,22 @@
 									<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 									<?php 
 										//  If brand time zone and  user time are not same 
-										if($brand_timezone['value'] != $user_timezone['value'] ){
+										if($brand_timezone['value'] != $user_timezone['value'] )
+										{
 											?>
 											<option  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
 											<?php 
 										}
-									?>
-									<?php 
+										
 										// Display remaining timezones
-										foreach ($timezones as $key => $obj) {
+										foreach ($timezones as $key => $obj) 
+										{
 											?>
 											<option data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 											<?php
 										}
 									?>
 								</select>
-
 							</div>
 						</div>
 						<?php
@@ -311,13 +311,24 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="form-group slate-post-tz">
 									<select class="form-control approval_timezone" name="phase[0][time_zone]">
+										<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 										<?php 
-											// Display remaining timezones
-											foreach ($timezone_list as $key => $obj) {
+											//  If brand time zone and  user time are not same 
+											if($brand_timezone['value'] != $user_timezone['value'] )
+											{
 												?>
-												<option value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+												<option  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+												<?php 
+											}
+											
+											// Display remaining timezones
+											foreach ($timezones as $key => $obj) 
+											{
+												?>
+												<option data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 												<?php
 											}
 										?>

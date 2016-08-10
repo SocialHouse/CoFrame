@@ -97,6 +97,27 @@ if(!empty($post_details->brand_id)){
 					</div>
 				</div>
 				<label class="phase-one-error error hide clearfix"></label>
+				<div class="form-group slate-post-tz">
+					<select class="form-control approval_timezone" name="phase[0][time_zone]">
+						<?php 
+							// Display remaining timezones
+							foreach ($timezones as $key => $obj) 
+							{
+								$selected ='';
+								if(!empty( $brand))
+								{
+									if( $obj->value == $brand->timezone)
+									{
+										$selected = 'selected = "selected"';
+									}
+								}								
+								?>
+								<option value="<?php echo $obj->value; ?>" <?php echo $selected; ?>><?php echo $obj->timezone; ?></option>
+								<?php
+							}
+						?>
+					</select>
+				</div>
 				<div class="form-group">
 					<label for="approvalNotes">Note to Approvers (optional):</label>
 					<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
