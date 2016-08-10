@@ -1,4 +1,4 @@
-<form name="edit-date" method="post" action="<?php echo base_url();?>approvals/edit-approval-phase/<?php echo $phase_id.'/'.$post_id .'/edit'; ?>">
+<form name="edit-date" method="post" action="<?php echo base_url();?>approvals/edit-approval-phase/<?php echo $phase_id.'/'.$post_id .'/edit'; ?>" autocomplete="off">
 		<h5>Approvers</h5>
 		<?php 
 		$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'approvals/phase_user_list/'.$phase_id.'"';			
@@ -45,7 +45,6 @@
 								<input type="text" class="time-input amselect" name="post-ampm" value="<?php echo date('A', strtotime($phase_details->approve_by)); ?>">
 							</div>
 						</div>
-						<span class="timezone pull-xs-right">PST</span>
 					</div>
 				</div>
 				<div class="form-group">
