@@ -11010,7 +11010,8 @@ a {
   margin-bottom: .5rem; }
   .author .dateline {
     color: #bfbfbf;
-    display: block; }
+    display: block;
+    font-size: 1rem; }
   .author .author-meta {
     margin-left: 12px; }
 
