@@ -8720,7 +8720,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8748,10 +8748,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -8808,7 +8808,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Twitter Post Styles*/
 .tw_post {
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   padding: 9px 12px; }
   .tw_post .user-profile-img {
@@ -8828,15 +8828,16 @@ x:-o-prefocus, .qtip .qtip-tip {
     color: #8899a6;
     line-height: 17px; }
   .tw_post strong, .tw_post b {
-    font-family: Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold; }
   .tw_post a {
     color: #0084B4;
-    font-family: Arial, sans-serif; }
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
   .tw_post .post_copy_text {
     display: block;
     font-size: 26px;
-    line-height: 32px; }
+    line-height: 32px;
+    font-weight: 300; }
   .tw_post .img-div {
     margin-top: 10px;
     margin: 9px 0 0 -1px;
@@ -9468,7 +9469,7 @@ a {
     z-index: 1050; }
     .brand-navigation .navbar-nav .dropdown-menu .nav-link {
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 0.8rem;
       letter-spacing: .2rem;
       padding: .5rem 2rem .5rem 1rem; }
       .brand-navigation .navbar-nav .dropdown-menu .nav-link:hover {
@@ -9510,8 +9511,11 @@ a {
         margin-top: -13px; }
   .navbar-brand-manage .navbar-nav.navbar-section {
     margin-top: 2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     border-top: 1px solid #000; }
+    @media (min-width: 1820px) {
+      .navbar-brand-manage .navbar-nav.navbar-section {
+        padding-top: 2rem; } }
 
 .current-user-details {
   position: absolute;
@@ -11423,7 +11427,8 @@ a {
   width: 16px;
   height: 16px;
   margin-right: 10px;
-  line-height: normal; }
+  line-height: normal;
+  font-size: 15px; }
   .post-filters .square-border .fa, .select-box .square-border .fa {
     margin: 0;
     position: relative;
@@ -11767,7 +11772,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
     max-width: 8.8rem; }
   .form-control.time-select {
     max-width: 9.46667rem;
-    margin-left: 18px;
+    margin-left: 1.2rem;
     padding: 4px 0px 4px 5px; }
     .form-control.time-select input {
       font-size: 1.33333rem; }
