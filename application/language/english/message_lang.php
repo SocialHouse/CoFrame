@@ -175,5 +175,9 @@
 
 	$lang['unable_to_schedule'] = "Unable to schedule post. Please try again";
 	$lang['schedule_post_modal_msg'] = "You have not received all approvals. Send mail to them or schedule as it is?";
+
+	$lang['save_successfully'] = "Your %type% information saved successfully";
+	$lang['already_saved'] = "Your %type% information already saved";
+	
 	
 ?>

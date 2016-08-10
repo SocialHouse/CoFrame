@@ -32,7 +32,8 @@ class Social_media extends CI_Controller {
 		$this->user_data = $this->session->userdata('user_info');
 		$this->user_id = $this->session->userdata('id');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
-		$token = $this->session->userdata("pinterest_access_token");
+		$this->load->config('pinterest');
+		
 		$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
 		//for twittr
 		$this->load->library('twitteroauth');
@@ -114,7 +115,7 @@ class Social_media extends CI_Controller {
 		}
 
 		//for pinterest
-		$this->load->config('pinterest');
+		
 	}
 
 	public function index()
@@ -489,7 +490,7 @@ class Social_media extends CI_Controller {
 		if(isset($auth_response->access_token))
 		{
 			$data = array(
-				'access_token' => $auth_response->access_token,			
+				'access_token' => $auth_response->access_token,
 				'user_id' => $this->user_id,
 				'response' => json_encode($auth_response),
 				'type' => 'instagram'
@@ -857,7 +858,7 @@ class Social_media extends CI_Controller {
 
 		}
 	}
-// {"id":"309481874332798657","name":"AXAq9P9cswx5zN_lFMNWADqL2vKLFGfS2XJyMMlC7jcufCArZgAAAAA","url":"https:\/\/www.pinterest.com\/ninad_g\/axaq9p9cswx5zn_lfmnwadql2vklfgfs2xjymmlc7jcufcarzg\/","description":null,"creator":null,"created_at":null,"counts":null,"image":null}
+
 	public function pinterest_me()
 	{	
 
