@@ -174,9 +174,9 @@
 													<div class="form-group clearfix">
 														<div class="attachment pull-sm-left">
 															<input type="file" name="attachment" class="hidden attachment_image">
-															<button title="Add Attachment" class="btn-icon add-attachment">
+															<button title="Add Attachment" class="btn-icon add-attachment pull-sm-left">
 															<i class="fa fa-paperclip"></i></button>
-															<img id="attached_img" accept="images/*" class="hide" height="25" width="25" src="<?php echo img_url().'default_profile.jpg'; ?>">
+															<img id="attached_img" accept="images/*" class="hide" height="30" width="30" src="<?php echo img_url().'default_profile.jpg'; ?>">
 														</div>
 														<div class="pull-sm-right">
 															<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
@@ -437,28 +437,26 @@
 						$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
 					}
 	            ?>
-	            <img class="circle-img pull-sm-left current-user" width="36" height="36" src="<?php echo $path; ?>">
+	            <img class="circle-img pull-sm-left" width="36" height="36" src="<?php echo $path; ?>">
 				
 				<div class="author-meta pull-sm-left">
 					<?php echo $this->user_data["first_name"] .' '.$this->user_data["last_name"]; ?>
 					<span class="dateline">Reply to request</span>
 				</div>
 			</div>
-			<div class="suggest-edit">
-				<div class="form-group">
-					<textarea class="form-control" rows="2" name="comment" id="reply_comment_copy" placeholder="Suggest an edit here..."></textarea>
+			<div class="form-group">
+				<textarea class="form-control" rows="2" name="comment" id="reply_comment_copy" placeholder="Suggest an edit here..."></textarea>
+			</div>
+			<div class="form-group clearfix">
+				<div class="attachment pull-sm-left">
+					<input type="file" name="replay-attachment" class="hidden attachment_image">
+					<button title="Add Attachment" class="btn-icon add-attachment">
+					<i class="fa fa-paperclip"></i></button>
+					<img  accept="images/*" class="hide" height="30" width="30" src="<?php echo img_url().'default_profile.jpg'; ?>">
 				</div>
-				<div class="form-group clearfix">
-					<div class="attachment pull-sm-left">
-						<input type="file" name="replay-attachment" class="hidden attachment_image">
-						<button title="Add Attachment" class="btn-icon add-attachment">
-						<i class="fa fa-paperclip"></i></button>
-						<img  accept="images/*" class="hide" height="25" width="25" src="<?php echo img_url().'default_profile.jpg'; ?>">
-					</div>
-					<div class="pull-sm-right">
-						<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-						<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" disabled="disabled">Submit</button>
-					</div>
+				<div class="pull-sm-right">
+					<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
+					<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" disabled="disabled">Submit</button>
 				</div>
 			</div>
 		</li>

@@ -11006,13 +11006,19 @@ a {
   font-size: 18px;
   width: 30px;
   height: 30px; }
+.container-post-discussion .attachment img {
+  height: inherit;
+  max-height: 30px;
+  width: auto; }
+.container-post-discussion .add-attachment {
+  margin-right: 5px; }
 .container-post-discussion h2 .fa {
   font-size: 18px; }
 .container-post-discussion .container-view-approvals {
   padding-bottom: 100px; }
   .container-post-discussion .container-view-approvals h5, .container-post-discussion .container-view-approvals .qtip-titlebar {
     padding: 1rem 0 .25rem;
-    font-size: 12px;
+    font-size: 0.8rem;
     border-bottom: 1px solid #000; }
   .container-post-discussion .container-view-approvals .post-content-footer {
     border: 0;
@@ -11047,7 +11053,7 @@ a {
     margin-right: 0; }
 
 .comment {
-  font-size: 17px;
+  font-size: 1.13333rem;
   padding: 0 0 0 48px;
   position: relative; }
   .comment p:last-of-type {

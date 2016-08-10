@@ -772,13 +772,13 @@ if(!function_exists('relative_date'))
         $today = strtotime(date('M j, Y'));
         $reldays = ($time - $today) / 86400;
         if ($reldays >= 0 && $reldays < 1) {
-            return 'Today '.date('\a\t h:i a' , $time);
+            return 'Today '.date('\a\t g:i a' , $time);
         } else
         if ($reldays >= 1 && $reldays < 2) {
-            return 'Tomorrow '.date('\a\t h:i a' ,$time);
+            return 'Tomorrow '.date('\a\t g:i a' ,$time);
         } else
         if ($reldays >= -1 && $reldays < 0) {
-            return 'Yesterday '.date('\a\t h:i a' , $time);
+            return 'Yesterday '.date('\a\t g:i a' , $time);
         }
 
         if (abs($reldays) < 7) 
@@ -791,17 +791,17 @@ if(!function_exists('relative_date'))
             else
             {
                 $reldays = abs(floor($reldays));
-                return $reldays.' day'.($reldays != 1 ? 's' : '').' ago';
+                return $reldays.' day'.($reldays != 1 ? 's' : '').' ago at date ' . date('g:i a', $time);
             }
         }
 
         if (abs($reldays) < 182)
         {
-            return date('l, j F', $time ? $time : time());
+            return date('F j \a\t g:i a', $time ? $time : time());
         }
         else
         {
-            return date('l, j F, Y', $time ? $time : time());
+            return date('j F, Y \a\t g:i a', $time ? $time : time());
         }
     }
 }
