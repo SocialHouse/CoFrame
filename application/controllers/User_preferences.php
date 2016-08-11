@@ -93,11 +93,19 @@ class User_preferences extends CI_Controller {
 			$this->data['groups'] = $this->aauth->list_groups();
 
 			$this->load->model('brand_model');
-
-			$this->data['all_users'] = $this->brand_model->get_all_users();
-			$this->data['master_user_count'] = $this->brand_model->get_all_master_users();
-			$this->data['added_users']  = $this->user_model->get_users_by_parent_id( $this->user_data['account_id']);
 			
+			$this->data['added_users']  = $this->user_model->get_users_by_parent_id( $this->user_data['account_id']);
+			$users_ids = array();
+			if(!empty($this->data['added_users']))
+			{
+				foreach ($this->data['added_users']  as $key => $user) 
+				{
+					$users_id[] =  $user->aauth_user_id;
+				}
+			}
+			$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,'',$users_ids);
+			$this->data['all_users_count'] = $this->brand_model->get_all_users();
+			$this->data['master_user_count'] = $this->brand_model->get_all_master_users();
 		}
 		_render_view($this->data);
 	}
@@ -539,7 +547,7 @@ class User_preferences extends CI_Controller {
 	        	);
 
     		$condition = array('aauth_user_id' => $user_id);
-	       $this->timeframe_model->update_data('user_info',$user_info,$condition);
+	       	$this->timeframe_model->update_data('user_info',$user_info,$condition);
 
 	        // Update user profile image
     		$user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
@@ -574,6 +582,8 @@ class User_preferences extends CI_Controller {
 	        	$url = upload_path().$user_img[0]->img_folder.'/users/'.$user_id.'.png';
 	        	delete_file($url);
 	        }
+	        // Delete all permissions of user  
+	        $this->user_model->delete_user_permissions($user_id,$this->user_data['account_id']);
 
 	        //  Get user old Permissions and Groups and remove old and add New 
         	$old_role = strtolower(get_user_groups($user_id,NULL,$this->user_data['account_id']));

@@ -92,8 +92,8 @@
 								<select class="form-control" id="timeZone" name="timezone">
 									<option value="">Time Zone</option>
 									<?php 
-									if(!empty($timezones_list)){
-										foreach ($timezones_list as $key => $obj) {
+									if(!empty($countries)){
+										foreach ($countries as $key => $obj) {
 											if($obj->value == $user_details->timezone){
 												$selected = ' selected="selected"';
 											}else{
