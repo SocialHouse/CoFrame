@@ -147,6 +147,8 @@
     <script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>notification.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>main.js?ver=1.0.0'></script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>tooltip-config.js?ver=1.0.0'></script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>modal-config.js?ver=1.0.0'></script>
     <script>
     	if(typeof(fileDragNDrop) == 'function')
 		{
