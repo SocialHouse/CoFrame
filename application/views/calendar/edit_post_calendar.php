@@ -302,8 +302,13 @@
 														<button type="button" class="btn btn-sm btn-default <?php echo $class; ?>">Cancel</button>
 													<?php																			
 													}
+													$btn_text = 'Next Phase';		
+													if($phase_count == ($phase_no + 1))
+													{
+														$btn_text = 'Add Phase';
+													}
 													?>
-													<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 2;?>" disabled="disabled">Next Phase</button>
+													<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $phase_no + 2;?>" disabled="disabled"><?php echo $btn_text; ?></button>
 												</div>
 											</div>
 											<div class="bg-white approval-phase saved-phase animated fadeIn" id="preview_edit_approvalPhase<?php echo $phase_no + 1;?>" data-id="<?php  echo $phase_no;?>">
@@ -366,7 +371,7 @@
 									}
 									$phase_count = $phase_count+1;
 									for($i = $phase_count; $i <= 3 ;$i++ ){
-										$inactive =  'inactive';
+										$inactive =  'inactive hide hidden-phase';
 										//echo $phase_count;
 										//echo $i;
 										if( $phase_count == 1 && $i == 1 ){

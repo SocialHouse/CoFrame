@@ -56,7 +56,6 @@ if(!empty($post_details->brand_id)){
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
 			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="2" >Next Phase</button>
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled hide" data-new-phase="2" >Add Phase</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase1" data-id="0">
@@ -124,8 +123,6 @@ if(!empty($post_details->brand_id)){
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
 			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled" data-new-phase="3" >Next Phase</button>
-			
-			<button type="button" class="btn btn-xs btn-secondary pull-sm-right btn-change-phase btn-disabled hide" data-new-phase="3" >Add Phase</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase2" data-id="1">
@@ -194,7 +191,7 @@ if(!empty($post_details->brand_id)){
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
 		</div>
 	</div>
-	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase" data-id="2">
+	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase3" data-id="2">
 		<h2 class="clearfix">Phase 3 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
 			<li></li>

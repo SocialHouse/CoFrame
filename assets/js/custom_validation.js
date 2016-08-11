@@ -21,7 +21,7 @@ jQuery(function($) {
 
 				setTimeout(function() {
 					var phase_num = $activePhase.data('id') + 1;
-					$('.date-preview'+phase_num).html(startDate.format('M/DD/YYYY'))
+					// $('.date-preview'+phase_num).html(startDate.format('M/DD/YYYY'))
 
 					/*	
 					*	it is used to find Approvals user is selected or not from drop doan list
