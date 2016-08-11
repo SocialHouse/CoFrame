@@ -332,8 +332,7 @@
 													if($approver_status == 'approved')
 													{
 														?>
-														<div class="before-approve">
-															<span class="post-actions pull-sm-left">
+														<div class="before-approve post-actions pull-sm-left">
 																<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
 																<?php
 																if($phase_status == 'pending' && $post_details->status == 'pending')
@@ -343,7 +342,6 @@
 																	<?php
 																}
 																?>
-															</span>
 														</div>
 														
 														<div class="after-approve hide">
@@ -355,10 +353,10 @@
 													elseif($approver_status == 'pending')
 													{
 														?>
-														<div class="before-approve">
+														<div class="before-approve pull-sm-left ">
 															<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
 														</div>
-														<div class="after-approve hide">
+														<div class="after-approve post-actions pull-sm-left hide">
 															<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
 															<br/>
 															<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
