@@ -32,7 +32,7 @@
 							</div>
 							<div class="form-group">
 								<label for="brandName">Brand Name:</label>
-								<input type="text" class="form-control" id="brandName" placeholder="INSERT BRAND NAME" name="name">
+								<input type="text" class="form-control" id="brandName" placeholder="Insert Brand Name" name="name">
 							</div>
 							<div class="form-group">
 								<label>Brand Time Zone:</label>
