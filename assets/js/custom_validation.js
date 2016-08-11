@@ -391,7 +391,7 @@ jQuery(function($) {
 			startDate = moment(new Date (startDate)).format('YYYY-MM-DD');
 			old_date = moment(new Date (old_date)).format('YYYY-MM-DD');
 			console.log( [startDate ,old_date]);
-			if(!moment(old_date).isAfter(startDate, ['year', 'month', 'week', 'day'])){
+			if(!moment(new Date (old_date)).isAfter(startDate, ['year', 'month', 'week', 'day'])){
 				console.log('is_true');
 				date_error.text(language_message.date_greater_than_today );
 				date_error.show();
