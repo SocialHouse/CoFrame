@@ -1218,23 +1218,13 @@ jQuery(function($) {
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
 			}
 		});
-
 		if(phase_added == 0)
 		{
-			$('.container-approvals').children('div:first').removeClass('hide');
-			$('.container-approvals').children('div:eq(1)').remove();
-			$('.container-approvals').children('div:eq(2)').remove();
+			$('.container-approvals').find('.dafault-phase').removeClass('hide');
+			$('.container-approvals').find('.add-phases').remove();
+			$('.container-approvals').find('.overlay-box').remove();
 			$('.modal-contain').remove();
-			if ($(this).hasClass('phase-num')) {
-				$(this).trigger('click');
-			}
-
-			$('#qtip-popover-user-list').remove();
 		}
-		// $,each($phases,function(a,b){
-
-		// });
-		
 	});
 
 	$(document).on('click', '.cancel-edit-phase', function() {
@@ -1249,6 +1239,7 @@ jQuery(function($) {
 			}
 		});
 		$('.phase-footer').addClass('hide');
+		$('#submit-approval-btns').show();
 	});
 
 	$('body').on('contentShown', '#phaseDetails', function() {

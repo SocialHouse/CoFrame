@@ -193,14 +193,13 @@
 			{ 
 				?>
 				<div class="col-md-4 equal-height">
-					<div class="container-phases">
-						<div class="bg-gray-lightest border-gray-lighter border-all padding-22px">
-							<h4 class="text-xs-center">Mandatory Approvals</h4>
-							<?php 
-							$phase_count = 0;
-							//echo '<pre>'; print_r($phases);echo '</pre>';
-							?> 
-							<div class="container-approvals">
+					<div class="container-approvals">
+						<div class="add-phases">
+							<div class="container-phases">
+								<h4 class="text-xs-center">Mandatory Approvals</h4>
+								<?php 
+								$phase_count = 0;
+								?> 
 								<div id="phaseDetails" >
 									<?php
 									if(!empty($phases)){ 
@@ -255,7 +254,7 @@
 														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $phase_no ;?>][time_zone]">
 															<?php 
 																// Display remaining timezones
-
+	
 																foreach ($timezones as $ti_key => $time) 
 																{
 																	$selected = '';
@@ -272,7 +271,7 @@
 																			$selected = 'selected = "selected"';
 																		}
 																	}
-
+	
 																	?>
 																	<option value="<?php echo $time->value; ?>" <?php echo $selected;?>><?php echo $time->timezone; ?></option>
 																	<?php
@@ -334,7 +333,7 @@
 													?>
 														<li class="pull-sm-left <?php echo $user->status; ?>">
 															<input type="checkbox" name="phase[<?php echo $phase_no;?>][approver][]" value="<?php echo $user->user_id; ?>" checked="checked" class="hidden-xs-up approvers">
-
+	
 															<img width="36" height="36" class="circle-img" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>"  alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" data-toggle="popover-hover" data-content="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>">
 														</li>
 													<?php
@@ -371,13 +370,11 @@
 									$phase_count = $phase_count+1;
 									for($i = $phase_count; $i <= 3 ;$i++ ){
 										$inactive =  'inactive hide hidden-phase';
-										//echo $phase_count;
-										//echo $i;
 										if( $phase_count == 1 && $i == 1 ){
 											$inactive = '';
 										}
 										if($phase_count != 1){
-											?>
+										?>
 											<div class="bg-white approval-phase animated fadeIn edit-phase-div <?php echo $inactive ;?>" id="approvalPhase<?php echo $i; ?>" data-id="<?php echo $i -1; ?>">
 												<h2 class="clearfix">Phase <?php echo $i?></h2>
 												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$post_details->brand_id; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
@@ -421,7 +418,6 @@
 															?>
 														</select>
 													</div>
-
 												</div>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
@@ -480,20 +476,17 @@
 										<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
 										<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled btn-secondary" disabled="disabled">Save Phases</button>
 									</footer>
+									<footer id="submit-approval-btns" class="post-content-footer day-edit-post">
+										<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
+										<?php 
+											if($phase_count > 0){
+												echo '<button type="submit" class="btn btn-sm btn-default pull-sm-right submit-btn" name="resubmit" value="resubmit" >Resubmit to Phases</button>';
+											}
+										?>
+									</footer>
 								</div>
 							</div>
 						</div>
-						<?php //include("lib/view-approval-phases.php"); ?>
-						
-						<footer id="submit-approval-btns" class="post-content-footer day-edit-post">
-							<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
-							<?php 
-								if($phase_count > 0){
-									echo '<button type="submit" class="btn btn-sm btn-default pull-sm-right submit-btn" name="resubmit" value="resubmit" >Resubmit to Phases</button>';
-								}
-							?>
-						</footer>
-
 					</div>
 				</div>
 				<?php 
