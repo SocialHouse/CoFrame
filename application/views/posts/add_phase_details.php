@@ -12,7 +12,7 @@
 
 <div class="overlay-box bg-white animated fadeIn add_phases_num">
 	<div class="text-xs-center form-inline">
-		<label for="approvalPhases">How many approval phases would you like to add? (1-3)</label>
+		<label for="approvalPhases">How many approval phases would you like?</label><br>
 		<select class="form-control" id="approvalPhases">
 			<option value="1">1</option>
 			<option value="2">2</option>
