@@ -195,7 +195,6 @@ $(document).ready(function(){
 		var role = $('#table_id_'+aauth_user_id).find('.role').text();
 		var img_src = $('#table_id_'+aauth_user_id).find('.circle-img').attr('src');
 		
-		console.log([first_name,last_name,title,email,img_src]);
 		$('#user_preferences_add_user #firstName').val(first_name);
 		$('#user_preferences_add_user #lastName').val(last_name);
 		$('#user_preferences_add_user #userTitle').val(title);
@@ -241,6 +240,81 @@ $(document).ready(function(){
 		$('#user_preferences_add_user').attr('action',base_url+'user_preferences/add_user')	;
 	});
 
+	$(document).on('change', '#userDropdown select', function(e) {
+		e.preventDefault();
+		$('#userDropdown').slideUp(function() {
+			$('#addUserInfo').slideDown(function() {
+				equalColumns();
+			});
+		});
+		if ($(this).val() == "") {
+			return false;
+			$('#addUserBtns').slideDown(function() {
+				equalColumns();
+			});
+		}else{
+
+			if ($(this).val() === "Add New") {
+				$('#addUserBtns').slideDown(function() {
+					equalColumns();
+				});
+
+				$('#updateUserBtns').slideUp(function() {
+					equalColumns();
+				});
+				$('#addUserInfo input').val('');
+				$('#user_preferences_add_user')[0].reset();
+				$('#user_preferences_add_user  #new_user_pic').empty();
+				$('#user_preferences_add_user #user_id').remove();
+				$('#user_preferences_add_user #previous_group').remove();
+				$('#is_user_image').val('');
+				$(".remove-user-img").addClass('hide');
+				$("#user_preferences_add_user #new_user_pic").removeClass('hasUpload');
+				$('#user_preferences_add_user #userEmail').prop('readonly', false);
+				$('#user_preferences_add_user #userEmail').attr('name', 'email');
+				$('#user_preferences_add_user').attr('action',base_url+'user_preferences/add_user')	;
+
+			} else {
+				$('#addUserBtns').slideUp(function() {
+					equalColumns();
+				});
+
+				$('#updateUserBtns').slideDown(function() {
+					equalColumns();
+				});				
+				var aauth_user_id = $(this).val();
+				var first_name = $(this).find(':selected').data('fname');
+				var last_name =$(this).find(':selected').data('lname');
+				var title = $(this).find(':selected').data('title');
+				var email =$(this).find(':selected').data('email');
+				
+				var img_src = $(this).find(':selected').data('img-url');
+
+				$('#user_preferences_add_user #firstName').val(first_name);
+				$('#user_preferences_add_user #lastName').val(last_name);
+				$('#user_preferences_add_user #userTitle').val(title);
+				$('#user_preferences_add_user #userEmail').val(email);
+				$('#user_preferences_add_user #userRoleSelect').val('');
+				
+				if(img_src.search('default_profile.jpg') == -1){
+					
+					$('#new_user_pic').prepend($('<img>',{src:img_src}));
+					$('#is_user_image').val('already_exists');
+				}
+				$('<input>').attr({
+					    type: 'hidden',
+					    id: 'user_id',
+					    name: 'user_id',
+					    value:aauth_user_id
+					}).appendTo('#user_preferences_add_user');
+				$('#userEmail').prop('readonly', true);
+				$('#userEmail').attr('name', 'old_email');
+				$('#user_preferences_add_user').attr('action',base_url+'user_preferences/edit_user_info')	;	
+			}
+
+			toggleBtnClass('#addRole', true);
+		}
+	});
 
 	$(document).on('click', '#addUserLink', function(e) {
 		if(plan_data.users <= $('#all_users').val() && !$('#user_preferences_add_user #user_id').length){

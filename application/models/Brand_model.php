@@ -258,9 +258,10 @@ class Brand_model extends CI_Model
 
 	function get_users_sub_users($user_id,$brand_id = '',$user_ids = array())
 	{
-		$this->db->select('aauth_user_id,first_name,last_name,img_folder');
+		$this->db->select('user_info.aauth_user_id, user_info.first_name, user_info.last_name, user_info.img_folder,user_info.title,aauth_users.email');
 		$this->db->join('brands','brands.id = brand_user_map.brand_id');
 		$this->db->join('user_info','brand_user_map.access_user_id = user_info.aauth_user_id');
+		$this->db->join('aauth_users','aauth_users.id = user_info.aauth_user_id');
 		$this->db->where('created_by',$user_id);
 		if($brand_id)
 			$this->db->where('brands.id !=',$brand_id);

@@ -16,7 +16,7 @@
 		<div class="form__success">Done!</div>
 		<div class="form__error">Error! <span></span></div>
 	</div>
-	<div class="form-group input-margin" id="userSelect">		
+	<div class="form-group input-margin" id="userSelect">
 		<select class="form-control" name="user_select" id="user-select">
 			<option value="">Select User</option>
 			<!-- Loop through all users from the master account -->
