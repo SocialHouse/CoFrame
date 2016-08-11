@@ -147,10 +147,6 @@
 											<div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'scheduled'); ?></div>
 										</li>
 										<li>
-											<i class="fa fa-check-circle color-success"></i>Posted 
-											<div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'posted'); ?></div>
-										</li>
-										<li>
 											<i class="fa fa-minus-circle color-warning"></i>Pending Approval 
 											<div class="pull-sm-right"><?php echo get_post_count_status($brand->id,'pending'); ?></div>
 										</li>
