@@ -301,7 +301,7 @@
 										</fieldset>
 										<fieldset class="form-group">
 											<label class="sr-only" for="phoneNumber">Phone Number</label>
-											<input type="tel" id="phone" data-error='false' class="form-control" name="phone">
+											<input type="tel" id="phone" data-error='false' class="form-control" name="phone" placeholder="Telephone - Numbers Only*">
 											 <input type="hidden" name="dialcode" value="" id="dialcode"> 
 										</fieldset>
 										<fieldset class="form-group">
