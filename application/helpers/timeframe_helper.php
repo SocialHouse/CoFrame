@@ -496,7 +496,7 @@ if(!function_exists('get_approval_list_buttons'))
     {
         $CI = & get_instance(); 
         $html_to_return = '';
-        if((check_user_perm($CI->user_id,'approve',$brand_id) OR ($CI->user_id == $CI->user_data['account_id'])) AND !empty($phase_status))
+        if((check_user_perm($CI->user_id,'approve',$brand_id) OR ($CI->user_id == $CI->user_data['account_id']) OR $CI->user_data['user_group'] == 'Master Admin') AND !empty($phase_status))
         {
             if($approver_status == 'pending' AND $post->status == 'pending')
             {               

@@ -218,13 +218,12 @@
 														foreach($obj as $user)
 														{
 															$image_path = img_url().'default_profile.jpg';
-															if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->user_id.'.png'))
+															if(file_exists(upload_path().$user->img_folder.'/users/'.$user->user_id.'.png'))
 															{
-																$image_path = upload_url().$this->user_data['img_folder'].'/users/'.$user->user_id.'.png';
+																$image_path = upload_url().$user->img_folder.'/users/'.$user->user_id.'.png';
 															}
 														?>
 															<div class="pull-sm-left user-img">
-																<input type="checkbox" name="phase[<?php echo $phase_no;?>][approver][]" value="<?php echo $user->user_id; ?>" checked="checked" class="hidden-xs-up approvers">
 																<img width="36" height="36" class="circle-img" alt="Sampat" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>">
 															</div>
 														<?php
@@ -324,12 +323,14 @@
 													foreach($obj as $user)
 													{
 														$image_path = img_url().'default_profile.jpg';
-														if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->user_id.'.png'))
+														if(file_exists(upload_path().$user->img_folder.'/users/'.$user->user_id.'.png'))
 														{
-															$image_path = upload_url().$this->user_data['img_folder'].'/users/'.$user->user_id.'.png';
+															$image_path = upload_url().$user->img_folder.'/users/'.$user->user_id.'.png';
 														}
 													?>
 														<li class="pull-sm-left <?php echo $user->status; ?>">
+															<input type="checkbox" name="phase[<?php echo $phase_no;?>][approver][]" value="<?php echo $user->user_id; ?>" checked="checked" class="hidden-xs-up approvers">
+
 															<img width="36" height="36" class="circle-img" src="<?php echo $image_path; ?>" data-id="<?php echo $user->user_id; ?>"  alt="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>" data-toggle="popover-hover" data-content="<?php echo ucfirst($user->first_name).' '.ucfirst($user->last_name); ?>">
 														</li>
 													<?php
@@ -375,7 +376,7 @@
 											?>
 											<div class="bg-white approval-phase animated fadeIn edit-phase-div <?php echo $inactive ;?>" id="approvalPhase<?php echo $i; ?>" data-id="<?php echo $i -1; ?>">
 												<h2 class="clearfix">Phase <?php echo $i?></h2>
-												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/get_brand_users_by_post/'.$post_details->brand_id.'/'.$post_details->id.'/'.$i; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
+												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$post_details->brand_id; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>
 														<div class="pull-sm-left">
 															<i class="tf-icon tf-icon-plus circle-border bg-black">+</i>
@@ -399,8 +400,7 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">
-															<!--<option value="">--Please select timezone--</option>-->
+														<select class="form-control approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">			
 															<?php 
 																// Display remaining timezones
 																foreach ($timezones as $ti_key => $time) 
@@ -425,25 +425,30 @@
 												</div>
 												<div class="form-group">
 													<?php 
-													if($i != 1){
+													if($i != 1)
+													{
 														$class = '';
 														if($phase_no == 2)
 														{
 															$class = 'last_previous_btn';
 														}
-													?>
+														?>
 														<button type="button" class="btn btn-sm btn-default btn-change-phase <?php echo $class; ?>" data-new-phase="<?php echo $i - 1; ?>">Previous</button>
-													<?php
-													}else{
-														if($i != 3){
-													?>
+														<?php
+													}
+													else
+													{
+														if($i != 3)
+														{
+															?>
 															<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
-													<?php
+															<?php
 														}
 													}
-													if($i != 3){
+													if($i != 3)
+													{
 													?>
-														<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $i + 2;?>" disabled="disabled">Next Phase</button>
+														<button type="button" class="btn btn-xs pull-sm-right btn-secondary btn-change-phase btn-disabled" data-new-phase="<?php echo $i + 1;?>" disabled="disabled">Next Phase</button>
 													<?php
 													}
 													?>
@@ -467,7 +472,7 @@
 										}
 									}
 									?>
-									<footer class="post-content-footer hide phase-footer">
+									<footer class="post-content-footer hide phase-footer" id="save-phase-btns">
 										<button type="button" class="btn btn-sm btn-default cancel-edit-phase">Cancel</button>
 										<button type="button" class="btn btn-sm pull-sm-right save-phases btn-disabled btn-secondary" disabled="disabled">Save Phases</button>
 									</footer>
@@ -476,7 +481,7 @@
 						</div>
 						<?php //include("lib/view-approval-phases.php"); ?>
 						
-						<footer class="post-content-footer day-edit-post">
+						<footer id="submit-approval-btns" class="post-content-footer day-edit-post">
 							<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>
 							<?php 
 								if($phase_count > 0){

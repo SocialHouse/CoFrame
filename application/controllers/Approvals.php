@@ -331,7 +331,7 @@ class Approvals extends CI_Controller {
 		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
 		$brand_id = $this->data['phase_details']->brand_id;
 		$this->data['brand_id'] = $brand_id;
-		$this->data['users'] = $this->brand_model->get_brand_users($brand_id);
+		$this->data['users'] = $this->brand_model->get_approvers($brand_id);
 		$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
 		$post_phases= $this->post_model->get_post_phases($this->data['phase_details']->post_id);
 		if(!empty($post_phases))

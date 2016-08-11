@@ -3,7 +3,7 @@
 		$master_user = [];
 		if($this->user_id != $this->user_data['account_id'])
 		{
-			$master_user = get_master_user($this->user_data['account_id']);
+			$master_user = get_master_user($this->user_data['account_id']);			
 			if(!empty($master_user))
 			{
 				?>
@@ -17,7 +17,7 @@
 						
 						if(file_exists(upload_path().$master_user[0]->img_folder.'/users/'.$master_user[0]->aauth_user_id.'.png'))
 						{
-							$path = upload_url().$this->user_data['img_folder'].'/users/'.$master_user[0]->aauth_user_id.'.png';
+							$path = upload_url().$master_user[0]->img_folder.'/users/'.$master_user[0]->aauth_user_id.'.png';
 						}
 						?>
 						<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $master_user[0]->first_name . ' ' . $master_user[0]->last_name; ?>" title="<?php echo $master_user[0]->first_name . ' ' . $master_user[0]->last_name; ?>" class="circle-img"/>

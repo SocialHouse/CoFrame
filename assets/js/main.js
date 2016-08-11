@@ -296,10 +296,11 @@ jQuery(function($) {
 				$(userImg).attr('data-id', buttonVal);
 				var imgSrc = userImg.attr('src');
 				var imgDiv = userImg.parent().clone();
-				var previewImgDiv = userImg.parent().clone();
-				var li=document.createElement('li');
-				var previewImgDivEdit = $(li).append(userImg.clone());
-				var newImage = userImg.clone();
+				// var previewImgDiv = userImg.parent().clone();
+				// var li=document.createElement('li');
+				// $(li).attr('class','pull-sm-left pending');
+				// var previewImgDivEdit = $(li).append(userImg.clone());
+				// var newImage = userImg.clone();
 				// var img = imgDiv;
 				var $activePhase = $('#phaseDetails').find('.active');
 				var activePhaseId = $activePhase.attr('id');
@@ -307,14 +308,14 @@ jQuery(function($) {
 					var phase_number = $activePhase.data('id');
 					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
 					$activePhase.find('.user-list li').prepend(imgDiv);	
-					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
-					$('#preview_'+$activePhase.attr('id')).find('li').append(previewImgDiv);
+					// $activePhase.find('img[data-id="' + buttonVal + '"]').parent().prepend(inputDiv);
+					// $('#preview_'+$activePhase.attr('id')).find('li').append(previewImgDiv);
 
-					$('#preview_edit_'+$activePhase.attr('id')).find('ul').append(previewImgDivEdit);
+					// $('#preview_edit_'+$activePhase.attr('id')).find('ul').append(previewImgDivEdit);
 					
 
 
-					$btn.attr('data-linked-phase', activePhaseId);
+					// $btn.attr('data-linked-phase', activePhaseId);
 
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
@@ -322,10 +323,10 @@ jQuery(function($) {
 
 					btnClicks++;
 				} else {
-					var phase_number = $activePhase.data('id');
-					$('#preview_edit_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent('li').remove();
+					// var phase_number = $activePhase.data('id');
+					// $('#preview_edit_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent('li').remove();
 					$activePhase.find('img[data-id="' + buttonVal + '"]').parent().remove();
-					$('#preview_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent().remove();
+					// $('#preview_'+$activePhase.attr('id')).find('img[data-id="' + buttonVal + '"]').parent().remove();
 					
 					// $activePhase.next('.approval-phase').find('img[data-id="' + buttonVal + '"]').parent().remove();
 
@@ -388,7 +389,7 @@ jQuery(function($) {
 					$(checkbox).attr('name', 'phase[' + phase_number + '][approver][]');
 					$activePhase.find('.user-list li').prepend(imgDiv);
 					$activePhase.find('img[src="' + imgSrc + '"]').parent().prepend(checkbox);
-					$btn.attr('data-linked-phase', activePhaseId);
+					// $btn.attr('data-linked-phase', activePhaseId);
 					btnClicks++;
 				} else {
 					$activePhase.find('img[src="' + imgSrc + '"]').parent().remove();
@@ -611,11 +612,15 @@ jQuery(function($) {
 				events: {
 					show: function() {
 						$target.attr('data-toggle', 'popover-ajax-inline');
+						if($target.hasClass('approver-selected'))
+						{
+							$('[data-toggle="popover-ajax"]').attr('data-toggle', 'popover-ajax-inline');
+						}
 					},
 					visible: function() {
 						var modal = this;
-						$(modal).attr('id','qtip-'+pid);
-						$(modal).find('qtip-content').attr('id','qtip-'+pid+'-content');
+						// $(modal).attr('id','qtip-'+pid);
+						// $(modal).find('qtip-content').attr('id','qtip-'+pid+'-content');
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
@@ -629,15 +634,9 @@ jQuery(function($) {
 						 	var users = $(modal).find('.user-list li');
 						 	$.each(users, function(c, user) {
 						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
-						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		var $phaseUser = $activePhase.find('.approver-selected img[data-id="' + ttipUser + '"]');
 						 		if($phaseUser.length) {
-						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
-						 			if(phaseId === selectedPhase) {
-						 				$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
-						 			}
-						 			else {
-						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
-						 			}
+						 			$(user).find('[data-group="post-approver"]').addClass('selected');						 			
 						 		}
 						 	});
 						 }
@@ -652,17 +651,13 @@ jQuery(function($) {
 						 	$.each(users, function(c, user) {
 						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
 						 		
-						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		var $phaseUser = $activePhase.find('.approver-selected img[data-id="' + ttipUser + '"]');
 						 		
-						 		if($phaseUser.length) {
-						 		}
-						 		else
+						 		if($phaseUser.length) 
 						 		{
-						 			$(user).find('i.check-box').removeClass('disabled');
-						 			$(user).find('i.check-box').removeClass('selected');
-						 			$(user).find('i.check-box').attr('data-linked-phase','');
-						 			
+						 			$(user).find('[data-group="post-approver"]').addClass('selected');
 						 		}
+						 		
 						 	});
 					 	}
 					}
@@ -794,34 +789,40 @@ jQuery(function($) {
 						 	var users = $(modal).find('.user-list li');
 						 	$.each(users, function(c, user) {
 						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
-						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		var $phaseUser = $('#phaseDetails').find('.approver-selected img[data-id="' + ttipUser + '"]');
 						 		if($phaseUser.length) {
 						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
 						 			if(phaseId === selectedPhase) {
-						 				$(user).find('[data-group="post-approver"]').addClass('selected').attr('data-linked-phase', phaseId);
+						 				$(user).find('[data-group="post-approver"]').addClass('selected');
 						 			}
-						 			else {
-						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
-						 			}
+						 		}
+						 		else
+						 		{
+						 			$(user).find('[data-group="post-approver"]').removeClass('selected');
 						 		}
 						 	});
 						 }
 						 else
 						 {
+						 	
 						 	var $activePhase = $target.closest('.approval-phase');
 						 	var phaseId = $activePhase.attr('id');
 						 	var users = $(modal).find('.user-list li');
 						 	$.each(users, function(c, user) {
 						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
-						 		var $phaseUser = $('#phaseDetails').find('.approver-selected input.approvers[value="' + ttipUser + '"]');
+						 		console.log($activePhase);
+						 		var $phaseUser = $activePhase.find('.approver-selected img[data-id="' + ttipUser + '"]');						 		
 						 		if($phaseUser.length) {
 						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
 						 			if(phaseId === selectedPhase) {
-						 				$(user).find('[data-group="post-approver"]').addClass('selected').removeClass('disabled').attr('data-linked-phase', phaseId);
+						 				console.log('if');
+						 				console.log(user);
+						 				$(user).find('[data-group="post-approver"]').addClass('selected').removeClass('disabled');
 						 			}
-						 			else {
-						 				$(user).find('[data-group="post-approver"]').addClass('disabled selected');
-						 			}
+						 		}
+						 		else
+						 		{
+						 			$(user).find('[data-group="post-approver"]').removeClass('selected');
 						 		}
 						 	});
 						 }
@@ -1220,16 +1221,40 @@ jQuery(function($) {
 		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
 	});
 
-	$(document).on('click', '.cancel-phase', function() {
-		$('.container-approvals').children('div:first').removeClass('hide');
-		$('.container-approvals').children('div:eq(1)').remove();
-		$('.container-approvals').children('div:eq(2)').remove();
-		$('.modal-contain').remove();
-		if ($(this).hasClass('phase-num')) {
-			$(this).trigger('click');
+	$(document).on('click', '.cancel-phase', function() {		
+		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
+		var phase_added = 0;
+		$.each(phases, function() {
+			var phaseId = $(this).data('id');
+			var id =  $(this).attr('id');
+			var selected_timezone = $(this).find('.approval_timezone option:selected').text();
+
+			$('#preview_approvalPhase1' + parseInt(phaseId)+1 ).find('.timezones-preview .zone').text($('option:selected',this).text());
+			
+			$(this).addClass('hide').removeClass('active');
+			if ($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
+				phase_added = 1;
+				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
+			}
+		});
+
+		if(phase_added == 0)
+		{
+			$('.container-approvals').children('div:first').removeClass('hide');
+			$('.container-approvals').children('div:eq(1)').remove();
+			console.log($('.container-approvals').children('div:eq(2)'));
+			$('.container-approvals').children('div:eq(2)').remove();
+			$('.modal-contain').remove();
+			if ($(this).hasClass('phase-num')) {
+				$(this).trigger('click');
+			}
+
+			$('#qtip-popover-user-list').remove();
 		}
-		console.log($('#qtip-popover-user-list'));
-		$('#qtip-popover-user-list').remove();
+		// $,each($phases,function(a,b){
+
+		// });
+		
 	});
 
 	$(document).on('click', '.cancel-edit-phase', function() {
@@ -1354,8 +1379,31 @@ jQuery(function($) {
 	});
 
 	$(document).on('click', '.save-phases', function() {
-		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
+		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');		
 		$.each(phases, function() {
+			var phase = this;			
+			$('#preview_'+$(phase).attr('id')).find('li').empty();
+			$('#preview_edit_'+$(phase).attr('id')).find('ul').empty();
+			var img = $(phase).find('img');
+			console.log(img);
+			$.each(img,function(a,b){
+				var div=document.createElement('div');
+				var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + $(b).attr('data-id') + '" name="phase[' + $(phase).attr('data-id') + '][approver][]">';
+				$(div).attr('class','pull-sm-left user-img');				
+				$(div).append(inputDiv);
+				$(div).append($(b).clone());
+				$('#preview_'+$(phase).attr('id')).find('li').append($(div));
+
+				if($('#preview_edit_'+$(phase).attr('id')).length)
+				{
+					var li=document.createElement('li');
+					$(li).attr('class','pull-sm-left pending');					
+					$(li).append(inputDiv);
+					var previewImgDivEdit = $(li).append($(b).clone());
+					$('#preview_edit_'+$(phase).attr('id')).find('ul').append(previewImgDivEdit);
+				}
+			});		
+
 			var phaseId = $(this).data('id');
 			var id =  $(this).attr('id');
 			var selected_timezone = $(this).find('.approval_timezone option:selected').text();
@@ -1378,13 +1426,27 @@ jQuery(function($) {
 		
 		//show edit phase view
 		$.each(phases, function() {
-			$(this).removeClass('hide').addClass('inactive');
+			//only remove that phase which is selected during the adding number of phases
+			if(!$(this).hasClass('hidden-phase'))
+			{
+				$(this).removeClass('hide').addClass('inactive');
+			}
 		});
 		$('.phase-footer').removeClass('hide');
 		
-		//hide saved phase view
+		//hide saved phase view and and add user images which are in preview view to edit view
 		$('#phaseDetails .saved-phase').each(function() {
 			$(this).addClass('hide').removeClass('active');
+			var img = $(this).find('img');
+			$('[data-id="'+$(this).attr('data-id')+'"]:not(.saved-phase)').find('.user-img').remove();
+			var user_list = $('[data-id="'+$(this).attr('data-id')+'"]:not(.saved-phase)').find('li');
+			$.each(img,function(a,b)
+			{
+				var div=document.createElement('div');
+				$(div).attr('class','pull-sm-left user-img');					
+				$(div).append($(b).clone());
+				$(user_list).prepend(div);
+			});
 		});
 		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]:not(.saved-phase)');
 		$activePhase.removeClass('inactive').addClass('active');
@@ -1511,10 +1573,18 @@ jQuery(function($) {
 
 	function setPhaseBtns(activePhase) {
 		var phaseId = activePhase.data('id');		
-		//to hide next button for last phase
+		//to hide next button for last phase		
 		if(phaseId == $('#phaseDetails').find('.approval-phase:not(".saved-phase"):not(".hide")').length - 1)
 		{
 			activePhase.find('[data-new-phase]:eq(' + 1 + ')').addClass('hide');
+			// if(phaseId != 2)
+			// {
+			// 	activePhase.find('[data-new-phase]:eq(' + 2 + ')').removeClass('hide');
+			// }
+			// else
+			// {
+			// 	activePhase.find('[data-new-phase]:eq(' + 2 + ')').addClass('hide');	
+			// }
 		}
 
 
@@ -1565,12 +1635,7 @@ jQuery(function($) {
 	function setUserList(i) {
 		var $selected = $('#qtip-popover-user-list').find('.selected');
 		$selected.each(function() {
-			linkedPhase = $(this).attr('data-linked-phase');
-			if (linkedPhase === 'approvalPhase' + i) {
-				$(this).removeClass('disabled');
-			} else {
-				$(this).addClass('disabled');
-			}
+			$(this).removeClass('selected');
 		});
 	}
 
@@ -2145,6 +2210,7 @@ function showContent(obj) {
 			if(jQuery(this).data('id') >= phases)
 			{
 				jQuery(this).addClass('hide');
+				jQuery(this).addClass('hidden-phase');
 			}
 		});
 
@@ -2159,6 +2225,7 @@ function setPhaseBtnsCreatePost(activePhase,phaseCount) {
 	if(jQuery(activePhase).data('id') == phaseCount)
 	{
 		activePhase.find('[data-new-phase]:eq(' + btn_num + ')').addClass('hide');
+		// activePhase.find('[data-new-phase]:eq(' + 1 + ')').removeClass('hide');
 		// toggleBtnClass(activePhase.find('[data-new-phase]:eq(' + btn_num + ')'), false);
 	}
 

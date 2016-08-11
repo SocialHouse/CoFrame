@@ -12,7 +12,7 @@ class Approval_model extends CI_Model
 		$result = [];
 		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id']  OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
-			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id');
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id,phases.id');
 			$this->db->join('posts','posts.id = phases.post_id');
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
@@ -33,7 +33,7 @@ class Approval_model extends CI_Model
 		}
 		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
-			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id');
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id');
 			$this->db->join('posts','posts.id = phases.post_id');
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
@@ -103,6 +103,7 @@ class Approval_model extends CI_Model
 			}
 
 			$this->db->order_by('phases_approver.status','desc');
+			$this->db->group_by('user_info.aauth_user_id');
 			$query = $this->db->get('phases_approver');
 		
 			if($query->num_rows() > 0)
@@ -120,32 +121,34 @@ class Approval_model extends CI_Model
 		$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 		$this->db->where('phases_approver.user_id',$user_id);
 		$this->db->where('phases.post_id',$post_id);
-		$query = $this->db->get('phases');
-		
+		$query = $this->db->get('phases');		
 		if($query->num_rows() > 0 && $this->user_id !== $this->user_data['account_id'] )
 		{
-
-			$phase_id = $query->row()->id;
-			$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status,user_info.img_folder');
-			$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
-			$this->db->join('phases','phases_approver.phase_id = phases.id');		
-			$this->db->where_in('phases_approver.phase_id',$phase_id);
-			$query = $this->db->get('phases_approver');
-			
-			if($query->num_rows() > 0)
+			$result = array();
+			foreach($query->result() as $phase)
 			{
-				$phase_result =$query->result();
-				$result = array();
-				$result[$phase_result[0]->phase]['phase_users'] = $phase_result;
-				$phase_comments = $this->get_phase_comments($phase_id);
-				if($phase_comments)
+				$phase_id = $phase->id;
+				$this->db->select('phases.id,phases.phase,user_info.aauth_user_id,first_name,last_name,post_id,note,approve_by,phase,phases_approver.status,phases.status as phase_status,user_info.img_folder');
+				$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');
+				$this->db->join('phases','phases_approver.phase_id = phases.id');		
+				$this->db->where_in('phases_approver.phase_id',$phase_id);
+				$query = $this->db->get('phases_approver');
+				
+				if($query->num_rows() > 0)
 				{
-					$result[$phase_result[0]->phase]['phase_comments'] = $phase_comments;
+					$phase_result =$query->result();				
+					$result[$phase_result[0]->phase]['phase_users'] = $phase_result;
+					$phase_comments = $this->get_phase_comments($phase_id);
+					if($phase_comments)
+					{
+						$result[$phase_result[0]->phase]['phase_comments'] = $phase_comments;
+					}					
 				}
-				return $result;
 			}
+			return $result;
 		}
-		else{
+		else
+		{
 			$this->db->select('phases.id');
 			$this->db->where('phases.post_id',$post_id);
 			$query = $this->db->get('phases');
@@ -229,7 +232,7 @@ class Approval_model extends CI_Model
 
 	function get_phase_users($phase_id)
 	{
-		$this->db->select('user_info.aauth_user_id,first_name,last_name,phases_approver.status');
+		$this->db->select('user_info.aauth_user_id,first_name,last_name,phases_approver.status,user_info.img_folder');
 		$this->db->join('user_info','user_info.aauth_user_id = phases_approver.user_id');		
 		$this->db->where('phases_approver.phase_id',$phase_id);
 		$query = $this->db->get('phases_approver');

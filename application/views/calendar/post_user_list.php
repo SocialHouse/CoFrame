@@ -17,12 +17,12 @@ if(!empty($users))
 				{
 					if($phase_user->user_id == $user->aauth_user_id)
 					{
-						$selected = 'selected';
+						// $selected = 'selected';
 						$phase_num = 'approvalPhase'.$key;
-						if($current_phase != $key)
-						{
-							$disabled = 'disabled';
-						}
+						// if($current_phase != $key)
+						// {
+						// 	$disabled = 'disabled';
+						// }
 					}
 				}
 			}

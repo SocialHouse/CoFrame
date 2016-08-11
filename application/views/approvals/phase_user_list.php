@@ -9,11 +9,11 @@
 						<div class="pull-sm-left">
 						<?php 
 						if(!empty($phases['hidden'])){
-							if (in_array($user->aauth_user_id, $phases['hidden']))
-							{
-								$cls = " selected disabled";
-								$checked = 'checked="checked"';
-							}
+							// if (in_array($user->aauth_user_id, $phases['hidden']))
+							// {
+							// 	$cls = " selected disabled";
+							// 	$checked = 'checked="checked"';
+							// }
 						}
 						if(!empty($phases['selceted'])){
 							if (in_array($user->aauth_user_id, $phases['selceted'])){
@@ -31,9 +31,9 @@
 						<div class="pull-sm-left">
 						<?php
 							$path = img_url()."default_profile.jpg";
-							if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png'))
+							if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png'))
 							{
-								$path = upload_url().$this->user_data['img_folder'].'/users/'.$user->aauth_user_id.'.png';
+								$path = upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png';
 							}
 						?>
 						<img width="36" height="36" class="circle-img" alt="<?php echo $user->first_name.' '.$user->last_name?>" src="<?php echo $path; ?>" />
