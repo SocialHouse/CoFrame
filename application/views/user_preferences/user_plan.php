@@ -5,7 +5,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 	<section id="user-preferences" class="page-main bg-white col-sm-12">
 		<div class="relative-wrapper">
 			<header class="page-main-header">
-				<h1 class="center-title section-title">User Preferences</h1>
+				<h1 class="center-title section-title">Account Settings</h1>
 			</header>
 			<div class="row">
 				<form id="payment_form" method="post" action="<?php echo base_url();?>user_preferences/change-plan">				

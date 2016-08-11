@@ -55,7 +55,7 @@
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
 		    	</li>
 		   		<li class="nav-item">
-		      		<a class="nav-link" href="<?php echo base_url()?>user_preferences">User Preferences</a>
+		      		<a class="nav-link" href="<?php echo base_url()?>user_preferences">Account Settings</a>
 		    	</li>
 
 		   		<li class="nav-item dropdown">

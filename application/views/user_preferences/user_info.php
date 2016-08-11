@@ -1,7 +1,7 @@
 <section id="user-preferences" class="page-main bg-white col-sm-12">
 	<div class="relative-wrapper">
 		<header class="page-main-header">
-			<h1 class="center-title section-title">User Preferences</h1>
+			<h1 class="center-title section-title">Account Settings</h1>
 		</header>
 		<div class="row equal-columns">
 			<div class="col-xl-4 col-xl-offset-4 col-md-6 col-md-offset-3 text-xs-center equal-height">
