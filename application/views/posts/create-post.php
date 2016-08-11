@@ -154,7 +154,7 @@
 						<div id="hm_error" class="error"></div>
 						<div id="date_error" class="error"></div>
 						<div class="pull-sm-left">
-								<label>Slate Post:</label>
+							<label>Slate Post:</label>
 							<div class="clearfix slate-post">
 								<div class="form-group form-inline pull-sm-left">
 									<div class="hide-top-bx-shadow">
@@ -231,8 +231,11 @@
 						if($this->plan_data['phase_approvals'] == 1)
 						{
 							?>
-							<div>
-								<h4 class="text-xs-center">Mandatory Approvals</h4>
+							<h4 class="text-xs-center">Mandatory Approvals</h4>
+								<div class="border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
+									<label>Approval Phases (Optional):</label>
+									<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Create Approval Phase(s)</a>
+								</div>
 								<label>Check all that apply:</label>
 								<ul class="timeframe-list user-list first-phase">
 									<?php 
@@ -339,11 +342,6 @@
 									<label for="approvalNotes">Note to Approvers (optional):</label>
 									<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
 								</div>
-							</div>
-							<div class="border-gray-lighter border-all padding-22px text-xs-center add-phases-footer">
-								<label>Approval Phases (Optional):</label>
-								<a href="#" class="btn btn-sm btn-default" data-toggle="addPhases" data-div-src="<?php echo 'posts/add_phase_details/'.$brand_id; ?>">Add Approval Phase(s)</a>
-							</div>
 						<?php
 						}
 						?>

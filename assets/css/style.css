@@ -10747,12 +10747,6 @@ a {
   border: none;
   padding: 0 0 0 20px; }
 
-.modal .container-phases {
-  margin-top: -23px;
-  padding-bottom: 23px; }
-  .modal .container-phases .post-content-footer {
-    margin-bottom: -23px; }
-
 .add-phases {
   position: relative;
   height: calc(100% + 100px);
@@ -11763,12 +11757,10 @@ select.form-control {
   select.form-control option {
     padding: 0; }
 
-select.form-control {
-  font-size: 1.2rem; }
-  .slate-post-tz select.form-control {
-    font-size: 0.93333rem; }
-    .slate-post-tz select.form-control.form-control-sm {
-      font-size: 0.8rem; }
+.slate-post-tz select.form-control {
+  font-size: 0.93333rem; }
+  .slate-post-tz select.form-control.form-control-sm {
+    font-size: 0.8rem; }
 
 input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control,
 input[type="password"].form-control,
