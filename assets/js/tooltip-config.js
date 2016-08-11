@@ -150,15 +150,9 @@ jQuery(function($) {
 				events: {
 					show: function() {
 						$target.attr('data-toggle', 'popover-ajax-inline');
-						if($target.hasClass('approver-selected'))
-						{
-							$('[data-toggle="popover-ajax"]').attr('data-toggle', 'popover-ajax-inline');
-						}
 					},
 					visible: function() {
 						var modal = this;
-						// $(modal).attr('id','qtip-'+pid);
-						// $(modal).find('qtip-content').attr('id','qtip-'+pid+'-content');
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
 
@@ -313,68 +307,20 @@ jQuery(function($) {
 					'events.visible': function() {
 						var classes = $(this).qtip('api').get('style.classes');
 						$('.qtip').trigger('qtipShown', [classes]);
-
-						var modal = this;
-						var count = 0;
-
-						/*	used for display selected and not selected (hide) Approvals list
-						 *	This is use to disable users which are already selected in previous phase on create post and edit post overlay page
-						 *
-						 */		 
-						 if ($target.hasClass('first-new-phase')) {
-						 	var $activePhase = $target.closest('.approval-phase');
-						 	var phaseId = $activePhase.attr('id');
-						 	var users = $(modal).find('.user-list li');
-						 	$.each(users, function(c, user) {
-						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
-						 		var $phaseUser = $('#phaseDetails').find('.approver-selected img[data-id="' + ttipUser + '"]');
-						 		if($phaseUser.length) {
-						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
-						 			if(phaseId === selectedPhase) {
-						 				$(user).find('[data-group="post-approver"]').addClass('selected');
-						 			}
-						 		}
-						 		else
-						 		{
-						 			$(user).find('[data-group="post-approver"]').removeClass('selected');
-						 		}
-						 	});
-						 }
-						 else
-						 {
-						 	
-						 	var $activePhase = $target.closest('.approval-phase');
-						 	var phaseId = $activePhase.attr('id');
-						 	var users = $(modal).find('.user-list li');
-						 	$.each(users, function(c, user) {
-						 		var ttipUser = $(user).find('input[name="post-approver"]').val();
-						 		var $phaseUser = $activePhase.find('.approver-selected img[data-id="' + ttipUser + '"]');						 		
-						 		if($phaseUser.length) {
-						 			var selectedPhase = $phaseUser.closest('.approval-phase').attr('id');
-						 			if(phaseId === selectedPhase) {
-						 				$(user).find('[data-group="post-approver"]').addClass('selected').removeClass('disabled');
-						 			}
-						 		}
-						 		else
-						 		{
-						 			$(user).find('[data-group="post-approver"]').removeClass('selected');
-						 		}
-						 	});
-						 }
-						},
-						'hide.event': 'unfocus',
-						'position.adjust.x': poffsetX,
-						'position.adjust.y': poffsetY,
-						'position.at': ptattachment,
-						'position.my': pattachment,
-						'position.container': $(pcontainer),
-						'position.target': $target,
-						'overwrite': false,
-						'style.classes': 'qtip-shadow ' + pclass,
-						'style.tip.corner': arrowcorner,
-						'style.tip.mimic': 'center',
-						'style.tip.height': tipH,
-						'style.tip.width': tipW
+					},
+					'hide.event': 'unfocus',
+					'position.adjust.x': poffsetX,
+					'position.adjust.y': poffsetY,
+					'position.at': ptattachment,
+					'position.my': pattachment,
+					'position.container': $(pcontainer),
+					'position.target': $target,
+					'overwrite': false,
+					'style.classes': 'qtip-shadow ' + pclass,
+					'style.tip.corner': arrowcorner,
+					'style.tip.mimic': 'center',
+					'style.tip.height': tipH,
+					'style.tip.width': tipW
 					}).show({
 						effect: function() {
 							$(this).fadeIn();

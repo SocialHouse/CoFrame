@@ -1045,16 +1045,8 @@ jQuery(function($) {
 		var $activePhase = $('#approvalPhase' + i);
 		$activePhase.removeClass('inactive').addClass('active').removeClass('hide').removeClass('hidden-phase');
 		setPhaseBtns($activePhase);
-		setUserList(i);
 	}
 	
-	function setUserList(i) {
-		var $selected = $('#qtip-popover-user-list').find('.selected');
-		$selected.each(function() {
-			$(this).removeClass('selected');
-		});
-	}
-
 	window.addIncrements = function addIncrements() {
 		$('body').find('.time-select .time-input').each(function() {
 			var inputName = $(this).attr('name');

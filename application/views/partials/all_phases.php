@@ -73,7 +73,7 @@ if(!empty($post_details->brand_id)){
 	<div class="bg-white approval-phase animated fadeIn inactive" id="approvalPhase2" data-id="1">
 		<h2 class="clearfix">Phase 2 
 		<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
-		<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax-inline" data-popover-id="popover-user-list" data-popover-class="popover-users popover-clickable" data-title="Add to Phase 2" data-attachment="center right" data-target-attachment="center left" data-offset-x="-14" data-offset-y="0" data-popover-arrow="true" data-arrow-corner="right center">
+		<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$brand_id; ?>" data-popover-id="popover-user-list-2" data-popover-class="popover-users popover-clickable" data-title="Add to Phase 2" data-attachment="center right" data-target-attachment="center left" data-offset-x="-14" data-offset-y="0" data-popover-arrow="true" data-arrow-corner="right center" data-popover-container="body">
 			<li><div class="pull-sm-left"><i class="tf-icon tf-icon-plus circle-border bg-black" title="Add Approvers">+</i></div><div class="add-approver">Add <br>Approvers</div></li>
 		</ul>
 
@@ -140,7 +140,7 @@ if(!empty($post_details->brand_id)){
 	<div class="bg-white approval-phase animated fadeIn inactive" id="approvalPhase3" data-id="2">
 		<h2 class="clearfix">Phase 3 
 		<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
-		<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax-inline" data-title="Add to Phase 3" data-popover-id="popover-user-list" data-popover-class="popover-users popover-clickable" data-attachment="center right" data-target-attachment="center left" data-offset-x="-14" data-offset-y="0" data-popover-arrow="true" data-arrow-corner="right center">
+		<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$brand_id; ?>" data-title="Add to Phase 3" data-popover-id="popover-user-list-3" data-popover-class="popover-users popover-clickable" data-attachment="center right" data-target-attachment="center left" data-offset-x="-14" data-offset-y="0" data-popover-arrow="true" data-arrow-corner="right center" data-popover-container="body">
 			<li><div class="pull-sm-left"><i class="tf-icon tf-icon-plus circle-border bg-black" title="Add Approvers">+</i></div><div class="add-approver">Add <br>Approvers</div></li>
 		</ul>
 		

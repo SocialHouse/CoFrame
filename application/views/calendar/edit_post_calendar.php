@@ -376,8 +376,10 @@
 										if($phase_count != 1){
 										?>
 											<div class="bg-white approval-phase animated fadeIn edit-phase-div <?php echo $inactive ;?>" id="approvalPhase<?php echo $i; ?>" data-id="<?php echo $i -1; ?>">
-												<h2 class="clearfix">Phase <?php echo $i?></h2>
-												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$post_details->brand_id; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
+												<h2 class="clearfix">Phase <?php echo $i?>
+												<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
+
+												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$post_details->brand_id; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list-<?php echo $i?>" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>
 														<div class="pull-sm-left">
 															<i class="tf-icon tf-icon-plus circle-border bg-black">+</i>
