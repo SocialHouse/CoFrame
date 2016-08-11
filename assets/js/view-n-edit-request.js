@@ -64,10 +64,12 @@ jQuery(function($) {
         if($(this).hasClass('btn-secondary'))
         {
             toggleBtnClass($(this),true);
-            var $div_suggest_edit =$(this).closest('.suggest-edit')
+            console.log($(this));
+            var $div_suggest_edit =$(this).closest('li')
             var input_files = $div_suggest_edit.find("input[type='file']");
             var textarea = $div_suggest_edit.find("textarea");
             var attachment = input_files[0].files[0];
+            console.log(input_files);
             var img = $div_suggest_edit.find("img");
 
             var data = new FormData();
@@ -252,7 +254,7 @@ jQuery(function($) {
     });
 
     $(document).on('click','.reset-edit-request',function(){
-        var $div_suggest_edit = $(this).parents('.suggest-edit');
+        var $div_suggest_edit = $(this).parents('li');
         var textarea = $div_suggest_edit.find("textarea");
         var img = $div_suggest_edit.find("img");
         var input_file = $div_suggest_edit.find("input[type='file']");

@@ -7,10 +7,11 @@ if(!empty($comment))
 	{
 		$path = upload_url().$brand_owner.'/users/'.$comment->user_id.'.png';
 	}
+
 	?>
 	<li>
 		<div class="author clearfix">
-			<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" class="circle-img pull-sm-left">
+			<img class="circle-img pull-sm-left" width="36"  height="36" src="<?php echo $path; ?>"  alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>">
 			<div class="author-meta pull-sm-left">
 				<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
 				<span class="dateline">Now</span>
@@ -30,8 +31,9 @@ if(!empty($comment))
 				</div>
 				<?php
 			}
-			?>												
+			?>
 		</div>
 	</li>
 	<?php
 }
+?>

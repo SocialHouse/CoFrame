@@ -380,11 +380,13 @@ class Brands extends CI_Controller {
                 		foreach($post_data['permissions'] as $permission)
                 		{
                 			$matching_perms = $this->aauth->get_matching_perms($permission);
-
                 			foreach($matching_perms as $perm)
                 			{
-                				$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
+                				if(!empty($perm)){
+                					$this->aauth->allow_user($inserted_id,$perm->id,$post_data['brand_id']);
+                				}
                 			}
+                			
                 		}
                 	}
 
