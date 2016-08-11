@@ -5,7 +5,6 @@ jQuery(function($) {
         {
             toggleBtnClass($(this),true);
             var $div_suggest_edit = $(this).closest('.suggest-edit');
-            console.log( $(this).closest('.suggest-edit'));
             var input_files = $div_suggest_edit.find("input[type='file']");
             var textarea = $div_suggest_edit.find("textarea");
             var attachment = input_files[0].files[0];
@@ -39,17 +38,14 @@ jQuery(function($) {
                 {
                     if(response.response  == 'success')
                     {
-                        $div_suggest_edit.next().prepend(response.html);
-                        var new_height = $div_suggest_edit.next().find('li:first').height();
-                        var col_8_height = $div_suggest_edit.parent('div').height();
-                        $div_suggest_edit.parent('div').height( parseInt(col_8_height) + parseInt(new_height) );
+                        $div_suggest_edit.next('.comment-list').prepend(response.html);
                         textarea.val('');
                         input_files.remove();
                         var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
                         $div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
-                        img.attr('src','');
-                        img.addClass('hide');
+                        img.attr('src','').addClass('hide');
                         toggleBtnClass($(this).parent().children('.save-edit-req'),true);
+						equalColumns();
                     }
                     else
                     {
@@ -199,19 +195,13 @@ jQuery(function($) {
                     window.location.reload();
                         if($('#approvalPhase'+next_phase).length){
                             $btn_next = $('#approvalPhase'+next_phase).find('h2 button');
-                            $('#approvalPhase'+next_phase).removeClass('inactive');
-                            $('#approvalPhase'+next_phase).addClass('active');
-                            $('#approvalPhase'+phase_number).removeClass('active');
-                            $('#approvalPhase'+phase_number).addClass('inactive');
+                            $('#approvalPhase'+next_phase).removeClass('inactive').addClass('active');
+                            $('#approvalPhase'+phase_number).removeClass('active').addClass('inactive');
                             $btn_current.text('Finished');
-                            $btn_current.removeClass('color-success');
-                            $btn_current.addClass('btn-disabled');
-                            $btn_next.text('Current');
-                            $btn_next.addClass('color-success');
-                            $btn_next.removeClass('btn-disabled');
+                            $btn_current.removeClass('color-success').addClass('btn-disabled');
+                            $btn_next.text('Current').addClass('color-success').removeClass('btn-disabled');
                         }else{
-                            $btn_current.text('Finished');
-                            $btn_current.removeClass('color-success');
+                            $btn_current.text('Finished').removeClass('color-success');
                         }
                         
                         $('.modal-hide').click();
@@ -248,8 +238,7 @@ jQuery(function($) {
         $('#attachment').remove();
         var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
         $('.attachment').prepend(attachment_html);
-        $('#attached_img').attr('src','');
-        $('#attached_img').addClass('hide');
+        $('#attached_img').attr('src','').addClass('hide');
         toggleBtnClass($(this).parent().children('.save-edit-req'),true);
     });
 
@@ -260,8 +249,7 @@ jQuery(function($) {
         var input_file = $div_suggest_edit.find("input[type='file']");
         textarea.val('');
         input_file.remove();
-        img.attr('src','');
-        img.addClass('hide');
+        img.attr('src','').addClass('hide');
 
         var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
         $div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
@@ -270,9 +258,7 @@ jQuery(function($) {
     });
 
     $(document).on('click','.add-attachment',function(event) {
-        console.log('add-attachment');
         event.preventDefault();
-        console.log( $(this).closest('.attachment'));
         $(this).closest('.attachment').find('input[type="file"]').click();
     });
 
@@ -410,8 +396,6 @@ jQuery(function($) {
                                 $(value).children('#phase_number:first').val(i);
                                 $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));
                             }
-                //          $(value).children('#phase_number:first').val(i);
-                            // $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));                          
                         });
                     }
                 }
@@ -428,20 +412,14 @@ jQuery(function($) {
         
         html_div = html_div.replace('Phase 1','Phase '+(next_phase));       
         html_div = html_div.replace('<input id="phase_number" value="a" type="hidden">','<input type="hidden" id="phase_number" value="'+next_phase+'">');
-        // console.log(html_div);
         html_div = html_div.split('users[a]').join('phase[users]['+next_phase+']');
         html_div = html_div.replace('approve_year[a]','phase[approve_year]['+next_phase+'][]');
         html_div = html_div.replace('approve_month[a]','phase[approve_month]['+next_phase+'][]');
         html_div = html_div.replace('approve_day[a]','phase[approve_day]['+next_phase+'][]');
         html_div = html_div.replace('approve_time[a]','phase[approve_time]['+next_phase+'][]');     
         html_div = html_div.replace('note[a]','phase[note]['+next_phase+'][]');         
-        // html_div = html_div.replace('<input class="phases_to_add" name="phases_to_add" value="'+phase_to_add+'" type="text"><input class="phase_number" name="phase_number" value="1" type="text">','');
 
         var next_phase_button = '';
-        // if(phase_to_add > phase_added)
-        // {
-        //  next_phase_button = '<div class="col-md-12 add_phase_btn_div"><button style="margin-top:10px" type="button" class="btn btn-primary add_phases_btn pull-right" id="add_phases">Next</button></div>';
-        // }
         html_div = '<div class="col-md-12 well phase_container"><a href="javascript:void(0)"  id="'+next_phase+'" class="pull-right remove-phase-edit">&times;</a>'+html_div+next_phase_button+'</div>';        
         $(html_div).appendTo('.all_phases');
 
