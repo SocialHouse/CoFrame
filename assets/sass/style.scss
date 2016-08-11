@@ -3619,7 +3619,7 @@ select.form-control {
 		font-size: remCalc(16px);
 	}
 }
-.single-date-select, .time-input, input#start_date, input#end_date {
+.single-date-select, .time-input, input[name="start-date"], input[name="end-date"] {
 	font-family: $bebas-book;
 }
 .form-control {

@@ -11772,7 +11772,7 @@ select.form-control {
   select.form-control.form-control-sm {
     font-size: 1.06667rem; }
 
-.single-date-select, .time-input, input#start_date, input#end_date {
+.single-date-select, .time-input, input[name="start-date"], input[name="end-date"] {
   font-family: "Bebas Book", Arial, Helvetica, sans-serif; }
 
 .form-control {
