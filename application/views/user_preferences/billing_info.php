@@ -13,6 +13,12 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 						<?php 
 							$this->load->view('user_preferences/preference_nav');
 						?>
+						<?php
+					        $message = $this->session->flashdata('message');
+					        if(!empty($message)){
+					        	echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong><big>'.$message.'</big></strong></div>';
+					        }
+					    ?>
 						<div class="alert alert-danger payment-errors">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>    
 						</div>
@@ -101,12 +107,12 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 											foreach ($countries as $country) 
 											{
 												$selected = '';
-												if(isset($billing_details->country) AND ($country->name == $billing_details->country))
+												if(!empty($billing_details->country) && (trim($country->name) == trim($billing_details->country)))
 												{
 													$selected = 'selected="selected"';
 												}
 												?>
-												<option value="<?php echo $country->name; ?>"><?php echo $country->name; ?></option>;
+												<option value="<?php echo $country->name; ?>" <?php echo $selected; ?>><?php echo $country->name; ?></option>;
 												<?php
 											}
 										}
