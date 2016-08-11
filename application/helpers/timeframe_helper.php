@@ -540,7 +540,7 @@ if(!function_exists('get_approval_list_buttons'))
                 if($is_any_pending_approver == 1)
                 {
                     $btn_class = 'set_schedule_id';
-                    $modal_attr = 'data-toggle="modal" data-target="#schedule_post"';
+                    $modal_attr = 'data-toggle="modal" data-target="#schedule_post" data-append="body"';
                 }
                 $html_to_return .= '<div class="before-approve">
                     <a class="btn btn-sm btn-default color-success '.$btn_class.'" data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="scheduled" '.$modal_attr.'>Schedule</a>

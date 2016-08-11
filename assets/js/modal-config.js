@@ -65,7 +65,16 @@ jQuery(function($) {
 				$('.modal-toggler').fadeOut();
 			});
 		});
-	
+
+		//append modal content to the body to prevent zindex issues
+		$('body').on('click', '[data-toggle="modal"]', function(e) {
+			var appendTo = $(this).data('append');
+			if(appendTo.length) {
+				var modalDiv = $(this).data('target');
+				$(modalDiv).appendTo(appendTo);
+			}
+		});
+
 		$('.modal').on('show.bs.modal', function() {
 			$('.modal-toggler').fadeIn();
 		});
