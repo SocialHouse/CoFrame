@@ -175,7 +175,7 @@
 							<div class="form-group slate-post-tz">
 								<select class="form-control" name="time_zone">
 									<!--  By default brand_timezone is selcted  -->
-									<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
+									<option selected="selected" data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 									<?php 
 										//  If brand time zone and  user time are not same 
 										if($brand_timezone['value'] != $user_timezone['value'] )
@@ -313,7 +313,7 @@
 								</div>
 								
 								<div class="form-group slate-post-tz">
-									<select class="form-control approval_timezone" name="phase[0][time_zone]">
+									<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
 										<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 										<?php 
 											//  If brand time zone and  user time are not same 

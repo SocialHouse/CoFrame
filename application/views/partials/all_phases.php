@@ -26,7 +26,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control approval_timezone" name="phase[0][time_zone]">
+			<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
 				<!--<option value="">--Please select timezone--</option>-->
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
@@ -94,7 +94,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control approval_timezone" name="phase[1][time_zone]">
+			<select class="form-control form-control-sm approval_timezone" name="phase[1][time_zone]">
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
 					//  If brand time zone and  user time are not same 
@@ -161,7 +161,7 @@ if(!empty($post_details->brand_id)){
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control approval_timezone" name="phase[2][time_zone]">
+			<select class="form-control form-control-sm approval_timezone" name="phase[2][time_zone]">
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
 					//  If brand time zone and  user time are not same 

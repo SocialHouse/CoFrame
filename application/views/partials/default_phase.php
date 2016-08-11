@@ -93,12 +93,11 @@ if(!empty($post_details->brand_id)){
 								<input type="text" id="only_ph_one_ampm" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
 							</div>
 						</div>
-						<span class="timezone pull-xs-right form-control-sm">PST</span>
 					</div>
 				</div>
 				<label class="phase-one-error error hide clearfix"></label>
 				<div class="form-group slate-post-tz">
-					<select class="form-control approval_timezone" name="phase[0][time_zone]">
+					<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
 						<?php 
 							// Display remaining timezones
 							foreach ($timezones as $key => $obj) 

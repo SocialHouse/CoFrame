@@ -100,19 +100,19 @@
 					<div class="form__error">Error! <span></span>.</div>
 				</div>
 				<div class="clearfix">
-					<div class="pull-xl-left">
+					<div id="hm_error" class="error"></div>
+					<div id="date_error" class="error"></div>
+					<div class="pull-sm-left">
+						<label>Slate Post:</label>
 						<div class="slate-post clearfix">
-							<div class="form-group pull-sm-left">
-								<div id="hm_error" class="error"></div>
-								<div id="date_error" class="error"></div>
-								<label>Slate Post:</label><br>
+							<div class="form-group form-inline pull-sm-left">
 								<div class="hide-top-bx-shadow">
 									<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
 								</div>
 							</div>
 							<div class="form-group pull-sm-left">
 								<div class="pull-xs-left">
-									<label class="invisible">Post Time</label>
+									<label class="hidden">Post Time</label>
 									<div class="time-select form-control">
 										<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
 										<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
@@ -151,7 +151,7 @@
 					if(!empty($tags))
 					{
 					?>
-						<div class="form-group pull-xl-right">
+						<div class="form-group form-inline pull-sm-right">
 							<label>Tags:</label><br>
 							<div class="hide-top-bx-shadow">
 								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-popover-container="#edit-post-details">
@@ -252,8 +252,7 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control approval_timezone" name="phase[<?php echo $phase_no ;?>][time_zone]">
-															<!--<option value="">--Please select timezone--</option>-->
+														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $phase_no ;?>][time_zone]">
 															<?php 
 																// Display remaining timezones
 
@@ -405,7 +404,7 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">			
+														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">			
 															<?php 
 																// Display remaining timezones
 																foreach ($timezones as $ti_key => $time) 
