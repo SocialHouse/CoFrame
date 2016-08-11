@@ -1191,10 +1191,15 @@ jQuery(function($) {
 		// approvalsContainer.empty();
 		approvalsContainer.children('.dafault-phase').addClass('hide');
 		$.get(base_url + div_src, function(data) {
-			approvalsContainer.append(data);
+			approvalsContainer.prepend(data);
 		});
 		columnParent.css('z-index', 2000);
-		$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
+		if(!$(this).parents('.modal').length) {
+			$('#brand-manage').append('<div class="modal-backdrop fade in modal-contain"></div>').wrapInner("<div class='relative-wrapper'></div>");
+		}
+		else {
+			$(this).closest('.modal-body').append('<div class="modal-backdrop fade in modal-contain"></div>');
+		}
 	});
 
 	$(document).on('click', '.cancel-phase', function() {		

@@ -9843,8 +9843,9 @@ a {
     width: 1470px; } }
 
 .modal-contain {
-  position: absolute;
-  left: -2rem; }
+  position: absolute; }
+  #brand-manage .modal-contain {
+    left: -2rem; }
 
 .overlay-box {
   position: absolute;

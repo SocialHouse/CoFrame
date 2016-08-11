@@ -1155,7 +1155,9 @@ a {
 
 .modal-contain {
 	position: absolute;
-	left: -2rem;
+	#brand-manage & {
+		left: -2rem;
+	}
 }
 .overlay-box {
 	position: absolute;
