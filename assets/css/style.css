@@ -8720,7 +8720,7 @@ x:-o-prefocus, .qtip .qtip-tip {
 
 /*Pinterest Post Styles*/
 .pn_post {
-  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
   font-size: 13px;
   line-height: 17px;
   padding: 1rem 0; }
@@ -8748,10 +8748,10 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: 5px 0; }
   .pn_post a {
     color: #717171;
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post strong, .pn_post b {
-    font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "πâÆπâ⌐πé«πâÄΦºÆπé┤ Pro W3", "Hiragino Kaku Gothic Pro", πâíπéñπâ¬πé¬, Meiryo, "∩╝¡∩╝│ ∩╝░πé┤πé╖πââπé»", arial, sans-serif;
     font-weight: bold; }
   .pn_post .post-credits {
     border-top: 1px solid #e7e7e7;
@@ -11763,11 +11763,24 @@ select.form-control {
   select.form-control option {
     padding: 0; }
 
-select.form-control, input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control {
-  font-family: "Bebas Book", Arial, Helvetica, sans-serif;
-  font-size: 1.33333rem; }
-  select.form-control.form-control-sm, input[type="text"].form-control.form-control-sm, input[type="email"].form-control.form-control-sm, input[type="tel"].form-control.form-control-sm, input[type="number"].form-control.form-control-sm {
-    font-size: 1.2rem; }
+select.form-control {
+  font-size: 1.2rem; }
+  .slate-post-tz select.form-control {
+    font-size: 0.93333rem; }
+    .slate-post-tz select.form-control.form-control-sm {
+      font-size: 0.8rem; }
+
+input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control,
+input[type="password"].form-control,
+select.form-control {
+  font-size: 1.2rem; }
+  input[type="text"].form-control.form-control-sm, input[type="email"].form-control.form-control-sm, input[type="tel"].form-control.form-control-sm, input[type="number"].form-control.form-control-sm,
+  input[type="password"].form-control.form-control-sm,
+  select.form-control.form-control-sm {
+    font-size: 1.06667rem; }
+
+.single-date-select, .time-input, input#start_date, input#end_date {
+  font-family: "Bebas Book", Arial, Helvetica, sans-serif; }
 
 .form-control {
   line-height: 24px;
