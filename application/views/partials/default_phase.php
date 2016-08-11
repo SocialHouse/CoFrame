@@ -83,7 +83,7 @@ if(!empty($post_details->brand_id)){
 				</ul>
 				<label>Must approve by:</label>
 				<div class="clearfix">
-					<div class="form-group form-inline pull-sm-left" style="margin: 0px;">
+					<div class="form-group form-inline pull-sm-left date-time-div">
 						<div class="hide-top-bx-shadow">
 							<input type="text" id="only_ph_one_date" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" name="phase[0][approve_date]">
 						</div>
