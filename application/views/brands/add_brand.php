@@ -208,7 +208,7 @@
 	</div>
 	</form>
 	<a type="button" class="cancel-icon cancel-brand">
-		<span class="sr-only">Toggle Modal</span>
+		<span class="sr-only">Cancel Add Brand</span>
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 	</a>
