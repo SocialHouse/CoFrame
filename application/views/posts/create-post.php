@@ -200,7 +200,7 @@
 						if(!empty($tags))
 						{
 							?>
-							<div class="form-group form-inline pull-sm-right">
+							<div class="form-group form-inline pull-xl-right">
 								<label>Tags:</label><br>
 								<?php
 								$title = "You have not set up any tags";

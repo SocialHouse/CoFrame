@@ -151,7 +151,7 @@
 					if(!empty($tags))
 					{
 					?>
-						<div class="form-group form-inline pull-sm-right">
+						<div class="form-group form-inline pull-xl-right">
 							<label>Tags:</label><br>
 							<div class="hide-top-bx-shadow">
 								<div class="form-control tag-select popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'calendar/selected_tag_list/'.$post_details->brand_id.'/'.$post_details->id; ?>" data-title="Select all that apply:" data-popover-class="popover-tags popover-clickable" data-popover-id="popover-tag-list" data-attachment="bottom right" data-target-attachment="top right" data-popover-container="#edit-post-details">
