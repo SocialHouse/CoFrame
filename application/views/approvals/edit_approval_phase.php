@@ -5,7 +5,7 @@
 		?>
 		<div id="phaseDetails" >
 			<div class="active" id="<?php echo $phase_details->phase; ?>" data-id="<?php echo $phase_details->phase; ?>">
-				<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_details->phase; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="body">
+				<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected edit-request-approver" data-title="Add to Phase <?php echo $phase_details->phase; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="body">
 					<li>
 					<?php
 						foreach ($phase_users as $key => $user)
