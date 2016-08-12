@@ -520,7 +520,7 @@ if(!function_exists('get_approval_list_buttons'))
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
             // }
         }
-        elseif(check_user_perm($CI->user_id,'create',$brand_id) OR $post->user_id == $CI->user_id)
+        elseif(check_user_perm($CI->user_id,'create',$brand_id) OR $post->user_id == $CI->user_id OR (($CI->user_id == $CI->user_data['account_id']) OR ( isset($CI->user_data['user_group']) AND $CI->user_data['user_group'] == 'Master Admin')))
         {
             if($post->status == 'scheduled')
             {

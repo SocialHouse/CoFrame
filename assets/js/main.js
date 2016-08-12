@@ -300,8 +300,12 @@ jQuery(function($) {
 				var $activePhase = $('#phaseDetails').find('.active');
 				var activePhaseId = $activePhase.attr('id');
 				if ($btn.hasClass('selected')) {
-					var phase_number = $activePhase.data('id');
-					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
+					var phase_number = $activePhase.data('id');					
+					if($('.edit-request-approver').length)
+					{
+						var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
+						$(imgDiv).prepend(inputDiv);
+					}
 					$activePhase.find('.user-list li').prepend(imgDiv);	
 					setTimeout(function() {
 						setPhaseBtns($activePhase);

@@ -350,7 +350,7 @@ class Post_model extends CI_Model
 		{
 			$this->db->where('posts.status',$status);
 		}
-		
+		$this->db->order_by('posts.slate_date_time','ASC');
 		$query = $this->db->get('posts');
 		// echo $this->db->last_query();
 		if($query->num_rows() > 0)
