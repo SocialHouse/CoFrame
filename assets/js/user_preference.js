@@ -49,9 +49,17 @@ $(document).ready(function(){
 	$('.cropme').simpleCropper();
 
 	$('.change_plan').click(function(event) {
-		event.preventDefault();		
+		event.preventDefault();
+		var contorl = this;
 		if($(this).data('plan_change') == 'downgrade')
 		{
+			//billing user can not downgrade the plan
+			if(user_data.user_group && user_data.user_group == 'Billing')
+			{
+				alert(language_message.biling_downgrade);
+				return false;
+			}
+
 			var current_users = $(this).data('current_users');
 			var current_brand_count = $(this).data('current_brand_count');
 			var current_master_users = $(this).data('current_master_users');
@@ -82,8 +90,6 @@ $(document).ready(function(){
 				user_error = 1;				
 			}
 
-			console.log(current_master_users);
-			console.log(master_users_allowed);
 			if(current_master_users > master_users_allowed)
 			{
 				var additional_count = current_master_users - master_users_allowed;
@@ -177,11 +183,11 @@ $(document).ready(function(){
 		}
 		else
 		{
-			getConfirm(language_message.message,'',function(confResponse) {
+			getConfirm(message,'',function(confResponse) {
 				if(confResponse)
 				{
 					var $form = $('#payment_form');
-					$('#selected_plan').val($(this).data('plan'));
+					$('#selected_plan').val($(contorl).data('plan'));
 					$form.submit();
 				}
 			});

@@ -97,7 +97,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									{
 										$plan_config = $this->config->item('plans')['business'];
 										$plan_change = 'upgrade';									
-										if(in_array(strtolower($selected_plan),array('corporate','premier')))
+										if(in_array(strtolower($selected_plan),array('corporate','premiere')))
 										{
 											$plan_change = 'downgrade';
 										}
@@ -131,7 +131,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									{
 										$plan_config = $this->config->item('plans')['corporate'];
 										$plan_change = 'upgrade';
-										if(in_array(strtolower($selected_plan),array('premier')))
+										if(in_array(strtolower($selected_plan),array('premiere')))
 										{
 											$plan_change = 'downgrade';
 										}

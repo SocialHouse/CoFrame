@@ -181,4 +181,7 @@
 
 	$lang['finish_Phase'] = "You have not received all approvals. Are you sure you still want to finish this Phase ?";
 
+	$lang['biling_downgrade'] = "You can not downgrade the plan.";
+	
+
 ?>
