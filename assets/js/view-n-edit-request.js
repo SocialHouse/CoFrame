@@ -177,41 +177,45 @@ jQuery(function($) {
         $('.finish_yes').attr('data-phase-number',phase_number );
     });
 
-    $(document).on('click','.finish_yes',function(){
-        var phase_id = $(this).data('phase-id');
-        var phase_number = $(this).data('phase-number');
-        var next_phase = phase_number+1;
+    $(document).on('click','.finish_phase',function(){
+        getConfirm(language_message.finish_Phase,'',function(confResponse) {
+            if (confResponse) {
 
-        $btn_current =  $('#approvalPhase'+phase_number).find('h2 button');
+                var phase_id = $(this).data('phase-id');
+                var phase_number = $(this).data('phase-number');
+                var next_phase = phase_number+1;
 
-        $.ajax({
-            type:'GET',
-            dataType: 'json',
-            url: base_url+'posts/finish_phase/'+phase_id,
-            success: function(response)
-            {
-                if(response.response  == 'success')
-                {
-                    window.location.reload();
-                        if($('#approvalPhase'+next_phase).length){
-                            $btn_next = $('#approvalPhase'+next_phase).find('h2 button');
-                            $('#approvalPhase'+next_phase).removeClass('inactive').addClass('active');
-                            $('#approvalPhase'+phase_number).removeClass('active').addClass('inactive');
-                            $btn_current.text('Finished');
-                            $btn_current.removeClass('color-success').addClass('btn-disabled');
-                            $btn_next.text('Current').addClass('color-success').removeClass('btn-disabled');
-                        }else{
-                            $btn_current.text('Finished').removeClass('color-success');
-                        }
-                        
-                        $('.modal-hide').click();
-                    }
-                    else
+                $btn_current =  $('#approvalPhase'+phase_number).find('h2 button');
+
+                $.ajax({
+                    type:'GET',
+                    dataType: 'json',
+                    url: base_url+'posts/finish_phase/'+phase_id,
+                    success: function(response)
                     {
-                        alert(language_message.try_again);
+                        if(response.response  == 'success')
+                        {
+                            window.location.reload();
+                            if($('#approvalPhase'+next_phase).length){
+                                $btn_next = $('#approvalPhase'+next_phase).find('h2 button');
+                                $('#approvalPhase'+next_phase).removeClass('inactive').addClass('active');
+                                $('#approvalPhase'+phase_number).removeClass('active').addClass('inactive');
+                                $btn_current.text('Finished');
+                                $btn_current.removeClass('color-success').addClass('btn-disabled');
+                                $btn_next.text('Current').addClass('color-success').removeClass('btn-disabled');
+                            }else{
+                                $btn_current.text('Finished').removeClass('color-success');
+                            }
+                            $('.modal-hide').click();
+                        }
+                        else
+                        {
+                            alert(language_message.try_again);
+                        }
                     }
-                }
-            });     
+                });     
+            }
+        });    
     });
 
     $(document).on('change','.attachment_image',function(){
@@ -224,7 +228,7 @@ jQuery(function($) {
         reader.onload = function (event) {
             var file_type = file.type.split('/');
             if($.inArray(file_type[1] ,supported_files) == -1){
-                alert('Invalid file extention');
+                alert(language_message.invalid_extention);
                 return false;
             };
             $(control).next().next().attr('src',event.target.result);
@@ -285,7 +289,7 @@ jQuery(function($) {
             reader.onload = function (event) {
                 var file_type = file.type.split('/');
                 if($.inArray(file_type[1] ,supported_files) == -1){
-                    alert('Invalid file extention');
+                    alert(language_message.invalid_extention);
                     return false;
                 };
                 $(control).next().next().attr('src',event.target.result);
@@ -372,35 +376,37 @@ jQuery(function($) {
     });
 
     $(document).on('click','.post-remove-phase',function(){
-        if(confirm(language_message.delete_phase_confirmation)){
-            var div_to_delete = $(this).parents().parents('div:first');
-            var phase_id = $(this).attr('id');
-            $.ajax({
-                'type':'POST',
-                'data':{'phase_id':phase_id},
-                url: base_url+'api/delete_phase',                 
-                success: function(response)
-                {
-                    var json = $.parseJSON(response);
-                    if(json.status == 'success')
+        getConfirm(language_message.delete_phase_confirmation,'',function(confResponse) {
+            if(confResponse){
+                var div_to_delete = $(this).parents().parents('div:first');
+                var phase_id = $(this).attr('id');
+                $.ajax({
+                    'type':'POST',
+                    'data':{'phase_id':phase_id},
+                    url: base_url+'api/delete_phase',                 
+                    success: function(response)
                     {
-                        $(div_to_delete).remove();
-                        
-                        var all_phases_count = ($('.phase_container').length) - 1;
-                        var all_phases = $('.phase_container');
-                        var i =1;
-                        $.each(all_phases, function( index, value ) 
+                        var json = $.parseJSON(response);
+                        if(json.status == 'success')
                         {
-                            if(i <=all_phases_count);
+                            $(div_to_delete).remove();
+                            
+                            var all_phases_count = ($('.phase_container').length) - 1;
+                            var all_phases = $('.phase_container');
+                            var i =1;
+                            $.each(all_phases, function( index, value ) 
                             {
-                                $(value).children('#phase_number:first').val(i);
-                                $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));
-                            }
-                        });
+                                if(i <=all_phases_count);
+                                {
+                                    $(value).children('#phase_number:first').val(i);
+                                    $(value).children('.phase_num_div:first').children('label:first').html('Phase '+(i++));
+                                }
+                            });
+                        }
                     }
-                }
-            }); 
-        }        
+                }); 
+            }
+        });     
     });
 
     $(document).on('click','#add_next_approval_phase',function(){

@@ -313,23 +313,6 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 	</div>
 <!-- /.modal -->
 
-<!-- Finish Current Phase  Modal -->
-	<div class="modal alert-modal fade" id="finishPhase" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content bg-white">
-				<div class="modal-body">
-					<h2 class="text-xs-center">Alert</h2>
-					<p class="text-xs-center"> You have not received all approvals. Are you sure you still want to finish this Phase ?</p>
-					<footer class="overlay-footer">
-					<button type="button" class="btn btn-sm btn-default modal-hide go_back">Go Back</button>
-					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary finish_yes">Yes</button>
-					</footer>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- /.modal -->
-
 <!-- Post Now Modal -->
 	<div class="modal alert-modal fade" id="postNow" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -341,6 +324,23 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
 					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Post Now</button>
 				</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- /.modal -->
+
+<!-- Bootstrap Confirmation alert box  -->
+	<div class="modal alert-modal fade" id="confirmbox" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:9999" >
+		<div class="modal-dialog" role="document">
+			<div class="modal-content bg-white">
+				<div class="modal-body">
+					<h2 class="text-xs-center" id="confirmTitle"></h2>
+					<p class="text-xs-center" id="confirmMessage"></p>
+					<footer class="overlay-footer">
+						<button type="button" id="confirmFalse" class="btn btn-sm btn-default" >Go Back</button>
+						<button type="button" id="confirmTrue" class="btn btn-sm pull-sm-right btn-secondary">OK</button>
+					</footer>
 				</div>
 			</div>
 		</div>

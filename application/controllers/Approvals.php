@@ -122,7 +122,7 @@ class Approvals extends CI_Controller {
 			{
 		        $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
 		        $randname = uniqid().'.'.$ext;
-				$status = upload_file('attachment',$randname,$post_data['brand_owner'].'/brands/'.$post_data['brand_id'].'/requests/');					       
+				$status = upload_file('attachment',$randname,$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/requests/');					       
 		        if(array_key_exists("upload_errors",$status))
 		        {
 		        	$error =  $status['upload_errors'];	        	

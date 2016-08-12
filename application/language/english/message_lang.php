@@ -178,6 +178,7 @@
 
 	$lang['save_successfully'] = "Your %type% information saved successfully";
 	$lang['already_saved'] = "Your %type% information already saved";
-	
-	
+
+	$lang['finish_Phase'] = "You have not received all approvals. Are you sure you still want to finish this Phase ?";
+
 ?>

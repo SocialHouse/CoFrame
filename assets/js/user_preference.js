@@ -177,12 +177,14 @@ $(document).ready(function(){
 		}
 		else
 		{
-			if(confirm(message))
-			{
-				var $form = $('#payment_form');
-				$('#selected_plan').val($(this).data('plan'));
-				$form.submit();
-			}
+			getConfirm(language_message.message,'',function(confResponse) {
+				if(confResponse)
+				{
+					var $form = $('#payment_form');
+					$('#selected_plan').val($(this).data('plan'));
+					$form.submit();
+				}
+			});
 		}
 	});
 

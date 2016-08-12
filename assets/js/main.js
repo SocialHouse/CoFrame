@@ -1233,22 +1233,24 @@ jQuery(function($) {
 	*/
 	$(document).on("click", ".delete_post", function(event) {
 		event.preventDefault();
-		if (confirm(language_message.delete_post)) {
-			var post_id = [];
-			post_id.push($(this).data('post-id'));
+		getConfirm(language_message.delete_post,'',function(confResponse) {
+			if(confResponse){
+				var post_id = [];
+				post_id.push($(this).data('post-id'));
 
-			$.ajax({
-				'type': 'POST',
-				dataType: 'json',
-				url: base_url + 'posts/delete_post',
-				data: {
-					'post_ids': post_id
-				},
-				success: function(response) {
-					location.reload();
-				}
-			});
-		}
+				$.ajax({
+					'type': 'POST',
+					dataType: 'json',
+					url: base_url + 'posts/delete_post',
+					data: {
+						'post_ids': post_id
+					},
+					success: function(response) {
+						location.reload();
+					}
+				});
+			}
+		});
 	});
 
 	/*
@@ -1413,36 +1415,38 @@ jQuery(function($) {
 	 	post_id = $btn.data('post-id');
 	 	phase_id = $btn.data('phase-id');
 
-	 	if (confirm(language_message.confirm_delete_phase)) {
-	 		$.ajax({
-	 			'type': 'POST',
-	 			dataType: 'json',
-	 			url: base_url + 'phases/delete',
-	 			data: {
-	 				'post_id': post_id,
-	 				'phase_id': phase_id
-	 			},
-	 			success: function(response) {
-	 				if (response.status == 'success') {
-	 					window.location.reload();
-	 					$('.modal-hide').click();
-	 				} else {
-	 					alert(language_message.try_again);
-	 					$('.modal-hide').click();
-	 				}
-	 			}
-	 		});
-	 	}
+	 	getConfirm(language_message.confirm_delete_phase,'',function(confResponse) {
+		 	if (confResponse) {
+		 		$.ajax({
+		 			'type': 'POST',
+		 			dataType: 'json',
+		 			url: base_url + 'phases/delete',
+		 			data: {
+		 				'post_id': post_id,
+		 				'phase_id': phase_id
+		 			},
+		 			success: function(response) {
+		 				if (response.status == 'success') {
+		 					window.location.reload();
+		 					$('.modal-hide').click();
+		 				} else {
+		 					alert(language_message.try_again);
+		 					$('.modal-hide').click();
+		 				}
+		 			}
+		 		});
+		 	}
+		 });
 	 });
 
-	 $(document).on('click', '.go_back', function() {
-	 	$btn = $(this).next("button");
-	 	$.each($btn.data(), function(i, k) {
-	 		var attr_name = i.split(/(?=[A-Z])/);
-	 		var str = attr_name[0] + '-' + attr_name[1];
-	 		$btn.removeAttr("data-" + str.toLowerCase());
-	 	});
-	 });
+	 // $(document).on('click', '.go_back', function() {
+	 // 	$btn = $(this).next("button");
+	 // 	$.each($btn.data(), function(i, k) {
+	 // 		var attr_name = i.split(/(?=[A-Z])/);
+	 // 		var str = attr_name[0] + '-' + attr_name[1];
+	 // 		$btn.removeAttr("data-" + str.toLowerCase());
+	 // 	});
+	 // });
 
 	 $(document).on('change', 'select[name="time_zone"]', function() {
 	 	var selected_abb;
@@ -1639,5 +1643,39 @@ function setPhaseBtnsCreatePost(activePhase,phaseCount) {
 function hideContent(obj) {
 	obj.fadeOut(function() {
 		obj.trigger('contentHidden');
+	});
+}
+
+
+function getConfirm(confirmMessage,confirmTitle,callback){
+	
+	var $ = jQuery;
+	var title = $("#confirmTitle");
+	var message = $("#confirmMessage");
+	title.empty();
+	message.empty();
+	confirmMessage = confirmMessage || '';
+	confirmTitle = confirmTitle || '';
+	
+	if(confirmTitle ==''){
+		confirmTitle = 'Alert';
+	}
+
+	$('#confirmbox').modal({
+		show:true,
+		backdrop:true,
+		keyboard: false,
+	});
+
+	title.html(confirmTitle);
+	message.html(confirmMessage);
+
+	$('#confirmFalse').click(function(){
+		$('#confirmbox').modal('hide');
+		if (callback) callback(false);
+	});
+	$('#confirmTrue').click(function(){
+		$('#confirmbox').modal('hide');
+		if (callback) callback(true);
 	});
 }
