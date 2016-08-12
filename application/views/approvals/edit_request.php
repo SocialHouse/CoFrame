@@ -370,8 +370,8 @@
 													}
 												}
 
-												if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
-												{	
+												if(($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && $this->user_data['user_group'] == "Master Admin")) && $len > 1)
+												{
 													?>
 													<a href="#" class="btn btn-secondary btn-md finish_phase"  data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
 													<?php
@@ -388,7 +388,7 @@
 						</div>
 						<footer class="post-content-footer text-xs-right">
 							<?php 
-							if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
+							if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && $this->user_data['user_group'] == "Master Admin"))
 							{
 								if($post_details->status == 'scheduled' )
 								{
