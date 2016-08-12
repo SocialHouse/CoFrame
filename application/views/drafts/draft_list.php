@@ -11,7 +11,7 @@
 	</header>
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-striped table-approvals">
+			<table class="table table-striped table-approvals table-drafts">
 				<thead>
 					<tr>
 						<th class="hidden-print">
@@ -37,9 +37,25 @@
 								</td>
 								<td><?php echo date('D n/d',strtotime($draft->updated_at)); ?> at <?php echo date('g:ia',strtotime($draft->updated_at)); ?></td>
 								<td class="text-xs-center">
-									<div class="post-tags">
+									<?php
+									$tags = get_post_tags($draft->id);
+									$tag_names = '';
+									if(!empty($tags)) {
+										foreach ($tags as $tag) 
+										{
+											if(empty($tag_names))
+											{
+												$tag_names = $tag['name'];
+											}
+											else
+											{
+												$tag_names .= ', '.$tag['name'];
+											}
+										}
+									}
+									?>
+									<div class="post-tags" data-toggle="popover-hover" data-content="<?php echo $tag_names;?>">
 										<?php
-										$tags = get_post_tags($draft->id);
 										if(!empty($tags))
 										{
 											foreach($tags as $tag)

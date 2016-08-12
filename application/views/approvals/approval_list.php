@@ -237,6 +237,7 @@
 
 								$tags = get_post_tags($post->id);
 								$tag_list = '';
+								$tag_names = '';
 								if(!empty($tags))
 								{
 									foreach ($tags as $tag) 
@@ -244,10 +245,12 @@
 										if(empty($tag_list))
 										{
 											$tag_list = ''.strtolower($tag['tag_name']);
+											$tag_names = $tag['name'];
 										}
 										else
 										{
 											$tag_list .= ' '.strtolower($tag['tag_name']);
+											$tag_names .= ', '.$tag['name'];
 										}
 									}
 								}
@@ -271,7 +274,7 @@
 									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo date('g:i A',strtotime($post->slate_date_time)); ?></td>
 
 									<td class="text-xs-center" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
-										<div class="post-tags">
+										<div class="post-tags" data-toggle="popover-hover" data-content="<?php echo $tag_names;?>">
 											<?php													
 											if(!empty($tags))
 											{
@@ -317,7 +320,7 @@
 										{
 											?>
 											<td class="<?php echo $class; ?>" onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
-											<a href="javascript:void(0)" class="btn btn-default color-success btn-xs">Complete</a>
+											<span class="btn btn-default color-success btn-xs">Complete</span>
 											<?php
 										}
 										else

@@ -10882,6 +10882,9 @@ a {
   .table-approvals .timeframe-list.approval-list .circle-img {
     margin: 0;
     display: block; }
+  @media (max-width: 1599px) {
+    .table-approvals .timeframe-list.approval-list {
+      min-width: 122px; } }
 .table-approvals small {
   font-size: 12px;
   line-height: 1;
@@ -10900,6 +10903,10 @@ a {
     margin-right: 0;
     display: inline-block;
     float: none; }
+.table-approvals span.color-success.btn-default:hover {
+  border-color: #009245;
+  background: #fff;
+  color: #009245; }
 .table-approvals .btn-close {
   font-size: 20px;
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
@@ -10945,6 +10952,11 @@ a {
   background: -webkit-linear-gradient(left, rgba(30, 87, 153, 0) 0%, #f5f5f6 99%, #f7f7f7 100%);
   background: linear-gradient(to right, rgba(30, 87, 153, 0) 0%, #f5f5f6 99%, #f7f7f7 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#f7f7f7',GradientType=1 ); }
+.table-approvals.table-drafts tr {
+  cursor: default; }
+@media (max-width: 1599px) {
+  .table-approvals.table-drafts .btn-sm + .btn, .table-approvals.table-drafts .btn-group-sm > .btn + .btn {
+    margin-top: 0rem; } }
 
 .post-preview-footer {
   border-top: 1px solid #999999;
@@ -11433,26 +11445,28 @@ a {
     .edit-menu .list-group-item:last-child {
       border-bottom: 0; }
 
-.post-filters .square-border, .select-box .square-border {
-  width: 16px;
-  height: 16px;
-  margin-right: 10px;
-  line-height: normal;
-  font-size: 15px; }
-  .post-filters .square-border .fa, .select-box .square-border .fa {
-    margin: 0;
-    position: relative;
-    top: -3px;
-    font-size: 14px;
-    display: none; }
-.post-filters .checked .square-border .fa, .select-box .checked .square-border .fa {
-  display: inline-block; }
-.post-filters .form-group, .select-box .form-group {
-  margin-bottom: .5rem; }
-.post-filters .outlet-list, .select-box .outlet-list {
-  margin: 0 -3px; }
-  .post-filters .outlet-list li, .select-box .outlet-list li {
-    padding: 0 8px 12px; }
+.post-filters, .select-box {
+  cursor: pointer; }
+  .post-filters .square-border, .select-box .square-border {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    line-height: normal;
+    font-size: 15px; }
+    .post-filters .square-border .fa, .select-box .square-border .fa {
+      margin: 0;
+      position: relative;
+      top: -3px;
+      font-size: 14px;
+      display: none; }
+  .post-filters .checked .square-border .fa, .select-box .checked .square-border .fa {
+    display: inline-block; }
+  .post-filters .form-group, .select-box .form-group {
+    margin-bottom: .5rem; }
+  .post-filters .outlet-list, .select-box .outlet-list {
+    margin: 0 -3px; }
+    .post-filters .outlet-list li, .select-box .outlet-list li {
+      padding: 0 8px 12px; }
 
 .select-box {
   height: 16px;
@@ -11756,6 +11770,15 @@ label {
   width: 100%;
   line-height: 2.5em; }
 
+input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control,
+input[type="password"].form-control,
+select.form-control {
+  font-size: 1.2rem; }
+  input[type="text"].form-control.form-control-sm, input[type="email"].form-control.form-control-sm, input[type="tel"].form-control.form-control-sm, input[type="number"].form-control.form-control-sm,
+  input[type="password"].form-control.form-control-sm,
+  select.form-control.form-control-sm {
+    font-size: 1.06667rem; }
+
 select.form-control {
   height: 36px;
   padding: 5px 3px; }
@@ -11766,17 +11789,9 @@ select.form-control {
 
 .slate-post-tz select.form-control {
   font-size: 0.93333rem; }
-  .slate-post-tz select.form-control.form-control-sm {
-    font-size: 0.8rem; }
-
-input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control,
-input[type="password"].form-control,
-select.form-control {
-  font-size: 1.2rem; }
-  input[type="text"].form-control.form-control-sm, input[type="email"].form-control.form-control-sm, input[type="tel"].form-control.form-control-sm, input[type="number"].form-control.form-control-sm,
-  input[type="password"].form-control.form-control-sm,
-  select.form-control.form-control-sm {
-    font-size: 1.06667rem; }
+  @media (min-width: 1281px) {
+    .slate-post-tz select.form-control.form-control-sm {
+      font-size: 0.8rem; } }
 
 .single-date-select, .time-input, input[name="start-date"], input[name="end-date"] {
   font-family: "Bebas Book", Arial, Helvetica, sans-serif; }
@@ -11800,6 +11815,9 @@ select.form-control {
     @media (max-width: 1280px) {
       .form-control.time-select {
         padding: 2px 0 2px 3px; } }
+  @media (max-width: 1280px) {
+    .form-control {
+      padding: 4px 5px; } }
 
 textarea.form-control {
   resize: none; }
@@ -11822,6 +11840,9 @@ textarea.form-control {
       font-size: 10px; }
       .form-control-sm.time-select .incrementer .fa:first-child {
         margin-bottom: 0; }
+  @media (max-width: 1280px) {
+    .form-control-sm {
+      padding: 2px 3px; } }
 
 .form-search {
   position: relative;
