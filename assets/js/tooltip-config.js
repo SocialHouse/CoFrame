@@ -37,10 +37,13 @@ jQuery(function($) {
 				content: {
 					text: pcontent
 				},
+				overwrite: false,
 				position: {
 					my: 'top center',
 					at: 'bottom center',
-					target: $target
+					container: $('.page-main'),
+					target: $target,
+					viewport: $('.page-main')
 				},
 				show: {
 					effect: function() {
