@@ -98,7 +98,8 @@ jQuery(function($) {
 		$('#postOutlet').attr('data-outlet-const', outlet_const);
 		createPreview();
 
-		$('#post-details .outlet-list li').on('click', function() {
+		$(document).on('click','#post-details .outlet-list li, #edit-post-details .outlet-list li', function() {
+
 			var previous_outlet = $('#postOutlet').val();
 			var outlet = $(this).data('selectedOutlet');
 			var outlet_const = $(this).data('outlet-const');
