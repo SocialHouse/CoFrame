@@ -165,6 +165,10 @@ jQuery(function($) {
 		// map input values to an array
 		setTimeout(function(){
 			var inclusives = [];
+			var outlet_inclusive = [];
+			var status_inclusive = [];
+			var tag_inclusive = [];
+
 			var outlet_ids = [];
 			var statuses = [];
 			var tags = [];
@@ -173,26 +177,38 @@ jQuery(function($) {
 				console.log(li);
 				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
 
-				if($(this).data('id'))
+				if($(this).data('id')){
+					outlet_inclusive.push($(this).data('value'));
 					outlet_ids.push( $(this).data('id') );
+				}
 
-				if($(this).data('status'))
+				if($(this).data('status')){
+					status_inclusive.push($(this).data('value'));
 					statuses.push( $(this).data('status') );
+				}
 
-				if($(this).data('tag-id'))
+				if($(this).data('tag-id')){
+					tag_inclusive.push($(this).data('value'));
 					tags.push($(this).data('color')+'__'+$(this).data('value'));
+				}
 			});
 
 			// combine inclusive filters
-			var filterValue = inclusives.length ? inclusives.join('') : '*';
+			// var filterValue = inclusives.length ? inclusives.join('') : '*';
+
 			$('#outlet_ids').val(outlet_ids.join());
 			$('#statuses').val(statuses.join());
 			$('#tags').val(tags.join());
-			if($container.length)
-				$container.isotope({ filter: filterValue });
+			if($container.length){
+				$container.isotope({ filter: function(){
+					return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
+				} });
+			}
 			if($containerApp.length)
 			{
-				$containerApp.isotope({ filter: filterValue });
+				$containerApp.isotope({ filter: function(){
+					return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
+				} });
 			}
 
 
@@ -216,6 +232,10 @@ jQuery(function($) {
 	function filterPosts() {
 		// map input values to an array
 		var inclusives = [];
+		var outlet_inclusive = [];
+		var status_inclusive = [];
+		var tag_inclusive = [];
+
 		var outlet_ids = [];
 		var statuses = [];
 		var tags = [];
@@ -227,18 +247,31 @@ jQuery(function($) {
 				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );				
 				
 				if($(this).data('id'))
+				{
+					outlet_inclusive.push($(this).data('value'));
 					outlet_ids.push( $(this).data('id') );
+				}
 
 				if($(this).data('status'))
+				{
+					status_inclusive.push($(this).data('value'));
 					statuses.push( $(this).data('status') );
+				}
 
 				if($(this).data('tag-id'))
+				{
+					tag_inclusive.push($(this).data('value'));
 					tags.push($(this).data('color')+'__'+$(this).data('value'));
+				}
 
 			}
 			else {
 				var index = inclusives.indexOf($(this).data('value'));
 				if( index > -1) {
+					outlet_inclusive.splice(index, 1);
+					statuse_inclusive.splice(index, 1);
+					tag_inclusive.indexOf($(this).data('value'));
+
 					inclusives.splice(index, 1);
 					outlet_ids.splice(index, 1);
 					statuses.splice(index, 1);
@@ -246,17 +279,23 @@ jQuery(function($) {
 				}
 			}
 		});	
-
-		// combine inclusive filters
-		var filterValue = inclusives.length ? inclusives.join('') : '*';		
+		// var filterValue = inclusives.length ? inclusives.join('') : '*';	
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
 		if($container.length)
-			$container.isotope({ filter: filterValue });
+		{
+			// $container.isotope({ filter: filterValue });
+			$container.isotope({ filter: function(){				
+				return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
+			}});
+		}
 		if($containerApp.length)
 		{
-			$containerApp.isotope({ filter: filterValue });
+			// $containerApp.isotope({ filter: filterValue });
+			$containerApp.isotope({ filter: function(){
+				return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
+			} });
 		}
 
 
@@ -272,6 +311,70 @@ jQuery(function($) {
 		}
 
 		rendercalendar();
+	}
+
+	function returnFilter(element,outlet_inclusive,status_inclusive,tag_inclusive)
+	{
+		var outlet_show = false;
+		if(outlet_inclusive.length)
+		{
+			$.each(outlet_inclusive,function(a,b){
+				if($(element).attr('data-filters').indexOf(b) !== -1)
+				{
+					outlet_show = true;
+					return;
+				}
+			});
+		}
+		else
+		{
+			outlet_show = true;
+		}
+
+		var status_show = false;
+		if(status_inclusive.length)
+		{
+			$.each(status_inclusive,function(a,b){
+				if($(element).attr('data-filters').indexOf(b) !== -1)
+				{
+					status_show = true;
+					return;
+				}
+			});
+		}
+		else
+		{
+			status_show = true;
+		}
+
+		var tag_show = false;
+		if(tag_inclusive.length)
+		{
+			$.each(tag_inclusive,function(a,b){
+				if($(element).attr('data-filters').indexOf(b) !== -1)
+				{
+					tag_show = true;
+					return;
+				}
+			});
+		}
+		else
+		{
+			tag_show = true;
+		}
+
+		if(outlet_show && status_show && tag_show)
+		{
+			return true;
+		}
+		else if(!outlet_inclusive.length && !status_inclusive.length && !tag_inclusive.length)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	function rendercalendar()
