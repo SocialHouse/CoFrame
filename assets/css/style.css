@@ -11782,11 +11782,11 @@ select.form-control {
   font-family: "Bebas Book", Arial, Helvetica, sans-serif; }
 
 .form-control {
-  line-height: 24px;
+  line-height: 1.6rem;
   outline: 1px solid #000;
   /*fix for rounded corners on ios*/
   border: 1px solid transparent;
-  min-height: 36px; }
+  min-height: 2.4rem; }
   .form-control:focus {
     outline: 1px solid; }
   .form-control.single-date-select {
@@ -11796,7 +11796,10 @@ select.form-control {
     margin-left: 1.2rem;
     padding: 4px 0px 4px 5px; }
     .form-control.time-select input {
-      font-size: 1.33333rem; }
+      font-size: 1.2rem; }
+    @media (max-width: 1280px) {
+      .form-control.time-select {
+        padding: 2px 0 2px 3px; } }
 
 textarea.form-control {
   resize: none; }
@@ -11806,15 +11809,15 @@ textarea.form-control {
     margin-left: 3px; } }
 
 .form-control-sm {
-  line-height: 22px;
-  min-height: 30px; }
+  line-height: 1.46667rem;
+  min-height: 2rem; }
   .form-control-sm.single-date-select {
     max-width: 106px; }
   .form-control-sm.time-select {
     max-width: 8.13333rem;
     margin-left: 1.2rem; }
     .form-control-sm.time-select input {
-      font-size: 16px; }
+      font-size: 1.06667rem; }
     .form-control-sm.time-select .incrementer .fa {
       font-size: 10px; }
       .form-control-sm.time-select .incrementer .fa:first-child {
@@ -11854,12 +11857,16 @@ textarea.form-control {
   margin-left: -1.2rem;
   position: relative;
   z-index: 1; }
+  @media (max-width: 1280px) {
+    .time-select .incrementer {
+      margin-top: -2px; } }
   .time-select .incrementer .fa {
     display: block;
     cursor: pointer;
     font-size: 12px; }
-    .time-select .incrementer .fa:first-child {
-      margin-bottom: 2px; }
+    @media (min-width: 1281px) {
+      .time-select .incrementer .fa:first-child {
+        margin-bottom: 2px; } }
 .time-select .time-separator {
   position: absolute;
   margin-left: -8px;

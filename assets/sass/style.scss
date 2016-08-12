@@ -3631,10 +3631,10 @@ select.form-control {
 	font-family: $bebas-book;
 }
 .form-control {
-	line-height: 24px;
+	line-height: remCalc(24px);
 	outline: 1px solid #000;/*fix for rounded corners on ios*/
 	border: 1px solid transparent;
-	min-height: 36px;
+	min-height: remCalc(36px);
 	&:focus {
 		outline: 1px solid;
 	}
@@ -3646,7 +3646,10 @@ select.form-control {
 		margin-left: remCalc(18px);
 		padding: 4px 0px 4px 5px;
 		input {
-			font-size: remCalc(20px);
+			font-size: remCalc(18px);
+		}
+		@media (max-width:1280px) {
+			padding: 2px 0 2px 3px;
 		}
 	}
 }
@@ -3659,8 +3662,8 @@ textarea.form-control {
 	}
 }
 .form-control-sm {
-	line-height: 22px;
-	min-height: 30px;
+	line-height: remCalc(22px);
+	min-height: remCalc(30px);
 	&.single-date-select {
 		max-width: 106px;
 	}
@@ -3668,7 +3671,7 @@ textarea.form-control {
 		max-width: remCalc(122px);
 		margin-left: remCalc(18px);
 		input {
-			font-size: 16px;
+			font-size: remCalc(16px);
 		}
 		.incrementer {
 			.fa {
@@ -3719,12 +3722,17 @@ textarea.form-control {
 		margin-left: remCalc(-18px);
 		position: relative;
 		z-index: 1;
+		@media (max-width:1280px) {
+			margin-top: -2px;
+		}
 		.fa {
 			display: block;
 			cursor: pointer;
 			font-size: 12px;
-			&:first-child {
-				margin-bottom: 2px;
+			@media (min-width: 1281px) {
+				&:first-child {
+					margin-bottom: 2px;
+				}
 			}
 		}
 	}
