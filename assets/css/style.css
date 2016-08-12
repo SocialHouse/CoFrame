@@ -10902,10 +10902,12 @@ a {
 .table-approvals .btn-sm, .table-approvals .btn-group-sm > .btn {
   font-size: 10px;
   padding: 10px 7px;
-  width: 100px; }
+  min-width: 6.66667rem; }
   @media (max-width: 1599px) {
     .table-approvals .btn-sm + .btn, .table-approvals .btn-group-sm > .btn + .btn {
       margin-top: .5rem; } }
+.table-approvals .post-actions .btn-sm, .table-approvals .post-actions .btn-group-sm > .btn {
+  font-size: 10px; }
 .table-approvals .btn-xs {
   padding: 5px 7px;
   font-size: 10px; }

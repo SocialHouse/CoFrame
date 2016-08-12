@@ -2476,12 +2476,15 @@ a {
 	.btn-sm {
 		font-size: 10px;
 		padding: 10px 7px;
-		width: 100px;
+		min-width: remCalc(100px);
 		@media (max-width: 1599px) {
 			+ .btn {
 				margin-top: .5rem;
 			}
 		}
+	}
+	.post-actions .btn-sm {
+		font-size: 10px;
 	}
 	.btn-xs {
 		padding: 5px 7px;
