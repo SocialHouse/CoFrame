@@ -343,9 +343,6 @@
 												<div class="approval-date">
 													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no + 1 ; ?>"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span> <span class="time-preview<?php echo $phase_no + 1 ; ?>"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span>
 												</div>
-												<div class="timezones-preview approval-date">
-													<span class="uppercase">Selected timezone:</span> <span class="zone"><?php echo get_time_zone($obj[0]->time_zone); ?></span> 
-												</div>
 												<?php
 												if(!empty($obj[0]->note))
 												{
@@ -462,9 +459,6 @@
 												</ul>													
 												<div class="approval-date">
 													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
-												</div>
-												<div class="timezones-preview approval-date">
-													<span class="uppercase">Selected timezone:</span> <span class="zone"></span> 
 												</div>
 												<div class="approval-note">
 													NOTE: <?php echo nl2br($obj[0]->note); ?>
