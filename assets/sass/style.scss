@@ -811,7 +811,7 @@ a {
  	}
 }
 .date-header {
-	font-size: 25px;
+	font-size: remCalc(25px);
 	line-height: 51px;
 	border-bottom: 1px solid #000;
 	padding-bottom: 0;
@@ -3004,7 +3004,7 @@ a {
 	margin-right: 1rem;
 	display: inline-block;
 	.btn {
-		font-size: 11px;
+		font-size: remCalc(11px);
 		color: #fff;
 		background: #c0c0c0;
 		&:hover, &.active {

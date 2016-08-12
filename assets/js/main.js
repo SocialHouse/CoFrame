@@ -594,6 +594,15 @@ jQuery(function($) {
 				});
 			}, 400);
 		});
+		$('body').on('blur', '.form-search .input-search', function(e) {
+			setTimeout(function() {
+				$('.form-search, .input-search').animate({
+					width: '0'
+				}, function() {
+					$('.input-search').attr('placeholder', '');
+				});
+			}, 400);
+		});
 	});
 
 
