@@ -8,26 +8,18 @@ $(document).ready(function(){
 		$.fn.intlTelInput.loadUtils( base_url+"assets/js/vendor/utils.js");
 		var $phone_no = jQuery('#phone').val();
 		var telInput = $("#phone");
-		console.log($phone_no);
+		
 		telInput.intlTelInput({
-			allowDropdown: true,
-	      	autoHideDialCode: true,
-			autoPlaceholder: true,
 			dropdownContainer: "body",
-			//excludeCountries: ["us"],
 			geoIpLookup: function(callback) {
-			$.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-				var countryCode = (resp && resp.country) ? resp.country : "";
-				callback(countryCode);
-			});
+				$.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+					var countryCode = (resp && resp.country) ? resp.country : "";
+					callback(countryCode);
+				});
 			},
 			initialCountry: "auto",
-			nationalMode: true,
-			setNumber:$phone_no,
-			//numberType: "MOBILE",
-			//onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-			// preferredCountries: ['cn', 'jp'],
-			separateDialCode: true
+			separateDialCode: true,
+			setNumber:$phone_no
 		});
 		// initialise plugin
 

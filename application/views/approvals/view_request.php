@@ -207,7 +207,7 @@
 									?>
 									<li>
 										<div class="author clearfix">
-											<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" class="circle-img pull-sm-left">
+											<img class="circle-img pull-sm-left" width="36" height="36" src="<?php echo $path; ?>"  alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" >
 											<div class="author-meta pull-sm-left">
 												<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
 												<span class="dateline"><?php echo date('m/d/Y' , strtotime($comment->created_at));; ?></span>
@@ -234,7 +234,7 @@
 												<div class="comment-asset">
 													<a target="_blank" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
 														<i class="tf-icon-download"></i>
-														<img src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
+														<img  width="60" height="60" alt="" class="base-64-img hide"src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>"/>
 													</a>
 												</div>												
 												<?php
@@ -261,7 +261,7 @@
 													<a data-show="#commentReply<?php echo $comment->id; ?>" class="reply-link show-hide" href="#">Reply</a>
 												</div>
 												<ul id="commentReply<?php echo $comment->id; ?>" class="commentReply timeframe-list hidden replay">
-													<li>
+													<li class="comment-section">
 														<?php
 														$path = img_url()."default_profile.jpg";						
 														if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
@@ -286,7 +286,8 @@
 															<div class="attachment pull-sm-left">
 																<input type="file" name="attachment<?php echo $comment->id; ?>" class="hidden reply-attach">
 																<button title="Add Attachment" class="btn-icon add-attachment"><i class="fa fa-paperclip"></i></button>
-																<img src="" class="hide" height="25" width="25">
+
+																<img src="" class="base-64-img hide" height="25" width="25">
 															</div>
 															<div class="pull-sm-right">
 																<button type="button" data-comment-id="<?php echo $comment->id; ?>" class="btn btn-default btn-sm reset-comment">Clear</button>

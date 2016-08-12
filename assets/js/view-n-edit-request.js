@@ -126,7 +126,7 @@ jQuery(function($) {
                 $(show).remove();
 				equalColumns();
 				$trigger.removeClass('active');
-				//if there are replys, don't remove reply class
+				//if there are reply, don't remove reply class
 				if(!$comment.find('.commentReply').length) {
 					$comment.removeClass('has-reply');
 				}
@@ -221,6 +221,7 @@ jQuery(function($) {
     $(document).on('change','.attachment_image',function(){
         var control = this;
         console.log($(control).next().next());
+       
         var supported_files = ['gif','png','jpg','jpeg'];
         var reader = new FileReader();
         var file = $(this)[0].files[0];
@@ -233,7 +234,7 @@ jQuery(function($) {
             };
             $(control).next().next().attr('src',event.target.result);
             $(control).next().next().removeClass('hide');
-
+            $(control).parent('.attachment ').find('.remove-attached-img').show();
         }
     });
 
@@ -247,16 +248,18 @@ jQuery(function($) {
     });
 
     $(document).on('click','.reset-edit-request',function(){
-        var $div_suggest_edit = $(this).parents('li');
-        var textarea = $div_suggest_edit.find("textarea");
-        var img = $div_suggest_edit.find("img");
-        var input_file = $div_suggest_edit.find("input[type='file']");
+        var $comment_section = $(this).closest('.comment-section');
+        console.log($comment_section);
+        var textarea = $comment_section.find("textarea");
+        var img = $comment_section.find("img.base-64-img");
+        var input_file = $comment_section.find("input[type='file']");
+        $comment_section.find(".remove-attached-img").hide();
         textarea.val('');
         input_file.remove();
         img.attr('src','').addClass('hide');
 
         var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
-        $div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
+        $comment_section.find(".attachment.pull-sm-left").prepend(attachment_html);
 
         toggleBtnClass($(this).parent().children('.save-edit-req'),true);
     });
@@ -294,6 +297,7 @@ jQuery(function($) {
                 };
                 $(control).next().next().attr('src',event.target.result);
                 $(control).next().next().removeClass('hide');
+                $(control).parent('.attachment ').find('.remove-attached-img').show();
             }
         }
     })
@@ -310,11 +314,21 @@ jQuery(function($) {
         }
     });
 
+    $(document).on('click','.remove-attached-img',function(){
+        $(this).hide();
+        $cmt_box = $(this).closest('div.attachment');
+        $cmt_box.find('.attachment_image').remove();
+        var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
+        $cmt_box.prepend(attachment_html);
+        $cmt_box.find('img').attr('src','').addClass('hide');
+    });
+
     $(document).on('click','.reset-comment',function(){
         var parent_id = $(this).data('comment-id');
         var parent_div = $("input[name='attachment"+parent_id+"']" ).parent();
         $(parent_div).children('img').attr('src','');
         $(parent_div).children('img').addClass('hide');
+        $('.remove-attached-img').hide();
         $("input[name='attachment"+parent_id+"']" ).remove();
         
         var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';                       
@@ -360,6 +374,7 @@ jQuery(function($) {
             {
                 if(response.response  == 'success')
                 {
+                    $('.remove-attached-img').hide();
                     $(reply_div).empty();
                     $(reply_div).prepend(response.html);
                     $("input[name='comment"+parent_id+"']" ).val('');

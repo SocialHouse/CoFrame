@@ -167,27 +167,32 @@
 									            <img class="circle-img pull-sm-left current-user" width="36" height="36" src="<?php echo $path; ?>">
 									            <!-- Suggest an Edit Start-->
 												<div class="suggest-edit">
-													<div class="form-group">
-														<label for="postCopy">Suggest an Edit:</label>
-														<textarea class="form-control" id="comment_copy" rows="2" name="comment" placeholder="Suggest an edit here..."></textarea>
-													</div>
-													<div class="form-group clearfix">
-														<div class="attachment pull-sm-left">
-															<input type="file" name="attachment" class="hidden attachment_image">
-															<button title="Add Attachment" class="btn-icon add-attachment pull-sm-left">
-															<i class="fa fa-paperclip"></i></button>
-															<img id="attached_img" accept="images/*" class="hide" height="30" width="30" src="<?php echo img_url().'default_profile.jpg'; ?>">
+													<div class="comment-section">
+														<div class="form-group">
+															<label for="postCopy">Suggest an Edit:</label>
+															<textarea class="form-control" id="comment_copy" rows="2" name="comment" placeholder="Suggest an edit here..."></textarea>
 														</div>
-														<div class="pull-sm-right">
-															<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-														<?php 
-														if(!empty($phs['phase_users'][0]->id)){
-															$ph_id = $phs['phase_users'][0]->id;
-														}else{
-															$ph_id = 1;
-														}
-														?>
-															<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php echo $ph_id ;?>" disabled="disabled">Submit</button>
+														<div class="form-group clearfix">
+															<div class="attachment pull-sm-left">
+																<input type="file" name="attachment" class="hidden attachment_image">
+																<button title="Add Attachment" class="btn-icon add-attachment pull-sm-left">
+																<i class="fa fa-paperclip"></i></button>
+																<img id="attached_img"  class="base-64-img" class="hide" height="30" width="30">
+																<a href="#" class="remove-attached-img hide">
+																	<i class="tf-icon-circle remove-upload">x</i>
+																</a>
+															</div>
+															<div class="pull-sm-right">
+																<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
+															<?php 
+															if(!empty($phs['phase_users'][0]->id)){
+																$ph_id = $phs['phase_users'][0]->id;
+															}else{
+																$ph_id = 1;
+															}
+															?>
+																<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php echo $ph_id ;?>" disabled="disabled">Submit</button>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -209,7 +214,7 @@
 															?>
 															<li>
 																<div class="author clearfix">
-																	<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" class="circle-img pull-sm-left">
+																	<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" >
 																	<div class="author-meta pull-sm-left">
 																		<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
 																		<span class="dateline">
@@ -235,7 +240,7 @@
 																		<div class="comment-asset">
 																			<a target="_blank" href="<?php echo upload_url().$this->user_data['img_folder'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
 																				<i class="tf-icon-download"></i>
-																				<img src="<?php echo upload_url().$this->user_data['img_folder'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
+																				<img width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['img_folder'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" />
 																			</a>
 																		</div>
 																		<?php
@@ -425,7 +430,7 @@
 
 <div id="commentReplyStatic">
 	<ul class="commentReply emptyCommentReply timeframe-list hide">
-		<li>
+		<li class="comment-section">
 			<div class="author clearfix">
 				<?php
 					$path = img_url()."default_profile.jpg";
@@ -450,7 +455,10 @@
 					<input type="file" name="replay-attachment" class="hidden attachment_image">
 					<button title="Add Attachment" class="btn-icon add-attachment">
 					<i class="fa fa-paperclip"></i></button>
-					<img  accept="images/*" class="hide" height="30" width="30" src="<?php echo img_url().'default_profile.jpg'; ?>">
+					<img class="base-64-img hide" height="30" width="30" >
+					<a href="#" class="remove-attached-img hide">
+						<i class="tf-icon-circle remove-upload">x</i>
+					</a>
 				</div>
 				<div class="pull-sm-right">
 					<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>

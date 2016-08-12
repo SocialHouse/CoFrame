@@ -3,7 +3,7 @@
 foreach ($replies as $key => $obj) {
 	?>
 	<ul class="commentReply timeframe-list replay">
-		<li>
+		<li class="comment-section">
 			<div class="author clearfix">
 				<?php
 				$path = img_url()."default_profile.jpg";
@@ -12,7 +12,7 @@ foreach ($replies as $key => $obj) {
 					$path = upload_url().$obj->img_folder.'/users/'.$obj->user_id.'.png';
 				}
 				?>
-				<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>	" class="circle-img pull-sm-left">
+				<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>" >
 
 				<div class="author-meta pull-sm-left">
 					<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>	
@@ -36,7 +36,7 @@ foreach ($replies as $key => $obj) {
 					<div class="comment-asset">
 						<a  target="_blank" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>" title="Download Asset">
 							<i class="tf-icon-download"></i>
-							<img src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>" width="60" height="60" alt=""/>
+							<img  width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>"/>
 						</a>
 					</div>
 					<?php

@@ -19,3 +19,12 @@
 /*  Loadinn image  */
 #loading_main{display:none;position:fixed;height:100%;width:100%;bottom:0px; background-color:rgba(23,23,23,0.40); z-index:99998;}
 #loading_main .loading{position:absolute;left:50%;top:50%; background-color:rgba(23,23,23,0); z-index:99999;}
+
+.remove-attached-img .remove-upload{
+	height: 16px !important;
+	width: 16px !important;
+	line-height: 12px !important;
+	left: 38% !important;
+	top: 27% !important;
+	position: static;
+}

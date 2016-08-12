@@ -10,7 +10,7 @@ foreach ($replies as $key => $replay)
 		}
 		?>
 		<ul class="commentReply timeframe-list replay">
-			<li>
+			<li class="comment-section">
 				<div class="author clearfix">
 					<?php
 					$path = img_url()."default_profile.jpg";
@@ -35,7 +35,7 @@ foreach ($replies as $key => $replay)
 						<div class="comment-asset">
 							<a href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$replay->media ?>" title="Download Asset">
 								<i class="tf-icon-download"></i>
-								<img src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$replay->media ?>" width="60" height="60" alt=""/>
+								<img width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$replay->media ?>" />
 							</a>
 						</div>
 						<?php
@@ -63,7 +63,7 @@ foreach ($replies as $key => $replay)
 			<a data-show="#commentReply<?php echo $replay->id; ?>" class="reply-link show-hide" href="#">Reply</a>
 		</div>
 		<ul id="commentReply<?php echo $replay->id; ?>" class="commentReply timeframe-list hidden replay">
-			<li>
+			<li class="comment-section">
 				<?php
 				$path = img_url()."default_profile.jpg";						
 				if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
@@ -72,7 +72,7 @@ foreach ($replies as $key => $replay)
 				}
 				?>
 				<div class="author clearfix">
-					<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']); ?>" class="circle-img pull-sm-left">
+					<img width="36" height="36" class="circle-img pull-sm-left" src="<?php echo $path; ?>"  alt="<?php echo ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']); ?>" >
 					<div class="author-meta pull-sm-left">
 						<?php
 						echo ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']);
