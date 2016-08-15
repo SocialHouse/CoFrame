@@ -12110,6 +12110,10 @@ textarea.form-control {
     margin-right: 0; }
   #global-footer a {
     color: #fff; }
+  #global-footer .brand-logo {
+    width: 112px;
+    height: 30px;
+    margin-right: 1rem; }
   #global-footer .nav {
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
     #global-footer .nav li {
@@ -12214,12 +12218,12 @@ textarea.form-control {
   .overview-main .relative-wrapper, #user-preferences .relative-wrapper {
     height: auto;
     min-height: 100%;
-    padding-bottom: 9.66667rem; }
+    padding-bottom: 3.66667rem; }
   .overview-main .relative-wrapper, #content-page .relative-wrapper {
-    padding-bottom: 10rem; }
+    padding-bottom: 5.33333rem; }
     @media (min-width: 768px) {
       .overview-main .relative-wrapper, #content-page .relative-wrapper {
-        padding-bottom: 11.33333rem; } }
+        padding-bottom: 6.66667rem; } }
 
 .table {
   display: table;

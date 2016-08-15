@@ -4023,6 +4023,11 @@ textarea.form-control {
 	a {
 		color: #fff;
 	}
+	.brand-logo {
+		width: 112px;
+		height: 30px;
+		margin-right: 1rem;
+	}
 	.nav {
 		font-family: $futura;
 		li {
@@ -4141,12 +4146,12 @@ textarea.form-control {
 	.overview-main &, #user-preferences & {
 		height: auto;
 		min-height: 100%;
-		padding-bottom: remCalc(145px);
+		padding-bottom: remCalc(55px);
 	}
 	.overview-main &, #content-page & {
-		padding-bottom: remCalc(150px);
+		padding-bottom: remCalc(80px);
 		@include media-breakpoint-up(sm) {
-			padding-bottom: remCalc(170px);
+			padding-bottom: remCalc(100px);
 		}
 	}
 }

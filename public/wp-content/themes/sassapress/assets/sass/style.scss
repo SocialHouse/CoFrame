@@ -1646,7 +1646,7 @@ p:empty {
 	padding-top: 1.125rem;
 	padding-bottom: 1.125rem;
 	font-family: $futura-light;
-	font-size: .75rem;
+	font-size: 11px;
 	letter-spacing: .25em;
 	line-height: normal;
 	@include media-breakpoint-up(sm) {
@@ -1654,6 +1654,14 @@ p:empty {
 	}
 	a {
 		color: #fff;
+	}
+	.navbar-brand {
+		margin-top: -8px;
+	}
+	.brand-logo {
+		width: 112px;
+		height: 30px;
+		margin-right: 1rem;
 	}
 	.nav {
 		font-family: $futura;
