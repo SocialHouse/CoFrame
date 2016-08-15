@@ -11740,6 +11740,9 @@ a {
   margin-bottom: -1rem; }
 .form-group.slate-post-tz {
   margin-bottom: 1rem; }
+.form-group + .error {
+  margin-top: -.75rem;
+  margin-bottom: 1rem; }
 .form-group .timezone {
   font-family: "Bebas", Arial, Helvetica, sans-serif;
   font-size: 1.33333rem;

@@ -337,7 +337,7 @@
 										?>
 									</select>
 								</div>
-								<label class="phase-one-error error hide clearfix"></label>
+								<div class="phase-one-error error hide clearfix"></div>
 								<div class="form-group">
 									<label for="approvalNotes">Note to Approvers (optional):</label>
 									<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>

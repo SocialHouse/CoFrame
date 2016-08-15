@@ -3584,6 +3584,10 @@ a {
 	&.slate-post-tz {
 		margin-bottom: 1rem;
 	}
+	+ .error {
+		margin-top: -.75rem;
+		margin-bottom: 1rem;
+	}
 	.timezone {
 		font-family: $bebas;
 		font-size: remCalc(20px);

@@ -48,7 +48,7 @@ if(!empty($post_details->brand_id)){
 				?>
 			</select>
 		</div>
-		<label class="phase-one-error-all error hide clearfix"></label>
+		<div class="phase-one-error-all error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>
@@ -115,7 +115,7 @@ if(!empty($post_details->brand_id)){
 				?>
 			</select>
 		</div>
-		<label class="phase-two-error error hide clearfix"></label>
+		<div class="phase-two-error error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[1][note]"></textarea>
@@ -182,7 +182,7 @@ if(!empty($post_details->brand_id)){
 				?>
 			</select>
 		</div>
-		<label class="phase-three-error error hide clearfix"></label>
+		<div class="phase-three-error error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
 			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>

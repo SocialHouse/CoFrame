@@ -98,7 +98,7 @@ if(!empty($post_details->brand_id)){
 						</div>
 					</div>
 				</div>
-				<label class="phase-one-error error hide clearfix"></label>
+				<div class="phase-one-error error hide clearfix"></div>
 				<div class="form-group slate-post-tz">
 					<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
 						<?php 

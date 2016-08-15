@@ -28,7 +28,7 @@ jQuery(function($) {
 					*	pull-sm-left id the class of div into ul > li
 					*/
 					
-					if($activePhase.find('.approver-selected li .pull-sm-left').length > 2)
+					if($activePhase.find('.approver-selected li .user-img').length)
 					{
 						if($activePhase.find('.hour-select').val() && $activePhase.find('.minute-select').val())
 						{

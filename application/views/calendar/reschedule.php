@@ -18,7 +18,7 @@
 				<span class="timezone pull-xs-right">PST</span>
 			</div>
 		</div>
-		<label id='reschedule_error' for="error" class=" error hide clearfix"></label>
+		<div id='reschedule_error' class=" error hide clearfix"></div>
 		<footer class="overlay-footer">
 			<button type="button" class="btn btn-sm btn-default qtip-hide">Cancel</button>
 			<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Save</button>
