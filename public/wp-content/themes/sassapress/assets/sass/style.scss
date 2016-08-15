@@ -23,7 +23,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 body, html {
 	height: 100%;
 	font-size: 12px;
-	@media (min-width: 1280px) and (min-height: 768px) {
+	@media (min-width: 1280px) and (min-height: 801px) {
 		font-size: 14px;
 	}
 	@media (min-width: 1900px) {
@@ -1648,6 +1648,7 @@ p:empty {
 	font-family: $futura-light;
 	font-size: .75rem;
 	letter-spacing: .25em;
+	line-height: normal;
 	@include media-breakpoint-up(sm) {
 		margin-top: 2.75rem;
 	}
