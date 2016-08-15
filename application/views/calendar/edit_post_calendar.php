@@ -100,8 +100,6 @@
 					<div class="form__error">Error! <span></span>.</div>
 				</div>
 				<div class="clearfix">
-					<div id="hm_error" class="error"></div>
-					<div id="date_error" class="error"></div>
 					<div class="pull-sm-left">
 						<label>Slate Post:</label>
 						<div class="slate-post clearfix">
@@ -120,6 +118,10 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="slate-post-errors">
+							<div id="date_error" class="error"></div>
+							<div id="hm_error" class="error"></div>
 						</div>
 						<div class="form-group slate-post-tz">
 							<select class="form-control" name="time_zone">
