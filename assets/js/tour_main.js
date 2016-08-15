@@ -83,7 +83,7 @@ jQuery(function($) {
 		$('body, html').animate({scrollTop: sectionTop});
 	});
 	
-	$('.home-video, .home .play-btn').on('click', function() {
+	$('.home .play-btn').on('click', function() {
 		$('.home-video .embed-responsive').animate({opacity: 1},function() {
 			playVideo();
 		});
