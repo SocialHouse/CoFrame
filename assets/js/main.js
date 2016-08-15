@@ -1179,6 +1179,7 @@ jQuery(function($) {
 				at: 'right top',
 				my: 'left center',
 				container: $('.page-main'),
+				effect: false,
 				target: element,
 				viewport: $('.page-main')
 			},
