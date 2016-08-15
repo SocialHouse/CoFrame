@@ -106,7 +106,7 @@ if(!empty($post_images)){
 									echo '<div class="width_33 img-item"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" />';
 										if($img_count > 5 && $i ==4 ){
 											$img_more  = $img_count - 5;
-											echo '<div class="more-images"><span class="vertical-center">+'.$img_more.'</span></div>';
+											echo '<div class="more-images" id="' . $img_more . '"><span class="vertical-center">+'.$img_more.'</span></div>';
 										}
 									echo '</div>';
 									if($i == 4){
