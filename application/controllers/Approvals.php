@@ -70,7 +70,7 @@ class Approvals extends CI_Controller {
 			{							
 				foreach($approvals as $approval)
 				{
-					$this->data['approval_list'][date('D m/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;
+					$this->data['approval_list'][date('D n/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;
 				}
 			}
 			
