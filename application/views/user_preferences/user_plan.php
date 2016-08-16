@@ -48,12 +48,14 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 								<header class="price-title">
 									<h2>Start-Up</h2>
 									<h3>$99 <small>per month</small></h3>
+									<h4>$1,188 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
+									<li>3 Total Users: Includes 1 Master Admin</li>
+									<li>Up to 3 Social Channels per brand</li>
+									<li>1 Brand</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>3 tags</li>
 								</ul>
 								<?php 
 									if(!empty($start_up))
@@ -76,14 +78,17 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 	
 								<header class="price-title">
 									<h2>Business</h2>
-									<h3>$199 <small>per month</small></h3>
+									<h3>$299 <small>per month</small></h3>
+									<h4>$3,588 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>Ut labore et dolore magn</li>
+									<li>12 Total Users: Includes 2 Master Admins</li>
+									<li>Up to 5 Social Channels per brand</li>
+									<li>Up to 3 brands </li>
+									<li>Email Ticketing Support</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>8 tags</li>
+									<li>Phased Approvals</li>
 								</ul>
 	
 								<?php 
@@ -110,15 +115,18 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $corporate; ?>">
 								<header class="price-title">
 									<h2>Corporate</h2>
-									<h3>$299 <small>per month</small></h3>
+									<h3>$599 <small>per month</small></h3>
+									<h4>$7,188 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>ut labore et dolore magn</li>
-									<li>aliqua ut enim ad minim</li>
+									<li>Up to 35 Users: Includes Unlimited Master Admins</li>
+									<li>Up to 8 Social Channels per brand</li>
+									<li>Up to 8 brands</li>
+									<li>Priority Email Ticketing Support</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>Co-Create functionality</li>
+									<li>Up to 15 Tags</li>
+									<li>Phased Approvals</li>
 								</ul>
 								<?php 
 									if(!empty($corporate))
@@ -145,18 +153,21 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $premiere; ?>">
 								<header class="price-title">
 									<h2>Premiere</h2>
-									<h3>$499 <small>per month</small></h3>
+									<h3>$2,500 <small>per month</small></h3>
+									<h4>$30,000 <small>per year</small>*</h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>ut labore et dolore magn</li>
-									<li>aliqua ut enim ad minim</li>
-									<li>veniam quis nostrud</li>
+									<li>Up to 70 Users: Includes Unlimited Master Admins</li>
+									<li>Unlimited Social Channels</li>
+									<li>Up to 15 brands</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>Co-Create functionality</li>
+									<li>Unlimited Tags</li>
+									<li>Training (1 In-Person Training Session)</li>
+									<li>High Priority Online Support </li>
+									<li>Phased Approvals</li>
 								</ul>
-	
+								<p class="disclaimer">*ability to add users and brands for additional cost</p>
 								<?php 
 									if(!empty($premiere))
 									{

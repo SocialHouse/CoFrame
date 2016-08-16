@@ -3514,30 +3514,35 @@ a {
 			padding-bottom: 1.5rem;
 		}
 		h3 {
-			font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+			font-family: $bebas-light;
 			font-size: 6.5625rem;
 			line-height: 6rem;
-			margin: 0 0 4rem;
 			small {
 				display: block;
 				font-size: 2.1875rem;
 				line-height: 1.7rem;
 			}
 		}
+		h4 {
+			font-family: $bebas;
+			margin: 0 0 4rem;
+			padding: 0;
+			border: 0;
+		}
 	}
 	.pricing-details {
 		padding: 2rem 2rem remCalc(105px);
 		ul {
-			font-family: "Bebas Light",Arial,Helvetica,sans-serif;
 			text-align: left;
 			list-style: none;
 			padding: 0;
 			margin: 0;
-			font-size: 1.625rem;
-			line-height: 2.1875rem;
+			font-size: 1.25rem;
+			line-height: 1.5rem;
 			border-top: 1px solid #000;
 		}
 		li {
+			padding: 5px 0;
 			border-bottom: 1px solid #000;
 		}
 		.btn {
@@ -3546,6 +3551,11 @@ a {
 			display: block;
 			left: 2rem;
 			right: 2rem;
+		}
+		.disclaimer {
+			font-size: 1rem;
+			margin-top: .75rem;
+			text-align: left;
 		}
 	}
 	.active-plan {
