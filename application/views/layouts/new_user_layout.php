@@ -54,10 +54,6 @@
 		    	<li class="nav-item">
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
 		    	</li>
-		   		<li class="nav-item">
-		      		<a class="nav-link" href="<?php echo base_url()?>user_preferences">Account Settings</a>
-		    	</li>
-
 		   		<li class="nav-item dropdown">
 					<span class="company-name" href="#"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 					<!-- if multiple companies-->
@@ -96,6 +92,9 @@
 						}
 						?>
 						<span class="user-role"><?php echo get_user_groups($this->user_id,$current_brand,$parent_id); ?></span></li>
+						<li>
+							<a class="nav-link" href="<?php echo base_url()?>user_preferences">Account Settings</a>
+						</li>
 						<li><a class="nav-link" href="<?php echo base_url().'tour/logout' ?>">Log out</a></li>
 					</ul>
 		    	</li>
