@@ -775,9 +775,16 @@ jQuery(function($) {
 	//show all the user and data to preview whcih we added while adding phase datails 
 	//and show phase preview view
 	$(document).on('click', '.save-phases', function() {
-		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');		
+		var phases = $('#phaseDetails .approval-phase:not(.saved-phase)');
+		$('#only_ph_one_date').val(''),
+ 		$('#only_ph_one_hour').val(''),
+ 		$('#only_ph_one_minute').val(''),
+ 		$('#only_ph_one_ampm').val('');
+		if(!phaseValidation()){
+			return false;
+		}
 		$.each(phases, function() {
-			var phase = this;			
+			var phase = this;
 			$('#preview_'+$(phase).attr('id')).find('li').empty();
 			$('#preview_edit_'+$(phase).attr('id')).find('ul').empty();
 			var img = $(phase).find('img');
