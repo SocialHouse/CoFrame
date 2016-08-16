@@ -431,3 +431,4 @@ ALTER TABLE `brand_order`
  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `brand_order`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
