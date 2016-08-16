@@ -162,6 +162,7 @@ jQuery(function($) {
 	});
 
 	$('.modal [data-toggle]').on('click', function(e) {
+		e.preventDefault();
 		e.stopPropagation();
 		modalClick = true;
 		var $thisModal = $(this).parents('.modal');
