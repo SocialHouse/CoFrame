@@ -682,7 +682,7 @@ a {
 	line-height: 1;
 	margin: 0;
 	> [class*="col-"] {
-		padding: 3.25rem 3rem 3.75rem;
+		padding: 2.875rem;
 		background: rgba(0,0,0,.5);
 		border: 1px solid rgba(255,255,255,.8);
 		z-index: 2;
@@ -706,6 +706,12 @@ a {
 			line-height: 1.7rem;
 		}
 	}
+	.disclaimer {
+		font-family: $futura-light;
+		font-size: 1rem;
+		margin-top: .75rem;
+		text-align: left;
+	}
 	p {
 		margin-bottom: 0;
 	}
@@ -714,11 +720,13 @@ a {
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		font-size: 1.625rem;
-		line-height: 2.1875rem;
+		font-size: 1.25rem;
+		line-height: 1.5rem;
 		border-top: 1px solid #fff;
+		font-family: $futura-light;
 		li {
 			border-bottom: 1px solid #fff;
+			padding: 5px 0;
 		}
 	}
 	[class*="box-"] {
@@ -732,6 +740,9 @@ a {
 				display: block;
 				margin: 0px auto 1.75rem;
 			}
+		}
+		ul {
+			margin-top: 1rem;
 		}
 	}
 	.box-create {
@@ -759,7 +770,7 @@ a {
 		}
 	}
 	&:not(.pricing-list) {
-		@media (min-width: 768px) {
+		@include  media-breakpoint-up(md) {
 			top: 50%;
 			left: 50%;
 			-webkit-transform: translate(-50%,-50%);
@@ -785,6 +796,11 @@ a {
 				&:first-child {
 					border-left: 1px solid rgba(255,255,255,.8);
 				}
+			}
+		}
+		@include media-breakpoint-only(sm) {
+			> [class*="col-"] {
+				    min-height: 475px;
 			}
 		}
 	}
@@ -833,17 +849,15 @@ a {
 }
 .feature-list-btn {
 	position: relative;
-	top: 32%;
-	@media(min-height: 768px) {
-		top: 35%;
+	@include media-breakpoint-up(md) {
+		top: 13%;
 	}
 }
 .pricing-list {
 	> [class*="col-"] {
-		padding-bottom: 5.75rem;
-		padding: 0 2.875rem 5.75rem;
+		padding: 0 2.875rem 6rem;
 		@include media-breakpoint-only(sm) {
-			min-height: 485px;
+			min-height: 645px;
 		}
 	}
 	.btn {
@@ -862,7 +876,7 @@ a {
 		margin: 0 -2.875rem 1.875rem;
 		padding: 2rem 2.875rem;
 		@media(min-width: 1440px) {
-			padding: 4.6875rem 2.875rem 4.375rem;
+			padding: 2.875rem;
 		}
 	}
 }
@@ -1657,6 +1671,9 @@ p:empty {
 	}
 	.navbar-brand {
 		margin-top: -8px;
+		@include media-breakpoint-down(sm) {
+			float: none;
+		}
 	}
 	.brand-logo {
 		width: 112px;

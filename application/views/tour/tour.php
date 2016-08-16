@@ -140,21 +140,44 @@
 				<section id="features" class="page-section" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/bg-features.jpg);">
 					<div class="section-content">
 						<div class="row feature-list animated" data-animation="fadeIn">
-							<div class="col-md-3 text-center box-create animated" data-animation="fadeInUp"></p>
+							<div class="col-md-3 col-sm-6 text-center box-create animated" data-animation="fadeInUp">
 								<h2>Create</h2>
-								<p>Upload content and write copy to see a live preview of your content before it is posted.
+								<p>Upload content and write copy to see a live preview of your content before it is posted.</p>
+								<ul>
+									<li>Build Curated Editorial Calendars</li>
+									<li>Upload Images, Videos, GIFS, and more</li>
+									<li>Use CoCreate feature to create reactive content around live events</li>
+									<li>Preview Post in Native Social Format</li>
+								</ul>
 							</div>
-							<div class="col-md-3 text-center box-collaborate animated" data-animation="fadeInUp animate-delay-300"></p>
+							<div class="col-md-3 col-sm-6 text-center box-collaborate animated" data-animation="fadeInUp animate-delay-300">
 								<h2>Collaborate</h2>
-								<p>Bring everyone together in one virtual war room to CoCreate a post, while talking live via chat, video or call.
+								<p>Bring everyone together in one virtual war room to CoCreate a post, while talking live via chat, video or call.</p>
+								<ul>
+									<li>Work With Teams Utilizing Voice, Video and Live Chat</li>
+									<li>Set User Roles, Including Master Admin, Manager, Creator and Approver</li>
+									<li>Receive Reminders via email, mobile text, inapp and desktop notifications</li>
+									<li>Apply Content Category Tags</li>
+								</ul>
 							</div>
-							<div class="col-md-3 text-center box-approve animated" data-animation="fadeInUp animate-delay-600"></p>
+							<div class="col-md-3 col-sm-6 text-center box-approve animated" data-animation="fadeInUp animate-delay-600">
 								<h2>Approve</h2>
-								<p>Track your team’s realtime edits, leave feedback and utilize phased approvals to make sure you get all the approvals you need before going live.
+								<p>Track your team’s realtime edits, leave feedback and utilize phased approvals to make sure you get all the approvals you need before going live.</p>
+								<ul>
+									<li>Set phased approval process</li>
+									<li>Streamline content approvals</li>
+									<li>Suggest post edits</li>
+								</ul>
 							</div>
-							<div class="col-md-3 text-center box-publish animated" data-animation="fadeInUp animate-delay-600"></p>
+							<div class="col-md-3 col-sm-6 text-center box-publish animated" data-animation="fadeInUp animate-delay-600">
 								<h2>Publish</h2>
-								<p>Schedule or post your content live to multiple social channels, while also archiving calendars for future reference.
+								<p>Schedule or post your content live to multiple social channels, while also archiving calendars for future reference.</p>
+								<ul>
+									<li>Schedule/Publish to Facebook, Twitter, Instagram, Tumblr, Pinterest, Youtube and more</li>
+									<li>Upload Photo Albums, Videos, Links and more</li>
+									<li>Bulk Export Calendars in CSV, XLS and PDF format</li>
+									<li>Save Drafts For Future Use</li>
+								</ul>
 							</div>
 						</div>
 						<div class="row feature-list-btn" data-animation="">
@@ -175,66 +198,76 @@
 				<section id="pricing" class="page-section" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/bg-pricing.jpg);">
 					<div class="section-content">
 						<div class="row feature-list pricing-list animated" data-animation="fadeIn">
-							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight"></p>
+							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight">
 								<header class="price-title">
 									<h2>Start-Up</h2>
 									<h3>$99 <small>per month</small></h3>
+									<h4>$1,188 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
+									<li>3 Total Users: Includes 1 Master Admin</li>
+									<li>Up to 3 Social Channels per brand</li>
+									<li>1 Brand</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>3 tags</li>
 								</ul>
-								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Start-Up" data-price="$99.00">Get Started</a><br />
+								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Start-Up" data-price="$99.00">Get Started</a></p>
 							</div>
-							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-300"></p>
+							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-300">
 								<header class="price-title">
 									<h2>Business</h2>
-									<h3>$199 <small>per month</small></h3>
+									<h3>$299 <small>per month</small></h3>
+									<h4>$3,588 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>Ut labore et dolore magn</li>
+									<li>12 Total Users: Includes 2 Master Admins</li>
+									<li>Up to 5 Social Channels per brand</li>
+									<li>Up to 3 brands </li>
+									<li>Email Ticketing Support</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>8 tags</li>
+									<li>Phased Approvals</li>
 								</ul>
-								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Business" data-price="$199.00">Get Started</a><br />
+								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Business" data-price="$199.00">Get Started</a></p>
 							</div>
-							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-600"></p>
+							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-600">
 								<header class="price-title">
 									<h2>Corporate</h2>
-									<h3>$299 <small>per month</small></h3>
+									<h3>$599 <small>per month</small></h3>
+									<h4>$7,188 <small>per year</small></h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>ut labore et dolore magn</li>
-									<li>aliqua ut enim ad minim</li>
+									<li>Up to 35 Users: Includes Unlimited Master Admins</li>
+									<li>Up to 8 Social Channels per brand</li>
+									<li>Up to 8 brands</li>
+									<li>Priority Email Ticketing Support</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>Co-Create functionality</li>
+									<li>Up to 15 Tags</li>
+									<li>Phased Approvals</li>
 								</ul>
-								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Corporate" data-price="$299.00">Get Started</a><br />
-							</div></p>
-								<p>
+								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Corporate" data-price="$299.00">Get Started</a></p>
+							</div>
 							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-900">
-								</p>
 								<header class="price-title">
 									<h2>Premiere</h2>
-									<h3>$499 <small>per month</small></h3>
+									<h3>$2,500 <small>per month</small></h3>
+									<h4>$30,000 <small>per year</small>*</h4>
 								</header>
 								<ul>
-									<li>Lorem ipsum dolor sit</li>
-									<li>Amet consectetur</li>
-									<li>Adipiscing elit sed do euis</li>
-									<li>Mod tempor incididunt</li>
-									<li>ut labore et dolore magn</li>
-									<li>aliqua ut enim ad minim</li>
-									<li>veniam quis nostrud</li>
+									<li>Up to 70 Users: Includes Unlimited Master Admins</li>
+									<li>Unlimited Social Channels</li>
+									<li>Up to 15 brands</li>
+									<li>Email &amp; Desktop Notifications</li>
+									<li>Co-Create functionality</li>
+									<li>Unlimited Tags</li>
+									<li>Training (1 In-Person Training Session)</li>
+									<li>High Priority Online Support </li>
+									<li>Phased Approvals</li>
 								</ul>
-								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Premiere" data-price="$499.00">Get Started</a><br />
-							</div></p><p>
+								<p class="disclaimer">*ability to add users and brands for additional cost</p>
+								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Premiere" data-price="$499.00">Get Started</a></p>
+							</div>
 						</div>
 					</div>
 					<nav class="page-next-prev">
