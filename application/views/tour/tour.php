@@ -313,8 +313,8 @@
 
 									<div class="field-group clear">
 										<fieldset class="form-group">
-											<label class="sr-only" for="companyName">Company Name</label>
-											<input type="text" class="form-control" id="companyName" placeholder="Company Name" name="company_name">
+											<label class="sr-only" for="companyName">Company Name*</label>
+											<input type="text" class="form-control" id="companyName" placeholder="Company Name*" name="company_name">
 										</fieldset>
 										<fieldset class="form-group">
 											<label class="sr-only" for="title">Title</label>
