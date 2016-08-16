@@ -417,3 +417,17 @@ ALTER TABLE `social_media_keys` ADD `created_at` DATETIME NULL DEFAULT NULL AFTE
 
 --- 08-08-2016
 ALTER TABLE `phases` ADD `time_zone` VARCHAR(20) NULL DEFAULT NULL AFTER `status`;
+
+---16-08-2016
+CREATE TABLE IF NOT EXISTS `brand_order` (
+`id` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `brand_order`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `brand_order`

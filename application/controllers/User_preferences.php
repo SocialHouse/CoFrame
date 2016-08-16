@@ -25,6 +25,7 @@ class User_preferences extends CI_Controller {
         is_user_logged();
         $this->load->model('user_model');
         $this->load->model('timeframe_model');
+        $this->load->model('brand_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
@@ -51,14 +52,22 @@ class User_preferences extends CI_Controller {
 		if($page == 'user_info')
 		{
 			$this->data['timezones_list'] = $this->user_model->get_timezones();
-			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
+			$this->data['user_details'] = $this->user_model->get_user($this->user_id);
+			$master_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $this->user_data['account_id']),'company_name,company_email,company_url');
+			if(!empty($master_info))
+			{
+				$this->data['user_details']->company_name = $master_info[0]->company_name;
+				$this->data['user_details']->company_email = $master_info[0]->company_email;
+				$this->data['user_details']->company_url = $master_info[0]->company_url;
+			}			
 		}
 
 		$this->data['billing_details'] = $this->user_model->get_billing_details($this->user_data['account_id']);
 
 		if($page == 'user_plan')
 		{			
-			$this->data['user_details'] = $this->user_model->get_user($this->user_id);
+			$this->data['user_details'] = $this->user_model->get_user($this->user_id);			
+
 			$this->load->model('brand_model');
 			$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
 
@@ -147,15 +156,19 @@ class User_preferences extends CI_Controller {
 							'first_name' => $post_data['first_name'],
 							'last_name' => $post_data['last_name'],
 							'phone' => $post_data['phoneNumber'],
-							'timezone' => $post_data['timezone'],
-							'company_name' => $post_data['company_name'],
-							'company_email' => $post_data['company_email'],
-							'company_url' => $post_data['company_url'],
+							'timezone' => $post_data['timezone'],							
 							'email_notification' =>$email_notification,
 							'desktop_notification' =>$desktop_notification,
 							'urgent_notification' =>$urgent_notification
 						);
             $this->timeframe_model->update_data('user_info',$user_data,$condition);
+            $master_user_data = array(
+            				'company_name' => $post_data['company_name'],
+							'company_email' => $post_data['company_email'],
+							'company_url' => $post_data['company_url']
+						);
+            $this->timeframe_model->update_data('user_info',$master_user_data,array('aauth_user_id' => $this->user_data['account_id']));
+            
            	$img_folder = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $this->user_id),'img_folder');
 
            	$user_data['user_info_id'] = $post_data['aauth_user_id'];
@@ -453,6 +466,27 @@ class User_preferences extends CI_Controller {
 
         if($inserted_id)
     	{
+    		$brands = $this->brand_model->get_accounts_brands();
+    		if(!empty($brands))
+    		{
+    			$brand_order = $this->timeframe_model->get_data_by_condition('brand_order',array('user_id' => $inserted_id,'account_id' => $this->user_data['account_id']));
+    			if(!empty($brand_order))
+    			{
+    				$this->timeframe_model->delete_data('brand_order',array('user_id' => $inserted_id,'account_id' => $this->user_data['account_id']));
+    			}
+
+    			$order = $this->timeframe_model->get_max('brand_order','order',array('user_id' => $inserted_id,'account_id' => $this->user_data['account_id']));
+    			foreach($brands as $brand)
+    			{
+		            $brand_order_data = array(
+		            					'order' => $order !== FALSE ? ++$order : 0,
+		            					'account_id' => $this->user_data['account_id'],
+		            					'user_id' => $inserted_id,
+		            					'brand_id' => $brand->id
+		            				);
+		            $this->timeframe_model->insert_data('brand_order',$brand_order_data);
+    			}
+    		}
     		$this->aauth->add_member($inserted_id, $group_id, NULL , $this->user_data['account_id']);
 
     		$permissions = $this->aauth->get_groups_perm($group_id);
@@ -542,6 +576,31 @@ class User_preferences extends CI_Controller {
 
 	        // Update user profile image
     		$user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
+
+    		if(empty($post_data['previous_group']))
+    		{
+	    		$brands = $this->brand_model->get_accounts_brands();
+	    		if(!empty($brands))
+	    		{
+	    			$brand_order = $this->timeframe_model->get_data_by_condition('brand_order',array('user_id' => $user_id,'account_id' => $this->user_data['account_id']));
+	    			if(!empty($brand_order))
+	    			{
+	    				$this->timeframe_model->delete_data('brand_order',array('user_id' => $user_id,'account_id' => $this->user_data['account_id']));
+	    			}
+
+	    			$order = $this->timeframe_model->get_max('brand_order','order',array('user_id' => $user_id,'account_id' => $this->user_data['account_id']));
+	    			foreach($brands as $brand)
+	    			{
+			            $brand_order_data = array(
+			            					'order' => $order !== FALSE ? ++$order : 0,
+			            					'account_id' => $this->user_data['account_id'],
+			            					'user_id' => $user_id,
+			            					'brand_id' => $brand->id
+			            				);
+			            $this->timeframe_model->insert_data('brand_order',$brand_order_data);
+	    			}
+	    		}
+	    	}
 	        if($post_data['is_user_image'] == 'yes')
 	        {
 	        	if(isset($post_data['user_pic_base64']) && !empty($post_data['user_pic_base64']))

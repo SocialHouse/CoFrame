@@ -15,8 +15,13 @@
 						<?php
 					}
 				}
+				if(count($brands) > 1)
+				{
+					?>
+					<a href="#" class="btn btn-default btn-sm btn-reorder pull-sm-right popover-toggle" data-toggle="popover-reorder-brands" data-content-src="<?php echo base_url().'brands/reorder_brands'; ?>" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-reorder-brands" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="20" data-offset-y="-6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body">Reorder <i class="fa fa-bars"></i></a>
+					<?php
+				}
 				?>
-				<a href="#" class="btn btn-default btn-sm btn-reorder pull-sm-right popover-toggle" data-toggle="popover-reorder-brands" data-content-src="<?php echo base_url().'brands/reorder_brands'; ?>" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-reorder-brands" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="20" data-offset-y="-6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body">Reorder <i class="fa fa-bars"></i></a>
 				<h1 class="center-title section-title">Overview</h1>
 			</header>
 			<div id="brand-sort">
@@ -33,7 +38,7 @@
 				foreach($brands as $key=>$brand)
 				{
 					?>
-					<div class="brand-overview" data-list-order="<?php echo $key; ?>" data-brand="<?php echo $brand->id; ?>">
+					<div class="brand-overview" data-list-order="<?php echo $key; ?>" data-brand="<?php echo $brand->order; ?>">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-2">
 								<h2><?php echo $brand->name ?></h2>

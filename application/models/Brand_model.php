@@ -25,27 +25,30 @@ class Brand_model extends CI_Model
 
 	public function get_users_brands($user_id, $brand_id = 0)
 	{
-		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug');	
+		$this->db->select('brands.id,name,created_by,brands.created_at,timezone,is_hidden,slug,order');	
 		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
+		$this->db->join('brand_order','brands.id = brand_order.brand_id');
 		if($brand_id > 0)
 			$this->db->where('brands.id', $brand_id);
 		
 		
 		if(isset($this->user_data['user_group']) AND $this->user_data['user_group'] == 'Master Admin')
 		{
-			$this->db->where('account_id', $this->user_data['account_id']);
+			$this->db->where('brands.account_id', $this->user_data['account_id']);
 		}
 		else
 		{
 			$this->db->group_start();
-			$this->db->where('account_id', $user_id);
+			$this->db->where('brands.account_id', $user_id);
 			$this->db->or_where('access_user_id',$user_id);
 			$this->db->group_end();
 		}		
 		// $this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
 		$this->db->where('is_hidden',0);
-		$this->db->where('account_id',$this->user_data['account_id']);
+		$this->db->where('brands.account_id',$this->user_data['account_id']);
 		$this->db->group_by('brands.id');
+		$this->db->order_by('order','asc');
+		$this->db->where('brand_order.user_id',$this->user_id);
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)
 		{
@@ -334,6 +337,7 @@ class Brand_model extends CI_Model
         $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
         $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
         $this->db->where('aauth_user_to_group.brand_id' , NULL);
+        $this->db->where('aauth_groups.name','Master Admin');
         $query = $this->db->get('aauth_user_to_group');
 
         if($query->num_rows() > 0)
@@ -457,5 +461,47 @@ class Brand_model extends CI_Model
 		}
 
 		return array('response' => 'false');
+	}
+
+	public function get_brand_order($user_id)
+	{
+		$this->db->select('brands.id,order');
+		$this->db->join('brand_order','brands.id = brand_order.brand_id');
+		
+		if(isset($this->user_data['user_group']) AND $this->user_data['user_group'] == 'Master Admin')
+		{
+			$this->db->where('brands.account_id', $this->user_data['account_id']);
+		}
+		else
+		{
+			$this->db->group_start();
+			$this->db->where('brands.account_id', $user_id);
+			$this->db->or_where('access_user_id',$user_id);
+			$this->db->group_end();
+		}		
+		// $this->db->where('brand_user_map.account_id',$this->user_data['account_id']);
+		$this->db->where('is_hidden',0);
+		$this->db->where('brands.account_id',$this->user_data['account_id']);
+		$this->db->group_by('brands.id');
+		$this->db->order_by('order','asc');
+		$this->db->where('brand_order.user_id',$this->user_id);
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	public function get_accounts_brands()
+	{
+		$this->db->select('id');
+		$this->db->where('account_id',$this->user_data['account_id']);
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
 	}
 }
