@@ -150,5 +150,35 @@ class Timeframe_model extends CI_Model
         	return $query->row()->name;
         }
         return FALSE;
-	}	
+	}
+
+	public function get_max($table,$column,$condition = array())
+	{
+		$this->db->select_max($column);
+		if(!empty($condition))
+		{
+			$this->db->where($condition);
+		}
+		$query = $this->db->get($table);
+		if($query->row()->order >= 0)
+		{
+			return $query->row()->order;
+		}
+		return FALSE;
+	}
+
+	function get_account_users($parent_id)
+	{
+		$this->db->select('user_id');
+		$this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.parent_id',$parent_id);
+        $this->db->where('aauth_user_to_group.brand_id',NULL);
+        $this->db->group_by('user_id');
+        $query = $this->db->get('aauth_user_to_group');
+        if($query->num_rows() > 0)
+        {
+        	return $query->result();
+        }
+        return FALSE;
+	}
 }

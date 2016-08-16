@@ -389,6 +389,12 @@
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
 				var btn = this;	
+				 if($('#post-details').length){
+			    	if(!create_post_validation()){
+			    		console.log('yes');
+			    		return false;
+			    	}
+			    }
 
 				if($(this).attr('name') == 'resubmit')
 				{
@@ -433,6 +439,7 @@
 						if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
 				        	ajaxData.append(input.name,input.value);
 				    });
+				   
 
 					// ajax request
 					$.ajax({

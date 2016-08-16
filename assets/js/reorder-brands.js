@@ -37,11 +37,14 @@ jQuery(function($) {
 							this.set('content.text', data);
 							$( ".reorder-brand-list" ).sortable({
 								axis: "y",
-								update: function() {
+								update: function() {									
 									//reorder brands
 									$('#brand-sort').fadeOut(function() {
+										var sort_array = new Array();									
 										$( ".reorder-brand-list li" ).each(function(i) {
 											var brand = $(this).data('brand');
+											var brand_id = $(this).data('brand_id');
+											sort_array.push(brand);
 											var $twin = $('#brand-sort').find('.brand-overview[data-brand="' + brand + '"]');
 											$twin.attr('data-list-order', i);
 											var previous = i - 1;
@@ -52,7 +55,14 @@ jQuery(function($) {
 												$twin.insertAfter('.brand-overview[data-list-order="' + previous + '"]');
 											}
 										});
-										$('#brand-sort').fadeIn();
+										setTimeout(function(){
+											$.ajax({
+												url:base_url+'brands/update_brand_order',
+												data:{'order':sort_array},
+												type:'POST'
+											});
+											$('#brand-sort').fadeIn();
+										},200);										
 									});
 								}
 							});

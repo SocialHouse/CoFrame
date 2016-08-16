@@ -86,6 +86,33 @@ class Brands extends CI_Controller {
     	if(empty($brand_id))
     	{
     		$insert_id = $this->timeframe_model->insert_data('brands',$brand_data);
+
+    		$order = $this->timeframe_model->get_max('brand_order','order',array('user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
+    		
+    		$brand_order_data = array(
+    						'brand_id' => $insert_id,
+    						'user_id' => $this->user_id,
+    						'account_id' => $this->user_data['account_id'],
+    						'order' => $order !== FALSE ? ++$order : 0
+    					);
+    		$this->timeframe_model->insert_data('brand_order',$brand_order_data);
+
+    		$user_ids = $this->timeframe_model->get_account_users($this->user_data['account_id']);
+    		if(!empty($user_ids))
+    		{
+    			foreach ($user_ids as $id)
+    			{
+    				$order = $this->timeframe_model->get_max('brand_order','order',array('user_id' => $id->user_id,'account_id' => $this->user_data['account_id']));
+    				
+    				$brand_order_data = array(
+    						'brand_id' => $insert_id,
+    						'user_id' => $id->user_id,
+    						'account_id' => $this->user_data['account_id'],
+    						'order' => $order !== FALSE ? ++$order : 0
+    					);
+    				$this->timeframe_model->insert_data('brand_order',$brand_order_data);
+    			}
+    		}
     		$slug = create_slug_url($insert_id,'brands',$this->input->post('name'));
     		$brand_id = $insert_id;    		
     	}
@@ -418,6 +445,15 @@ class Brands extends CI_Controller {
                     						);
                     
                     $this->timeframe_model->insert_data('brand_user_map',$brand_user_map);
+                    
+                    $order = $this->timeframe_model->get_max('brand_order','order',array('user_id' => $inserted_id,'account_id' => $this->user_data['account_id']));                    
+                    $brand_order_data = array(
+                    					'order' => $order !== FALSE ? ++$order : 0,
+                    					'account_id' => $this->user_data['account_id'],
+                    					'user_id' => $inserted_id,
+                    					'brand_id' => $post_data['brand_id']
+                    				);
+                    $this->timeframe_model->insert_data('brand_order',$brand_order_data);
 
                     $outlets = $this->input->post('outlets');
                     if(!empty($outlets))
@@ -803,6 +839,28 @@ class Brands extends CI_Controller {
         $brand_id = $this->input->post('brand_id');
         $response = $this->brand_model->check_user_exist_in_account($email,$brand_id);
         echo json_encode($response);
+    }
+
+    function update_brand_order()
+    {
+    	$order = $this->input->post('order');
+    	if(!empty($order))
+    	{
+	    	$brands =  $this->brand_model->get_brand_order($this->user_id);
+	    	if(!empty($brands))
+	    	{
+
+	    		foreach($brands as $key=>$brand)
+	    		{
+	    			$update_data = array(
+	    						'order' => $order[$key]
+	    					);
+
+	    			$this->timeframe_model->update_data('brand_order',$update_data,array('brand_id' => $brand->id,'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
+	    		}
+
+	    	}
+	    }
     }
 }
 

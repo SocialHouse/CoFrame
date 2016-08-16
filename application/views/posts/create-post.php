@@ -349,7 +349,7 @@
 						?>
 						<footer class="post-content-footer">
 						<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary btn-disabled submit-approval submit-btn pull-sm-right" id="submit-approval" disabled> Slate Post </button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn pull-sm-right" id="submit-approval"> Slate Post </button>
 						</footer>
 					</div>
 				</div>
