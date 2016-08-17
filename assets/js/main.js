@@ -999,13 +999,13 @@ jQuery(function($) {
 	}
 
 	function setPhaseBtns(activePhase) {
-		var phaseId = activePhase.data('id');		
+		var phaseId = activePhase.data('id');
 		//to hide next button for last phase		
 		if(phaseId == $('#phaseDetails').find('.approval-phase:not(".saved-phase"):not(".hide")').length - 1)
 		{
 			if(phaseId != 2)
 			{
-				activePhase.find('[data-new-phase]:eq(' + 1 + ')').text('Add Phase');
+				activePhase.find('.btn-change-phase:not(.btn-default)').text('Add Phase');
 			}
 			else
 			{
@@ -1063,6 +1063,15 @@ jQuery(function($) {
 		var $activePhase = $('#approvalPhase' + i);
 		$activePhase.removeClass('inactive').addClass('active').removeClass('hide').removeClass('hidden-phase');
 		setPhaseBtns($activePhase);
+		
+		if(i == $('#phaseDetails').find('.approval-phase:not(".saved-phase"):not(".hide")').length)
+		{
+			$activePhase.find('.delete-phase').removeClass('hide');
+		}
+		else
+		{
+			$activePhase.find('.delete-phase').addClass('hide');
+		}
 	}
 	
 	window.addIncrements = function addIncrements() {
@@ -1453,6 +1462,15 @@ jQuery(function($) {
 		 				}
 		 			}
 		 		});
+		 		var phase_no = $btn.data('id') + 1;
+		 		$("#approvalPhase"+phase_no).find('input:not(.amselect)').val('');
+		 		$("#approvalPhase"+phase_no).find('textarea').val('');
+		 		$("#approvalPhase"+phase_no).find('li .user-img').remove();
+		 		$("#preview_approvalPhase"+phase_no).find('li').empty();
+
+		 		$("#approvalPhase"+phase_no).addClass('hide');
+		 		// $("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)');
+		 		nextPhase(phase_no -1,$("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)'));
 		 	}
 		 });
 	 });

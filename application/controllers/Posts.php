@@ -184,13 +184,15 @@ class Posts extends CI_Controller {
 			    			}
 			    		}
 			    		
+			    		$multiple_phases = 0;
+			    		$phase_number = 1;
 	    				if(isset($post_data['phase']) AND !empty($post_data['phase']))
 	    				{
-	    					$phase_number = 1;		    					
 	    					foreach($post_data['phase'] as $key=>$phase)
 	    					{
 	    						if(isset($phase['approver']) AND !empty($phase['approver']))
 	    						{
+	    							$multiple_phases = 1;
 	    							$date_time =  $phase['approve_date'].' '.$phase['approve_hour'].':'.$phase['approve_minute'].' '.$phase['approve_ampm'];
 								    	
 								    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
@@ -238,6 +240,66 @@ class Posts extends CI_Controller {
 	    						$condition = array('id' => $inserted_id);
     							$this->timeframe_model->update_data('posts',$post,$condition);
     						}
+	    				}
+
+
+	    				if($multiple_phases == 0)
+	    				{
+	    					if(isset($post_data['single_phase']) AND !empty($post_data['single_phase']))
+		    				{    					
+		    					foreach($post_data['single_phase'] as $key=>$phase)
+		    					{
+		    						if(isset($phase['approver']) AND !empty($phase['approver']))
+		    						{
+		    							$multiple_phases = 1;
+		    							$date_time =  $phase['approve_date'].' '.$phase['approve_hour'].':'.$phase['approve_minute'].' '.$phase['approve_ampm'];
+									    	
+									    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+			    						$phase_data = array(
+			    										'phase' => $phase_number,
+			    										'brand_id' => $post_data['brand_id'],
+			    										'post_id' => $inserted_id,
+			    										'approve_by' => $approve_date_time,
+			    										'time_zone' => $phase['time_zone'],
+				    									'note' => $phase['note']
+			    									);
+			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+			    						$phase['approver'] = array_unique($phase['approver']);
+			    						foreach($phase['approver'] as $user)
+			    						{
+			    							// $user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
+			    							$phases_approver = array(
+			    								'user_id' => $user,
+			    								'phase_id' => $phase_insert_id
+			    								);
+			    							$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+
+			    							$reminder_data = array(
+			    								'post_id' => $inserted_id,
+			    								'user_id' => $user,
+			    								'type' => 'reminder',
+			    								'brand_id' => $post_data['brand_id'],
+			    								'due_date' => $approve_date_time,
+			    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
+			    								);
+
+		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+		    							}
+		    							$phase_number++;
+		    						}
+		    					}	    					
+
+		    					if($phase_number == 1 AND $status != 'draft')
+		    					{
+		    						$post = array(
+			    							'status' => 'approved'
+			    						);
+
+		    						$condition = array('id' => $inserted_id);
+	    							$this->timeframe_model->update_data('posts',$post,$condition);
+	    						}
+		    				}
 	    				}
 		    			
 		    		}
