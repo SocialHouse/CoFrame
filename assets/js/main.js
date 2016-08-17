@@ -1542,7 +1542,7 @@ jQuery(function($) {
 	 	if(Notification.permission !== 'granted'){
 	 		Notification.requestPermission();
 	 	}
-	 	//alert_notification();
+	 	alert_notification();
 	 }
 	});
 
