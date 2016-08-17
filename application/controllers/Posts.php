@@ -822,9 +822,9 @@ class Posts extends CI_Controller {
 	{
 		if(!empty($phase_id)){
 			$phase_data = array(
-						'status' => 'finished'
+						'status' => 'approved'
 					);
-			$this->timeframe_model->update_data('phases_approver',$phase_data,array('id' => $phase_id));
+			$this->timeframe_model->update_data('phases',$phase_data,array('id' => $phase_id));
 			echo json_encode(array('response'=>'success'));
 		}
 		else{

@@ -171,18 +171,10 @@ jQuery(function($) {
     })
 
     $(document).on('click','.finish_phase',function(){
-        var phase_id = $(this).data('phase-id');
-        var phase_number = $(this).data('phase-number');
-        $('.finish_yes').attr('data-phase-id', phase_id);
-        $('.finish_yes').attr('data-phase-number',phase_number );
-    });
-
-    $(document).on('click','.finish_phase',function(){
         getConfirm(language_message.finish_Phase,'',function(confResponse) {
             if (confResponse) {
-
-                var phase_id = $(this).data('phase-id');
-                var phase_number = $(this).data('phase-number');
+                var phase_id = $('.finish_phase').data('phase-id');
+                var phase_number = $('.finish_phase').data('phase-number');
                 var next_phase = phase_number+1;
 
                 $btn_current =  $('#approvalPhase'+phase_number).find('h2 button');

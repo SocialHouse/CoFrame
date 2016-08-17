@@ -103,8 +103,8 @@
 							foreach ($phase as $ph_number => $phs) 
 							{
 
-								if($phs['phase_users'][0]->status == 'finished'){
-
+								if($phs['phase_users'][0]->phase_status == 'approved'){
+									$cls = 'inactive';
 								}else{
 									if($is_shown !='true'){
 										$cls = 'active';
@@ -301,10 +301,17 @@
 													<h5>Must approve by:</h5>
 													<?php echo date('m/d/Y \a\t h:i A' , strtotime($phs['phase_users'][0]->approve_by)); ?>
 												</div>
-												<div class="approval-note">
-													<h5>Notes:</h5>
-													<?php echo $phs['phase_users'][0]->note; ?>
-												</div>
+												<?php 
+												if(!empty( $phs['phase_users'][0]->note))
+												{
+													?>
+													<div class="approval-note">
+														<h5>Notes:</h5>
+														<?php echo $phs['phase_users'][0]->note; ?>
+													</div>
+													<?php
+												}
+												?>
 												<?php
 												if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 												{

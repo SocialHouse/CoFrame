@@ -127,6 +127,7 @@ class Approval_model extends CI_Model
 		$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 		$this->db->where('phases_approver.user_id',$user_id);
 		$this->db->where('phases.post_id',$post_id);
+		$this->db->order_by('phase','ASC');
 		$query = $this->db->get('phases');		
 		if($query->num_rows() > 0 && $this->user_id !== $this->user_data['account_id'] )
 		{
@@ -157,6 +158,7 @@ class Approval_model extends CI_Model
 		{
 			$this->db->select('phases.id');
 			$this->db->where('phases.post_id',$post_id);
+			$this->db->order_by('phase','ASC');
 			$query = $this->db->get('phases');
 			if($query->num_rows() > 0)
 			{
