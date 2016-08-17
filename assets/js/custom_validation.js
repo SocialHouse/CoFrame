@@ -1,5 +1,17 @@
 var $ = jQuery;
 var compare_array = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
+
+$(document).on('click','.first-phase li .pull-sm-left .check-box' ,function(){
+	var txt;
+	if($(".first-phase li .pull-sm-left .check-box.circle-border").hasClass('selected')){
+		txt = 'Submit for Approval';
+	}else{
+		txt = 'Slate Post';		
+	}
+	$('#submit-approval').text(txt);
+})
+
+
 window.create_post_validation = function create_post_validation(){
  	var disable_btn 	= true,
  	is_outlet_selected 	= false,
@@ -152,7 +164,22 @@ window.phaseValidation = function phaseValidation() {
 
 	 	var slate_date = slate_date+' '+slate_hour+':'+slate_minute+' '+slate_ampm;
 		slate_date = convertDateFormat(slate_date);
-
+		if(slate_date ==''|| slate_hour==''|| slate_minute ==''|| slate_ampm ==''){
+			phase1_error.text(language_message.select_sdate);
+			phase1_error.show();
+			phase2_error.text(language_message.select_sdate);
+			phase2_error.show();
+			phase3_error.text(language_message.select_sdate);
+			phase3_error.show();
+			return false;
+		}else{
+			phase1_error.empty();
+			phase1_error.hide();
+			phase2_error.empty();
+			phase2_error.hide();
+			phase3_error.empty();
+			phase3_error.hide();
+		}
 		if($("#approvalPhase1 ul li div").hasClass('user-img')){
 			if( phase1_date !='' && phase1_hour !='' && phase1_minute !='' ){
 				phase1_error.hide();
