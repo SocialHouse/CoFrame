@@ -372,7 +372,9 @@ class Post_model extends CI_Model
 	{
 		$this->db->select('posts.id,posts.content,outlets.outlet_name,posts.slate_date_time');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
-		$this->db->where('status',$status);
+		$status = explode(',', $status);
+		$this->db->where_in('status',$status);
+		//$this->db->where('status',$status);
 		$this->db->where('brand_id',$brand_id);
 		$this->db->where('user_id',$this->user_id);
 		
