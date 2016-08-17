@@ -52,7 +52,7 @@ jQuery(function($) {
                 }
             });
         } else {
-            alert(language_message.tag_limit.replace('%tag_number%', plan_data.tags));
+            alert(language_message.outlet_limit.replace('%outlet_number%', plan_data.outlets));
         }
     });
 
