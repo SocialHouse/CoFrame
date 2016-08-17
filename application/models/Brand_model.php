@@ -466,6 +466,7 @@ class Brand_model extends CI_Model
 	public function get_brand_order($user_id)
 	{
 		$this->db->select('brands.id,order');
+		$this->db->join('brand_user_map','brands.id = brand_user_map.brand_id','left');
 		$this->db->join('brand_order','brands.id = brand_order.brand_id');
 		
 		if(isset($this->user_data['user_group']) AND $this->user_data['user_group'] == 'Master Admin')
