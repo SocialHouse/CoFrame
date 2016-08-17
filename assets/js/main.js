@@ -638,7 +638,8 @@ jQuery(function($) {
 			$('#preview_approvalPhase1' + parseInt(phaseId)+1 ).find('.timezones-preview .zone').text($('option:selected',this).text());
 			
 			$(this).addClass('hide').removeClass('active');
-			if ($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
+			console.log($('#preview_approvalPhase' + (parseInt(phaseId) + 1) ));
+			if ($('#preview_approvalPhase' + (parseInt(phaseId) + 1) ).find('.user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
 				phase_added = 1;
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
 			}
@@ -1454,14 +1455,21 @@ jQuery(function($) {
 		 			}
 		 		});
 		 		var phase_no = $btn.data('id') + 1;
-		 		$("#approvalPhase"+phase_no).find('input:not(.amselect)').val('');
-		 		$("#approvalPhase"+phase_no).find('textarea').val('');
-		 		$("#approvalPhase"+phase_no).find('li .user-img').remove();
-		 		$("#preview_approvalPhase"+phase_no).find('li').empty();
+		 		if(phase_no == 1)
+		 		{
+		 			$('.cancel-phase').trigger('click');
+		 		}
+		 		else
+		 		{
+			 		$("#approvalPhase"+phase_no).find('input:not(.amselect)').val('');
+			 		$("#approvalPhase"+phase_no).find('textarea').val('');
+			 		$("#approvalPhase"+phase_no).find('li .user-img').remove();
+			 		$("#preview_approvalPhase"+phase_no).find('li').empty();
 
-		 		$("#approvalPhase"+phase_no).addClass('hide');
-		 		// $("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)');
-		 		nextPhase(phase_no -1,$("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)'));
+			 		$("#approvalPhase"+phase_no).addClass('hide');
+			 		// $("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)');
+			 		nextPhase(phase_no -1,$("#approvalPhase"+phase_no - 1).find('.btn-change-phase:not(.btn-default)'));
+			 	}
 		 	}
 		 });
 	 });
@@ -1664,6 +1672,7 @@ function setPhaseBtnsCreatePost(activePhase,phaseCount) {
 	if(jQuery(activePhase).data('id') == phaseCount)
 	{
 		activePhase.find('[data-new-phase]:eq(' + btn_num + ')').text('Add Phase');
+		activePhase.find('.delete-phase').removeClass('hide');
 	}
 }
 
