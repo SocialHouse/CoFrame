@@ -432,3 +432,6 @@ ALTER TABLE `brand_order`
 
 ALTER TABLE `brand_order`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+---17-08-2016
+ALTER TABLE `social_media_keys` ADD `refresh_token` VARCHAR(300) NULL DEFAULT NULL AFTER `access_token_secret`;

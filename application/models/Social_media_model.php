@@ -12,7 +12,7 @@ class Social_media_model extends CI_Model
 	{
 		if(empty($type)) return FALSE;
 		
-		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type');
+		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type,refresh_token');
 		if(empty($user_id))
 		{
 			$user_id = $this->user_id;
