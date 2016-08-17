@@ -63,18 +63,24 @@ class Youtube_connect extends CI_Controller {
 		if(!empty($is_key_exist))
 		{
 			$token = (json_decode($is_key_exist->response,true));
+			if(empty($token['refresh_token'])){
+				$token['refresh_token']= $is_key_exist->refresh_token;				
+			}
 			$this->client->setAccessToken($token);
 			$token_info = $this->client->getAccessToken();
+			
 			if($this->client->isAccessTokenExpired()){
-				$token_info['refresh_token']= $is_key_exist->refresh_token;
-				$new_token_info = $this->client->refreshToken($token_info);
+				echo 'Expired';
+				$new_token_info = $this->client->fetchAccessTokenWithRefreshToken();
+				echo '<pre>new token info: '; print_r($new_token_info);echo '</pre>';
 				$this->client->setAccessToken($new_token_info);
 			}
 			$token_data = $this->client->getAccessToken();
+
 			if(!empty($token_data))
 			{
 				$token_data = json_decode(json_encode($token_data));
-				
+				echo '<pre>'; print_r($token_data);echo '</pre>';
 				$data = array(
 					'access_token' => $token_data->access_token,
 					'user_id' => $this->user_id,
