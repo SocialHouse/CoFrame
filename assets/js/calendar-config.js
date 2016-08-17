@@ -107,13 +107,18 @@ jQuery(function($) {
 				$.ajax({
 					url:base_url+'brands/get_summary',
 					type:'POST',
-					data:{brand_id:$('#brand_id').val(),slug:$('#brand_slug').val(),selected_date:$("#selected_date").val()},
+					data:{
+						brand_id:$('#brand_id').val(),
+						slug:$('#brand_slug').val(),
+						selected_date:$("#selected_date").val()
+					},
 					dataType:'JSON',
 					success:function(response)
 					{
 						if(response)
 						{
 							$('.summary-posts').html(response.html);
+							equalColumns();
 						}
 					}
 				});

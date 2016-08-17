@@ -378,12 +378,10 @@ class Post_model extends CI_Model
 		
 		if(empty($date))
 		{
-			$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.date("Y-m-d").'")');
+			$date = date("Y-m-d");
 		}
-		else
-		{
-			$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.$date.'")');
-		}
+		
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.$date.'")');
 		$this->db->order_by('slate_date_time','desc');
 		$query = $this->db->get('posts');
 		if($query->num_rows() > 0)
