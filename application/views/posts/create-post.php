@@ -250,7 +250,7 @@
 											?>										
 											<li>
 												<div class="pull-sm-left">
-													<input type="checkbox" class="hidden-xs-up approvers" name="phase[0][approver][]" value="<?php echo $master_user[0]->aauth_user_id; ?>"><i class="tf-icon check-box circle-border user-list" data-value="<?php echo $master_user[0]->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
+													<input type="checkbox" class="hidden-xs-up approvers" name="single_phase[0][approver][]" value="<?php echo $master_user[0]->aauth_user_id; ?>"><i class="tf-icon check-box circle-border user-list" data-value="<?php echo $master_user[0]->aauth_user_id; ?>" data-group="single_phase[0][approver][]"><i class="fa fa-check"></i></i>
 												</div>
 												<div class="pull-sm-left">
 													<?php
@@ -272,7 +272,7 @@
 												?>
 												<li>
 													<div class="pull-sm-left">
-														<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i>
+														<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="single_phase[0][approver][]" value="<?php echo $user->aauth_user_id; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->aauth_user_id; ?>" data-group="single_phase[0][approver][]"><i class="fa fa-check"></i></i>
 													</div>
 													<div class="pull-sm-left">
 														<?php
@@ -291,7 +291,7 @@
 											?>
 
 											<li class="option-all-users">
-												<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="phase[0][approver][]"><i class="fa fa-check"></i></i></div>
+												<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="single_phase[0][approver][]"><i class="fa fa-check"></i></i></div>
 												<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
 												<div class="post-approver-name">Check<br>All</div>
 											</li>
@@ -303,22 +303,22 @@
 								<div class="clearfix">
 									<div class="form-group form-inline pull-sm-left date-time-div">
 										<div class="hide-top-bx-shadow">
-											<input type="text" id="only_ph_one_date" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]">
+											<input type="text" id="only_ph_one_date" class="form-control form-control-sm popover-toggle single-date-select" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="single_phase[0][approve_date]">
 										</div>
 									</div>
 									<div class="form-group pull-sm-left">
 										<div class="pull-xs-left">
 											<div class="time-select form-control form-control-sm default_approver_time">
-												<input type="text" id="only_ph_one_hour" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
-												<input type="text" id="only_ph_one_minute" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="phase[0][approve_minute]">
-												<input type="text" id="only_ph_one_ampm" class="time-input amselect" value="am"  name="phase[0][approve_ampm]">
+												<input type="text" id="only_ph_one_hour" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="single_phase[0][approve_hour]">
+												<input type="text" id="only_ph_one_minute" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM"  name="single_phase[0][approve_minute]">
+												<input type="text" id="only_ph_one_ampm" class="time-input amselect" value="am"  name="single_phase[0][approve_ampm]">
 											</div>
 										</div>
 									</div>
 								</div>
 								
 								<div class="form-group slate-post-tz">
-									<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
+									<select class="form-control form-control-sm approval_timezone" name="single_phase[0][time_zone]">
 										<option selected="selected"  data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 										<?php 
 											//  If brand time zone and  user time are not same 
@@ -342,7 +342,7 @@
 								<div class="phase-one-error error hide clearfix"></div>
 								<div class="form-group">
 									<label for="approvalNotes">Note to Approvers (optional):</label>
-									<textarea class="form-control" id="approvalNotes" name="phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
+									<textarea class="form-control" id="approvalNotes" name="single_phase[0][note]" rows="2" placeholder="Type your note here..."></textarea>
 								</div>
 						<?php
 						}
