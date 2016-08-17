@@ -171,11 +171,12 @@ jQuery(function($) {
     })
 
     $(document).on('click','.finish_phase',function(){
+         var phase_id = $(this).data('phase-id');
+        var phase_number = $(this).data('phase-number');
+        var next_phase = phase_number+1;
         getConfirm(language_message.finish_Phase,'',function(confResponse) {
             if (confResponse) {
-                var phase_id = $('.finish_phase').data('phase-id');
-                var phase_number = $('.finish_phase').data('phase-number');
-                var next_phase = phase_number+1;
+               
 
                 $btn_current =  $('#approvalPhase'+phase_number).find('h2 button');
 
@@ -187,7 +188,7 @@ jQuery(function($) {
                     {
                         if(response.response  == 'success')
                         {
-                            window.location.reload();
+                            //window.location.reload();
                             if($('#approvalPhase'+next_phase).length){
                                 $btn_next = $('#approvalPhase'+next_phase).find('h2 button');
                                 $('#approvalPhase'+next_phase).removeClass('inactive').addClass('active');
