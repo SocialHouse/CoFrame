@@ -97,6 +97,10 @@ jQuery(function($) {
 		$('.outlet_ul li:first').siblings().addClass('disabled');
 		$('#postOutlet').val(outlet_id);
 		$('#postOutlet').attr('data-outlet-const', outlet_const);
+		if (outlet_const == 'twitter') {
+			//only allow 140 characters for tweets
+			twitter_char_limit();
+		}
 		createPreview();
 
 		$(document).on('click','#post-details .outlet-list li, #edit-post-details .outlet-list li', function() {
@@ -107,20 +111,7 @@ jQuery(function($) {
 			$('#postCopy').removeAttr('maxlength');
 			if (outlet_const == 'twitter') {
 				//only allow 140 characters for tweets
-				var tweet = $("#postCopy").val();
-				var chars = tweet.length;
-				var charsLeft = 140 - chars;
-				if (tweet.length > 140) {
-					var tweetTrunc = tweet.substring(0, 140);
-					$("#postCopy").val(tweetTrunc);
-				}
-				$("#postCopy").attr("maxlength", 140);
-
-				if ($('.form__preview-wrapper img').length > 4) {
-					alert(language_message.twitter_img_allowed_outlet_change);
-					return false;
-				}
-				$('#postCopy').after('<div class="tweet-chars"><span id="charsLeft" class="color-danger">' + charsLeft + '</span> characters remaining.</div>');
+				twitter_char_limit();
 			}
 			if(outlet_const !== 'twitter') {
 				$('.tweet-chars').remove();
@@ -1662,6 +1653,23 @@ function hideContent(obj) {
 	obj.fadeOut(function() {
 		obj.trigger('contentHidden');
 	});
+}
+
+function twitter_char_limit(){
+	var tweet = $("#postCopy").val();
+	var chars = tweet.length;
+	var charsLeft = 140 - chars;
+	if (tweet.length > 140) {
+		var tweetTrunc = tweet.substring(0, 140);
+		$("#postCopy").val(tweetTrunc);
+	}
+	$("#postCopy").attr("maxlength", 140);
+
+	if ($('.form__preview-wrapper img').length > 4) {
+		alert(language_message.twitter_img_allowed_outlet_change);
+		return false;
+	}
+	$('#postCopy').after('<div class="tweet-chars"><span id="charsLeft" class="color-danger">' + charsLeft + '</span> characters remaining.</div>');
 }
 
 
