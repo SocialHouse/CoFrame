@@ -27,6 +27,6 @@
     };
 
     $('#close-dialog').click(function(){
-        alert('test');
+        // alert('test');
     });
 })(jQuery);

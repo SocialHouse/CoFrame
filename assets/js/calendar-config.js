@@ -892,7 +892,8 @@ jQuery(function($) {
 		      {
 		          if(response  != 'false')
 		          {
-		              alert('Your post has been update successfully. ');
+		          	getConfirm(language_message.post_update_successful,'','alert',function(confResponse){});
+		              // alert('Your post has been update successfully.');
 		          }
 		          $('.calendar-day').empty();
 		          console.log(response);
@@ -916,11 +917,12 @@ jQuery(function($) {
 				dataType:'JSON',
 				url:base_url+'drafts/duplicate_post_ajax/'+post_id,
 				success:function(response){
-					alert(response.message);
-					if(response.status)
-					{
-						findPostbyDate(daySelectedDate);
-					}
+					getConfirm(response.message,'','alert',function(confResponse) {
+						if(response.status)
+						{
+							findPostbyDate(daySelectedDate);
+						}
+					});
 				}
 			});
 		}

@@ -61,19 +61,24 @@
 						console.log(allFiles.length);
 						var file_type = file.type.split('/');
 						if($.inArray(file_type[1] ,supported_files) == -1){
-							alert(language_message.invalid_extention);
-							return false;
+							getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+								return false;
+							});
+							// alert(language_message.invalid_extention);
+							
 						};
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
 						
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
-								alert(language_message.image_size_limit);
-								return false;
+								getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {
+									return false;
+								});
 							}
 							if($fileDiv.find('video').length > 0){
-								alert(language_message.invalid_extention);
-								return false;
+								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+									return false;
+								});
 							}				
 							if($(fileInput).parents('.brand-image').length)
 							{
@@ -93,25 +98,28 @@
 							reader.onload = function (e) {
 								if(allFiles.length == 4 && outlet_const == 'twitter')
 								{
-									alert(language_message.twitter_img_allowed);
-									return false;
+									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {
+										return false;
+									});
 								}
 								else if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
 								{
 									
 									if(outlet_const == 'youtube')
 									{
-										alert(language_message.youtube_outlet_change_error);
+										getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
 									}else{
-										alert(language_message.vine_outlet_change_error);
+										getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
 									}
 									return false;
 								}
 
 								if(outlet_const == 'instagram' && file_type[0]== 'video')
 								{
-									alert(language_message.insta_video_not_allowed);
-									return false;
+									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
+										// alert(language_message.insta_video_not_allowed);
+										return false;
+									});
 								}
 
 								if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
@@ -125,8 +133,10 @@
 									{
 										message = language_message.pinterest_img_allowed;
 									}
-									alert(message);
-									return false;
+									getConfirm(message,'','alert',function(confResponse) {
+										// alert(language_message.insta_video_not_allowed);
+										return false;
+									});
 								}
 								else
 								{
@@ -160,17 +170,23 @@
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 							if( file.size > 104857600){
-								alert(language_message.insta_video_not_allowed);
-								return false;
+								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
+									return false;
+								});
 							}
 							if($('.form__file-preview').length >= 1){
 
 								if(file_type[0] =='video'){
-									alert(language_message.video_upload_error);
+									getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {
+										return false;
+									});
+									// alert(language_message.video_upload_error);
 								}else{
-									alert(language_message.invalid_extention);
+									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+										return false;
+									});
+									// alert(language_message.invalid_extention);
 								}
-								return false;
 							}else{
 								if($(fileInput).parents('.brand-image').length)
 								{
@@ -252,8 +268,11 @@
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
 							if($.inArray(file_type[1] ,supported_files) == -1){
-								alert(language_message.invalid_extention);
-								return false;
+								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+									return false;
+								});
+								// alert(language_message.invalid_extention);
+								// return false;
 							}
 							
 							var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
@@ -264,24 +283,28 @@
 								{
 									message_obj = 'youtube_img_not_allwed';
 								}
-								alert(language_message.message_obj);
-								return false;
+								getConfirm(language_message.message_obj,'','alert',function(confResponse) {
+									return false;
+								});
 							}
 
 							if(outlet_const == 'instagram' && file_type[0]== 'video')
 							{
-								alert(language_message.insta_video_not_allowed);
-								return false;
+								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
+									return false;
+								});
 							}
 
 							if( file_type[0]== 'image'){
 								if( file.size > 2000000){
-									alert(language_message.image_size_limit);
-									return false;
+									getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {
+										return false;
+									});									
 								}
 								if($('.form__file-preview').src=='video'){
-									alert(language_message.invalid_extention);
-									return false;
+									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+										return false;
+									});
 								}
 								if($(target_file_input).hasClass('brand-image'))
 								{
@@ -301,8 +324,9 @@
 			                    reader.onload = function (e) {
 			                    	if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 									{
-										alert(language_message.twitter_img_allowed);
-										return false;
+										getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {
+											return false;
+										});
 									}
 									else if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
 									{
@@ -315,8 +339,9 @@
 										{
 											message = language_message.pinterest_img_allowed;
 										}
-										alert(message);
-										return false;
+										getConfirm(message,'','alert',function(confResponse) {
+											return false;
+										});
 									}
 									else
 									{
@@ -343,17 +368,21 @@
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
 								if( file.size > 104857600){
-									alert(language_message.video_size_limit);
-									return false;
+									getConfirm(language_message.video_size_limit,'','alert',function(confResponse) {
+										return false;
+									});
 								}
 
 								if($('.form__file-preview').length >= 1){
 									if($('.form__file-preview').src =='video'){
-										alert(language_message.video_upload_error);	
+										getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {
+											return false;
+										});
 									}else{
-										alert(language_message.invalid_extention);
+										getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+											return false;
+										});
 									}
-									return false;
 								}else{
 									var video = document.createElement('video');
 									video.className = 'form__file-preview';									
@@ -389,7 +418,7 @@
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
 				var btn = this;	
-				 if($('#post-details').length){
+				 if($('#post-details').length && $(this).attr('id') != 'draft'){
 			    	if(!create_post_validation()){
 			    		console.log('yes');
 			    		return false;
@@ -409,8 +438,9 @@
 				{
 					$('#save_as').val('draft');
 				}
-				else
+				else{
 					$('#save_as').val('');
+				}
 				// preventing the duplicate submissions if the current one is in progress
 				if( $form.hasClass( 'is-uploading' ) ) return false;
 
@@ -474,7 +504,8 @@
 							}
 						},
 						error: function(){
-							alert( language_message.upload_error );
+							getConfirm(language_message.upload_error,'','alert',function(confResponse) {
+							});
 						}
 					});
 				}
@@ -605,7 +636,8 @@
 							    	}
 							    	$('#add_user_next').removeClass('btn-secondary');
 							    	$('#add_user_next').prop('disabled',true);
-									alert(language_message.unable_to_add_user);
+							    	getConfirm(language_message.unable_to_add_user,'','alert',function(confResponse) {});
+									// alert(language_message.unable_to_add_user);
 				    			}
 				    		}
 				    	});					   
@@ -629,7 +661,7 @@
 				}
 			    else
 			    {
-			    	alert(language_message.user_limit.replace('%user_number%',plan_data.users))
+			    	getConfirm(language_message.user_limit.replace('%user_number%',plan_data.users),'','alert',function(confResponse) {});
 			    }
 			});
 

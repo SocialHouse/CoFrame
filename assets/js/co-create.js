@@ -37,7 +37,8 @@ function initializeSession(apiKey, sessionId,token) {
 	session = OT.initSession(apiKey, sessionId);	  
 	OT.getDevices(function(error,devices) {		
 		if(!devices.length) {
-			alert(language_message.video_audio_not_enabled);
+			getConfirm(language_message.video_audio_not_enabled,'','alert',function(confResponse) {});
+			// alert(language_message.video_audio_not_enabled);
 		}
 	});
 	// Subscribe to a newly created stream

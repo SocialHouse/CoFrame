@@ -468,7 +468,8 @@ jQuery(function($) {
 			$('#tagLabel').append('<option selected="selected" value="' + $('#tagLabel').attr('data-edit_value') + '">' + $('#tagLabel').attr('data-edit_value') + '</option><option value="other">+ADD LABEL</option>');
 			$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
 			$("#tagLabel").trigger('change');
-			alert(language_message.edit_tag_msg);
+			//alert(language_message.edit_tag_msg);
+			getConfirm(language_message.edit_tag_msg,'','alert',function(confResponse) {});
 		});
 
 		$('#selectedTags').on('contentSlidDown', function() {
@@ -625,30 +626,33 @@ jQuery(function($) {
 
 		$(document).on('click', '.cancel-brand', function(event) {
 			event.preventDefault();
-			if (confirm(language_message.confirm_cancel)) {
-				var brand_id = $('#brand_id').val();
-				if (brand_id != '') {
-					$.ajax({
-						'type': 'get',
-						dataType: 'json',
-						url: base_url + 'brands/delete/' + brand_id,
-						success: function(response) {
-							if (response.status != 'success') {
-								alert(language_message.try_again);
-								return false;
+			getConfirm(language_message.confirm_cancel,'','alert',function(confResponse) {
+		        if(confResponse){
+					var brand_id = $('#brand_id').val();
+					if (brand_id != '') {
+						$.ajax({
+							'type': 'get',
+							dataType: 'json',
+							url: base_url + 'brands/delete/' + brand_id,
+							success: function(response) {
+								if (response.status != 'success') {
+									getConfirm(language_message.try_again,'','alert',function(confResponse) {
+										return false;
+									});
+								}
+								else
+								{
+									window.location = base_url + 'brands/overview';
+								}
 							}
-							else
-							{
-								window.location = base_url + 'brands/overview';
-							}
-						}
-					});
+						});
+					}
+					else
+					{
+						window.location = base_url + 'brands/overview';
+					}
 				}
-				else
-				{
-					window.location = base_url + 'brands/overview';
-				}
-			}
+			});
 		});
 
 		$(document).on('keyup blur', '#newLabel', function() {
@@ -739,7 +743,9 @@ jQuery(function($) {
 					}
 				});
 			} else {
-				alert(language_message.outlet_limit.replace('%outlet_number%', plan_data.outlets));
+				getConfirm(language_message.outlet_limit.replace('%outlet_number%', plan_data.outlets),'','alert',function(confResponse) {
+					// alert(language_message.);
+				});
 			}
 		});
 
@@ -778,7 +784,10 @@ jQuery(function($) {
 					}
 				});
 			} else {
-				alert(language_message.tag_limit.replace('%tag_number%', plan_data.tags));
+				getConfirm(language_message.tag_limit.replace('%tag_number%', plan_data.tags),'','alert',function(confResponse) {
+					// alert(language_message.tag_limit.replace('%tag_number%', plan_data.tags));
+				});
+				
 			}
 		});
 
@@ -843,25 +852,28 @@ jQuery(function($) {
 			// if(!($('#userPermissionsList .table').length > 1)){
 			// 	return false;
 			// }
-			if (confirm(language_message.delete_user)) {
-				var aauth_user_id = $(this).data('user-id');
-				$.ajax({
-					url: base_url + 'brands/delete_user',
-					type: 'POST',
-					data: {
-						'aauth_user_id': aauth_user_id
-					},
-					success: function(data) {
-						if (data.trim() == 'success') {
-							$('#table_id_' + aauth_user_id).fadeOut(function() {
-								$('#table_id_' + aauth_user_id).remove();
-							});
-						} else {
-							language_message.try_again;
+			var aauth_user_id = $(this).data('user-id');
+			getConfirm(language_message.delete_user,'', 'alert', function(confResponse) {
+	            if(confResponse){
+					
+					$.ajax({
+						url: base_url + 'brands/delete_user',
+						type: 'POST',
+						data: {
+							'aauth_user_id': aauth_user_id
+						},
+						success: function(data) {
+							if (data.trim() == 'success') {
+								$('#table_id_' + aauth_user_id).fadeOut(function() {
+									$('#table_id_' + aauth_user_id).remove();
+								});
+							} else {
+								language_message.try_again;
+							}
 						}
-					}
-				});
-			}
+					});
+				}
+			});
 		});
 
 		$(document).on('click', '.edit-user-permission', function(e) {
@@ -1049,8 +1061,10 @@ jQuery(function($) {
 							$('.close_brand').trigger('click');
 						}
 					} else {
-						alert(language_message.try_again);
-						$('.close_brand').trigger('click');
+						// alert(language_message.try_again);
+						getConfirm(language_message.try_again,'','alert',function(confResponse) {
+							$('.close_brand').trigger('click');
+						});
 					}
 				}
 			});

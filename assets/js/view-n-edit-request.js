@@ -49,7 +49,8 @@ jQuery(function($) {
                     }
                     else
                     {
-                        alert(language_message.edit_req_not_save);
+                        getConfirm(language_message.edit_req_not_save,'','alert',function(confResponse) {});
+                        // alert(language_message.edit_req_not_save);
                     }
                 }
             });
@@ -106,7 +107,8 @@ jQuery(function($) {
                     }
                     else
                     {
-                        alert(language_message.edit_req_not_save);
+                        getConfirm(language_message.edit_req_not_save,'','alert',function(confResponse) {});
+                        // alert(language_message.edit_req_not_save);
                     }
                 }
             });
@@ -203,7 +205,8 @@ jQuery(function($) {
                         }
                         else
                         {
-                            alert(language_message.try_again);
+                            getConfirm(language_message.try_again,'','alert',function(confResponse) {});
+                            // alert(language_message.try_again);
                         }
                     }
                 });     
@@ -222,8 +225,10 @@ jQuery(function($) {
         reader.onload = function (event) {
             var file_type = file.type.split('/');
             if($.inArray(file_type[1] ,supported_files) == -1){
-                alert(language_message.invalid_extention);
-                return false;
+                getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+                    return false;
+                });
+                // alert(language_message.invalid_extention);
             };
             $(control).next().next().attr('src',event.target.result);
             $(control).next().next().removeClass('hide');
@@ -285,8 +290,11 @@ jQuery(function($) {
             reader.onload = function (event) {
                 var file_type = file.type.split('/');
                 if($.inArray(file_type[1] ,supported_files) == -1){
-                    alert(language_message.invalid_extention);
-                    return false;
+                    getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
+                        return false;
+                    });
+                    // alert(language_message.invalid_extention);
+                    // return false;
                 };
                 $(control).next().next().attr('src',event.target.result);
                 $(control).next().next().removeClass('hide');
@@ -377,7 +385,9 @@ jQuery(function($) {
                 }
                 else
                 {
-                    alert(language_message.unable_to_save_reply);
+                    getConfirm(language_message.unable_to_save_reply,'','alert',function(confResponse) {
+                        // return false;
+                    });
                 }
             }
         });
