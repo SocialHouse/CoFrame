@@ -4,7 +4,7 @@
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<h4 class="text-xs-center"><span class="btn btn-sm btn-default edit-brands-info">Manage Tags</span><i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
 		<div class="add-brand-details brand-fields border-bottom border-black">
-			<div id="selectedTags" class="tag-list selected-items hidden" style="display: block;">
+			<div id="selectedTags" class="tag-list selected-items<?php if(empty($selected_tags)) { echo 'hidden'; } ?>">
 				<ul>
 				<?php 
 					if(!empty($selected_tags))
@@ -12,7 +12,7 @@
 						foreach ($selected_tags as $st_tag) 
 						{
 							?>
-							<li data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag save-list-tag" data-tag="<?php echo $st_tag->tag_name; ?>">
+							<li data-color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" data-group="brand-tag" data-value="<?php echo $st_tag->tag_name; ?>" class="tag save-list-tag" data-tag="<?php echo $st_tag->tag_name; ?>">
 								<input class="tg-ids" type="hidden" name='tag_id[]' value="<?php echo $st_tag->id; ?>">
 								<input type="checkbox" value="<?php echo $st_tag->color; ?>" checked="checked" name="selected_tags[]" class="hidden-xs-up color">
 								<i class="fa fa-circle" style="color:<?php echo $st_tag->color; ?>"><i class="fa fa-check"></i></i>
@@ -20,11 +20,11 @@
 								<a data-remove-tag="<?php echo $st_tag->tag_name; ?>" class="pull-sm-right remove-tag" href="#">
 									<i class="tf-icon circle-border">x</i>
 								</a>
-								<a data-previous_color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" href="#brandOutlets" data-color="<?php echo $st_tag->color; ?>" data-value="<?php echo $st_tag->tag_name; ?>" class="btn-icon btn-gray post-filter-popup edit-tag edit-pensil show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns">
+								<a data-color="<?php echo $st_tag->color; ?>" data-previous_value="<?php echo $st_tag->tag_name; ?>" data-index="<?php echo $st_tag->id; ?>" href="#brandOutlets" data-color="<?php echo $st_tag->color; ?>" data-value="<?php echo $st_tag->tag_name; ?>" class="btn-icon btn-gray edit-tag show-hide" data-hide="#addTagLink, #outletStep4Btns, #selectedTags" data-show="#selectBrandTags, #addTagBtns">
 								<i class="fa fa-pencil"></i>
 								</a>
 							</li>
-							<?php						
+							<?php
 						}
 					}
 				?>
@@ -46,7 +46,7 @@
 						<li class="tag" data-value="" data-color="#58b0e3" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#58b0e3"><i class="fa fa-circle" style="color:#58b0e3;"><i class="fa fa-check"></i></i></li>
 						<li class="tag" data-value="" data-color="#0071bc" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#0071bc"><i class="fa fa-circle" style="color:#0071bc;"><i class="fa fa-check"></i></i></li>
 						<li class="tag" data-value="" data-color="#662d91" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#662d91"><i class="fa fa-circle" style="color:#662d91;"><i class="fa fa-check"></i></i></li>
-						<li class="tag" data-value="" data-color="#a75574" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up" name="brand-tag[]" checked="checked" value="#a75574"><i class="fa fa-circle" style="color:#a75574;"><i class="fa fa-check"></i></i></li>
+						<li class="tag" data-value="" data-color="#a75574" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#a75574"><i class="fa fa-circle" style="color:#a75574;"><i class="fa fa-check"></i></i></li>
 						<li class="tag" data-value="" data-color="#a67c52" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#a67c52"><i class="fa fa-circle" style="color:#a67c52;"><i class="fa fa-check"></i></i></li>
 						<li class="tag" data-value="" data-color="#c7b299" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#c7b299"><i class="fa fa-circle" style="color:#c7b299;"><i class="fa fa-check"></i></i></li>
 						<li class="tag" data-value="" data-color="#bfbfbf" data-group="brand-tag"><input type="checkbox" class="hidden-xs-up color" name="brand-tag[]" checked="checked" value="#bfbfbf"><i class="fa fa-circle" style="color:#bfbfbf;"><i class="fa fa-check"></i></i></li>
@@ -56,22 +56,7 @@
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="tagLabel" id="tagLabel" placeholder="Enter tag label">
-					<!-- <select class="form-control" name="tagLabel" id="tagLabel">								
-						<option value="">Select Label</option>
-						<?php 
-							foreach ($selected_tags as $st_tag) {
-								?>
-								<option value="<?php echo $st_tag->name; ?>"><?php echo $st_tag->name; ?></option>
-								<?php								
-							}
-						?>
-						<option value="other">+ Add Label</option>						
-					</select> -->
-					<div id="labelSelectValid" class="error hide">This label is already been used.</div>
-				</div>
-				<div class="form-group hidden" id="otherTagLabel">
-					<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
-					<div id="labelValid" class="error hide">This label is already been used.</div>
+					<div id="labelSelectValid" class="error hide">This label is already in use.</div>
 				</div>
 			</div>			
 		</div>
@@ -81,7 +66,7 @@
 				<button type="submit" class="btn btn-sm btn-secondary pull-sm-right" data-step-no="4">Save</button>
 			</div>
 			<div id="addTagBtns" class="hidden">
-				<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
+				<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="cancelAddTag">Cancel</button>
 				<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag" disabled="disabled">Add</button>
 			</div>
 		</footer>

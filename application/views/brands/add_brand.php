@@ -172,19 +172,7 @@
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" name="tagLabel" id="tagLabel">
-									<!-- <select class="form-control" name="tagLabel" id="tagLabel">								
-										<option value="">Select Label</option>
-										<option value="Marketing">Marketing</option>
-										<option value="E-Commerce">E-Commerce</option>
-										<option value="other">+ Add Label</option>
-									</select> -->
-									<br>
-									<div id="labelSelectValid" class="error hide">This label is already been used.</div>
-								</div>
-								<div class="form-group hidden" id="otherTagLabel">
-									<input type="text" class="form-control" name="otherTagLabel" id="newLabel">
-									<br>
-									<div id="labelValid" class="error hide">This label is already been used.</div>
+									<div id="labelSelectValid" class="error hide">This label is already in use.</div>
 								</div>
 							</div>
 						</div>
@@ -195,7 +183,7 @@
 								<button type="button" class="btn btn-sm btn-disabled btn-secondary pull-sm-right submit_tag" disabled="disabled">Done</button>
 							</div>
 							<div id="addTagBtns" class="hidden">
-								<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns">Cancel</button>
+								<button type="button" class="btn btn-sm btn-default show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="cancelAddTag">Cancel</button>
 								<button class="btn btn-sm btn-disabled pull-sm-right btn-secondary show-hide" data-show="#addTagLink, #outletStep4Btns, #selectedTags" data-hide="#selectBrandTags, #addTagBtns" id="addTag" disabled="disabled">Add</button>
 							</div>
 						</footer>

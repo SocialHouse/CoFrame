@@ -143,45 +143,6 @@ jQuery(function($) {
 			toggleBtnClass('.editUserToBrand', true);
 		})
 
-		// Clear tag field when adding a second tag.
-		$('#addTagLink').on('click', function() {		
-
-			$('#newLabel').val("");
-			$('#tagLabel').val("");
-			$('#tagLabel').attr('data-edit_color', '');
-			$('#tagLabel').attr('data-edit_value', '');
-			$('#tagLabel').attr('data-edit_index', '');
-			$('#tagLabel').attr('data-prev_value', '');
-			$('#tagLabel').attr('data-prev_color', '');
-			$('#tagLabel').removeClass('edit-process');
-			$('#otherTagLabel').hide();
-			// $(".tags-to-add").children('li selected').removeClass('selected');
-			var selected_tag = $('#selectedTags').find('li');
-			$.each(selected_tag, function(a, b) {
-				$.each($('.tag-list').children('.tags-to-add').find('li'), function(c, d) {
-					if ($(d).attr('data-color') == $(b).find('a:last').attr('data-color')) {
-						// if(!$(d).hasClass('tag-custom'))
-						// {
-							console.log($(d));
-							$(d).attr('data-value', $(b).attr('data-value'));
-							$(d).removeClass('selected');
-							$(d).addClass('saved');
-						// }
-					}
-				});
-			});
-
-			$custom_tag = $(".tags-to-add").find('li.custom-tag');			
-			console.log($custom_tag);
-			$custom_tag.removeClass('selected');
-			$custom_tag.removeClass('saved');
-			$custom_tag.addClass('hidden');
-			$custom_tag.hide();
-			$custom_tag.attr('data-value','');
-
-			toggleBtnClass('#addTag', true);
-		});
-
 		$('#userRoleSelect').on('change', function() {
 			var selectedRole = $(this).val();
 			if (selectedRole) {
@@ -227,20 +188,68 @@ jQuery(function($) {
 		});
 
 		/*Tag Functions*/
-		//assign tags to brand
-		$('#selectBrandTags .tag').unbind('click').click(function(event) {
-			if ($(this).hasClass('save-list-tag')) {
-				return;
+		$('#addTagLink').on('click', function() {
+			var $custom_tag = $('.tags-to-add').find('li.custom-tag:not(.saved)');
+			var $newCustom;
+			if($custom_tag.length) {
+				$newCustom = $custom_tag.clone();
 			}
-			if ($(this).hasClass('saved')) {
+			else {
+				$newCustom = $('.tags-to-add').find('li.custom-tag:first').clone();
+				$newCustom.attr('data-color','').attr('data-value','').removeClass('saved selected').hide();
+				$newCustom.find('.tag-custom').removeAttr('style');
+			}
+			// Clear label field when adding an additional tag
+			$('#tagLabel').val("");
+			$('#tagLabel').attr('data-edit_color', '');
+			$('#tagLabel').attr('data-edit_value', '');
+			$('#tagLabel').attr('data-edit_index', '');
+			$('#tagLabel').attr('data-prev_value', '');
+			$('#tagLabel').attr('data-prev_color', '');
+			$('#tagLabel').removeClass('edit-process');
+
+			var selected_tags = $('#selectedTags li');
+			$.each(selected_tags, function() {
+				var saved_color = $(this).attr('data-color');
+				var saved_val = $(this).attr('data-value');
+				
+				var $matched_tag = $('.tags-to-add li[data-color="' + saved_color + '"]');
+				
+				if($matched_tag.length) {
+					$matched_tag.attr('data-value', saved_val);
+					$matched_tag.removeClass('selected');
+					$matched_tag.addClass('saved');
+				}
+				//selected tag is a custom color, display it
+				else if($custom_tag.length) {
+					$custom_tag.addClass('saved');
+					$custom_tag.attr('data-color',saved_color);
+					$custom_tag.attr('data-value',saved_val);
+					$custom_tag.removeClass('hidden');
+					$custom_tag.find('input[type="checkbox"]').val(saved_color);
+					
+				}
+			});
+			//recheck number of custom tags and add new one if ther aren't any
+			$custom_tag_new = $('.tags-to-add').find('li.custom-tag:not(.saved)');
+			if($custom_tag_new.length === 0) {
+				$newCustom.insertAfter('.custom-tag:last');
+			}
+			//reset button label to Add
+			$('#addTag').text('Add');
+			toggleBtnClass('#addTag', true);
+		});
+
+		//assign tags to brand
+		//I don't know why you have to unbind the click first...
+		$('body').off('click', '#selectBrandTags .tag').on('click', '#selectBrandTags .tag', function(event) {
+			//do nothing if the tag is already saved
+			if ($(this).hasClass('save-list-tag') || $(this).hasClass('saved')) {
 				return;
 			}
 			var checked = false;
 			var label = $('#tagLabel').val();
 			var $checkbox = $(this).find('input');
-			if (label === 'other') {
-				label = $('#otherTagLabel input').val();
-			}
 			$(this).toggleClass('selected');
 			if ($(this).hasClass('selected')) {
 				checked = true;
@@ -262,79 +271,56 @@ jQuery(function($) {
 			format: 'hex'
 		}).on('changeColor', function(e) {
 			var customColor = e.color.toHex();
-			var $custom = $('#selectBrandTags .custom-tag');
-			var $icon = $custom.find('.fa');
+			var $custom = $('#selectBrandTags').find('.custom-tag:not(.saved)');
+			var $icon = $custom.find('.fa.tag-custom');
 			$icon.css({
 				'color': customColor,
 				'border-color': customColor
 			});
 			$custom.attr('data-color', customColor);
-			$custom.show();
-			$custom.children().attr('value', customColor);
+			$custom.show().addClass('selected');
+			$custom.children('input').attr('value', customColor);
 			customTag = true;
 		});
 
 		$('#tagLabel').on('keyup change', function() {
-			var $tag = $('#selectBrandTags .selected');
-			var label = $(this).val();
+			var $labelInput = $(this);
+			var label = $labelInput.val();
+			var $newTag = $('#selectBrandTags .selected');
 			if (label) {
-				if (label !== 'other') {
-					$('#otherTagLabel').hide();
-					$tag.attr('data-value', label);
-					// toggleBtnClass('#addTag',false);
-					var selected_tag = $('#selectedTags').children('ul').children('li');
-					//console.log(selected_tag);
-					var add_flag = 1;
-					var control = this;
-					setTimeout(function() {
-						$.each(selected_tag, function(a, b) {							
-							if ($(b).data('value') == $(control).val()) {
-								add_flag = 0;
-								$('#labelSelectValid').removeClass('hide');
-							}
-
-							if ($(b).data('value') == $(control).val() && $(control).hasClass('edit-process') && $(control).attr('data-edit_color') == $(b).children('a:last').data('color')) {
-								add_flag = 1;
-								$('#labelSelectValid').addClass('hide');
-								toggleBtnClass('#addTag', false);
-								return false;
-							}
-						});
-						if (add_flag == 1) {
-							$('#labelSelectValid').addClass('hide');
-							if ($(control).val()) {
-								toggleBtnClass('#addTag', false);
-							}
-						} else {
-							toggleBtnClass('#addTag', true);
+				$newTag.attr('data-value', label);
+				var selected_tags = $('#selectedTags li');
+				var add_flag = 1;
+				setTimeout(function() {
+					$.each(selected_tags, function() {
+						//check if tag label has already been chosen
+						if ($(this).data('value') === label) {
+							add_flag = 0;
+							//label already in use, show error
+							$('#labelSelectValid').removeClass('hide');
 						}
-					}, 300);
-				} else {
-					$('#labelSelectValid').addClass('hide');
-					$('#otherTagLabel').show(function() {
-						$(this).find('input').focus();
+						if ($(this).data('value') === label && $labelInput.hasClass('edit-process') && $labelInput.attr('data-edit_color') === $(this).children('.edit-tag').data('color')) {
+							//editing an existing tag, ignore duplicate label and hide error
+							add_flag = 1;
+							$('#labelSelectValid').addClass('hide');
+							toggleBtnClass('#addTag', false);
+							return false;
+						}
 					});
-
-					if (!$('#newLabel').val()) {
-						toggleBtnClass('#addTag', true);
+					if (add_flag === 1) {
+						//hide error and enable add button
+						$('#labelSelectValid').addClass('hide');
+						if (label) {
+							toggleBtnClass('#addTag', false);
+						}
 					} else {
-						toggleBtnClass('#addTag', false);
+						//disable add button
+						toggleBtnClass('#addTag', true);
 					}
-				}
+				}, 300);
 			} else {
+				//disable add button
 				toggleBtnClass('#addTag', true);
-			}
-		});
-
-		$('#otherTagLabel input').on('keyup blur', function() {
-			var $tag = $('#selectBrandTags .selected');
-			var label = $(this).val();
-			$tag.attr('data-value', label);
-
-			if ($(this).val().length > 0) {
-				$('#addTag').prop('disabled', false);
-			} else {
-				$('#addTag').prop('disabled', true);
 			}
 		});
 
@@ -347,7 +333,9 @@ jQuery(function($) {
 			if ($('#tagLabel').hasClass('edit-process')) {
 				if (numberSelected > 0) {
 					$.each($selectedList.children('li'), function(a, b) {
-						if ($('#tagLabel').attr('data-edit_index') == $(b).attr('data-index')) {
+						if ($('#tagLabel').attr('data-edit_index') === $(b).attr('data-index')) {
+							//Please adjust this so that it references class names instead of first/last selectors
+							//This will break of the markup changes in the future
 							$(b).attr('data-tag', $selectedItem.attr('data-value'));
 							$(b).attr('data-value', $selectedItem.attr('data-value'));
 							$(b).find('input[type="checkbox"]').val($selectedItem.attr('data-color'));
@@ -356,7 +344,7 @@ jQuery(function($) {
 							$(b).find('a:first').attr('data-remove-tag', $selectedItem.attr('data-value'));
 
 							$(b).find('a:last').attr('data-previous_value', $(b).find('a:last').attr('data-value'));
-							$(b).find('a:last').attr('data-previous_color', $(b).find('a:last').attr('data-color'));
+							$(b).find('a:last').attr('data-color', $(b).find('a:last').attr('data-color'));
 
 							$(b).find('a:last').attr('data-value', $selectedItem.attr('data-value'));
 							$(b).find('a:last').attr('data-color', $selectedItem.attr('data-color'));
@@ -367,26 +355,18 @@ jQuery(function($) {
 						}
 					});
 				} else {
-					return
+					return;
 				}
 			} else {
 				if (numberSelected > 0) {
 					var $clone = $selectedItem.clone();
 
-					var $listItem = $clone.remove('input').removeClass('selected');					
+					var $listItem = $clone.remove('input').removeClass('selected');	
 					$('.submit_tag').prop('disabled', true);
 					setTimeout(function() {
 						$listItem.children('.color').attr('name', 'selected_tags[]');						
 						var tagTitle = $selectedItem.attr('data-value');
-						var editTag = '<a class="pull-sm-right remove-tag" data-remove-outlet="twitter" href="#"><i class="tf-icon circle-border">x</i></a>';
-						//reset custom tags so that another can be added
-						if (customTag === true) {
-							// var $custom = $('#selectBrandTags .custom-tag');
-							// var $newCustom = $custom.clone();
-							// $newCustom.insertAfter($custom).removeClass('selected').hide();
-							// $custom.remove('custom-tag');
-							customTag = false;
-						}
+						var editTag = '<a class="pull-sm-right remove-tag" data-remove-tag="' + tagTitle + '" href="#"><i class="tf-icon circle-border">x</i></a>';
 
 						$listItem.append('<input type="hidden" name="labels[]" class="labels" value="' + tagTitle + '" >' + tagTitle + editTag).attr('data-tag', tagTitle);
 						$selectedItem.addClass('saved').removeClass('selected');
@@ -400,75 +380,67 @@ jQuery(function($) {
 			}
 		});
 
+		$('#cancelAddTag').on('click', function() {
+			$('.tags-to-add li').each(function() {
+				//remove custom tag in progress if not in edit mode
+				if($(this).hasClass('custom-tag selected') && !$('#tagLabel').hasClass('edit-process')) {
+					$(this).remove();
+				}
+				else {
+					$(this).removeClass('selected');
+				}
+			});
+		});
+
 		$('.edit-tag').unbind('click').click(function() {
-			$custom_tag = $(".tags-to-add").find('li.custom-tag');
-			$custom_tag.removeClass('selected');
-			$custom_tag.removeClass('saved');
-			$custom_tag.addClass('hidden');
-			$custom_tag.attr('data-value','');
-
-			control = this;
-			var li = $(".tags-to-add").children('li');
+			var $custom_tag = $('.tags-to-add li.custom-tag');
+			var $editTag = $(this);
+			var allTags = $('.tags-to-add li');
+			var color_found = 0;
 			var selected = 0;
-			var selected_tag = $('#selectedTags').find('li');
+			var selected_tags = $('#selectedTags').find('li');
 
-			$.each(selected_tag, function(a, b) {
-				$.each($('.tag-list').children('.tags-to-add').find('li'), function(c, d) {
-					if ($(d).attr('data-color') == $(b).children('a:last').attr('data-color')) {
+			//set classes for previously chosen tags
+			$.each(selected_tags, function(a, b) {
+				$.each(allTags, function(c, d) {
+					if ($(d).attr('data-color') === $(b).children('.edit-tag').attr('data-color')) {
 						$(d).attr('data-value', $(b).data('value'));
 						$(d).addClass('saved');
 						$(d).removeClass('selected');
 					}
+					//if this tag matches the tag being edited
+					if ($(d).attr('data-color') === $editTag.attr('data-color') && $(d).attr('data-value') === $editTag.data('value')) {
+						$(d).removeClass('saved');
+						$(d).addClass('selected');
+						var data_tag_val = $(d).attr('data-value');
+						color_found = 1;
+					}
 				});
 			});
-			var color_found = 0;
-			$.each(li, function(a, b) {
-				if ($(b).attr('data-color') == $(control).attr('data-color') && $(b).attr('data-value') == $(control).data('value')) {
-					$(b).removeClass('saved');
-					$(b).removeClass('hidden');
-					$(b).addClass('selected');
-					var data_tag_val = $(b).attr('data-value');
-					color_found = 1;
-				}
-			});			
 			
-			if(color_found == 0)
+			if(color_found === 0)
 			{
 				$custom_tag.addClass('selected');
-				$custom_tag.attr('data-value',$(control).attr('data-value'));
-				$custom_tag.attr('data-color',$(control).attr('data-color'));
+				$custom_tag.attr('data-value',$editTag.attr('data-value'));
+				$custom_tag.attr('data-color',$editTag.attr('data-color'));
 				$custom_tag.removeClass('hidden');
 				$custom_tag.removeClass('saved');
-				$custom_tag.find('input[type="checkbox"]').val($(control).attr('data-color'));
+				$custom_tag.find('input[type="checkbox"]').val($editTag.attr('data-color'));
 			}	
 
+			//set tag label values to match tag being edited
 			$('#tagLabel').addClass('edit-process');
-			$('#tagLabel').attr('data-edit_value', $(this).attr('data-value'));
-			$('#tagLabel').attr('data-edit_color', $(this).attr('data-color'));
-			$('#tagLabel').attr('data-edit_index', $(this).data('index'));
+			$('#tagLabel').attr('data-edit_value', $editTag.attr('data-value'));
+			$('#tagLabel').attr('data-edit_color', $editTag.attr('data-color'));
+			$('#tagLabel').attr('data-edit_index', $editTag.data('index'));
+			$('#tagLabel').val($editTag.attr('data-value'));
+			
+			//change button label from Add to Update
+			$('#addTag').text('Update');
 
 			toggleBtnClass('.submit_tag', false);
 
-			$('#tagLabel>option').map(function() {
-				if ($(this).val() == $(control).attr('data-previous_value')) {
-					$(this).remove();
-
-				}
-
-				if ($(this).val() == $(control).attr('data-value')) {
-					$(this).remove();
-
-				}
-
-				if ($(this).val() == 'other') {
-					$(this).remove();
-
-				}
-			});
-			$('#tagLabel').append('<option selected="selected" value="' + $('#tagLabel').attr('data-edit_value') + '">' + $('#tagLabel').attr('data-edit_value') + '</option><option value="other">+ADD LABEL</option>');
-			$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
 			$("#tagLabel").trigger('change');
-			//alert(language_message.edit_tag_msg);
 			getConfirm(language_message.edit_tag_msg,'','alert',function(confResponse) {});
 		});
 
@@ -534,23 +506,27 @@ jQuery(function($) {
 		});
 
 		$(document).on('click', '.remove-tag', function() {
-			control = this;
-			var li = $(".tags-to-add").children('li');
-			var selected = 0;
-			$.each(li, function(a, b) {
-				if ($(b).data('color') == $(control).parents('li').data('color') && $(b).data('value') == $(control).parents('li').data('value')) {
-					$(b).removeClass('saved');
-				}
-				if ($(b).hasClass('saved')) {
-					selected++;
+			var $deleteTag = $(this);
+			var deleteColor = $deleteTag.closest('li.tag').data('color');
+			var deleteVal = $deleteTag.closest('li.tag').data('value');
+			var savedTags = $('.tags-to-add').find('.saved');
+			$.each(savedTags, function() {
+				if ($(this).attr('data-color') === deleteColor && $(this).attr('data-value') === deleteVal) {
+					$(this).removeClass('saved');
+					if($(this).hasClass('custom-tag')) {
+						$(this).remove();
+					}
 				}
 			});
-			if (selected > 0) {
-				toggleBtnClass('.submit_tag', false);
-			} else {
+			
+			$deleteTag.closest('li.tag').remove();
+			if(!$('#selectedTags li').length) {
+				hideNoLength($('#selectedTags'));
 				toggleBtnClass('.submit_tag', true);
 			}
-			$(this).parents('li').remove();
+			else {
+				toggleBtnClass('.submit_tag', false);
+			}
 		});
 
 		$(document).on('keyup change', '#userEmail', function() {
@@ -658,8 +634,6 @@ jQuery(function($) {
 			var add_flag = 1;
 			var control = this;
 			$.each(selected_tag, function(a, b) {
-				//console.log($(control).val());
-				//console.log($(b).data('value'));
 				if ($(b).data('value') == $(control).val()) {
 					add_flag = 0;
 					$('#labelValid').removeClass('hide');
@@ -1046,7 +1020,6 @@ jQuery(function($) {
 					'is_user_image': is_user_image
 				},
 				success: function(data) {
-					console.log(data);
 
 					if (data.response == 'success') {
 						if (data.html) {
