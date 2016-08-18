@@ -809,11 +809,11 @@ jQuery(function($) {
 			var selected_timezone = $(this).find('.approval_timezone option:selected').text();
 			//show time on preview (date)
 			var date = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val();			
-			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview'+(parseInt(phaseId) + 1)).text(date);
+			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview').text(date);
 			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val(date);
 
 
-			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview'+(parseInt(phaseId) + 1)).text(date);
+			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview').text(date);
 			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val(date);
 
 			//for preview of edit (hour minute and ampm)
@@ -834,7 +834,9 @@ jQuery(function($) {
 			var time_preview = $('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.time-preview');			
 			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
 			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
-			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());			
+			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());
+			console.log($(time_preview).find('.ampm-preview'));
+			console.log($(time).find('.amselect').val());
 
 			//show time on preview (date)
 			var note = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.approvalNotes').val();
