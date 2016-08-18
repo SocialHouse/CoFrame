@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		
-		<div class="col-md-4 equal-height">
+		<div class="col-md-4 equal-height insert_after">
 			<div class="container-post-details post-content">
 				<h4 class="text-xs-center">Post Details</h4>
 				<div class="form-group">
@@ -194,7 +194,7 @@
 			else
 			{ 
 				?>
-				<div class="col-md-4 equal-height">
+				<div class="col-md-4 equal-height phases-div">
 					<div class="container-approvals">
 						<div class="add-phases">
 							<div class="container-phases">
@@ -214,7 +214,7 @@
 									?>
 											<div class="bg-white approval-phase animated fadeIn hide edit-phase-div <?php echo $class; ?>" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
 												<h2 class="clearfix">Phase <?php echo $phase_no + 1;?>
-													<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
+													<button data-phase-id="<?php echo $obj[0]->phase_id; ?>" data-post-id="<?php echo $obj[0]->post_id; ?>" type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
 												</h2>
 												<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>
@@ -428,7 +428,7 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">			
+														<select class="form-control form-control-sm approval_timezone">			
 															<?php 
 																// Display remaining timezones
 																foreach ($timezones as $ti_key => $time) 
@@ -448,7 +448,7 @@
 												</div>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
-													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $i- 1;?>][note]"></textarea>
+													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 												</div>
 												<div class="form-group">
 													<?php 
@@ -486,14 +486,14 @@
 												<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 												</ul>
 
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_date]" class="phase-date-time-input" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_hour]" class="hour-select" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_minute]" class="minute-select" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_ampm]" class="amselect" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][time_zone]" class="zone" />		
-												<textarea name="phase[<?php echo $phase_no;?>][note]" class="note hide"></textarea>													
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_date]" class="phase-date-time-input" />
+												<input type="hidden" name="phase[<?php echo $i -1; ?>][approve_hour]" class="hour-select" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_minute]" class="minute-select" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_ampm]" class="amselect" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][time_zone]" class="zone" />		
+												<textarea name="phase[<?php echo $i - 1;?>][note]" class="note hide"></textarea>													
 												<div class="approval-date">
-													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+													<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 												</div>
 												<div class="approval-note">
 													NOTE: <?php echo nl2br($obj[0]->note); ?>
