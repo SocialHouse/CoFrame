@@ -120,44 +120,36 @@ jQuery(function($) {
 			if (outlet_const == 'vine' || outlet_const == 'youtube') {
 				if ($('.form__preview-wrapper img').length) {
 					if (outlet_const == 'youtube') {
-						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {
-							return false;
-						});
+						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
 					} else {
-						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {
-							return false;
-						});
+						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
 					}
-				}
+					return false;
+				}				
 			}
 
 			if (outlet_const == 'instagram') {
 				if ($('.form__preview-wrapper video').length) {
-					getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {
-						return false;
-					});
+					getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
 				}
 
 				if ($('.form__preview-wrapper img').length > 1) {
-					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {
-						return false;
-					});
+					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {});
 				}
+				return false;
 			}
 
 			if (outlet_const == 'linkedin') {
 				if ($('.form__preview-wrapper img').length > 1) {
-					getConfirm(language_message.linkedin_outlet_change_error,'','alert',function(confResponse) {
-						return false;
-					});
+					getConfirm(language_message.linkedin_outlet_change_error,'','alert',function(confResponse) {});
+					return false;
 				}
 			}
 
 			if (outlet_const == 'pinterest') {
 				if ($('.form__preview-wrapper img').length > 1) {
-					getConfirm(language_message.pinterest_outlet_change_error,'','alert',function(confResponse) {
-						return false;
-					});
+					getConfirm(language_message.pinterest_outlet_change_error,'','alert',function(confResponse) {});
+					return false;
 				}
 			}
 
@@ -1760,9 +1752,8 @@ function twitter_char_limit(){
 	$("#postCopy").attr("maxlength", 140);
 
 	if ($('.form__preview-wrapper img').length > 4) {
-		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {
-			return false;
-		});
+		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
+		return false;
 	}
 	$('#postCopy').after('<div class="tweet-chars"><span id="charsLeft" class="color-danger">' + charsLeft + '</span> characters remaining.</div>');
 }

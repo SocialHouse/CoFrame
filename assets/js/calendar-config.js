@@ -893,7 +893,7 @@ jQuery(function($) {
 		          if(response  != 'false')
 		          {
 		          	getConfirm(language_message.post_update_successful,'','alert',function(confResponse){});
-		              // alert('Your post has been update successfully.');
+		            // alert('Your post has been update successfully.');
 		          }
 		          $('.calendar-day').empty();
 		          console.log(response);

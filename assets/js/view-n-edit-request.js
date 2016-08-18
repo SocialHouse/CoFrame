@@ -176,7 +176,7 @@ jQuery(function($) {
          var phase_id = $(this).data('phase-id');
         var phase_number = $(this).data('phase-number');
         var next_phase = phase_number+1;
-        getConfirm(language_message.finish_Phase,'',function(confResponse) {
+        getConfirm(language_message.finish_Phase,'','',function(confResponse) {
             if (confResponse) {
                
 
@@ -225,9 +225,8 @@ jQuery(function($) {
         reader.onload = function (event) {
             var file_type = file.type.split('/');
             if($.inArray(file_type[1] ,supported_files) == -1){
-                getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-                    return false;
-                });
+                getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+                return false;
                 // alert(language_message.invalid_extention);
             };
             $(control).next().next().attr('src',event.target.result);
@@ -290,9 +289,8 @@ jQuery(function($) {
             reader.onload = function (event) {
                 var file_type = file.type.split('/');
                 if($.inArray(file_type[1] ,supported_files) == -1){
-                    getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-                        return false;
-                    });
+                    getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+                    return false;
                     // alert(language_message.invalid_extention);
                     // return false;
                 };
@@ -394,7 +392,7 @@ jQuery(function($) {
     });
 
     $(document).on('click','.post-remove-phase',function(){
-        getConfirm(language_message.delete_phase_confirmation,'',function(confResponse) {
+        getConfirm(language_message.delete_phase_confirmation,'','',function(confResponse) {
             if(confResponse){
                 var div_to_delete = $(this).parents().parents('div:first');
                 var phase_id = $(this).attr('id');

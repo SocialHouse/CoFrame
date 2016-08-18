@@ -61,9 +61,8 @@
 						console.log(allFiles.length);
 						var file_type = file.type.split('/');
 						if($.inArray(file_type[1] ,supported_files) == -1){
-							getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-								return false;
-							});
+							getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+							return false;
 							// alert(language_message.invalid_extention);
 							
 						};
@@ -71,14 +70,12 @@
 						
 						if( file_type[0]== 'image'){
 							if( file.size > 1000000){
-								getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {});
+								return false;
 							}
 							if($fileDiv.find('video').length > 0){
-								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+								return false;
 							}				
 							if($(fileInput).parents('.brand-image').length)
 							{
@@ -98,9 +95,8 @@
 							reader.onload = function (e) {
 								if(allFiles.length == 4 && outlet_const == 'twitter')
 								{
-									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
+									return false;
 								}
 								else if((outlet_const == 'youtube' || outlet_const == 'vine') && file_type[0]== 'image')
 								{
@@ -116,10 +112,8 @@
 
 								if(outlet_const == 'instagram' && file_type[0]== 'video')
 								{
-									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
-										// alert(language_message.insta_video_not_allowed);
-										return false;
-									});
+									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+									return false;
 								}
 
 								if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
@@ -133,10 +127,8 @@
 									{
 										message = language_message.pinterest_img_allowed;
 									}
-									getConfirm(message,'','alert',function(confResponse) {
-										// alert(language_message.insta_video_not_allowed);
-										return false;
-									});
+									getConfirm(message,'','alert',function(confResponse) {});
+									return false;
 								}
 								else
 								{
@@ -170,21 +162,18 @@
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 							if( file.size > 104857600){
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+								return false;
 							}
 							if($('.form__file-preview').length >= 1){
 
 								if(file_type[0] =='video'){
-									getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {});
+									return false;
 									// alert(language_message.video_upload_error);
 								}else{
-									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+									return false;
 									// alert(language_message.invalid_extention);
 								}
 							}else{
@@ -268,9 +257,8 @@
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
 							if($.inArray(file_type[1] ,supported_files) == -1){
-								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+								return false;
 								// alert(language_message.invalid_extention);
 								// return false;
 							}
@@ -283,28 +271,24 @@
 								{
 									message_obj = 'youtube_img_not_allwed';
 								}
-								getConfirm(language_message.message_obj,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.message_obj,'','alert',function(confResponse) {});
+								return false;
 							}
 
 							if(outlet_const == 'instagram' && file_type[0]== 'video')
 							{
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {
-									return false;
-								});
+								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+								return false;
 							}
 
 							if( file_type[0]== 'image'){
 								if( file.size > 2000000){
-									getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {
-										return false;
-									});									
+									getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {});
+									return false;							
 								}
 								if($('.form__file-preview').src=='video'){
-									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+									return false;
 								}
 								if($(target_file_input).hasClass('brand-image'))
 								{
@@ -324,9 +308,8 @@
 			                    reader.onload = function (e) {
 			                    	if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 									{
-										getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {
-											return false;
-										});
+										getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
+										return false;
 									}
 									else if(allFiles.length == 1 && (outlet_const == 'instagram' || outlet_const == 'linkedin' || outlet_const == 'pinterest'))
 									{
@@ -339,9 +322,8 @@
 										{
 											message = language_message.pinterest_img_allowed;
 										}
-										getConfirm(message,'','alert',function(confResponse) {
-											return false;
-										});
+										getConfirm(message,'','alert',function(confResponse) {});
+										return false;
 									}
 									else
 									{
@@ -368,20 +350,17 @@
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
 								if( file.size > 104857600){
-									getConfirm(language_message.video_size_limit,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.video_size_limit,'','alert',function(confResponse) {});
+									return false;
 								}
 
 								if($('.form__file-preview').length >= 1){
 									if($('.form__file-preview').src =='video'){
-										getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {
-											return false;
-										});
+										getConfirm(language_message.video_upload_error,'','alert',function(confResponse) {});
+										return false;
 									}else{
-										getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {
-											return false;
-										});
+										getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+										return false;
 									}
 								}else{
 									var video = document.createElement('video');
@@ -504,8 +483,7 @@
 							}
 						},
 						error: function(){
-							getConfirm(language_message.upload_error,'','alert',function(confResponse) {
-							});
+							getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
 						}
 					});
 				}
