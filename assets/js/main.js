@@ -854,15 +854,15 @@ jQuery(function($) {
 			$(phase_preview).find('.minute-select').val($(time).find('.minute-select').val());
 			$(phase_preview).find('.amselect').val($(time).find('.amselect').val());
 			$(phase_preview).find('.note').val(note);
-			$(phase_preview).find('.zone').text($(time).find('.approval_timezone option:selected').val());
+			$(phase_preview).find('.zone').val($(time).find('.approval_timezone option:selected').val());
 
 			//hidden fields in edit preview
 			var phase_preview = $('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1));	
 			$(phase_preview).find('.hour-select').val($(time).find('.hour-select').val());
 			$(phase_preview).find('.minute-select').val($(time).find('.minute-select').val());
 			$(phase_preview).find('.amselect').val($(time).find('.amselect').val());
-			$(phase_preview).find('.note').val(note);
-			$(phase_preview).find('.zone').text($(time).find('.approval_timezone option:selected').val());
+			$(phase_preview).find('.note').val(note);			
+			$(phase_preview).find('.zone').val($(time).find('.approval_timezone option:selected').val());
 
 
 			
