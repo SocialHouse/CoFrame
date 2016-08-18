@@ -626,7 +626,7 @@ jQuery(function($) {
 
 		$(document).on('click', '.cancel-brand', function(event) {
 			event.preventDefault();
-			getConfirm(language_message.confirm_cancel,'','alert',function(confResponse) {
+			getConfirm(language_message.confirm_cancel,'','',function(confResponse) {
 		        if(confResponse){
 					var brand_id = $('#brand_id').val();
 					if (brand_id != '') {
@@ -636,7 +636,7 @@ jQuery(function($) {
 							url: base_url + 'brands/delete/' + brand_id,
 							success: function(response) {
 								if (response.status != 'success') {
-									getConfirm(language_message.try_again,'','alert',function(confResponse) {});
+									getConfirm(language_message.try_again,'','alert',function(confResponse2) {});
 								}
 								else
 								{

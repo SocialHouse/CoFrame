@@ -76,7 +76,7 @@
 							if($fileDiv.find('video').length > 0){
 								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
 								return false;
-							}				
+							}
 							if($(fileInput).parents('.brand-image').length)
 							{
 								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
@@ -87,12 +87,12 @@
 								$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
 								$('.remove-user-img').show();
 								allFiles =[];
-							}							
+							}
 
-							
 							var reader = new FileReader();
 							reader.readAsDataURL(file);
 							reader.onload = function (e) {
+								
 								if(allFiles.length == 4 && outlet_const == 'twitter')
 								{
 									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
@@ -104,10 +104,12 @@
 									if(outlet_const == 'youtube')
 									{
 										getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
+										return false;
 									}else{
 										getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
+										return false;
 									}
-									return false;
+									
 								}
 
 								if(outlet_const == 'instagram' && file_type[0]== 'video')

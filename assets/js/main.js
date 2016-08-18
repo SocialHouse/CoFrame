@@ -121,22 +121,26 @@ jQuery(function($) {
 				if ($('.form__preview-wrapper img').length) {
 					if (outlet_const == 'youtube') {
 						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
+						return false;
 					} else {
 						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
+						return false;
 					}
-					return false;
+					
 				}				
 			}
 
 			if (outlet_const == 'instagram') {
 				if ($('.form__preview-wrapper video').length) {
 					getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
+					return false;
 				}
 
 				if ($('.form__preview-wrapper img').length > 1) {
 					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {});
+					return false;
 				}
-				return false;
+				
 			}
 
 			if (outlet_const == 'linkedin') {
