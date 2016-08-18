@@ -428,7 +428,7 @@
 														</div>
 													</div>
 													<div class="form-group slate-post-tz">
-														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $i- 1;?>][time_zone]">			
+														<select class="form-control form-control-sm approval_timezone">			
 															<?php 
 																// Display remaining timezones
 																foreach ($timezones as $ti_key => $time) 
@@ -448,7 +448,7 @@
 												</div>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
-													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[<?php echo $i- 1;?>][note]"></textarea>
+													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 												</div>
 												<div class="form-group">
 													<?php 
@@ -486,14 +486,14 @@
 												<ul class="timeframe-list user-list approval-list border-bottom clearfix">
 												</ul>
 
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_date]" class="phase-date-time-input" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_hour]" class="hour-select" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_minute]" class="minute-select" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][approve_ampm]" class="amselect" />
-												<input type="hidden" name="phase[<?php echo $phase_no;?>][time_zone]" class="zone" />		
-												<textarea name="phase[<?php echo $phase_no;?>][note]" class="note hide"></textarea>													
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_date]" class="phase-date-time-input" />
+												<input type="hidden" name="phase[<?php echo $i -1; ?>][approve_hour]" class="hour-select" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_minute]" class="minute-select" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][approve_ampm]" class="amselect" />
+												<input type="hidden" name="phase[<?php echo $i - 1;?>][time_zone]" class="zone" />		
+												<textarea name="phase[<?php echo $i - 1;?>][note]" class="note hide"></textarea>													
 												<div class="approval-date">
-													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $i ?>"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+													<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 												</div>
 												<div class="approval-note">
 													NOTE: <?php echo nl2br($obj[0]->note); ?>
