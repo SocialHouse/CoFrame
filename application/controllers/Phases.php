@@ -243,8 +243,28 @@ class Phases extends CI_Controller {
 				$this->phase_model->delete_comments('',$phase_id,$phase_data->post_id);
 
 				$this->session->set_flashdata('message','Phase has been deleted successfully');
-				//redirect(base_url().'phases/index/'.$phase_data->brand_id);
-				echo json_encode(array('status'=>'success'));
+				
+				$this->load->model('post_model');
+				$post_phases = $this->post_model->get_post_phases($phase_data->post_id);
+				$this->data['selected_tags'] = $this->post_model->get_post_tags($phase_data->post_id);		
+				if(!empty($post_phases))
+				{
+					foreach($post_phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase;
+					}
+				}
+				$brand = $this->timeframe_model->get_data_by_condition('brands',array('id' => $phase_data->brand_id));
+				$this->data['brand'] = $brand[0];
+				$this->data['post_details'] = $this->post_model->get_post($phase_data->post_id);
+				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['users'] = $this->brand_model->get_approvers($brand[0]->id);
+				$this->load->model('user_model');
+				$this->data['timezones'] = $this->user_model->get_timezones();
+				$html = $this->load->view('partials/phases_html',$this->data,true);
+
+				echo json_encode(array('status'=>'success','html' => $html));
 			}else{
 				echo json_encode(array('status'=>'fail'));
 			}

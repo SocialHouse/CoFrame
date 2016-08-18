@@ -711,7 +711,7 @@ jQuery(function($) {
 	}
 
 	//Time selector functions
-	$('body').on('click', '.incrementer', function(e) {
+	$(document).on('click', '.incrementer', function(e) {
 		var $target = $(e.target);
 		var incDec = ($target.hasClass('increase')) ? 'increase' : 'decrease';
 		var inputName = $(this).data('for');
@@ -1122,7 +1122,10 @@ jQuery(function($) {
 		}
 		else
 		{
-			$activePhase.find('.delete-phase').addClass('hide');
+			if($('#phaseDetails').find('.preview_approvalPhase1').length || $('#phaseDetails').find('.preview_approvalPhase2').length || $('#phaseDetails').find('.preview_approvalPhase3').length)
+			{
+				$activePhase.find('.delete-phase').addClass('hide');
+			}
 		}
 	}
 	
@@ -1492,32 +1495,39 @@ jQuery(function($) {
 
 	 $(document).on('click', '.delete-phase', function(event) {
 	 	event.preventDefault();
-	 	$btn = $(this);
+	 	$btn = $(this);	 
 	 	var post_id, phase_id;
-	 	post_id = $btn.data('post-id');
-	 	phase_id = $btn.data('phase-id');
+	 	post_id = $btn.attr('data-post-id');
+	 	phase_id = $btn.attr('data-phase-id');
 
 	 	getConfirm(language_message.confirm_delete_phase,'','',function(confResponse) {
 		 	if (confResponse) {
-		 		$.ajax({
-		 			'type': 'POST',
-		 			dataType: 'json',
-		 			url: base_url + 'phases/delete',
-		 			data: {
-		 				'post_id': post_id,
-		 				'phase_id': phase_id
-		 			},
-		 			success: function(response) {
-		 				if (response.status == 'success') {
-		 					window.location.reload();
-		 					$('.modal-hide').click();
-		 				} else {
-		 					getConfirm(language_message.try_again,'','alert',function(confResponse) {
-								$('.modal-hide').click();
-							});
-		 				}
-		 			}
-		 		});
+		 		if(post_id && phase_id)
+		 		{
+			 		$.ajax({
+			 			'type': 'POST',
+			 			dataType: 'json',
+			 			url: base_url + 'phases/delete',
+			 			data: {
+			 				'post_id': post_id,
+			 				'phase_id': phase_id
+			 			},
+			 			success: function(response) {
+			 				if (response.status == 'success') {
+			 					console.log($('.col-md-4:eq(2)'));
+			 					$('.phases-div').remove();
+			 					$('.modal-backdrop').remove();
+								$( ".insert_after" ).after(response.html);
+								addIncrements();
+								qtipEqualColumns();
+			 				} else {
+			 				// 	getConfirm(language_message.try_again,'','alert',function(confResponse) {
+								// 	// $('.modal-hide').click();
+								// });
+			 				}
+			 			}
+			 		});
+			 	}
 		 		var phase_no = $btn.data('id') + 1;
 		 		if(phase_no == 1)
 		 		{
