@@ -808,6 +808,7 @@ jQuery(function($) {
 
 
 			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview'+(parseInt(phaseId) + 1)).text(date);
+			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val(date);
 
 			//for preview of edit (hour minute and ampm)
 			var time = $('#approvalPhase' + (parseInt(phaseId) + 1));			
@@ -819,6 +820,12 @@ jQuery(function($) {
 
 			//for preview of add (hour minute and ampm)
 			var time_preview = $('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.time-preview');			
+			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
+			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
+			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());
+
+			//for edit preview(hour minute and ampm)
+			var time_preview = $('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.time-preview');			
 			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
 			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
 			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());			
@@ -846,8 +853,16 @@ jQuery(function($) {
 			$(phase_preview).find('.hour-select').val($(time).find('.hour-select').val());
 			$(phase_preview).find('.minute-select').val($(time).find('.minute-select').val());
 			$(phase_preview).find('.amselect').val($(time).find('.amselect').val());
-			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.note').val(note);
-			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.zone').text($('option:selected',this).text());
+			$(phase_preview).find('.note').val(note);
+			$(phase_preview).find('.zone').text($(time).find('.approval_timezone option:selected').val());
+
+			//hidden fields in edit preview
+			var phase_preview = $('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1));	
+			$(phase_preview).find('.hour-select').val($(time).find('.hour-select').val());
+			$(phase_preview).find('.minute-select').val($(time).find('.minute-select').val());
+			$(phase_preview).find('.amselect').val($(time).find('.amselect').val());
+			$(phase_preview).find('.note').val(note);
+			$(phase_preview).find('.zone').text($(time).find('.approval_timezone option:selected').val());
 
 
 			
@@ -1345,7 +1360,7 @@ jQuery(function($) {
 					'user_id': user_id,
 				},
 				success: function(response) {
-					//console.log(response);
+					//	.log(response);
 					//location.reload();
 				}
 			});
