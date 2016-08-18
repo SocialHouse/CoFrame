@@ -71,7 +71,7 @@ if(!empty($post_details->brand_id)){
 		<textarea name="phase[0][note]" class="note hide"></textarea>
 
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			
@@ -146,7 +146,7 @@ if(!empty($post_details->brand_id)){
 		<textarea name="phase[1][note]" class="note hide"></textarea>
 
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			
@@ -219,7 +219,7 @@ if(!empty($post_details->brand_id)){
 		<input type="hidden" name="phase[2][time_zone]" class="zone" />
 		<textarea name="phase[2][note]" class="note hide"></textarea>
 		<div class="approval-date">
-			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
+			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
 		<div class="approval-note">
 			

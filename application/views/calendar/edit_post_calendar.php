@@ -354,7 +354,22 @@
 												<textarea name="phase[<?php echo $phase_no;?>][note]" class="note hide"><?php echo nl2br($obj[0]->note); ?></textarea>
 
 												<div class="approval-date">
-													<span class="uppercase">Must approve by:</span> <span class="date-preview<?php echo $phase_no + 1 ; ?>"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span> <span class="time-preview"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span>
+													<span class="uppercase">Must approve by:</span> 
+													<span class="date-preview"> <?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?> 
+													</span> 
+													<span class="time-preview">at 
+														<span class="hour-preview">
+															<?php  echo ' '.date('h',strtotime($obj[0]->approve_by)); ?>
+														</span>:
+														<span class="minute-preview">
+															<?php  echo date('i',strtotime($obj[0]->approve_by)); ?>
+														</span> 
+														<span class="ampm-preview">
+															<?php  echo ' '.date('A',strtotime($obj[0]->approve_by)); ?>
+														</span>
+													</span>
+
+													<!-- <span class="uppercase">Must approve by:</span> <span class="date-preview"><?php echo date('m/d/y',strtotime($obj[0]->approve_by)); ?></span> <span class="time-preview"><?php  echo ' '.date('\a\t h:i A',strtotime($obj[0]->approve_by)); ?></span> -->
 												</div>
 												<?php
 												if(!empty($obj[0]->note))
