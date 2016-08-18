@@ -480,11 +480,15 @@ jQuery(document).ready(function(){
         	else{
         		if(plan_data.users <= $('#all_users').val())
         		{
-        			alert(language_message.user_limit);
+        			getConfirm(language_message.user_limit,'','alert',function(confResponse) {
+						// return false;
+					});
         		}
         		if(plan_data.master_admins <= $('#master_user_count').val() && $('#userRoleSelect').val() == 'master admin' )
         		{
-        			alert(language_message.master_user_limit.replace('%master_user_number%',plan_data.master_admins));
+        			getConfirm(language_message.master_user_limit.replace('%master_user_number%',plan_data.master_admins),'','alert',function(confResponse) {
+						// return false;
+					});
         		}
         		
         	}

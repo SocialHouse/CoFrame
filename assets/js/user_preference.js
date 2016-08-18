@@ -49,8 +49,10 @@ $(document).ready(function(){
 			if(user_data.user_group && user_data.user_group == 'Billing')
 			{
 				//alert(language_message.biling_downgrade);
-				getConfirm(language_message.biling_downgrade,'','alert',function(){});
-				return false;
+				getConfirm(language_message.biling_downgrade,'','alert',function(confResponse){
+					return false;
+				});
+				
 			}
 
 			var current_users = $contorl.data('current_users');
@@ -165,16 +167,15 @@ $(document).ready(function(){
 
 			if(outlet_error || tag_error || user_error || brand_error || master_user_error)
 			{
-				
-				getConfirm(error_msg,'','alert',function(){});
-				// alert(error_msg);
-				return false;
+				getConfirm(error_msg,'','alert',function(confResponse) {
+					return false;
+				});
 			}
 		}
 		var message = language_message.change_plan_confirmation;
 		if($('#brand_id').val())
 		{
-			getConfirm(language_message.change_plan_billing_details,'','alert',function(){});
+			getConfirm(language_message.change_plan_billing_details,'','alert',function(confResponse){});
 			// alert(language_message.change_plan_billing_details);
 		}
 		else
@@ -322,11 +323,12 @@ $(document).ready(function(){
 
 	$(document).on('click', '#addUserLink', function(e) {
 		if(plan_data.users <= $('#all_users').val() && !$('#user_preferences_add_user #user_id').length){
-			getConfirm(language_message.user_limit.replace('%user_number%',plan_data.users),'','alert',function(){});
+			getConfirm(language_message.user_limit.replace('%user_number%',plan_data.users),'','alert',function(confResponse) {
+				setTimeout(function(){
+					$('#addUserBtns .btn-cancel').click();
+				},500);
+			});
 			//alert(language_message.user_limit.replace('%user_number%',plan_data.users));
-			setTimeout(function(){
-				$('#addUserBtns .btn-cancel').click();
-			},500);;
 		}
 	});
 	

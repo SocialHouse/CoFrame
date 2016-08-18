@@ -354,7 +354,7 @@ class Brands extends CI_Controller {
             		else
             		{
 			    		$password = uniqid();
-			    		$password = 123456;
+			    		//$password = 123456;
 			        	$user_data = array(
 			        					'first_name' => $this->input->post('first_name'),
 			        					'last_name' => $this->input->post('last_name'),	        					

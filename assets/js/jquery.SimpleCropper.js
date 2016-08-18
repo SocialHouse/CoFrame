@@ -298,12 +298,13 @@
                     $('#photo').remove();
                     //console.log(file);
                    // dropbox.appendChild(file[0]);
-                     alert(language_message.browser_not_supported);
-                    return false;
+                    getConfirm(language_message.browser_not_supported,'','alert',function(confResponse) {
+                        return false;
+                    });
                 }
 
             } else {
-                alert(language_message.invalid_extention);
+                getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
             }
         }
 
@@ -414,7 +415,7 @@
                         }
                     },
                     error: function(){
-                        alert( language_message.upload_error );
+                        getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
                     }
                 });
         });
@@ -450,7 +451,7 @@
                         }
                     },
                     error: function(){
-                        alert( language_message.upload_error);
+                        getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
                     }
                 });
         });

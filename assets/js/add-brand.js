@@ -468,7 +468,8 @@ jQuery(function($) {
 			$('#tagLabel').append('<option selected="selected" value="' + $('#tagLabel').attr('data-edit_value') + '">' + $('#tagLabel').attr('data-edit_value') + '</option><option value="other">+ADD LABEL</option>');
 			$('#tagLabel').val($('#tagLabel').attr('data-edit_value'));
 			$("#tagLabel").trigger('change');
-			alert(language_message.edit_tag_msg);
+			//alert(language_message.edit_tag_msg);
+			getConfirm(language_message.edit_tag_msg,'','alert',function(confResponse) {});
 		});
 
 		$('#selectedTags').on('contentSlidDown', function() {
@@ -625,7 +626,7 @@ jQuery(function($) {
 
 		$(document).on('click', '.cancel-brand', function(event) {
 			event.preventDefault();
-			getConfirm(language_message.confirm_cancel,'',function(confResponse) {
+			getConfirm(language_message.confirm_cancel,'','alert',function(confResponse) {
 		        if(confResponse){
 					var brand_id = $('#brand_id').val();
 					if (brand_id != '') {
@@ -635,8 +636,9 @@ jQuery(function($) {
 							url: base_url + 'brands/delete/' + brand_id,
 							success: function(response) {
 								if (response.status != 'success') {
-									alert(language_message.try_again);
-									return false;
+									getConfirm(language_message.try_again,'','alert',function(confResponse) {
+										return false;
+									});
 								}
 								else
 								{
@@ -741,7 +743,9 @@ jQuery(function($) {
 					}
 				});
 			} else {
-				alert(language_message.outlet_limit.replace('%outlet_number%', plan_data.outlets));
+				getConfirm(language_message.outlet_limit.replace('%outlet_number%', plan_data.outlets),'','alert',function(confResponse) {
+					// alert(language_message.);
+				});
 			}
 		});
 
@@ -780,7 +784,10 @@ jQuery(function($) {
 					}
 				});
 			} else {
-				alert(language_message.tag_limit.replace('%tag_number%', plan_data.tags));
+				getConfirm(language_message.tag_limit.replace('%tag_number%', plan_data.tags),'','alert',function(confResponse) {
+					// alert(language_message.tag_limit.replace('%tag_number%', plan_data.tags));
+				});
+				
 			}
 		});
 
@@ -846,7 +853,7 @@ jQuery(function($) {
 			// 	return false;
 			// }
 			var aauth_user_id = $(this).data('user-id');
-			getConfirm(language_message.delete_user,'',function(confResponse) {
+			getConfirm(language_message.delete_user,'', 'alert', function(confResponse) {
 	            if(confResponse){
 					
 					$.ajax({
@@ -1054,8 +1061,10 @@ jQuery(function($) {
 							$('.close_brand').trigger('click');
 						}
 					} else {
-						alert(language_message.try_again);
-						$('.close_brand').trigger('click');
+						// alert(language_message.try_again);
+						getConfirm(language_message.try_again,'','alert',function(confResponse) {
+							$('.close_brand').trigger('click');
+						});
 					}
 				}
 			});
