@@ -636,9 +636,7 @@ jQuery(function($) {
 							url: base_url + 'brands/delete/' + brand_id,
 							success: function(response) {
 								if (response.status != 'success') {
-									getConfirm(language_message.try_again,'','alert',function(confResponse) {
-										return false;
-									});
+									getConfirm(language_message.try_again,'','alert',function(confResponse) {});
 								}
 								else
 								{

@@ -298,9 +298,8 @@
                     $('#photo').remove();
                     //console.log(file);
                    // dropbox.appendChild(file[0]);
-                    getConfirm(language_message.browser_not_supported,'','alert',function(confResponse) {
-                        return false;
-                    });
+                    getConfirm(language_message.browser_not_supported,'','alert',function(confResponse) {});
+                    return false;
                 }
 
             } else {
