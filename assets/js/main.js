@@ -1252,11 +1252,10 @@ jQuery(function($) {
 	*/
 	$(document).on("click", ".delete_post", function(event) {
 		event.preventDefault();
+		var post_id = [];
+		post_id.push($(this).data('post-id'));
 		getConfirm(language_message.delete_post,'',function(confResponse) {
 			if(confResponse){
-				var post_id = [];
-				post_id.push($(this).data('post-id'));
-
 				$.ajax({
 					'type': 'POST',
 					dataType: 'json',
@@ -1700,7 +1699,7 @@ function twitter_char_limit(){
 }
 
 
-function getConfirm(confirmMessage,confirmTitle,callback){
+function getConfirm(confirmMessage,confirmTitle,is_alert,callback){
 	
 	var $ = jQuery;
 	var title = $("#confirmTitle");
@@ -1722,6 +1721,12 @@ function getConfirm(confirmMessage,confirmTitle,callback){
 
 	title.html(confirmTitle);
 	message.html(confirmMessage);
+
+	if(is_alert == 'alert'){
+		$('#confirmFalse').hide();
+	}else{
+		$('#confirmFalse').show();
+	}
 
 	$('#confirmFalse').click(function(){
 		$('#confirmbox').modal('hide');

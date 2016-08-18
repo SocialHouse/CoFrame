@@ -5,90 +5,90 @@ $email = '';
 $user_pass=$this->input->cookie('user_pass', TRUE);
 $user_name=$this->input->cookie('user_name', TRUE);
 if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($user_name))){
-    $checked='checked="checked"';
-    $email = $user_name;
-    $password = $user_pass;
+	$checked='checked="checked"';
+	$email = $user_name;
+	$password = $user_pass;
 }
 ?>
 <!--Login Modal-->
 <div class="modal login-modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-		        <a class="navbar-brand hidden-print" href="/">
-            <span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-        </a>
-		<div class="visible-print-block logo-print">
-       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
-		</div>
-	  	<h3>Log In</h3>
-        <form id="loginForm">
-        	<input type="hidden" id="slug" name="slug" value="<?php echo isset($slug) ? $slug : ''; ?>" />
-        	<input type="hidden" id="request_string" name="request_string" value="<?php echo isset($request_string) ? $request_string : ''; ?>" />
-        	<input type="hidden" id="account_id" name="account_id" value="<?php echo isset($account_id) ? $account_id : ''; ?>" />
-			<div class="form-group">
-				<label class="sr-only" for="username">Username</label>
-
-				<input type="email" class="form-control" id="email_id" placeholder="Email Address" name="email" value="<?php echo set_value('username',$email); ?>">
-			</div>
-			<div class="form-group">
-				<label class="sr-only" for="password">Password</label>
-				<input type="password" class="form-control" id="login_password" placeholder="Password" name="password" value="<?php echo set_value('user_pass',$user_pass); ?>">
-			</div>
-			<div class="form-group">
-				<div class="checkbox pull-left">
-					<label>
-						<input type="checkbox" <?php echo $checked; ?> name="remember_me" id="remember_me"> Remember password
-					</label>
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<a class="navbar-brand hidden-print" href="/">
+					<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+				</a>
+				<div class="visible-print-block logo-print">
+					<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 				</div>
-				<a href="#recoverPassword" data-backdrop="static" data-toggle="modal" class="pull-right">Forgot password?</a>
+				<h3>Log In</h3>
+				<form id="loginForm">
+					<input type="hidden" id="slug" name="slug" value="<?php echo isset($slug) ? $slug : ''; ?>" />
+					<input type="hidden" id="request_string" name="request_string" value="<?php echo isset($request_string) ? $request_string : ''; ?>" />
+					<input type="hidden" id="account_id" name="account_id" value="<?php echo isset($account_id) ? $account_id : ''; ?>" />
+					<div class="form-group">
+						<label class="sr-only" for="username">Username</label>
+
+						<input type="email" class="form-control" id="email_id" placeholder="Email Address" name="email" value="<?php echo set_value('username',$email); ?>">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="password">Password</label>
+						<input type="password" class="form-control" id="login_password" placeholder="Password" name="password" value="<?php echo set_value('user_pass',$user_pass); ?>">
+					</div>
+					<div class="form-group">
+						<div class="checkbox pull-left">
+							<label>
+								<input type="checkbox" <?php echo $checked; ?> name="remember_me" id="remember_me"> Remember password
+							</label>
+						</div>
+						<a href="#recoverPassword" data-backdrop="static" data-toggle="modal" class="pull-right">Forgot password?</a>
+					</div>
+					<div class="text-center clear">
+						<button type="submit" id="login" class="btn btn-primary btn-sm">Submit</button>
+						<a href="#invalidEmail" type="button" id="loginSuccess" class="hide" data-backdrop="static" data-toggle="modal"></a>
+					</div>
+				</form>
 			</div>
-			<div class="text-center clear">
-				<button type="submit" id="login" class="btn btn-primary btn-sm">Submit</button>
-				<a href="#invalidEmail" type="button" id="loginSuccess" class="hide" data-backdrop="static" data-toggle="modal"></a>
-			</div>
-		</form>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--Invalid Login Modal-->
 <div class="modal fade" id="invalidEmail" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-		        <a class="navbar-brand hidden-print" href="/">
-            <span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-        </a>
-		<div class="visible-print-block logo-print">
-       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
-		</div>
-              <div class="modal-body text-center bg-white">
-	  	<h5 id="fail_msg_header">Invalid Email or Password</h5>
-		<hr>
-		<p id="login_fail_msg"><?php echo $this->lang->line('invalid_email_password') ?></p>
-		<hr>
-		<p><a href="#loginModal" class="btn btn-warning btn-sm" data-backdrop="static" data-toggle="modal" id="go_to_login">Try again</a></p>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<a class="navbar-brand hidden-print" href="/">
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
+			<div class="visible-print-block logo-print">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+			</div>
+			<div class="modal-body text-center bg-white">
+				<h5 id="fail_msg_header">Invalid Email or Password</h5>
+				<hr>
+				<p id="login_fail_msg"><?php echo $this->lang->line('invalid_email_password') ?></p>
+				<hr>
+				<p><a href="#loginModal" class="btn btn-warning btn-sm" data-backdrop="static" data-toggle="modal" id="go_to_login">Try again</a></p>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--Password Recovery Modal-->
 <div class="modal fade" id="recoverPassword" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-    	<div class="modal-content">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
 			<a class="navbar-brand hidden-print" href="/">
-            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-        	</a>
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
-	        <div class="modal-body text-center bg-white">
-			  	<h5>Password Recovery</h5>
+			<div class="modal-body text-center bg-white">
+				<h5>Password Recovery</h5>
 				<hr>
 				<p>Enter the email address associated with your account, and we’ll send you an email with instructions on resetting your password.</p>
-		        <form id="resetPassForm">
+				<form id="resetPassForm">
 					<div class="form-group" style="text-align: left;">
 						<label class="sr-only" for="forgotEmail">Email Address</label>
 						<input type="email" class="form-control" id="forgotEmail" placeholder="Email" name="email">
@@ -100,20 +100,20 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 						<a href="#recoverPasswordSuccess" class="hide" data-backdrop="static" data-toggle="modal" id="recoverSuccessBtn"></a>
 					</div>
 				</form>
-      		</div>
-    	</div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--Password Recovery Success Modal-->
 <div class="modal fade" id="recoverPasswordSuccess" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-	    <div class="modal-content">
-	    	<a class="navbar-brand hidden-print" href="/">
-	            <span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-	        </a>
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<a class="navbar-brand hidden-print" href="/">
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
 			<div class="modal-body text-center bg-white">
 				<h5 id="recovery_header">Password Recovery</h5>
@@ -125,26 +125,26 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<a href="#recoverPassword" class="btn btn-warning btn-sm hide" data-backdrop="static" data-toggle="modal" id="go_to_recover_pass">Try again</a>
 					<a  href="#loginModal" class="btn btn-warning btn-sm" data-backdrop="static" data-toggle="modal" id="go_login">Go to login</a>
 				</div>
-	      	</div>
-	    </div><!-- /.modal-content -->
- 	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--Save new password-->
 <div class="modal fade" id="savePassword" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-   		<div class="modal-content">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
 			<a class="navbar-brand hidden-print" href="/">
-            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-        	</a>
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
-	        <div class="modal-body text-center bg-white">
-			  	<h5>Change Password</h5>
+			<div class="modal-body text-center bg-white">
+				<h5>Change Password</h5>
 				<hr>				
-		        <form id="setPassForm">
-		        	<input type="hidden" id="token" value="<?php echo set_value('token',isset($token)?$token:''); ?>" name="token">
+				<form id="setPassForm">
+					<input type="hidden" id="token" value="<?php echo set_value('token',isset($token)?$token:''); ?>" name="token">
 					<div class="form-group" style="text-align: left">
 						<label class="sr-only" for="newPass">Password</label>
 						<input type="password" class="form-control" id="newPass" placeholder="Password" name="password">
@@ -159,45 +159,45 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 						<button type="submit" 	id="save_pass" class="btn btn-primary btn-sm pull-right">Submit</button>
 					</div>
 				</form>
-      		</div>
-    	</div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--verification response-->
 <div class="modal fade" id="verifyResponse" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-	    <div class="modal-content">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
 			<a class="navbar-brand hidden-print" href="/">
 				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-	        </a>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
 			<div class="modal-body text-center bg-white">
-			  	<h5 id="responseHeader"></h5>
+				<h5 id="responseHeader"></h5>
 				<hr>
 				<p id="responseMessage"></p>
 				<hr>
 				<p>
 					<a href="#loginModal" class="btn btn-warning btn-sm" data-backdrop="static" data-toggle="modal" id="verifyResponseBtn">Try again</a>
 				</p>
-	      	</div>
-	    </div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!--verification response-->
 <div class="modal fade" id="registerResponse" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-	    <div class="modal-content">
-		    <a class="navbar-brand hidden-print" href="/">
-	        	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-	    	</a>
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<a class="navbar-brand hidden-print" href="/">
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
-	        <div class="modal-body text-center bg-white">	  	
+			<div class="modal-body text-center bg-white">	  	
 				<hr>
 				<p class="registerResponseText"><?php echo $this->lang->line('registered_success_link') ?></p>
 				<hr>
@@ -209,27 +209,27 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					</p>
 					<button type="button" class="btn btn-default btn-sm" id="registerTryAgain" data-dismiss="modal" aria-label="Close">Cancel</button>
 				</div>
-	     	</div>
-	    </div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-sm" role="document">
-    	<div class="modal-content">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
 			<a class="navbar-brand hidden-print" href="/">
-            	<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
-        	</a>
+				<span class="brand-logo hide-text" style="background-image: url(<?php echo base_url(); ?>assets/uploads/2016/02/logo.png);">CoFrame</span>
+			</a>
 			<div class="visible-print-block logo-print">
-	       		<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
+				<img src="<?php echo base_url(); ?>assets/uploads/2016/02/logo.png" height="136" width="125" alt="">
 			</div>
-	        <div class="modal-body text-center bg-white">
-			  	<h5>Create Your Account</h5>
+			<div class="modal-body text-center bg-white">
+				<h5>Create Your Account</h5>
 				<hr>
-		        <form id="registerSubUser">
-		        	<input type="hidden" name="verification_code" id="verification_code" value="<?php echo !empty ($verification_code)? $verification_code:'' ; ?>" />
-		        	<input type="hidden" name="sub_user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
+				<form id="registerSubUser">
+					<input type="hidden" name="verification_code" id="verification_code" value="<?php echo !empty ($verification_code)? $verification_code:'' ; ?>" />
+					<input type="hidden" name="sub_user_id" id="user_id" value="<?php echo (!empty($user_id))? $user_id : ''; ?>" />
 					<div class="form-group">
 						<label class="sr-only" for="username_reg">Email Address</label>
 						<input type="text" class="form-control" id="email_reg" placeholder="Email Address" name="email" value="<?php echo (!empty($user_email))? $user_email : ''; ?>" />
@@ -250,15 +250,15 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 						<select class="form-control" id="timeZoneRegister" name="timezone">
 							<option value="">Time Zone*</option>
 							<?php
-								if(!empty($timezones))
+							if(!empty($timezones))
+							{
+								foreach($timezones as $timezone)
 								{
-									foreach($timezones as $timezone)
-								    {
-								    	?>
-								    	<option value="<?php echo $timezone->value ?>" <?php echo set_select('timezone', $timezone->value); ?>><?php echo $timezone->timezone; ?></option>
-								    	<?php
-								    }
+									?>
+									<option value="<?php echo $timezone->value ?>" <?php echo set_select('timezone', $timezone->value); ?>><?php echo $timezone->timezone; ?></option>
+									<?php
 								}
+							}
 							?>
 						</select>
 					</fieldset>
@@ -269,9 +269,9 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 						<a href="#loginModal" type="button" id="loginSuccess" class="hide" data-backdrop="static" data-toggle="modal"></a>
 					</div>
 				</form>
-      		</div>
-    	</div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!-- Calender -->
@@ -287,33 +287,33 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 				<h2 class="text-xs-center">Delete Drafts</h2>
 				<p class="text-xs-center"><?php echo $this->lang->line('delete_draft') ?></p>
 				<footer class="overlay-footer">
-				<button type="button" class="btn btn-sm btn-default modal-hide go-back">Go Back</button>
-				<button type="submit" class="btn btn-sm pull-sm-right btn-secondary" id="submitDeleteDrafts">Delete</button>
-			</footer>
+					<button type="button" class="btn btn-sm btn-default modal-hide go-back">Go Back</button>
+					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary" id="submitDeleteDrafts">Delete</button>
+				</footer>
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- Undo Approval Modal -->
-	<div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content bg-white">
-				<div class="modal-body">
-					<h2 class="text-xs-center">Undo Approval</h2>
-					<p class="text-xs-center">Are you sure you want to undo your approval?
+<div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-white">
+			<div class="modal-body">
+				<h2 class="text-xs-center">Undo Approval</h2>
+				<p class="text-xs-center">Are you sure you want to undo your approval?
 					You will have to approve this again.</p>
 					<footer class="overlay-footer">
-					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
-					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Undo</button>
+						<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+						<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Undo</button>
 					</footer>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- /.modal -->
+	<!-- /.modal -->
 
-<!-- Post Now Modal -->
+	<!-- Post Now Modal -->
 	<div class="modal alert-modal fade" id="postNow" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
@@ -321,16 +321,16 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<h2 class="text-xs-center">Post Now</h2>
 					<p class="text-xs-center">You are about to post to an outlet. You can’t undo this action.</p>
 					<footer class="overlay-footer">
-					<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
-					<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Post Now</button>
-				</footer>
+						<button type="button" class="btn btn-sm btn-default modal-hide">Go Back</button>
+						<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Post Now</button>
+					</footer>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- /.modal -->
+	<!-- /.modal -->
 
-<!-- Bootstrap Confirmation alert box  -->
+	<!-- Bootstrap Confirmation alert box  -->
 	<div class="modal alert-modal fade" id="confirmbox" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:9999" >
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
@@ -338,11 +338,13 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<h2 class="text-xs-center" id="confirmTitle"></h2>
 					<p class="text-xs-center" id="confirmMessage"></p>
 					<footer class="overlay-footer">
-						<button type="button" id="confirmFalse" class="btn btn-sm btn-default" >Go Back</button>
-						<button type="button" id="confirmTrue" class="btn btn-sm pull-sm-right btn-secondary">OK</button>
+						<div class="clearfix">
+							<button type="button" id="confirmFalse" class="btn btn-sm btn-default" >Go Back</button>
+							<button type="button" id="confirmTrue" class="btn btn-sm pull-sm-right btn-secondary">OK</button>
+						</div>
 					</footer>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- /.modal -->
+	<!-- /.modal -->

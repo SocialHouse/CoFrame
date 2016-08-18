@@ -625,30 +625,32 @@ jQuery(function($) {
 
 		$(document).on('click', '.cancel-brand', function(event) {
 			event.preventDefault();
-			if (confirm(language_message.confirm_cancel)) {
-				var brand_id = $('#brand_id').val();
-				if (brand_id != '') {
-					$.ajax({
-						'type': 'get',
-						dataType: 'json',
-						url: base_url + 'brands/delete/' + brand_id,
-						success: function(response) {
-							if (response.status != 'success') {
-								alert(language_message.try_again);
-								return false;
+			getConfirm(language_message.confirm_cancel,'',function(confResponse) {
+		        if(confResponse){
+					var brand_id = $('#brand_id').val();
+					if (brand_id != '') {
+						$.ajax({
+							'type': 'get',
+							dataType: 'json',
+							url: base_url + 'brands/delete/' + brand_id,
+							success: function(response) {
+								if (response.status != 'success') {
+									alert(language_message.try_again);
+									return false;
+								}
+								else
+								{
+									window.location = base_url + 'brands/overview';
+								}
 							}
-							else
-							{
-								window.location = base_url + 'brands/overview';
-							}
-						}
-					});
+						});
+					}
+					else
+					{
+						window.location = base_url + 'brands/overview';
+					}
 				}
-				else
-				{
-					window.location = base_url + 'brands/overview';
-				}
-			}
+			});
 		});
 
 		$(document).on('keyup blur', '#newLabel', function() {
@@ -843,25 +845,28 @@ jQuery(function($) {
 			// if(!($('#userPermissionsList .table').length > 1)){
 			// 	return false;
 			// }
-			if (confirm(language_message.delete_user)) {
-				var aauth_user_id = $(this).data('user-id');
-				$.ajax({
-					url: base_url + 'brands/delete_user',
-					type: 'POST',
-					data: {
-						'aauth_user_id': aauth_user_id
-					},
-					success: function(data) {
-						if (data.trim() == 'success') {
-							$('#table_id_' + aauth_user_id).fadeOut(function() {
-								$('#table_id_' + aauth_user_id).remove();
-							});
-						} else {
-							language_message.try_again;
+			var aauth_user_id = $(this).data('user-id');
+			getConfirm(language_message.delete_user,'',function(confResponse) {
+	            if(confResponse){
+					
+					$.ajax({
+						url: base_url + 'brands/delete_user',
+						type: 'POST',
+						data: {
+							'aauth_user_id': aauth_user_id
+						},
+						success: function(data) {
+							if (data.trim() == 'success') {
+								$('#table_id_' + aauth_user_id).fadeOut(function() {
+									$('#table_id_' + aauth_user_id).remove();
+								});
+							} else {
+								language_message.try_again;
+							}
 						}
-					}
-				});
-			}
+					});
+				}
+			});
 		});
 
 		$(document).on('click', '.edit-user-permission', function(e) {

@@ -389,7 +389,7 @@
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
 				var btn = this;	
-				 if($('#post-details').length){
+				 if($('#post-details').length && $(this).attr('id') != 'draft'){
 			    	if(!create_post_validation()){
 			    		console.log('yes');
 			    		return false;
@@ -409,8 +409,9 @@
 				{
 					$('#save_as').val('draft');
 				}
-				else
+				else{
 					$('#save_as').val('');
+				}
 				// preventing the duplicate submissions if the current one is in progress
 				if( $form.hasClass( 'is-uploading' ) ) return false;
 

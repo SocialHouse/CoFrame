@@ -42,26 +42,27 @@ $(document).ready(function(){
 
 	$('.change_plan').click(function(event) {
 		event.preventDefault();
-		var contorl = this;
-		if($(this).data('plan_change') == 'downgrade')
+		$contorl = $(this);
+		if($contorl.data('plan_change') == 'downgrade')
 		{
 			//billing user can not downgrade the plan
 			if(user_data.user_group && user_data.user_group == 'Billing')
 			{
-				alert(language_message.biling_downgrade);
+				//alert(language_message.biling_downgrade);
+				getConfirm(language_message.biling_downgrade,'','alert',function(){});
 				return false;
 			}
 
-			var current_users = $(this).data('current_users');
-			var current_brand_count = $(this).data('current_brand_count');
-			var current_master_users = $(this).data('current_master_users');
+			var current_users = $contorl.data('current_users');
+			var current_brand_count = $contorl.data('current_brand_count');
+			var current_master_users = $contorl.data('current_master_users');
 
 			var brand_wise_tags = $('#brand_wise_tags').val();	
 			var brand_wise_outlets = $('#brand_wise_outlets').val();			
 
-			var users_allowed = $(this).data('users');
-			var brands_allowed = $(this).data('brands');
-			var master_users_allowed = $(this).data('master_users');
+			var users_allowed = $contorl.data('users');
+			var brands_allowed = $contorl.data('brands');
+			var master_users_allowed = $contorl.data('master_users');
 
 			var user_error = 0;
 			var master_user_error = 0;
@@ -113,7 +114,7 @@ $(document).ready(function(){
 			if(brand_wise_tags)
 			{
 				brand_wise_tags = $.parseJSON(brand_wise_tags);
-				var allowed_tags = $(this).data('tags');
+				var allowed_tags = $contorl.data('tags');
 				$.each(brand_wise_tags,function(a,b){					
 					if(b.count > allowed_tags)
 					{
@@ -137,7 +138,7 @@ $(document).ready(function(){
 			if(brand_wise_outlets)
 			{
 				brand_wise_outlets = $.parseJSON(brand_wise_outlets);
-				var allowed_outlets = $(this).data('outlets');
+				var allowed_outlets = $contorl.data('outlets');
 				$.each(brand_wise_outlets,function(a,b){					
 					if(b.count > allowed_outlets)
 					{
@@ -164,22 +165,25 @@ $(document).ready(function(){
 
 			if(outlet_error || tag_error || user_error || brand_error || master_user_error)
 			{
-				alert(error_msg);
+				
+				getConfirm(error_msg,'','alert',function(){});
+				// alert(error_msg);
 				return false;
 			}
 		}
 		var message = language_message.change_plan_confirmation;
 		if($('#brand_id').val())
 		{
-			alert(language_message.change_plan_billing_details);
+			getConfirm(language_message.change_plan_billing_details,'','alert',function(){});
+			// alert(language_message.change_plan_billing_details);
 		}
 		else
 		{
-			getConfirm(message,'',function(confResponse) {
+			getConfirm(message,'','',function(confResponse) {
 				if(confResponse)
 				{
 					var $form = $('#payment_form');
-					$('#selected_plan').val($(contorl).data('plan'));
+					$('#selected_plan').val($contorl.data('plan'));
 					$form.submit();
 				}
 			});
@@ -318,7 +322,8 @@ $(document).ready(function(){
 
 	$(document).on('click', '#addUserLink', function(e) {
 		if(plan_data.users <= $('#all_users').val() && !$('#user_preferences_add_user #user_id').length){
-			alert(language_message.user_limit.replace('%user_number%',plan_data.users));
+			getConfirm(language_message.user_limit.replace('%user_number%',plan_data.users),'','alert',function(){});
+			//alert(language_message.user_limit.replace('%user_number%',plan_data.users));
 			setTimeout(function(){
 				$('#addUserBtns .btn-cancel').click();
 			},500);;
