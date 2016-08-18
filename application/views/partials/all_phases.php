@@ -13,21 +13,21 @@ if(!empty($post_details->brand_id)){
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
-					<input type="text" id="ph_one_date" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[0][approve_date]" data-popover-container="body">
+					<input type="text" id="ph_one_date" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="date0" data-popover-container="body">
 				</div>
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
 					<div class="time-select form-control form-control-sm phase-time-input 1-phase-time-input">
-						<input type="text" id="ph_one_hour" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[0][approve_hour]">
-						<input type="text" id="ph_one_minute" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[0][approve_minute]">
-						<input type="text" id="ph_one_ampm" class="time-input amselect" value="am" name="phase[0][approve_ampm]">
+						<input type="text" id="ph_one_hour" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase_approve_hour0">
+						<input type="text" id="ph_one_minute" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase_approve_minute0">
+						<input type="text" id="ph_one_ampm" class="time-input amselect" value="am" name="phase_approve_ampm0">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control form-control-sm approval_timezone" name="phase[0][time_zone]">
+			<select class="form-control form-control-sm approval_timezone">
 				<!--<option value="">--Please select timezone--</option>-->
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
@@ -52,7 +52,7 @@ if(!empty($post_details->brand_id)){
 		<div class="phase-one-error-all error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
-			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[0][note]"></textarea>
+			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default cancel-phase">Cancel</button>
@@ -63,6 +63,13 @@ if(!empty($post_details->brand_id)){
 		<h2 class="clearfix">Phase 1 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>
 		</ul>
+		<input type="hidden" name="phase[0][approve_date]" class="phase-date-time-input" />
+		<input type="hidden" name="phase[0][approve_hour]" class="hour-select" />
+		<input type="hidden" name="phase[0][approve_minute]" class="minute-select" />
+		<input type="hidden" name="phase[0][approve_ampm]" class="amselect" />
+		<input type="hidden" name="phase[0][time_zone]" class="zone" />		
+		<textarea name="phase[0][note]" class="note hide"></textarea>
+
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview1"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
@@ -81,21 +88,21 @@ if(!empty($post_details->brand_id)){
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
-					<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[1][approve_date]">
+					<input id="ph_two_date" type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="date1">
 				</div>
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
 					<div class="time-select form-control form-control-sm 2-phase-time-input">
-						<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[1][approve_hour]">
-						<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[1][approve_minute]">
-						<input type="text" class="time-input amselect" value="am" name="phase[1][approve_ampm]">
+						<input id="ph_two_hour" type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase_approve_hour1">
+						<input id="ph_two_minute" type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase_approve_minute1">
+						<input id="ph_two_ampm" type="text" class="time-input amselect" value="am" name="phase_approve_ampm1">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control form-control-sm approval_timezone" name="phase[1][time_zone]">
+			<select class="form-control form-control-sm approval_timezone">
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
 					//  If brand time zone and  user time are not same 
@@ -119,7 +126,7 @@ if(!empty($post_details->brand_id)){
 		<div class="phase-two-error error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
-			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[1][note]"></textarea>
+			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="1">Previous</button>
@@ -130,6 +137,14 @@ if(!empty($post_details->brand_id)){
 		<h2 class="clearfix">Phase 2 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>			
 		</ul>
+
+		<input type="hidden" name="phase[1][approve_date]" class="phase-date-time-input" />
+		<input type="hidden" name="phase[1][approve_hour]" class="hour-select" />
+		<input type="hidden" name="phase[1][approve_minute]" class="minute-select" />
+		<input type="hidden" name="phase[1][approve_ampm]" class="amselect" />
+		<input type="hidden" name="phase[1][time_zone]" class="zone" />
+		<textarea name="phase[1][note]" class="note hide"></textarea>
+
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview2"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
@@ -148,21 +163,21 @@ if(!empty($post_details->brand_id)){
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
-					<input type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="phase[2][approve_date]">
+					<input id="ph_three_date" type="text" class="form-control form-control-sm popover-toggle single-date-select phase-date-time-input"  placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0" name="date2">
 				</div>
 			</div>
 			<div class="form-group pull-sm-left">
 				<div class="pull-xs-left">
 					<div class="time-select form-control form-control-sm 3-phase-time-input">
-						<input type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase[2][approve_hour]">
-						<input type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase[2][approve_minute]">
-						<input type="text" class="time-input amselect" value="am" name="phase[2][approve_ampm]">
+						<input id="ph_three_hour" type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase_approve_hour2">
+						<input id="ph_three_minute" type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase_approve_minute2">
+						<input id="ph_three_ampm" type="text" class="time-input amselect" value="am" name="phase_approve_ampm2">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group slate-post-tz">
-			<select class="form-control form-control-sm approval_timezone" name="phase[2][time_zone]">
+			<select class="form-control form-control-sm approval_timezone">
 				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
 				<?php 
 					//  If brand time zone and  user time are not same 
@@ -186,7 +201,7 @@ if(!empty($post_details->brand_id)){
 		<div class="phase-three-error error hide clearfix"></div>
 		<div class="form-group">
 			<label for="approvalNotes">Note to Approvers (optional):</label>
-			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." name="phase[2][note]"></textarea>
+			<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
@@ -197,6 +212,12 @@ if(!empty($post_details->brand_id)){
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
 			<li></li>
 		</ul>
+		<input type="hidden" name="phase[2][approve_date]" class="phase-date-time-input" />
+		<input type="hidden" name="phase[2][approve_hour]" class="hour-select" />
+		<input type="hidden" name="phase[2][approve_minute]" class="minute-select" />
+		<input type="hidden" name="phase[2][approve_ampm]" class="amselect" />
+		<input type="hidden" name="phase[2][time_zone]" class="zone" />
+		<textarea name="phase[2][note]" class="note hide"></textarea>
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview3"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
