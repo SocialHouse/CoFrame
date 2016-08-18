@@ -635,11 +635,11 @@ jQuery(function($) {
 			var id =  $(this).attr('id');
 			var selected_timezone = $(this).find('.approval_timezone option:selected').text();
 
-			$('#preview_approvalPhase1' + parseInt(phaseId)+1 ).find('.timezones-preview .zone').text($('option:selected',this).text());
+			// $('#preview_approvalPhase1' + parseInt(phaseId)+1 ).find('.timezones-preview .zone').text($('option:selected',this).text());
 			
 			$(this).addClass('hide').removeClass('active');
-			console.log($('#preview_approvalPhase' + (parseInt(phaseId) + 1) ));
-			if ($('#preview_approvalPhase' + (parseInt(phaseId) + 1) ).find('.user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
+			var preview_div = $('#preview_approvalPhase' + (parseInt(phaseId) + 1) );
+			if ($(preview_div).find('.user-img').length && $(preview_div).find('.phase-date-time-input').val() && $(preview_div).find('.hour-select').val() && $(preview_div).find('.minute-select').val()) {
 				phase_added = 1;
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('hide').addClass('active');
 			}
@@ -804,6 +804,9 @@ jQuery(function($) {
 			//show time on preview (date)
 			var date = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val();			
 			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview'+(parseInt(phaseId) + 1)).text(date);
+			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.phase-date-time-input').val(date);
+
+
 			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.date-preview'+(parseInt(phaseId) + 1)).text(date);
 
 			//for preview of edit (hour minute and ampm)
@@ -815,19 +818,38 @@ jQuery(function($) {
 			$(time_preview_edit).find('.ampm-preview').val($(time).find('.amselect').val());
 
 			//for preview of add (hour minute and ampm)
-			var time_preview = $('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).closest('.time-preview');			
-			$(time_preview).find('.hour-preview').val($(time).find('.hour-select').val());
-			$(time_preview).find('.minute-preview').val($(time).find('.minute-select').val());
-			$(time_preview).find('.ampm-preview').val($(time).find('.amselect').val());
+			var time_preview = $('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.time-preview');			
+			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
+			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
+			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());			
 
 			//show time on preview (date)
-			var note = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.note').val();
-			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html(note);
-			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html(note);
+			var note = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.approvalNotes').val();
+			if(note)
+			{		
+				$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html('NOTE:'+note);			
+				$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html('NOTE:'+note);
+			}
+			else
+			{
+				$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html('');			
+				$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.approval-note').html('');
+			}
 
 			//show time on preview (timezone)
-			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.timezones-preview .zone').text($('option:selected',this).text());
+			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.timezones-preview .zone').text($('option:selected',this).text());			
 			$('#preview_edit_approvalPhase' + (parseInt(phaseId) + 1)).find('.timezones-preview .zone').text($('option:selected',this).text());
+
+
+			//hidden fields in preview
+			var phase_preview = $('#preview_approvalPhase' + (parseInt(phaseId) + 1));
+			$(phase_preview).find('.hour-select').val($(time).find('.hour-select').val());
+			$(phase_preview).find('.minute-select').val($(time).find('.minute-select').val());
+			$(phase_preview).find('.amselect').val($(time).find('.amselect').val());
+			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.note').val(note);
+			$('#preview_approvalPhase' + (parseInt(phaseId) + 1)).find('.zone').text($('option:selected',this).text());
+
+
 			
 			$(this).addClass('hide').removeClass('active');
 			if ($(this).find('.approver-selected .user-img').length && $(this).find('.phase-date-time-input').val() && $(this).find('.hour-select').val() && $(this).find('.minute-select').val()) {
@@ -854,7 +876,7 @@ jQuery(function($) {
 		$('.phase-footer').removeClass('hide');
 		
 		//hide saved phase view and and add user images which are in preview view to edit view
-		$('#phaseDetails .saved-phase').each(function() {
+		$('#phaseDetails .saved-phase').each(function(a,b) {
 			$(this).addClass('hide').removeClass('active');
 			var img = $(this).find('img');
 			$('[data-id="'+$(this).attr('data-id')+'"]:not(.saved-phase)').find('.user-img').remove();
@@ -866,8 +888,21 @@ jQuery(function($) {
 				$(div).append($(b).clone());
 				$(user_list).prepend(div);
 			});
+
+			var $previewPhase = $('.saved-phase[data-id="' + $(b).attr('data-id') + '"]');
+			var date = $previewPhase.find('.phase-date-time-input').val();
+			var hour = $previewPhase.find('.hour-select').val();
+			var minute = $previewPhase.find('.minute-select').val();
+			var ampm = $previewPhase.find('.ampmselect').val();
+			var ampm = $previewPhase.find('.note').val();
+			$(b).find('.phase-date-time-input').val(date);
+			$(b).find('.hour-select').val(hour);
+			$(b).find('.minute-select').val(minute);
+			$(b).find('.amselect').val(ampm);
+			$(b).find('.approvalNotes').val(ampm);
 		});
-		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]:not(.saved-phase)');
+		var $activePhase = $('.approval-phase[data-id="' + editPhaseNum + '"]:not(.saved-phase)');		
+
 		$activePhase.removeClass('inactive').addClass('active');
 
 		setPhaseBtns($activePhase);
@@ -976,17 +1011,17 @@ jQuery(function($) {
 	}
 
 	function savePhaseHrs(id, val) {
-		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .hour-preview').html(val);
+		// $('.saved-phase[data-id="' + id + '"]').find('.time-preview .hour-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
 
 	function savePhaseMins(id, val) {
-		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .minute-preview').html(val);
+		// $('.saved-phase[data-id="' + id + '"]').find('.time-preview .minute-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
 
 	function savePhaseAmPm(id, val) {
-		$('.saved-phase[data-id="' + id + '"]').find('.time-preview .ampm-preview').html(val);
+		// $('.saved-phase[data-id="' + id + '"]').find('.time-preview .ampm-preview').html(val);
 		setPhaseBtns($('.approval-phase.active[data-id="' + id + '"]'));
 	}
 
@@ -1457,6 +1492,7 @@ jQuery(function($) {
 		 		var phase_no = $btn.data('id') + 1;
 		 		if(phase_no == 1)
 		 		{
+			 		$("#preview_approvalPhase"+phase_no).find('li').empty();
 		 			$('.cancel-phase').trigger('click');
 		 		}
 		 		else

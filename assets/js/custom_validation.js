@@ -150,16 +150,16 @@ window.phaseValidation = function phaseValidation() {
 	 	phase1_ampm 	= $('#ph_one_ampm').val(),
 	 	phase1_error 	= $('.phase-one-error-all'),
 
-		phase2_date 	= $('input[name="phase[1][approve_date]"]').val(),
-	 	phase2_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
-	 	phase2_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
-	 	phase2_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),
+		phase2_date 	= $('#ph_two_date').val(),
+	 	phase2_hour 	= $('#ph_two_hour').val(),
+	 	phase2_minute 	= $('#ph_two_minute').val(),
+	 	phase2_ampm 	= $('#ph_two_ampm').val(),
 	 	phase2_error 	= $('.phase-two-error'),
 
-	 	phase3_date 	= $('input[name="phase[2][approve_date]"]').val(),
-	 	phase3_hour 	= $('input[name="phase[2][approve_hour]"]').val(),
-	 	phase3_minute 	= $('input[name="phase[2][approve_minute]"]').val(),
-	 	phase3_ampm 	= $('input[name="phase[2][approve_ampm]"]').val(),
+	 	phase3_date 	= $('#ph_three_date').val(),
+	 	phase3_hour 	= $('#ph_three_hour').val(),
+	 	phase3_minute 	= $('#ph_three_minute').val(),
+	 	phase3_ampm 	= $('#ph_three_ampm').val(),
 	 	phase3_error 	= $('.phase-three-error');
 
 	 	var slate_date = slate_date+' '+slate_hour+':'+slate_minute+' '+slate_ampm;
@@ -208,6 +208,9 @@ window.phaseValidation = function phaseValidation() {
 		}
 
 		if($("#approvalPhase2 ul li div").hasClass('user-img')){
+			console.log(phase2_date);
+			console.log(phase2_hour);
+			console.log(phase2_minute);
 			if( phase2_date !='' && phase2_hour !='' && phase2_minute !='' ){
 				phase2_error.hide();
 				var phs_date = phase2_date+' '+phase2_hour+':'+phase2_minute+' '+phase2_ampm;
