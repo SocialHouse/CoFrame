@@ -117,9 +117,19 @@
 										}
 										?>											
 									</div>
+								<!-- 	<div class="table-cell text-xs-center vertical-middle has-permission">
+										<?php
+										if(check_user_perm($user->aauth_user_id,'edit',$brand[0]->id))
+										{
+											?>
+											<i class="fa fa-check"></i>
+											<?php
+										}
+										?>
+									</div> -->
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'edit.',$brand[0]->id))
+										if(check_user_perm($user->aauth_user_id,'approve',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -129,7 +139,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'approve.',$brand[0]->id))
+										if(check_user_perm($user->aauth_user_id,'view',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -139,7 +149,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'view.',$brand[0]->id))
+										if(check_user_perm($user->aauth_user_id,'settings',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
@@ -149,17 +159,7 @@
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
-										if(check_user_perm($user->aauth_user_id,'settings.',$brand[0]->id))
-										{
-											?>
-											<i class="fa fa-check"></i>
-											<?php
-										}
-										?>
-									</div>
-									<div class="table-cell text-xs-center vertical-middle has-permission">
-										<?php
-										if(check_user_perm($user->aauth_user_id,'billing.',$brand[0]->id))
+										if(check_user_perm($user->aauth_user_id,'billing',$brand[0]->id))
 										{
 											?>
 											<i class="fa fa-check"></i>
