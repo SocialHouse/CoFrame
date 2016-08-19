@@ -260,6 +260,9 @@
 				</div>
 			</div>
 		</div>
+		<?php
+		echo $isFirstBrand;
+		?>
 		<?php if ($isFirstBrand === TRUE): ?>
 			<div id="addBrandSuccess" class="brand-success-btn" align="center"><a href="<?php echo base_url().'brands/dashboard/'.$brand[0]->slug; ?>" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
 		<?php else: ?>

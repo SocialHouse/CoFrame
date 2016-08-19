@@ -576,8 +576,8 @@ class Brands extends CI_Controller {
     	{
     		$brand_id = $this->data['brand'][0]->id;
     		// Check if user has added brands previously
-            $existing_brands = $this->brand_model->get_users_brand($this->user_id);
-            if (count($existing_brands > 1)){
+            $existing_brands = $this->timeframe_model->get_data_by_condition('brands',array('account_id'=>$this->user_data['account_id']),'id');
+            if (count($existing_brands) > 1){
                 $this->data['isFirstBrand'] = FALSE;
             }
             else{
@@ -589,9 +589,7 @@ class Brands extends CI_Controller {
 			$this->load->model('post_model');
 			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);			
 			$this->data['brands_user'] = $this->brand_model->get_brand_users($brand_id);
-			// echo "<pre>";
-			// print_r($this->data['brands_user']);
-			// echo "</pre>";
+					
 			$this->data['background_image'] = 'bg-admin-overview.jpg';
 			$this->data['js_files'] = array(js_url().'vendor/bootstrap-colorpicker.min.js?ver=2.3.3',js_url().'add-brand.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0');
 
