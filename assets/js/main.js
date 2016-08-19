@@ -659,8 +659,8 @@ jQuery(function($) {
 		$('#is-new-approver').val('no');
 		$.each($('#phaseDetails .saved-phase'), function() {
 			var phaseId = $(this).data('id');
-			if ($(this).find('.approval-list li').length) {
-				$('.approval-phase[data-id="' + phaseId + '"]').removeClass('active').addClass('hide');
+			$('.approval-phase[data-id="' + phaseId + '"]').removeClass('active').addClass('hide');
+			if ($(this).find('.approval-list li').length) {				
 				$('.saved-phase[data-id="' + phaseId + '"]').removeClass('inactive hide');
 			} else {
 				$(this).addClass('hide');
