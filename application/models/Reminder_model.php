@@ -58,6 +58,7 @@ class Reminder_model extends CI_Model
 	{
 		$this->db->select('id,text');
 		$this->db->where('status',0);
+		$this->db->where('desktop_notification_status',0);
 		$this->db->where('user_id',$this->user_id);
 		$this->db->where('type','reminder');
 		$this->db->group_start();
@@ -71,7 +72,7 @@ class Reminder_model extends CI_Model
 		{
 			$row = $query->row();
 			$this->db->where('id',$row->id);			
-			$this->db->update('reminders',array('status' => 1)); 
+			$this->db->update('reminders',array('desktop_notification_status' => 1)); 
 			return $row;
 		}
 		return FALSE;
