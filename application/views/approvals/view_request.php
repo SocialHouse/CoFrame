@@ -81,7 +81,7 @@
 					{
 						?>
 						<div class="btn-group pull-md-right" role="group">
-							<a href="#" class="btn btn-xs btn-default" data-clear="yes" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/view_request/<?php echo $post_details->slug.'/'.$post_details->id.''; ?>" data-toggle="modal-ajax" data-modal-id="edit-post-id<?php echo $post_details->id; ?>" data-modal-size="lg">Edit</a>
+							<a href="#" class="btn btn-xs btn-default" data-clear="yes" data-toggle="modal-ajax" data-modal-id="edit-post-modal" data-modal-size="lg" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/view_request/<?php echo $post_details->slug.'/'.$post_details->id.''; ?>" >Edit</a>
 							<?php
 							if($post_details->status == 'scheduled')
 							{

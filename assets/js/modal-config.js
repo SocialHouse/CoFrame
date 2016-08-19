@@ -85,14 +85,21 @@ jQuery(function($) {
 	
 		$('.modal-toggler').on('click', function() {
 	
-			if ($('#edit-post-details').length) {
-				var edit_modal = $('#edit-post-details').closest('.modal');
+			if ($('#edit-post-modal').length) {
 				setTimeout(function() {
-					edit_modal.remove();
+					$('#edit-post-modal').remove();
 				}, 500);
 				allFiles = [];
 				equalColumns();
 			}
+
+			if($("#edit-request-modal").length){
+				setTimeout(function() {
+					$("#edit-request-modal").remove();
+				}, 500);
+				equalColumns();
+			}
+
 			$('#qtip-popover-post-menu-content').show();
 			$('.modal').modal('hide');
 		});

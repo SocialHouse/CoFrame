@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['edit-request/(:any)'] = "approvals/edit_request/(:any)";
 $route['view-request/(:any)'] = "approvals/view_request/(:any)";
+$route['edit-request-modal/(:any)'] = "approvals/edit_request_modal/$1";
 
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";

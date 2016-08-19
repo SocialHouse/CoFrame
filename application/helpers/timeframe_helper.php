@@ -727,7 +727,7 @@ if(!function_exists('week_month_overlay_buttons'))
             if($post_details->user_id == $CI->user_id)
             {
                 $html_to_return .= '<div class="btn-group pull-md-right" role="group">
-                    <a href="#" data-clear="yes" class="btn btn-xs btn-default edit_post" data-modal-src="'.base_url().'calendar/edit_post_calendar/'.$view_type.'/'.$post_details->slug.'/'.$post_details->id.'" data-toggle="modal-ajax" data-modal-id="edit-post-id'.$post_details->id.'" data-modal-size="lg">Edit</a>';
+                    <a href="#" data-clear="yes" class="btn btn-xs btn-default edit_post"  data-toggle="modal-ajax" data-modal-id="edit-post-modal" data-modal-size="lg" data-modal-src="'.base_url().'calendar/edit_post_calendar/'.$view_type.'/'.$post_details->slug.'/'.$post_details->id.'">Edit</a>';
 
                 if($post_details->status == 'scheduled')
                 {

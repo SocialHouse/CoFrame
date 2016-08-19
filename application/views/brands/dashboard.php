@@ -33,9 +33,7 @@
 							}
 							?>
 							<li>
-								<?php
-								echo '<a href="'.base_url().'edit-request/'.$reminder->post_id.'">'.$reminder->text." ".$symbol.'</a>';
-								?>
+								<a data-modal-size="lg" data-modal-id="edit-request-modal" data-toggle="modal-ajax" data-clear="yes" href="#" data-modal-src="<?php echo base_url()."edit-request-modal/".$reminder->post_id ;?>"> <?php echo $reminder->text." ".$symbol ?></a>
 							</li>
 							<?php
 						}

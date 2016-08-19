@@ -678,7 +678,7 @@ class Brands extends CI_Controller {
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
  			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'view-n-edit-request.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0');
 
 			$this->data['background_image'] = 'bg-brand-management.jpg';
 			$this->data['view'] = 'brands/dashboard';

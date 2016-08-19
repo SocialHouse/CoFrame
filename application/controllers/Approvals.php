@@ -315,8 +315,7 @@ class Approvals extends CI_Controller {
 			redirect(base_url().'edit-request/'.$post_id);
 		}
 		else
-		{
-			
+		{			
 			$brand_id = $this->data['phase_details']->brand_id;
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
@@ -376,4 +375,29 @@ class Approvals extends CI_Controller {
 			echo "0";
 		}
 	}
+
+	function edit_request_modal($post_id)
+	{
+		$this->data = array();
+		$this->data['post_id'] = $post_id;
+		$this->data['post_details'] = $this->post_model->get_post($post_id);
+		$this->data['post_images'] = $this->post_model->get_images($post_id);
+
+		$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
+		$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+		if(!empty($brand))
+		{
+			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
+			//echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
+			if(!empty($this->data['phase']))
+			{
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand'] = $brand[0];
+				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+				// echo '<pre>'; print_r($this->data);echo '</pre>'; die;
+				echo $this->load->view('approvals/edit-request-modal', $this->data, TRUE);
+		    }
+	    }
+	}
+
 }
