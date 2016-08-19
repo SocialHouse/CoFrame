@@ -825,7 +825,7 @@ jQuery(function($) {
 			// 	return false;
 			// }
 			var aauth_user_id = $(this).data('user-id');
-			getConfirm(language_message.delete_user,'', 'alert', function(confResponse) {
+			getConfirm(language_message.delete_user,'', '', function(confResponse) {
 	            if(confResponse){
 					
 					$.ajax({
