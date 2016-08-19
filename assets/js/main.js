@@ -172,6 +172,9 @@ jQuery(function($) {
 					return false;
 				}
 			}
+			if (outlet_const === 'tumblr') {
+				showHide($(this), '#tumblrContentTypes');
+			}
 
 			if (previous_outlet != outlet_const) {
 				$(this).toggleClass('disabled');
@@ -183,6 +186,10 @@ jQuery(function($) {
 			setTimeout(equalColumns, 400);
 		});
 
+		$(document).on('click','.content-list li', function() {
+			$(this).toggleClass('disabled');
+			$(this).siblings().addClass('disabled');
+		});
 
 		$(".alert").fadeTo(5000, 500).slideUp(500, function() {
 			// $(".alert").alert('close');

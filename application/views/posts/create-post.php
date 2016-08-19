@@ -58,7 +58,22 @@
 							<input type="hidden" id="postOutlet" name="post_outlet">
 						</div>
 					</div>
-					<div class="form-group">
+					<div id="tumblrContentTypes" class="hidden extra-outlet-fields">
+						<div class="content-list clearfix">
+							<label for="tumblrContent" class="pull-sm-left">Content Type: </label>
+							<ul class="pull-sm-left">
+								<li class="disabled" data-selected-content="Text"><i class="tf-icon-text bg-tumblr show-hide" data-show="#tumblrTextPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Text"></i></li>
+								<li class="disabled" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Photo"></i></li>
+								<li class="disabled" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
+								<li class="disabled" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
+								<li class="disabled" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
+								<li class="disabled" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Audio"></i></li>
+								<li class="disabled" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Video"></i></li>
+							</ul>
+							<input type="hidden" id="tumblrContent" name="tumblrContent">
+						</div>
+					</div>
+					<div class="form-group" id="defaultPostCopy">
 						<label for="postCopy">Post Copy</label>
 						<textarea class="form-control" id="postCopy" rows="5" placeholder="Type your copy here..." name="post_copy"></textarea>
 						<div id="post_copy_error" class="error"></div>
@@ -175,6 +190,141 @@
 						<label for="ytVideoTitle">Video Title:</label>
 						<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle">					
 					</div>
+					<!--All of the Tumblr things, should probably move to a separate file-->
+					<!-- Tumblr Text Post -->
+					<div id="tumblrTextPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tbTitle">Title (Optional):</label>
+							<input type="text" placeholder="Post Title" class="form-control" name="tbTitle" id="tbTitle">
+						</div>
+						<div class="form-group">
+							<label for="tumblrPostCopy">Post Copy</label>
+							<textarea class="form-control" id="tumblrPostCopy" rows="5" placeholder="Type your copy here..." name="post_copy"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbUrl">Custom URL (Optional):</label>
+							<input type="text" placeholder="/post/123/" class="form-control" name="tbUrl" id="tbUrl">
+						</div>
+					</div>
+					<!-- Tumblr Photo Post -->
+					<div id="tumblrPhotoPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label>Photo(s): <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Images (jpg,gif,png) should be less than 2MB in size, and videos (.mp4) should be less than 100MB in size." data-popover-arrow="true"></i></label>
+							<!--Upload field here-->
+						</div>
+						<div class="form-group">
+							<label for="tbCaption">Caption (Optional):</label>
+							<input type="text" placeholder="Photo Caption" class="form-control" name="tbCaption" id="tbCaption">
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbPhotoSource">Content Source (Optional):</label>
+							<input type="url" placeholder="http://" class="form-control" name="tbPhotoSource" id="tbPhotoSource">
+						</div>
+					</div>
+					<!-- Tumblr Quote Post -->
+					<div id="tumblrQuotePost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tumblrQuoteCopy ">Quote</label>
+							<textarea class="form-control" id="tumblrQuoteCopy" rows="5" placeholder="Type quote here..." name="post_copy"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tbSource">Source (Optional):</label>
+							<input type="text" placeholder="Source" class="form-control" name="tbSource" id="tbSource">
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbUrl">Custom URL (Optional):</label>
+							<input type="text" placeholder="/post/123/" class="form-control" name="tbUrl" id="tbUrl">
+						</div>
+					</div>
+					<!-- Tumblr Link Post -->
+					<div id="tumblrLinkPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tbLink">Link:</label>
+							<input type="url" placeholder="Type or paste a URL..." class="form-control" name="tbLink" id="tbLink">
+						</div>
+						<div class="form-group">
+							<label>Change Thumbnail (Optional):</label>
+							<!--Upload field here-->
+						</div>
+						<div class="form-group">
+							<label for="tbLinkDesc">Description (Optional):</label>
+							<input type="text" placeholder="Type description here..." class="form-control" name="tbLinkDesc" id="tbLinkDesc">
+						</div>
+						<div class="form-group">
+							<label for="tbUrl">Custom URL (Optional):</label>
+							<input type="text" placeholder="/post/123/" class="form-control" name="tbUrl" id="tbUrl">
+						</div>
+					</div>
+					<!-- Tumblr Chat Post -->
+					<div id="tumblrChatPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tbTitle">Title (Optional):</label>
+							<input type="text" placeholder="Chat Title" class="form-control" name="tbTitle" id="tbTitle">
+						</div>
+						<div class="form-group">
+							<label for="tumblrChatCopy">Chat</label>
+							<textarea class="form-control" id="tumblrChatCopy" rows="5" placeholder="Type chat here..." name="post_copy"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbUrl">Custom URL (Optional):</label>
+							<input type="text" placeholder="/post/123/" class="form-control" name="tbUrl" id="tbUrl">
+						</div>
+					</div>
+					<!-- Tumblr Audio Post -->
+					<div id="tumblrAudioPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tbAudio">Audio:</label>
+							<!--File upload here-->
+						</div>
+						<div class="form-group">
+							<label for="tbAudioDescr">Description (Optional):</label>
+							<input type="text" placeholder="Type description here..." class="form-control" name="tbAudioDescr" id="tbAudioDescr">
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbUrl">Custom URL (Optional):</label>
+							<input type="text" placeholder="/post/123/" class="form-control" name="tbUrl" id="tbUrl">
+						</div>
+					</div>
+					<!-- Tumblr Video Post -->
+					<div id="tumblrVideoPost" class="hidden form-group extra-outlet-fields extra-tb-fields">
+						<div class="form-group">
+							<label for="tbAudio">Video:</label>
+							<!--File upload here-->
+						</div>
+						<div class="form-group">
+							<label for="tbVideoDescr">Caption (Optional):</label>
+							<input type="text" placeholder="Video Caption" class="form-control" name="tbVideoDescr" id="tbVideoDescr">
+						</div>
+						<div class="form-group">
+							<label for="tbTags">#Tags (Optional):</label>
+							<input type="text" placeholder="#tags" class="form-control" name="tbTags" id="tbTags">
+						</div>
+						<div class="form-group">
+							<label for="tbVideoSource">Content Source (Optional):</label>
+							<input type="url" placeholder="http://" class="form-control" name="tbVideoSource" id="tbVideoSource">
+						</div>
+					</div>
+					<!-- End Tumblr things -->
 					<div class="clearfix">
 						<div class="pull-sm-left">
 							<label>Slate Post:</label>
