@@ -11564,17 +11564,17 @@ a {
       border: solid transparent;
       border-left-color: #e5e5e5;
       border-width: 9px; }
-    .discussion-list .comment.base_receive {
+    .discussion-list .comment.msg_receive {
       background: #808080;
       color: #fff;
       margin-right: 0;
       margin-left: 14px; }
-      .discussion-list .comment.base_receive:after {
+      .discussion-list .comment.msg_receive:after {
         right: 100%;
         left: inherit;
         border-right-color: #808080;
         border-left-color: transparent; }
-      .discussion-list .comment.base_receive img {
+      .discussion-list .comment.msg_receive img {
         float: left; }
   .discussion-list .form-control {
     margin-left: 50px;
