@@ -24,7 +24,7 @@
 			<!-- archive-export -->
 			<div class="col-md-3 col-sm-6">
 				<div class="container-archive">
-					<h2 class="text-xs-center">Export Foramt</h2>
+					<h2 class="text-xs-center">Export Format</h2>
 					<ul class="timeframe-list">
 						<li class="radio">
 							<label>
