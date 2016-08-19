@@ -10,23 +10,15 @@
     margin-bottom: 0px;
 }*/
 .chat-window{
-    bottom:0;
     position:relative;
-    width: 340px;
-    float:right;
-    padding-left:24px !important;
     margin-top: 0px;
-}
-.chat-window > div > .panel{
-    border-radius: 5px 5px 0 0;
 }
 .icon_minim{
     padding:2px 10px;
 }
 .msg_container_base{
-  background: #e5e5e5;
   margin: 0;
-  padding: 0 10px 10px;
+  padding: 0 10px 10px 0;
   max-height:300px;
   overflow-x:hidden;
   overflow-y:scroll;
@@ -138,12 +130,6 @@ img {
     position:fixed;
     left:0px;
     bottom:0;
-}
-
-#btn-input{
-  width:73% !important;
-  float:left;
-  height: 20px !important;
 }
 
 #btn-chat{
