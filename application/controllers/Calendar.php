@@ -423,6 +423,7 @@ class Calendar extends CI_Controller {
 		$error = '';
 		$uploaded_files = array();
 		$post_data = $this->input->post();
+		// echo '<pre>'; print_r($post_data);echo '</pre>'; die;
 		if(!empty($post_data['post_id'])){
 
 			$previous_post_details = $this->post_model->get_post($post_data['post_id']);
@@ -489,10 +490,10 @@ class Calendar extends CI_Controller {
 	    			foreach($files as $file)
 	    			{
 	    				$post_media_data = array(
-	    										'post_id' => $post_data['post_id'],
-	    										'name' => $file->file,
-	    										'type' => $file->type,
-	    										'mime' => $file->mime
+	    										'post_id' 	=> $post_data['post_id'],
+	    										'name' 		=> $file->file,
+	    										'type' 		=> $file->type,
+	    										'mime'		=> $file->mime
 	    									);
 
 	    				$this->timeframe_model->insert_data('post_media',$post_media_data);
@@ -501,10 +502,11 @@ class Calendar extends CI_Controller {
 				
 	        	// update the post data like contect and start date
 				$post = array(
-    						'content' => $this->input->post('post_copy'),
-    						'slate_date_time' => $slate_date_time,
-    						'time_zone' =>$post_data['time_zone'],
-    						'updated_at' =>date("Y-m-d H:i:s")
+							'outlet_id' 		=> $post_data['post_outlet'],
+    						'content'			=> $this->input->post('post_copy'),
+    						'slate_date_time' 	=> $slate_date_time,
+    						'time_zone' 		=>$post_data['time_zone'],
+    						'updated_at' 		=>date("Y-m-d H:i:s")
     					);
 
 
@@ -538,8 +540,8 @@ class Calendar extends CI_Controller {
 									foreach ($user_to_add as $newuser) {
 										$phasesdata = '';
 										$phasesdata = array(
-		    										'phase_id' => $current_phase_id,
-		    										'user_id' => $newuser
+		    										'phase_id' 	=> $current_phase_id,
+		    										'user_id' 	=> $newuser
 		    									);
 										$this->timeframe_model->insert_data('phases_approver',$phasesdata);
 									}
@@ -550,8 +552,8 @@ class Calendar extends CI_Controller {
 									foreach ($user_to_delete as $olduser) {
 										$phasesdata = '';
 										$phasescondition= array(
-		    										'phase_id' => $current_phase_id,
-		    										'user_id' => $olduser
+		    										'phase_id' 	=> $current_phase_id,
+		    										'user_id' 	=> $olduser
 		    									);
 										$this->timeframe_model->delete_data('phases_approver',$phasescondition);
 									}
@@ -570,11 +572,11 @@ class Calendar extends CI_Controller {
 								$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 								// insert new phase 
 								$phase_data = array(
-		    										'phase' => $ph_number,
-		    										'brand_id' => $post_data['brand_id'],
-		    										'post_id' =>$post_data['post_id'],
-		    										'approve_by' => $approve_date_time,
-			    									'note' => $new_phase['note'],
+		    										'phase' 	=> $ph_number,
+		    										'brand_id' 	=> $post_data['brand_id'],
+		    										'post_id' 	=>$post_data['post_id'],
+		    										'approve_by'=> $approve_date_time,
+			    									'note' 		=> $new_phase['note'],
 			    									'time_zone' => $new_phase['time_zone']
 		    									);
 		    					$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
@@ -583,8 +585,8 @@ class Calendar extends CI_Controller {
 								foreach ($new_phase['approver'] as $value) {
 									$phasesdata = '';
 									$phasesdata = array(
-		    										'phase_id' => $phase_insert_id,
-		    										'user_id' => $value
+		    										'phase_id' 	=> $phase_insert_id,
+		    										'user_id' 	=> $value
 		    									);
 								$this->timeframe_model->insert_data('phases_approver',$phasesdata);
 								}

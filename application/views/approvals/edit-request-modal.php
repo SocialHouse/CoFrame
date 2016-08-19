@@ -16,14 +16,16 @@
 					<div class="clearfix"></div>
 					<div class="post-preview-footer">
 						<div class="author clearfix">
-							<?php
-							if (file_exists(upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png')) {
-								echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" />';
-							}else{
-								echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile_twitter.png">';	
-							}
-							?>
 
+							<?php
+								$path = img_url()."default_profile.jpg";
+								
+								if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png'))
+								{
+									$path = upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png';
+								}
+							?>
+							<img class="circle-img pull-sm-left" width="36" height="36" src="<?php echo $path; ?>"  alt="<?php echo ucfirst($post_details->user); ?>" >
 							<div class="author-meta pull-sm-left">
 								<h5>Created By:</h5>
 								<?php echo $post_details->user; ?>
