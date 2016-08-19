@@ -2,7 +2,7 @@
 	<div class="container-brand-step">
 	<form id="step_2_edit" method="POST" action="<?php echo base_url()?>brands/save_outlet" enctype="multipart/form-data">
 		<h4 class="text-xs-center"><span class="btn btn-sm btn-default edit-brands-info">Manage Outlets</span></h4>
-		<div class="add-brand-details brand-fields border-bottom border-black">
+		<div class="add-brand-details brand-fields">
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" name="slug" value="<?php echo $brand->slug; ?>">
 			<div id="selectedOutlets" class="outlet-list selected-items hidden" style="display: block;">

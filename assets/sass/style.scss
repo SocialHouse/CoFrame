@@ -1870,6 +1870,9 @@ a {
 	}
 	h5 {
 		padding: 1rem 0 .75rem;
+		.brand-settings & {
+			margin-bottom: 1.5rem;
+		}
 	}
 	.brand-title {
 		font-family: $bebas-book;

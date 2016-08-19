@@ -10464,6 +10464,8 @@ a {
     margin-bottom: 0; }
   .brand-step h5, .brand-step .qtip-titlebar {
     padding: 1rem 0 .75rem; }
+    .brand-settings .brand-step h5, .brand-settings .brand-step .qtip-titlebar {
+      margin-bottom: 1.5rem; }
   .brand-step .brand-title {
     font-family: "Bebas Book", Arial, Helvetica, sans-serif;
     font-size: 2rem; }

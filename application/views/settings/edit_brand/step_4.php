@@ -3,7 +3,7 @@
 		<input type="hidden" id="brand_id" name="brand_id" value="<?php echo $brand->id; ?>">
 		<input type="hidden" id="slug" name="slug" value="<?php echo $brand->slug; ?>">
 		<h4 class="text-xs-center"><span class="btn btn-sm btn-default edit-brands-info">Manage Tags</span><i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
-		<div class="add-brand-details brand-fields border-bottom border-black">
+		<div class="add-brand-details brand-fields">
 			<div id="selectedTags" class="tag-list selected-items<?php if(empty($selected_tags)) { echo 'hidden'; } ?>">
 				<ul>
 				<?php 
