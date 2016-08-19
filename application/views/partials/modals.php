@@ -339,7 +339,7 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 					<p class="text-xs-center" id="confirmMessage"></p>
 					<footer class="overlay-footer">
 						<div class="clearfix">
-							<button type="button" id="confirmFalse" class="btn btn-sm btn-default" >Go Back</button>
+							<button type="button" id="confirmFalse" class="btn btn-sm btn-default" >Cancel</button>
 							<button type="button" id="confirmTrue" class="btn btn-sm pull-sm-right btn-secondary">OK</button>
 						</div>
 					</footer>
