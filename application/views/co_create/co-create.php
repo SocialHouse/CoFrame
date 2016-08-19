@@ -22,6 +22,7 @@
 		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $this->user_data['account_id']; ?>">
 		<input type="hidden" name="save_as" id="save_as" value="">
 		<input type="hidden" name="slug" id="slug" value="<?php echo $brand->slug; ?>">
+		<input type="hidden" name="request_string" id="request-string" value="<?php echo !empty($request_string) ? $request_string : ''; ?>">
 
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
@@ -261,7 +262,6 @@
 					                <div class="panel-footer msg_container_base">
 					                    <div class="input-group">
 					                        <input id="btn-input" type="text" class="form-control chat_input" placeholder="Type a message..." />
-					                        <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
 					                    </div>
 					                </div>
 					    		</div>

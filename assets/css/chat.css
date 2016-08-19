@@ -26,11 +26,7 @@
 }
 
 .msg_container_footer{
-  background: #e5e5e5;
-  margin: 0;
-  padding: 0 10px 10px;
   max-height:300px;
-  overflow-x:hidden; 
 }
 .top-bar {
   background: #666;
@@ -44,14 +40,8 @@
     margin-left:0;
 }
 .msg_sent{
-    padding-bottom:20px !important;
-    margin-right:0;
 }
 .messages {
-  background: white;
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   max-width:100%;
 }
 .messages > p {

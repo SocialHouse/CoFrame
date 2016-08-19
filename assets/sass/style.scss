@@ -3309,7 +3309,14 @@ a {
 		padding: 0;
 	}
 	img {
-		float: left;
+		float: right;
+		max-height: 36px;
+	}
+	.msg_container {
+		@extend .clearfix;
+		+ .msg_container {
+			margin-top: 10px;
+		}
 	}
 	.comment {
 		display: inline-block;
@@ -3319,10 +3326,10 @@ a {
 		font-size: 1rem;
 		letter-spacing: normal;
 		background: #e5e5e5;
-		margin-left: 14px;
+		margin-right: 14px;
 		position: relative;
 		&:after {
-			right: 100%;
+			left: 100%;
 			top: 10px;
 			content: "";
 			height: 0;
@@ -3330,39 +3337,22 @@ a {
 			position: absolute;
 			pointer-events: none;
 			border: solid transparent;
-			border-right-color: #e5e5e5;
+			border-left-color: #e5e5e5;
 			border-width: 9px;
 		}
-		+ .comment {
-			margin-top: 10px;
-			margin-left: 50px;
+		&.base_receive {
+			background: #808080;
+			color: #fff;
+			margin-right: 0;
+			margin-left: 14px;
 			&:after {
-				display: none;
+				right: 100%;
+				left: inherit;
+				border-right-color: #808080;
+				border-left-color: transparent;
 			}
-		}
-	}
-	li {
-		@extend .clearfix;
-		margin-bottom: 10px;
-		&:nth-child(even) {
 			img {
-				float: right;
-			}
-			.comment {
-				float: right;
-				background: #808080;
-				color: #fff;
-				margin-left: 0;
-				margin-right: 14px;
-				&:after {
-					left: 100%;
-					right: inherit;
-					border-left-color: #808080;
-					border-right-color: transparent;
-				}
-				+ .comment {
-					margin-right: 50px;
-				}
+				float: left;
 			}
 		}
 	}

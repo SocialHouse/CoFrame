@@ -3309,7 +3309,7 @@ button.close {
 @media (min-width: 1024px) {
   .modal-lg {
     width: 1470px; } }
-.clearfix::after, .img-div::after, .img-wrapper::after, .tw_post .img-div::after, .table-approvals .timeframe-list.approval-list::after, .discussion-list li::after {
+.clearfix::after, .img-div::after, .img-wrapper::after, .tw_post .img-div::after, .table-approvals .timeframe-list.approval-list::after, .discussion-list .msg_container::after {
   content: "";
   display: table;
   clear: both; }
@@ -11539,7 +11539,10 @@ a {
     margin: 0;
     padding: 0; }
   .discussion-list img {
-    float: left; }
+    float: right;
+    max-height: 36px; }
+  .discussion-list .msg_container + .msg_container {
+    margin-top: 10px; }
   .discussion-list .comment {
     display: inline-block;
     max-width: 280px;
@@ -11548,10 +11551,10 @@ a {
     font-size: 1rem;
     letter-spacing: normal;
     background: #e5e5e5;
-    margin-left: 14px;
+    margin-right: 14px;
     position: relative; }
     .discussion-list .comment:after {
-      right: 100%;
+      left: 100%;
       top: 10px;
       content: "";
       height: 0;
@@ -11559,30 +11562,20 @@ a {
       position: absolute;
       pointer-events: none;
       border: solid transparent;
-      border-right-color: #e5e5e5;
+      border-left-color: #e5e5e5;
       border-width: 9px; }
-    .discussion-list .comment + .comment {
-      margin-top: 10px;
-      margin-left: 50px; }
-      .discussion-list .comment + .comment:after {
-        display: none; }
-  .discussion-list li {
-    margin-bottom: 10px; }
-    .discussion-list li:nth-child(even) img {
-      float: right; }
-    .discussion-list li:nth-child(even) .comment {
-      float: right;
+    .discussion-list .comment.base_receive {
       background: #808080;
       color: #fff;
-      margin-left: 0;
-      margin-right: 14px; }
-      .discussion-list li:nth-child(even) .comment:after {
-        left: 100%;
-        right: inherit;
-        border-left-color: #808080;
-        border-right-color: transparent; }
-      .discussion-list li:nth-child(even) .comment + .comment {
-        margin-right: 50px; }
+      margin-right: 0;
+      margin-left: 14px; }
+      .discussion-list .comment.base_receive:after {
+        right: 100%;
+        left: inherit;
+        border-right-color: #808080;
+        border-left-color: transparent; }
+      .discussion-list .comment.base_receive img {
+        float: left; }
   .discussion-list .form-control {
     margin-left: 50px;
     margin-top: 20px;

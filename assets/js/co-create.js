@@ -96,15 +96,11 @@ function initializeSession(apiKey, sessionId,token) {
 
   		var className = event.from.connectionId === session.connection.connectionId ? 'sent' : 'receive';
   		
-  		var msg_div = '<div class="row msg_container base_'+className+'">';
-	    var msg_div_img = '<div class="col-md-2 col-xs-2 avatar">';
-	    msg_div_img += '<img src="'+userData[2]+'" class=" img-responsive ">'
-	    msg_div_img += '</div>';
+  		var msg_div = '<div class="msg_container base_'+className+'">';
+	    var msg_div_img = '<img src="'+userData[2]+'" class="circle-img">';
 
-	    var msg_div_msg = '<div class="col-xs-10 col-md-10">';
-	    msg_div_msg += '<div class="messages msg_'+className+'">';
-	    msg_div_msg += '<p>'+event.data+'</p>';
-	    msg_div_msg += '</div>';
+	    var msg_div_msg = '<div class="comment msg_'+className+'">';
+	    msg_div_msg += event.data;
 	    msg_div_msg += '</div>';
 	    var append_div = msg_div_img+msg_div_msg;
 	    if(className == 'sent') {
@@ -123,15 +119,15 @@ function exceptionHandler(event) {
 var form = document.querySelector('form');
 var msgTxt = document.querySelector('#btn-input');
 // Send a signal once the user enters data in the form
-$('#btn-chat').on('click',function(event) {
-  event.preventDefault();
-
-  session.signal({
-      type: 'msg',
-      data: msgTxt.value
-    }, function(error) {
-      if (!error) {
-        msgTxt.value = '';
-      }
-    });
+$('#btn-input').on('keydown',function(event) {
+	if (event.keyCode === 13) {
+	  session.signal({
+		  type: 'msg',
+		  data: msgTxt.value
+		}, function(error) {
+		  if (!error) {
+			msgTxt.value = '';
+		  }
+		});
+	}
 });
