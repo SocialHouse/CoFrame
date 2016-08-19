@@ -312,7 +312,7 @@ class Approvals extends CI_Controller {
 				
 				$phase_insert_id = $this->timeframe_model->update_data('phases',$phase_data,$ph_condition);
 			}
-			redirect(base_url().'edit-request/'.$post_id);
+			echo json_encode(array('status'=>true));
 		}
 		else
 		{			

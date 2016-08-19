@@ -1,4 +1,4 @@
-<form name="edit-date" method="post" action="<?php echo base_url();?>approvals/edit-approval-phase/<?php echo $phase_id.'/'.$post_id .'/edit'; ?>" autocomplete="off">
+<form name="edit-date" id="edit-phase-modal-form" method="post" action="<?php echo base_url();?>approvals/edit-approval-phase/<?php echo $phase_id.'/'.$post_id .'/edit'; ?>" autocomplete="off">
 		<h5>Approvers</h5>
 		<?php 
 		$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'approvals/phase_user_list/'.$phase_id.'"';			
@@ -58,7 +58,7 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 			<span class="sep pull-sm-left"></span>
-			<button type="reset" class="btn btn-sm btn-default modal-hide">Cancel</button>
+			<button type="reset" class="btn btn-sm btn-default close-phase-modal">Cancel</button>
 			<button type="submit" class="btn btn-sm pull-sm-right btn-secondary">Save</button>
 		</footer>
 
