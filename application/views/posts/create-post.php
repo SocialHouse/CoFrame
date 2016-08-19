@@ -76,7 +76,7 @@
 						<div class="form__error">Error! <span></span>.</div>
 						<div id="img_error" class="error"></div>
 					</div>					
-					<div class="media-type clearfix hidden" id="facebookMediaUpload">
+					<div class="media-type clearfix hidden extra-outlet-fields" id="facebookMediaUpload">
 						<div class="clearfix">
 							<div class="col-md-6">
 								<input type="radio" name="media-type" value="Photos" class="hidden-xs-up">
@@ -122,7 +122,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="clearfix hidden" id="albumType">
+					<div class="clearfix hidden extra-outlet-fields" id="albumType">
 						<div class="form-group pull-sm-left">
 							<div class="radio">
 							<label>
@@ -149,6 +149,31 @@
 								<option value="05">Album Title 5</option>
 							</select>
 						</div>
+					</div>
+					<div id="linkedinPostFields" class="hidden form-group extra-outlet-fields">
+						<label for="shareWithLinkedin">Share with:</label>
+						<select class="form-control" name="shareWithLinkedin" id="shareWithLinkedin">
+							<option value="01">Public</option>
+							<option value="02">Group 2</option>
+						</select>
+					</div>
+					<div id="pinterestPostFields" class="hidden form-group extra-outlet-fields">
+						<div class="form-group">
+							<label for="pinterestBoard">Board:</label>
+							<select class="form-control" name="pinterestBoard" id="pinterestBoard">
+								<option value="">Select Board</option>
+								<option value="01">Board Name</option>
+								<option value="02">Board Name 2</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="pinSource">Source (Optional):</label>
+							<input type="url" placeholder="http://" class="form-control" name="pinSource" id="pinSource">
+						</div>
+					</div>
+					<div id="youtubePostFields" class="hidden form-group extra-outlet-fields">
+						<label for="ytVideoTitle">Video Title:</label>
+						<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle">					
 					</div>
 					<div class="clearfix">
 						<div class="pull-sm-left">

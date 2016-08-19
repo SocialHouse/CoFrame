@@ -109,8 +109,18 @@ jQuery(function($) {
 			var outlet = $(this).data('selectedOutlet');
 			var outlet_const = $(this).data('outlet-const');
 			$('#postCopy').removeAttr('maxlength');
+			$('.extra-outlet-fields').removeAttr('style');
+
+			//shrink file upload area to allow for additional fields
+			if(outlet_const === 'linkedin' || outlet_const === 'pinterest' || outlet_const === 'youtube') {
+				$('.container-post-details .form__input').addClass('single-row');
+			}
+			else {
+				$('.container-post-details .form__input').removeClass('single-row');
+			}
+
+			//only allow 140 characters for tweets
 			if (outlet_const == 'twitter') {
-				//only allow 140 characters for tweets
 				twitter_char_limit();
 			}
 			if(outlet_const !== 'twitter') {
@@ -129,6 +139,10 @@ jQuery(function($) {
 					
 				}				
 			}
+			if (outlet_const === 'youtube') {
+				showHide($(this), '#youtubePostFields');
+			}
+
 
 			if (outlet_const == 'instagram') {
 				if ($('.form__preview-wrapper video').length) {
@@ -144,6 +158,7 @@ jQuery(function($) {
 			}
 
 			if (outlet_const == 'linkedin') {
+				showHide($(this), '#linkedinPostFields');
 				if ($('.form__preview-wrapper img').length > 1) {
 					getConfirm(language_message.linkedin_outlet_change_error,'','alert',function(confResponse) {});
 					return false;
@@ -151,6 +166,7 @@ jQuery(function($) {
 			}
 
 			if (outlet_const == 'pinterest') {
+				showHide($(this), '#pinterestPostFields');
 				if ($('.form__preview-wrapper img').length > 1) {
 					getConfirm(language_message.pinterest_outlet_change_error,'','alert',function(confResponse) {});
 					return false;
@@ -164,6 +180,7 @@ jQuery(function($) {
 				$('#postOutlet').val(outlet);
 				removeFromPreview();
 			}
+			setTimeout(equalColumns, 400);
 		});
 
 
@@ -560,21 +577,7 @@ jQuery(function($) {
 			var $trigger = $(this);
 			var show = $trigger.data('show');
 			var hide = $trigger.data('hide');
-			if (hide) {
-				$(hide).slideUp(function() {
-					//call custom function on completion
-					$(hide).trigger('contentSlidUp', [$trigger]);
-					$(show).slideDown(function() {
-						$(show).trigger('contentSlidDown', [$trigger]);
-						equalColumns();
-					});
-				});
-			} else {
-				$(show).slideToggle(function() {
-					$(show).trigger('contentSlidDown', [$trigger]);
-					equalColumns();
-				});
-			}
+			showHide($trigger, show, hide);
 		});
 
 		$('body').on('click', '#showSearch', function(e) {
@@ -1186,6 +1189,24 @@ jQuery(function($) {
 			$(this).css('height', colsH);
 		});
 	};
+
+	window.showHide = function showHide(trigger, show, hide) {
+		if (hide) {
+			$(hide).slideUp(function() {
+				//call custom function on completion
+				$(hide).trigger('contentSlidUp', [trigger]);
+				$(show).slideDown(function() {
+					$(show).trigger('contentSlidDown', [trigger]);
+					equalColumns();
+				});
+			});
+		} else {
+			$(show).slideToggle(function() {
+				$(show).trigger('contentSlidDown', [trigger]);
+				equalColumns();
+			});
+		}
+	}
 
 	window.showPostPopover = function showPostPopover(element, id, jsEvent, className) {
 		var offsetY, offsetX, tipW, tipH;

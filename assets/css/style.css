@@ -11918,8 +11918,10 @@ textarea.form-control {
   position: relative;
   letter-spacing: normal;
   text-transform: none;
-  -webkit-transition: background-color .15s linear;
-  transition: background-color .15s linear; }
+  -webkit-transition: background-color .15s linear, min-height .15s linear;
+  transition: background-color .15s linear, min-height .15s linear; }
+  .has-advanced-upload .form__input.single-row {
+    min-height: 86px; }
   .has-advanced-upload .form__input .tf-icon {
     height: 22px;
     width: 22px;
