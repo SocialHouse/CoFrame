@@ -43,7 +43,7 @@
 						foreach($statuses as $status)
 						{							
 							?>
-							<li data-status="<?php echo $status ?>" data-value="f-<?php echo $status; ?>" class="filter-remove-list outlet-list">
+							<li class="filter-remove-list outlet-list" data-status="<?php echo $status ?>" data-value="f-<?php echo $status; ?>" >
 								<?php echo $status; ?>
 								<i class="tf-icon-close"></i>
 							</li>

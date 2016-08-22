@@ -349,7 +349,7 @@ if(!function_exists('get_summary'))
     {
         $CI = & get_instance();   
         $CI->load->model('post_model');     
-        return $CI->post_model->post_by_status($brand_id,'scheduled',$date);
+        return $CI->post_model->post_by_status($brand_id,'',$date);
     }
 }
 

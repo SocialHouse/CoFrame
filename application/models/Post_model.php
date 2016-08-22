@@ -368,12 +368,14 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
-	public function post_by_status($brand_id,$status,$date = '')
+	public function post_by_status($brand_id,$status='',$date = '')
 	{
 		$this->db->select('posts.id,posts.content,outlets.outlet_name,posts.slate_date_time');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
-		$status = explode(',', $status);
-		$this->db->where_in('status',$status);
+		if(!empty($status)){
+			$status = explode(',', $status);
+			$this->db->where_in('status',$status);
+		}
 		//$this->db->where('status',$status);
 		$this->db->where('brand_id',$brand_id);
 		$this->db->where('user_id',$this->user_id);

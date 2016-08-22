@@ -280,3 +280,16 @@ convertDateFormat = function(userDate){
 	}
 	return result;
 }
+
+isValidNumber = function(events, limit, current_txt_box ) {
+	if(events.which === 13 || events.which === 8 || events.which === 0 ) {
+		return true;
+	}
+	var currentVal = parseInt(current_txt_box.val(), 10);
+	if(!isNaN(currentVal)){
+		if(currentVal <= limit) {
+		 	return true;
+		}
+	}
+	return false;
+};

@@ -257,7 +257,36 @@ class Approvals extends CI_Controller {
 		$this->data['phase_id'] = $phase_id;
 		$this->data['post_id'] = $post_id;
 		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
+		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
+		
+		if($this->data['phase_details']->phase == 1){
+			$this->data['pre_ph_date'] = '';
+			$this->data['end_ph_date'] = '';
+
+			$condition = array('post_id' => $post_id,'phase' => '2');
+			$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+			if($ph_2){
+				$this->data['end_ph_date'] = $ph_2[0]->approve_by;
+			}
+		}else if($this->data['phase_details']->phase == 2){
+			$this->data['end_ph_date'] = '';
+			$condition = array('post_id' => $post_id,'phase' => '1');
+			$ph_1 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+			$this->data['pre_ph_date'] = $ph_1[0]->approve_by;
+
+			$condition = array('post_id' => $post_id,'phase' => '3');
+			$ph_3 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+			if($ph_3){
+				$this->data['end_ph_date'] = $ph_3[0]->approve_by;
+			}
+		}else if($this->data['phase_details']->phase == 3){
+			$condition = array('post_id' => $post_id,'phase' => '2');
+			$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+			$this->data['pre_ph_date'] = $ph_2[0]->approve_by;
+			$this->data['end_ph_date'] = '';
+		}
+
 		if( $this->uri->segment(5) == 'edit')
 		{
 			$post_data = $this->input->post();

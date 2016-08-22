@@ -67,7 +67,8 @@
 	$lang['delete_user'] = "Are you sure, you want to delete this user?";
 	$lang['delete_post'] = "Are you sure, you want to delete this post?";
 	$lang['unable_to_resubmit'] = "Unable to resubmit this approval phase";
-	$lang['edit_req_not_save'] = "Edit request has not been saved.";
+	$lang['edit_req_not_save'] = "Unable to save. please try after some time";
+	$lang['edit_req_save'] = "Edit request has been saved.";
 	$lang['unable_to_change_status'] = "Unable to change status.";
 	$lang['unable_to_save_reply'] = "Unable to save reply.";
 	$lang['unable_to_post'] = "Unable to scedule post.";

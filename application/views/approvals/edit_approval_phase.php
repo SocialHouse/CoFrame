@@ -1,8 +1,13 @@
 <form name="edit-date" id="edit-phase-modal-form" method="post" action="<?php echo base_url();?>approvals/edit-approval-phase/<?php echo $phase_id.'/'.$post_id .'/edit'; ?>" autocomplete="off">
 		<h5>Approvers</h5>
 		<?php 
-		$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'approvals/phase_user_list/'.$phase_id.'"';			
+		$user_list = 'data-toggle="popover-ajax" data-content-src="'.base_url().'approvals/phase_user_list/'.$phase_id.'"';	
+
+		// echo '<pre>'; print_r($post_details);echo '</pre>';		
 		?>
+		<input type="hidden" id="slate_date_time" value="<?php echo $post_details->slate_date_time; ?>">
+		<input type="hidden" id="pre_ph_date" value="<?php echo $pre_ph_date; ?>">
+		<input type="hidden" id="end_ph_date" value="<?php echo $end_ph_date; ?>">
 		<div id="phaseDetails" >
 			<div class="active" id="<?php echo $phase_details->phase; ?>" data-id="<?php echo $phase_details->phase; ?>">
 				<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected edit-request-approver" data-title="Add to Phase <?php echo $phase_details->phase; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="body">
@@ -23,6 +28,7 @@
 							<?php
 							}
 						?>
+
 						<div class="pull-sm-left">
 							<i class="tf-icon tf-icon-plus circle-border bg-black autoUserList">+</i>
 						</div>
@@ -47,6 +53,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="error" id="phase_error"></div>
 				<div class="form-group">
 					<label for="approvalNotes">Note to Approvers (optional):</label>
 					<textarea class="form-control" id="approvalNotes" rows="2" name="note" placeholder="Type your note here..."><?php echo (!empty($phase_details->note))?$phase_details->note :''; ?></textarea>
