@@ -819,7 +819,7 @@ jQuery(function($) {
 		});
 
 		
-		$('body').on('click', '#userPermissionsList .remove-user', function(event) {
+		$('body').on('click', '.remove-user', function(event) {
 			event.preventDefault();
 			// if(!($('#userPermissionsList .table').length > 1)){
 			// 	return false;
@@ -827,18 +827,23 @@ jQuery(function($) {
 			var aauth_user_id = $(this).data('user-id');
 			getConfirm(language_message.delete_user,'', '', function(confResponse) {
 	            if(confResponse){
-					
+					var brand_id = $('#brand_id').val();
 					$.ajax({
 						url: base_url + 'brands/delete_user',
 						type: 'POST',
+						dataType: 'json',
 						data: {
-							'aauth_user_id': aauth_user_id
+							'aauth_user_id': aauth_user_id,
+							'brand_id': brand_id
 						},
 						success: function(data) {
-							if (data.trim() == 'success') {
+							if (data.response == 'success') {
+								console.log($('#table_id_' + aauth_user_id));
 								$('#table_id_' + aauth_user_id).fadeOut(function() {
-									$('#table_id_' + aauth_user_id).remove();
+									$('#table_id_' + aauth_user_id).remove();									
 								});
+								$('#all_users').val(data.all_users);
+								$('#master_user_count').val(data.master_user_count);
 							} else {
 								language_message.try_again;
 							}

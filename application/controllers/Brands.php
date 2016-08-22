@@ -296,14 +296,15 @@ class Brands extends CI_Controller {
 		$post_data = $this->input->post();
     	if(!empty($post_data))
     	{
-    		$tags = $post_data['tags'];
-    		$labels = $post_data['labels'];
+    		$tags = isset($post_data['tags']) ? $post_data['tags'] : array();
+    		$labels = isset($post_data['labels']) ? $post_data['labels'] : array();
     		$previous_tags = $this->timeframe_model->get_data_array_by_condition('brand_tags',array('brand_id' => $post_data['brand_id']));
     		
     		if(!empty($previous_tags))
     		{
+    			$post_data['tag_ids'] = isset($post_data['tag_ids']) ? $post_data['tag_ids'] : array();
     			$previous_tag_ids = array_column($previous_tags,'id');
-    			$tags_to_delete = array_diff($previous_tag_ids,$post_data['tag_ids']);
+    			$tags_to_delete = array_diff($previous_tag_ids,$post_data['tag_ids']);    			
     			foreach($tags_to_delete as $tag)
     			{
     				$this->timeframe_model->delete_data('brand_tags',array('id' =>$tag));
@@ -730,12 +731,51 @@ class Brands extends CI_Controller {
 		$post_data = $this->input->post();
 		if(isset($post_data['aauth_user_id']))
 		{
-			$this->aauth->delete_user($post_data['aauth_user_id']);
-			$this->timeframe_model->delete_data('user_info',array('aauth_user_id' => $post_data['aauth_user_id']));
-			echo 'success';
+			if(isset($post_data['brand_id']))
+			{
+				$this->timeframe_model->delete_data('brand_user_map',array('brand_id' => $post_data['brand_id'],'access_user_id' => $post_data['aauth_user_id']));
+
+				$this->timeframe_model->delete_data('aauth_perm_to_user',array('brand_id' => $post_data['brand_id'],'user_id' => $post_data['aauth_user_id']));
+
+				$this->timeframe_model->delete_data('aauth_user_to_group',array('brand_id' => $post_data['brand_id'],'user_id' => $post_data['aauth_user_id']));
+			}
+
+			//check this user is master user(added through user preferences) of current account
+			$is_ac_user = $this->timeframe_model->get_data_by_condition('aauth_user_to_group',array('user_id' => $post_data['aauth_user_id'],'parent_id' => $this->user_data['account_id']),'user_id');
+
+			if(!empty($is_ac_user))
+			{
+				$this->timeframe_model->delete_data('aauth_user_to_group',array('user_id' => $post_data['aauth_user_id'],'parent_id' => $this->user_data['account_id']));
+				$this->timeframe_model->delete_data('aauth_perm_to_user',array('user_id' => $post_data['aauth_user_id'],'parent_id' => $this->user_data['account_id']));
+			}
+
+
+			//check this user is present in another brand or account
+			$is_present = $this->timeframe_model->get_data_by_condition('aauth_user_to_group',array('user_id' => $post_data['aauth_user_id']),'user_id');
+
+			//check this user is owner of any account
+			$is_account_owner = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['aauth_user_id']),'plan');
+
+			if(empty($is_present) AND empty($is_account_owner[0]->plan))
+			{
+				$this->aauth->delete_user($post_data['aauth_user_id']);
+				$this->timeframe_model->delete_data('user_info',array('aauth_user_id' => $post_data['aauth_user_id']));
+			}
+
+			$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);
+			$master_user_count = $this->brand_model->get_all_master_users();
+			if(empty($all_users))
+			{
+				$all_users = 1;
+			}
+			if(empty($master_user_count))
+			{
+				$master_user_count = 1;
+			}
+			echo json_encode(array('response' => 'success','all_users' => $all_users,'master_user_count' => $master_user_count));
 			return;
 		}else{
-			echo 'fail';
+			echo json_encode(array('response' => 'fail'));
 			return;
 		}
 	}

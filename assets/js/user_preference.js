@@ -264,7 +264,7 @@ $(document).ready(function(){
 				$('#updateUserBtns').slideUp(function() {
 					equalColumns();
 				});
-				$('#addUserInfo input').val('');
+				$('#addUserInfo input:not(:hidden)').val('');
 				$('#user_preferences_add_user')[0].reset();
 				$('#user_preferences_add_user  #new_user_pic').empty();
 				$('#user_preferences_add_user #user_id').remove();

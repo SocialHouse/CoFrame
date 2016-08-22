@@ -481,13 +481,13 @@ jQuery(document).ready(function(){
         		if(plan_data.users <= $('#all_users').val())
         		{
         			getConfirm(language_message.user_limit,'','alert',function(confResponse) {
-						// return false;
+						return false;
 					});
         		}
         		if(plan_data.master_admins <= $('#master_user_count').val() && $('#userRoleSelect').val() == 'master admin' )
         		{
         			getConfirm(language_message.master_user_limit.replace('%master_user_number%',plan_data.master_admins),'','alert',function(confResponse) {
-						// return false;
+						return false;
 					});
         		}
         		
