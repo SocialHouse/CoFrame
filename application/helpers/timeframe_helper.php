@@ -506,7 +506,6 @@ if(!function_exists('get_approval_list_buttons'))
 
                 <div class="after-approve post-actions hide">
                     <button class="btn btn-default color-success btn-disabled btn-sm" disabled>Approved</button>
-                    <a class="change-approve-status"  data-post-id="'.$post->id.'" data-phase-id="'.$phase_id.'" data-phase-status="pending" href="#">Undo</a>
                 </div>';                
             }            
             elseif($approver_status == 'approved')
