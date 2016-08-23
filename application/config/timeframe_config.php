@@ -83,3 +83,48 @@ $config['plans'] = array(
 								'phase_approvals' => 0
 							)
 					);
+
+$config['upload_limit'] = array(
+						'facebook' =>array(
+								'image_size' => 3000000, 		//03 MB  ( = 03*1000000  byte )
+								'video' => 5000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'instagram' =>array(
+								'image_size' => 5000000, 		//05 MB  ( = 05*1000000  byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'linkedin' => array(
+								'image_size' => 3000000, 		//03 MB  ( = 03*1000000  byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'pinterest' => array(
+								'image_size' => 5000000, 		//05 MB  ( = 05*1000000  byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'tumblr' => array(
+								'image_size' => 10000000, 		//10 MB  ( = 10*1000000 byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'twitter' => array(
+								'image_size' => 5000000, 		//05 MB  ( = 05*1000000  byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							),
+						'youtube' => array(
+								'image' => 5000000, 		//05 MB  ( = 05*1000000  byte )
+								'video' => 5000000 			//05 MB  ( = 05*1000000  byte )
+								'height'=>'',
+								'width' =>''
+							)
+					);

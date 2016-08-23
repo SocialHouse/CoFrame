@@ -78,11 +78,11 @@
 	$lang['change_plan_confirmation'] = "Are you sure you want to change plan.";
 	$lang['change_plan_billing_details'] = "To change plan first add billing details";
 	$lang['delete_phase_confirmation'] = "Are you sure, you want to delete this phase?";
-	$lang['image_size_limit'] = "Image size should be lass than 2 MB";
+	$lang['image_size_limit'] = "Image size should be lass than %size%";
 	$lang['invalid_extention'] = "Invalid file extention";
 	$lang['browser_not_supported'] = "This browser does not support FileReader.";
 	$lang['upload_error'] = "There was a problem with your upload. Please try again.";
-	$lang['video_size_limit'] = "video size should be less than 200 Mb";
+	$lang['video_size_limit'] = "video size should be less than %size%";
 	$lang['video_upload_error'] = "You can not add more than 1 video";
 	$lang['enter_valid_datetime_slate_greater_than_date_than_approval'] = "Please enter valid date and time or Slate date must be greater than date than Approval phase 1";
 	$lang['enter_valid_datetime_approval_than_date_than_slate_date'] = "Please enter valid date and time or Approval date must be less than Slate date";

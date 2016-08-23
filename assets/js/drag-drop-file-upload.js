@@ -69,8 +69,8 @@
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
 						
 						if( file_type[0]== 'image'){
-							if( file.size > 1000000){
-								getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {});
+							if( file.size > upload_limit[outlet_const].image_size){
+								getConfirm(language_message.image_size_limit.replace('%size%', upload_limit[outlet_const].image_size/1000000)+' MB' ,'','alert',function(confResponse) {});
 								return false;
 							}
 							if($fileDiv.find('video').length > 0){
@@ -163,7 +163,7 @@
 
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-							if( file.size > 104857600){
+							if( file.size > upload_limit[outlet_const].video){
 								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
 								return false;
 							}
@@ -255,7 +255,6 @@
 						$fileDiv.parent().find('.upload-error').addClass('hide');
 						var error ='false';						
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');	
-
 						$.each(droppedFiles, function (index, file) {
 							var file_type = file.type.split('/');
 							if($.inArray(file_type[1] ,supported_files) == -1){
@@ -284,9 +283,9 @@
 							}
 
 							if( file_type[0]== 'image'){
-								if( file.size > 2000000){
-									getConfirm(language_message.image_size_limit,'','alert',function(confResponse) {});
-									return false;							
+								if( file.size > upload_limit[outlet_const].image_size){
+									getConfirm(language_message.image_size_limit.replace('%size%',(upload_limit[outlet_const].image_size)/1000000)+' MB','','alert',function(confResponse) {});
+									return false;
 								}
 								if($('.form__file-preview').src=='video'){
 									getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
@@ -351,8 +350,8 @@
 				                }
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
-								if( file.size > 104857600){
-									getConfirm(language_message.video_size_limit,'','alert',function(confResponse) {});
+								if( file.size > upload_limit[outlet_const].video){
+									getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
 									return false;
 								}
 
