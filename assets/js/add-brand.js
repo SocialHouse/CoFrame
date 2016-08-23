@@ -897,6 +897,7 @@ jQuery(function($) {
 						$('#lastName').val(user_details.last_name);
 						$('#userTitle').val(user_details.title);
 						$('#userEmail').val(user_details.email);
+						$('#addUserRole').find('.user-name-role').text(user_details.title);
 						$('#userEmail').attr('readonly', 'readonly');
 						$('#userEmail').attr('disabled', 'disabled');
 						$('#userOutlet').val('');
