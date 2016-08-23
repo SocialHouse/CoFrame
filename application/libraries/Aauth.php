@@ -1356,7 +1356,7 @@ class Aauth {
 	 * @param int|string $group_par Group id or name to add user to
 	 * @return bool Add success/failure
 	 */
-	public function add_member($user_id, $group_par,$brand_id='',$parent_id='') {
+	public function add_member($user_id, $group_par,$brand_id = NULL,$parent_id = NULL) {
 
 		$group_id = $this->get_group_id($group_par);
 
@@ -1366,10 +1366,11 @@ class Aauth {
 			return FALSE;
 		}
 
-		if( empty($brand_id) && empty($parent_id) ) {
-			return FALSE;
-		}
-
+		// if( empty($brand_id) && empty($parent_id) ) {
+		// 	return FALSE;
+		// }
+		$query = $this->aauth_db->where('brand_id',$brand_id);
+		$query = $this->aauth_db->where('parent_id',$parent_id);
 		$query = $this->aauth_db->where('user_id',$user_id);
 		$query = $this->aauth_db->where('group_id',$group_id);
 		$query = $this->aauth_db->get($this->config_vars['user_to_group']);

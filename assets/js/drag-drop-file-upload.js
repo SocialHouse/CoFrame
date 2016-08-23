@@ -556,7 +556,7 @@
 						   selectedPermissions[i] = this.value;
 						});
 
-						$(control).addClass('hide');
+						$(control).addClass('btn-disabled');
 				    	$.ajax({
 				    		url: base_url+'brands/add_user',    		
 				    		data:{'brand_id': brand_id,'first_name':fname,'last_name':lname,'title':title,'email':email,'outlets':selectedOutlets,'role':userRoleSelect,'permissions':selectedPermissions,'image_name': image_name,'file':user_pic,' user_id': user_id,'selected_user':selected_user},
@@ -566,7 +566,7 @@
 				    		success: function(data)
 				    		{
 				    			
-				    			$(control).removeClass('hide');
+				    			$(control).removeClass('btn-disabled');
 				    			if(data.response == "success")
 				    			{
 				    				$('#user_pic_base64').val('');
