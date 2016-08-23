@@ -328,7 +328,7 @@ class Approvals extends CI_Controller {
 			$minute = !empty($post_data['post-minute'])? $post_data['post-minute'] :'';
 			$ampm = !empty($post_data['post-ampm'])? $post_data['post-ampm'] :'am';
 			$date_time = !empty($post_data['post-date'])? $post_data['post-date'] :'';
-			$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+			$date_time =  $date_time.' '.add_leading_zero($hour).':'.add_leading_zero($minute).' '.$ampm;
 
 			$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 			

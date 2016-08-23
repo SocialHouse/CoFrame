@@ -120,10 +120,11 @@ class Posts extends CI_Controller {
 			{
 				$slate_date_time = '';
 				if(!empty($post_data['post-date']) && !empty($post_data['post-hour']) && !empty($post_data['post-minute']) && !empty($post_data['post-ampm'])){
-					$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
-		    		$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));	
+					$date_time =  $post_data['post-date'].' '.add_leading_zero($post_data['post-hour']).':'.add_leading_zero($post_data['post-minute']).' '.$post_data['post-ampm'];
+		    		$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 				}
-		    	
+
+
 		    	if(!empty($post_data['post_outlet']))
 	    		{
     				$condition = array('id' => $post_data['post_outlet']);
@@ -193,7 +194,7 @@ class Posts extends CI_Controller {
 	    						if(isset($phase['approver']) AND !empty($phase['approver']))
 	    						{
 	    							$multiple_phases = 1;
-	    							$date_time =  $phase['approve_date'].' '.$phase['approve_hour'].':'.$phase['approve_minute'].' '.$phase['approve_ampm'];
+	    							$date_time =  $phase['approve_date'].' '.add_leading_zero($phase['approve_hour']).':'.add_leading_zero($phase['approve_minute']).' '.$phase['approve_ampm'];
 								    	
 								    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
@@ -252,7 +253,7 @@ class Posts extends CI_Controller {
 		    						if(isset($phase['approver']) AND !empty($phase['approver']))
 		    						{
 		    							$multiple_phases = 1;
-		    							$date_time =  $phase['approve_date'].' '.$phase['approve_hour'].':'.$phase['approve_minute'].' '.$phase['approve_ampm'];
+		    							$date_time =  $phase['approve_date'].' '.add_leading_zero($phase['approve_hour']).':'.add_leading_zero($phase['approve_minute']).' '.$phase['approve_ampm'];
 									    	
 									    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 

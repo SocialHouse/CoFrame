@@ -920,3 +920,22 @@ if(!function_exists('timezone_list'))
 }
 
 
+/**
+ * Add leading zeros to a number, if necessary
+ *
+ * @var int $value The number to add leading zeros
+ * @var int $threshold Threshold for adding leading zeros (number of digits 
+ *                     that will prevent the adding of additional zeros)
+ * @return string
+ */
+
+if(!function_exists('add_leading_zero'))
+{
+    function add_leading_zero($value, $threshold = 2)
+    {
+        return str_pad($value, $threshold, '0', STR_PAD_LEFT);
+        //return sprintf('%0' . $threshold . 's', $value);
+    }
+}
+
+

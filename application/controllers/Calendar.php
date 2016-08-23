@@ -220,7 +220,8 @@ class Calendar extends CI_Controller {
     }
 
 
-    public function get_post_by_date(){
+    public function get_post_by_date()
+    {
     	$brand_id = $this->input->post('brand_id');
     	$sdate = $this->input->post('sdate');
 	    if(!empty($brand_id)){
@@ -333,7 +334,7 @@ class Calendar extends CI_Controller {
 		$previous_post_details = $this->post_model->get_post($post_data['post_id']);
 		$approvers = get_post_approvers($post_data['post_id']);
 	
-		$schedule_date = $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
+		$schedule_date = $post_data['post_date'].' '.add_leading_zero($post_data['post_hour']).':'.add_leading_zero($post_data['post_minute']).' '.$post_data['post_ampm'];
 		$schedule_date = date("Y-m-d H:i", strtotime($schedule_date));
 		$condition = array('id' => $post_data['post_id']);
 		$scheduler_array = array('slate_date_time'=> $schedule_date,'updated_at' => date('Y-m-d H:i:s'));
@@ -394,7 +395,8 @@ class Calendar extends CI_Controller {
 	}
 
 
-	public function approval_list($post_id){		
+	public function approval_list($post_id)
+	{
 		$this->data = array();
 		if(!empty($post_id)){
 			$post_phases = $this->post_model->get_post_phases($post_id);			
@@ -428,7 +430,7 @@ class Calendar extends CI_Controller {
 
 			$previous_post_details = $this->post_model->get_post($post_data['post_id']);
 
-			$date_time =  $post_data['post-date'].' '.$post_data['post-hour'].':'.$post_data['post-minute'].' '.$post_data['post-ampm'];
+			$date_time =  $post_data['post-date'].' '.add_leading_zero($post_data['post-hour']).':'.add_leading_zero($post_data['post-minute']).' '.$post_data['post-ampm'];
 		    $slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 		   /* if(!empty($post_data['post_outlet']))
     		{*/
@@ -567,7 +569,7 @@ class Calendar extends CI_Controller {
 								$minute = !empty($new_phase['approve_minute'])? $new_phase['approve_minute'] :'';
 								$ampm = !empty($new_phase['approve_ampm'])? $new_phase['approve_ampm'] :'am';
 								$date_time = !empty($new_phase['approve_date'])? $new_phase['approve_date'] :'';
-								$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+								$date_time =  $date_time.' '.add_leading_zero($hour).':'.add_leading_zero($minute).' '.$ampm;
 
 								$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 								// insert new phase 
@@ -599,7 +601,7 @@ class Calendar extends CI_Controller {
 							$minute = !empty($new_phase['approve_minute'])? $new_phase['approve_minute'] :'';
 							$ampm = !empty($new_phase['approve_ampm'])? $new_phase['approve_ampm'] :'am';
 							$date_time = !empty($new_phase['approve_date'])? $new_phase['approve_date'] :'';
-							$date_time =  $date_time.' '.$hour.':'.$minute.' '.$ampm;
+							$date_time =  $date_time.' '.add_leading_zero($hour).':'.add_leading_zero($minute).' '.$ampm;
 
 							$approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
 
@@ -727,7 +729,7 @@ class Calendar extends CI_Controller {
 			$previous_post_details = $this->post_model->get_post($post_data['post_id']);
 			$approvers = get_post_approvers($post_data['post_id']);
 
-			$date_time =  $post_data['post_date'].' '.$post_data['post_hour'].':'.$post_data['post_minute'].' '.$post_data['post_ampm'];
+			$date_time =  $post_data['post_date'].' '.add_leading_zero($post_data['post_hour']).':'.add_leading_zero($post_data['post_minute']).' '.$post_data['post_ampm'];
 			
 			$save_data = array(
 							'slate_date_time' => date('Y-m-d H:i:s',strtotime($date_time)),
