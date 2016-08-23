@@ -162,6 +162,8 @@ window.phaseValidation = function phaseValidation() {
 	 	phase3_ampm 	= $('#ph_three_ampm').val(),
 	 	phase3_error 	= $('.phase-three-error');
 
+	 	var phs1_date_time,phs2_date_time,phs3_date_time;
+	 	var today = convertDateFormat('');
 	 	var slate_date = slate_date+' '+slate_hour+':'+slate_minute+' '+slate_ampm;
 		slate_date = convertDateFormat(slate_date);
 		if(slate_date ==''|| slate_hour==''|| slate_minute ==''|| slate_ampm ==''){
@@ -184,9 +186,9 @@ window.phaseValidation = function phaseValidation() {
 			if( phase1_date !='' && phase1_hour !='' && phase1_minute !='' ){
 				phase1_error.hide();
 				var phs_date = phase1_date+' '+phase1_hour+':'+phase1_minute+' '+phase1_ampm;
-				ed_date = convertDateFormat(phs_date);
-				console.log([today,phs_date,slate_date]);
-				if (moment(phs_date).isBetween(today, slate_date, compare_array)){
+				phs1_date_time = convertDateFormat(phs_date);
+				console.log([today,phs1_date_time,slate_date]);
+				if (moment(phs1_date_time).isBetween(today, slate_date, compare_array)){
 					disable_save_phase_btn = false;
 				}else{
 					disable_save_phase_btn = true;
@@ -208,19 +210,17 @@ window.phaseValidation = function phaseValidation() {
 		}
 
 		if($("#approvalPhase2 ul li div").hasClass('user-img')){
-			console.log(phase2_date);
-			console.log(phase2_hour);
-			console.log(phase2_minute);
+
 			if( phase2_date !='' && phase2_hour !='' && phase2_minute !='' ){
 				phase2_error.hide();
 				var phs_date = phase2_date+' '+phase2_hour+':'+phase2_minute+' '+phase2_ampm;
-				ed_date = convertDateFormat(phs_date);
-				console.log([today,phs_date,slate_date]);
-				if (moment(phs_date).isBetween(today, slate_date, compare_array)){
+				phs2_date_time = convertDateFormat(phs_date);
+				console.log([phs1_date_time,phs2_date_time,slate_date]);
+				if (moment(phs2_date_time).isBetween(phs1_date_time, slate_date, compare_array)){
 					disable_save_phase_btn = false;
 				}else{
 					disable_save_phase_btn = true;
-					phase2_error.text( language_message.phase_one_date_error);
+					phase2_error.text( language_message.phase_two_date_error);
 					phase2_error.show();
 				}
 			}
@@ -241,14 +241,14 @@ window.phaseValidation = function phaseValidation() {
 			if( phase3_date !='' && phase3_hour !='' && phase3_minute !='' ){
 				phase1_error.hide();
 				var phs_date = phase3_date+' '+phase3_hour+':'+phase3_minute+' '+phase3_ampm;
-				ed_date = convertDateFormat(phs_date);
-				console.log([today,phs_date,slate_date]);
-				if (moment(phs_date).isBetween(today, slate_date, compare_array)){
+				phs3_date_time = convertDateFormat(phs_date);
+				console.log([phs2_date_time,phs3_date_time,slate_date]);
+				if (moment(phs3_date_time).isBetween(phs2_date_time, slate_date, compare_array)){
 					disable_save_phase_btn = false;
 				}else{
 					disable_save_phase_btn = true;
-					phase1_error.text( language_message.phase_one_date_error);
-					phase1_error.show();
+					phase3_error.text( language_message.phase_three_date_error);
+					phase3_error.show();
 				}
 			}
 			else {
@@ -271,7 +271,7 @@ window.phaseValidation = function phaseValidation() {
 }
 
 
-convertDateFormat = function(userDate){
+window.convertDateFormat = function convertDateFormat(userDate) {
 	var result;
 	if(userDate){
 		result = moment(new Date (userDate)).format('YYYY-MM-DD H:mm');

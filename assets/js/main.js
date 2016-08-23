@@ -841,8 +841,8 @@ jQuery(function($) {
 			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
 			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
 			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());
-			console.log($(time_preview).find('.ampm-preview'));
-			console.log($(time).find('.amselect').val());
+			// console.log($(time_preview).find('.ampm-preview'));
+			// console.log($(time).find('.amselect').val());
 
 			//show time on preview (date)
 			var note = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.approvalNotes').val();
@@ -1657,13 +1657,13 @@ jQuery(function($) {
 
 	 $('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
-	 if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
-	 {
-	 	if(Notification.permission !== 'granted'){
-	 		Notification.requestPermission();
-	 	}
-	 	alert_notification();
-	 }
+		if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+		{
+			if(Notification.permission !== 'granted'){
+				Notification.requestPermission();
+			}
+			alert_notification();
+		}
 	});
 
 function alert_notification() {
