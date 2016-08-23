@@ -518,6 +518,13 @@ class Brands extends CI_Controller {
 					{ 
 						$response .= '<i class="fa fa-check"></i>';
 					}
+					$response .= '</div>';
+
+					$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+					if(in_array('master',$post_data['permissions']))
+					{ 
+						$response .= '<i class="fa fa-check"></i>';
+					}
 					$response .= '</div></div>';
 
 					$all_users = $this->brand_model->get_all_users($this->user_data['account_id']);

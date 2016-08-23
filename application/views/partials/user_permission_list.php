@@ -19,6 +19,9 @@
 			<div class="table-header">
 				<div class="permission">Billing</div>
 			</div>
+			<div class="table-header">
+				<div class="permission">Master</div>
+			</div>
 		</div>
 	</div>	
 </div>

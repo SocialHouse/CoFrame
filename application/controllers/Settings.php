@@ -334,6 +334,13 @@ class Settings extends CI_Controller {
 					$response .= '<i class="fa fa-check"></i>';
 				}
 				$response .= '</div>';
+				
+				$response .= '<div class="table-cell text-xs-center vertical-middle has-permission">';
+				if(in_array('master',$post_data['permissions']))
+				{ 
+					$response .= '<i class="fa fa-check"></i>';
+				}
+				$response .= '</div>';
 
                 echo json_encode(array('response' => 'success','html' => $response,'inserted_id' => $user_id));
         	}
