@@ -700,13 +700,13 @@ class Posts extends CI_Controller {
 				$brand_id = $phase[0]->brand_id;
 				$outlet = get_outlet_by_id($post_data['outlet']);
 
-				$approvers = $this->timeframe_model->get_data_by_condition('phases_approver',array('id' => $phase_id));
+				$approvers = $this->timeframe_model->get_data_by_condition('phases_approver',array('phase_id' => $phase_id));
 				foreach($approvers as $approver)
 				{					
 					$this->timeframe_model->update_data('phases_approver',$phase_data,array('id' => $approver->id));
 
 					//delete old reminders of this post to this user
-					$this->timeframe_model->delete_data('reminders',array('post_id' => $post_id,'user_id' => $approver->user_id));
+					$this->timeframe_model->delete_data('reminders',array('post_id' => $post_id,'user_id' => $approver->user_id,'phase_id' => $phase_id));
 
 					//add new reminser
 					$reminder_data = array(
