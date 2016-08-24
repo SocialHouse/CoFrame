@@ -28,6 +28,7 @@ class Cron extends CI_Controller {
         // $this->load->model('user_model');
         $this->load->model('timeframe_model');
         $this->load->model('post_model');
+        $this->load->model('social_media_model');
         $this->load->config('twitter');
         $this->load->config('tumblr');     
         
@@ -94,6 +95,12 @@ class Cron extends CI_Controller {
                 {
                     $this->tumblr_post($post,$flag);
                 }
+
+                if($post->outlet_constant == "YOUTUBE")
+                {
+                    // echo '<pre>'; print_r($posts);echo '</pre>'; 
+                    $this->youtube_post($post,$flag);
+                }
             }
         }
     }
@@ -128,7 +135,7 @@ class Cron extends CI_Controller {
                 if($upload == 1)
                 {
                     echo "<pre>";
-                    $media = $this->post_model->get_images($post_data->id);                    
+                    $media = $this->post_model->get_images($post_data->id);
                     
                     if (is_object($user_info->response)) 
                     {
@@ -349,6 +356,153 @@ class Cron extends CI_Controller {
                     $this->timeframe_model->insert_data('reminders',$reminder_data);
                 }
             }            
+        }
+    }
+
+
+    public function pintrest_post($post_data,$flag){
+        $upload = 0;
+        $condition = array('user_id' => $post_data->created_by,'type' => 'twitter');
+        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+
+
+    }
+
+    public function youtube_post($post_data,$flag){
+        
+        $upload = 0;
+        require_once('vendor/autoload.php');
+        $this->load->config('youtube');
+        $this->client_id = $this->config->item('youtube_client_id');
+        $this->client_secret = $this->config->item('youtube_client_secret');
+        $this->redirect_uri = $this->config->item('redirect_uri');
+        $this->client = new Google_Client();
+        $this->client->setClientId($this->client_id);
+        $this->client->setClientSecret($this->client_secret);
+        $this->client->setRedirectUri($this->redirect_uri);
+
+        $is_key_exist = $this->social_media_model->get_token('youtube', $post_data->created_by);
+        if(!empty($is_key_exist))
+        {
+            $token = (json_decode($is_key_exist->response,true));
+            if(empty($token['refresh_token'])){
+                $token['refresh_token']= $is_key_exist->refresh_token;
+            }
+            $this->client->setAccessToken($token);
+            $token_info = $this->client->getAccessToken();
+            /*
+            *  checked token is valid or not (Expired).  
+            *  if not valid(Expired) then update the token info by using refresh token
+            */
+            if($this->client->isAccessTokenExpired()){
+                $new_token_info = $this->client->fetchAccessTokenWithRefreshToken();
+                $this->client->setAccessToken($new_token_info);
+                $token_data = $this->client->getAccessToken();
+                $token_data = json_decode(json_encode($token_data));
+                $data = array(
+                    'access_token' => $token_data->access_token,
+                    'user_id' => $post_data->created_by,
+                    'response' => json_encode($token_data),
+                    'type' => 'youtube'
+                    );
+                if(!empty($token_data->refresh_token))
+                {
+                    $data['refresh_token']= $token_data->refresh_token;
+                }
+                $response = $this->social_media_model->save_token($data);
+            }
+
+            $video_list = $this->post_model->get_images($post_data->id);
+           
+            $htmlBody = '';
+            foreach ($video_list as $obj => $video) 
+            {
+                try
+                {
+                    $tags = array();
+                    if(!empty($post_data->post_tags))
+                    {
+                        $tags = array_column($post_data->post_tags, 'tag_name');
+                    }
+
+                    $youtube = new Google_Service_YouTube($this->client);
+                    $videoPath = upload_path().'/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$video->name;
+                    if($video->mime == 'video/mp4')
+                    {
+                        if(file_exists($videoPath))
+                        {
+                            echo gmdate("Y-m-d\Th:i:s.sZ", strtotime($post_data->slate_date_time));
+                            $snippet = new Google_Service_YouTube_VideoSnippet();
+                            $snippet->setTitle("POST ID".$post_data->id);
+                            $snippet->setDescription($post_data->content);
+                            $snippet->setTags($tags);
+                            // Numeric video category. See
+                            // https://developers.google.com/youtube/v3/docs/videoCategories/list
+                            $snippet->setCategoryId("22");
+                            
+                            // Set the video's status to "public". Valid statuses are "public",
+                            // "private" and "unlisted".
+                            // 2016-08-04
+                            
+                            $status = new Google_Service_YouTube_VideoStatus();
+                            $status->privacyStatus = "private";
+                            $status->setPublishAt(date("Y-m-d\Th:i:s.s\Z", strtotime($post_data->slate_date_time)));
+                            
+                            // Associate the snippet and status objects with a new video resource.
+
+                            $video = new Google_Service_YouTube_Video();
+                            $video->setSnippet($snippet);
+                            $video->setStatus($status);
+                            $chunkSizeBytes = 1 * 1024 * 1024;
+                            $this->client->setDefer(true);
+                            
+                            // Create a request for the API's videos.insert method to create and upload the video.
+                            
+                            $insertRequest = $youtube->videos->insert("status,snippet", $video);
+                            
+                            // Create a MediaFileUpload object for resumable uploads.
+                            
+                            $media = new Google_Http_MediaFileUpload(
+                                $this->client, $insertRequest, 'video/*', null, true, $chunkSizeBytes
+                                );
+                            $media->setFileSize(filesize($videoPath));
+                            // Read the media file and upload it chunk by chunk.
+                            $status = false;
+                            $handle = fopen($videoPath, "rb");
+                            while (!$status && !feof($handle)) 
+                            {
+                                $chunk = fread($handle, $chunkSizeBytes);
+                                $status = $media->nextChunk($chunk);
+                            }
+                            fclose($handle);
+                            // If you want to make other calls after the file upload, set setDefer back to false
+                            $this->client->setDefer(false);
+
+                            $htmlBody .= "<h3>Video Uploaded</h3><ul>";
+                            $htmlBody .= sprintf('<li>%s (%s)</li>', $status['snippet']['title'], $status['id']);
+                            $htmlBody .= '</ul>';
+                        }else{
+                            $htmlBody='Invalid file path or file dose not exits';
+                        }
+                    }
+                } 
+                catch (Google_Service_Exception $e) 
+                {
+                    $errors = json_decode($e->getMessage())->error->errors[0];
+                    echo '<pre>'; print_r($errors);echo '</pre>';
+                    //$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                } 
+                catch (Google_Exception $e) 
+                {
+                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                }
+                catch (Exception $e) 
+                {
+                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                }
+            }
+            echo $htmlBody;
+            return;
         }
     }
 

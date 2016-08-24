@@ -368,15 +368,12 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
-	public function post_by_status($brand_id,$status='',$date = '')
+	public function get_summary($brand_id,$date = '')
 	{
 		$this->db->select('posts.id,posts.content,outlets.outlet_name,posts.slate_date_time');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
-		if(!empty($status)){
-			$status = explode(',', $status);
-			$this->db->where_in('status',$status);
-		}
-		//$this->db->where('status',$status);
+		$this->db->where('status != "deleted"');
+		$this->db->where('status != "draft"');
 		$this->db->where('brand_id',$brand_id);
 		$this->db->where('user_id',$this->user_id);
 		
@@ -483,9 +480,18 @@ class Post_model extends CI_Model
 		$this->db->order_by('created_by','asc');
 		$this->db->order_by('outlet_constant','asc');
 		$query = $this->db->get('posts');
+		// echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
-			return $query->result();
+			$result = $query->result();
+			if(!empty($result)){
+				foreach ($result as $key => $post) {
+					// $result[$key]->post_images = $this->get_images($post->id);
+					$result[$key]->post_tags = $this->get_post_tags($post->id);
+				}
+				return $result;
+			}
+			return FALSE;
 		}
 		return FALSE;
 	}
