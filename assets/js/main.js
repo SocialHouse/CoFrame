@@ -1484,9 +1484,9 @@ jQuery(function($) {
 	 				if (response == 1) {
 	 					$(btn).html('Scheduled');
 	 					$(btn).prop('disabled', true);
-	 					$(btn).addClass('btn-disabled');
-	 					$(btn).addClass('btn-secondary');
-	 					$(btn).removeClass('btn-default');
+	 					// $(btn).addClass('btn-disabled');
+	 					// $(btn).addClass('btn-secondary');
+	 					// $(btn).removeClass('btn-default');
 	 				} else {
 	 					getConfirm(language_message.unable_to_post,'','alert',function(confResponse) {
 							// return false;

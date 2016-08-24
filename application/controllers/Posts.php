@@ -867,6 +867,13 @@ class Posts extends CI_Controller {
 				);
 
 			$this->timeframe_model->update_data('posts',$post_sataus,array('id' => $post_data['post_id']));
+
+			$condition = array(
+									'post_id' => $post_data['post_id'],
+									'user_id' => $this->user_id
+								);
+			$this->timeframe_model->update_data('reminders',array('status' => 1),$condition);
+
 			echo "1";
 		}
 		else
