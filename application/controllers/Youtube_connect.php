@@ -64,15 +64,15 @@ class Youtube_connect extends CI_Controller {
 		{
 			$token = (json_decode($is_key_exist->response,true));
 			if(empty($token['refresh_token'])){
-				$token['refresh_token']= $is_key_exist->refresh_token;				
+				$token['refresh_token']= $is_key_exist->refresh_token;
 			}
 			$this->client->setAccessToken($token);
 			$token_info = $this->client->getAccessToken();
 			
 			if($this->client->isAccessTokenExpired()){
-				echo 'Expired';
+				// echo 'Token is Revenued';
 				$new_token_info = $this->client->fetchAccessTokenWithRefreshToken();
-				echo '<pre>new token info: '; print_r($new_token_info);echo '</pre>';
+				// echo '<pre>new token info: '; print_r($new_token_info);echo '</pre>';
 				$this->client->setAccessToken($new_token_info);
 			}
 			$token_data = $this->client->getAccessToken();
@@ -80,7 +80,7 @@ class Youtube_connect extends CI_Controller {
 			if(!empty($token_data))
 			{
 				$token_data = json_decode(json_encode($token_data));
-				echo '<pre>'; print_r($token_data);echo '</pre>';
+				// echo '<pre>'; print_r($token_data);echo '</pre>';
 				$data = array(
 					'access_token' => $token_data->access_token,
 					'user_id' => $this->user_id,
@@ -139,6 +139,68 @@ class Youtube_connect extends CI_Controller {
 			echo str_replace('%type%', 'YouTube', $this->lang->line('save_successfully'));
 		}
 	}
+
+	public function my_uplaod_lists()
+	{
+		// Define an object that will be used to make all API requests.
+		//$this->youtube();
+		$my_tokens = $this->social_media_model->get_token('youtube');
+		
+		if($my_tokens)
+		{
+			$token = (json_decode($my_tokens->response,true));
+			if(empty($token['refresh_token'])){
+				$token['refresh_token']= $my_tokens->refresh_token;				
+			}
+			$this->client->setAccessToken($token);
+			$token_info = $this->client->getAccessToken();
+			$this->session->set_userdata('youtube_token',$token_info );
+
+		}else{
+			$this->session->unset_userdata('youtube_token');
+			$this->youtube_auth();
+		}
+		
+		$youtube = new Google_Service_YouTube($this->client);
+		
+		// Check if an auth token exists for the required scopes
+		
+		// Check to ensure that the access token was successfully acquired.
+		if ($this->session->userdata('youtube_token')) {
+			try {
+			    // Call the channels.list method to retrieve information about the
+			    // currently authenticated user's channel.
+				$channelsResponse = $youtube->channels->listChannels('contentDetails', array(
+					'mine' => 'true',
+					));
+				$htmlBody = '';
+				foreach ($channelsResponse['items'] as $channel) {
+			      // Extract the unique playlist ID that identifies the list of videos
+			      // uploaded to the channel, and then call the playlistItems.list method
+			      // to retrieve that list.
+					$uploadsListId = $channel['contentDetails']['relatedPlaylists']['uploads'];
+					$playlistItemsResponse = $youtube->playlistItems->listPlaylistItems('snippet', array(
+						'playlistId' => $uploadsListId,
+						'maxResults' => 50
+						));
+					$htmlBody .= "<h3>Videos in list $uploadsListId</h3><ul>";
+					foreach ($playlistItemsResponse['items'] as $playlistItem) {
+						
+						$htmlBody .= sprintf('<li>%s (%s)</li>', $playlistItem['snippet']['title'], $playlistItem['snippet']['resourceId']['videoId']);
+					}
+					$htmlBody .= '</ul>';
+				}
+			} catch (Google_Service_Exception $e) {
+				$htmlBody = sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			} catch (Google_Exception $e) {
+				$htmlBody = sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+			}
+			echo $htmlBody;
+		}else{
+			
+		}
+	}
+
 
 
 	function reset_session()
