@@ -180,6 +180,7 @@
 												<ul class="timeframe-list approval-list invisible">';
 										$simple_user_list = '<ul class="timeframe-list approval-list">';
 										$approved_status = [];
+										$approver_img_shown = [];
 										foreach($approvers['result'] as $approver)
 										{
 											if($approver['status'] == 'approved')
@@ -187,7 +188,7 @@
 												array_push($approved_status, 'approved');
 											}
 
-											if($approver['user_id'] == $this->user_id)
+											if($approver['user_id'] == $this->user_id AND $approver['id'] == $post->phase_id)
 											{
 												$approver_status = $approver['status'];
 												$phase_status = $approver['phase_status'];
@@ -197,30 +198,35 @@
 
 											if($approver['status'] == 'pending')
 											{
-												$is_any_pending_approver = 1;
-												$image_path = img_url().'default_profile.jpg';
-												if(file_exists(upload_path().$approver['img_folder'].'/users/'.$approver['user_id'].'.png'))
+												//it should show same user image multiple times if user is available in multiple phases
+												if(!in_array($approver['user_id'],$approver_img_shown))
 												{
-													$image_path = upload_url().$approver['img_folder'].'/users/'.$approver['user_id'].'.png';
-												}
-												$approver_count++;
-												if($approver_count >= 4)
-												{				
-													$additional_approvers_html .= '<li class="'.$approver['status'].'">
-														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
-														<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
-													</li>';
-												
-													$show_additional_approvers = 1;
-												}
-												else												
-												{
-													$approvers_html = '<li class="'.$approver['status'].'">
-														<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
-														<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
-													</li>';
-													$simple_user_list .= $approvers_html;
-													$additional_approvers_html .= $approvers_html;
+													array_push($approver_img_shown, $approver['user_id']);
+													$is_any_pending_approver = 1;
+													$image_path = img_url().'default_profile.jpg';
+													if(file_exists(upload_path().$approver['img_folder'].'/users/'.$approver['user_id'].'.png'))
+													{
+														$image_path = upload_url().$approver['img_folder'].'/users/'.$approver['user_id'].'.png';
+													}
+													$approver_count++;
+													if($approver_count >= 4)
+													{				
+														$additional_approvers_html .= '<li class="'.$approver['status'].'">
+															<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+															<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
+														</li>';
+													
+														$show_additional_approvers = 1;
+													}
+													else											
+													{
+														$approvers_html = '<li class="'.$approver['status'].'">
+															<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
+															<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
+														</li>';
+														$simple_user_list .= $approvers_html;
+														$additional_approvers_html .= $approvers_html;
+													}
 												}
 											}
 										}

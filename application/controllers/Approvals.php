@@ -70,7 +70,7 @@ class Approvals extends CI_Controller {
 			{							
 				foreach($approvals as $approval)
 				{
-					$this->data['approval_list'][date('D n/d',strtotime($approval->slate_date_time))][$approval->id] = $approval;
+					$this->data['approval_list'][date('D n/d',strtotime($approval->slate_date_time))][$approval->phase_id] = $approval;
 				}
 			}
 			
@@ -159,7 +159,8 @@ class Approvals extends CI_Controller {
 				    				'text' => 'Review feedback from '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' on '.date('m/d',strtotime($post[0]->slate_date_time)).' '.get_outlet_by_id($post[0]->outlet_id).' post',
 				    				'brand_id' => $post[0]->brand_id,
 				    				'user_id' => $post[0]->user_id,
-				    				'post_id' => $post_data['post_id']
+				    				'post_id' => $post_data['post_id'],
+				    				'phase_id' => $post_data['phase_id']
 				    			);
 		    		$this->timeframe_model->insert_data('reminders',$reminder_data);
 		    	}

@@ -223,7 +223,8 @@ class Posts extends CI_Controller {
 		    								'type' => 'reminder',
 		    								'brand_id' => $post_data['brand_id'],
 		    								'due_date' => $approve_date_time,
-		    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
+		    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
+		    								'phase_id' => $phase_insert_id
 		    								);
 
 	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -282,7 +283,8 @@ class Posts extends CI_Controller {
 			    								'type' => 'reminder',
 			    								'brand_id' => $post_data['brand_id'],
 			    								'due_date' => $approve_date_time,
-			    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time))
+			    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
+			    								'phase_id' => $phase_insert_id
 			    								);
 
 		    								$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -713,7 +715,8 @@ class Posts extends CI_Controller {
 							'post_id' => $post_id,
 							'user_id' => $approver->user_id,
 							'due_date' => $phase[0]->approve_by,
-							'text' => 'Recheck '.ucfirst($outlet).' post'
+							'text' => 'Recheck '.ucfirst($outlet).' post',
+							'phase_id' => $approver->phase_id
 
 						);
 					$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -760,11 +763,22 @@ class Posts extends CI_Controller {
 			if($post_data['status'] == 'scheduled')
 			{
 				$this->timeframe_model->update_data('posts',$approver_data,array('id'=>$post_data['post_id']));
+				$condition = array(
+									'post_id' => $post_data['post_id'],
+									'user_id' => $this->user_id
+								);
+				$this->timeframe_model->update_data('reminders',array('status' => 1),$condition);
+
 			}
 			elseif($post_data['status'] == 'unschedule')
 			{
 				$approver_data['status'] = 'pending';
 				$this->timeframe_model->update_data('posts',$approver_data,array('id'=>$post_data['post_id']));
+				$condition = array(
+									'post_id' => $post_data['post_id'],
+									'user_id' => $this->user_id
+								);
+				$this->timeframe_model->update_data('reminders',array('status' => 0),$condition);
 			}
 			else
 			{				
@@ -781,6 +795,16 @@ class Posts extends CI_Controller {
 				}
 				else
 				{
+					if($post_data['status'] == 'approved')
+					{
+						$condition = array(
+									'post_id' => $post_data['post_id'],
+									'user_id' => $this->user_id,
+									'phase_id' => $post_data['phase_id']
+								);
+						$this->timeframe_model->update_data('reminders',array('status' => 1),$condition);
+					}
+
 					$phase_user = $this->timeframe_model->get_data_by_condition('phases_approver',array('phase_id' => $post_data['phase_id']),'count(id) as count');
 
 					$approved_phase_user = $this->timeframe_model->get_data_by_condition('phases_approver',array('phase_id' => $post_data['phase_id'],'status' => 'approved'),'count(id) as count');

@@ -438,3 +438,6 @@ ALTER TABLE `social_media_keys` ADD `refresh_token` VARCHAR(300) NULL DEFAULT NU
 
 ---19-08-2016
 ALTER TABLE `reminders` ADD `desktop_notification_status` TINYINT NOT NULL DEFAULT '0' AFTER `status`;
+
+---24-08-2016
+ALTER TABLE `reminders` ADD `phase_id` INT NULL DEFAULT NULL AFTER `post_id`; 

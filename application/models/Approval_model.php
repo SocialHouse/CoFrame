@@ -28,17 +28,17 @@ class Approval_model extends CI_Model
 			{
 				$this->db->where('posts.user_id',$user_id);
 			}			
-
-			$this->db->order_by('slate_date_time','ASC');
+			$this->db->group_by('posts.id');
+			$this->db->order_by('slate_date_time','ASC');			
 			$query = $this->db->get('phases');		
 			if($query->num_rows() > 0)
 			{
 				$result =  $query->result();
-			}
+			}			
 		}
 		if(check_user_perm($user_id,'approve',$brand_id) OR $user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
-			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id');
+			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id,phases.id as phase_id');
 			$this->db->join('posts','posts.id = phases.post_id');
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
@@ -109,7 +109,7 @@ class Approval_model extends CI_Model
 			}
 
 			$this->db->order_by('phases_approver.status','desc');
-			$this->db->group_by('user_info.aauth_user_id');
+			// $this->db->group_by('user_info.aauth_user_id');
 			$query = $this->db->get('phases_approver');
 		
 			if($query->num_rows() > 0)

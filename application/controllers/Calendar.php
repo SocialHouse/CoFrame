@@ -339,7 +339,8 @@ class Calendar extends CI_Controller {
 		$condition = array('id' => $post_data['post_id']);
 		$scheduler_array = array('slate_date_time'=> $schedule_date,'updated_at' => date('Y-m-d H:i:s'));
 		$result = $this->timeframe_model->update_data('posts',$scheduler_array,$condition);
-		if($result){
+		if($result)
+		{
 			$post_details = $this->post_model->get_post($post_data['post_id']);
 			if(!empty($approvers) AND !empty($approvers['result']))
 			{
@@ -351,7 +352,8 @@ class Calendar extends CI_Controller {
 	    								'type' => 'reminder',
 	    								'brand_id' => $post_details->brand_id,
 	    								'due_date' => $approver['approve_by'],
-	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($schedule_date)).' by '.get_users_full_name($post_details->user_id)
+	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($schedule_date)).' by '.get_users_full_name($post_details->user_id),
+	    								'phase_id' => $approver['id']
     								);
 
 					$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -627,7 +629,8 @@ class Calendar extends CI_Controller {
 											'type' 		=> 'reminder',
 											'brand_id' 	=> $post_data['brand_id'],
 											'due_date' 	=> $approve_date_time,
-											'text' 		=> 'The approval process of '.get_outlet_by_id($previous_post_details->outlet_id).'  has been reset '.date('m/d',strtotime($slate_date_time))
+											'text' 		=> 'The approval process of '.get_outlet_by_id($previous_post_details->outlet_id).'  has been reset '.date('m/d',strtotime($slate_date_time)),
+											'phase_id'  => $new_phase['phase_id']
 											);
 										$this->timeframe_model->insert_data('reminders',$reminder_data);
 									}
@@ -748,7 +751,8 @@ class Calendar extends CI_Controller {
 	    								'type' => 'reminder',
 	    								'brand_id' => $post_details->brand_id,
 	    								'due_date' => $approver['approve_by'],
-	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($date_time)).' by '.get_users_full_name($post_details->user_id)
+	    								'text' => 'Date change: '.date('d/n g:i a',strtotime($post_details->slate_date_time)).' '.get_outlet_by_id($post_details->outlet_id).' post has been rescheduled to '.date('d/n g:i a',strtotime($date_time)).' by '.get_users_full_name($post_details->user_id),
+	    								'phase_id' => $approver['id']
     								);
 					$this->timeframe_model->insert_data('reminders',$reminder_data);
 				}

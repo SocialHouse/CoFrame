@@ -800,7 +800,7 @@ class Brands extends CI_Controller {
 				foreach($summary_posts as $post)
 				{
 					$html .= "<li class='post-summary'><a  class='got-to-calender' data-post-date='".date('Y-m-d',strtotime($post->slate_date_time))."' data-post_id='".$post->id."' href='".base_url().'calendar/day/'.$post_data['slug']."'>";
-					$html .= "<i class='fa fa-".$post->outlet_name."'><span class='bg-outlet bg-".$post->outlet_name."'></span></i>";
+					$html .= "<i class='fa fa-".strtolower($post->outlet_name)."'><span class='bg-outlet bg-".strtolower($post->outlet_name)."'></span></i>";
 					$html .= date('H:i A',strtotime($post->slate_date_time))."<span class='excerpt-summary'>".$post->content."</span>";
 					$html .= "</a></li>";
 				}				
