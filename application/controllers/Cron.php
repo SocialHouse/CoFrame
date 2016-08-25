@@ -85,7 +85,6 @@ class Cron extends CI_Controller {
                     $flag = 1;
                 }
 
-                echo '<pre>'; print_r($post);echo '</pre>';
                 if($previous_owner != $post->created_by OR $previous_outlet != $post->outlet_constant)
                 {
                     $previous_owner = $post->created_by;
@@ -113,8 +112,8 @@ class Cron extends CI_Controller {
 
                 if($post->outlet_constant == "PINTEREST")
                 {
-                    // echo '<pre>'; print_r($post);echo '</pre>'
-;                    $this->pintrest_post($post,$flag);
+                    // echo '<pre>'; print_r($post);echo '</pre>';
+                    $this->pintrest_post($post,$flag);
                 }
             }
         }
@@ -584,14 +583,15 @@ class Cron extends CI_Controller {
         if($this->session->userdata('pinterest_access_token')){
             $token = $this->session->userdata('pinterest_access_token');
            // $this->session->unset_userdata('pinterest_access_token');
-            echo 'In Session <br/>';
+            // echo 'In Session <br/>';
         }else{
             $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->created_by);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
-                echo 'In pinterest <br/>';                
+                // echo 'record found <br/>'; 
             }
+            // echo 'record not found <br/>';  
         }
 
         $media = $this->get_media($post_data->id,'image',1);
@@ -602,7 +602,7 @@ class Cron extends CI_Controller {
         }
         
         if(!empty( $token )){
-            echo 'got Token <br/>';
+            //echo 'got Token <br/>';
             $this->load->config('pinterest');
             $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
             $this->pinterest->auth->setOAuthToken($token['access_token']);
@@ -617,7 +617,7 @@ class Cron extends CI_Controller {
                                             "board"         => "309481874332798366"
                                         )
                                     );
-           echo $result;
+           // echo $result;
         }
     }
 
