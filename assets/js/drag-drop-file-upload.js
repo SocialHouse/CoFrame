@@ -66,6 +66,8 @@
 							// alert(language_message.invalid_extention);
 							
 						};
+						
+						
 						var outlet_const = jQuery('#postOutlet').attr('data-outlet-const');
 						
 						if( file_type[0]== 'image'){
@@ -73,6 +75,24 @@
 								getConfirm(language_message.image_size_limit.replace('%size%', upload_limit[outlet_const].image_size/1000000)+' MB' ,'','alert',function(confResponse) {});
 								return false;
 							}
+
+							if(upload_limit[outlet_const].height !="" || upload_limit[outlet_const].width !=""){
+								var img_obj = new Image();
+								img_obj.onload = function() {
+									if(upload_limit[outlet_const].height < img_obj.height){
+										console.log("In valid Height: " + img_obj.height );
+										is_valid_image = false;
+									}
+
+									if(upload_limit[outlet_const].width < img_obj.width){
+										console.log("In valid Width: " + img_obj.width );
+									}
+									
+								}
+								img_obj.src = window.URL.createObjectURL(file);
+							}
+
+
 							if($fileDiv.find('video').length > 0){
 								getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
 								return false;

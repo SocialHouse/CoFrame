@@ -87,43 +87,43 @@ $config['plans'] = array(
 $config['upload_limit'] = array(
 						'facebook' =>array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*10,45,504  byte )
-								'video' 		=> 5000000, 		//05 MB  (5242880 byte= 5mb )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 		//05 MB  (5242880 byte= 5mb )
+								'height'		=>'1200',
+								'width' 		=>'1200'
 							),
 						'instagram' =>array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 5000000, 			//05 MB  ( = 05*1000000  byte )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'		=>'1080',
+								'width' 		=>'1080'
 							),
 						'linkedin' => array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 5000000, 			//05 MB  ( = 05*1000000  byte )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'		=>'1500',
+								'width' 		=>'1500'
 							),
 						'pinterest' => array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 5000000, 			//05 MB  ( = 05*1000000  byte )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'		=>'1080',
+								'width' 		=>'1080'
 							),
 						'tumblr' => array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000 byte )
-								'video' 		=> 5000000, 			//05 MB  ( = 05*1000000  byte )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'		=>'1280',
+								'width' 		=>'1920'
 							),
 						'twitter' => array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 5000000, 			//05 MB  ( = 05*1000000  byte )
-								'height'		=>'',
-								'width' 		=>''
+								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'height'		=>'1024',
+								'width' 		=>'512'
 							),
 						'youtube' => array(
-								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 5000000,				//05 MB  ( = 05*1000000  byte )
+								'image_size' 	=> '', 				//10 MB  ( = 10*1000000  byte )
+								'video' 		=> 10000000,				//05 MB  ( = 05*1000000  byte )
 								'height'		=>'',
 								'width' 		=>''
 							)

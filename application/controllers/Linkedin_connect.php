@@ -139,12 +139,16 @@ class Linkedin_connect extends CI_Controller {
 			$token = json_decode($is_key_exist->response,true);
 			if($token['success']){
 				$token_expires_in = floor ($token['linkedin']['oauth_expires_in']/ 86400);
-				if($token_expires_in <= 0){
+				if($token_expires_in <= 0)
+				{
 					$is_token_expired = true;
 				}
-				$this->linkedin->setToken($token['linkedin']);
-				$this->session->set_userdata('linkedin_token',$token['linkedin']);
-				return true;
+				else
+				{
+					$this->linkedin->setToken($token['linkedin']);
+					$this->session->set_userdata('linkedin_token',$token['linkedin']);
+					return true;
+				}
 			}else{
 				$is_token_expired = true;
 			}
@@ -159,7 +163,6 @@ class Linkedin_connect extends CI_Controller {
 			echo 'Yout token is expired or rejected ';
 			echo '<a href="'.base_url().'linkedin_connect/linkedin/'.$this->brand_id.'/'.$this->outlet_id.'"> Please click heare to login</a>';
 			$this->reset_session();
-
 			exit();
 		}
 	}

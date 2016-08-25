@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH.'third_party/facebook-php-sdk/src/Facebook/autoload.php');
+require_once('vendor/autoload.php');
 use Facebook\FacebookRequest;
+use DirkGroenen\Pinterest\Pinterest;
+
 // use Facebook\FacebookSession;
 
 class Cron extends CI_Controller {
@@ -73,6 +76,7 @@ class Cron extends CI_Controller {
             $previous_outlet = '';
             foreach($posts as $post)
             {
+                
                 $flag = 0;
                 if(empty($previous_owner) AND empty($previous_outlet))
                 {
@@ -89,17 +93,27 @@ class Cron extends CI_Controller {
                 }
                 if($post->outlet_constant == "TWITTER")
                 {
-                    $this->twitter_post($post,$flag);
+                   $this->twitter_post($post,$flag);
                 }
                 if($post->outlet_constant == "TUMBLR")
                 {
-                    $this->tumblr_post($post,$flag);
+                   $this->tumblr_post($post,$flag);
                 }
 
                 if($post->outlet_constant == "YOUTUBE")
                 {
-                    // echo '<pre>'; print_r($posts);echo '</pre>'; 
-                    $this->youtube_post($post,$flag);
+                   $this->youtube_post($post,$flag);
+                }
+
+                if($post->outlet_constant == "LINKEDIN")
+                {
+                    $this->linkedin_post($post,$flag);
+                }
+
+                if($post->outlet_constant == "PINTEREST")
+                {
+                    // echo '<pre>'; print_r($post);echo '</pre>'
+;                    $this->pintrest_post($post,$flag);
                 }
             }
         }
@@ -324,7 +338,6 @@ class Cron extends CI_Controller {
                 return;
             }         
         }        
-        
     }
 
     function connect_to_twitter()
@@ -360,18 +373,8 @@ class Cron extends CI_Controller {
     }
 
 
-    public function pintrest_post($post_data,$flag){
-        $upload = 0;
-        $condition = array('user_id' => $post_data->created_by,'type' => 'twitter');
-        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
-
-
-    }
-
     public function youtube_post($post_data,$flag){
-        
         $upload = 0;
-        require_once('vendor/autoload.php');
         $this->load->config('youtube');
         $this->client_id = $this->config->item('youtube_client_id');
         $this->client_secret = $this->config->item('youtube_client_secret');
@@ -504,6 +507,143 @@ class Cron extends CI_Controller {
             echo $htmlBody;
             return;
         }
+    }
+
+    public function linkedin_post($post_data,$flag){
+        $token=''; 
+        $image_url = '';
+        if($this->session->userdata('linkedin_token')){
+            $token['linkedin'] = $this->session->userdata('linkedin_token');
+            $token['success'] ='1';
+           // $this->session->unset_userdata('linkedin_token');
+        }else{
+            $is_key_exist = $this->social_media_model->get_token('linkedin', $post_data->created_by);
+            if(!empty($is_key_exist)){
+                $token = json_decode($is_key_exist->response,true);
+            }
+        }
+        
+        $media = $this->get_media($post_data->id,'image',1);
+        if($media){
+            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name)){
+                $image_url = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name;
+            }
+        }
+        
+        $tags = array();
+        if(!empty($post_data->post_tags))
+        {
+            $tags = implode(", ", array_column($post_data->post_tags, 'tag_name')) ;
+        }
+        echo $post_data->content;
+        if(!empty($token))
+        {
+            $this->load->config('linkedin');
+            $data['appKey'] = $this->config->item('linked_in_api_key');
+            $data['appSecret'] = $this->config->item('linked_in_secret_key');
+            $data['callbackUrl'] = $this->config->item('linked_in_callback_url');
+            $this->load->library('linkedin', $data);
+            $this->linkedin->setResponseFormat($this->config->item('response_type'));
+            if($token['success']){
+                $token_expires_in = floor ($token['linkedin']['oauth_expires_in']/ 86400);
+                if($token_expires_in > 55){
+                    $this->linkedin->setToken($token['linkedin']);
+                    $this->session->set_userdata('linkedin_token',$token['linkedin']);
+                    $content = array();
+                    $content['comment'] = (!empty($tags))? $tags :'' ;
+                    $content['title'] = (!empty($post_data->content))? $post_data->content :'' ;
+                    $content['description'] = (!empty($post_data->content))? $post_data->content :'' ;
+
+                    if(!empty($image_path)){
+                        $content['submitted-image-url'] = $image_url;
+                    }
+
+                    /*$content['submitted-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';
+                    $content['submitted-image-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';*/
+                   
+                    $private = FALSE;
+                    $twitter = FALSE;
+                    $response = $this->linkedin->share('new', $content, $private, $twitter);
+                    if($response['success'] === TRUE) {
+                      echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
+                    }else{
+                        // send mail to creator 
+                       echo "Error SHARING content:<br /><br />RESPONSE:<br /><br /><pre>" . print_r($response, TRUE) . "</pre><br /><br />LINKEDIN OBJ:<br /><br />";
+                    }
+                }
+            }
+        }
+    }
+
+    public function pintrest_post($post_data="",$flag=""){
+        
+        $upload = 0;
+        $image_url = "";
+
+        if($this->session->userdata('pinterest_access_token')){
+            $token = $this->session->userdata('pinterest_access_token');
+           // $this->session->unset_userdata('pinterest_access_token');
+        }else{
+            $is_key_exist = $this->social_media_model->get_token('pinterest', 1 /*$post_data->created_by*/);
+            if(!empty($is_key_exist)){
+                $token = json_decode($is_key_exist->response,true);
+                $this->session->set_userdata('pinterest_access_token',$token);
+            }
+        }
+
+        $media = $this->get_media($post_data->id,'image',1);
+        if($media){
+            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name)){
+                $image_url = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name;
+            }
+        }
+        
+        if(!empty( $token )){
+            $this->load->config('pinterest');
+            $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
+            $this->pinterest->auth->setOAuthToken($token['access_token']);
+            $result = '';
+            $result = $this->pinterest->pins->create(
+                                        array(
+                                            "note"          => (!empty($post_data->content))? $post_data->content :'' ,
+                                            "image_url"     => $image_url,
+                                            // "media"         => $image_url,
+                                            "board"         => "309481874332798657"
+                                        )
+                                    );
+           // echo $result;
+        }
+    }
+
+    public function get_media($post_id,$type,$limit = NULL)
+    {
+        $result = array('images'=>array(),'video'=>array());
+        $all_media = $this->post_model->get_images($post_id);
+        if($all_media){
+            foreach ($all_media as $key => $media) {
+                if($media->type == 'images'){
+                    $result['images'] = $media;
+                }
+                if($media->type == 'video'){
+                    $result['video'] = $media;
+                }
+            }
+        }
+
+        if($type == 'image'){
+            if(!$limit){
+                return array_slice($result['images'], 0, $limit);
+            }
+            return $result['images'];
+        }
+
+        if($type == 'video'){
+            if(!$limit){
+                return array_slice($result['video'], 0, $limit);
+            }
+            return $result['video'];
+        }
+        return flase;
     }
 
 }
