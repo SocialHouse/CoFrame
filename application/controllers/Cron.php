@@ -586,7 +586,7 @@ class Cron extends CI_Controller {
            // $this->session->unset_userdata('pinterest_access_token');
             echo 'In Session <br/>';
         }else{
-            $is_key_exist = $this->social_media_model->get_token('pinterest', 1 /*$post_data->created_by*/);
+            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->created_by);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
