@@ -80,7 +80,7 @@ class Social_media_model extends CI_Model
 		
 		$this->db->where('user_id',$user_id);
 		$this->db->where('type',$type);
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		$this->db->delete($this->table);
 		return TRUE;
 	}
