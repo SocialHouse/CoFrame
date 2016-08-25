@@ -575,7 +575,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function pintrest_post($post_data="",$flag=""){
+    public function pintrest_post($post_data,$flag){
         
         $upload = 0;
         $image_url = "";
@@ -583,11 +583,13 @@ class Cron extends CI_Controller {
         if($this->session->userdata('pinterest_access_token')){
             $token = $this->session->userdata('pinterest_access_token');
            // $this->session->unset_userdata('pinterest_access_token');
+            echo 'In Session <br/>';
         }else{
             $is_key_exist = $this->social_media_model->get_token('pinterest', 1 /*$post_data->created_by*/);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
+                echo 'In pinterest <br/>';                
             }
         }
 
@@ -599,6 +601,7 @@ class Cron extends CI_Controller {
         }
         
         if(!empty( $token )){
+            echo 'got Token <br/>';
             $this->load->config('pinterest');
             $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
             $this->pinterest->auth->setOAuthToken($token['access_token']);
@@ -613,7 +616,7 @@ class Cron extends CI_Controller {
                                             "board"         => "309481874332798366"
                                         )
                                     );
-           // echo $result;
+           echo $result;
         }
     }
 
