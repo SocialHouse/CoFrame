@@ -554,8 +554,9 @@ class Cron extends CI_Controller {
                     $content['title'] = (!empty($post_data->content))? $post_data->content :'' ;
                     $content['description'] = (!empty($post_data->content))? $post_data->content :'' ;
 
-                    if(!empty($image_path)){
+                    if(!empty($image_url)){
                         $content['submitted-image-url'] = $image_url;
+                        $content['submitted-url']       = $image_url;
                     }
 
                     /*$content['submitted-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';
