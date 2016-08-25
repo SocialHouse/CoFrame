@@ -45,7 +45,7 @@
 			$form.append( '<input type="hidden" name="ajax" value="1" />' );
 
 			// automatically submit the form on file select
-			$(document).on( 'change','input[type="file"]', function( e ){
+			$('input[type="file"]').on( 'change',function( e ){
 
 				if( $(this).attr('id') != 'fileInput' && $(this).attr('id') != 'userfileInput')
 				{
