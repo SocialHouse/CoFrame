@@ -85,6 +85,7 @@ class Cron extends CI_Controller {
                     $flag = 1;
                 }
 
+                echo '<pre>'; print_r($post);echo '</pre>';
                 if($previous_owner != $post->created_by OR $previous_outlet != $post->outlet_constant)
                 {
                     $previous_owner = $post->created_by;
