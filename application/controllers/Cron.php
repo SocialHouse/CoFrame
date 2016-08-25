@@ -535,7 +535,7 @@ class Cron extends CI_Controller {
         {
             $tags = implode(", ", array_column($post_data->post_tags, 'tag_name')) ;
         }
-        echo $post_data->content;
+       
         if(!empty($token))
         {
             $this->load->config('linkedin');
@@ -565,10 +565,10 @@ class Cron extends CI_Controller {
                     $twitter = FALSE;
                     $response = $this->linkedin->share('new', $content, $private, $twitter);
                     if($response['success'] === TRUE) {
-                      echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
+                     // echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
                     }else{
                         // send mail to creator 
-                       echo "Error SHARING content:<br /><br />RESPONSE:<br /><br /><pre>" . print_r($response, TRUE) . "</pre><br /><br />LINKEDIN OBJ:<br /><br />";
+                      // echo "Error SHARING content:<br /><br />RESPONSE:<br /><br /><pre>" . print_r($response, TRUE) . "</pre><br /><br />LINKEDIN OBJ:<br /><br />";
                     }
                 }
             }
@@ -607,8 +607,10 @@ class Cron extends CI_Controller {
                                         array(
                                             "note"          => (!empty($post_data->content))? $post_data->content :'' ,
                                             "image_url"     => $image_url,
-                                            // "media"         => $image_url,
-                                            "board"         => "309481874332798657"
+                                            "media"         => $image_url,
+                                            // "image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
+                                            // "media"         => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
+                                            "board"         => "309481874332798366"
                                         )
                                     );
            // echo $result;
