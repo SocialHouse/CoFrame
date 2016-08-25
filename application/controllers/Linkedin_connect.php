@@ -161,7 +161,7 @@ class Linkedin_connect extends CI_Controller {
 			$this->social_media_model->delete_token('linkedin',$this->brand_id,$this->outlet_id);
 			
 			echo 'Yout token is expired or rejected ';
-			echo '<a href="'.base_url().'linkedin_connect/linkedin/'.$this->brand_id.'/'.$this->outlet_id.'"> Please click heare to login</a>';
+			echo '<br/><a href="'.base_url().'linkedin_connect/linkedin/'.$this->brand_id.'/'.$this->outlet_id.'"> Please click heare to login</a>';
 			$this->reset_session();
 			exit();
 		}

@@ -81,7 +81,7 @@
 								img_obj.onload = function() {
 									if(upload_limit[outlet_const].height < img_obj.height){
 										console.log("In valid Height: " + img_obj.height );
-										is_valid_image = false;
+										//is_valid_image = false;
 									}
 
 									if(upload_limit[outlet_const].width < img_obj.width){
