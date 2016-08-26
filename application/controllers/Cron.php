@@ -622,6 +622,11 @@ class Cron extends CI_Controller {
         }
     }
 
+
+    public function facebook_post($post_data,$flag){
+        
+    }
+
     public function get_media($post_id,$type,$limit = NULL)
     {
         $result = array('images'=>array(),'video'=>array());
@@ -652,5 +657,7 @@ class Cron extends CI_Controller {
         }
         return flase;
     }
+
+
 
 }
