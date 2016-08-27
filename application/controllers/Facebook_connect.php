@@ -79,9 +79,9 @@ class Facebook_connect extends CI_Controller {
 
 	public function upload()
 	{
-		$img_path = "http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57bed9b786fa1.jpg";
+		// $img_path = "http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57bed9b786fa1.jpg";
 		
-		$responses = $this->facebook->user_upload_request($img_path, ['message' => 'This is a test upload','no_story'=>1]);
+		// $responses = $this->facebook->user_upload_request($img_path, ['message' => 'This is a test upload','no_story'=>1]);
 
 		// $params = array (
 		// 			array(
@@ -90,19 +90,58 @@ class Facebook_connect extends CI_Controller {
 		// 			),
 		// 			array(
 		// 			    'message' => 'M2',
-		// 			    'source' => 'http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57bed9b786fa1.jpg'
+		// 			    'source' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48'
 		// 			)
 		// 			,
 		// 			array(
 		// 			    'message' => 'M3',
-		// 			    'source' => 'https://img1.etsystatic.com/035/0/7305913/il_340x270.641782141_s2yw.jpg'
+		// 			    'source' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A'
 		// 			)
 		// 		);
 		// foreach ($params as $key => $obj) {
 		// 	$this->facebook->add_to_batch_pool('upload', 'POST', '/me/photos',$obj);
 		// }
 		// $responses = $this->facebook->send_batch_pool();
-		echo json_encode($responses);
+		$this->fb = $this->facebook->object();
+		$user = $this->facebook->request('get', '/me?fields=id,name,email');
+
+		$tmp_type ="me/photos";
+
+        $batch = [
+        'photo_1' => $this->fb->request('POST', $tmp_type, [
+         	'message' => 'photo_1',
+         	'url' => 'https://s-media-cache-ak0.pinimg.com/564x/ae/2d/b2/ae2db2286ead909b2417cf04f1ca4b32.jpg',
+         	'no_story'=>false
+         ]),
+        'photo_2' => $this->fb->request('POST', $tmp_type, [
+        	'message' => 'photo_2',
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14141801_239300636464245_5202942603565279194_n.jpg?oh=8c742ec76ec97aa052fe387e3ab5d939&oe=584AB324',
+         	'no_story'=>false
+          ]),
+        'photo_3' => $this->fb->request('POST', $tmp_type, [
+        	'message' => 'photo_3',
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14068241_239300676464241_3380064916531236447_n.jpg?oh=16446eb4bb0be26bd9fcff13df66c346&oe=585E994A',
+         	'no_story'=>false
+          ]),
+        'photo_4' => $this->fb->request('POST', $tmp_type, [
+        	'message' => 'photo_4',
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A',
+         	'no_story'=>false
+          ]),
+        'photo_5' => $this->fb->request('POST', $tmp_type, [
+        	'message' => 'photo_5',
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48',
+         	'no_story'=>false
+          ]),
+        ];
+
+        $response = $this->fb->sendBatchRequest($batch);
+         $data = [];
+            foreach ($response as $key => $response)
+            {
+                $data[$key] = $response->getDecodedBody();
+            }
+        echo '<pre>'; print_r($data);echo '</pre>'; 
 	
 	}
 

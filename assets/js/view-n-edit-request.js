@@ -138,7 +138,8 @@ jQuery(function($) {
     });
 
     $(document).on('keyup blur', '#comment_copy', function() {
-        $suggest_edit = $(this).parent().parent();
+        $suggest_edit = $(this).closest('.comment-section');
+        console.log($suggest_edit);
         if ($.trim($(this).val())) {
             toggleBtnClass($suggest_edit.find('button.save-edit-req'), false);
         } else {
@@ -147,7 +148,8 @@ jQuery(function($) {
     });
 
     $(document).on('keyup blur', '#reply_comment_copy', function() {
-        $suggest_edit = $(this).parent().parent();
+        $suggest_edit = $(this).closest('.comment-section');
+         console.log($suggest_edit);
         if ($.trim($(this).val())) {
             toggleBtnClass($suggest_edit.find('button.reply-comment-submit'), false);
         } else {
@@ -314,7 +316,8 @@ jQuery(function($) {
         var parent_id = $(this).data('comment-id');
         var status = $(this).data('status');
 
-        var reply_div = $(this).parent().parent().parent().parent();
+        // var reply_div = $(this).parent().parent().parent().parent();
+        var reply_div =$(this).closest('ul.commentReply');
         var data = new FormData();
         jQuery.each($("input[name='attachment" + parent_id + "']")[0].files, function(i, file) {
             data.append('attachment', file, file.name);
