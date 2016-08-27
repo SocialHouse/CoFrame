@@ -281,7 +281,8 @@ jQuery(function($) {
     })
 
     $(document).on('keyup blur', '.reply-comment', function() {
-        var btn = $(this).parent().parent().children('div:last').children('div:last').find('.save-reply');
+        var btn = $(this).closest('li.comment-section').find('.save-reply');
+         
         if ($(this).val()) {
             toggleBtnClass(btn, false);
         } else {

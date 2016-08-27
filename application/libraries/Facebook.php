@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once(APPPATH.'third_party/facebook-php-sdk/src/Facebook/autoload.php');
 /**
  * Facebook PHP SDK for CodeIgniter 3
  *

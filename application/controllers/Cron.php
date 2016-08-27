@@ -1,12 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH.'third_party/facebook-php-sdk/src/Facebook/autoload.php');
 require_once('vendor/autoload.php');
-use Facebook\FacebookRequest;
 use DirkGroenen\Pinterest\Pinterest;
-
-// use Facebook\FacebookSession;
-
 class Cron extends CI_Controller {
 
     /**
@@ -42,23 +37,23 @@ class Cron extends CI_Controller {
 
     function index()
     {
-        $fb = new Facebook\Facebook([
-          'app_id' => '1711815429100433',
-          'app_secret' => '270b6c6d8620a4d43375bbb96f98cc69',
-          'default_graph_version' => 'v2.5',
-        ]);
+        // $fb = new Facebook\Facebook([
+        //   'app_id' => '1711815429100433',
+        //   'app_secret' => '270b6c6d8620a4d43375bbb96f98cc69',
+        //   'default_graph_version' => 'v2.5',
+        // ]);
 
-        $fb->setDefaultAccessToken('EAAYU4xaSk5EBAP8ZA5nT9vnYhVLWW3GZByRxGc5pCcUyLNRKbyuhiFCnCYx3DEyN3tbfHBY41CJBF2iCehtvge5dDua1j5iZCuLMY2TCfvzqNlZBWF14s50TZASTlRkB5rsD6yek9cshO695evUZAzXD4TpZAmu0pZCWzbYSRaExkZBauUzkq1LBT');
+        // $fb->setDefaultAccessToken('EAAYU4xaSk5EBAP8ZA5nT9vnYhVLWW3GZByRxGc5pCcUyLNRKbyuhiFCnCYx3DEyN3tbfHBY41CJBF2iCehtvge5dDua1j5iZCuLMY2TCfvzqNlZBWF14s50TZASTlRkB5rsD6yek9cshO695evUZAzXD4TpZAmu0pZCWzbYSRaExkZBauUzkq1LBT');
 
-        $linkData = [
-          'link' => 'http://www.example.com',
-          'message' => 'User provided message',
-          ];
+        // $linkData = [
+        //   'link' => 'http://www.example.com',
+        //   'message' => 'User provided message',
+        //   ];
 
-         $response = $fb->post('/318999534866425/feed', $linkData, 'EAAYU4xaSk5EBANPBLRxcZCy7JIvb0nk2x2dJEQb3Rjuzx9EEEcGT9ADgT5lJbjnrD5wYnIZAYYuV0ivF9o6V5esNynN27temZBoC6bjvy6lHOTViCcU0KGEtAZAASpRxtQmWljERIZB7WroheEdBHGgHwHeZCxSTT2Sbnz37Dqk4ZAkKRKCxSYbX3KzrT62ZAHsZD');
+        //  $response = $fb->post('/318999534866425/feed', $linkData, 'EAAYU4xaSk5EBANPBLRxcZCy7JIvb0nk2x2dJEQb3Rjuzx9EEEcGT9ADgT5lJbjnrD5wYnIZAYYuV0ivF9o6V5esNynN27temZBoC6bjvy6lHOTViCcU0KGEtAZAASpRxtQmWljERIZB7WroheEdBHGgHwHeZCxSTT2Sbnz37Dqk4ZAkKRKCxSYbX3KzrT62ZAHsZD');
 
-         print_r($response);
-         die;
+        //  print_r($response);
+        //  die;
     }
 
     public function get_posts()
@@ -114,6 +109,11 @@ class Cron extends CI_Controller {
                 {
                     // echo '<pre>'; print_r($post);echo '</pre>';
                     $this->pintrest_post($post,$flag);
+                }
+                if($post->outlet_constant == "FACEBOOK")
+                {
+                    // echo '<pre>'; print_r($post);echo '</pre>';
+                    $this->facebook_post($post,$flag);
                 }
             }
         }
@@ -523,7 +523,7 @@ class Cron extends CI_Controller {
             }
         }
         
-        $media = $this->get_media($post_data->id,'image',1);
+        $media = $this->get_media($post_data->id,'images',1);
         if($media){
             if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name)){
                 $image_url = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name;
@@ -595,7 +595,7 @@ class Cron extends CI_Controller {
             // echo 'record not found <br/>';  
         }
 
-        $media = $this->get_media($post_data->id,'image',1);
+        $media = $this->get_media($post_data->id,'images',1);
         if($media){
             if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name)){
                 $image_url = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$media->name;
@@ -623,39 +623,131 @@ class Cron extends CI_Controller {
     }
 
 
-    public function facebook_post($post_data,$flag){
-        
+    public function facebook_post($post_data = "",$flag= "")
+    {
+        $upload = 0;
+        $image_url = "";
+
+        if($this->session->userdata('fb_access_token'))
+        {
+            // $this->session->userdata('fb_access_token', $access_token->getValue());
+            $access_token = $this->session->userdata('fb_access_token');
+            echo 'In session <br/>';
+        }
+        else
+        {
+            $is_key_exist = $this->social_media_model->get_token('facebook', $post_data->created_by);
+            if(!empty($is_key_exist))
+            {
+                $access_token = $is_key_exist->access_token;
+                $this->session->set_userdata('fb_access_token',$access_token);
+                echo 'Set session <br/>';
+            }
+            else
+            {
+                echo 'record not found <br/>';     
+            }
+        }
+        if(!empty( $access_token ))
+        {
+            $this->load->library('facebook');
+
+            $tags = array();
+            if(!empty($post_data->post_tags))
+            {
+                $tags = implode(", @", array_column($post_data->post_tags, 'tag_name')) ;
+                $tags = '@'.$tags;
+            }
+            if ($this->facebook->is_authenticated())
+            {
+                $post_array = array();               
+                $all_images = $this->get_media($post_data->id,'images');
+                $all_videos = $this->get_media($post_data->id,'video');
+                echo '<pre>'; print_r([$all_images,$all_videos]);echo '</pre>';
+                if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
+                    $privacy = array(
+                        'value' => 'EVERYONE' //private
+                    );
+                    $result = $this->facebook->request(
+                        'post',
+                        '/me/feed',
+                        ['message' => $post_data->content, 'privacy'=> $privacy]
+                    );
+                    echo "only text is posted <br/>".json_encode($result);
+
+                }
+                $this->fb = $this->facebook->object();
+                if(!empty($all_images))
+                {
+                    foreach ($all_images as $key => $image) 
+                    {
+                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$image->name))
+                        {
+                            $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$image->name;
+                            $batch_upload[] = array(
+                                        'post_'.$key => $this->fb->request(
+                                                        'POST',"me/photos", [
+                                                            'message' => $post_data->content,
+                                                            'picture' => $path,
+                                                            'source ' => '@'.$path,
+                                                            'tags'=>$tags,
+                                                            'published' => 'false', //Keep photo unpublished
+                                                            'scheduled_publish_time' => strtotime($post_data->slate_date_time) //Or time when post should be published
+                                                        ]
+                                                    )
+                                    );
+                        }
+                    }
+                    $response = $this->fb->sendBatchRequest($batch_upload);
+                    $data = [];
+                    foreach ($response as $key => $response)
+                    {
+                        $data[$key] = $response->getDecodedBody();
+                    }
+                    
+                }
+            }else{
+                echo "is_not_authenticated <br/>";
+            }
+        }
     }
 
     public function get_media($post_id,$type,$limit = NULL)
     {
         $result = array('images'=>array(),'video'=>array());
         $all_media = $this->post_model->get_images($post_id);
+
         if($all_media){
             foreach ($all_media as $key => $media) {
                 if($media->type == 'images'){
-                    $result['images'] = $media;
+                    $result['images'][] = $media;
                 }
                 if($media->type == 'video'){
-                    $result['video'] = $media;
+                    $result['video'][] = $media;
                 }
             }
         }
 
-        if($type == 'image'){
-            if(!$limit){
+        if($type == 'images' && !empty($result['images'])){
+            if(!empty($limit)){
+                if($limit == 1){
+                    return $result['images'][0];
+                }
                 return array_slice($result['images'], 0, $limit);
             }
             return $result['images'];
         }
 
-        if($type == 'video'){
-            if(!$limit){
+        if($type == 'video' && !empty($result['video'])){
+            if(!empty($limit)){
+                if($limit == 1){
+                   return $result['video'][0];
+                }
                 return array_slice($result['video'], 0, $limit);
             }
             return $result['video'];
         }
-        return flase;
+        return FALSE;
     }
 
 

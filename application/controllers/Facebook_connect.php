@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH.'third_party/facebook-php-sdk/src/Facebook/autoload.php');
 
-use Facebook\FacebookRequest;
+// use Facebook\FacebookRequest;
 
 class Facebook_connect extends CI_Controller {
 
@@ -111,28 +110,28 @@ class Facebook_connect extends CI_Controller {
         'photo_1' => $this->fb->request('POST', $tmp_type, [
          	'message' => 'photo_1',
          	'url' => 'https://s-media-cache-ak0.pinimg.com/564x/ae/2d/b2/ae2db2286ead909b2417cf04f1ca4b32.jpg',
-         	'no_story'=>false
+         	
          ]),
         'photo_2' => $this->fb->request('POST', $tmp_type, [
         	'message' => 'photo_2',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14141801_239300636464245_5202942603565279194_n.jpg?oh=8c742ec76ec97aa052fe387e3ab5d939&oe=584AB324',
-         	'no_story'=>false
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14141801_239300636464245_5202942603565279194_n.jpg?oh=8c742ec76ec97aa052fe387e3ab5d939&oe=584AB324'         	
           ]),
+
         'photo_3' => $this->fb->request('POST', $tmp_type, [
         	'message' => 'photo_3',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14068241_239300676464241_3380064916531236447_n.jpg?oh=16446eb4bb0be26bd9fcff13df66c346&oe=585E994A',
-         	'no_story'=>false
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14068241_239300676464241_3380064916531236447_n.jpg?oh=16446eb4bb0be26bd9fcff13df66c346&oe=585E994A'
           ]),
+
         'photo_4' => $this->fb->request('POST', $tmp_type, [
         	'message' => 'photo_4',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A',
-         	'no_story'=>false
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A'         	
           ]),
+
         'photo_5' => $this->fb->request('POST', $tmp_type, [
         	'message' => 'photo_5',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48',
-         	'no_story'=>false
+         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48'         	
           ]),
+        
         ];
 
         $response = $this->fb->sendBatchRequest($batch);
@@ -141,7 +140,7 @@ class Facebook_connect extends CI_Controller {
             {
                 $data[$key] = $response->getDecodedBody();
             }
-        echo '<pre>'; print_r($data);echo '</pre>'; 
+         '<pre>'; print_r($data);echo '</pre>'; 
 	
 	}
 
