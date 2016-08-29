@@ -125,24 +125,21 @@ jQuery(function($) {
 			}
 
 			
-			if(outlet_const !== 'twitter') {
-				$('.tweet-chars').remove();
-			}
-			if( outlet_const !== 'linkedin') {
+			if(outlet_const !== 'twitter' && outlet_const !== 'linkedin') {
 				$('.tweet-chars').remove();
 			}
 			//only allow 140 characters for tweets
-			if (outlet_const == 'twitter') {
+			if (outlet_const === 'twitter') {
 				text_char_limit(outlet_const, '140');
 			}
 			//only allow 256 characters for linkedin
-			if (outlet_const == 'linkedin') {
+			if (outlet_const === 'linkedin') {
 				text_char_limit(outlet_const, '256');
 			}
 
-			if (outlet_const == 'vine' || outlet_const == 'youtube') {
+			if (outlet_const === 'vine' || outlet_const === 'youtube') {
 				if ($('.form__preview-wrapper img').length) {
-					if (outlet_const == 'youtube') {
+					if (outlet_const === 'youtube') {
 						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
 						return false;
 					} else {
@@ -167,7 +164,6 @@ jQuery(function($) {
 					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {});
 					return false;
 				}
-				
 			}
 
 			if (outlet_const == 'linkedin') {
@@ -1827,7 +1823,12 @@ function text_char_limit(outlet_const, limit){
 		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
 		return false;
 	}
-	$('#postCopy').after('<div class="tweet-chars"><span id="charsLeft" class="color-danger">' + charsLeft + '</span> characters remaining.</div>');
+	if(!$('.tweet-chars').length) {
+		$('#postCopy').after('<div class="tweet-chars"><span id="charsLeft" class="color-danger">' + charsLeft + '</span> characters remaining.</div>');
+	}
+	else {
+		$('#charsLeft').text(charsLeft);
+	}
 }
 
 
