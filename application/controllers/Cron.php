@@ -623,7 +623,7 @@ class Cron extends CI_Controller {
     }
 
 
-    public function facebook_post($post_data = "",$flag= "")
+    public function facebook_post($post_data ,$flag)
     {
         $upload = 0;
         $image_url = "";
@@ -651,7 +651,6 @@ class Cron extends CI_Controller {
         if(!empty( $access_token ))
         {
             $this->load->library('facebook');
-
             $tags = array();
             if(!empty($post_data->post_tags))
             {
@@ -666,7 +665,7 @@ class Cron extends CI_Controller {
                 echo '<pre>'; print_r([$all_images,$all_videos]);echo '</pre>';
                 if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
                     $privacy = array(
-                        'value' => 'EVERYONE' //private
+                        'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
                     );
                     $result = $this->facebook->request(
                         'post',
@@ -677,6 +676,7 @@ class Cron extends CI_Controller {
 
                 }
                 $this->fb = $this->facebook->object();
+                
                 if(!empty($all_images))
                 {
                     foreach ($all_images as $key => $image) 
@@ -686,14 +686,13 @@ class Cron extends CI_Controller {
                             $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$image->name;
                             $batch_upload[] = array(
                                         'post_'.$key => $this->fb->request(
-                                                        'POST',"me/photos", [
-                                                            'message' => $post_data->content,
-                                                            'picture' => $path,
-                                                            'source ' => '@'.$path,
-                                                            'tags'=>$tags,
-                                                            'published' => 'false', //Keep photo unpublished
-                                                            'scheduled_publish_time' => strtotime($post_data->slate_date_time) //Or time when post should be published
-                                                        ]
+                                                        'POST',"318999534866425/photos", [
+                                                            'message'                   => $post_data->content,
+                                                            'picture'                   => $path,
+                                                            'source '                   =>  $this->fb->fileToUpload($path),
+                                                            // 'published'                 => 'false', //Keep photo unpublished
+                                                            // 'scheduled_publish_time'    => strtotime($post_data->slate_date_time) //Or time when post should be published
+                                                        ],
                                                     )
                                     );
                         }
@@ -704,7 +703,7 @@ class Cron extends CI_Controller {
                     {
                         $data[$key] = $response->getDecodedBody();
                     }
-                    
+                    echo '<pre>'; print_r($data);echo '</pre>'; die;                     
                 }
             }else{
                 echo "is_not_authenticated <br/>";

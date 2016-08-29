@@ -32,6 +32,7 @@ class Facebook_connect extends CI_Controller {
 		$this->user_data = $this->session->userdata('user_info');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
 		$this->load->library('facebook');
+		$this->fb = $this->facebook->object();
 
 		if($this->session->userdata('brand_id')){
 			$this->brand_id = $this->session->userdata('brand_id');
@@ -42,7 +43,7 @@ class Facebook_connect extends CI_Controller {
 
 	}
 
-	public function fb($brand_id,$outlet_id)
+	public function facebook($brand_id,$outlet_id)
 	{
 		if(!empty($brand_id)){
 			$this->session->set_userdata('brand_id',$brand_id);
@@ -51,11 +52,20 @@ class Facebook_connect extends CI_Controller {
 		if(!empty($outlet_id)){
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
+
+		$is_key_exist = $this->social_media_model->get_token('facebook');
+        if(!empty($is_key_exist))
+        {
+            $access_token = $is_key_exist->access_token;
+            $this->session->set_userdata('fb_access_token',$access_token);
+        }
+
 		if (!$this->facebook->is_authenticated())
 		{
 			redirect($this->facebook->login_url());
 		}else{
-			$this->me();
+			echo str_replace('%type%', 'facebook', $this->lang->line('already_saved'));
+			//$this->me();
 		}
 	}
 
@@ -76,72 +86,128 @@ class Facebook_connect extends CI_Controller {
 		}
 	}
 
-	public function upload()
+	public function pages()
 	{
-		// $img_path = "http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57bed9b786fa1.jpg";
+		$data['user'] = array();
+		// Check if user is logged in
+		if ($this->facebook->is_authenticated())
+		{
+			// User logged in, get user details
+			$user = $this->facebook->request('get', '/me?fields=accounts');
+			if (!isset($user['error']))
+			{
+				echo '<ul> Pages ';
+				foreach ($user['accounts']['data'] as $key => $pages) {
+					echo '<li>&nbsp;</li>';
+					echo '<ol><b>Access token:-</b> '.$pages['access_token']. '</ol>';
+					echo '<ol><b>Category:-</b> '.$pages['category']. '</ol>';
+                    echo '<ol><b>Name:-</b>'.$pages['name']. '</ol>';
+                   	echo '<ol><b>Id:-</b>'.$pages ['id']. '</ol>';
+				}
+				echo '</ul>';
+			}
+			
+		}
+	}
+
+	public function upload_images()
+	{
+		$user_info = $this->facebook->request('get', '/me?fields=accounts');
+		$page_token = $page_name = $page_id = '';
+		if (!isset($user_info['error']))
+		{
+			foreach ($user_info['accounts']['data'] as $key => $pages) {
+				if( 
+					$pages['id'] =='318999534866425'){
+					$page_token = $pages['access_token'];
+					$page_name = $pages['name'];
+					$page_id = $pages['id'];
+					
+				}
+				// echo '<pre>'; print_r($pages);echo '</pre>';
+			}
+		}
+		// echo $page_token;
+		// die();
+		$images = array(
+				'0' => 'https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/72823_353978524701859_1004954157_n.jpg?oh=ea72175a35c3c763eedd9077640d5289&oe=5852BC34',
+				'1' => 'http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57bed9b786fa1.jpg',
+				'2' => 'https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/26002_318999581533087_1706257821_n.jpg?oh=f0b68e416b614a495a22b36ce8498ca3&oe=585A3737&__gda__=1480353161_38809f7b2f5e8842cadf33b34d4b5bc8'
+			);
+		if(count($images) > 1){
+			// Creating new photo album
+			$album_id = $this->create_album('Nikhil','this is album',$page_id, $page_token );
+			$response = $this->add_imgs_to_album($album_id, $images, $page_token);
+		}
+	}
+
+	public function upload_video($page_id = "",$video="")
+	{
+		$user_info = $this->facebook->request('get', '/me?fields=accounts');
+		$page_token = $page_name = $page_id = '';
+		if (!isset($user_info['error']))
+		{
+			foreach ($user_info['accounts']['data'] as $key => $pages) {
+				if( 
+					$pages['id'] =='318999534866425'){
+					$page_token = $pages['access_token'];
+					$page_name = $pages['name'];
+					$page_id = $pages['id'];
+				}
+				// echo '<pre>'; print_r($pages);echo '</pre>';
+			}
+		}
+		// echo $page_token;
+		// die();
+		$video_path = array(
+				'0' => 'http://timeframe-dev.blueshoon.com/uploads/18/brands/9/posts/57c407f699a8d.mp4'				
+			);
+		$parms = array(
+                'message'	=> 'sample video',
+                'picture'	=> $video_path[0] ,
+                'source '	=> $this->fb->videoToUpload($video_path[0] )
+            );
+		$video_response = $this->facebook->request('POST',$page_id."/videos",$parms,$page_token);
+		echo json_encode($video_response);
 		
-		// $responses = $this->facebook->user_upload_request($img_path, ['message' => 'This is a test upload','no_story'=>1]);
+	}
 
-		// $params = array (
-		// 			array(
-		// 			    'message' => 'M1',
-		// 			    'source' => 'https://s-media-cache-ak0.pinimg.com/564x/ae/2d/b2/ae2db2286ead909b2417cf04f1ca4b32.jpg'
-		// 			),
-		// 			array(
-		// 			    'message' => 'M2',
-		// 			    'source' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48'
-		// 			)
-		// 			,
-		// 			array(
-		// 			    'message' => 'M3',
-		// 			    'source' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A'
-		// 			)
-		// 		);
-		// foreach ($params as $key => $obj) {
-		// 	$this->facebook->add_to_batch_pool('upload', 'POST', '/me/photos',$obj);
-		// }
-		// $responses = $this->facebook->send_batch_pool();
-		$this->fb = $this->facebook->object();
-		$user = $this->facebook->request('get', '/me?fields=id,name,email');
+	public function create_album( $name,$msg,$page_id,$page_token)
+	{
+		$privacy = array(
+				'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
+            );
 
-		$tmp_type ="me/photos";
+		$album_details = array(
+					'name'		=> $name,
+			        'message'	=> $msg,
+			        'privacy'	=> $privacy,
+			        'published'	=> 'true'
+			);
 
-        $batch = [
-        'photo_1' => $this->fb->request('POST', $tmp_type, [
-         	'message' => 'photo_1',
-         	'url' => 'https://s-media-cache-ak0.pinimg.com/564x/ae/2d/b2/ae2db2286ead909b2417cf04f1ca4b32.jpg',
-         	
-         ]),
-        'photo_2' => $this->fb->request('POST', $tmp_type, [
-        	'message' => 'photo_2',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14141801_239300636464245_5202942603565279194_n.jpg?oh=8c742ec76ec97aa052fe387e3ab5d939&oe=584AB324'         	
-          ]),
+		$album_response = $this->facebook->request('POST', $page_id.'/albums', $album_details,$page_token);
+		if (!isset($album_response['error']))
+		{
+			echo '<br/>album created<br/>'.json_encode($album_response);
+			return $album_response['id'];
+		}
+		return FALSE;
+	}
 
-        'photo_3' => $this->fb->request('POST', $tmp_type, [
-        	'message' => 'photo_3',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14068241_239300676464241_3380064916531236447_n.jpg?oh=16446eb4bb0be26bd9fcff13df66c346&oe=585E994A'
-          ]),
-
-        'photo_4' => $this->fb->request('POST', $tmp_type, [
-        	'message' => 'photo_4',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14051598_239300653130910_2564493108314673867_n.jpg?oh=2b0f72cc3a8cc7f9c3bfd5ce4b1182ad&oe=58417F7A'         	
-          ]),
-
-        'photo_5' => $this->fb->request('POST', $tmp_type, [
-        	'message' => 'photo_5',
-         	'url' => 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/14102276_239300659797576_6250570989027139384_n.jpg?oh=7f5ee0b4061d86aa7834e888588ff8f0&oe=583E5C48'         	
-          ]),
-        
-        ];
-
-        $response = $this->fb->sendBatchRequest($batch);
-         $data = [];
-            foreach ($response as $key => $response)
-            {
-                $data[$key] = $response->getDecodedBody();
-            }
-         '<pre>'; print_r($data);echo '</pre>'; 
-	
+	public function add_imgs_to_album( $album_id, $images, $token)
+	{
+		$error = TRUE;
+		foreach ($images as $key => $img_path) {
+			$parms = array('message' => 'Photo Caption');
+			$parms['url'] =  $img_path;
+			$data = $this->facebook->request('POST','/'. $album_id .'/photos',$parms, $token);
+			echo '<br/>'.json_encode($data);
+			// echo '<pre>'; print_r($parms);echo '</pre>';
+			if (isset($data['error'])){
+				$is_error = FALSE;
+			}
+		}
+		return $error;
 	}
 
 	public function login()
@@ -164,7 +230,8 @@ class Facebook_connect extends CI_Controller {
 					'response' => json_encode($token),
 					'type' => 'facebook'
 				);
-				$this->social_media_model->save_token($data);			
+				$this->social_media_model->save_token($data);
+			 str_replace('%type%', 'facebook', $this->lang->line('save_successfully'));
 		}
 		redirect(base_url().'facebook_connect/me','refresh',200);
 	}
@@ -176,7 +243,6 @@ class Facebook_connect extends CI_Controller {
 			redirect($this->facebook->logout_url());
 		}
 	}
-	
 
 	function reset_session()
 	{

@@ -113,10 +113,10 @@ $config['upload_limit'] = array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000 byte )
 								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
 								'height'		=>'1280',
-								'width' 		=>'1920'
+								'width' 		=>'1290'
 							),
 						'twitter' => array(
-								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
+								'image_size' 	=> 5000000, 		//5 MB  ( = 10*1000000  byte )
 								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
 								'height'		=>'1024',
 								'width' 		=>'512'
