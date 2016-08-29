@@ -110,7 +110,7 @@ class Facebook_connect extends CI_Controller {
 		}
 	}
 
-	public function upload_images()
+	public function upload_images($page_id = "", $images = "", $token = "")
 	{
 		$user_info = $this->facebook->request('get', '/me?fields=accounts');
 		$page_token = $page_name = $page_id = '';
@@ -122,10 +122,13 @@ class Facebook_connect extends CI_Controller {
 					$page_token = $pages['access_token'];
 					$page_name = $pages['name'];
 					$page_id = $pages['id'];
-					
 				}
 				// echo '<pre>'; print_r($pages);echo '</pre>';
 			}
+		}
+		if(empty($page_token)){
+			$page_id = 'me';
+			$page_token = '';
 		}
 		// echo $page_token;
 		// die();
@@ -141,7 +144,7 @@ class Facebook_connect extends CI_Controller {
 		}
 	}
 
-	public function upload_video($page_id = "",$video="")
+	public function upload_video($page_id = "",$video="", $token ="")
 	{
 		$user_info = $this->facebook->request('get', '/me?fields=accounts');
 		$page_token = $page_name = $page_id = '';
@@ -156,6 +159,10 @@ class Facebook_connect extends CI_Controller {
 				}
 				// echo '<pre>'; print_r($pages);echo '</pre>';
 			}
+		}
+		if(empty($page_token)){
+			$page_id = 'me';
+			$page_token = '';
 		}
 		// echo $page_token;
 		// die();

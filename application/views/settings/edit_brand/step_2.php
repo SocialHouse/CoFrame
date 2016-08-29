@@ -42,14 +42,7 @@
 						foreach($outlets as $outlet)
 						{
 							$event = '';
-							if($outlet->outlet_constant == 'FACEBOOK')
-							{
-								$event = 'onclick="login(this)"';
-							}
-							else
-							{
-								$event = 'data-id="connect"';
-							}
+							$event = 'data-id="connect"';
 							$cls = 'disabled';
 							if(!empty($selected_outlets )){
 								foreach ($selected_outlets as $st_outlet) {
