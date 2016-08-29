@@ -34,13 +34,13 @@ if(!empty($post_images)){
 		?>
 	</div>
 	<div class="clearfix post-section">
-		<h1>Video Title</h1>
+		<h1 class='video-title'><?php echo $post_details->video_title; ?></h1>
 		<div class="pull-left">
 			<?php 
 				if (file_exists(upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png')) {
 					echo '<img src="'.upload_url().$this->user_data['img_folder'].'/users/'.$post_details->user_id.'.png" class="user-profile-img" />';
 				   }else{
-					echo '<img class="user-profile-img" src="'.img_url().'default_profile_twitter.png">';	
+					echo '<img class="user-profile-img" src="'.img_url().'default_profile.jpg">';	
 				   }
 			?>
 		</div>

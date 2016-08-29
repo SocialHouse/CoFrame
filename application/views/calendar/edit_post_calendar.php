@@ -49,7 +49,7 @@
 									$selected = '';
 								}
 								?>
-									<li <?php echo $selected; ?>   data-selected-outlet="<?php echo $outlet->id; ?>" data-outlet-const="<?php echo strtolower($outlet->outlet_name); ?>">
+									<li <?php echo $selected; ?>   data-selected-outlet="<?php echo $outlet->id; ?>" data-outlet-const="<?php echo strtolower($outlet->outlet_constant); ?>">
 										<i class="fa fa-<?php echo $class; ?>">
 											<span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span>
 										</i>
@@ -59,14 +59,39 @@
 							echo '</ul>';
 						}
 						?>
-						<input type="hidden" name="post_outlet" id="postOutlet" value="<?php echo $post_details->outlet_id; ?>" data-outlet-const="<?php echo strtolower($post_details->outlet_name); ?>">
+						<input type="hidden" name="post_outlet" id="postOutlet" value="<?php echo $post_details->outlet_id; ?>" data-outlet-const="<?php echo strtolower($post_details->outlet_constant); ?>">
 					</div>
 				</div>
-				<div class="form-group">
+
+				<?php
+				$tumblr_content_class = 'hidden';
+				if(strtolower($post_details->outlet_constant) == 'tumblr')
+				{
+					$tumblr_content_class = '';
+				}
+				?>
+				<div id="tumblrContentTypes" class="<?php echo $tumblr_content_class; ?> extra-outlet-fields">
+					<div class="content-list clearfix">
+						<label for="tumblrContent" class="pull-sm-left">Content Type: </label>
+						<ul class="pull-sm-left">
+							<li class="disabled" data-selected-content="Text"><i class="tf-icon-text bg-tumblr show-hide" data-show="#tumblrTextPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Text"></i></li>
+							<li class="disabled" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Photo"></i></li>
+							<li class="disabled" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
+							<li class="disabled" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
+							<li class="disabled" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
+							<li class="disabled" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Audio"></i></li>
+							<li class="disabled" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Video"></i></li>
+						</ul>
+						<input type="hidden" id="tumblrContent" name="tumblrContent">
+					</div>
+				</div>
+
+				<div class="form-group" id="defaultPostCopy">
 					<label for="postCopy">Post Copy</label>
 					<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
+					<div id="post_copy_error" class="error"></div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="mediaUpload">
 					<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
 					<input type="hidden" name="delete_img" id="delete_img" />
 					<div class="form__input has-files">
@@ -98,7 +123,136 @@
 					<div class="form__uploading">Uploading ...</div>
 					<div class="form__success">Done!</div>
 					<div class="form__error">Error! <span></span>.</div>
+					<div id="img_error" class="error"></div>
 				</div>
+
+				<div class="media-type clearfix hidden extra-outlet-fields" id="facebookMediaUpload">
+					<div class="clearfix">
+						<div class="col-md-6">
+							<input type="radio" name="media-type" value="Photos" class="hidden-xs-up">
+							<figure class="media-item clearfix" data-value="Photos">
+								<img src="assets/images/icons/photos-video.png" alt="Photos or Video" class="pull-sm-left">
+								<figcaption class="media-caption">
+									<h5>Photos/Video</h5>
+									Add photos or video to your status
+								</figcaption>
+							</figure>
+						</div>
+						<div class="col-md-6">
+							<input type="radio" name="media-type" value="Album" class="hidden-xs-up">
+							<figure class="media-item clearfix" data-value="Album">
+								<img src="assets/images/icons/photos-video.png" alt="Photo Album" class="pull-sm-left">
+								<figcaption class="media-caption">
+									<h5>Photo Album</h5>
+									Build an album out of multiple photos
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="clearfix">
+						<div class="col-md-6">
+							<input type="radio" name="media-type" value="Carousel" class="hidden-xs-up">
+							<figure class="media-item clearfix" data-value="Carousel">
+								<img src="assets/images/icons/photos-video.png" alt="Photo Carousel" class="pull-sm-left">
+								<figcaption class="media-caption">
+									<h5>Photo Carousel</h5>
+									Build a scrolling photo carousel with a link
+								</figcaption>
+							</figure>
+						</div>
+						<div class="col-md-6">
+							<input type="radio" name="media-type" value="Slideshow" class="hidden-xs-up">
+							<figure class="media-item clearfix" data-value="Slideshow">
+								<img src="assets/images/icons/photos-video.png" alt="Slideshow" class="pull-sm-left">
+								<figcaption class="media-caption">
+									<h5>Slideshow</h5>
+									Add 3 to 7 photos to create a video
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix hidden extra-outlet-fields" id="albumType">
+					<div class="form-group pull-sm-left">
+						<div class="radio">
+						<label>
+						<input type="radio" name="albumType" value="newAlbum">
+						Create New Album</label>
+						</div>
+						<input type="text" class="form-control" name="albumName" id="albumName" placeholder="Album Title">
+					</div>
+					<div class="or-label pull-sm-left">
+						Or
+					</div>
+					<div class="form-group pull-sm-right">
+						<div class="radio">
+						<label>
+						<input type="radio" name="albumType" value="existingAlbum">
+						Add to Existing Album</label>
+						</div>
+						<select class="form-control" name="existingAlbum" id="existingAlbum">
+							<option value="">Select Existing Album</option>
+							<option value="01">Album Title</option>
+							<option value="02">Album Title 2</option>
+							<option value="03">Album Title 3</option>
+							<option value="04">Album Title 4</option>
+							<option value="05">Album Title 5</option>
+						</select>
+					</div>
+				</div>
+
+				<?php
+				$linkedin_content_class = 'hidden';
+				if(strtolower($post_details->outlet_constant) == 'linkedin')
+				{
+					$linkedin_content_class = '';
+				}
+				?>
+				<div id="linkedinPostFields" class="<?php echo $linkedin_content_class; ?> form-group extra-outlet-fields">
+					<label for="shareWithLinkedin">Share with:</label>
+					<select class="form-control" name="shareWithLinkedin" id="shareWithLinkedin">
+						<option value="public" <?php if($post_details->share_with == 'public') { echo 'selected="selected"'; } ?>>Public</option>
+						<option value="group 2" <?php if($post_details->share_with == 'group 2') { echo 'selected="selected"'; } ?>>Group 2</option>
+					</select>
+				</div>
+
+				<?php
+				$pinterest_content_class = 'hidden';
+				if(strtolower($post_details->outlet_constant) == 'pinterest')
+				{
+					$pinterest_content_class = '';
+				}
+				?>
+				<div id="pinterestPostFields" class="<?php echo $pinterest_content_class; ?> form-group extra-outlet-fields">
+					<div class="form-group">
+						<label for="pinterestBoard">Board:</label>
+						<select class="form-control" name="pinterestBoard" id="pinterestBoard">
+							<option value="">Select Board</option>
+								<option value="board name" <?php if($post_details->pinterest_board == 'board name') { echo 'selected="selected"'; } ?>>Board Name</option>
+								<option value="board name 2" <?php if($post_details->pinterest_board == 'board name 2') { echo 'selected="selected"'; } ?>>Board Name 2</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="pinSource">Source (Optional):</label>
+						<input type="url" placeholder="http://" class="form-control" name="pinSource" id="pinSource" value="<?php echo $post_details->pinterest_source; ?>">
+					</div>
+				</div>
+
+				<?php
+				$youtube_content_class = 'hidden';
+				if(strtolower($post_details->outlet_constant) == 'youtube')
+				{
+					$youtube_content_class = '';
+				}
+				?>
+				<div id="youtubePostFields" class="<?php echo $youtube_content_class; ?> form-group extra-outlet-fields">
+					<label for="ytVideoTitle">Video Title:</label>
+					<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle" value="<?php echo $post_details->video_title; ?>">					
+				</div>
+
+				<?php $this->load->view('partials/tumblr_post_types'); ?>
+				
 				<div class="clearfix">
 					<div class="pull-sm-left">
 						<label>Slate Post:</label>
@@ -126,25 +280,25 @@
 						<div class="form-group slate-post-tz">
 							<select class="form-control" name="time_zone">
 								<?php 
-									foreach ($timezones as $key => $obj) {
-										$selected_tz = '';
-										if(!empty($post_details->time_zone))
-										{
-											if( $obj->value == $post_details->time_zone ){
-												$selected_tz = 'selected="selected"';
-											}
+								foreach ($timezones as $key => $obj) {
+									$selected_tz = '';
+									if(!empty($post_details->time_zone))
+									{
+										if( $obj->value == $post_details->time_zone ){
+											$selected_tz = 'selected="selected"';
 										}
-										else
-										{
-											if( $obj->value == $brand->timezone)
-											{
-												$selected_tz = 'selected = "selected"';
-											}
-										}
-										?>
-										<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
-										<?php
 									}
+									else
+									{
+										if( $obj->value == $brand->timezone)
+										{
+											$selected_tz = 'selected = "selected"';
+										}
+									}
+									?>
+									<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+									<?php
+								}
 								?>
 							</select>
 						</div>

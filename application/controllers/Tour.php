@@ -105,9 +105,9 @@ class Tour extends CI_Controller {
                     $user_info['account_id'] = $post_data['account_id'];
                 }
 
-                $user_info['plan'] = strtolower(get_plan($accounts[0]));
+                $user_info['plan'] = strtolower(get_plan($user_info['account_id']));
                 //is user added through account preference means he is account user or brand user
-                $check_user = $this->timeframe_model->check_user_is_account_user($accounts[0]);
+                $check_user = $this->timeframe_model->check_user_is_account_user($user_info['account_id']);
                 if($check_user)
                 {
                     $user_info['user_group'] = $check_user;
@@ -115,14 +115,14 @@ class Tour extends CI_Controller {
 
                 $this->session->set_userdata('user_info',$user_info);
 
-                 $date_diff = calculate_date_diff($user->created_at,'');
+                $date_diff = calculate_date_diff($user->created_at,'');
                 
                 if($date_diff >= 25 && $date_diff <= 30){
 
                     $this->load->model('transaction_model');
-                    $is_any_record = $this->transaction_model->get_last_transaction($accounts[0]);
+                    $is_any_record = $this->transaction_model->get_last_transaction($user_info['account_id']);
                     if(!$is_any_record){
-                        $data = array(' is_trial_period_expired '=>1);
+                        $data = array('is_trial_period_expired'=>1);
                         $this->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user_id));
                         // Account Banned or Suspended
                         echo json_encode(array('response' => 'fail','message'=>$this->lang->line('trial_period_expiried')));

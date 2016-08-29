@@ -145,6 +145,33 @@ class Posts extends CI_Controller {
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s')
 	    					);
+    				$outlet = strtolower(get_outlet_by_id($post_data['post_outlet']));
+    				
+    				if($outlet == 'youtube')
+    				{
+    					$post['video_title'] = $post_data['ytVideoTitle'];
+    					$post['share_with'] = NULL;
+    					$post['pinterest_board'] = NULL;
+    					$post['pinterest_source'] = NULL;
+    				}
+
+    				if($outlet == 'linkedin')
+    				{
+    					$post['share_with'] = $post_data['shareWithLinkedin'];
+    					$post['video_title'] = NULL;
+    					$post['pinterest_board'] = NULL;
+    					$post['pinterest_source'] = NULL;
+    				}
+
+    				if($outlet == 'pinterest')
+    				{
+    					$post['pinterest_board'] = $post_data['pinterestBoard'];
+    					$post['pinterest_source'] = $post_data['pinSource'];
+    					$post['share_with'] = NULL;
+    					$post['video_title'] = NULL;
+    				}
+    				
+
     				if(!empty($slate_date_time)){
     					$post['slate_date_time'] =  $slate_date_time;
     				}

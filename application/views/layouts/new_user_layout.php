@@ -128,16 +128,14 @@
 	<script type="text/javascript">
 		var plan_data = '<?php echo json_encode($this->plan_data); ?>';	
 		plan_data = jQuery.parseJSON(plan_data);
+
 		var user_data = '<?php echo json_encode($this->user_data); ?>';	
 		user_data = jQuery.parseJSON(user_data);
-	</script>
-	<script type="text/javascript">
-		var upload_limit = '<?php echo json_encode($this->config->item('upload_limit')) ?>';	
-		upload_limit = jQuery.parseJSON(upload_limit);
-		console.log(upload_limit);
+
+		var upload_limit = '<?php echo json_encode($this->config->item('upload_limit')) ?>';
+		upload_limit = jQuery.parseJSON(upload_limit);	
 	</script>
 
-	
 	<?php       
     if(isset($js_files))
     {

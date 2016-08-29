@@ -441,3 +441,9 @@ ALTER TABLE `reminders` ADD `desktop_notification_status` TINYINT NOT NULL DEFAU
 
 ---24-08-2016
 ALTER TABLE `reminders` ADD `phase_id` INT NULL DEFAULT NULL AFTER `post_id`; 
+
+---29-08-2016
+ALTER TABLE `posts` ADD `video_title` VARCHAR(500) NULL AFTER `content`;
+ALTER TABLE `posts` ADD `share_with` VARCHAR(10) NULL AFTER `video_title`;
+ALTER TABLE `posts` ADD `pinterest_board` VARCHAR(250) NULL AFTER `share_with`;
+ALTER TABLE `posts` ADD `pinterest_source` VARCHAR(250) NULL AFTER `pinterest_board`;

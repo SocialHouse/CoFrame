@@ -130,7 +130,7 @@
 				<div class="video-div">
 				</div>
 				<div class="clearfix post-section">
-					<h1>Video Title</h1>
+					<h1 class='video-title'></h1>
 					<div class="pull-left">
 						<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">
 					</div>

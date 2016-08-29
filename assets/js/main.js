@@ -1353,6 +1353,11 @@ jQuery(function($) {
 		$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g, '<br/>'));
 	});
 
+	//youtube video title
+	$(document).on('keyup', '#ytVideoTitle', function() {		
+		$('.video-title').html($(this).val());
+	});
+
 	/*
 	*	Delete the Post
 	*/

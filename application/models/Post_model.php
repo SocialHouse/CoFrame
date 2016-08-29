@@ -112,9 +112,9 @@ class Post_model extends CI_Model
 		if(empty($post_id))
 			return FALSE;
 
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (CONCAT(UCASE(LEFT(user.first_name,1)), 
+		$this->db->select('posts.id,posts.content,posts.video_title,share_with,pinterest_board,pinterest_source,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at, CONCAT (CONCAT(UCASE(LEFT(user.first_name,1)), 
                              SUBSTRING(user.first_name, 2))," ",CONCAT(UCASE(LEFT(user.last_name,1)), 
-                             SUBSTRING(user.last_name, 2))) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name,posts.status,brands.slug, posts.time_zone');
+                             SUBSTRING(user.last_name, 2))) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name,posts.status,brands.slug, posts.time_zone,outlets.outlet_constant');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');
