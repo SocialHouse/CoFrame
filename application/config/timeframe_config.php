@@ -86,7 +86,7 @@ $config['plans'] = array(
 
 $config['upload_limit'] = array(
 						'facebook' =>array(
-								'image_size' 	=> 10000000, 		//10 MB  ( = 10*10,45,504  byte )
+								'image_size' 	=> 15000000, 		//15 MB  ( = 15*10,45,504  byte )
 								'video' 		=> 10000000, 		//05 MB  (5242880 byte= 5mb )
 								'height'		=>'1200',
 								'width' 		=>'1200'

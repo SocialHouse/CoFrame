@@ -99,7 +99,12 @@ jQuery(function($) {
 		$('#postOutlet').attr('data-outlet-const', outlet_const);
 		if (outlet_const == 'twitter') {
 			//only allow 140 characters for tweets
-			twitter_char_limit();
+			text_char_limit(outlet_const, '140');
+		}
+
+		if (outlet_const == 'linkedin') {
+			//only allow 140 characters for tweets
+			text_char_limit(outlet_const, '256');
 		}
 		createPreview();
 
@@ -119,12 +124,20 @@ jQuery(function($) {
 				$('.container-post-details .form__input').removeClass('single-row');
 			}
 
-			//only allow 140 characters for tweets
-			if (outlet_const == 'twitter') {
-				twitter_char_limit();
-			}
+			
 			if(outlet_const !== 'twitter') {
 				$('.tweet-chars').remove();
+			}
+			if( outlet_const !== 'linkedin') {
+				$('.tweet-chars').remove();
+			}
+			//only allow 140 characters for tweets
+			if (outlet_const == 'twitter') {
+				text_char_limit(outlet_const, '140');
+			}
+			//only allow 256 characters for linkedin
+			if (outlet_const == 'linkedin') {
+				text_char_limit(outlet_const, '256');
 			}
 
 			if (outlet_const == 'vine' || outlet_const == 'youtube') {
@@ -1327,8 +1340,14 @@ jQuery(function($) {
 		post_copy = convertToLink(post_copy);
 		post_copy = hashtagToLink(post_copy);
 		post_copy = atToLink(post_copy);
-		if(selected_outlet === 'twitter') {
-			var charsLeft = 140 - post_length;
+		if(selected_outlet === 'twitter' || selected_outlet === 'linkedin') {
+			var charsLeft ;
+			if(selected_outlet === 'twitter'){
+				charsLeft = 140 - post_length;
+			}
+			if(selected_outlet === 'linkedin'){
+				charsLeft = 256 - post_length;
+			}
 			$('#charsLeft').text(charsLeft);
 		}
 		$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g, '<br/>'));
@@ -1785,17 +1804,21 @@ function hideContent(obj) {
 	});
 }
 
-function twitter_char_limit(){
+function text_char_limit(outlet_const, limit){
+	limit = parseInt(limit);
 	var tweet = $("#postCopy").val();
 	var chars = tweet.length;
-	var charsLeft = 140 - chars;
-	if (tweet.length > 140) {
-		var tweetTrunc = tweet.substring(0, 140);
+	var charsLeft = limit - chars;
+	if (tweet.length > limit) {
+		var tweetTrunc = tweet.substring(0, limit);
 		$("#postCopy").val(tweetTrunc);
 	}
-	$("#postCopy").attr("maxlength", 140);
+	if(charsLeft < 0 ){
+		charsLeft = 0;
+	}
+	$("#postCopy").attr("maxlength", limit);
 
-	if ($('.form__preview-wrapper img').length > 4) {
+	if ($('.form__preview-wrapper img').length > 4 && outlet_const == 'twitter') {
 		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
 		return false;
 	}
