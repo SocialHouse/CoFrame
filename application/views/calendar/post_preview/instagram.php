@@ -54,7 +54,7 @@ if(!empty($post_images)){
 		</div>	
 			
 		<div class="insta-post-copy">
-			<span class="post-user-name"><?php echo (!empty($post_details->user))? $post_details->user :''; ?> </span>
+			<span class="post-user-name"><?php echo get_company_name($this->user_data['account_id']); ?></span>
 			<span class="post_copy_text">
 			<?php 
 				$content = $post_details->content;
