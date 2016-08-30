@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $ci = & get_instance();
 
-if($ci->config->item('use_server_app'))
+if($ci->config->item('enable_server_app'))
 {
 	// Server App Setting
 	$config['instagram_client_name'] 	= 'timeframe';

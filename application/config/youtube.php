@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $ci = & get_instance();
 
-if($ci->config->item('use_server_app'))
+if($ci->config->item('enable_server_app'))
 {
 	// Server App setting
 	$config['youtube_client_id'] = '914837030152-u3ja0c3db5tlpucn44e0gv02ultjmsoc.apps.googleusercontent.com';

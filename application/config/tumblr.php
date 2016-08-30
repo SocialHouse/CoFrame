@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $ci = & get_instance();
-if($ci->config->item('use_server_app'))
+if($ci->config->item('enable_server_app'))
 {
 	// Server App Setting
 	$config['tumblr_consumer_key']			= 'KgKmMXItUtiA9b7SJY1K6H3vBeUbBHScGl01TwCXFebP5arVUO';
