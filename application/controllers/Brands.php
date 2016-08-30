@@ -226,21 +226,21 @@ class Brands extends CI_Controller {
 					$this->timeframe_model->insert_data('social_media_keys',$data);
 				}
 			}
-			$all_outlets = $this->timeframe_model->get_table_data_array('outlets');
-			$brand_outlets = $this->timeframe_model->get_data_array_by_condition('brand_outlets',array('brand_id' => $post_data['brand_id']));
-			//access token that need to be deleted
+			// $all_outlets = $this->timeframe_model->get_table_data_array('outlets');
+			// $brand_outlets = $this->timeframe_model->get_data_array_by_condition('brand_outlets',array('brand_id' => $post_data['brand_id']));
+			// //access token that need to be deleted
 			
-			$outlet_ids = array_column($all_outlets,'id');	
-			$brand_outlet_ids = array_column($brand_outlets,'outlet_id');		
-			$access_token_delete = array_diff($outlet_ids,$outlets_to_add);		
-			if(!empty($access_token_delete))
-			{
-				foreach($access_token_delete as $outlet_id)
-				{
-					$data = array('outlet_id' => $outlet_id,'brand_id' => $post_data['brand_id']);
-        			$this->timeframe_model->delete_data('social_media_keys',$data);
-				}
-			}
+			// $outlet_ids = array_column($all_outlets,'id');	
+			// $brand_outlet_ids = array_column($brand_outlets,'outlet_id');		
+			// $access_token_delete = array_diff($outlet_ids,$outlets_to_add);		
+			// if(!empty($access_token_delete))
+			// {
+			// 	foreach($access_token_delete as $outlet_id)
+			// 	{
+			// 		$data = array('outlet_id' => $outlet_id,'brand_id' => $post_data['brand_id']);
+   //      			$this->timeframe_model->delete_data('social_media_keys',$data);
+			// 	}
+			// }
 
 			$outlets = $this->brand_model->get_brand_outlets($post_data['brand_id']);
 			if(!empty($outlets))
