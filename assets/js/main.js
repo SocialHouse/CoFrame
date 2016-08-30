@@ -132,8 +132,38 @@ jQuery(function($) {
 			if (outlet_const === 'twitter') {
 				text_char_limit(outlet_const, '140');
 			}
+
+			//tot show default posty copy and media view
+			if(outlet_const === 'twitter' || outlet_const === 'facebook' || outlet_const === 'instagram')
+			{
+				var show_classes = '';
+				if($('#defaultPostCopy:hidden').length > 0)
+				{
+					if(show_classes)
+					{
+						show_classes += ', #defaultPostCopy';	
+					}
+					else
+					{
+						show_classes += '#defaultPostCopy';
+					}
+				}
+				if($('#mediaUpload:hidden').length > 0)
+				{
+					if(show_classes)
+					{
+						show_classes += ', #mediaUpload';
+					}
+					else
+					{
+						show_classes += '#mediaUpload';
+					}
+				}
+				showHide($(this), show_classes);
+			}
+
 			//only allow 256 characters for linkedin
-			if (outlet_const === 'linkedin') {
+			if (outlet_const === 'linkedin') {				
 				text_char_limit(outlet_const, '256');
 			}
 
@@ -150,7 +180,16 @@ jQuery(function($) {
 				}				
 			}
 			if (outlet_const === 'youtube') {
-				showHide($(this), '#youtubePostFields');
+				var show_classes = '#youtubePostFields';
+				if($('#defaultPostCopy:hidden').length > 0)
+				{
+					show_classes += ', #defaultPostCopy';
+				}
+				if($('#mediaUpload:hidden').length > 0)
+				{
+					show_classes += ', #mediaUpload';
+				}
+				showHide($(this), show_classes);
 			}
 
 
@@ -167,7 +206,16 @@ jQuery(function($) {
 			}
 
 			if (outlet_const == 'linkedin') {
-				showHide($(this), '#linkedinPostFields');
+				var show_classes = '#linkedinPostFields';
+				if($('#defaultPostCopy:hidden').length > 0)
+				{
+					show_classes += ', #defaultPostCopy';
+				}
+				if($('#mediaUpload:hidden').length > 0)
+				{
+					show_classes += ', #mediaUpload';
+				}
+				showHide($(this), show_classes);
 				if ($('.form__preview-wrapper img').length > 1) {
 					getConfirm(language_message.linkedin_outlet_change_error,'','alert',function(confResponse) {});
 					return false;
@@ -175,7 +223,16 @@ jQuery(function($) {
 			}
 
 			if (outlet_const == 'pinterest') {
-				showHide($(this), '#pinterestPostFields');
+				var show_classes = '#pinterestPostFields';
+				if($('#defaultPostCopy:hidden').length > 0)
+				{
+					show_classes += ', #defaultPostCopy';
+				}
+				if($('#mediaUpload:hidden').length > 0)
+				{
+					show_classes += ', #mediaUpload';
+				}
+				showHide($(this), show_classes);
 				if ($('.form__preview-wrapper img').length > 1) {
 					getConfirm(language_message.pinterest_outlet_change_error,'','alert',function(confResponse) {});
 					return false;
@@ -184,7 +241,16 @@ jQuery(function($) {
 			if (outlet_const === 'tumblr') {
 				// showHide($(this), '#tumblrContentTypes');
 				showHide($(this), '#tumblrContentTypes');
-				showHide($(this), '#tumblrTextPost','#defaultPostCopy, #mediaUpload, .extra-tb-fields');
+				var hide_classes = '.extra-tb-fields';
+				if($('#defaultPostCopy:visible').length > 0)
+				{
+					hide_classes += ', #defaultPostCopy';
+				}
+				if($('#mediaUpload:visible').length > 0)
+				{
+					hide_classes += ', #mediaUpload';
+				}
+				showHide($(this), '#tumblrTextPost',hide_classes);
 				$('.content-list li:first').toggleClass('disabled');
 				$('.content-list li:first').siblings().addClass('disabled');
 				$('#tumblrContent').val($('.content-list li:first').data('selected-content'));
