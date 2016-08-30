@@ -458,7 +458,7 @@ ALTER TABLE `posts` ADD `tumblr_quote` TEXT NULL AFTER `tumblr_caption`;
 ALTER TABLE `posts` ADD `tumblr_source` VARCHAR(500) NULL AFTER `tumblr_quote`;
 ALTER TABLE `posts` ADD `tumblr_link` VARCHAR(500) NULL AFTER `tumblr_source`;
 ALTER TABLE `posts` ADD `tumblr_link_description` TEXT NULL AFTER `tumblr_link`;
-ALTER TABLE `posts` ADD `tumblr_chat_title` VARCHAR(500) NULL AFTER `tumblr_description`; 
+ALTER TABLE `posts` ADD `tumblr_chat_title` VARCHAR(500) NULL AFTER `tumblr_link_description`; 
 ALTER TABLE `posts` ADD `tumblr_chat` TEXT NULL AFTER `tumblr_chat_title`;
 ALTER TABLE `posts` ADD `tumblr_audio_description` TEXT NULL AFTER `tumblr_chat`;
 ALTER TABLE `posts` ADD `tumblr_video_caption` VARCHAR(500) NULL AFTER `tumblr_audio_description`;
