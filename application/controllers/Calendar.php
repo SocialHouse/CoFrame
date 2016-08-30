@@ -539,6 +539,166 @@ class Calendar extends CI_Controller {
 					$post['video_title'] = NULL;
 				}
 
+				if($outlet == 'tumblr')
+				{
+					if($post_data['tumblrContent'] == 'Text')
+					{
+						$post['tumblr_title'] = $post_data['tb_text_title'];
+    					$post['tumblr_text_content'] = $post_data['tumblr_post_copy'];
+    					$post['tumblr_tags'] = $post_data['tb_text_tags'];
+    					$post['tumblr_custom_url'] = $post_data['tb_text_url'];
+    					
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Photo')
+					{
+    					$post['tumblr_tags'] = $post_data['tumblr_post_copy'];
+    					$post['tumblr_caption'] = $post_data['tb_text_tags'];
+    					$post['tumblr_content_source'] = $post_data['tb_text_url'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_custom_url'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Quote')
+					{
+
+    					$post['tumblr_tags'] = $post_data['tb_quote_tags'];
+    					$post['tumblr_custom_url'] = $post_data['tb_quote_url'];
+    					$post['tumblr_quote'] = $post_data['tumblr_quote_post_copy'];
+    					$post['tumblr_source'] = $post_data['tbSource'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Link')
+					{
+    					$post['tumblr_link'] = $post_data['tbLink'];
+    					$post['tumblr_custom_url'] = $post_data['tb_link_url'];
+    					$post['tumblr_link_description'] = $post_data['tbLinkDesc'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_tags'] = NULL;
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Chat')
+					{
+    					$post['tumblr_tags'] = $post_data['tb_chat_tags'];
+    					$post['tumblr_custom_url'] = $post_data['tb_chat_url'];
+    					$post['tumblr_chat_title'] = $post_data['tb_chat_title'];
+    					$post['tumblr_chat'] = $post_data['tumblr_chat_post_copy'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Audio')
+					{
+    					$post['tumblr_tags'] = $post_data['tb_audio_tags'];
+    					$post['tumblr_custom_url'] = $post_data['tb_audio_url'];
+    					$post['tumblr_audio_description'] = $post_data['tbAudioDescr'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_source'] = NULL;
+    					$post['tumblr_video_caption'] = NULL;
+					}
+					elseif($post_data['tumblrContent'] == 'Video')
+					{
+    					$post['tumblr_tags'] = $post_data['tb_video_tags'];
+    					$post['tumblr_custom_url'] = $post_data['tb_video_url'];
+    					$post['tumblr_source'] = $post_data['tbVideoSource'];
+    					$post['tumblr_video_caption'] = $post_data['tbVideoDescr'];
+
+    					$post['tumblr_title'] = NULL;
+    					$post['tumblr_text_content'] = NULL;
+    					$post['tumblr_caption'] = NULL;
+    					$post['tumblr_content_source'] = NULL;
+    					$post['tumblr_quote'] = NULL;
+    					$post['tumblr_link'] = NULL;
+    					$post['tumblr_link_description'] = NULL;
+    					$post['tumblr_chat_title'] = NULL;
+    					$post['tumblr_chat'] = NULL;
+    					$post['tumblr_audio_description'] = NULL;
+					}
+
+					$post['tumblr_content_type'] = $post_data['tumblrContent'];
+					$post['share_with'] = NULL;
+					$post['pinterest_board'] = NULL;
+					$post['pinterest_source'] = NULL;
+					$post['video_title'] = NULL;
+				}
+				else
+				{
+					$post['tumblr_tags'] = NULL;
+					$post['tumblr_custom_url'] = NULL;
+					$post['tumblr_source'] = NULL;
+					$post['tumblr_video_caption'] = NULL;
+					$post['tumblr_title'] = NULL;
+					$post['tumblr_text_content'] = NULL;
+					$post['tumblr_caption'] = NULL;
+					$post['tumblr_content_source'] = NULL;
+					$post['tumblr_quote'] = NULL;
+					$post['tumblr_link'] = NULL;
+					$post['tumblr_link_description'] = NULL;
+					$post['tumblr_chat_title'] = NULL;
+					$post['tumblr_chat'] = NULL;
+					$post['tumblr_audio_description'] = NULL;
+					$post['tumblr_content_type'] = NULL;
+				}
+
 				//  fetch all phases of post
 				$post_phases = $this->post_model->get_post_phases($post_data['post_id']);
 				if(!empty($post_phases))

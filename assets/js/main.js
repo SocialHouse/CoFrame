@@ -182,7 +182,12 @@ jQuery(function($) {
 				}
 			}
 			if (outlet_const === 'tumblr') {
+				// showHide($(this), '#tumblrContentTypes');
 				showHide($(this), '#tumblrContentTypes');
+				showHide($(this), '#tumblrTextPost','#defaultPostCopy, #mediaUpload, .extra-tb-fields');
+				$('.content-list li:first').toggleClass('disabled');
+				$('.content-list li:first').siblings().addClass('disabled');
+				$('#tumblrContent').val($('.content-list li:first').data('selected-content'));
 			}
 
 			if (previous_outlet != outlet_const) {
@@ -198,6 +203,7 @@ jQuery(function($) {
 		$(document).on('click','.content-list li', function() {
 			$(this).toggleClass('disabled');
 			$(this).siblings().addClass('disabled');
+			$('#tumblrContent').val($(this).data('selected-content'));
 		});
 
 		$(".alert").fadeTo(5000, 500).slideUp(500, function() {

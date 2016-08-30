@@ -447,3 +447,20 @@ ALTER TABLE `posts` ADD `video_title` VARCHAR(500) NULL AFTER `content`;
 ALTER TABLE `posts` ADD `share_with` VARCHAR(10) NULL AFTER `video_title`;
 ALTER TABLE `posts` ADD `pinterest_board` VARCHAR(250) NULL AFTER `share_with`;
 ALTER TABLE `posts` ADD `pinterest_source` VARCHAR(250) NULL AFTER `pinterest_board`;
+
+---30-08-2016
+ALTER TABLE `posts` ADD `tumblr_tags` VARCHAR(500) NULL AFTER `pinterest_source`;
+ALTER TABLE `posts` ADD `tumblr_custom_url` VARCHAR(500) NULL AFTER `tumblr_tags`;
+ALTER TABLE `posts` ADD `tumblr_content_source` VARCHAR(500) NULL AFTER `tumblr_custom_url`;
+ALTER TABLE `posts` ADD `tumblr_title` VARCHAR(500) NULL AFTER `tumblr_content_source`;
+ALTER TABLE `posts` ADD `tumblr_caption` VARCHAR(500) NULL AFTER `tumblr_title`;
+ALTER TABLE `posts` ADD `tumblr_quote` TEXT NULL AFTER `tumblr_caption`;
+ALTER TABLE `posts` ADD `tumblr_source` VARCHAR(500) NULL AFTER `tumblr_quote`;
+ALTER TABLE `posts` ADD `tumblr_link` VARCHAR(500) NULL AFTER `tumblr_source`;
+ALTER TABLE `posts` ADD `tumblr_link_description` TEXT NULL AFTER `tumblr_link`;
+ALTER TABLE `posts` ADD `tumblr_chat_title` VARCHAR(500) NULL AFTER `tumblr_description`; 
+ALTER TABLE `posts` ADD `tumblr_chat` TEXT NULL AFTER `tumblr_chat_title`;
+ALTER TABLE `posts` ADD `tumblr_audio_description` TEXT NULL AFTER `tumblr_chat`;
+ALTER TABLE `posts` ADD `tumblr_video_caption` VARCHAR(500) NULL AFTER `tumblr_audio_description`;
+ALTER TABLE `posts` ADD `tumblr_text_content` TEXT NULL AFTER `tumblr_title`;
+ALTER TABLE `posts` ADD `tumblr_content_type` VARCHAR(150) NULL AFTER `pinterest_source`; 

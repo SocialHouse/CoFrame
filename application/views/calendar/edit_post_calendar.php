@@ -69,29 +69,83 @@
 				{
 					$tumblr_content_class = '';
 				}
+
+				$text_class = 'hidden';
+				$text_li_class = 'disabled';
+				$photo_class = 'hidden';
+				$photo_li_class = 'disabled';
+				$quote_class = 'hidden';
+				$quote_li_class = 'disabled';
+				$link_class = 'hidden';
+				$link_li_class = 'disabled';
+				$chat_class = 'hidden';
+				$chat_li_class = 'disabled';
+				$audio_class = 'hidden';
+				$audio_li_class = 'disabled';
+				$video_class = 'hidden';
+				$video_li_class = 'disabled';
+				switch ($post_details->tumblr_content_type) {
+					case 'Text':
+						$text_class = '';
+						$text_li_class = '';
+						break;
+					case 'Photo':
+						$photo_class = '';
+						$photo_li_class = '';
+						break;
+					case 'Quote':
+						$quote_class = '';
+						$quote_li_class = '';
+						break;
+					case 'Link':
+						$link_class = '';
+						$link_li_class = '';
+						break;
+					case 'Chat':
+						$chat_class = '';
+						$chat_li_class = '';
+						break;
+					case 'Audio':
+						$audio_class = '';
+						$audio_li_class = '';
+						break;
+					case 'Video':
+						$video_class = '';
+						$video_li_class = '';
+						break;
+				}
+
 				?>
 				<div id="tumblrContentTypes" class="<?php echo $tumblr_content_class; ?> extra-outlet-fields">
 					<div class="content-list clearfix">
 						<label for="tumblrContent" class="pull-sm-left">Content Type: </label>
 						<ul class="pull-sm-left">
-							<li class="disabled" data-selected-content="Text"><i class="tf-icon-text bg-tumblr show-hide" data-show="#tumblrTextPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Text"></i></li>
-							<li class="disabled" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Photo"></i></li>
-							<li class="disabled" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
-							<li class="disabled" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
-							<li class="disabled" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
-							<li class="disabled" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Audio"></i></li>
-							<li class="disabled" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Video"></i></li>
+							<li class="<?php echo $text_li_class; ?>" data-selected-content="Text"><i class="tf-icon-text bg-tumblr show-hide" data-show="#tumblrTextPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Text"></i></li>
+							<li class="<?php echo $photo_li_class; ?>" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Photo"></i></li>
+							<li class="<?php echo $quote_li_class; ?>" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
+							<li class="<?php echo $link_li_class; ?>" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
+							<li class="<?php echo $chat_li_class; ?>" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
+							<li class="<?php echo $audio_li_class; ?>" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Audio"></i></li>
+							<li class="<?php echo $video_li_class; ?>" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Video"></i></li>
 						</ul>
-						<input type="hidden" id="tumblrContent" name="tumblrContent">
+						<input type="hidden" id="tumblrContent" name="tumblrContent" value="<?php if(isset($post_details)){ echo $post_details->tumblr_content_type; } ?>">
 					</div>
 				</div>
-
-				<div class="form-group" id="defaultPostCopy">
+				<?php
+				$defaultPostCopy = '';
+				$mediaUpload = '';
+				if(empty($tumblr_content_class))
+				{
+					$defaultPostCopy = 'hidden';
+					$mediaUpload = 'hidden';
+				}
+				?>
+				<div class="form-group <?php echo $defaultPostCopy; ?>" id="defaultPostCopy">
 					<label for="postCopy">Post Copy</label>
 					<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
 					<div id="post_copy_error" class="error"></div>
 				</div>
-				<div class="form-group" id="mediaUpload">
+				<div class="form-group <?php echo $mediaUpload; ?>" id="mediaUpload">
 					<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
 					<input type="hidden" name="delete_img" id="delete_img" />
 					<div class="form__input has-files">

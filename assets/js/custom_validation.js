@@ -43,8 +43,8 @@ window.create_post_validation = function create_post_validation(){
  		outlet_error.text('Please select outlet');
  	}else{
  		outlet_error.hide();
- 		outlet_error.empty();
- 		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) ){
+ 		outlet_error.empty(); 
+ 		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) || $('#postOutlet').attr('data-outlet-const') == 'tumblr'){
  			post_copy_error.hide();
  			if(slate_date !='' && !moment(slate_date, 'YYYY-MM-DD', true).isValid()){
  				hm_error.empty();

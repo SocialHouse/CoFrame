@@ -170,6 +170,114 @@ class Posts extends CI_Controller {
     					$post['share_with'] = NULL;
     					$post['video_title'] = NULL;
     				}
+
+    				if($outlet == 'tumblr')
+    				{
+    					if($post_data['tumblrContent'] == 'Text')
+    					{
+    						$post = array(
+	    						'tumblr_title' => $post_data['tb_text_title'],
+	    						'tumblr_text_content' => $post_data['tumblr_post_copy'],
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_text_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_text_url']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Photo')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_photo_tags'],
+	    						'tumblr_caption' => $post_data['tbCaption'],
+	    						'tumblr_content_source' => $post_data['tbPhotoSource']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Quote')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_quote_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_quote_url'],
+	    						'tumblr_quote' => $post_data['tumblr_quote_post_copy'],
+	    						'tumblr_source' => $post_data['tbSource']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Link')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_link' => $post_data['tbLink'],
+	    						'tumblr_custom_url' => $post_data['tb_link_url'],
+	    						'tumblr_link_description' => $post_data['tbLinkDesc']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Chat')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_chat_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_chat_url'],
+	    						'tumblr_chat_title' => $post_data['tb_chat_title'],
+	    						'tumblr_chat' => $post_data['tumblr_chat_post_copy'],
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Audio')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_audio_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_audio_url'],
+	    						'tumblr_audio_description' => $post_data['tbAudioDescr']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Video')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'status' => $status,
+	    						'updated_at' => date('Y-m-d H:i:s'),
+	    						'tumblr_tags' => $post_data['tb_video_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_video_url'],
+	    						'tumblr_source' => $post_data['tbVideoSource'],
+	    						'tumblr_video_caption' => $post_data['tbVideoDescr']
+	    					);
+    					}
+
+    					$post['tumblr_content_type'] = $post_data['tumblrContent'];
+    				}
     				
 
     				if(!empty($slate_date_time)){
