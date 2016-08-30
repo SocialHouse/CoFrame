@@ -58,7 +58,7 @@ class Youtube_connect extends CI_Controller {
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
 
-		$is_key_exist = $this->social_media_model->get_token('youtube');
+		$is_key_exist = $this->social_media_model->get_token('youtube',$this->user_id,$this->brand_id);
 		
 		if(!empty($is_key_exist))
 		{
@@ -144,7 +144,7 @@ class Youtube_connect extends CI_Controller {
 	{
 		// Define an object that will be used to make all API requests.
 		//$this->youtube();
-		$my_tokens = $this->social_media_model->get_token('youtube');
+		$is_key_exist = $this->social_media_model->get_token('youtube',$this->user_id,$this->brand_id);
 		
 		if($my_tokens)
 		{
