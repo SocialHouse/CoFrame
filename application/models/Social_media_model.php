@@ -8,20 +8,16 @@ class Social_media_model extends CI_Model
 		$this->table = 'social_media_keys';
 	}
 
-	public function get_token($type, $user_id ='', $brand_id ='')
+	public function get_token($type, $brand_id, $user_id ='')
 	{
-		if(empty($type)) return FALSE;
+		if(empty($type) && empty($brand_id)) return FALSE;
 		
 		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type, refresh_token');
-		if(empty($user_id))
+		if(!empty($user_id))
 		{
-			$user_id = $this->user_id;
+			$this->db->where('user_id',$user_id);
 		}
-		if(!empty($brand_id))
-		{
-			$this->db->where('brand_id',$brand_id);
-		}
-		$this->db->where('user_id',$user_id);
+		$this->db->where('brand_id',$brand_id);		
 		$this->db->where('type',$type);
 		$query = $this->db->get($this->table);
 		// echo $this->db->last_query();
@@ -34,7 +30,7 @@ class Social_media_model extends CI_Model
 
 
 	function save_token($data) {
-		if(empty($data['type'])) return FALSE;
+		if(empty($data['type']) && empty($data['brand_id'])) return FALSE;
 
 		if(empty($data['user_id']))
 		{
@@ -45,7 +41,6 @@ class Social_media_model extends CI_Model
 			$user_id = $data['user_id'];
 		}
 
-		$this->db->where('user_id',$user_id);
 		$this->db->where('brand_id',$data['brand_id']);
 		$this->db->where('type',$data['type']);
 		$query = $this->db->get($this->table);
@@ -53,7 +48,7 @@ class Social_media_model extends CI_Model
 		{
 			// Update record
 			$this->db->where('type',$data['type']);
-			$this->db->where('user_id',$user_id);
+			$this->db->where('brand_id', $data['brand_id']);
 			$this->db->update($this->table, $data);
 			return TRUE;
 		}

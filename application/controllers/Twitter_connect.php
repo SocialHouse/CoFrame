@@ -24,6 +24,7 @@ class Twitter_connect extends CI_Controller {
 		parent::__construct();
         is_user_logged();
 		$this->load->model('timeframe_model');
+		$this->load->model('social_media_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
@@ -52,17 +53,18 @@ class Twitter_connect extends CI_Controller {
 		$this->reset_session();
 		echo $this->session->set_userdata('brand_id',$brand_id);
 		echo $this->session->set_userdata('outlet_id',$outlet_id);
-		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
-		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+		
+
+		$is_key_exist = $this->social_media_model->get_token('twitter', $brand_id);
 		
 		if(!empty($is_key_exist))
 		{
-			$this->session->set_userdata('access_token', $is_key_exist[0]->access_token);
-			$this->session->set_userdata('access_token_secret', $is_key_exist[0]->access_token_secret);
-			$this->session->set_userdata('twitter_user_id', $is_key_exist[0]->social_media_id);
+			$this->session->set_userdata('access_token', $is_key_exist->access_token);
+			$this->session->set_userdata('access_token_secret', $is_key_exist->access_token_secret);
+			$this->session->set_userdata('twitter_user_id', $is_key_exist->social_media_id);
 		}
 
-		if(isset($is_key_exist[0]->access_token) && isset($is_key_exist[0]->access_token_secret))
+		if(isset($is_key_exist->access_token) && isset($is_key_exist->access_token_secret))
 		{
 			$this->reset_session();
 			echo 'Your twitter access_token has already been saved';
@@ -118,12 +120,11 @@ class Twitter_connect extends CI_Controller {
 						'outlet_id' => $this->session->userdata('outlet_id'),
 					);
 
-				$condition = array('user_id' => $this->user_id,'type' => 'twitter');
-				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+				$is_key_exist = $this->social_media_model->get_token('twitter', $this->session->userdata('brand_id'));
 
 				if(!empty($is_key_exist))
 				{
-					$condition = array('id' => $is_key_exist[0]->id,'type' => 'twitter');
+					$condition = array('id' => $is_key_exist->id,'type' => 'twitter');
 					$this->timeframe_model->update_data('social_media_keys',$data,$condition);
 				}
 				else

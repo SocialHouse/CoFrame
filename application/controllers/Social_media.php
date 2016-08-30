@@ -705,7 +705,7 @@ class Social_media extends CI_Controller {
 		// Define an object that will be used to make all API requests.
 		//$this->youtube();
 		
-		$my_tokens = $this->social_media_model->get_token('youtube');
+		$my_tokens = $this->social_media_model->get_token('youtube',2);
 		if($my_tokens)
 		{
 			$json_token = json_decode($my_tokens->response);
@@ -883,7 +883,7 @@ class Social_media extends CI_Controller {
 		}
 		else
 		{
-			$is_key_exist = $this->social_media_model->get_token('pinterest');
+			$is_key_exist = $this->social_media_model->get_token('pinterest',2);
 			if($is_key_exist){
 				$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist));
 				$this->pinterest_me();
@@ -896,7 +896,7 @@ class Social_media extends CI_Controller {
 
 	function pinterest()
 	{
-		$is_key_exist = $this->social_media_model->get_token('pinterest');
+		$is_key_exist = $this->social_media_model->get_token('pinterest',2);
 		if(empty($is_key_exist))
 		{
 			$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
@@ -927,6 +927,7 @@ class Social_media extends CI_Controller {
 				$this->p->auth->setOAuthToken($token->access_token);
 				$data['access_token'] = $token->access_token;			   
 				$data['type'] = 'pinterest';
+				$data['brand_id'] = 2;
 				$data['user_id'] = $this->user_id;
 				$data['response'] =json_encode($temp_array);
 

@@ -37,27 +37,27 @@ class Linkedin_connect extends CI_Controller {
 		$this->load->library('linkedin', $this->data);
 		$this->linkedin->setResponseFormat($this->config->item('response_type'));
 
-		if($this->session->userdata('linkedin_token')){
+		if(!empty($this->session->userdata('linkedin_token'))){
 			$this->linkedin->setToken($this->session->userdata('linkedin_token'));
 		}
 
-		if($this->session->userdata('brand_id')){
+		if(!empty($this->session->userdata('brand_id'))){
 			$this->brand_id = $this->session->userdata('brand_id');
 		}
 
-		if($this->session->userdata('outlet_id')){
+		if(!empty($this->session->userdata('outlet_id'))){
 			$this->outlet_id = $this->session->userdata('outlet_id');
 		}
 	}
 
-	public function linkedin($brand_id ='', $outlet_id ='')
+	public function linkedin($brand_id, $outlet_id)
 	{
-		if(!empty($brand_id) && !empty($outlet_id)){
-			$this->session->set_userdata('brand_id',$brand_id);
-			$this->session->set_userdata('outlet_id',$outlet_id);
-			$this->brand_id = $brand_id;
-			$this->outlet_id = $outlet_id;
-		}		
+		$this->reset_session();
+		$this->session->set_userdata('brand_id',$brand_id);
+		$this->session->set_userdata('outlet_id',$outlet_id);
+
+		$this->brand_id  = $brand_id;
+		$this->outlet_id = $outlet_id;
 
 		if(!$this->check_token())
 		{
@@ -79,6 +79,8 @@ class Linkedin_connect extends CI_Controller {
 			}
 			else
 			{
+				$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
+				redirect($link);
 				echo $token['linkedin']['oauth_problem'];
 			}
 		}
@@ -90,21 +92,10 @@ class Linkedin_connect extends CI_Controller {
 	}
 
 	public function callback() 
-	{	
-		echo $this->brand_id = $this->session->userdata('brand_id');
-		if($this->session->userdata('brand_id'))
-		{
-			echo $this->brand_id = $this->session->userdata('brand_id');
-		}
-
-		if($this->session->userdata('outlet_id'))
-		{
-			$this->outlet_id = $this->session->userdata('outlet_id');
-		}
-
-		// $is_key_exist = $this->social_media_model->get_token('linkedin');
-		$is_key_exist = $this->social_media_model->get_token('linkedin',$this->user_id,$this->brand_id);
-		if($is_key_exist)
+	{
+		$is_key_exist = $this->social_media_model->get_token('linkedin', $this->brand_id);
+	
+		if(!empty($is_key_exist))
 		{
 			$oauth_token = $is_key_exist->access_token;
 			$oauth_token_secret = $is_key_exist->access_token_secret;
@@ -112,20 +103,24 @@ class Linkedin_connect extends CI_Controller {
 			$response = $this->linkedin->retrieveTokenAccess($oauth_token, $oauth_token_secret, $oauth_verifier);
 			if(empty($response['linkedin']['oauth_problem']))
 			{
-				$data = array('access_token' => $response['linkedin']['oauth_token'], 'access_token_secret' => $response['linkedin']['oauth_token_secret'], 'user_id' => $this->user_id,'response' => json_encode($response),'type' => 'linkedin');
+				$data = array(
+					'access_token'			=> $response['linkedin']['oauth_token'], 
+					'access_token_secret'	=> $response['linkedin']['oauth_token_secret'],
+					'user_id' 				=> $this->user_id,
+					'brand_id'				=> $is_key_exist->brand_id,
+					'response' 				=> json_encode($response),
+					'type' 					=> 'linkedin'
+				);
+
 				$this->social_media_model->save_token($data);
 				$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
-				echo str_replace('%type%', 'instagram', $this->lang->line('save_successfully'));
+				echo str_replace('%type%', 'linkedin', $this->lang->line('save_successfully'));
 			}
 			else
 			{
 				$this->linkedin($this->brand_id,$this->outlet_id);
 			}
 			
-		}
-		else
-		{
-			echo 'empty';
 		}
 	}
 
@@ -174,7 +169,6 @@ class Linkedin_connect extends CI_Controller {
 				$is_token_expired = true;
 			}
 		}else{
-			$this->reset_session();
 			return false;
 		}
 
@@ -191,9 +185,6 @@ class Linkedin_connect extends CI_Controller {
 
 	function reset_session()
 	{
-		echo '<br/>reset_session';
-		$this->session->unset_userdata('brand_id');
-		$this->session->unset_userdata('outlet_id');
 		$this->session->unset_userdata('linkedin_token');
 	}
 }

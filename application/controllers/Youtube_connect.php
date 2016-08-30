@@ -50,7 +50,7 @@ class Youtube_connect extends CI_Controller {
 		}
 	}
 
-	public function youtube($brand_id='',$outlet_id='')
+	public function youtube($brand_id ,$outlet_id )
 	{
 		if(!empty($brand_id) && !empty($outlet_id))
 		{
@@ -58,7 +58,7 @@ class Youtube_connect extends CI_Controller {
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
 
-		$is_key_exist = $this->social_media_model->get_token('youtube',$this->user_id,$this->brand_id);
+		$is_key_exist = $this->social_media_model->get_token('youtube', $brand_id);
 		
 		if(!empty($is_key_exist))
 		{
@@ -84,6 +84,7 @@ class Youtube_connect extends CI_Controller {
 				$data = array(
 					'access_token' => $token_data->access_token,
 					'user_id' => $this->user_id,
+					'brand_id' => $is_key_exist->brand_id,
 					'response' => json_encode($token_data),
 					'type' => 'youtube'
 					);
@@ -144,7 +145,7 @@ class Youtube_connect extends CI_Controller {
 	{
 		// Define an object that will be used to make all API requests.
 		//$this->youtube();
-		$is_key_exist = $this->social_media_model->get_token('youtube',$this->user_id,$this->brand_id);
+		$is_key_exist = $this->social_media_model->get_token('youtube', $this->brand_id);
 		
 		if($my_tokens)
 		{

@@ -53,7 +53,7 @@ class Facebook_connect extends CI_Controller {
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
 		
-		$is_key_exist = $this->social_media_model->get_token('facebook',$this->user_id,$brand_id);
+		$is_key_exist = $this->social_media_model->get_token('facebook',$brand_id);
 		
         if(!empty($is_key_exist))
         {

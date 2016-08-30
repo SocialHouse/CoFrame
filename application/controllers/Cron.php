@@ -119,18 +119,83 @@ class Cron extends CI_Controller {
         }
     }
 
-    function tumblr_post($post_data,$flag)
+    public function get_media($post_id,$type,$limit = NULL)
+    {
+        $result = array('images'=>array(),'video'=>array());
+        $all_media = $this->post_model->get_images($post_id);
+
+        if($all_media){
+            foreach ($all_media as $key => $media) {
+                if($media->type == 'images'){
+                    $result['images'][] = $media;
+                }
+                if($media->type == 'video'){
+                    $result['video'][] = $media;
+                }
+            }
+        }
+
+        if($type == 'images' && !empty($result['images'])){
+            if(!empty($limit)){
+                if($limit == 1){
+                    return $result['images'][0];
+                }
+                return array_slice($result['images'], 0, $limit);
+            }
+            return $result['images'];
+        }
+
+        if($type == 'video' && !empty($result['video'])){
+            if(!empty($limit)){
+                if($limit == 1){
+                   return $result['video'][0];
+                }
+                return array_slice($result['video'], 0, $limit);
+            }
+            return $result['video'];
+        }
+        return FALSE;
+    }
+
+    public function set_reminders()
+    {
+        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
+
+        if(!empty($posts))
+        {
+            foreach($posts as $post)
+            {
+                $is_reminder = $this->timeframe_model->get_data_by_condition('reminders',array('post_id' => $post->id,'added_through_cron' => 1),'id');
+
+                if(empty($is_reminder))
+                {
+                    $reminder_data = array(
+                                        'post_id' => $post->id,
+                                        'user_id' => $post->user_id,
+                                        'type' => 'reminder',
+                                        'brand_id' => $post->brand_id,
+                                        'due_date' => $post->slate_date_time,
+                                        'text' => 'Post '.date('Y-m-d h:i a',strtotime($post->slate_date_time)).' '.get_outlet_by_id($post->outlet_id).' post now',
+                                        'added_through_cron' => 1
+                                    );
+                    $this->timeframe_model->insert_data('reminders',$reminder_data);
+                }
+            }            
+        }
+    }
+
+    public function tumblr_post($post_data,$flag)
     {
         $upload = 0;
-        $condition = array('user_id' => $post_data->created_by,'type' => 'tumblr');
-        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);     
+        $is_key_exist = $this->social_media_model->get_token('tumblr', $post_data->brand_id);
+
         if(!empty($is_key_exist))
         {
-            if($is_key_exist[0]->access_token && $is_key_exist[0]->access_token_secret)
+            if($is_key_exist->access_token && $is_key_exist->access_token_secret)
             {
                 if($flag == 1)
                 {
-                    $this->tumblr_connection = $this->tblr->create($this->config->item('tumblr_consumer_key'), $this->config->item('tumblr_secret_key'), $is_key_exist[0]->access_token,  $is_key_exist[0]->access_token_secret);
+                    $this->tumblr_connection = $this->tblr->create($this->config->item('tumblr_consumer_key'), $this->config->item('tumblr_secret_key'), $is_key_exist->access_token,  $is_key_exist->access_token_secret);
 
                     
                     $user_info = $user_info = $this->tumblr_connection->get('user/info');                   
@@ -199,7 +264,6 @@ class Cron extends CI_Controller {
                     }                    
                 }
                 return;
-
             }
         }
     }
@@ -207,15 +271,14 @@ class Cron extends CI_Controller {
     public function twitter_post($post_data,$flag)
     {
         $upload = 0;
-        $condition = array('user_id' => $post_data->created_by,'type' => 'twitter');
-        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);      
+        $is_key_exist = $this->social_media_model->get_token('twitter', $post_data->brand_id);
         if(!empty($is_key_exist))
         {
-            if($is_key_exist[0]->access_token && $is_key_exist[0]->access_token_secret)
+            if($is_key_exist->access_token && $is_key_exist->access_token_secret)
             {
                 if($flag == 1)
                 {
-                    $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $is_key_exist[0]->access_token,  $is_key_exist[0]->access_token_secret);                   
+                    $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $is_key_exist->access_token,  $is_key_exist->access_token_secret);                   
                     
                     $content = $this->connection->get('account/verify_credentials'); 
                         
@@ -340,39 +403,6 @@ class Cron extends CI_Controller {
         }        
     }
 
-    function connect_to_twitter()
-    {
-        $this->load->view('social_media/facebook');
-    }
-
-    function set_reminders()
-    {
-        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
-
-        if(!empty($posts))
-        {
-            foreach($posts as $post)
-            {
-                $is_reminder = $this->timeframe_model->get_data_by_condition('reminders',array('post_id' => $post->id,'added_through_cron' => 1),'id');
-
-                if(empty($is_reminder))
-                {
-                    $reminder_data = array(
-                                        'post_id' => $post->id,
-                                        'user_id' => $post->user_id,
-                                        'type' => 'reminder',
-                                        'brand_id' => $post->brand_id,
-                                        'due_date' => $post->slate_date_time,
-                                        'text' => 'Post '.date('Y-m-d h:i a',strtotime($post->slate_date_time)).' '.get_outlet_by_id($post->outlet_id).' post now',
-                                        'added_through_cron' => 1
-                                    );
-                    $this->timeframe_model->insert_data('reminders',$reminder_data);
-                }
-            }            
-        }
-    }
-
-
     public function youtube_post($post_data,$flag)
     {
         $upload = 0;
@@ -385,7 +415,7 @@ class Cron extends CI_Controller {
         $this->client->setClientSecret($this->client_secret);
         $this->client->setRedirectUri($this->redirect_uri);
 
-        $is_key_exist = $this->social_media_model->get_token('youtube', $post_data->created_by, $post_data->brand_id);
+        $is_key_exist = $this->social_media_model->get_token('youtube', $post_data->brand_id);
         if(!empty($is_key_exist))
         {
             $token = (json_decode($is_key_exist->response,true));
@@ -406,6 +436,7 @@ class Cron extends CI_Controller {
                 $data = array(
                     'access_token' => $token_data->access_token,
                     'user_id' => $post_data->created_by,
+                    'brand_id' => $post_data->brand_id,
                     'response' => json_encode($token_data),
                     'type' => 'youtube'
                     );
@@ -519,7 +550,7 @@ class Cron extends CI_Controller {
             $token['success'] ='1';
            // $this->session->unset_userdata('linkedin_token');
         }else{
-            $is_key_exist = $this->social_media_model->get_token('linkedin', $post_data->created_by,$post_data->brand_id);
+            $is_key_exist = $this->social_media_model->get_token('linkedin',$post_data->brand_id);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
             }
@@ -589,7 +620,7 @@ class Cron extends CI_Controller {
            // $this->session->unset_userdata('pinterest_access_token');
             // echo 'In Session <br/>';
         }else{
-            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->created_by,$post_data->brand_id);
+            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->brand_id);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
@@ -638,7 +669,7 @@ class Cron extends CI_Controller {
         }
         else
         {
-            $is_key_exist = $this->social_media_model->get_token('facebook', $post_data->created_by, $post_data->brand_id);
+            $is_key_exist = $this->social_media_model->get_token('facebook', $post_data->brand_id);
             if(!empty($is_key_exist))
             {
                 $access_token = $is_key_exist->access_token;
@@ -711,44 +742,6 @@ class Cron extends CI_Controller {
                 echo "is_not_authenticated <br/>";
             }
         }
-    }
-
-    public function get_media($post_id,$type,$limit = NULL)
-    {
-        $result = array('images'=>array(),'video'=>array());
-        $all_media = $this->post_model->get_images($post_id);
-
-        if($all_media){
-            foreach ($all_media as $key => $media) {
-                if($media->type == 'images'){
-                    $result['images'][] = $media;
-                }
-                if($media->type == 'video'){
-                    $result['video'][] = $media;
-                }
-            }
-        }
-
-        if($type == 'images' && !empty($result['images'])){
-            if(!empty($limit)){
-                if($limit == 1){
-                    return $result['images'][0];
-                }
-                return array_slice($result['images'], 0, $limit);
-            }
-            return $result['images'];
-        }
-
-        if($type == 'video' && !empty($result['video'])){
-            if(!empty($limit)){
-                if($limit == 1){
-                   return $result['video'][0];
-                }
-                return array_slice($result['video'], 0, $limit);
-            }
-            return $result['video'];
-        }
-        return FALSE;
     }
 
 }

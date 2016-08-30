@@ -77,17 +77,17 @@ class Tumblr_connect extends CI_Controller {
 	{
 		$this->session->set_userdata('brand_id',$brand_id);
 		$this->session->set_userdata('outlet_id',$outlet_id);
-		$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
-		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+
+		$is_key_exist = $this->social_media_model->get_token('tumblr', $brand_id);
 		
 		if(!empty($is_key_exist))
 		{
-			$this->session->set_userdata('tumblr_access_token', $is_key_exist[0]->access_token);
-			$this->session->set_userdata('tumblr_access_token_secret', $is_key_exist[0]->access_token_secret);
-			$this->session->set_userdata('tumblr_user_id', $is_key_exist[0]->social_media_id);
+			$this->session->set_userdata('tumblr_access_token', $is_key_exist->access_token);
+			$this->session->set_userdata('tumblr_access_token_secret', $is_key_exist->access_token_secret);
+			$this->session->set_userdata('tumblr_user_id', $is_key_exist->social_media_id);
 		}
 
-		if(isset($is_key_exist[0]->access_token) && isset($is_key_exist[0]->access_token_secret))
+		if(isset($is_key_exist->access_token) && isset($is_key_exist->access_token_secret))
 		{
 			echo 'Your tumblr access_token has already been saved';
 		}
@@ -138,12 +138,11 @@ class Tumblr_connect extends CI_Controller {
 						'outlet_id' => $this->session->userdata('outlet_id'),
 					);
 
-				$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
-				$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
+				$is_key_exist = $this->social_media_model->get_token('tumblr',$this->session->userdata('brand_id'));
 
 				if(!empty($is_key_exist))
 				{
-					$condition = array('id' => $is_key_exist[0]->id,'type' => 'tumblr');
+					$condition = array('id' => $is_key_exist->id,'type' => 'tumblr');
 					$this->timeframe_model->update_data('social_media_keys',$data,$condition);
 				}
 				else
@@ -173,16 +172,16 @@ class Tumblr_connect extends CI_Controller {
 	{
 		$this->reset_tumblr_session();
 		$condition = array('type' => 'tumblr');
-        $is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);     
+		$is_key_exist = $this->social_media_model->get_token('tumblr',$this->session->userdata('brand_id'));
         if(!empty($is_key_exist))
         {
-            if($is_key_exist[0]->access_token && $is_key_exist[0]->access_token_secret)
+            if($is_key_exist->access_token && $is_key_exist->access_token_secret)
             {
             	echo $this->config->item('tumblr_consumer_key')."<br>";
             	echo $this->config->item('tumblr_secret_key')."<br>";
-            	echo $is_key_exist[0]->access_token."<br>";
-            	echo $is_key_exist[0]->access_token_secret."<br>";
-                $this->tumblr_connection = $this->tblr->create($this->config->item('tumblr_consumer_token'), $this->config->item('tumblr_secret_key'), $is_key_exist[0]->access_token,  $is_key_exist[0]->access_token_secret);
+            	echo $is_key_exist->access_token."<br>";
+            	echo $is_key_exist->access_token_secret."<br>";
+                $this->tumblr_connection = $this->tblr->create($this->config->item('tumblr_consumer_token'), $this->config->item('tumblr_secret_key'), $is_key_exist->access_token,  $is_key_exist->access_token_secret);
 
                  $arrMessage = array('type' => 'regular', 'title' => 'Testing by ninad ', 'body' => 'Details', 'format' => 'html');
 
