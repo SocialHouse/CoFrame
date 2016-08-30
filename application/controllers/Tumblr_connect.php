@@ -24,6 +24,7 @@ class Tumblr_connect extends CI_Controller {
 		parent::__construct();
         // is_user_logged();
 		$this->load->model('timeframe_model');
+		$this->load->model('social_media_model');
 		$this->user_id = $this->session->userdata('id');
 		$this->user_data = $this->session->userdata('user_info');
 		$this->plan_data = $this->config->item('plans')[$this->user_data['plan']];
