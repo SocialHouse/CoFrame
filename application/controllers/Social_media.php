@@ -21,7 +21,7 @@ class Social_media extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		is_user_logged();
@@ -37,21 +37,6 @@ class Social_media extends CI_Controller {
 		$this->p = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
 		//for twittr
 		$this->load->library('twitteroauth');
-  //       if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
-		// {
-			// If user already logged in
-			// $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
-		// }
-		// elseif($this->session->userdata('request_token') && $this->session->userdata('request_token_secret'))
-		// {
-		// 	// If user in process of authentication
-		// 	$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('request_token'), $this->session->userdata('request_token_secret'));
-		// }
-		// else
-		// {
-		// 	// Unknown user
-		// 	$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
-		// }
 
 		//for linkedin
 		$this->load->config('linkedin');       
@@ -114,11 +99,10 @@ class Social_media extends CI_Controller {
 			$this->tumblr_connection = $this->tumblr->create($this->tumblr_consumer_key, $this->tumblr_secret_key);
 		}
 
-		//for pinterest
-		
+		//for pinterest	
 	}
 
-	public function index()
+	function index()
 	{
 		$this->data = array();
 		$this->data['view'] = 'social_media/facebook';  
@@ -127,7 +111,7 @@ class Social_media extends CI_Controller {
 		_render_view($this->data);
 	}	
 
-	public function save_fb_data()
+	function save_fb_data()
 	{
 		$data = array(
 			'access_token' => $this->input->post('authResponse')['accessToken'],
@@ -148,7 +132,7 @@ class Social_media extends CI_Controller {
 			$this->timeframe_model->insert_data('social_media_keys',$data);
 	}
 
-	public function twitter()
+	function twitter()
 	{
 		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
@@ -184,7 +168,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function callback()
+	function callback()
 	{
 		if($this->input->get('oauth_token') && $this->session->userdata('request_token') !== $this->input->get('oauth_token'))
 		{
@@ -237,7 +221,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 	
-	public function post($in_reply_to='')
+	function post($in_reply_to='')
 	{
 		$condition = array('user_id' => $this->user_id,'type' => 'twitter');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
@@ -334,7 +318,7 @@ class Social_media extends CI_Controller {
 	 * @access	private
 	 * @return	void
 	 */
-	public function reset_session()
+	function reset_session()
 	{
 		$this->session->unset_userdata('access_token');
 		$this->session->unset_userdata('access_token_secret');
@@ -346,7 +330,7 @@ class Social_media extends CI_Controller {
 		$this->session->unset_userdata('pinterest_access_token');
 	}
 
-	public function linkedin()
+	function linkedin()
 	{
 		$this->data['appKey'] = $this->config->item('linked_in_api_key');
 		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
@@ -371,7 +355,7 @@ class Social_media extends CI_Controller {
 		redirect($link);
 	}
 
-	public function callback_linked_in() 
+	function callback_linked_in() 
 	{
 		$this->data['appKey'] = $this->config->item('linked_in_api_key');
 		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
@@ -396,7 +380,7 @@ class Social_media extends CI_Controller {
 		echo '<pre>'; print_r($profile );echo '</pre>'; 
 	}
 
-	public function linkedin_create_post() 
+	function linkedin_create_post() 
 	{
 		$this->data['appKey'] = $this->config->item('linked_in_api_key');
 		$this->data['appSecret'] = $this->config->item('linked_in_secret_key');
@@ -426,9 +410,8 @@ class Social_media extends CI_Controller {
 		echo '<pre>'; print_r($profile );echo '</pre>'; 
 	}
 
-
 	function youtube_auth()
-	{	
+	{
 		$authUrl = $this->client->createAuthUrl();
 		$youtube = new Google_Service_YouTube($this->client);
 		echo "<a class='login' href='" . $authUrl . "'>Connect Me!</a>";		
@@ -499,7 +482,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function tumblr()
+	function tumblr()
 	{
 		$condition = array('user_id' => $this->user_id,'type' => 'tumblr');
 		$is_key_exist = $this->timeframe_model->get_data_by_condition('social_media_keys',$condition);
@@ -534,7 +517,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function tumblr_callback()
+	function tumblr_callback()
 	{
 		if($this->input->get('oauth_token') && $this->session->userdata('tumblr_request_token') !== $this->input->get('oauth_token'))
 		{
@@ -672,7 +655,7 @@ class Social_media extends CI_Controller {
 	}
 
 	function vine_auth($url,$method)
-	{		
+	{
 		$curl = curl_init();
 		$vine_key = $this->session->userdata('vine_key');
 		if(isset($vine_key))
@@ -717,7 +700,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function my_uplaod_lists()
+	function my_uplaod_lists()
 	{
 		// Define an object that will be used to make all API requests.
 		//$this->youtube();
@@ -779,7 +762,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function upload_video()
+	function upload_video()
 	{
 		$this->youtube();
 		$youtube = new Google_Service_YouTube($this->client);
@@ -859,8 +842,8 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function pinterest_me()
-	{	
+	function pinterest_me()
+	{
 
 		$token = $this->session->userdata("pinterest_access_token");
 		if(!empty($token['access_token']))
@@ -960,7 +943,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-	public function create_board()
+	function create_board()
 	{
 		//
 		$token = $this->session->userdata("pinterest_access_token");
@@ -979,8 +962,7 @@ class Social_media extends CI_Controller {
 		}
 	}
 
-
-	public function create_pin()
+	function create_pin()
 	{
 		$result = '';
 		$token = $this->session->userdata("pinterest_access_token");		

@@ -502,7 +502,7 @@ jQuery(function($) {
                 $('#edit-approval-phase-modal').remove();
             });
             console.log('sad');
-        },1000);
+        },600);
     });
 
 });

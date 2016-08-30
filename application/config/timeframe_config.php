@@ -128,3 +128,9 @@ $config['upload_limit'] = array(
 								'width' 		=>''
 							)
 					);
+
+//On server it is set to TRUE and loacal it is set to FALSE
+// FALSE 	:- It uses local App configuration. 
+// TRUE 	:- It uses Sercer App configuration.
+
+$config['use_server_app'] = FALSE;

@@ -373,7 +373,8 @@ class Cron extends CI_Controller {
     }
 
 
-    public function youtube_post($post_data,$flag){
+    public function youtube_post($post_data,$flag)
+    {
         $upload = 0;
         $this->load->config('youtube');
         $this->client_id = $this->config->item('youtube_client_id');
@@ -384,7 +385,7 @@ class Cron extends CI_Controller {
         $this->client->setClientSecret($this->client_secret);
         $this->client->setRedirectUri($this->redirect_uri);
 
-        $is_key_exist = $this->social_media_model->get_token('youtube', $post_data->created_by);
+        $is_key_exist = $this->social_media_model->get_token('youtube', $post_data->created_by, $post_data->brand_id);
         if(!empty($is_key_exist))
         {
             $token = (json_decode($is_key_exist->response,true));
@@ -509,15 +510,16 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function linkedin_post($post_data,$flag){
+    public function linkedin_post($post_data,$flag)
+    {
         $token=''; 
         $image_url = '';
-        if($this->session->userdata('linkedin_token')){
+        if($this->session->userdata('linkedin_token') && $flag == 1 ){
             $token['linkedin'] = $this->session->userdata('linkedin_token');
             $token['success'] ='1';
            // $this->session->unset_userdata('linkedin_token');
         }else{
-            $is_key_exist = $this->social_media_model->get_token('linkedin', $post_data->created_by);
+            $is_key_exist = $this->social_media_model->get_token('linkedin', $post_data->created_by,$post_data->brand_id);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
             }
@@ -576,17 +578,18 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function pintrest_post($post_data,$flag){
+    public function pintrest_post($post_data,$flag)
+    {
         
         $upload = 0;
         $image_url = "";
 
-        if($this->session->userdata('pinterest_access_token')){
+        if($this->session->userdata('pinterest_access_token') && $flag == 1 ){
             $token = $this->session->userdata('pinterest_access_token');
            // $this->session->unset_userdata('pinterest_access_token');
             // echo 'In Session <br/>';
         }else{
-            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->created_by);
+            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->created_by,$post_data->brand_id);
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
@@ -622,13 +625,12 @@ class Cron extends CI_Controller {
         }
     }
 
-
     public function facebook_post($post_data ,$flag)
     {
         $upload = 0;
         $image_url = "";
 
-        if($this->session->userdata('fb_access_token'))
+        if($this->session->userdata('fb_access_token') && $flag == 1 )
         {
             // $this->session->userdata('fb_access_token', $access_token->getValue());
             $access_token = $this->session->userdata('fb_access_token');
@@ -636,7 +638,7 @@ class Cron extends CI_Controller {
         }
         else
         {
-            $is_key_exist = $this->social_media_model->get_token('facebook', $post_data->created_by);
+            $is_key_exist = $this->social_media_model->get_token('facebook', $post_data->created_by, $post_data->brand_id);
             if(!empty($is_key_exist))
             {
                 $access_token = $is_key_exist->access_token;
@@ -748,7 +750,5 @@ class Cron extends CI_Controller {
         }
         return FALSE;
     }
-
-
 
 }

@@ -53,8 +53,8 @@ class Pinterest_connect extends CI_Controller {
 	{
 		$this->session->set_userdata('brand_id',$brand_id);
 		$this->session->set_userdata('outlet_id',$outlet_id);
-		$is_key_exist = $this->social_media_model->get_token('pinterest');
-		
+		$is_key_exist = $this->social_media_model->get_token('pinterest',$this->user_id,$this->brand_id);
+
 		if(empty($is_key_exist))
 		{
 			$loginurl = $this->pin->auth->getLoginUrl($this->callback_url,array('read_public', 'write_public'));
@@ -69,7 +69,7 @@ class Pinterest_connect extends CI_Controller {
 
 	function pinterest_callback()
 	{
-		$is_key_exist = $this->social_media_model->get_token('pinterest');
+		$is_key_exist = $this->social_media_model->get_token('pinterest',$this->user_id,$this->brand_id);
 		$token = $this->session->userdata("pinterest_access_token");
 		if(empty($token['access_token']) || empty($is_key_exist))
 		{
@@ -143,7 +143,8 @@ class Pinterest_connect extends CI_Controller {
 		}
 		else
 		{
-			$is_key_exist = $this->social_media_model->get_token('pinterest');
+			
+			$is_key_exist = $this->social_media_model->get_token('pinterest',$this->user_id,$this->brand_id);
 			if($is_key_exist){
 				$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist));
 				$this->me();

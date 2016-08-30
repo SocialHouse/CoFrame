@@ -50,12 +50,14 @@ class Linkedin_connect extends CI_Controller {
 		}
 	}
 
-	public function linkedin($brand_id='',$outlet_id='')
+	public function linkedin($brand_id ='', $outlet_id ='')
 	{
-		$this->session->set_userdata('brand_id',$brand_id);
-		$this->session->set_userdata('outlet_id',$outlet_id);
-		$this->brand_id = $brand_id;
-		$this->outlet_id = $outlet_id;
+		if(!empty($brand_id) && !empty($outlet_id)){
+			$this->session->set_userdata('brand_id',$brand_id);
+			$this->session->set_userdata('outlet_id',$outlet_id);
+			$this->brand_id = $brand_id;
+			$this->outlet_id = $outlet_id;
+		}		
 
 		if(!$this->check_token())
 		{
@@ -74,10 +76,14 @@ class Linkedin_connect extends CI_Controller {
 				$this->social_media_model->save_token($data);
 				$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
 				redirect($link);
-			}else{
+			}
+			else
+			{
 				echo $token['linkedin']['oauth_problem'];
 			}
-		}else{
+		}
+		else
+		{
 			$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
 			echo str_replace('%type%', 'linkedin', $this->lang->line('already_saved'));
 		}
@@ -85,7 +91,19 @@ class Linkedin_connect extends CI_Controller {
 
 	public function callback() 
 	{	
-		$is_key_exist = $this->social_media_model->get_token('linkedin');
+		echo $this->brand_id = $this->session->userdata('brand_id');
+		if($this->session->userdata('brand_id'))
+		{
+			echo $this->brand_id = $this->session->userdata('brand_id');
+		}
+
+		if($this->session->userdata('outlet_id'))
+		{
+			$this->outlet_id = $this->session->userdata('outlet_id');
+		}
+
+		// $is_key_exist = $this->social_media_model->get_token('linkedin');
+		$is_key_exist = $this->social_media_model->get_token('linkedin',$this->user_id,$this->brand_id);
 		if($is_key_exist)
 		{
 			$oauth_token = $is_key_exist->access_token;
@@ -104,6 +122,10 @@ class Linkedin_connect extends CI_Controller {
 				$this->linkedin($this->brand_id,$this->outlet_id);
 			}
 			
+		}
+		else
+		{
+			echo 'empty';
 		}
 	}
 
@@ -132,8 +154,7 @@ class Linkedin_connect extends CI_Controller {
 		// $this->brand_id = $this->session->userdata('brand_id');
 		// $this->outlet_id = $this->session->userdata('outlet_id');
 		$is_token_expired = false;
-		$is_key_exist = $this->social_media_model->get_token('linkedin');
-		
+		$is_key_exist = $this->social_media_model->get_token('linkedin',$this->user_id,$this->brand_id);		
 		if(!empty($is_key_exist))
 		{
 			$token = json_decode($is_key_exist->response,true);
@@ -158,10 +179,10 @@ class Linkedin_connect extends CI_Controller {
 		}
 
 		if($is_token_expired){
-			$this->social_media_model->delete_token('linkedin',$this->brand_id,$this->outlet_id);
+			$this->social_media_model->delete_token('linkedin',$this->brand_id);
 			
-			echo 'Yout token is expired or rejected ';
-			echo '<br/><a href="'.base_url().'linkedin_connect/linkedin/'.$this->brand_id.'/'.$this->outlet_id.'"> Please click heare to login</a>';
+			echo '<br/>Yout token is expired or rejected ';
+			echo '<br/><a href="'.base_url().'linkedin_connect/linkedin/'.$this->brand_id.'/'.$this->outlet_id.'">  Please click heare to login</a>';
 			$this->reset_session();
 			exit();
 		}
@@ -170,7 +191,7 @@ class Linkedin_connect extends CI_Controller {
 
 	function reset_session()
 	{
-		echo 'reset_session';
+		echo '<br/>reset_session';
 		$this->session->unset_userdata('brand_id');
 		$this->session->unset_userdata('outlet_id');
 		$this->session->unset_userdata('linkedin_token');

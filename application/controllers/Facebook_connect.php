@@ -53,7 +53,7 @@ class Facebook_connect extends CI_Controller {
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
 
-		$is_key_exist = $this->social_media_model->get_token('facebook');
+		$is_key_exist = $this->social_media_model->get_token('facebook',$this->user_id,$brand_id);
         if(!empty($is_key_exist))
         {
             $access_token = $is_key_exist->access_token;
@@ -97,7 +97,8 @@ class Facebook_connect extends CI_Controller {
 			if (!isset($user['error']))
 			{
 				echo '<ul> Pages ';
-				foreach ($user['accounts']['data'] as $key => $pages) {
+				foreach ($user['accounts']['data'] as $key => $pages) 
+				{
 					echo '<li>&nbsp;</li>';
 					echo '<ol><b>Access token:-</b> '.$pages['access_token']. '</ol>';
 					echo '<ol><b>Category:-</b> '.$pages['category']. '</ol>';
@@ -117,8 +118,8 @@ class Facebook_connect extends CI_Controller {
 		if (!isset($user_info['error']))
 		{
 			foreach ($user_info['accounts']['data'] as $key => $pages) {
-				if( 
-					$pages['id'] =='318999534866425'){
+				if( $pages['id'] == '318999534866425')
+				{
 					$page_token = $pages['access_token'];
 					$page_name = $pages['name'];
 					$page_id = $pages['id'];
@@ -126,7 +127,8 @@ class Facebook_connect extends CI_Controller {
 				// echo '<pre>'; print_r($pages);echo '</pre>';
 			}
 		}
-		if(empty($page_token)){
+		if(empty($page_token))
+		{
 			$page_id = 'me';
 			$page_token = '';
 		}
@@ -151,8 +153,8 @@ class Facebook_connect extends CI_Controller {
 		if (!isset($user_info['error']))
 		{
 			foreach ($user_info['accounts']['data'] as $key => $pages) {
-				if( 
-					$pages['id'] =='318999534866425'){
+				if( $pages['id'] =='318999534866425')
+				{
 					$page_token = $pages['access_token'];
 					$page_name = $pages['name'];
 					$page_id = $pages['id'];
