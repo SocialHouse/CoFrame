@@ -10,7 +10,7 @@ class Post_model extends CI_Model
 
 	public function get_brand_outlets($brand_id)
 	{
-		$this->db->select('outlets.id,outlet_name');
+		$this->db->select('outlets.id, outlet_name, outlet_constant');
 		$this->db->join('outlets','outlets.id = brand_outlets.outlet_id');
 		$this->db->where('brand_outlets.brand_id',$brand_id);
 		$query = $this->db->get('brand_outlets');
@@ -23,7 +23,7 @@ class Post_model extends CI_Model
 
 	public function get_user_outlets($brand_id,$user_id)
 	{
-		$this->db->select('outlets.id,outlet_name');
+		$this->db->select('outlets.id, outlet_name, outlet_constant');
 		$this->db->join('outlets','outlets.id = user_outlets.outlet_id');
 		$this->db->where('user_outlets.brand_id',$brand_id);
 		$this->db->where('user_outlets.user_id',$user_id);
