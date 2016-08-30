@@ -1,8 +1,12 @@
 jQuery(function($) {
 	// init Isotope
-	var $container = $('.calendar-day').isotope({
-		itemSelector: '.post-day'
-	});
+	var $container = $('.calendar-day');
+
+	window.onload = function() {
+		$container.isotope({
+			itemSelector: '.post-day'
+		});
+	};
 
 	var $containerApp = $('.calendar-app').isotope({
 		itemSelector: '.post-approver'
@@ -163,18 +167,17 @@ jQuery(function($) {
 	function applyFilter()
 	{
 		// map input values to an array
-		setTimeout(function(){
-			var inclusives = [];
-			var outlet_inclusive = [];
-			var status_inclusive = [];
-			var tag_inclusive = [];
+		var inclusives = [];
+		var outlet_inclusive = [];
+		var status_inclusive = [];
+		var tag_inclusive = [];
 
-			var outlet_ids = [];
-			var statuses = [];
-			var tags = [];
+		var outlet_ids = [];
+		var statuses = [];
+		var tags = [];
 
-			$.each($('.filter-list').children('li'),function(index,li){
-				console.log(li);
+		$.each($('.filter'), function(i,li){
+			if ( $(this).hasClass('checked' )) {
 				inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
 
 				if($(this).data('id')){
@@ -186,47 +189,58 @@ jQuery(function($) {
 					status_inclusive.push($(this).data('value'));
 					statuses.push( $(this).data('status') );
 				}
-
+	
 				if($(this).data('tag-id')){
 					tag_inclusive.push($(this).data('value'));
 					tags.push($(this).data('color')+'__'+$(this).data('value'));
 				}
-			});
+			}
+			else {
+				var index = inclusives.indexOf($(this).data('value'));
+				if( index > -1) {
+					outlet_inclusive.splice(index, 1);
+					status_inclusive.splice(index, 1);
+					tag_inclusive.indexOf($(this).data('value'));
+	
+					inclusives.splice(index, 1);
+					outlet_ids.splice(index, 1);
+					statuses.splice(index, 1);
+					tags.splice(index, 1);
+				}
+			}
+		});
 
-			// combine inclusive filters
-			// var filterValue = inclusives.length ? inclusives.join('') : '*';
-
-			$('#outlet_ids').val(outlet_ids.join());
-			$('#statuses').val(statuses.join());
-			$('#tags').val(tags.join());
-			if($container.length){
+		$('#outlet_ids').val(outlet_ids.join());
+		$('#statuses').val(statuses.join());
+		$('#tags').val(tags.join());
+		if($container.length){
+			console.log(outlet_inclusive + status_inclusive + tag_inclusive);
+			if(outlet_inclusive !== "" || status_inclusive !== "" || tag_inclusive !== "") {
 				$container.isotope({ filter: function(){
 					return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
 				} });
 			}
-			if($containerApp.length)
-			{
-				$containerApp.isotope({ filter: function(){
-					return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
-				} });
-			}
+		}
+		if($containerApp.length)
+		{
+			$containerApp.isotope({ filter: function(){
+				return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
+			} });
+		}
 
-
-			if(inclusives.length) {
-				$('#selectedFilters').slideDown(function() {
-					equalColumns();
-				});
-			}
-			else {
-				$('#selectedFilters').slideUp(function() {
-					equalColumns();
-				});
-			}
-			setTimeout(function(){
-				rendercalendar();
-			},1000);
-			// rendercalendar();
-		},400);
+		if(inclusives.length) {
+			$('#selectedFilters').slideDown(function() {
+				equalColumns();
+			});
+		}
+		else {
+			$('#selectedFilters').slideUp(function() {
+				equalColumns();
+			});
+		}
+		setTimeout(function(){
+			rendercalendar();
+		},1000);
 	}
 
 	function filterPosts() {
@@ -269,7 +283,7 @@ jQuery(function($) {
 				var index = inclusives.indexOf($(this).data('value'));
 				if( index > -1) {
 					outlet_inclusive.splice(index, 1);
-					statuse_inclusive.splice(index, 1);
+					status_inclusive.splice(index, 1);
 					tag_inclusive.indexOf($(this).data('value'));
 
 					inclusives.splice(index, 1);
@@ -279,20 +293,17 @@ jQuery(function($) {
 				}
 			}
 		});	
-		// var filterValue = inclusives.length ? inclusives.join('') : '*';	
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
 		if($container.length)
 		{
-			// $container.isotope({ filter: filterValue });
 			$container.isotope({ filter: function(){				
 				return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
 			}});
 		}
 		if($containerApp.length)
 		{
-			// $containerApp.isotope({ filter: filterValue });
 			$containerApp.isotope({ filter: function(){
 				return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);
 			} });
@@ -414,23 +425,21 @@ jQuery(function($) {
 
 		$(calendar_class).fullCalendar ('removeEvents');
 
-		$source = {
-			        url: base_url+'calendar/get_events',
-			        dataType: 'json',
-			        method:'post',
-			        data: {			          
-			            start: start,
-			            end: end,
-			            brand_id:$('#brand_id').val(),
-			            outlets:$('#outlet_ids').val(),
-			            statuses:$('#statuses').val(),
-			            tags:$('#tags').val(),
-		                view_type:$('#calendar_type').val()
-			        }
-		        };
+		var $source = {
+			url: base_url+'calendar/get_events',
+			dataType: 'json',
+			method:'post',
+			data: {			          
+				start: start,
+			    end: end,
+			    brand_id:$('#brand_id').val(),
+			    outlets:$('#outlet_ids').val(),
+			    statuses:$('#statuses').val(),
+			    tags:$('#tags').val(),
+		        view_type:$('#calendar_type').val()
+			}
+		};
 		$(calendar_class).fullCalendar('addEventSource', $source);
-
-		
 	}
 
 	window.findApprovalsbyDate = function findApprovalsbyDate(date) {
@@ -459,23 +468,20 @@ jQuery(function($) {
 
 	window.findPostbyDate = function findPostbyDate(date) {
 		$.ajax({
-	            url: base_url+'calendar/get_post_by_date',
-	            dataType: 'html',
-	            method:'POST',
-	            data: {
-	                // our hypothetical feed requires UNIX timestamps
-	                sdate: date,
-	                brand_id:$('#brand_id').val(),
-	            },
-	            success: function(doc) {
-	            	var $items = $(doc);	            	
-	            	$('.calendar-day').empty();
-	            	$('.calendar-day').append( $items ).isotope( 'addItems', $items );
-	            	setTimeout(function() {		
-						$container.find('.post-day').attr('style','');						
-					},200);
-					applyFilter();
-	            }
-	        });
+			url: base_url+'calendar/get_post_by_date',
+			dataType: 'html',
+			method:'POST',
+			data: {
+				// our hypothetical feed requires UNIX timestamps
+				sdate: date,
+				brand_id:$('#brand_id').val(),
+			},
+			success: function(doc) {
+				var $items = $(doc);	            	
+				$('.calendar-day').empty();
+				$('.calendar-day').append( $items ).isotope( 'addItems', $items );
+				applyFilter();
+			}
+		});
 	};	
 });

@@ -832,7 +832,6 @@ jQuery(function($) {
 		selectedday = moment(selected_day).format('DD, YYYY');
 		$('#calendarCurrentdate').text(selectedday);
 		$('#calendarCurrentMonth').text(selectedmonth);
-		// $('#calendar-change-day #getPostsByDate').trigger('click');
 	}
 
 	$(document).on("change, keyup, blur", "#edit_minute, #edit_ampm, #edit_hour, #reschedule_day", function(event){
