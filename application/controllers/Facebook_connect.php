@@ -52,12 +52,15 @@ class Facebook_connect extends CI_Controller {
 		if(!empty($outlet_id)){
 			$this->session->set_userdata('outlet_id',$outlet_id);
 		}
-
+		
 		$is_key_exist = $this->social_media_model->get_token('facebook',$this->user_id,$brand_id);
+		
         if(!empty($is_key_exist))
         {
             $access_token = $is_key_exist->access_token;
             $this->session->set_userdata('fb_access_token',$access_token);
+        }else{
+        	$this->facebook->destroy_session();
         }
 
 		if (!$this->facebook->is_authenticated())

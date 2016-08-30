@@ -46,6 +46,7 @@ class Social_media_model extends CI_Model
 		}
 
 		$this->db->where('user_id',$user_id);
+		$this->db->where('brand_id',$data['brand_id']);
 		$this->db->where('type',$data['type']);
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0)

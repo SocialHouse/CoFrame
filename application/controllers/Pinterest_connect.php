@@ -57,6 +57,7 @@ class Pinterest_connect extends CI_Controller {
 
 		if(empty($is_key_exist))
 		{
+			$this->session->unset_userdata('pinterest_access_token');
 			$loginurl = $this->pin->auth->getLoginUrl($this->callback_url,array('read_public', 'write_public'));
 			redirect($loginurl);
 		}else{
