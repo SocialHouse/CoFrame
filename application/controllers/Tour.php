@@ -326,7 +326,7 @@ class Tour extends CI_Controller {
             $this->data['slug'] = $slug;
             $this->data['request_string'] = $request_string;
             $this->data['request_id'] = $request[0]->id;
-            $this->data['account_id'] = $request[0]->user_id;
+            $this->data['account_id'] = $request[0]->account_id;
         }
         else
         {
