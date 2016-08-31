@@ -137,6 +137,29 @@ class Co_create extends CI_Controller {
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 			$this->data['timezones'] = $this->user_model->get_timezones();
+			foreach ($this->data['timezones']  as $key => $values) 
+			{
+				if($this->data['brand']->timezone  == $values->value)
+				{
+					$this->data['brand_timezone'] = array(
+											'name' =>  $values->timezone,
+											'value' => $values->value
+											);
+					unset($this->data['timezones'] [$key]);
+				}
+				
+				if($this->user_data['timezone'] == $values->value)
+				{
+					$this->data['user_timezone'] = array(
+										'name' =>  $values->timezone,
+										'value' => $values->value
+										);
+					if($this->data['brand']->timezone  != $this->user_data['timezone'] )
+					{
+						unset($this->data['timezones'] [$key]);
+					}
+				}
+			}
 
 			$this->data['view'] = 'co_create/cocreate_post';
 			$this->data['layout'] = 'layouts/new_user_layout';
