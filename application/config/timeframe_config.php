@@ -93,7 +93,7 @@ $config['upload_limit'] = array(
 							),
 						'instagram' =>array(
 								'image_size' 	=> 10000000, 		//10 MB  ( = 10*1000000  byte )
-								'video' 		=> 10000000, 			//05 MB  ( = 05*1000000  byte )
+								'video' 		=> 1000000000, 			//05 MB  ( = 05*1000000  byte )
 								'height'		=>'1080',
 								'width' 		=>'1080'
 							),
@@ -122,7 +122,7 @@ $config['upload_limit'] = array(
 								'width' 		=>'512'
 							),
 						'youtube' => array(
-								'image_size' 	=> '', 				//10 MB  ( = 10*1000000  byte )
+								'image_size' 	=> '1000000000', 				//10 MB  ( = 10*1000000  byte )
 								'video' 		=> 10000000,				//05 MB  ( = 05*1000000  byte )
 								'height'		=>'',
 								'width' 		=>''
@@ -133,4 +133,4 @@ $config['upload_limit'] = array(
 // FALSE 	:- It uses local App configuration. 
 // TRUE 	:- It uses Sercer App configuration.
 
-$config['enable_server_app'] = TRUE;
+$config['enable_server_app'] = FALSE;

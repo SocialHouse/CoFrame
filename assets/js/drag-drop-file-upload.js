@@ -183,10 +183,18 @@
 
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-							if( file.size > upload_limit[outlet_const].video){
+							if(outlet_const == 'instagram' ){
 								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
 								return false;
 							}
+
+							if( file.size > upload_limit[outlet_const].video){
+								getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
+								return false;
+							}
+
+
+
 							if($('.form__file-preview').length >= 1){
 
 								if(file_type[0] =='video'){
@@ -369,6 +377,11 @@
 									}
 				                }
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
+
+							if(outlet_const == 'instagram' ){
+								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+								return false;
+							}							
 
 								if( file.size > upload_limit[outlet_const].video){
 									getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
