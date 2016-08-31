@@ -62,8 +62,7 @@ class Cron extends CI_Controller {
         // echo $this->db->last_query();
 
         // $posts = $this->post_model->get_post_by_date('','',date('Y-m-d'),'scheduled');
-        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));
-
+        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));       
         
         if(!empty($posts))
         {
@@ -212,8 +211,7 @@ class Cron extends CI_Controller {
                 }
 
                 if($upload == 1)
-                {
-                    echo "<pre>";
+                {                   
                     $media = $this->post_model->get_images($post_data->id);
                     
                     if (is_object($user_info->response)) 
@@ -227,30 +225,70 @@ class Cron extends CI_Controller {
                     }
                     if(!empty($str_user_blog))
                     {
-                        $post_message = array('type' => 'regular', 'title' => $post_data->content, 'format' => 'html');
-                        // $post_message = array('type' => 'regular', 'title' => $post_data->content, 'format' => 'html');
-                        $is_video = 0;
-                        if(!empty($media))
-                        {                        
+                        if($post_data->tumblr_content_type == "Text")
+                        {
+                            $post_message = array('type' => 'text', 'title' => $post_data->tumblr_title,'body'=>$post_data->tumblr_text_content, 'format' => 'html','tags' => $post_data->tumblr_tags);                            
+                        }
+                        elseif($post_data->tumblr_content_type == "Photo")
+                        {
                             if(!empty($media))
                             {
-                                $post_message = array('type' => 'photo', 'caption' => $post_data->content,'format' => 'html');
+                                //for uploaded image
+                                $post_message = array('type' => 'photo', 'caption' => $post_data->tumblr_caption,'format' => 'html','tags' => $post_data->tumblr_tags);
                                 foreach($media as $file)
                                 {
                                     if($file->type == 'images')
                                     {
                                         $post_message['data'] = file_get_contents(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$file->name);
                                     }
-                                    else
+                                }                       
+                            }
+                            else
+                            {
+                                //for image source
+                                $post_message = array('type' => 'photo', 'caption' => $post_data->tumblr_caption,'format' => 'html','tags' => $post_data->tumblr_tags,'source' => $post_data->tumblr_content_source);
+                            }
+                        }
+                        elseif($post_data->tumblr_content_type == "Quote")
+                        {
+                            $post_message = array('type' => 'quote', 'quote' => $post_data->tumblr_quote,'format' => 'html','tags' => $post_data->tumblr_tags,'source' => $post_data->tumblr_source);
+                        }
+                        elseif($post_data->tumblr_content_type == "Link")
+                        {
+                            $post_message = array('type' => 'link', 'url' => $post_data->tumblr_link,'format' => 'html','description' => $post_data->tumblr_link_description);
+                        }
+                        elseif($post_data->tumblr_content_type == "Chat")
+                        {
+                            $post_message = array('type' => 'chat', 'title' => $post_data->tumblr_chat_title,'format' => 'html','conversation' => $post_data->tumblr_chat,'tags' => $post_data->tumblr_tags);
+                        }
+                        elseif($post_data->tumblr_content_type == "Audio")
+                        {
+                            $post_message = array('type' => 'audio', 'caption' => $post_data->tumblr_audio_description,'format' => 'html','external_url' => $post_data->tumblr_custom_url,'tags' => $post_data->tumblr_tags);
+                        }
+                        elseif($post_data->tumblr_content_type == "Video")
+                        {
+                            if(!empty($media))
+                            {
+                                //for uploaded video
+                                $post_message = array('type' => 'video', 'caption' => $post_data->tumblr_video_caption,'format' => 'html','tags' => $post_data->tumblr_tags);
+                                foreach($media as $file)
+                                {
+                                    if($file->type == 'images')
                                     {
-                                        $post_message['type'] = 'video';
-                                        $post_message['data'] = file_get_contents(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$file->name);                             
+                                        $post_message['data'] = file_get_contents(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$file->name);
                                     }
                                 }                       
                             }
-                        }
+                            else
+                            {
+                                //for video source
+                                $post_message = array('type' => 'video', 'caption' => $post_data->tumblr_video_caption,'format' => 'html','tags' => $post_data->tumblr_tags,'embed' => '<embed src="'.$post_data->tumblr_source.'">');
+
+                            }
+                        }                        
 
                         $post_status = $this->tumblr_connection->post('blog/'.$str_user_blog.'/post', $post_message);
+                       
                         if(!empty($post_message))
                         {
                             if(isset($post_status->meta->status) AND $post_status->meta->status == 201)
@@ -720,12 +758,10 @@ class Cron extends CI_Controller {
                             $batch_upload[] = array(
                                         'post_'.$key => $this->fb->request(
                                                         'POST',"318999534866425/photos", [
-                                                            'message'                   => $post_data->content,
-                                                            'picture'                   => $path,
-                                                            'source '                   =>  $this->fb->fileToUpload($path),
-                                                            // 'published'                 => 'false', //Keep photo unpublished
-                                                            // 'scheduled_publish_time'    => strtotime($post_data->slate_date_time) //Or time when post should be published
-                                                        ],
+                                                            'message' => $post_data->content,
+                                                            'picture' => $path,
+                                                            'source ' => $this->fb->fileToUpload($path),
+                                                        ]
                                                     )
                                     );
                         }
