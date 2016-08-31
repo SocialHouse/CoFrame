@@ -1902,12 +1902,14 @@ function hideContent(obj) {
 }
 
 function text_char_limit(outlet_const, limit){
+	var $ = jQuery;
+	var tweet, chars, charsLeft, tweetTrunc;
+	tweet = $("#postCopy").val();
+	chars = tweet.length;
 	limit = parseInt(limit);
-	var tweet = $("#postCopy").val();
-	var chars = tweet.length;
-	var charsLeft = limit - chars;
+	charsLeft = limit - chars;
 	if (tweet.length > limit) {
-		var tweetTrunc = tweet.substring(0, limit);
+		tweetTrunc = tweet.substring(0, limit);
 		$("#postCopy").val(tweetTrunc);
 	}
 	if(charsLeft < 0 ){
