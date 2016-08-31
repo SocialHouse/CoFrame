@@ -253,13 +253,18 @@ class Post_model extends CI_Model
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		$this->db->where('posts.status != "deleted"');
-		if(!check_user_perm($this->user_id,'create',$brand_id))
+		if(get_user_groups($this->user_id,$brand_id) == 'Creator')
 		{
-			$this->db->where('posts.status != "draft"');
+			$this->db->where('posts.user_id',$this->user_id);
+		}
+		
+		if(check_user_perm($this->user_id,'create',$brand_id) OR check_user_perm($this->user_id,'create',NULL,$this->user_data['account_id']) OR $this->user_id == $this->user_data['account_id'])
+		{
+			
 		}
 		else
 		{
-			$this->db->where('posts.user_id',$this->user_id);	
+			$this->db->where('posts.status != "draft"');
 		}
 
 		if($outlets)
@@ -375,7 +380,10 @@ class Post_model extends CI_Model
 		$this->db->where('status != "deleted"');
 		$this->db->where('status != "draft"');
 		$this->db->where('brand_id',$brand_id);
-		$this->db->where('user_id',$this->user_id);
+		if(get_user_groups($this->user_id,$brand_id) == 'Creator')
+		{
+			$this->db->where('user_id',$this->user_id);			
+		}
 		
 		if(empty($date))
 		{
@@ -472,7 +480,7 @@ class Post_model extends CI_Model
 
 	function get_posts_with_outlet($date)
 	{
-		$this->db->select('posts.id,content,slate_date_time,status,user_id,brands.created_by,outlet_constant,posts.brand_id');
+		$this->db->select('posts.id,content,slate_date_time,status,user_id,brands.created_by,outlet_constant,posts.brand_id,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type');
 		$this->db->join('brands','brands.id = posts.brand_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->where('posts.status','scheduled');
