@@ -72,6 +72,7 @@
 							</ul>
 							<input type="hidden" id="tumblrContent" name="tumblrContent">
 						</div>
+						<label id="tumblr_content_error" class="error hide"></label>
 					</div>
 					<div class="form-group" id="defaultPostCopy">
 						<label for="postCopy">Post Copy</label>
@@ -180,6 +181,7 @@
 								<option value="board name">Board Name</option>
 								<option value="board name">Board Name 2</option>
 							</select>
+							<label id="pinterest_bord_error" class="youtube_error error hide"></label>
 						</div>
 						<div class="form-group">
 							<label for="pinSource">Source (Optional):</label>
@@ -188,7 +190,8 @@
 					</div>
 					<div id="youtubePostFields" class="hidden form-group extra-outlet-fields">
 						<label for="ytVideoTitle">Video Title:</label>
-						<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle">					
+						<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle">
+						<label id="youtube_title_error" class="youtube_error error hide"></label>
 					</div>
 					
 					<?php $this->load->view('partials/tumblr_post_types'); ?>

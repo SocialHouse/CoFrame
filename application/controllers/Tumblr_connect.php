@@ -177,7 +177,6 @@ class Tumblr_connect extends CI_Controller {
 	function test()
 	{
 		$this->reset_tumblr_session();
-		$condition = array('type' => 'tumblr');
 		$is_key_exist = $this->social_media_model->get_token('tumblr',$this->session->userdata('brand_id'));
         if(!empty($is_key_exist))
         {

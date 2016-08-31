@@ -44,6 +44,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tumblrPostCopy">Post Copy</label>
 		<textarea class="form-control" id="tumblrPostCopy" rows="5" placeholder="Type your copy here..." name="tumblr_post_copy"><?php if(empty($text_class) AND !empty($post_details)) { echo $post_details->tumblr_text_content; } ?></textarea>
+		<label id="tb_text_error" class="tumblr_error error hide"></label>
 	</div>
 	<div class="form-group">
 		<label for="tb_text_tags">#Tags (Optional):</label>
@@ -72,6 +73,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tbPhotoSource">Content Source (Optional):</label>
 		<input type="url" placeholder="http://" class="form-control" name="tbPhotoSource" id="tbPhotoSource" value="<?php if(empty($photo_class) AND !empty($post_details)) { echo $post_details->tumblr_content_source; } ?>">
+		<label id="tb_photo_error" class="tumblr_error error hide"></label>
 	</div>
 </div>
 
@@ -80,6 +82,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tumblrQuoteCopy ">Quote</label>
 		<textarea class="form-control" id="tumblrQuoteCopy" rows="5" placeholder="Type quote here..." name="tumblr_quote_post_copy"><?php if(empty($quote_class) AND !empty($post_details)) { echo $post_details->tumblr_quote; } ?></textarea>
+		<label id="tb_quote_error" class="tumblr_error error hide"></label>
 	</div>
 	<div class="form-group">
 		<label for="tbSource">Source (Optional):</label>
@@ -100,6 +103,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tbLink">Link:</label>
 		<input type="url" placeholder="Type or paste a URL..." class="form-control" name="tbLink" id="tbLink" value="<?php if(empty($link_class) AND !empty($post_details)) { echo $post_details->tumblr_link; } ?>">
+		<label id="tb_link_error" class="tumblr_error error hide"></label>
 	</div>
 	<div class="form-group">
 		<label>Change Thumbnail (Optional):</label>
@@ -124,6 +128,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tumblrChatCopy">Chat</label>
 		<textarea class="form-control" id="tumblrChatCopy" rows="5" placeholder="Type chat here..." name="tumblr_chat_post_copy"><?php if(empty($chat_class) AND !empty($post_details)) { echo $post_details->tumblr_chat; } ?></textarea>
+		<label id="tb_chat_error" class="tumblr_error error hide"></label>
 	</div>
 	<div class="form-group">
 		<label for="tb_chat_tags">#Tags (Optional):</label>
@@ -152,6 +157,7 @@ if(isset($post_details))
 	<div class="form-group">
 		<label for="tb_audio_url">Custom URL (Optional):</label>
 		<input type="text" placeholder="/post/123/" class="form-control" name="tb_audio_url" id="tb_audio_url" value="<?php if(empty($audio_class) AND !empty($post_details)) { echo $post_details->tumblr_custom_url; } ?>">
+		<label id="tb_audio_error" class="tumblr_error error hide"></label>
 	</div>
 </div>
 
@@ -173,5 +179,6 @@ if(isset($post_details))
 		<label for="tbVideoSource">Content Source (Optional):</label>
 		<input type="url" placeholder="http://" class="form-control" name="tbVideoSource" id="tbVideoSource" value="<?php if(empty($video_class) AND !empty($post_details)) { echo $post_details->tumblr_source; } ?>">
 	</div>
+	<label id="tb_video_error" class="tumblr_error error hide"></label>
 </div>
 <!-- End Tumblr things -->
