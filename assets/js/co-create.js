@@ -43,12 +43,7 @@ function initializeSession(apiKey, sessionId,token) {
 	});
 	// Subscribe to a newly created stream
 	session.on('streamCreated', function(event) {
-		console.log(event.stream);
-		// session.subscribe(event.stream, 'subscriber', {
-		//   insertMode: 'append',
-		//   width: '100%',
-		//   height: '100%'
-		// });
+		var userData = event.from.data.split(','); 
 		var subscriberProperties = {insertMode: 'append'};
 		var subscriber = session.subscribe(event.stream,
 		    'subscriber',
@@ -92,23 +87,39 @@ function initializeSession(apiKey, sessionId,token) {
    // Receive a message and append it to the history	
   	session.on('signal:msg', function(event) {
   		var userData = event.from.data.split(',');
-  		console.log(userData[2]);
-
   		var className = event.from.connectionId === session.connection.connectionId ? 'sent' : 'receive';
   		
-  		var msg_div = '<div class="msg_container base_'+className+'">';
-	    var msg_div_img = '<img src="'+userData[2]+'" class="circle-img">';
+  		var msg_div = '<li data-id="'+event.from.connectionId+'">';
+		msg_div += '<img width="36" height="36" class="circle-img" src="'+userData[2]+'">';
+		var comment = '<div class="comment">';
+		comment += '<p>'+ event.data+'</p>';
+		comment += '</div>';
+		var li_end = '</li>';
+		if($('.discussion-list ul li:last').attr('data-id') == event.from.connectionId)
+		{
+			$('.discussion-list ul li:last').append(comment);
+		}
+		else
+		{
+	  		$('.discussion-list ul').append(msg_div+comment+li_end);
+		}
 
-	    var msg_div_msg = '<div class="comment msg_'+className+'">';
-	    msg_div_msg += event.data;
-	    msg_div_msg += '</div>';
-	    var append_div = msg_div_img+msg_div_msg;
-	    if(className == 'sent') {
-	    	append_div = msg_div_msg+msg_div_img;
-	    }
-	    msg_div += append_div;
-	    msg_div += '</div>';
-	  	$('.panel-body').append(msg_div);
+		var participants = $('#participants span').text()
+		if(participants.indexOf(userData[0]) == -1)
+		{
+			if(participants.length > 0)
+			{
+				var append_text = participants+','+userData[0];			
+			}
+			else
+			{
+				var append_text = userData[0];				
+			}
+			console.log(user_data.first_name);
+			if(user_data.first_name.toLowerCase() != userData[0].toLowerCase())
+				$('#participants span').text(append_text);
+		}
+		
 	});
 }
 
@@ -116,10 +127,10 @@ function exceptionHandler(event) {
   console.log("Exception: " + event.code + "::" + event.message);
 }
 
-var form = document.querySelector('form');
-var msgTxt = document.querySelector('#btn-input');
+
+var msgTxt = document.querySelector('#cocreate-comment');
 // Send a signal once the user enters data in the form
-$('#btn-input').on('keydown',function(event) {
+$('#cocreate-comment').on('keydown',function(event) {
 	if (event.keyCode === 13) {
 	  session.signal({
 		  type: 'msg',

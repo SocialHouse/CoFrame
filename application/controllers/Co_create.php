@@ -37,46 +37,112 @@ class Co_create extends CI_Controller {
 	public function create()
 	{		
 		$this->data = array();
-		$slug = $this->uri->segment(3);	
+		$slug = $this->uri->segment(3);
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
 
 		if(!empty($brand))
 		{
+			$brand_id = $brand[0]->id;
+			$this->data['slug'] = $slug;
+			$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
 			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
-			$brand_id = $brand[0]->id;
-			//check plan have access to this page
-			$message = 'Your plan does not have access to this page';
-			plan_access($this->plan_data['co_create'],$brand,$this->data['user_group'],$message);
-
-			$additional_group = '';
-			
-			if(check_user_perm($this->user_id,'create',$brand[0]->id))
-			{
-				$additional_group = $this->data['user_group'];
-			}
-
-			if(check_user_perm($this->user_id,'master',$brand[0]->id))
-			{
-				$additional_group = $this->data['user_group'];
-			}
-			check_access('approve',$brand,$additional_group);
-
-			$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
-			$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
-			
-			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));
-	        $session = $opentok->createSession();
-	        $this->data['sessionId']= $session->getSessionId();
-	        $this->data['token']= $session->generateToken();
+		
+			$brand_id = $brand[0]->id;			
 
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $brand[0];
 			$this->data['view'] = 'co_create/co-create';
 			$this->data['layout'] = 'layouts/new_user_layout';
 			$this->data['background_image'] = 'bg-brand-management.jpg';
-			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'chat.css', 'https://fonts.googleapis.com/css?family=Roboto:400,500');
-			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0','https://static.opentok.com/v2/js/opentok.js',js_url().'co-create.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0');
+			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'chat.css');
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0');
+
+			_render_view($this->data);
+		}
+	}
+
+	function cocreate_post()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$request_string = $this->uri->segment(4);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
+
+		if(!empty($brand))
+		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$this->data['full_name'] = ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']);
+			$brand_id = $brand[0]->id;
+
+			$path = img_url()."default_profile.jpg";
+			if(file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
+			{
+				$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
+			}
+
+			$connection_metadata = ucfirst($this->user_data['first_name']).",".$this->user_id.",".$path;			
+
+			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));					
+
+			$generate_new_session = 1;
+			if(!empty($request_string))
+			{
+				$request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
+				if(!empty($request) AND !empty($request[0]->session_id))
+				{
+					$generate_new_session = 0;
+					$this->data['sessionId'] = $request[0]->session_id;					
+					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('user_id'=> $this->user_id,'data' => $connection_metadata));
+			    }
+			}
+
+			if($generate_new_session == 1)
+			{
+				$is_request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('user_id' => $this->user_id,'account_id' => $this->user_data['account_id'], 'brand_slug' => $slug,'request_string' => $request_string));
+		        if(empty($is_request) OR (!empty($is_request) AND empty($is_request[0]->session_id)))
+		        {
+			        $session = $opentok->createSession();
+			        $this->data['sessionId'] = $session->getSessionId();
+					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
+		        
+		       
+			        $request_data = array(
+			        		'session_id' => $this->data['sessionId'],
+			        	);
+
+			        $this->timeframe_model->update_data('co_create_requests',$request_data,array('request_string' => $request_string));
+			        $this->data['request_string'] = $request_string;
+			    }
+			    else
+			    {
+			    	$this->data['sessionId'] = $is_request[0]->session_id;
+			        $this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
+			        $this->data['request_string'] = $is_request[0]->request_string;
+			    }
+		    }
+
+		    $this->load->model('user_model');
+		    $this->data['users'] = $this->brand_model->get_approvers($brand_id);
+			if($this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
+			{
+				$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand_id);
+			}
+			else
+			{
+				$this->data['outlets'] = $this->post_model->get_user_outlets($brand_id,$this->user_id);
+			}
+			$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
+			$this->data['brand_id'] = $brand_id;
+			$this->data['brand'] = $brand[0];
+			$this->data['timezones'] = $this->user_model->get_timezones();
+
+			$this->data['view'] = 'co_create/cocreate_post';
+			$this->data['layout'] = 'layouts/new_user_layout';
+			$this->data['background_image'] = 'bg-brand-management.jpg';
+			$this->data['css_files'] = array(css_url().'fullcalendar.css', css_url().'chat.css');
+			$this->data['js_files'] = array(js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0','https://static.opentok.com/v2/js/opentok.js','https://apis.google.com/js/api.js',js_url().'co-create.js?ver=1.0.0');
 
 			_render_view($this->data);
 		}
@@ -166,6 +232,8 @@ class Co_create extends CI_Controller {
 		{
 			if(!empty($post_data['selected_users']))
 			{
+				$this->timeframe_model->insert_data('co_create_requests',array('request_string' => $post_data['request_string'],'brand_slug' => $post_data['slug'],'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
+
 				$subject = "Co create requst";
 				$message = "To join co create click below link <br/> <a href=".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
 				foreach($post_data['selected_users'] as $email)

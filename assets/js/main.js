@@ -1732,7 +1732,31 @@ jQuery(function($) {
     	});
     });
 
-	 $('.collapse').on('shown.bs.collapse', function(){
+    $('.cocreate-option').click(function(){
+    	var selected_users = [];
+    	$('.check-box').each(function(){
+    		if($(this).data('value') != 'check-all' && $(this).hasClass('selected'))
+    		{
+    			selected_users.push($(this).data('value'));
+    		}
+    	})
+    	var request_string = $('#request-string').val();
+    	var slug = $('#slug').val();
+    	if(selected_users.length)
+    	{
+    		$.ajax({
+    			url:base_url+'co_create/send_join_request',
+    			type:'post',
+    			data:{selected_users:selected_users,request_string: request_string,slug: slug},
+    			success:function(response)
+    			{
+    				window.location.href = base_url + 'co_create/cocreate_post/' + slug + '/' + request_string;
+    			}
+    		});
+    	}
+    });
+
+	$('.collapse').on('shown.bs.collapse', function(){
 	 	$(this).next().text('Less');
 	 }).on('hidden.bs.collapse', function(){
 	 	$(this).next().text('See more');		

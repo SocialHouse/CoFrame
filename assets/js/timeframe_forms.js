@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
 						jQuery('#loginModal').modal('hide');
 						if(json.slug && json.request_string)
 						{
-							window.location.href = base_url+"co_create/demo/"+json.slug+'/'+json.request_string;
+							window.location.href = base_url+"co_create/cocreate_post/"+json.slug+'/'+json.request_string;
 						}
 						else
 							window.location.href = base_url+"brands/overview";
