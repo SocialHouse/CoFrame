@@ -185,9 +185,11 @@
 	$lang['biling_downgrade'] = "You can not downgrade the plan";
 
 	$lang['enter_url'] = "Please enter url";
+
 	// tumblr validation errors
-	$lang['enter_url_embed_data'] = "Please enter either a URI, embed, or data";
-	$lang['enter_audio_url'] = "Please enter audio url";
+	$lang['enter_url_embed_data_image'] = "Please enter either a URI, embed, or data or upload image";
+	$lang['enter_url_embed_data_video'] = "Please enter either a URI, embed, or data or upload video";
+	$lang['enter_audio_url'] = "Please enter audio url or upload audio";
 	$lang['enter_chat_copy'] = "Please enter conversation";
 	$lang['enter_link'] = "Please enter link";
 	$lang['enter_quote'] = "Please enter quote";
@@ -200,5 +202,14 @@
 	// pinteres validation errors	
 	$lang['pinterest_bord_error'] = "Please select board";
 	$lang['pinterest_upload_error'] = "Please uplaod image";
+
+
+	// tumblr Change Content Type message
+	$lang['tumblr_change_img_error'] = "please delete images and then switch to %Content_type%";
+	$lang['tumblr_change_video_error'] = "please delete video and then switch to %Content_type%";
+	$lang['tumblr_change_audio_error'] = "please delete audio and then switch to %Content_type%";
+	$lang['tumblr_change_img_video_error'] = "please delete image or video and then switch to %Content_type%";
+	$lang['tumblr_change_img_audio_error'] = "please delete images or audio and then switch to %Content_type%";
+	$lang['tumblr_change_audio_video_error'] = "please delete audio or video and then switch to %Content_type%";
 
 ?>

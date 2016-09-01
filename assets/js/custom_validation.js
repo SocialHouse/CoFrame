@@ -73,12 +73,12 @@ window.create_post_validation = function create_post_validation(){
  								ed_date = convertDateFormat(ed_date);
  								console.log([today,ed_date,slate_date]);
  								if (moment(ed_date).isBetween(today, slate_date, compare_array)){
- 									if( outlet_const == 'tumblr'){
+ 									if(outlet_validation(outlet_const)){
  										// outlet_validation(outlet_const);
  										disable_btn = false;
  									}
  									else{
- 										disable_btn = false;
+ 										disable_btn = true;
  									}
  								}else{
  									disable_btn = true;
@@ -381,9 +381,11 @@ window.tumblr_validation = function tumblr_validation(){
 			tb_photo_error	= $('#tb_photo_error'),
 			tbPhotoSource 	= $('#tbPhotoSource').val();
 		// required fields either source or data or data64
-		if(tbPhotoSource == '' ){
-			tb_photo_error.text(language_message.enter_url_embed_data);
+		if(tbPhotoSource == '' && $('.form__preview-wrapper img').length < 1){
+			tb_photo_error.text(language_message.enter_url_embed_data_image);
 			tb_photo_error.show();
+			$('#img_error').show();
+			$('#img_error').text(language_message.enter_url_embed_data_image);
 		}
 		else{
 			return true;			
@@ -438,9 +440,11 @@ window.tumblr_validation = function tumblr_validation(){
 			tb_audio_error	= $('#tb_audio_error'),
 			tb_audio_url 	= $('#tb_audio_url').val();
 		//required fields  either external_url or data
-		if(tb_audio_url == ''){
+		if(tb_audio_url == '' && $('.form__preview-wrapper audio').length < 1){
 			tb_audio_error.text(language_message.enter_audio_url);
 			tb_audio_error.show();
+			$('#img_error').show();
+			$('#img_error').text(language_message.enter_audio_url);
 		}
 		else{
 			return true;
@@ -452,9 +456,11 @@ window.tumblr_validation = function tumblr_validation(){
 			tb_video_error	= $('#tb_video_error'),
 			tbVideoSource 	= $('#tbVideoSource').val();
 		//required fields either a URI, embed, or data
-		if(tbVideoSource == ''){
-			tb_video_error.text(language_message.enter_url_embed_data);
+		if(tbVideoSource == '' && $('.form__preview-wrapper video').length < 1){
+			tb_video_error.text(language_message.enter_url_embed_data_video);
 			tb_video_error.show();
+			$('#img_error').show();
+			$('#img_error').text(language_message.enter_url_embed_data_video);
 		}
 		else{
 			return true;
