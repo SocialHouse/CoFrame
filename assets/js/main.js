@@ -1863,9 +1863,30 @@ jQuery(function($) {
 
 	$('.collapse').on('shown.bs.collapse', function(){
 	 	$(this).next().text('Less');
-	 }).on('hidden.bs.collapse', function(){
+	}).on('hidden.bs.collapse', function(){
 	 	$(this).next().text('See more');		
-	 });
+	});
+
+	$(document).on('click keyup','#pinSource',function(){
+	 	if($(this).val().trim() != ''){
+	 		$('.pinterest-source').removeClass('hide');
+	 		$('.pinterest-user-avatar').addClass('hide');
+	 		$('.pinterest-source span').text($(this).val());
+	 		$('.pinterest-source').parent('a').attr('href',$(this).val());
+	 	}else{
+	 		$('.pinterest-source').addClass('hide');
+	 		$('.pinterest-user-avatar').removeClass('hide');
+	 		$('.pinterest-source').parents('a').attr('href','#');
+	 	}
+    });
+
+	$(document).on('click keyup','.http_url',function(){
+		if($(this).val().trim() != ''){
+	        if (!/^https*:\/\//.test(this.value)) {
+	            this.value = "http://" + this.value;
+	        }
+	    }
+    });
 
 	 toggleBtnClass = function(btnClass, btnState) {
 	 	$(btnClass).prop('disabled', btnState);
