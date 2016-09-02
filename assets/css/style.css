@@ -8820,7 +8820,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   content: "“ ";
   }
   .tb_post .source{
-    padding: 0 20px;    
+    padding: 9px 20px 0.15em;    
     color: inherit;
     padding-bottom: 0.15em;
     text-decoration: underline;
@@ -8830,7 +8830,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   .tb_post .tags{
     color: #a1a1a1;
     font-size: 13px;
-    padding: 8px 20px 15px 20px; 
+    padding: 0px 20px 15px 20px; 
     word-break: break-all;
   }
   .tb_post .link-url{

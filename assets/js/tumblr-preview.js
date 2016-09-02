@@ -92,20 +92,16 @@ jQuery(function($) {
 	// 	}
 	// });
 
-	$(document).on('keypress blur keyup','#tumblrPostCopy', function() {
+	$(document).on('keypress blur keyup','#tumblrPostCopy, #tumblrChatCopy', function() {
 		$('#postCopy').val($(this).val());
 		$('#postCopy').keyup();
 	});
 
-	$(document).on('keypress blur keyup','#tb_text_title, #tb_chat_title, #tumblrQuoteCopy, #tbCaption', function() {
+	$(document).on('keypress blur keyup','#tb_text_title, #tb_chat_title, #tumblrQuoteCopy, #tbCaption,#tbVideoDescr,#tbAudioDescr', function() {
 		if($(this).attr('id') == 'tumblrQuoteCopy'){
-			$('#live-post-preview .post-title').addClass('quote');
-		}else{
-			$('#live-post-preview .post-title').removeClass('quote');
-		}
-
-		if($(this).attr('id') == 'tumblrQuoteCopy'){
-			$('#live-post-preview .post-title').addClass('quote');
+			if(!$('#live-post-preview .post-title').hasClass('quote')){
+				$('#live-post-preview .post-title').addClass('quote');
+			}
 		}else{
 			$('#live-post-preview .post-title').removeClass('quote');
 		}
@@ -126,7 +122,9 @@ jQuery(function($) {
 
 	$(document).on('keypress blur keyup','#tbLink', function() {
 		if($(this).val() != ''){
-			$('#live-post-preview .link').addClass('link-url');
+			if(!$('#live-post-preview .link').hasClass('link-url')){
+				$('#live-post-preview .link').addClass('link-url');
+			}
 		}else{
 			$('#live-post-preview .link').removeClass('link-url');
 		}

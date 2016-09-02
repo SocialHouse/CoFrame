@@ -121,12 +121,12 @@
 						<label for="tumblrContent" class="pull-sm-left">Content Type: </label>
 						<ul class="pull-sm-left">
 							<li class="<?php echo $text_li_class; ?>" data-selected-content="Text"><i class="tf-icon-text bg-tumblr show-hide" data-show="#tumblrTextPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Text"></i></li>
-							<li class="<?php echo $photo_li_class; ?>" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Photo"></i></li>
+							<li class="<?php echo $photo_li_class; ?>" data-selected-content="Photo"><i class="tf-icon-photo bg-tumblr show-hide" data-show="#tumblrPhotoPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Photo"></i></li>
 							<li class="<?php echo $quote_li_class; ?>" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
 							<li class="<?php echo $link_li_class; ?>" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
 							<li class="<?php echo $chat_li_class; ?>" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
-							<li class="<?php echo $audio_li_class; ?>" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Audio"></i></li>
-							<li class="<?php echo $video_li_class; ?>" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Video"></i></li>
+							<li class="<?php echo $audio_li_class; ?>" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Audio"></i></li>
+							<li class="<?php echo $video_li_class; ?>" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Video"></i></li>
 						</ul>
 						<input type="hidden" id="tumblrContent" name="tumblrContent" value="<?php if(isset($post_details)){ echo $post_details->tumblr_content_type; } ?>">
 					</div>
