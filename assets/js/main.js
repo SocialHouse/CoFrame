@@ -273,6 +273,11 @@ jQuery(function($) {
 								showHide($(element),str_show,str_hide);
 								$(element).removeClass('disabled');
 								$('#tumblrContent').val('Photo');
+								$("#tbCaption").val($('#postCopy').val());
+								setTimeout(function(){
+									$("#tbCaption").blur();
+									$('.tb_post .post_copy_text').text('');
+								}, 200);
 							}
 						}
 
@@ -284,6 +289,27 @@ jQuery(function($) {
 								showHide($(element),str_show,str_hide);
 								$(element).removeClass('disabled');
 								$('#tumblrContent').val('Video');
+								$("#tbVideoDescr").val($('#postCopy').val());
+								setTimeout(function(){
+									$("#tbVideoDescr").blur();
+									$('.tb_post .post_copy_text').text('');
+								}, 200);
+							}
+						}
+
+						if ($('.form__preview-wrapper audio').length > 0){
+
+							if($(element).data('selected-content')  == 'Audio'){
+								var str_hide = $(element).children('i').data('hide');
+								var str_show = $(element).children('i').data('show');
+								showHide($(element),str_show,str_hide);
+								$(element).removeClass('disabled');
+								$('#tumblrContent').val('Audio');
+								$("#tbAudioDescr").val($('#postCopy').val());
+								setTimeout(function(){
+									$("#tbAudioDescr").blur();
+									$('.tb_post .post_copy_text').text('');
+								}, 200);
 							}
 						}
 					});
@@ -1460,7 +1486,7 @@ jQuery(function($) {
 				selected_content_type = $(element).data('selected-content');
 			}
 		});
-		
+
 		if(selected_outlet == 'tumblr' && selected_content_type == 'Quote'){
 			$('#live-post-preview .post_copy_text').text(post_copy.replace(/\r?\n/g, '<br/>'));
 		}else{
