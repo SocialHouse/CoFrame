@@ -1440,6 +1440,7 @@ jQuery(function($) {
 		var selected_outlet = $('#postOutlet').attr('data-outlet-const');
 		var post_copy = $(this).val();
 		var post_length = post_copy.length;
+		var selected_content_type ='';
 		post_copy = convertToLink(post_copy);
 		post_copy = hashtagToLink(post_copy);
 		post_copy = atToLink(post_copy);
@@ -1453,7 +1454,14 @@ jQuery(function($) {
 			}
 			$('#charsLeft').text(charsLeft);
 		}
-		if(selected_outlet == 'tumblr'){
+
+		$.each($('.content-list li'), function(i, element){
+			if(!$(element).hasClass('disabled')){
+				selected_content_type = $(element).data('selected-content');
+			}
+		});
+		
+		if(selected_outlet == 'tumblr' && selected_content_type == 'Quote'){
 			$('#live-post-preview .post_copy_text').text(post_copy.replace(/\r?\n/g, '<br/>'));
 		}else{
 			$('#live-post-preview .post_copy_text').html(post_copy.replace(/\r?\n/g, '<br/>'));
@@ -2021,10 +2029,25 @@ function getConfirm(confirmMessage,confirmTitle,is_alert,callback){
 
 	$('#confirmFalse').click(function(){
 		$('#confirmbox').modal('hide');
+		if($('.modal-backdrop').length > 1){
+			console.log($('.modal-backdrop.in').length);
+			setTimeout(function(){
+				$('.modal-toggler').show();
+			},500);
+		}
 		if (callback) callback(false);
 	});
+
 	$('#confirmTrue').click(function(){
 		$('#confirmbox').modal('hide');
+		
+		if($('.modal-backdrop').length > 1){
+			console.log($('.modal-backdrop.in').length);
+			setTimeout(function(){
+				$('.modal-toggler').show();
+			},500);
+		}
 		if (callback) callback(true);
+		
 	});
 }
