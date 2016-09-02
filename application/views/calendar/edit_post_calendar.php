@@ -84,10 +84,12 @@
 				$audio_li_class = 'disabled';
 				$video_class = 'hidden';
 				$video_li_class = 'disabled';
+				$mediaUpload = '';
 				switch ($post_details->tumblr_content_type) {
 					case 'Text':
 						$text_class = '';
 						$text_li_class = '';
+						$mediaUpload = 'hidden';
 						break;
 					case 'Photo':
 						$photo_class = '';
@@ -96,14 +98,17 @@
 					case 'Quote':
 						$quote_class = '';
 						$quote_li_class = '';
+						$mediaUpload = 'hidden';
 						break;
 					case 'Link':
 						$link_class = '';
 						$link_li_class = '';
+						$mediaUpload = 'hidden';
 						break;
 					case 'Chat':
 						$chat_class = '';
 						$chat_li_class = '';
+						$mediaUpload = 'hidden';
 						break;
 					case 'Audio':
 						$audio_class = '';
@@ -133,11 +138,9 @@
 				</div>
 				<?php
 				$defaultPostCopy = '';
-				$mediaUpload = '';
 				if(empty($tumblr_content_class))
 				{
 					$defaultPostCopy = 'hidden';
-					$mediaUpload = 'hidden';
 				}
 				?>
 				<div class="form-group <?php echo $defaultPostCopy; ?>" id="defaultPostCopy">
