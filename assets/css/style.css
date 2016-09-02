@@ -8805,6 +8805,46 @@ x:-o-prefocus, .qtip .qtip-tip {
     font-weight: bold; }
   .tb_post .img-div img + img {
     margin-top: 4px; }
+  .tb_post .post-title {
+    color: #343434;
+    font-family: georgia,serif;
+    font-weight: normal;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 29px;
+  }
+ .tb_post .post-title.quote:after {
+  content: " ”";
+ }
+ .tb_post .post-title.quote:before {
+  content: "“ ";
+  }
+  .tb_post .source{
+    padding: 0 20px;    
+    color: inherit;
+    padding-bottom: 0.15em;
+    text-decoration: underline;
+    -moz-text-decoration-color: #D0D0D0; /* Code for Firefox */
+    text-decoration-color: #D0D0D0;
+  }
+  .tb_post .tags{
+    color: #a1a1a1;
+    font-size: 13px;
+    padding: 8px 20px 15px 20px; 
+    word-break: break-all;
+  }
+  .tb_post .link-url{
+    background-color: #F2F2F2;
+    line-height: 25px;
+    padding: 15px 20px;
+  }
+  .tb_post .link-url a{
+    color: #343434;
+    font-family: georgia,serif;
+    font-weight: normal;
+    font-size: 16px;
+    text-decoration: none;
+  }
 
 /*Twitter Post Styles*/
 .tw_post {

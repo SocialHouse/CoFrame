@@ -64,7 +64,6 @@
 		</div>
 	</div>
 
-
 	<div id="outlet_linkedin">
 		<div class="in_post">
 			<div class="post-container">
@@ -109,7 +108,7 @@
 		<div class="tb_post">
 			<div class="post-container clearfix">
 				<div class="pull-left">
-					<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">			        
+					<img class="user-profile-img" src="<?php echo img_url(); ?>default_profile.jpg">
 				</div>
 				<div class="post-details">
 					<div class="post-user-name">
@@ -117,7 +116,15 @@
 					</div>
 					<div class="img-div">
 					</div>
+					<div class="post-title">
+					</div>
+					<div class="link"> <a href=""></a>
+					</div>
+					<div class="source">
+					</div>
 					<div class="post_copy_text">
+					</div>
+					<div class="tags">
 					</div>
 				</div>
 			</div>

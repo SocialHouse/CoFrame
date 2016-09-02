@@ -77,7 +77,7 @@ class Calendar extends CI_Controller {
 			
 			//echo '<pre>'; print_r($this->data['post_details'] );echo '</pre>'; die;			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css', 'https://fonts.googleapis.com/css?family=Roboto:400,500');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0' );
 			$this->data['view'] = 'calendar/day_view';
 	        _render_view($this->data);
 	    }
@@ -120,7 +120,7 @@ class Calendar extends CI_Controller {
 
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
 			$this->data['view_type'] = 'month_view';
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0' );
 
 			$this->data['view'] = 'calendar/month_view';
 	        _render_view($this->data);
@@ -165,7 +165,7 @@ class Calendar extends CI_Controller {
 			$this->data['filters'] = $this->timeframe_model->get_data_by_condition('filters',array('user_id' => $this->user_id,'brand_id' => $brand[0]->id));
 			
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'vendor/jquery.dotdotdot.min.js?ver=1.8.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0' );
 			$this->data['view_type'] = 'week_view';
 			$this->data['view'] = 'calendar/week_view';
 	        _render_view($this->data);
@@ -320,7 +320,7 @@ class Calendar extends CI_Controller {
 			}
 
 			$this->data['css_files'] = array(css_url().'fullcalendar.css');
-			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'datepicker.js',js_url().'timepicker.js');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'datepicker.js',js_url().'timepicker.js', js_url().'tumblr-preview.js?ver=1.0.0' );
 			// echo '<pre>'; print_r($this->data['timezone_list']);echo '</pre>';
 			$this->load->view('calendar/edit_post_calendar', $this->data);
 		}

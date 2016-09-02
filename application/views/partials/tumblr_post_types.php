@@ -48,7 +48,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_text_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_text_tags" id="tb_text_tags" value="<?php if(empty($text_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_text_tags" id="tb_text_tags" value="<?php if(empty($text_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tbUrl">Custom URL (Optional):</label>
@@ -68,7 +68,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_photo_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_photo_tags" id="tb_photo_tags" value="<?php if(empty($photo_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_photo_tags" id="tb_photo_tags" value="<?php if(empty($photo_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tbPhotoSource">Content Source (Optional):</label>
@@ -90,7 +90,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_quote_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_quote_tags" id="tb_quote_tags" value="<?php if(empty($quote_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_quote_tags" id="tb_quote_tags" value="<?php if(empty($quote_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tb_quote_url">Custom URL (Optional):</label>
@@ -132,7 +132,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_chat_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_chat_tags" id="tb_chat_tags" value="<?php if(empty($chat_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_chat_tags" id="tb_chat_tags" value="<?php if(empty($chat_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tb_chat_url">Custom URL (Optional):</label>
@@ -152,7 +152,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_audio_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_audio_tags" id="tb_audio_tags" value="<?php if(empty($audio_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_audio_tags" id="tb_audio_tags" value="<?php if(empty($audio_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tb_audio_url">Custom URL (Optional):</label>
@@ -173,7 +173,7 @@ if(isset($post_details))
 	</div>
 	<div class="form-group">
 		<label for="tb_video_tags">#Tags (Optional):</label>
-		<input type="text" placeholder="#tags" class="form-control" name="tb_video_tags" id="tb_video_tags" value="<?php if(empty($video_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
+		<input type="text" placeholder="#tags" class="form-control tb_tags" name="tb_video_tags" id="tb_video_tags" value="<?php if(empty($video_class) AND !empty($post_details)) { echo $post_details->tumblr_tags; } ?>">
 	</div>
 	<div class="form-group">
 		<label for="tbVideoSource">Content Source (Optional):</label>
