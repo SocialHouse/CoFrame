@@ -431,14 +431,13 @@
 			// if the form was submitted
 			$(document).on( 'click','.submit-btn', function( e ){	
 				var btn = this;	
-				 if($('#post-details').length && $(this).attr('id') != 'draft'){
+				if($('#post-details').length && $(btn).attr('id') != 'draft' || $('#edit-post-details').length && $(btn).attr('id') != 'draft'){
 			    	if(!create_post_validation()){
-			    		console.log('yes');
 			    		return false;
 			    	}
 			    }
 
-				if($(this).attr('name') == 'resubmit')
+				if($(btn).attr('name') == 'resubmit')
 				{
 					$('#resubmit').val('resubmit');
 				}
@@ -447,7 +446,7 @@
 					$('#resubmit').val('');	
 				}
 					
-				if($(this).attr('id') == 'draft')
+				if($(btn).attr('id') == 'draft')
 				{
 					$('#save_as').val('draft');
 				}
@@ -1232,5 +1231,7 @@
 			equalColumns();
 		}		
 	};
+
+
 
 	

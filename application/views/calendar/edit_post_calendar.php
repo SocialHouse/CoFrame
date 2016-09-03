@@ -1,8 +1,9 @@
 <form  id="edit-post-details" class="file-upload clearfix" action="<?php echo base_url() ?>calendar/edit_post " method="post" upload="<?php echo base_url()."posts/upload"; ?>" autocomplete="off">
 
-	<input type="hidden" name="is_new_approver" value="no" id="is-new-approver">
-	<input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>" id="redirect_url">
+	<input type="hidden" name="is_new_approver" id="is-new-approver" value="no">
+	<input type="hidden" name="redirect_url" id="redirect_url" value="<?php echo $redirect_url; ?>" >
 	<input type="hidden" name="resubmit" id="resubmit" value="">
+	<input type="hidden" name="save_as" id="save_as" value="" >
 	<div  id="edit-post-manage" class="row equal-columns create">
 		<div class="col-md-4 equal-height">
 			<div class="container-post-preview post-content">
@@ -33,95 +34,95 @@
 					<input type="hidden" id="all_files">
 					<div class="outlet-list clearfix">
 						<label for="postOutlet" class="pull-sm-left">Outlet: </label>
-						<?php 
-						if(!empty($outlets)){
-							echo '<ul class="pull-sm-left outlet_ul">';
-							foreach($outlets as $outlet)
-							{
-								//echo '<pre>'; print_r($outlet);echo '</pre>';
-								$class = strtolower($outlet->outlet_name);
-								if(strtolower($outlet->outlet_name) == 'youtube')
+							<?php 
+							if(!empty($outlets)){
+								echo '<ul class="pull-sm-left outlet_ul">';
+								foreach($outlets as $outlet)
 								{
-									$class = 'youtube-play';
+									//echo '<pre>'; print_r($outlet);echo '</pre>';
+									$class = strtolower($outlet->outlet_name);
+									if(strtolower($outlet->outlet_name) == 'youtube')
+									{
+										$class = 'youtube-play';
+									}
+									$selected ='class= "disabled" ';
+									if( $post_details->outlet_id == $outlet->id  ){
+										$selected = '';
+									}
+									?>
+										<li <?php echo $selected; ?>   data-selected-outlet="<?php echo $outlet->id; ?>" data-outlet-const="<?php echo strtolower($outlet->outlet_constant); ?>">
+											<i class="fa fa-<?php echo $class; ?>">
+												<span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span>
+											</i>
+										</li>
+									<?php
 								}
-								$selected ='class= "disabled" ';
-								if( $post_details->outlet_id == $outlet->id  ){
-									$selected = '';
-								}
-								?>
-									<li <?php echo $selected; ?>   data-selected-outlet="<?php echo $outlet->id; ?>" data-outlet-const="<?php echo strtolower($outlet->outlet_constant); ?>">
-										<i class="fa fa-<?php echo $class; ?>">
-											<span class="bg-outlet bg-<?php echo strtolower($outlet->outlet_name); ?>"></span>
-										</i>
-									</li>
-								<?php
+								echo '</ul>';
 							}
-							echo '</ul>';
-						}
 						?>
 						<input type="hidden" name="post_outlet" id="postOutlet" value="<?php echo $post_details->outlet_id; ?>" data-outlet-const="<?php echo strtolower($post_details->outlet_constant); ?>">
+						<div id="outlet_error" class="error"></div>
 					</div>
 				</div>
 
 				<?php
-				$tumblr_content_class = 'hidden';
-				if(strtolower($post_details->outlet_constant) == 'tumblr')
-				{
-					$tumblr_content_class = '';
-				}
+					$tumblr_content_style = '';
+					if(strtolower($post_details->outlet_constant) == 'tumblr')
+					{
+						$tumblr_content_style = 'display: block;';
+					}
 
-				$text_class = 'hidden';
-				$text_li_class = 'disabled';
-				$photo_class = 'hidden';
-				$photo_li_class = 'disabled';
-				$quote_class = 'hidden';
-				$quote_li_class = 'disabled';
-				$link_class = 'hidden';
-				$link_li_class = 'disabled';
-				$chat_class = 'hidden';
-				$chat_li_class = 'disabled';
-				$audio_class = 'hidden';
-				$audio_li_class = 'disabled';
-				$video_class = 'hidden';
-				$video_li_class = 'disabled';
-				$mediaUpload = '';
-				switch ($post_details->tumblr_content_type) {
-					case 'Text':
-						$text_class = '';
-						$text_li_class = '';
-						$mediaUpload = 'hidden';
-						break;
-					case 'Photo':
-						$photo_class = '';
-						$photo_li_class = '';
-						break;
-					case 'Quote':
-						$quote_class = '';
-						$quote_li_class = '';
-						$mediaUpload = 'hidden';
-						break;
-					case 'Link':
-						$link_class = '';
-						$link_li_class = '';
-						$mediaUpload = 'hidden';
-						break;
-					case 'Chat':
-						$chat_class = '';
-						$chat_li_class = '';
-						$mediaUpload = 'hidden';
-						break;
-					case 'Audio':
-						$audio_class = '';
-						$audio_li_class = '';
-						break;
-					case 'Video':
-						$video_class = '';
-						$video_li_class = '';
-						break;
-				}
-
+					$text_class = 'hidden';
+					$text_li_class = 'disabled';
+					$photo_class = 'hidden';
+					$photo_li_class = 'disabled';
+					$quote_class = 'hidden';
+					$quote_li_class = 'disabled';
+					$link_class = 'hidden';
+					$link_li_class = 'disabled';
+					$chat_class = 'hidden';
+					$chat_li_class = 'disabled';
+					$audio_class = 'hidden';
+					$audio_li_class = 'disabled';
+					$video_class = 'hidden';
+					$video_li_class = 'disabled';
+					$mediaUpload = '';
+					switch ($post_details->tumblr_content_type) {
+						case 'Text':
+							$text_class = '';
+							$text_li_class = '';
+							$mediaUpload = 'hidden';
+							break;
+						case 'Photo':
+							$photo_class = '';
+							$photo_li_class = '';
+							break;
+						case 'Quote':
+							$quote_class = '';
+							$quote_li_class = '';
+							$mediaUpload = 'hidden';
+							break;
+						case 'Link':
+							$link_class = '';
+							$link_li_class = '';
+							$mediaUpload = 'hidden';
+							break;
+						case 'Chat':
+							$chat_class = '';
+							$chat_li_class = '';
+							$mediaUpload = 'hidden';
+							break;
+						case 'Audio':
+							$audio_class = '';
+							$audio_li_class = '';
+							break;
+						case 'Video':
+							$video_class = '';
+							$video_li_class = '';
+							break;
+					}
 				?>
-				<div id="tumblrContentTypes" class="<?php echo $tumblr_content_class; ?> extra-outlet-fields">
+				<div id="tumblrContentTypes" class="hidden form-group extra-outlet-fields" style="<?php echo $tumblr_content_style; ?>">
 					<div class="content-list clearfix">
 						<label for="tumblrContent" class="pull-sm-left">Content Type: </label>
 						<ul class="pull-sm-left">
@@ -135,20 +136,23 @@
 						</ul>
 						<input type="hidden" id="tumblrContent" name="tumblrContent" value="<?php if(isset($post_details)){ echo $post_details->tumblr_content_type; } ?>">
 					</div>
+					<label id="tumblr_content_error" class="error hide"></label>
 				</div>
 				<?php
-				$defaultPostCopy = '';
-				if(empty($tumblr_content_class))
-				{
 					$defaultPostCopy = 'hidden';
-				}
+					$defaultPostCopy_style = '';
+					if(strtolower($post_details->outlet_constant) != 'tumblr')
+					{
+						$defaultPostCopy = 'hidden';
+						$defaultPostCopy_style ='display: block;'; 
+					}
 				?>
-				<div class="form-group <?php echo $defaultPostCopy; ?>" id="defaultPostCopy">
+				<div id="defaultPostCopy" class="form-group <?php echo $defaultPostCopy; ?>" style="<?php echo $defaultPostCopy_style; ?>" >
 					<label for="postCopy">Post Copy</label>
 					<textarea class="form-control" id="postCopy" name ="post_copy" rows="5" placeholder="Type your copy here..."><?php echo (!empty($post_details->content)) ? $post_details->content : '';?></textarea>
 					<div id="post_copy_error" class="error"></div>
 				</div>
-				<div class="form-group <?php echo $mediaUpload; ?>" id="mediaUpload">
+				<div id="mediaUpload" class="form-group <?php echo $mediaUpload; ?>">
 					<label>Upload Photo(s) Or Video: <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></label>
 					<input type="hidden" name="delete_img" id="delete_img" />
 					<div class="form__input has-files">
@@ -183,7 +187,7 @@
 					<div id="img_error" class="error"></div>
 				</div>
 
-				<div class="media-type clearfix hidden extra-outlet-fields" id="facebookMediaUpload">
+				<div id="facebookMediaUpload" class="media-type clearfix hidden extra-outlet-fields" style="" >
 					<div class="clearfix">
 						<div class="col-md-6">
 							<input type="radio" name="media-type" value="Photos" class="hidden-xs-up">
@@ -260,13 +264,13 @@
 				</div>
 
 				<?php
-				$linkedin_content_class = 'hidden';
-				if(strtolower($post_details->outlet_constant) == 'linkedin')
-				{
-					$linkedin_content_class = '';
-				}
+					$linkedin_content_style = '';
+					if(strtolower($post_details->outlet_constant) == 'linkedin')
+					{
+						$linkedin_content_style = 'display: block;';
+					}
 				?>
-				<div id="linkedinPostFields" class="<?php echo $linkedin_content_class; ?> form-group extra-outlet-fields">
+				<div id="linkedinPostFields" class="hidden form-group extra-outlet-fields" style="<?php echo $linkedin_content_style; ?> ">
 					<label for="shareWithLinkedin">Share with:</label>
 					<select class="form-control" name="shareWithLinkedin" id="shareWithLinkedin">
 						<option value="public" <?php if($post_details->share_with == 'public') { echo 'selected="selected"'; } ?>>Public</option>
@@ -275,13 +279,13 @@
 				</div>
 
 				<?php
-				$pinterest_content_class = 'hidden';
-				if(strtolower($post_details->outlet_constant) == 'pinterest')
-				{
-					$pinterest_content_class = '';
-				}
+					$pinterest_content_style = '';
+					if(strtolower($post_details->outlet_constant) == 'pinterest')
+					{
+						$pinterest_content_style = 'display: block;';
+					}
 				?>
-				<div id="pinterestPostFields" class="<?php echo $pinterest_content_class; ?> form-group extra-outlet-fields">
+				<div id="pinterestPostFields" class="hidden form-group extra-outlet-fields" style="<?php echo $pinterest_content_style; ?>">
 					<div class="form-group">
 						<label for="pinterestBoard">Board:</label>
 						<select class="form-control" name="pinterestBoard" id="pinterestBoard">
@@ -289,6 +293,7 @@
 								<option value="board name" <?php if($post_details->pinterest_board == 'board name') { echo 'selected="selected"'; } ?>>Board Name</option>
 								<option value="board name 2" <?php if($post_details->pinterest_board == 'board name 2') { echo 'selected="selected"'; } ?>>Board Name 2</option>
 						</select>
+						<label id="pinterest_bord_error" class="pinterest_error error hide"></label>
 					</div>
 					<div class="form-group">
 						<label for="pinSource">Source (Optional):</label>
@@ -297,15 +302,16 @@
 				</div>
 
 				<?php
-				$youtube_content_class = 'hidden';
-				if(strtolower($post_details->outlet_constant) == 'youtube')
-				{
-					$youtube_content_class = '';
-				}
+					$youtube_content_style = '';
+					if(strtolower($post_details->outlet_constant) == 'youtube')
+					{
+						$youtube_content_style = 'display: block;';
+					}
 				?>
-				<div id="youtubePostFields" class="<?php echo $youtube_content_class; ?> form-group extra-outlet-fields">
+				<div id="youtubePostFields" class="hidden form-group extra-outlet-fields" style="<?php echo $youtube_content_style; ?>">
 					<label for="ytVideoTitle">Video Title:</label>
-					<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle" value="<?php echo $post_details->video_title; ?>">					
+					<input type="text" placeholder="Title Here" class="form-control" name="ytVideoTitle" id="ytVideoTitle" value="<?php echo $post_details->video_title; ?>">
+					<label id="youtube_title_error" class="youtube_error error hide"></label>					
 				</div>
 
 				<?php $this->load->view('partials/tumblr_post_types'); ?>
@@ -462,10 +468,11 @@
 															<div class="time-select form-control form-control-sm phase-time-input <?php echo $phase_no + 1;?>-phase-time-input">
 																<input id="ph_<?php echo $phase_num_array[$phase_no]; ?>_hour" type="text" class="time-input hour-select" data-min="1" data-max="12" placeholder="HH" name="phase_approve_hour<?php echo $phase_no;?>" value="<?php echo date('h' , strtotime($obj[0]->approve_by))?>">
 																<input id="ph_<?php echo $phase_num_array[$phase_no]; ?>_minute" type="text" class="time-input minute-select" data-min="0" data-max="59" placeholder="MM" name="phase_approve_minute<?php echo $phase_no;?>"  value="<?php echo date('i' , strtotime($obj[0]->approve_by))?>">
-																<input id="ph_<?php echo $phase_num_array[$phase_no]; ?>_ampm" type="text" class="time-input amselect" value="am" name="phase_approve_ampm<?php echo $phase_no;?>"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
+																<input id="ph_<?php echo $phase_num_array[$phase_no]; ?>_ampm" type="text" class="time-input amselect" name="phase_approve_ampm<?php echo $phase_no;?>"  value="<?php echo date('A' , strtotime($obj[0]->approve_by))?>">
 															</div>
 														</div>
 													</div>
+
 													<div class="form-group slate-post-tz">
 														<select class="form-control form-control-sm approval_timezone" name="phase[<?php echo $phase_no ;?>][time_zone]">
 															<?php 
@@ -496,6 +503,25 @@
 														</select>
 													</div>
 												</div>
+												<?php 
+													if($phase_no + 1 == '1'){
+														?>
+														<div class="phase-one-error-all error hide clearfix"></div>
+														<?php
+													}
+
+													if($phase_no + 1 == '2'){
+														?>
+														<div class="phase-two-error error hide clearfix"></div>
+														<?php
+													}
+
+													if($phase_no + 1 == '3'){
+														?>
+														<div class="phase-three-error error hide clearfix"></div>
+														<?php
+													}
+												?>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
 													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..." ><?php echo nl2br($obj[0]->note); ?></textarea>
@@ -657,6 +683,25 @@
 														</select>
 													</div>
 												</div>
+												<?php 
+													if($i == '1'){
+														?>
+														<div class="phase-one-error-all error hide clearfix"></div>
+														<?php
+													}
+
+													if($i == '2'){
+														?>
+														<div class="phase-two-error error hide clearfix"></div>
+														<?php
+													}
+
+													if($i == '3'){
+														?>
+														<div class="phase-three-error error hide clearfix"></div>
+														<?php
+													}
+												?>
 												<div class="form-group">
 													<label for="approvalNotes">Note to Approvers (optional):</label>
 													<textarea class="form-control approvalNotes" id="approvalNotes" rows="2" placeholder="Type your note here..."></textarea>

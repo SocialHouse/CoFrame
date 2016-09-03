@@ -562,9 +562,9 @@ class Calendar extends CI_Controller {
 					}
 					elseif($post_data['tumblrContent'] == 'Photo')
 					{
-    					$post['tumblr_tags'] = $post_data['tumblr_post_copy'];
-    					$post['tumblr_caption'] = $post_data['tb_text_tags'];
-    					$post['tumblr_content_source'] = $post_data['tb_text_url'];
+    					$post['tumblr_tags'] = $post_data['tbCaption'];
+    					$post['tumblr_caption'] = $post_data['tb_photo_tags'];
+    					$post['tumblr_content_source'] = $post_data['tbPhotoSource'];
 
     					$post['tumblr_title'] = NULL;
     					$post['tumblr_text_content'] = NULL;
@@ -850,6 +850,10 @@ class Calendar extends CI_Controller {
 							}
 						}
 					}					
+				}
+				if($post_data['save_as'] == 'draft')
+				{
+					$post['status'] = 'pending';
 				}
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');

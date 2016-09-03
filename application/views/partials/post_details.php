@@ -153,7 +153,7 @@
 					<option value="board name">Board Name</option>
 					<option value="board name">Board Name 2</option>
 				</select>
-				<label id="pinterest_bord_error" class="youtube_error error hide"></label>
+				<label id="pinterest_bord_error" class="pinterest_error error hide"></label>
 			</div>
 			<div class="form-group">
 				<label for="pinSource">Source (Optional):</label>

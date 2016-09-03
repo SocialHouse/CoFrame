@@ -11,7 +11,6 @@ $(document).on('click','.first-phase li .pull-sm-left .check-box' ,function(){
 	$('#submit-approval').text(txt);
 });
 
-
 window.create_post_validation = function create_post_validation(){
  	var disable_btn 	= true,
  	is_outlet_selected 	= false,
@@ -33,12 +32,9 @@ window.create_post_validation = function create_post_validation(){
  	phase1_error 		= $('.phase-one-error');
  	outlet_const		= $('#postOutlet').attr('data-outlet-const') ;
 
- 	$('#post-details .outlet-list li').each(function(i, elm) 
- 	{
- 		if(!$(elm).hasClass('disabled')){
- 			is_outlet_selected = true;
- 		}
- 	});
+ 	if(outlet_const != '' &&  $('#postOutlet').val().trim() !== '' ){
+ 		is_outlet_selected = true;
+ 	}
 
  	reset_outlet_validation();
 

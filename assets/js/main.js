@@ -818,6 +818,7 @@ jQuery(function($) {
 				$(this).addClass('hide');
 			}
 		});
+		$('#save-phase-btns .phase-footer').hide();
 		$('.phase-footer').addClass('hide');
 		$('#submit-approval-btns').show();
 	});
