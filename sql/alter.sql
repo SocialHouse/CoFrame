@@ -464,3 +464,6 @@ ALTER TABLE `posts` ADD `tumblr_audio_description` TEXT NULL AFTER `tumblr_chat`
 ALTER TABLE `posts` ADD `tumblr_video_caption` VARCHAR(500) NULL AFTER `tumblr_audio_description`;
 ALTER TABLE `posts` ADD `tumblr_text_content` TEXT NULL AFTER `tumblr_title`;
 ALTER TABLE `posts` ADD `tumblr_content_type` VARCHAR(150) NULL AFTER `pinterest_source`; 
+
+---06-09-2016
+ALTER TABLE `co_create_requests` ADD `account_id` INT NOT NULL AFTER `user_id`;

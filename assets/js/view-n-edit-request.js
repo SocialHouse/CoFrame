@@ -463,7 +463,6 @@ jQuery(function($) {
         if (phase_date != '' && !moment(middle_date, 'YYYY-MM-DD', true).isValid()) {
              console.log([first_date, middle_date, last_date]);
             if (moment(middle_date).isBetween(first_date, last_date, compare_array)) {
-                return alert('completed');
                 $.ajax({
                     type: 'POST',
                     url: $form.attr('action'),

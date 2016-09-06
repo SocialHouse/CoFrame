@@ -92,24 +92,32 @@ class Approvals extends CI_Controller {
 		$this->data['post_id'] = $post_id;
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		$this->data['post_images'] = $this->post_model->get_images($post_id);
-		$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
-		$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
-		if(!empty($brand))
-		{
-			$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
-			//echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
-			if(!empty($this->data['phase']))
+		if(!empty($this->data['post_details'])){			
+			$brand = $this->brand_model->get_users_brands($this->user_id,$this->data['post_details']->brand_id);
+			$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+			if(!empty($brand))
 			{
-				$this->data['brand_id'] = $brand[0]->id;
-				$this->data['brand'] = $brand[0];
-				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
-				$this->data['view'] = 'approvals/edit_request';
-				$this->data['layout'] = 'layouts/new_user_layout';
-				$this->data['css_files'] = array(css_url().'fullcalendar.css');
-				$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'view-n-edit-request.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0');
-		        _render_view($this->data);
+				$this->data['phase'] = $this->approval_model->get_approval_phase($post_id,$this->user_id);
+				//echo '<pre>'; print_r($this->data['phase']);echo '</pre>'; die;
+				if(!empty($this->data['phase']))
+				{
+					$this->data['brand_id'] = $brand[0]->id;
+					$this->data['brand'] = $brand[0];
+					$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+					$this->data['view'] = 'approvals/edit_request';
+					$this->data['layout'] = 'layouts/new_user_layout';
+					$this->data['css_files'] = array(css_url().'fullcalendar.css');
+					$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'view-n-edit-request.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0');
+			        _render_view($this->data);
+			    }
 		    }
-	    }
+		}else{
+			// show_404();
+			// $message = "record not found";
+			// $status_code = 404;
+			// show_error($message, $status_code, $heading = 'An Error Was Encountered');
+		}
+
 	}
 
 	function save_edit_request()
@@ -260,40 +268,12 @@ class Approvals extends CI_Controller {
 		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
-		
-		if($this->data['phase_details']->phase == 1){
-			$this->data['pre_ph_date'] = '';
-			$this->data['end_ph_date'] = '';
-
-			$condition = array('post_id' => $post_id,'phase' => '2');
-			$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
-			if($ph_2){
-				$this->data['end_ph_date'] = $ph_2[0]->approve_by;
-			}
-		}else if($this->data['phase_details']->phase == 2){
-			$this->data['end_ph_date'] = '';
-			$condition = array('post_id' => $post_id,'phase' => '1');
-			$ph_1 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
-			$this->data['pre_ph_date'] = $ph_1[0]->approve_by;
-
-			$condition = array('post_id' => $post_id,'phase' => '3');
-			$ph_3 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
-			if($ph_3){
-				$this->data['end_ph_date'] = $ph_3[0]->approve_by;
-			}
-		}else if($this->data['phase_details']->phase == 3){
-			$condition = array('post_id' => $post_id,'phase' => '2');
-			$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
-			$this->data['pre_ph_date'] = $ph_2[0]->approve_by;
-			$this->data['end_ph_date'] = '';
-		}
 
 		if( $this->uri->segment(5) == 'edit')
 		{
 			$post_data = $this->input->post();
 			$phase_users = object_to_array($this->data['phase_users']);
-			$selected_users  = array_column($phase_users, 'aauth_user_id');
-			
+			$selected_users  = array_column($phase_users, 'aauth_user_id');	
 			$post_data['phase_approver'] = $post_data['phase'][$this->data['phase_details']->phase]['approver'];
 			$post_data['phase_id'] = $post_data['phase'][$this->data['phase_details']->phase]['phase_id'];
 			
@@ -345,7 +325,33 @@ class Approvals extends CI_Controller {
 			echo json_encode(array('status'=>true));
 		}
 		else
-		{			
+		{
+			if($this->data['phase_details']->phase == 1){
+				$this->data['pre_ph_date'] = '';
+				$this->data['end_ph_date'] = '';
+
+				$condition = array('post_id' => $post_id,'phase' => '2');
+				$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+				if($ph_2){
+					$this->data['end_ph_date'] = $ph_2[0]->approve_by;
+				}
+			}else if($this->data['phase_details']->phase == 2){
+				$this->data['end_ph_date'] = '';
+				$condition = array('post_id' => $post_id,'phase' => '1');
+				$ph_1 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+				$this->data['pre_ph_date'] = $ph_1[0]->approve_by;
+
+				$condition = array('post_id' => $post_id,'phase' => '3');
+				$ph_3 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+				if($ph_3){
+					$this->data['end_ph_date'] = $ph_3[0]->approve_by;
+				}
+			}else if($this->data['phase_details']->phase == 3){
+				$condition = array('post_id' => $post_id,'phase' => '2');
+				$ph_2 = $this->timeframe_model->get_data_by_condition('phases',$condition,'approve_by');
+				$this->data['pre_ph_date'] = $ph_2[0]->approve_by;
+				$this->data['end_ph_date'] = '';
+			}		
 			$brand_id = $this->data['phase_details']->brand_id;
 			$this->data['brand_id'] = $brand_id;
 			$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);

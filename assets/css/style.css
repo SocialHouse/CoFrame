@@ -8812,6 +8812,7 @@ x:-o-prefocus, .qtip .qtip-tip {
     padding: 0 20px;
     font-size: 16px;
     line-height: 29px;
+    word-wrap: break-word;
   }
  .tb_post .post-title.quote:after {
   content: " ”";
@@ -8824,18 +8825,20 @@ x:-o-prefocus, .qtip .qtip-tip {
     color: inherit;
     padding-bottom: 0.15em;
     text-decoration: underline;
+    word-wrap: break-word;
     -moz-text-decoration-color: #D0D0D0; /* Code for Firefox */
     text-decoration-color: #D0D0D0;
   }
   .tb_post .tags{
     color: #a1a1a1;
     font-size: 13px;
-    padding: 0px 20px 15px 20px; 
-    word-break: break-all;
+    padding: 0px 20px 15px; 
+    word-wrap: break-word;
   }
   .tb_post .link-url{
     background-color: #F2F2F2;
     line-height: 25px;
+    word-wrap: break-word;
     padding: 15px 20px;
   }
   .tb_post .link-url a{

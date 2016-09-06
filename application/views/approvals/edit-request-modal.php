@@ -94,7 +94,12 @@
 					foreach ($phase as $ph_number => $phs) 
 					{
 						if($phs['phase_users'][0]->phase_status == 'approved'){
-							$cls = 'inactive';
+							if($len = 1){
+								$cls = 'active';	
+							}else{
+								$cls = 'inactive';
+							}
+							
 						}else{
 							if($is_shown !='true'){
 								$cls = 'active';
