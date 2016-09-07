@@ -67,7 +67,11 @@ class Twitter_connect extends CI_Controller {
 		if(isset($is_key_exist->access_token) && isset($is_key_exist->access_token_secret))
 		{
 			$this->reset_session();
-			echo 'Your twitter access_token has already been saved';
+			$status 	= true;
+			$outlet 	= 'twitter';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'twitter', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 		else
 		{
@@ -134,8 +138,11 @@ class Twitter_connect extends CI_Controller {
 
 				$this->reset_session();
 
-				
-				echo "Access token has been saved successfully";
+				$status 	= true;
+				$outlet 	= 'twitter';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'twitter', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
 				
 			}
 			else

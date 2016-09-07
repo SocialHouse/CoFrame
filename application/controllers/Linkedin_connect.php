@@ -79,15 +79,24 @@ class Linkedin_connect extends CI_Controller {
 			}
 			else
 			{
-				$link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
-				redirect($link);
-				echo $token['linkedin']['oauth_problem'];
+				// $link = "https://api.linkedin.com/uas/oauth/authorize?oauth_token=". $token['linkedin']['oauth_token'];  
+				// redirect($link);
+				$status 	= false;
+				$outlet 	= 'linkedin';
+				$title 		= 'Error';
+				$message 	= $token['linkedin']['oauth_problem'];
+				echo social_callbacks($status, $outlet,$title, $message );
+				// echo $token['linkedin']['oauth_problem'];
 			}
 		}
 		else
 		{
 			$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
-			echo str_replace('%type%', 'linkedin', $this->lang->line('already_saved'));
+			$status 	= true;
+			$outlet 	= 'linkedin';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'linkedin', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 	}
 
@@ -114,7 +123,11 @@ class Linkedin_connect extends CI_Controller {
 
 				$this->social_media_model->save_token($data);
 				$profile = $this->linkedin->profile('~:(id,first-name,last-name,picture-url)');
-				echo str_replace('%type%', 'linkedin', $this->lang->line('save_successfully'));
+				$status 	= true;
+				$outlet 	= 'linkedin';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'linkedin', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
 			}
 			else
 			{

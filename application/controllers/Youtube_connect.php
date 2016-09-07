@@ -94,7 +94,12 @@ class Youtube_connect extends CI_Controller {
 				}
 				$response = $this->social_media_model->save_token($data);
 			}
-			echo str_replace('%type%', 'youtube', $this->lang->line('already_saved'));
+			
+			$status 	= true;
+			$outlet 	= 'youtube';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'youtube', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 			// echo "<script>window.close();</script>";
 			// redirect(base_url().'instagram_connect/profile');
 		}else{
@@ -137,7 +142,12 @@ class Youtube_connect extends CI_Controller {
 				'type' => 'youtube'
 				);
 			$response = $this->social_media_model->save_token($data);
-			echo str_replace('%type%', 'YouTube', $this->lang->line('save_successfully'));
+			
+			$status 	= true;
+			$outlet 	= 'youtube';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'YouTube', $this->lang->line('save_successfully'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 	}
 

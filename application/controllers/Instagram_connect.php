@@ -61,7 +61,11 @@ class Instagram_connect extends CI_Controller {
 			$this->session->set_userdata('instagram_username', $token['user']['username']);
 			$this->session->set_userdata('instagram_user_id', $token['user']['id']);
 			$this->instagram_api->access_token = $token['access_token'];
-			echo str_replace('%type%', 'instagram', $this->lang->line('already_saved'));
+			$status 	= true;
+			$outlet 	= 'instagram';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'instagram', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 			// echo "<script>window.close();</script>";
 			// redirect(base_url().'instagram_connect/profile');
 		}else{
@@ -90,11 +94,19 @@ class Instagram_connect extends CI_Controller {
 				$this->session->set_userdata('instagram_access_token', $auth_response->access_token);
 				$this->session->set_userdata('instagram_username', $auth_response->user->username);
 				$this->session->set_userdata('instagram_user_id', $auth_response->user->id);
-				echo str_replace('%type%', 'instagram', $this->lang->line('save_successfully'));
+				$status 	= true;
+				$outlet 	= 'instagram';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'instagram', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
 				// echo "<script>window.close();</script>";
 				//redirect(base_url().'instagram_connect/profile');
 			}else{
-				echo $auth_response->error_message;
+				$status 	= false;
+				$outlet 	= 'instagram';
+				$title 		= 'Error';
+				$message 	= $auth_response->error_message;
+				echo social_callbacks($status, $outlet,$title, $message );
 			}
 		}
 	}

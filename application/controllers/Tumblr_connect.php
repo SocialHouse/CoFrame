@@ -95,7 +95,11 @@ class Tumblr_connect extends CI_Controller {
 
 		if(isset($is_key_exist->access_token) && isset($is_key_exist->access_token_secret))
 		{
-			echo 'Your tumblr access_token has already been saved';
+			$status 	= true;
+			$outlet 	= 'tumblr';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'tumblr', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 		else
 		{
@@ -155,7 +159,11 @@ class Tumblr_connect extends CI_Controller {
 				{				
 					$this->timeframe_model->insert_data('social_media_keys',$data);
 				}
-				echo "Access token has been saved successfully";
+				$status 	= true;
+				$outlet 	= 'tumblr';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'tumblr', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
 			}
 			else
 			{

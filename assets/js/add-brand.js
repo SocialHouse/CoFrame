@@ -35,9 +35,7 @@ jQuery(function($) {
 						$(this).addClass('disabled').removeClass('selected');
 					}
 				});
-				if (!$(this).hasClass('disabled')) {
-					toggleBtnClass('#addOutlet', false);
-				} else {
+				if ($(this).hasClass('disabled')) {
 					toggleBtnClass('#addOutlet', true);
 				}
 			}
@@ -804,21 +802,6 @@ jQuery(function($) {
 			$('.user-name-role').html($('#firstName').val().toUpperCase() + ' ' + $(this).val().toUpperCase());
 		});
 
-		$(document).on('click', '[data-id="connect"]', function() {
-			var outlet = $(this).data('outlet-const');
-			var brand_id = $('#brand_id').val();
-			if (brand_id) {
-				var path = base_url + outlet.toLowerCase() + '_connect/' + outlet.toLowerCase() + '/' + brand_id + '/' + $(this).data('selected-outlet-id');
-				if ($(this).hasClass('selected')) {
-					$.oauthpopup({
-						path: path,
-						callback: function() {}
-					});
-				}
-			}
-		});
-
-		
 		$('body').on('click', '.remove-user', function(event) {
 			event.preventDefault();
 			// if(!($('#userPermissionsList .table').length > 1)){
@@ -1046,6 +1029,26 @@ jQuery(function($) {
 				}
 			});
 		});
+
+		$(document).on('click', '[data-id="connect"]', function() {
+			var outlet = $(this).data('outlet-const');
+			var brand_id = $('#brand_id').val();
+			if (brand_id) {
+				var urltoopen = base_url + outlet.toLowerCase() + '_connect/' + outlet.toLowerCase() + '/' + brand_id + '/' + $(this).data('selected-outlet-id');
+				if ($(this).hasClass('selected')) {
+					// $.oauthpopup({
+					//     path: urltoopen,
+					//     callback: function()
+					//     {
+					//         // log('callback');
+					//         console.log('callback');
+					//         //do callback stuff
+					//     }
+					// });
+					openPopup(urltoopen);
+				}
+			}
+		});
 	});
 
 	window.successTip = function successTip() {
@@ -1106,6 +1109,29 @@ jQuery(function($) {
 		if (numSelected < 1) {
 			$(obj).hide();
 		}
+	}
+
+	window.popupCallback = function popupCallback(str){
+		var response = jQuery.parseJSON(str);
+	    console.log(response.message);
+	    if(response.status){
+	    	// getConfirm(response.message,response.title,'alert',function(confResponse) {});
+	    	toggleBtnClass('#addOutletBtns #addOutlet', false);
+			jQuery('#addOutletBtns #addOutlet').click();
+			toggleBtnClass('#addOutletBtns #addOutlet', true);
+	    }else{
+	    	getConfirm(response.message,response.title,'alert',function(confResponse) {});
+	    	jQuery('#addOutletBtns .btn-cancel').click();
+	    }
+	}
+
+	window.openPopup = function openPopup(path){
+	    popname = window.open(
+	    	path,
+	    	"ConnectWithOAuth",
+	    	"location=0,status=0,width=800,height=400"
+	    );
+	    popname.window.focus();
 	}
 
 });

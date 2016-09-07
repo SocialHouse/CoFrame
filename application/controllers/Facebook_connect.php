@@ -67,7 +67,12 @@ class Facebook_connect extends CI_Controller {
 		{
 			redirect($this->facebook->login_url());
 		}else{
-			echo str_replace('%type%', 'facebook', $this->lang->line('already_saved'));
+
+			$status 	= true;
+			$outlet 	= 'facebook';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'facebook', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 			//$this->me();
 		}
 	}
@@ -243,7 +248,13 @@ class Facebook_connect extends CI_Controller {
 					'type' => 'facebook'
 				);
 				$this->social_media_model->save_token($data);
-			 str_replace('%type%', 'facebook', $this->lang->line('save_successfully'));
+				$status 	= true;
+				$outlet 	= 'facebook';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'facebook', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
+			//$this->me();
+			
 		}
 		redirect(base_url().'facebook_connect/me','refresh',200);
 	}

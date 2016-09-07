@@ -62,7 +62,12 @@ class Pinterest_connect extends CI_Controller {
 			redirect($loginurl);
 		}else{
 			$this->session->set_userdata('pinterest_access_token',object_to_array($is_key_exist));
-			echo str_replace('%type%', 'pinterest', $this->lang->line('already_saved'));
+			
+			$status 	= true;
+			$outlet 	= 'pinterest';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'pinterest', $this->lang->line('already_saved'));
+			echo social_callbacks($status, $outlet,$title, $message );
 			//$this->me();
 		}
 	}
@@ -97,7 +102,12 @@ class Pinterest_connect extends CI_Controller {
 				$this->social_media_model->save_token($data);
 
 				$this->session->set_userdata('pinterest_access_token', $temp_array);
-				echo str_replace('%type%', 'pinterest', $this->lang->line('save_successfully'));
+				
+				$status 	= true;
+				$outlet 	= 'pinterest';
+				$title 		= 'Successful';
+				$message 	= str_replace('%type%', 'pinterest', $this->lang->line('save_successfully'));
+				echo social_callbacks($status, $outlet,$title, $message );
 				//redirect(base_url().'pinterest_connect/me');
 			}
 		}

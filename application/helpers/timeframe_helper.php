@@ -938,4 +938,39 @@ if(!function_exists('add_leading_zero'))
     }
 }
 
+if(!function_exists('social_callbacks'))
+{
+    function social_callbacks($status, $outlet,$title, $message )
+    {
+        $CI = & get_instance();
+        $response_array = array(
+            'status'    => $status,
+            'outlet'    => $outlet,
+            'title'     => $title,          //'Successful'
+            'message'   => $message,       // str_replace('%type%', 'instagram', $CI->lang->line('already_saved'))
+        );
+
+        $response_array = json_encode($response_array); 
+        return "<html>
+            <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+            <title>query data</title>
+            <script type='text/javascript'>
+                function redirectBack()
+                {
+                    console.log([window,window.opener]);
+                    window.opener.popupCallback('".$response_array."'); //Call callback function 
+                    setTimeout(function(){
+                        self.close(); // Close the current popup
+                    },100);
+                }
+            </script>
+            </head>
+            <body onload='redirectBack();'>
+            </body>
+            </html>";
+    }
+}
+
+
 

@@ -133,4 +133,4 @@ $config['upload_limit'] = array(
 // FALSE 	:- It uses local App configuration. 
 // TRUE 	:- It uses Sercer App configuration.
 
-$config['enable_server_app'] = FALSE;
+$config['enable_server_app'] = TRUE;
