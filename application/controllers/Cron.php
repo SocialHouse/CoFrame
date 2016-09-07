@@ -733,9 +733,7 @@ class Cron extends CI_Controller {
                 $post_array = array();               
                 $all_images = $this->get_media($post_data->id,'images');
                 $all_videos = $this->get_media($post_data->id,'video',1);
-                echo '<pre>'; print_r([$all_images,$all_videos]);echo '</pre>';
-               
-
+                
                 $user_info = $this->facebook->request('get', '/me?fields=accounts');
                 $page_token = $page_name = $page_id = '';
                 if (!isset($user_info['error']))
@@ -755,8 +753,7 @@ class Cron extends CI_Controller {
                     $page_token = '';
                 }
 
-
-                 if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
+                if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
                     $privacy = array(
                         'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
                     );
@@ -780,10 +777,12 @@ class Cron extends CI_Controller {
                         foreach ($all_images as $key => $img) {
                             if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
                             {
-                                $images[$key]['img_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
+                                $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
+                                $images[$key]['img_url'] = str_replace("https://", "http://", $path);
                                 $images[$key]['desc']   = $post_data->content;
                             }
                         }
+                        
                         $this->facebook_upload_images($page_id, $images,$page_token);
                     }else{
                         // if only one image is present
@@ -821,10 +820,12 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function facebook_upload_images($page_id , $images , $token)
+    public function facebook_upload_images($page_id, $images, $page_token)
     {
-       if(!empty($page_id) && !empty($page_token)){
+        // echo '<pre>'; print_r([$page_id, $images,$token]);echo '</pre>';
+        if(!empty($page_id) && !empty($page_token)){
             // Creating new photo album
+        
             $album_id = $this->create_album('6 album','this is album',$page_id, $page_token );
             $response = $this->add_imgs_to_album($album_id, $images, $page_token);
         }
@@ -847,12 +848,10 @@ class Cron extends CI_Controller {
     {
         $error = TRUE;
         foreach ($images as $key => $img) {
-            $parms = [];
-            $parms['message']   = $img['desc'];
-            $parms['url']       = $img['img_url'];
+            $parms = array('message' =>  $img['desc']);
+            $parms['url'] = $img['img_url'];
             $data = $this->facebook->request('POST','/'. $album_id .'/photos',$parms, $token);
             echo '<br/>'.json_encode($data);
-            // echo '<pre>'; print_r($parms);echo '</pre>';
             if (isset($data['error'])){
                 $is_error = FALSE;
             }
