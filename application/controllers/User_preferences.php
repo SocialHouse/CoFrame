@@ -180,25 +180,30 @@ class User_preferences extends CI_Controller {
 
            	$this->session->set_userdata('user_info',$user_data);
 
-            if(!empty($post_data['user_pic_base64'])){
-        		$base64_image = $post_data['user_pic_base64'];
-    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
+           	if($post_data['is_user_image'] == 'yes'){
+	            if(!empty($post_data['user_pic_base64'])){
+	        		$base64_image = $post_data['user_pic_base64'];
+	    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
 
-	        	//decode base64 string
-		        $decoded = base64_decode($base64_str);
+		        	//decode base64 string
+			        $decoded = base64_decode($base64_str);
 
-		        //create jpeg from decoded base 64 string and save the image in the parent folder
+			        //create jpeg from decoded base 64 string and save the image in the parent folder
 
-		        if(!is_dir(upload_path().$img_folder[0]->img_folder.'/users/')){
-		        	mkdir(upload_path().$img_folder[0]->img_folder.'/users/',0755,true);
-		        }
-		        $url = upload_path().$img_folder[0]->img_folder.'/users/'.$this->user_id.'.png';
-		        $result = file_put_contents($url, $decoded);
-		        $source_url = imagecreatefrompng($url);
+			        if(!is_dir(upload_path().$img_folder[0]->img_folder.'/users/')){
+			        	mkdir(upload_path().$img_folder[0]->img_folder.'/users/',0755,true);
+			        }
+			        $url = upload_path().$img_folder[0]->img_folder.'/users/'.$this->user_id.'.png';
+			        $result = file_put_contents($url, $decoded);
+			        $source_url = imagecreatefrompng($url);
 
-		        header('Content-Type: image/png');
-		        imagepng($source_url, $url, 8);
-        	}
+			        header('Content-Type: image/png');
+			        imagepng($source_url, $url, 8);
+	        	}
+        	}else{
+	        	$url = upload_path().$img_folder[0]->img_folder.'/users/'.$this->user_id.'.png';
+	        	delete_file($url);
+	        }
         	redirect(base_url().'user_preferences/user_info');
 		}
 	}

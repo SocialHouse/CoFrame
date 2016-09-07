@@ -229,7 +229,7 @@ class Settings extends CI_Controller {
 	        $user_img = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'img_folder');
 	        // Update user profile image
 	        if($post_data['is_user_image'] == 'yes'){
-	        	 if(isset($post_data['file']) && !empty($post_data['file'])){
+	        	if(isset($post_data['file']) && !empty($post_data['file'])){
 	        		$base64_image = $post_data['file'];
 	    		  	$base64_str = substr($base64_image, strpos($base64_image, ",")+1);
 

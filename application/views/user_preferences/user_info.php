@@ -11,9 +11,11 @@
 				
 					if(!empty($user_details)){
 						$image ='';
-						$cls= 'hide';					
+						$cls= 'hide';
+						$is_user_image ="no";
 						if (file_exists(upload_path().$user_details->img_folder.'/users/'.$this->user_id.'.png'))
 						{
+							$is_user_image = 'yes';
 							$path = upload_url().$user_details->img_folder.'/users/'.$this->user_id.'.png?'.uniqid();
 							$image = '<img src="'.$path.'">';
 							$cls ='';
@@ -46,6 +48,7 @@
 									<?php echo $image; ?>
 								</div>
 								<input type="hidden" name="user_pic_base64" value="" id="user_pic_base64">
+								<input id="is_user_image" type="hidden" value="<?php echo $is_user_image?>" name="is_user_image">
 							</div>
 							<div class="upload-error error hide" style="margin-left: 15%;">Wrong file type uploaded</div>
 							<div class="form__uploading">Uploading ...</div>

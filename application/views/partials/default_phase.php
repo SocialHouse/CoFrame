@@ -126,12 +126,12 @@ if(!empty($post_details->brand_id)){
 				</div>
 			<footer class="post-content-footer">
 				<?php
-					if(empty($is_edit))
-					{
+					// if(empty($is_edit))
+					// {
 						?>
 						<button class="btn btn-sm save-draft-btn btn-default submit-btn" id="draft">Save Draft</button>
 						<?php
-					}
+					// }
 				?>
 				<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn pull-sm-right" id="submit-approval"> Slate Post </button>
 			</footer>
