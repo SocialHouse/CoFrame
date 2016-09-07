@@ -732,52 +732,157 @@ class Cron extends CI_Controller {
             {
                 $post_array = array();               
                 $all_images = $this->get_media($post_data->id,'images');
-                $all_videos = $this->get_media($post_data->id,'video');
+                $all_videos = $this->get_media($post_data->id,'video',1);
                 echo '<pre>'; print_r([$all_images,$all_videos]);echo '</pre>';
-                if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
+               
+
+                $user_info = $this->facebook->request('get', '/me?fields=accounts');
+                $page_token = $page_name = $page_id = '';
+                if (!isset($user_info['error']))
+                {
+                    foreach ($user_info['accounts']['data'] as $key => $pages) {
+                        if( $pages['id'] =='318999534866425')
+                        {
+                            $page_token = $pages['access_token'];
+                            $page_name = $pages['name'];
+                            $page_id = $pages['id'];
+                        }
+                        // echo '<pre>'; print_r($pages);echo '</pre>';
+                    }
+                }
+                if(empty($page_token)){
+                    $page_id = 'me';
+                    $page_token = '';
+                }
+
+
+                 if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
                     $privacy = array(
                         'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
                     );
                     $result = $this->facebook->request(
-                        'post',
-                        '/me/feed',
-                        ['message' => $post_data->content, 'privacy'=> $privacy]
+                        'POST',
+                        $page_id.'/feed',
+                        ['message' => $post_data->content],
+                        $page_token
                     );
                     echo "only text is posted <br/>".json_encode($result);
-
                 }
+
                 $this->fb = $this->facebook->object();
                 
                 if(!empty($all_images))
                 {
-                    foreach ($all_images as $key => $image) 
-                    {
-                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$image->name))
+                    if(count($all_images)>1){
+                        echo 'multiple ';
+                        $images =[];
+
+                        foreach ($all_images as $key => $img) {
+                            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
+                            {
+                                $images[$key]['img_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
+                                $images[$key]['desc']   = $post_data->content;
+                            }
+                        }
+                        $this->facebook_upload_images($page_id, $images,$page_token);
+                    }else{
+                        // if only one image is present
+                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name))
                         {
-                            $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$image->name;
-                            $batch_upload[] = array(
-                                        'post_'.$key => $this->fb->request(
-                                                        'POST',"318999534866425/photos", [
-                                                            'message' => $post_data->content,
-                                                            'picture' => $path,
-                                                            'source ' => $this->fb->fileToUpload($path),
-                                                        ]
-                                                    )
-                                    );
+                            $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name;
+                            $result = $this->facebook->request(
+                                                'POST',
+                                                $page_id.'/photos',
+                                                ['message' => $post_data->content,'picture' => $path,'source'  => $this->fb->fileToUpload($path)],
+                                                $page_token
+                                            );
+                            echo json_encode($result);
+                        }else{
+                            echo '<br/> file not found <br/>';
                         }
                     }
-                    $response = $this->fb->sendBatchRequest($batch_upload);
-                    $data = [];
-                    foreach ($response as $key => $response)
-                    {
-                        $data[$key] = $response->getDecodedBody();
-                    }
-                    echo '<pre>'; print_r($data);echo '</pre>'; die;                     
+                    // echo '<pre>'; print_r($data);echo '</pre>'; die;                     
                 }
+
+                if(!empty($all_videos))
+                {
+                    $videos = array();
+                    if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name))
+                    {
+                        $videos['video_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name;
+                        $videos['desc']   = $post_data->content;
+                    }
+                    $this->facebook_upload_video($page_id, $videos, $page_token);
+                }
+
             }else{
                 echo "is_not_authenticated <br/>";
             }
         }
     }
+
+    public function facebook_upload_images($page_id , $images , $token)
+    {
+       if(!empty($page_id) && !empty($page_token)){
+            // Creating new photo album
+            $album_id = $this->create_album('6 album','this is album',$page_id, $page_token );
+            $response = $this->add_imgs_to_album($album_id, $images, $page_token);
+        }
+    }
+
+    public function facebook_upload_video($page_id ,$video, $token)
+    {
+        // echo $page_token;
+        // die();
+        $parms = array(
+                'message'   => $video['desc'] ,
+                'picture'   => $video['video_url'] ,
+                'source '   => $this->fb->videoToUpload($video['video_url'])
+            );
+        $video_response = $this->facebook->request('POST',$page_id."/videos",$parms,$token);
+        echo json_encode($video_response);
+    }
+
+    public function add_imgs_to_album( $album_id, $images, $token)
+    {
+        $error = TRUE;
+        foreach ($images as $key => $img) {
+            $parms = [];
+            $parms['message']   = $img['desc'];
+            $parms['url']       = $img['img_url'];
+            $data = $this->facebook->request('POST','/'. $album_id .'/photos',$parms, $token);
+            echo '<br/>'.json_encode($data);
+            // echo '<pre>'; print_r($parms);echo '</pre>';
+            if (isset($data['error'])){
+                $is_error = FALSE;
+            }
+        }
+        return $error;
+    }
+
+    public function create_album($name,$msg,$page_id,$page_token)
+    {
+        $privacy = array(
+                'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
+            );
+
+        $album_details = array(
+                    'name'      => $name,
+                    'message'   => $msg,
+                    'privacy'   => $privacy,
+                    'published' => 'true'
+            );
+
+        $album_response = $this->facebook->request('POST', $page_id.'/albums', $album_details,$page_token);
+        if (!isset($album_response['error']))
+        {
+            echo '<br/>album created<br/>'.json_encode($album_response);
+            return $album_response['id'];
+        }
+        return FALSE;
+    }
+
+    
+
 
 }
