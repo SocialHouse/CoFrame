@@ -123,6 +123,9 @@ h5 {
 	&:disabled {
 		opacity: 1;
 	}
+	&.no-hover {
+		cursor: inherit;
+	}
 }
 .btn-sm {
 	font-size:.8125rem;
@@ -157,6 +160,11 @@ h5 {
 			background: $brand-success;
 			border-color: $brand-success;
 			color: #fff;
+			&.no-hover {
+				color: $brand-success !important;
+				border-color: $brand-success !important;
+				background: none !important;
+			}
 		}
 	}
 	&.color-danger {
@@ -203,6 +211,11 @@ h5 {
 		color: #000;
 		&:disabled {
 			border-color: #bfbfbf;
+		}
+		&.no-hover {
+			color: #fff !important;
+			border-color: #000 !important;
+			background: #000 !important;
 		}
 	}	
 	&.color-success {
@@ -722,11 +735,6 @@ a {
 	}
 	.user-name {
 		margin-bottom: 1rem;
-		cursor: default;
-		&:hover {
-			background: #000;
-			color: #fff;
-		}
 	}
 	.current-time {
 		font-family: $futura;

@@ -9046,6 +9046,8 @@ h5, .qtip-titlebar {
   font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif; }
   .btn:disabled {
     opacity: 1; }
+  .btn.no-hover {
+    cursor: inherit; }
 
 .btn-sm, .btn-group-sm > .btn {
   font-size: .8125rem; }
@@ -9078,6 +9080,10 @@ h5, .qtip-titlebar {
       background: #009245;
       border-color: #009245;
       color: #fff; }
+      .btn-default.color-success:hover.no-hover {
+        color: #009245 !important;
+        border-color: #009245 !important;
+        background: none !important; }
   .btn-default.color-danger {
     color: #C1272D;
     border-color: #C1272D; }
@@ -9113,6 +9119,10 @@ h5, .qtip-titlebar {
   color: #000; }
   .btn-secondary:hover:disabled, .btn-secondary:focus:disabled, .btn-secondary:active:disabled {
     border-color: #bfbfbf; }
+  .btn-secondary:hover.no-hover, .btn-secondary:focus.no-hover, .btn-secondary:active.no-hover {
+    color: #fff !important;
+    border-color: #000 !important;
+    background: #000 !important; }
 .btn-secondary.color-success {
   background: #009245;
   border-color: #009245;
@@ -9530,11 +9540,7 @@ a {
     .current-user-details {
       bottom: 1.6rem; } }
   .current-user-details .user-name {
-    margin-bottom: 1rem;
-    cursor: default; }
-    .current-user-details .user-name:hover {
-      background: #000;
-      color: #fff; }
+    margin-bottom: 1rem; }
   .current-user-details .current-time {
     font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
     border-left: 1px solid #000;
