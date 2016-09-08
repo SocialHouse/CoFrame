@@ -8785,7 +8785,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   .tb_post .post-details {
     background: #fff;
     border-radius: 3px;
-    padding: 15px 0 0;
+    padding: 15px 0;
     margin-left: 84px; }
   .tb_post .post-user-name {
     font-weight: bold;
@@ -8794,17 +8794,67 @@ x:-o-prefocus, .qtip .qtip-tip {
     margin: -3px 0 13px;
     font-size: 13px; }
   .tb_post .post_copy_text {
-    padding: 15px 20px; }
+    padding: 0 20px 15px; }
+    .tb_post .post_copy_text:empty {
+      display: none; }
+    .chat-post .tb_post .post_copy_text {
+      font: normal 14px/1.4 Courier, monospace; }
   .tb_post a {
     color: #a1a1a1;
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif; }
     .tb_post a + a {
       margin-left: 11px; }
+      .text-post .tb_post a + a {
+        margin-left: 0; }
+    .text-post .tb_post a {
+      background-image: linear-gradient(180deg, rgba(68, 68, 68, 0) 50%, rgba(68, 68, 68, 0.25) 0);
+      text-decoration: none;
+      background-repeat: repeat-x;
+      background-size: 1em 2px;
+      background-position: 0 1.15em;
+      padding-bottom: .15em;
+      color: inherit; }
   .tb_post strong, .tb_post b {
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
     font-weight: bold; }
   .tb_post .img-div img + img {
     margin-top: 4px; }
+  .tb_post .post-title {
+    margin: 0 20px 15px;
+    font-size: 36px;
+    line-height: 47px;
+    font-family: Gibson,Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif; }
+    .tb_post .post-title:empty {
+      display: none; }
+    .photo-post .tb_post .post-title, .video-post .tb_post .post-title {
+      font-size: 14px;
+      line-height: 21px;
+      font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+      margin-top: 15px; }
+  .tb_post .quote {
+    line-height: 42px;
+    font-family: georgia, serif;
+    margin-bottom: 10px; }
+    .tb_post .quote:before {
+      content: '\201C'; }
+    .tb_post .quote:after {
+      content: '\201D'; }
+  .tb_post .source {
+    background-image: linear-gradient(180deg, rgba(68, 68, 68, 0) 50%, rgba(68, 68, 68, 0.25) 0);
+    background-position: 0 1.15em;
+    background-repeat: repeat-x;
+    background-size: 1em 2px;
+    margin: 0 20px 15px;
+    padding-bottom: .15em;
+    display: inline-block; }
+    .tb_post .source:empty {
+      display: none; }
+  .tb_post .tags {
+    color: #a1a1a1;
+    font-size: 13px;
+    margin: 0 20px; }
+    .tb_post .tags:empty {
+      display: none; }
 
 /*Twitter Post Styles*/
 .tw_post {

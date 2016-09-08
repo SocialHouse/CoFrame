@@ -114,18 +114,12 @@
 					<div class="post-user-name">
 						<?php echo get_company_name($this->user_data['account_id']); ?>
 					</div>
-					<div class="img-div">
-					</div>
-					<div class="post-title">
-					</div>
-					<div class="link"> <a href=""></a>
-					</div>
-					<div class="source">
-					</div>
-					<div class="post_copy_text">
-					</div>
-					<div class="tags">
-					</div>
+					<div class="img-div"></div>
+					<div class="post-title"></div>
+					<div class="link"> <a href=""></a></div>
+					<div class="source"></div>
+					<div class="post_copy_text"></div>
+					<div class="tags"></div>
 				</div>
 			</div>
 		</div>

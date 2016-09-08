@@ -125,7 +125,6 @@ jQuery(function($) {
 			var outlet_const = $(this).data('outlet-const');
 			$('#postCopy').removeAttr('maxlength');
 			$('.extra-outlet-fields').removeAttr('style');
-
 			//shrink file upload area to allow for additional fields
 			if(outlet_const === 'linkedin' || outlet_const === 'pinterest' || outlet_const === 'youtube') {
 				$('.container-post-details .form__input').addClass('single-row');
@@ -249,9 +248,9 @@ jQuery(function($) {
 				}
 			}
 			if (outlet_const === 'tumblr') {
-				// showHide($(this), '#tumblrContentTypes');
 				showHide($(this), '#tumblrContentTypes');
 				var hide_classes = '.extra-tb-fields';
+				$('#live-post-preview').addClass('text-post');
 				if($('#defaultPostCopy:visible').length > 0)
 				{
 					hide_classes += ', #defaultPostCopy';

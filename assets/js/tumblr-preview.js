@@ -4,6 +4,7 @@ jQuery(function($) {
 	$(document).on('click','.content-list li', function() {
 		var previousContentObj, call_show_hide, previousContentType, str_show, str_hide;
 		var newContentType = $(this).data('selected-content');
+		$('#live-post-preview').removeAttr('class');
 		$.each($('.content-list li'), function(i, element){
 			if(!$(element).hasClass('disabled')){
 				previousContentObj = $(element);
@@ -13,11 +14,12 @@ jQuery(function($) {
 			}
 		});
 
-		if(previousContentType == newContentType )	{
-			return ;
+		if(previousContentType === newContentType )	{
+			return;
 		}
 
-		if(newContentType == 'Photo' ){
+		if(newContentType === 'Photo' ){
+			$('#live-post-preview').addClass('photo-post');
 			if($('.form__preview-wrapper video ').length > 0 || $('.form__preview-wrapper audio ').length > 0 ){
 				getConfirm(language_message.tumblr_change_audio_video_error.replace("%Content_type%", newContentType) ,'','alert',function(confResponse) {});
 				call_show_hide = true;
@@ -27,7 +29,7 @@ jQuery(function($) {
 				$('#tumblrContent').val(newContentType);
 			}
 		}
-		else if(newContentType == 'Video'){
+		else if(newContentType === 'Audio'){
 				if($('.form__preview-wrapper img').length > 0 || $('.form__preview-wrapper audio ').length > 0 ){
 					getConfirm(language_message.tumblr_change_img_audio_error.replace("%Content_type%", newContentType),'','alert',function(confResponse) {});
 					call_show_hide = true;
@@ -37,7 +39,8 @@ jQuery(function($) {
 					$('#tumblrContent').val(newContentType);
 				}
 			
-		}else if(newContentType == 'Video'){
+		}else if(newContentType === 'Video'){
+			$('#live-post-preview').addClass('video-post');
 				if($('.form__preview-wrapper img').length > 0 || $('.form__preview-wrapper video ').length > 0 ){
 					getConfirm(language_message.tumblr_change_img_video_error.replace("%Content_type%", newContentType),'','alert',function(confResponse) {});
 					call_show_hide = true;
@@ -48,6 +51,12 @@ jQuery(function($) {
 				}
 			
 		}else{
+			if(newContentType === 'Chat' ){
+				$('#live-post-preview').addClass('chat-post');
+			}
+			if(newContentType === 'Text' ){
+				$('#live-post-preview').addClass('text-post');
+			}
 			if($('.form__preview-wrapper video').length > 0){
 				getConfirm(language_message.tumblr_change_audio_error.replace("%Content_type%", newContentType),'','alert',function(confResponse) {});
 				call_show_hide = true;
@@ -66,7 +75,6 @@ jQuery(function($) {
 				call_show_hide = false;
 			}
 		}
-
 		if(call_show_hide){
 			setTimeout(function() {
 				var sdf = $(previousContentObj).children('i');
@@ -109,8 +117,8 @@ jQuery(function($) {
 	});
 
 	$(document).on('keypress blur keyup','#tbSource', function() {
-		if($(this).val() != ''){
-			$('#live-post-preview .source').text('- '+$(this).val());
+		if($(this).val() !== ''){
+			$('#live-post-preview .source').text('— '+$(this).val());
 		}else{
 			$('#live-post-preview .source').text('');
 		}
@@ -121,7 +129,7 @@ jQuery(function($) {
 	});
 
 	$(document).on('keypress blur keyup','#tbLink', function() {
-		if($(this).val() != ''){
+		if($(this).val() !== ''){
 			if(!$('#live-post-preview .link').hasClass('link-url')){
 				$('#live-post-preview .link').addClass('link-url');
 			}

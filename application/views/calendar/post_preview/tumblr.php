@@ -84,10 +84,8 @@
 				$link_class = 'link-url';
 			}
 			?>
-			<div class="link <?php echo $link_class; ?>"> <a href="<?php echo $post_details->tumblr_link;?>"><?php echo $post_details->tumblr_link;?></a>
-			</div>
-			<div class="source">
-			</div>			
+			<div class="link <?php echo $link_class; ?>"> <a href="<?php echo $post_details->tumblr_link;?>"><?php echo $post_details->tumblr_link;?></a></div>
+			<div class="source"></div>			
 			<div class="post_copy_text">
 				<?php 
 					$content = $post_details->content;
@@ -95,9 +93,7 @@
 					echo (!empty($content)) ? $content : '';
 				?>
 			</div>
-			<div class="tags">
-				<?php echo (!empty($post_details->tumblr_tags))? $post_details->tumblr_tags : '';?>
-			</div>
+			<div class="tags"><?php echo (!empty($post_details->tumblr_tags))? $post_details->tumblr_tags : '';?></div>
 		</div>
 	</div>
 </div>
