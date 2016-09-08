@@ -29,8 +29,10 @@
 				if(!empty($trial_message))
 				{
 					?>
-					<div class="col-md-12 center-title">
-						<strong><?php echo $trial_message ?></strong>
+					<div class="row">
+						<div class="col-md-12 center-title">
+							<strong><?php echo $trial_message ?></strong>
+						</div>
 					</div>
 					<?php
 				}
