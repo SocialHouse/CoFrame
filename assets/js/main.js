@@ -859,6 +859,11 @@ jQuery(function($) {
 		});
 	}
 
+	if ($('.today-summary').length) {
+		//truncate post copy
+		$(".excerpt-summary").dotdotdot();
+	}
+
 	//Time selector functions
 	$(document).on('click', '.incrementer', function(e) {
 		var $target = $(e.target);

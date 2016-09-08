@@ -118,6 +118,7 @@ jQuery(function($) {
 						if(response)
 						{
 							$('.summary-posts').html(response.html);
+							$(".excerpt-summary").dotdotdot();
 							equalColumns();
 						}
 					}

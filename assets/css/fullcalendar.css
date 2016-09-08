@@ -1102,6 +1102,8 @@ be a descendant of the grid when it is being dragged.
     vertical-align: middle; }
     .calendar-summary .fc th.ui-state-highlight, .calendar-summary .fc td.ui-state-highlight, .calendar-select-date .fc th.ui-state-highlight, .calendar-select-date .fc td.ui-state-highlight, .archive-calendar .fc th.ui-state-highlight, .archive-calendar .fc td.ui-state-highlight {
       background: #C71F2A; }
+  .calendar-summary .fc button, .calendar-select-date .fc button, .archive-calendar .fc button {
+    padding: 0; }
   .calendar-summary .fc td.fc-day-number, .calendar-select-date .fc td.fc-day-number, .archive-calendar .fc td.fc-day-number {
     padding-top: 8px;
     padding-bottom: 8px; }
@@ -1120,7 +1122,9 @@ be a descendant of the grid when it is being dragged.
     text-transform: none;
     font-size: 1.33333rem;
     border: 0;
-    letter-spacing: normal; }
+    letter-spacing: normal;
+    padding: 0;
+    line-height: 2rem; }
 
 .calendar-select-date {
   padding: 0; }

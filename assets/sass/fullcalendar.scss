@@ -1281,6 +1281,9 @@ be a descendant of the grid when it is being dragged.
 			background: $brand-primary;
 		}
 	}
+	.fc button {
+		padding: 0;
+	}
 	.fc td.fc-day-number {
 		padding-top: 8px;
 		padding-bottom: 8px;
@@ -1306,6 +1309,8 @@ be a descendant of the grid when it is being dragged.
 		font-size: remCalc(20px);
 		border: 0;
 		letter-spacing: normal;
+		padding: 0;
+		line-height:2rem;
 	}
 }
 .calendar-select-date {
