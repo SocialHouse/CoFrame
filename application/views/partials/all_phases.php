@@ -181,6 +181,7 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
+			<button type="button" class="btn btn-sm btn-secondary pull-sm-right save-phases btn-disabled" disabled="disabled">Save Phases</button>
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase3" data-id="2">

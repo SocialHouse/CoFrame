@@ -14,10 +14,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 							$this->load->view('user_preferences/preference_nav');
 						?>
 						<?php
-					        $message = $this->session->flashdata('message');
-					        if(!empty($message)){
-					        	echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong><big>'.$message.'</big></strong></div>';
-					        }
+					       echo print_flashdata();
 					    ?>
 						<div class="alert alert-danger payment-errors">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>    

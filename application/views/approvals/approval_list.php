@@ -89,13 +89,15 @@
 				<button type="button" id="getPostsByDate" class="btn btn-sm btn-default btn-disabled qtip-hide approval-date-filter" disabled>Apply</button>
 			</div>
 		</div>
-
 	</header>
 
 	<input type="hidden" name="user_id" id="user-id" value="<?php echo $this->user_id; ?>" />	
 	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
 
 	<div class="row">
+		<?php 
+			echo print_flashdata();
+		?>
 		<div class="col-md-12">
 			<table class="table table-striped table-approvals">
 				<thead>

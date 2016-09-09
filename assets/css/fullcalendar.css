@@ -1145,9 +1145,9 @@ be a descendant of the grid when it is being dragged.
   .calendar-select-date .fc td.ui-state-highlight {
     background: #f4d3d5; }
     .calendar-select-date .fc td.ui-state-highlight.fc-today {
-      background: none; }
+      background: #DDDDDD; }
       .popover-date-filter .calendar-select-date .fc td.ui-state-highlight.fc-today {
-        background: #f4d3d5; }
+        background: #DDDDDD; }
   .calendar-select-date .fc-highlight {
     background: #f4d3d5; }
   .calendar-select-date .fc-bgevent {

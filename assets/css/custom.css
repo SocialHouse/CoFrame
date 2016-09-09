@@ -28,3 +28,8 @@
 	top: 27% !important;
 	position: static;
 }
+.alert{
+	font-size: 16px;
+	font-weight: bolder;
+	padding: 12px;
+}

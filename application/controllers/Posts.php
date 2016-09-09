@@ -429,8 +429,16 @@ class Posts extends CI_Controller {
 	    				}
 		    			
 		    		}
-	    			$this->session->set_flashdata('message','Post has been saved successfuly');
-	    			redirect(base_url().'brands/dashboard/'.$post_data['slug']);
+		    		if($multiple_phases == 1)
+		    		{
+		    			$this->session->set_flashdata('message','Post has been saved successfuly');
+		    			redirect(base_url().'approvals/'.$post_data['slug']);
+		    		}else
+		    		{
+			    		$this->session->set_userdata( 'selected_date' , $slate_date_time);
+			    		$this->session->set_flashdata('message','Post has been saved successfuly');
+	    				redirect(base_url().'calendar/day/'.$post_data['slug']);
+		    		}
 	    		}		    		
 		    }
 		}
@@ -458,8 +466,6 @@ class Posts extends CI_Controller {
 				$condition = array('post_id' => $post_id);
 				$this->timeframe_model->delete_data('phases',$condition);
 			}
-
-
 			$this->session->set_flashdata('message','Post has been deleted successfully');
 		}
 		else

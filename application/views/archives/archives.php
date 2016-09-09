@@ -43,10 +43,7 @@
 			</div>
 		</div>
 		<?php
-	        $message = $this->session->flashdata('message');
-	        if(!empty($message)){
-	           echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>';
-	        }
+			echo print_flashdata();
 	    ?>
 		<div class="row archives">
 			<div class="col-sm-12">

@@ -330,10 +330,13 @@ jQuery(function($) {
 		if(outlet_inclusive.length)
 		{
 			$.each(outlet_inclusive,function(a,b){
-				if($(element).attr('data-filters').indexOf(b) !== -1)
+				if($(element).attr('data-filters') != undefined)
 				{
-					outlet_show = true;
-					return;
+					if($(element).attr('data-filters').indexOf(b) !== -1)
+					{
+						outlet_show = true;
+						return;
+					}
 				}
 			});
 		}
@@ -346,10 +349,13 @@ jQuery(function($) {
 		if(status_inclusive.length)
 		{
 			$.each(status_inclusive,function(a,b){
-				if($(element).attr('data-filters').indexOf(b) !== -1)
+				if($(element).attr('data-filters') != undefined)
 				{
-					status_show = true;
-					return;
+					if($(element).attr('data-filters').indexOf(b) !== -1)
+					{
+						status_show = true;
+						return;
+					}
 				}
 			});
 		}
@@ -361,13 +367,16 @@ jQuery(function($) {
 		var tag_show = false;
 		if(tag_inclusive.length)
 		{
-			$.each(tag_inclusive,function(a,b){
-				if($(element).attr('data-filters').indexOf(b) !== -1)
-				{
-					tag_show = true;
-					return;
-				}
-			});
+			if($(element).attr('data-filters') != undefined)
+			{
+				$.each(tag_inclusive,function(a,b){
+					if($(element).attr('data-filters').indexOf(b) !== -1)
+					{
+						tag_show = true;
+						return;
+					}
+				});
+			}
 		}
 		else
 		{

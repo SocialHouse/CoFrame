@@ -972,4 +972,18 @@ if(!function_exists('social_callbacks'))
 }
 
 
+if(!function_exists('print_flashdata'))
+{
+    function print_flashdata()
+    {
+        $CI = & get_instance();
+        $message = $CI->session->flashdata('message');
+        if(!empty($message)){
+            return '<div class="col-md-12"><div class="alert alert-success center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$message.'</div></div>';
+        }
+    }
+}
+
+
+
 

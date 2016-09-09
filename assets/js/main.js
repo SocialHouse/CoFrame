@@ -1611,8 +1611,8 @@ jQuery(function($) {
 
 	//view edit request
 	/*
-	 * change the status comment(Accept, Reject)
-	 */
+	* change the status comment(Accept, Reject)
+	*/
 
 	 $(document).on('click', '.change-status', function() {
 	 	var comment_id = $(this).data('id');
@@ -1685,9 +1685,7 @@ jQuery(function($) {
 	 	equalColumns();
 	 });
 
-
-
-	 $(document).on('click', '.delete-phase', function(event) {
+	$(document).on('click', '.delete-phase', function(event) {
 	 	event.preventDefault();
 	 	$btn = $(this);	 
 	 	var post_id, phase_id;

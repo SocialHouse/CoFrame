@@ -56,11 +56,8 @@
 							<div class="form__error">Error! <span></span></div>
 						</div>
 						<?php
-							$message = $this->session->flashdata('message');
-							if(!empty($message)){
-							   echo ' <div class="alert alert-success col-md-12 center"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$message.'</strong></div>';
-							}
-						?>
+							echo print_flashdata();
+					    ?>
 	
 						<label class="section-label">Personal Info</label>
 						<div class="field-group">
