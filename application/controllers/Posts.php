@@ -48,7 +48,7 @@ class Posts extends CI_Controller {
 	}
 
 	public function create()
-	{		
+	{
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
@@ -75,25 +75,13 @@ class Posts extends CI_Controller {
 			//echo '<pre>'; print_r($this->user_data);echo '</pre>';
 			foreach ($this->data['timezones']  as $key => $values) 
 			{
-				if($this->data['brand']->timezone  == $values->value)
-				{
-					$this->data['brand_timezone'] = array(
-											'name' =>  $values->timezone,
-											'value' => $values->value
-											);
-					unset($this->data['timezones'] [$key]);
-				}
-				
 				if($this->user_data['timezone'] == $values->value)
 				{
 					$this->data['user_timezone'] = array(
 										'name' =>  $values->timezone,
 										'value' => $values->value
 										);
-					if($this->data['brand']->timezone  != $this->user_data['timezone'] )
-					{
-						unset($this->data['timezones'] [$key]);
-					}
+					unset($this->data['timezones'][$key]);
 				}
 			}
 			
@@ -759,25 +747,13 @@ class Posts extends CI_Controller {
 		//echo '<pre>'; print_r($this->user_data);echo '</pre>';
 		foreach ($this->data['timezone_list']  as $key => $value) 
 		{
-			if($this->data['brand']->timezone  == $value->value)
-			{
-				$this->data['brand_timezone'] = array(
-										'name' =>  $value->timezone,
-										'value' => $value->value
-										);
-				 unset($this->data['timezone_list'][$key]);
-			}
-			
 			if($this->user_data['timezone'] == $value->value)
 			{
 				$this->data['user_timezone'] = array(
 									'name' =>  $value->timezone,
 									'value' => $value->value
 									);
-				if($this->data['brand']->timezone  != $this->user_data['timezone'] )
-				{
 					unset($this->data['timezone_list'][$key]);
-				}
 			}
 		}	
 		echo $this->load->view('posts/add_phase_details',$this->data,true);

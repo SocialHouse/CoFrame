@@ -108,7 +108,7 @@ window.create_post_validation = function create_post_validation(){
 					}else{
 						console.log(slate_date);
 						disable_btn = true;
-						hm_error.text(language_message.valid_hour_minutes);	
+						hm_error.text(language_message.date_greater_than_today);	
 						hm_error.show();					
 					}						
 				}else{

@@ -353,7 +353,7 @@
 									}
 									else
 									{
-										if( $obj->value == $brand->timezone)
+										if( $obj->value == $this->user_data['timezone'])
 										{
 											$selected_tz = 'selected = "selected"';
 										}
@@ -489,7 +489,7 @@
 																	}
 																	else
 																	{
-																		if( $time->value == $brand->timezone)
+																		if( $time->value == $this->user_data['timezone'])
 																		{
 																			$selected = 'selected = "selected"';
 																		}
@@ -671,7 +671,7 @@
 																foreach ($timezones as $ti_key => $time) 
 																{
 																	$selected = '';
-																	if( $time->value == $brand->timezone)
+																	if( $time->value == $this->user_data['timezone'])
 																	{
 																		$selected = 'selected = "selected"';
 																	}

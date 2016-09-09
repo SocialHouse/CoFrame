@@ -29,16 +29,8 @@ if(!empty($post_details->brand_id)){
 		<div class="form-group slate-post-tz">
 			<select class="form-control form-control-sm approval_timezone">
 				<!--<option value="">--Please select timezone--</option>-->
-				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
-				<?php 
-					//  If brand time zone and  user time are not same 
-					if($brand_timezone['value'] != $user_timezone['value'] )
-					{
-						?>
-						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
-						<?php 
-					}
-					
+				<option selected="selected" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+				<?php
 					// Display remaining timezones
 					foreach ($timezone_list as $key => $obj) 
 					{
@@ -103,16 +95,8 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group slate-post-tz">
 			<select class="form-control form-control-sm approval_timezone">
-				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
-				<?php 
-					//  If brand time zone and  user time are not same 
-					if($brand_timezone['value'] != $user_timezone['value'] )
-					{
-						?>
-						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
-						<?php 
-					}
-					
+				<option selected="selected" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+				<?php
 					// Display remaining timezones
 					foreach ($timezone_list as $key => $obj) 
 					{
@@ -178,16 +162,8 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group slate-post-tz">
 			<select class="form-control form-control-sm approval_timezone">
-				<option selected="selected" value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
-				<?php 
-					//  If brand time zone and  user time are not same 
-					if($brand_timezone['value'] != $user_timezone['value'] )
-					{
-						?>
-						<option value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
-						<?php 
-					}
-					
+				<option selected="selected" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+				<?php
 					// Display remaining timezones
 					foreach ($timezone_list as $key => $obj) 
 					{

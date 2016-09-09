@@ -195,16 +195,8 @@
 				<div class="form-group slate-post-tz">
 					<select class="form-control" name="time_zone">
 						<!--  By default brand_timezone is selcted  -->
-						<option selected="selected" data-abbreviation="<?php echo get_abbreviation($brand_timezone['value']); ?>"  value="<?php echo  $brand_timezone['value']; ?>" ><?php echo $brand_timezone['name']; ?></option>
+						<option  selected="selected"  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
 						<?php 
-							//  If brand time zone and  user time are not same 
-							if($brand_timezone['value'] != $user_timezone['value'] )
-							{
-								?>
-								<option  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
-								<?php 
-							}
-							
 							// Display remaining timezones
 							foreach ($timezones as $key => $obj) 
 							{
