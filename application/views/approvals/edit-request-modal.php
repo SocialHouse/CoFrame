@@ -277,18 +277,27 @@
 										<h5>Pending Approvals:</h5>
 										<ul class="timeframe-list user-list approval-list  clearfix">
 											<?php
+											$is_any_pending_approval = false;
 											foreach ($phs['phase_users']as $key => $user) {				
-												?>
-												<li class="pull-sm-left <?php echo $user->status ?>">
-													<?php
-													if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
-														echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" />';
-													}else{
-														echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'">';
-													}
+												if( $user->status != 'approved')
+												{
+													$is_any_pending_approval = true;
 													?>
-												</li>
-												<?php
+													<li class="pull-sm-left <?php echo $user->status ?>">
+														<?php
+														if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
+															echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" />';
+														}else{
+															echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'">';
+														}
+														?>
+													</li>
+													<?php
+												}
+											}
+											if(!$is_any_pending_approval){
+
+												echo '<li class="pull-sm-left"><span class="btn btn-default color-success btn-xs">Complete</span></li>';
 											}
 											?>
 										</ul>
