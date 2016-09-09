@@ -39,7 +39,7 @@
 					<li class="disabled" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
 					<li class="disabled" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
 					<li class="disabled" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
-					<li class="disabled" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Audio"></i></li>
+					<!-- <li class="disabled" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Audio"></i></li> -->
 					<li class="disabled" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Video"></i></li>
 				</ul>
 				<input type="hidden" id="tumblrContent" name="tumblrContent">

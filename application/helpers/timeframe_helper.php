@@ -958,7 +958,6 @@ if(!function_exists('social_callbacks'))
             <script type='text/javascript'>
                 function redirectBack()
                 {
-                    console.log([window,window.opener]);
                     window.opener.popupCallback('".$response_array."'); //Call callback function 
                     setTimeout(function(){
                         self.close(); // Close the current popup

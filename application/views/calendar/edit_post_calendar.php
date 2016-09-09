@@ -131,7 +131,7 @@
 							<li class="<?php echo $quote_li_class; ?>" data-selected-content="Quote"><i class="tf-icon-quote bg-tumblr show-hide" data-show="#tumblrQuotePost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Quote"></i></li>
 							<li class="<?php echo $link_li_class; ?>" data-selected-content="Link"><i class="tf-icon-link bg-tumblr show-hide" data-show="#tumblrLinkPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Link"></i></li>
 							<li class="<?php echo $chat_li_class; ?>" data-selected-content="Chat"><i class="tf-icon-tumblrchat bg-tumblr show-hide" data-show="#tumblrChatPost" data-hide="#defaultPostCopy, #mediaUpload, .extra-tb-fields" title="Chat"></i></li>
-							<li class="<?php echo $audio_li_class; ?>" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Audio"></i></li>
+							<!-- <li class="<?php echo $audio_li_class; ?>" data-selected-content="Audio"><i class="tf-icon-audio bg-tumblr show-hide" data-show="#tumblrAudioPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Audio"></i></li> -->
 							<li class="<?php echo $video_li_class; ?>" data-selected-content="Video"><i class="tf-icon-tumblrvideo bg-tumblr show-hide" data-show="#tumblrVideoPost, #mediaUpload" data-hide="#defaultPostCopy, .extra-tb-fields" title="Video"></i></li>
 						</ul>
 						<input type="hidden" id="tumblrContent" name="tumblrContent" value="<?php if(isset($post_details)){ echo $post_details->tumblr_content_type; } ?>">
@@ -431,7 +431,7 @@
 									?>
 											<div class="bg-white approval-phase animated fadeIn hide edit-phase-div <?php echo $class; ?>" id="approvalPhase<?php echo $phase_no + 1 ; ?>" data-id="<?php  echo $phase_no ;?>">
 												<h2 class="clearfix">Phase <?php echo $phase_no + 1;?>
-													<button data-phase-id="<?php echo $obj[0]->phase_id; ?>" data-post-id="<?php echo $obj[0]->post_id; ?>" type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
+													<button data-phase-id="<?php echo $obj[0]->phase_id; ?>" data-post-id="<?php echo $obj[0]->post_id; ?>" type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button>
 												</h2>
 												<ul <?php echo $user_list; ?> class="first-new-phase timeframe-list user-list border-bottom popover-toggle approver-selected" data-title="Add to Phase <?php echo $phase_no; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>

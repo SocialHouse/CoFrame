@@ -56,8 +56,7 @@ class Cron extends CI_Controller {
         //  die;
     }
 
-    public function get_posts()
-    {
+    public function get_posts(){
         // $posts = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'scheduled','DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")' => date('m-d-Y')));
         // echo $this->db->last_query();
 
@@ -118,8 +117,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function get_media($post_id,$type,$limit = NULL)
-    {
+    public function get_media($post_id,$type,$limit = NULL){
         $result = array('images'=>array(),'video'=>array());
         $all_media = $this->post_model->get_images($post_id);
 
@@ -156,8 +154,7 @@ class Cron extends CI_Controller {
         return FALSE;
     }
 
-    public function set_reminders()
-    {
+    public function set_reminders(){
         $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
 
         if(!empty($posts))
@@ -183,8 +180,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function tumblr_post($post_data,$flag)
-    {
+    public function tumblr_post($post_data,$flag){
         $upload = 0;
         $is_key_exist = $this->social_media_model->get_token('tumblr', $post_data->brand_id);
 
@@ -306,8 +302,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function twitter_post($post_data,$flag)
-    {
+    public function twitter_post($post_data,$flag){
         $upload = 0;
         $is_key_exist = $this->social_media_model->get_token('twitter', $post_data->brand_id);
         if(!empty($is_key_exist))
@@ -441,8 +436,7 @@ class Cron extends CI_Controller {
         }        
     }
 
-    public function youtube_post($post_data,$flag)
-    {
+    public function youtube_post($post_data,$flag) {
         $upload = 0;
         $this->load->config('youtube');
         $this->client_id = $this->config->item('youtube_client_id');
@@ -579,8 +573,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function linkedin_post($post_data,$flag)
-    {
+    public function linkedin_post($post_data,$flag){
         $token=''; 
         $image_url = '';
         if($this->session->userdata('linkedin_token') && $flag == 1 ){
@@ -647,8 +640,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function pintrest_post($post_data,$flag)
-    {
+    public function pintrest_post($post_data,$flag){
         
         $upload = 0;
         $image_url = "";
@@ -694,8 +686,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function facebook_post($post_data ,$flag)
-    {
+    public function facebook_post($post_data ,$flag){
         $upload = 0;
         $image_url = "";
 
@@ -820,8 +811,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function facebook_upload_images($page_id, $images, $page_token)
-    {
+    public function facebook_upload_images($page_id, $images, $page_token){
         // echo '<pre>'; print_r([$page_id, $images,$token]);echo '</pre>';
         if(!empty($page_id) && !empty($page_token)){
             // Creating new photo album
@@ -831,8 +821,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function facebook_upload_video($page_id ,$video, $token)
-    {
+    public function facebook_upload_video($page_id ,$video, $token){
         // echo $page_token;
         // die();
         $parms = array(
@@ -844,8 +833,7 @@ class Cron extends CI_Controller {
         echo json_encode($video_response);
     }
 
-    public function add_imgs_to_album( $album_id, $images, $token)
-    {
+    public function add_imgs_to_album( $album_id, $images, $token){
         $error = TRUE;
         foreach ($images as $key => $img) {
             $parms = array('message' =>  $img['desc']);
@@ -859,8 +847,7 @@ class Cron extends CI_Controller {
         return $error;
     }
 
-    public function create_album($name,$msg,$page_id,$page_token)
-    {
+    public function create_album($name,$msg,$page_id,$page_token){
         $privacy = array(
                 'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
             );
@@ -880,8 +867,4 @@ class Cron extends CI_Controller {
         }
         return FALSE;
     }
-
-    
-
-
 }
