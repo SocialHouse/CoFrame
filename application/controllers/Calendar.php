@@ -288,6 +288,18 @@ class Calendar extends CI_Controller {
 		$this->data['post_id'] = $this->uri->segment(5);
 		$this->data['timezones'] = $this->user_model->get_timezones();
 
+		foreach ($this->data['timezones']  as $key => $values) 
+		{
+			if($this->user_data['timezone'] == $values->value)
+			{
+				$this->data['user_timezone'] = array(
+									'name' =>  $values->timezone,
+									'value' => $values->value
+									);
+				unset($this->data['timezones'][$key]);
+			}
+		}
+
 
 
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);

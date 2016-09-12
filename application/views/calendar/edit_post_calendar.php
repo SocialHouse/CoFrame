@@ -406,7 +406,18 @@
 			{
 				$data['is_edit'] = 'true';
 				$data['brand'] = $brand;
-				$this->load->view('partials/default_phase' ,$data);
+				$data['timezone_list'] = $timezones;
+				?>
+				<div class="col-md-4 equal-height">
+					<div class="container-approvals">
+						<div id="phaseDetails">
+							<?php
+							$this->load->view('partials/all_phases',$data);
+							?>							
+						</div>
+					</div>
+				</div>
+				<?php
 			} 
 			else
 			{ 

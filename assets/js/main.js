@@ -460,8 +460,15 @@ jQuery(function($) {
 				var activePhaseId = $activePhase.attr('id');
 				if ($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
-					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
-					$activePhase.find('.user-list li').prepend(imgDiv);	
+					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';						
+					if($('[name="post_id"]').val() > 0)
+					{
+						inputDiv = '';
+					}
+					
+
+					var contol = $(imgDiv).append(inputDiv);
+					$activePhase.find('.user-list li').prepend(contol);	
 					setTimeout(function() {
 						setPhaseBtns($activePhase);
 					}, 100);
@@ -688,7 +695,6 @@ jQuery(function($) {
 		//assign tags to post
 		$('body').on('click', '.select-post-tags .tag-list .tag', function() {
 			$(this).toggleClass('selected');
-			console.log('assign tags to post');
 			var checked = false;
 			var numTags = $('.tag-list .selected').length;
 			var tag = $(this).find('.fa');
@@ -988,8 +994,6 @@ jQuery(function($) {
 			$(time_preview).find('.hour-preview').text($(time).find('.hour-select').val());
 			$(time_preview).find('.minute-preview').text($(time).find('.minute-select').val());
 			$(time_preview).find('.ampm-preview').text($(time).find('.amselect').val());
-			// console.log($(time_preview).find('.ampm-preview'));
-			// console.log($(time).find('.amselect').val());
 
 			//show time on preview (date)
 			var note = $('#approvalPhase' + (parseInt(phaseId) + 1)).find('.approvalNotes').val();
@@ -1472,19 +1476,47 @@ jQuery(function($) {
 		var post_copy = $(this).val();
 		var post_length = post_copy.length;
 		var selected_content_type ='';
-		post_copy = convertToLink(post_copy);
-		post_copy = hashtagToLink(post_copy);
-		post_copy = atToLink(post_copy);
+
+		if(selected_outlet === 'twitter')
+		{
+			var length = findLinkLength(post_copy);
+			if(length < post_copy.length)
+			{
+				post_length = length + 23;
+			}
+
+			if($('.form__preview-wrapper img').length > 0)
+			{
+				post_length = post_length + 24;
+			}
+		}
+
+		//$('.form__preview-wrapper img').length
+
 		if(selected_outlet === 'twitter' || selected_outlet === 'linkedin') {
 			var charsLeft ;
-			if(selected_outlet === 'twitter'){
-				charsLeft = 140 - post_length;
+			if(selected_outlet === 'twitter'){				
+				var outlet_limit = 140;				
+				charsLeft = outlet_limit - post_length;
+				$('#postCopy').attr('maxlength',(post_copy.length + charsLeft));
 			}
 			if(selected_outlet === 'linkedin'){
 				charsLeft = 256 - post_length;
+				var outlet_limit = 256;
 			}
+
 			$('#charsLeft').text(charsLeft);
+			if(charsLeft <= 0)
+			{	
+				post_copy = post_copy.substring(0, parseInt(post_copy.length - charsLeft));
+				$('#postCopy').val(post_copy);
+				$('#charsLeft').text(0);
+			}			
 		}
+
+		post_copy = convertToLink(post_copy);
+		post_copy = hashtagToLink(post_copy);
+		post_copy = atToLink(post_copy);		
 
 		$.each($('.content-list li'), function(i, element){
 			if(!$(element).hasClass('disabled')){
@@ -1706,7 +1738,6 @@ jQuery(function($) {
 			 			},
 			 			success: function(response) {
 			 				if (response.status == 'success') {
-			 					console.log($('.col-md-4:eq(2)'));
 			 					$('.phases-div').remove();
 			 					$('.modal-backdrop').remove();
 								$( ".insert_after" ).after(response.html);
@@ -1904,6 +1935,13 @@ function convertToLink(text) {
 	return text.replace(exp, "<a href='$1' target='_blank'>$1</a>");
 }
 
+function findLinkLength(text) {
+	var exp = /(\b((https?|ftp|file):\/\/|(www))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]*)/ig;
+	return text.replace(exp, '').length;
+}
+
+
+
 function hashtagToLink(text) {
 	var exp = /(?:^|\W)#(\w+)(?!\w)/g;
 	return text.replace(exp, " <a href='$1' target='_blank'>#$1</a>");
@@ -2003,16 +2041,50 @@ function text_char_limit(outlet_const, limit){
 	var tweet, chars, charsLeft, tweetTrunc;
 	tweet = $("#postCopy").val();
 	chars = tweet.length;
+	if(limit == 140)
+	{
+		chars = findLinkLength(tweet);
+		if(chars < tweet.length)
+		{
+			chars = chars + 23;
+		}
+
+		if($('.form__preview-wrapper img').length > 0)
+		{
+			chars = chars + 24;
+		}
+	}
+
 	limit = parseInt(limit);
 	charsLeft = limit - chars;
-	if (tweet.length > limit) {
+	if (chars > limit) {
 		tweetTrunc = tweet.substring(0, limit);
 		$("#postCopy").val(tweetTrunc);
 	}
 	if(charsLeft < 0 ){
 		charsLeft = 0;
 	}
-	$("#postCopy").attr("maxlength", limit);
+	if(limit == 140)
+	{
+		var outlet_limit = 140;			
+		var charsLeft = outlet_limit - chars;
+		var charsToAdd = charsLeft;
+		if(charsToAdd <= 0)
+		{
+			charsToShow = 0 - charsLeft;
+			charsToShow = tweet.length - charsToShow;
+			charsLeft = 0;
+			var tweetTrunk = tweet.substring(0, parseInt(charsToShow));
+			$('#postCopy').val(tweetTrunk);
+		}
+		else
+		{
+			charsToShow = 140;
+		}
+		$('#postCopy').attr('maxlength',(charsToShow));
+	}
+	else
+		$("#postCopy").attr("maxlength", limit);
 
 	if ($('.form__preview-wrapper img').length > 4 && outlet_const == 'twitter') {
 		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
@@ -2059,7 +2131,6 @@ function getConfirm(confirmMessage,confirmTitle,is_alert,callback){
 	$('#confirmFalse').click(function(){
 		$('#confirmbox').modal('hide');
 		if($('.modal-backdrop').length > 1){
-			console.log($('.modal-backdrop.in').length);
 			setTimeout(function(){
 				$('.modal-toggler').show();
 			},500);
@@ -2071,7 +2142,6 @@ function getConfirm(confirmMessage,confirmTitle,is_alert,callback){
 		$('#confirmbox').modal('hide');
 		
 		if($('.modal-backdrop').length > 1){
-			console.log($('.modal-backdrop.in').length);
 			setTimeout(function(){
 				$('.modal-toggler').show();
 			},500);

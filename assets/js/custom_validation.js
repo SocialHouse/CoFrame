@@ -1,9 +1,9 @@
 var $ = jQuery;
 var compare_array = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
 
-$(document).on('click','.first-phase li .pull-sm-left .check-box' ,function(){
+$(document).on('click','.user-list li .pull-sm-left .check-box' ,function(){
 	var txt;
-	if($(".first-phase li .pull-sm-left .check-box.circle-border").hasClass('selected')){
+	if($(".user-list li .pull-sm-left .check-box.circle-border").hasClass('selected')){
 		txt = 'Submit for Approval';
 	}else{
 		txt = 'Slate Post';		

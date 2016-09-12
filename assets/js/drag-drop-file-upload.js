@@ -689,7 +689,7 @@
 		    });
 
 			//remove post media upload on icon click
-		    $('body').on('click', '.form__input .remove-upload', function(){
+		    $('body').on('click', '.form__input .remove-upload', function(){		    	
 				var $uploader = $(this).closest('.form__input');
 				var imgIndex;
 				var control = $(this).parent().find('img');
@@ -710,14 +710,14 @@
 					$.each(allFiles,function(a,img){
 						if(img.img_src === $(control).attr('src'))
 						{
-							imgIndex = a;
+							imgIndex = a;							
 							return;
 						}
 					});
 					allFiles.splice(imgIndex, 1);
 
 					$(this).remove();
-					removeFromPreview();
+					removeFromPreview();					
 					var $uploads = $uploader.find('.form__preview-wrapper');
 					if(!$uploads.length) {
 						$uploader.removeClass('has-files');
@@ -846,6 +846,7 @@
 		//for twitter
 		if(selected_outlet == 'outlet_twitter')
 		{
+			text_char_limit($('#postCopy').val(),140);
 			if(file_type == 'video'){
 				jQuery('#live-post-preview .twitter-img-div').prepend(video);
 				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
@@ -1180,6 +1181,8 @@
 					});
 					jQuery('#live-post-preview .img-div .section2 img').wrap('<div class="img-wrapper height_33"></div>');
 				}
+				
+				text_char_limit($('#postCopy').val(),140);
 			}
 
 			//for insta
