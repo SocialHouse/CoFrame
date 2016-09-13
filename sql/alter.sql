@@ -467,3 +467,6 @@ ALTER TABLE `posts` ADD `tumblr_content_type` VARCHAR(150) NULL AFTER `pinterest
 
 ---06-09-2016
 ALTER TABLE `co_create_requests` ADD `account_id` INT NOT NULL AFTER `user_id`;
+
+---13-09-2016
+ALTER TABLE `reminders` CHANGE `post_id` `post_id` INT(11) NULL;

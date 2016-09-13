@@ -984,6 +984,20 @@ if(!function_exists('print_flashdata'))
     }
 }
 
+if(!function_exists('get_email'))
+{
+    function get_email($id)
+    {
+        $CI = & get_instance();
+        $result = $CI->timeframe_model->get_data_by_condition('aauth_users',array('id'=>$id),'email');
+        if($result)
+        {
+            return $result[0]->email;
+        }
+        return FALSE;
+    }
+}
+
 
 
 

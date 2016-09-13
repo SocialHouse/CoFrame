@@ -2,6 +2,7 @@
 
 <input type="hidden" id="request-string" value="<?php echo uniqid(); ?>">
 <input type="hidden" id="user_id" value="<?php echo $this->user_id; ?>">
+<input type="hidden" id="brand_id" value="<?php echo $brand_id; ?>">
 <input type="hidden" id="account_id" value="<?php echo $this->user_data['account_id']; ?>">
 <input type="hidden" id="slug" value="<?php echo $slug; ?>">
 
@@ -23,10 +24,11 @@
 							<?php
 							foreach ($users as $user)
 							{
+								$email = get_email($user->aauth_user_id);
 								?>
 								<li>
 									<div class="pull-sm-left">
-										<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="join_req[]" value="<?php echo $user->email; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $user->email; ?>" data-group="join_req[]"><i class="fa fa-check"></i></i>
+										<input type="checkbox" data-clear-phase="first" class="hidden-xs-up" name="join_req[]" value="<?php echo $email; ?>"><i class="tf-icon check-box circle-border" data-value="<?php echo $email; ?>" data-group="join_req[]"><i class="fa fa-check"></i></i>
 									</div>
 									<div class="pull-sm-left">
 										<?php

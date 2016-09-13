@@ -1854,7 +1854,7 @@ jQuery(function($) {
     		$.ajax({
     			url:base_url+'co_create/send_join_request',
     			type:'post',
-    			data:{selected_users:selected_users,request_string: request_string,slug: slug},
+    			data:{selected_users:selected_users,request_string: request_string,slug: slug,'brand_id':$('#brand_id').val()},
     			success:function(response)
     			{
     				window.location.href = base_url + 'co_create/cocreate_post/' + slug + '/' + request_string;

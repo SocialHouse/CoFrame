@@ -44,7 +44,7 @@ class Co_create extends CI_Controller {
 		{
 			$brand_id = $brand[0]->id;
 			$this->data['slug'] = $slug;
-			$this->data['users'] = $this->brand_model->get_users_without_me($brand_id);
+			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
 			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 		
@@ -261,6 +261,18 @@ class Co_create extends CI_Controller {
 				$message = "To join co create click below link <br/> <a href=".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
 				foreach($post_data['selected_users'] as $email)
 				{
+					$user_id = $this->aauth->get_user_id($email);
+
+					$reminder_data = array(
+		    								'user_id' => $user_id,
+		    								'type' => 'reminder',
+		    								'brand_id' => $post_data['brand_id'],
+		    								'due_date' => date('Y-m-d H:i:s',strtotime('+1 days')),
+		    								'text' => 'Please join cocreate'
+		    							);
+
+	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+
 					email_send($email,$subject,$message);
 				}
 			}			

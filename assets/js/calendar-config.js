@@ -788,7 +788,7 @@ jQuery(function($) {
 						start: $.fullCalendar.moment(date),
 						end: $.fullCalendar.moment(date).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
 						rendering: 'background',
-						color: '#f4d3d5'
+						color: '#ffff'
 					};
 					$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
 					daySelectedDate = date.format();
