@@ -209,6 +209,7 @@
 									<li>1 Brand</li>
 									<li>Email &amp; Desktop Notifications</li>
 									<li>3 tags</li>
+									<li>Phased Approvals</li>
 								</ul>
 								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Start-Up" data-price="$99.00">Get Started</a></p>
 							</div>
@@ -248,20 +249,19 @@
 							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-900">
 								<header class="price-title">
 									<h2>Premiere</h2>
-									<h3>$2,500 <small>per month</small></h3>
+									<h3><small>Contact for Pricing.*</small></h3>
 								</header>
 								<ul>
-									<li>Up to 70 Users: Includes Unlimited Master Admins</li>
+									<li>Includes Unlimited Master Admins</li>
 									<li>Unlimited Social Channels</li>
-									<li>Up to 15 brands</li>
 									<li>Email &amp; Desktop Notifications</li>
 									<li>Co-Create functionality</li>
-									<li>Unlimited Tags</li>
+									<li>Up to 50 tags</li>
 									<li>Training (1 In-Person Training Session)</li>
 									<li>High Priority Online Support </li>
 									<li>Phased Approvals</li>
 								</ul>
-								<p class="disclaimer">*ability to add users and brands for additional cost</p>
+								<p class="disclaimer">*Additional brands, users, upgrades and customizations are available. <a href="#">Contact for details</a></p>
 								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Premiere" data-price="$499.00">Get Started</a></p>
 							</div>
 						</div>

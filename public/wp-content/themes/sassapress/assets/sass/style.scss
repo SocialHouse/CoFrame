@@ -711,6 +711,10 @@ a {
 		font-size: 1rem;
 		margin-top: .75rem;
 		text-align: left;
+		a {
+			color: #fff;
+			text-decoration: underline;
+		}
 	}
 	p {
 		margin-bottom: 0;
@@ -875,8 +879,12 @@ a {
 		background: rgba(0,0,0,.4);
 		margin: 0 -2.875rem 1.875rem;
 		padding: 2rem 2.875rem;
+		@media(min-width: 768px) {
+			min-height: 179px;
+		}
 		@media(min-width: 1440px) {
 			padding: 2.875rem;
+			min-height: 267px;
 		}
 	}
 }
