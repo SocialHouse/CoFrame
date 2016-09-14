@@ -202,7 +202,6 @@
 								<header class="price-title">
 									<h2>Start-Up</h2>
 									<h3>$99 <small>per month</small></h3>
-									<h4>$1,188 <small>per year</small></h4>
 								</header>
 								<ul>
 									<li>3 Total Users: Includes 1 Master Admin</li>
@@ -217,7 +216,6 @@
 								<header class="price-title">
 									<h2>Business</h2>
 									<h3>$299 <small>per month</small></h3>
-									<h4>$3,588 <small>per year</small></h4>
 								</header>
 								<ul>
 									<li>12 Total Users: Includes 2 Master Admins</li>
@@ -234,7 +232,6 @@
 								<header class="price-title">
 									<h2>Corporate</h2>
 									<h3>$599 <small>per month</small></h3>
-									<h4>$7,188 <small>per year</small></h4>
 								</header>
 								<ul>
 									<li>Up to 35 Users: Includes Unlimited Master Admins</li>
@@ -252,7 +249,6 @@
 								<header class="price-title">
 									<h2>Premiere</h2>
 									<h3>$2,500 <small>per month</small></h3>
-									<h4>$30,000 <small>per year</small>*</h4>
 								</header>
 								<ul>
 									<li>Up to 70 Users: Includes Unlimited Master Admins</li>
