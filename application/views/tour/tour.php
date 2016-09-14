@@ -371,10 +371,10 @@
 							</div>
 							<div class="col-md-4 faq" data-animation=""></p>
 								<p><strong>Will I have to enter my payment details?</strong><br />
-								Yes, but you won&#8217;t be billed unless you keep your account open beyond the free trial.</p>
+								We’re so confident in our product that you know you’re going to love us (and need us!) beyond the 30 days - so no need to enter your payment details till later!</p>
 								<hr />
 								<p><strong>Need help signing up?</strong><br />
-								If you have any questions please email us at: <a href="mailto:support@timeframe.com">support@TIMEFRAME.com</a>.</p>
+								If you have any questions please email us at: <a href="mailto:support@coframeapp.com">support@coframeapp.com</a>.</p>
 								<hr />
 								<p>At CoFrame, we value your privacy and will never share your personal data with any 3rd parties. 
 							</div>
