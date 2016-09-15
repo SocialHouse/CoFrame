@@ -39,13 +39,13 @@
 				<div class="container-cocreate-discussion">
 					<div class="cocreate-participants"><strong>Participants:</strong> <span id="participants"><span></div>
 					<div class="discussion-list">
-							<ul>
-							</ul>
-							<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
+						<div class="chat-panel">
+						</div>
+						<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
 							
 							<div id="videos">
-						        <div id="subscriber" style="height:200px"></div>
-						        <div id="publisher" style="height:200px"></div>
+						        <div id="subscriber"></div>
+						        <div id="publisher"></div>
 							</div>
 					</div>
 					<footer class="post-content-footer">

@@ -3459,6 +3459,10 @@ a {
 	}
 }
 
+#videos .OT_publisher, #videos .OT_subscriber {
+	min-height: 200px;
+	margin-top: 20px;
+}
 /*Archive*/
 .archives {
 	h2 {

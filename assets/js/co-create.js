@@ -89,20 +89,19 @@ function initializeSession(apiKey, sessionId,token) {
   		var userData = event.from.data.split(',');
   		var className = event.from.connectionId === session.connection.connectionId ? 'sent' : 'receive';
   		
-  		var msg_div = '<li data-id="'+event.from.connectionId+'">';
-		msg_div += '<img width="36" height="36" class="circle-img" src="'+userData[2]+'">';
-		var comment = '<div class="comment">';
-		comment += '<p>'+ event.data+'</p>';
+  		var msg_div = '<div class="msg_container base_'+className+'" data-id="'+event.from.connectionId+'">';
+		var msg_div_img = '<img width="36" height="36" class="circle-img" src="'+userData[2]+'">';
+		var comment = '<div class="comment msg_'+className+'">';
+		comment += event.data;
 		comment += '</div>';
-		var li_end = '</li>';
-		if($('.discussion-list ul li:last').attr('data-id') == event.from.connectionId)
-		{
-			$('.discussion-list ul li:last').append(comment);
+		var append_div = msg_div_img+comment;
+		if(className == 'sent') {
+			append_div = comment+msg_div_img;
 		}
-		else
-		{
-	  		$('.discussion-list ul').append(msg_div+comment+li_end);
-		}
+		msg_div += append_div;
+		msg_div += '</div>';
+  		$('.discussion-list .chat-panel').append(msg_div);
+		equalColumns();
 
 		var participants = $('#participants span').text()
 		if(participants.indexOf(userData[0]) == -1)
@@ -115,11 +114,10 @@ function initializeSession(apiKey, sessionId,token) {
 			{
 				var append_text = userData[0];				
 			}
-			console.log(user_data.first_name);
-			if(user_data.first_name.toLowerCase() != userData[0].toLowerCase())
+			if(user_data.first_name.toLowerCase() != userData[0].toLowerCase()) {
 				$('#participants span').text(append_text);
+			}
 		}
-		
 	});
 }
 

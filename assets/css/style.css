@@ -11711,6 +11711,10 @@ a {
     outline-color: #bfbfbf;
     width: calc(100% - 50px); }
 
+#videos .OT_publisher, #videos .OT_subscriber {
+  min-height: 200px;
+  margin-top: 20px; }
+
 /*Archive*/
 .archives h2 {
   margin-bottom: 6rem; }
