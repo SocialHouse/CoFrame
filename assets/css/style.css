@@ -11621,6 +11621,18 @@ a {
   padding-top: 0; }
 .cocreate-post#brand-manage .page-main-header {
   padding-bottom: 1rem; }
+.cocreate-post #videos {
+  position: relative; }
+  .cocreate-post #videos #subscriber {
+    min-height: 200px; }
+  .cocreate-post #videos #publisher {
+    height: 50px;
+    width: 78px;
+    position: absolute;
+    top: 10px;
+    margin-left: -39px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.75);
+    left: 50%; }
 
 .cocreate-list {
   list-style: none;
@@ -11660,6 +11672,11 @@ a {
   margin-bottom: 1.5rem;
   padding: 11px 0;
   margin: 0 0 1.5rem; }
+  .cocreate-participants .tf-icon {
+    font-size: 19px;
+    height: 19px;
+    width: 19px;
+    line-height: 14px; }
 
 .discussion-list {
   line-height: 18px; }
@@ -11710,10 +11727,6 @@ a {
     margin-top: 20px;
     outline-color: #bfbfbf;
     width: calc(100% - 50px); }
-
-#videos .OT_publisher, #videos .OT_subscriber {
-  min-height: 200px;
-  margin-top: 20px; }
 
 /*Archive*/
 .archives h2 {

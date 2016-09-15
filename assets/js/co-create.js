@@ -43,7 +43,7 @@ function initializeSession(apiKey, sessionId,token) {
 	});
 	// Subscribe to a newly created stream
 	session.on('streamCreated', function(event) {
-		var userData = event.from.data.split(','); 
+		//var userData = event.from.data.split(','); 
 		var subscriberProperties = {insertMode: 'append'};
 		var subscriber = session.subscribe(event.stream,
 		    'subscriber',
@@ -55,6 +55,7 @@ function initializeSession(apiKey, sessionId,token) {
 		        console.log('Subscriber added.');
 		      }
 		  });
+		$('#subscriber').removeClass('hidden');
 	});
 
 	session.on('sessionDisconnected', function(event) {
@@ -79,6 +80,9 @@ function initializeSession(apiKey, sessionId,token) {
 				console.log(error.message);
 			});			
 		  	session.publish(publisher);
+			if(!$('#subscriber').hasClass('hidden')) {
+				$('#publisher').removeClass('hidden');
+			}
 		} else {
 		  console.log(language_message.connecting_error_session, error.code, error.message);
 		}
@@ -103,19 +107,19 @@ function initializeSession(apiKey, sessionId,token) {
   		$('.discussion-list .chat-panel').append(msg_div);
 		equalColumns();
 
-		var participants = $('#participants span').text()
-		if(participants.indexOf(userData[0]) == -1)
+		var participants = $('#participants').text()
+		if(participants.indexOf(userData[0]) === -1)
 		{
 			if(participants.length > 0)
 			{
-				var append_text = participants+','+userData[0];			
+				var append_text = participants+','+userData[0];	
 			}
 			else
 			{
-				var append_text = userData[0];				
+				var append_text = userData[0];
 			}
 			if(user_data.first_name.toLowerCase() != userData[0].toLowerCase()) {
-				$('#participants span').text(append_text);
+				$('#participants').text(append_text);
 			}
 		}
 	});

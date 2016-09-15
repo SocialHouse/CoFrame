@@ -3348,6 +3348,21 @@ a {
 			padding-bottom: 1rem;	
 		}
 	}
+	#videos {
+		position: relative;
+		#subscriber {
+			min-height: 200px;
+		}
+		#publisher {
+			height: 50px;
+			width: 78px;
+			position: absolute;
+			top:10px;
+			margin-left: -39px;
+			box-shadow: 0 0 8px rgba(0,0,0,.75);
+			left: 50%;
+		}
+	}
 }
 .cocreate-list {
 	list-style: none;
@@ -3394,6 +3409,12 @@ a {
 	margin-bottom: 1.5rem;
 	padding: 11px 0;
 	margin: 0 0 1.5rem;
+	.tf-icon {
+		font-size: 19px;
+		height: 19px;
+		width: 19px;
+		line-height: 14px;
+	}
 }
 
 .discussion-list {
@@ -3459,10 +3480,6 @@ a {
 	}
 }
 
-#videos .OT_publisher, #videos .OT_subscriber {
-	min-height: 200px;
-	margin-top: 20px;
-}
 /*Archive*/
 .archives {
 	h2 {

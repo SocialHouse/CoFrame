@@ -11,10 +11,6 @@
 			<header class="page-main-header">
 				<h1 class="center-title section-title">Discussion</h1>
 			</header>
-			<div class="cocreate-opts text-xs-center">
-				<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-tele"></i></i>
-				<i class="tf-icon circle-border" data-value="Facebook" data-group="post-outlet"><i class="tf-icon-video"></i></i>
-			</div>
 		</div>
 	</div>
 	<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
@@ -37,16 +33,15 @@
 
 			<div class="col-md-4 equal-height">
 				<div class="container-cocreate-discussion">
-					<div class="cocreate-participants"><strong>Participants:</strong> <span id="participants"><span></div>
+					<div id="videos">
+				        <div id="subscriber" class="hidden"></div>
+				        <div id="publisher" class="hidden"></div>
+					</div>
+					<div class="cocreate-participants"><strong>Participants:</strong> <span id="participants"></span><i class="tf-icon circle-border pull-sm-right">+</i></div>
 					<div class="discussion-list">
 						<div class="chat-panel">
 						</div>
 						<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
-							
-							<div id="videos">
-						        <div id="subscriber"></div>
-						        <div id="publisher"></div>
-							</div>
 					</div>
 					<footer class="post-content-footer">
 						<div class="pull-sm-right">
