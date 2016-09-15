@@ -19,10 +19,10 @@
 		  		<a data-sub_pages="request" class="nav-link" href="<?php echo base_url().'approvals/'.$brand->slug; ?>">My Approvals</a>
 			</li>
 			<li class="nav-item">
-	  			<a class="nav-link" href="<?php echo base_url().'co_create/create/'.$brand->slug; ?>">Co-Create</a>
+		  		<a class="nav-link" href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>">Calendar</a>
 			</li>
 			<li class="nav-item">
-		  		<a class="nav-link" href="<?php echo base_url().'calendar/day/'.$brand->slug; ?>">Calendar</a>
+	  			<a class="nav-link" href="<?php echo base_url().'co_create/create/'.$brand->slug; ?>">Co-Create</a>
 			</li>
 			<li class="nav-item">
 		  		<a class="nav-link" href="<?php echo base_url().'drafts/'.$brand->slug; ?>">Drafts</a>
