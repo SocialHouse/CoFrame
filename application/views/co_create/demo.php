@@ -111,7 +111,7 @@
 						</div>
 						<footer class="post-content-footer">
 						<button class="btn btn-sm save-draft-btn submit-btn btn-default"  id="draft">Save Draft</button>
-						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn "  id="submit-approval">Submit for Approval</button>
+						<button type="submit" class="btn btn-sm btn-secondary submit-approval submit-btn color-success"  id="submit-approval">Submit for Approval</button>
 						</footer>
 					</div>
 				</div>

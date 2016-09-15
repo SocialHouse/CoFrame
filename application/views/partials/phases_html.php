@@ -136,7 +136,7 @@ else
 										if($obj[0]->phase_status != 'pending')
 										{
 										?>
-											<button type="button" id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-default pull-sm-right resubmit-approval">Resubmit for Approval</button>
+											<button type="button" id="<?php echo $obj[0]->phase_id; ?>" class="btn btn-xs btn-default pull-sm-right resubmit-approval color-success">Resubmit for Approval</button>
 										<?php
 										}
 										?>													
