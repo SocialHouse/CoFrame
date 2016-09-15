@@ -213,7 +213,7 @@
 													$approver_count++;
 													if($approver_count >= 4)
 													{				
-														$additional_approvers_html .= '<li class="'.$approver['status'].'">
+														$additional_approvers_html .= '<li>
 															<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
 															<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
 														</li>';
@@ -222,7 +222,7 @@
 													}
 													else											
 													{
-														$approvers_html = '<li class="'.$approver['status'].'">
+														$approvers_html = '<li>
 															<img src="'.$image_path.'" width="36" height="36" alt="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'" class="circle-img hidden-print" data-toggle="popover-hover" data-content="'.ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']).'">
 															<span class="visible-print-block">'. ucfirst($approver['first_name']).' '.ucfirst($approver['last_name']) . '</span>
 														</li>';
