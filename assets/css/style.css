@@ -11833,6 +11833,11 @@ a {
     display: block;
     font-size: 2.1875rem;
     line-height: 1.7rem; }
+  #user-preferences .price-title h3.smaller {
+    font-family: "Bebas Light",Arial,Helvetica,sans-serif;
+    display: block;
+    font-size: 3.65rem;
+    line-height: 1; }
 #user-preferences .price-title h4 {
   font-family: "Bebas", Arial, Helvetica, sans-serif;
   margin: 0 0 4rem;
@@ -11858,9 +11863,7 @@ a {
     left: 2rem;
     right: 2rem; }
   #user-preferences .pricing-details .disclaimer {
-    font-size: 1rem;
-    margin-top: .75rem;
-    text-align: left; }
+    font-size: 1rem; }
 #user-preferences .active-plan {
   box-shadow: 0px 20px 45px 0px rgba(0, 0, 0, 0.25); }
 

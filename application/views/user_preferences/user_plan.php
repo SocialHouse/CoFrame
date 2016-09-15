@@ -56,6 +56,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									<li>1 Brand</li>
 									<li>Email &amp; Desktop Notifications</li>
 									<li>3 tags</li>
+									<li>Phased Approvals</li>
 								</ul>
 								<?php 
 									if(!empty($start_up))
@@ -153,16 +154,15 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $premiere; ?>">
 								<header class="price-title">
 									<h2>Premiere</h2>
-									<h3>$2,500 <small>per month</small></h3>
-									<h4>$30,000 <small>per year</small>*</h4>
+									<h3 class="smaller">Contact for Pricing.</h2>
+									<p class="disclaimer">Additional brands, users, upgrades and customizations are available. <a href="#">Contact for details</a></p>
 								</header>
 								<ul>
-									<li>Up to 70 Users: Includes Unlimited Master Admins</li>
+									<li>Includes Unlimited Master Admins</li>
 									<li>Unlimited Social Channels</li>
-									<li>Up to 15 brands</li>
 									<li>Email &amp; Desktop Notifications</li>
 									<li>Co-Create functionality</li>
-									<li>Unlimited Tags</li>
+									<li>Up to 50 Tags</li>
 									<li>Training (1 In-Person Training Session)</li>
 									<li>High Priority Online Support </li>
 									<li>Phased Approvals</li>
