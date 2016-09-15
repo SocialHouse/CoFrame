@@ -1304,7 +1304,8 @@ jQuery(function($) {
 			div = '.page-main';
 		}
 		//reset heights to default to get appropriate calculation
-		$(div + ' .equal-columns .equal-height, ' + div + ' .equal-section').css('height', '');
+		$(div).find('.equal-columns .equal-height').css('height', '');
+		$(div).find('.equal-section').css('height', '');
 
 		var colHs = [];
 		$(div).find('.equal-section').each(function() {

@@ -2,7 +2,14 @@ var compare_array = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
 jQuery(function($) {
     //to save edit request
     $(document).on('click', '.save-edit-req', function() {
-        if ($(this).hasClass('btn-secondary')) {
+  		var columnSection;
+ 		if($(this).closest('.modal').length) {
+			columnSection = '.modal';
+		}
+		else {
+			columnSection = '';
+		}
+      if ($(this).hasClass('btn-secondary')) {
             toggleBtnClass($(this), true);
             var $div_suggest_edit = $(this).closest('.suggest-edit');
             var input_files = $div_suggest_edit.find("input[type='file']");
@@ -42,10 +49,9 @@ jQuery(function($) {
                         $div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
                         img.attr('src', '').addClass('hide');
                         toggleBtnClass($(this).parent().children('.save-edit-req'), true);
-                        equalColumns();
+                        equalColumns(columnSection);
                     } else {
                         getConfirm(language_message.edit_req_not_save, '', 'alert', function(confResponse) {});
-                        // alert(language_message.edit_req_not_save);
                     }
                 }
             });
@@ -53,14 +59,19 @@ jQuery(function($) {
     });
 
     $(document).on('click', '.reply-comment-submit', function() {
-        if ($(this).hasClass('btn-secondary')) {
+		var columnSection;
+ 		if($(this).closest('.modal').length) {
+			columnSection = '.modal';
+		}
+		else {
+			columnSection = '';
+		}
+       if ($(this).hasClass('btn-secondary')) {
             toggleBtnClass($(this), true);
-            console.log($(this));
             var $div_suggest_edit = $(this).closest('li')
             var input_files = $div_suggest_edit.find("input[type='file']");
             var textarea = $div_suggest_edit.find("textarea");
             var attachment = input_files[0].files[0];
-            console.log(input_files);
             var img = $div_suggest_edit.find("img");
 
             var data = new FormData();
@@ -74,8 +85,9 @@ jQuery(function($) {
 
             jQuery.each($('input'), function(i, control) {
                 if (control.name == 'brand_owner' || control.name == 'user_id' || control.name == 'post_id' || control.name == 'brand_id') {
-                    if (control.value)
+                    if (control.value) {
                         data.append(control.name, control.value);
+					}
                 }
             });
             $.ajax({
@@ -92,12 +104,9 @@ jQuery(function($) {
                             $div_suggest_edit.closest('.commentReply').remove();
                         });
                         $div_suggest_edit.closest('.comment').append(response.html);
-                        var new_height = $div_suggest_edit.closest('.comment').find('li:first').height();
-                        var col_8_height = $div_suggest_edit.parent('div').height();
-                        $div_suggest_edit.parent('div').height(parseInt(col_8_height) + parseInt(new_height));
+						equalColumns(columnSection);
                     } else {
                         getConfirm(language_message.edit_req_not_save, '', 'alert', function(confResponse) {});
-                        // alert(language_message.edit_req_not_save);
                     }
                 }
             });
@@ -105,17 +114,24 @@ jQuery(function($) {
     });
 
     $(document).on('click', '.show-hide-reply', function(e) {
+		var columnSection;
         e.preventDefault();
         var $trigger = $(this);
         var show = $(this).data('show');
         var reply_id = show.substring(1);
         var html_body = $('#commentReplyStatic').html();
         var $comment = $trigger.closest('.comment');
+		if($trigger.closest('.modal').length) {
+			columnSection = '.modal';
+		}
+		else {
+			columnSection = '';
+		}
 
         if ($trigger.hasClass('active')) {
             $(show).slideUp(function() {
                 $(show).remove();
-                equalColumns();
+                equalColumns(columnSection);
                 $trigger.removeClass('active');
                 //if there are reply, don't remove reply class
                 if (!$comment.find('.commentReply').length) {
@@ -129,17 +145,16 @@ jQuery(function($) {
             $(show).removeClass('emptyCommentReply');
             $comment.addClass('has-reply');
             $trigger.addClass('active');
-        }
+       }
 
         $(show).slideToggle(function() {
-            equalColumns();
+            equalColumns(columnSection);
             $(show).trigger('contentSlidDown', [$trigger]);
         });
     });
 
     $(document).on('keyup blur', '#comment_copy', function() {
         $suggest_edit = $(this).closest('.comment-section');
-        console.log($suggest_edit);
         if ($.trim($(this).val())) {
             toggleBtnClass($suggest_edit.find('button.save-edit-req'), false);
         } else {
@@ -149,7 +164,6 @@ jQuery(function($) {
 
     $(document).on('keyup blur', '#reply_comment_copy', function() {
         $suggest_edit = $(this).closest('.comment-section');
-         console.log($suggest_edit);
         if ($.trim($(this).val())) {
             toggleBtnClass($suggest_edit.find('button.reply-comment-submit'), false);
         } else {
@@ -197,7 +211,6 @@ jQuery(function($) {
 
     $(document).on('change', '.attachment_image', function() {
         var control = this;
-        console.log($(control).next().next());
 
         var supported_files = ['gif', 'png', 'jpg', 'jpeg'];
         var reader = new FileReader();
@@ -227,7 +240,6 @@ jQuery(function($) {
 
     $(document).on('click', '.reset-edit-request', function() {
         var $comment_section = $(this).closest('.comment-section');
-        console.log($comment_section);
         var textarea = $comment_section.find("textarea");
         var img = $comment_section.find("img.base-64-img");
         var input_file = $comment_section.find("input[type='file']");
@@ -257,7 +269,6 @@ jQuery(function($) {
         }
     });
 
-    // console.log($('input[name="attachment"]'));
     $(document).on('change', '.reply-attach', function() {
         if ($(this).attr('id') != 'attachment') {
             var control = this;
@@ -461,7 +472,6 @@ jQuery(function($) {
         phase_date = phase_date + ' ' + phase_hour + ':' + phase_minute + ' ' + phase_amselect;
         middle_date = convertDateFormat(phase_date);
         if (phase_date != '' && !moment(middle_date, 'YYYY-MM-DD', true).isValid()) {
-             console.log([first_date, middle_date, last_date]);
             if (moment(middle_date).isBetween(first_date, last_date, compare_array)) {
                 $.ajax({
                     type: 'POST',
@@ -500,7 +510,6 @@ jQuery(function($) {
                 $('#edit-approval-phase-modal').fadeOut();
                 $('#edit-approval-phase-modal').remove();
             });
-            console.log('sad');
         },600);
     });
 
