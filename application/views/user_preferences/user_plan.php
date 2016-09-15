@@ -167,7 +167,6 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									<li>High Priority Online Support </li>
 									<li>Phased Approvals</li>
 								</ul>
-								<p class="disclaimer">*ability to add users and brands for additional cost</p>
 								<?php 
 									if(!empty($premiere))
 									{
