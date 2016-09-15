@@ -7,7 +7,7 @@ jQuery(function($) {
 			columnSection = '.modal';
 		}
 		else {
-			columnSection = '';
+			columnSection = '.page-main';
 		}
       if ($(this).hasClass('btn-secondary')) {
             toggleBtnClass($(this), true);
@@ -64,7 +64,7 @@ jQuery(function($) {
 			columnSection = '.modal';
 		}
 		else {
-			columnSection = '';
+			columnSection = '.page-main';
 		}
        if ($(this).hasClass('btn-secondary')) {
             toggleBtnClass($(this), true);
@@ -125,7 +125,7 @@ jQuery(function($) {
 			columnSection = '.modal';
 		}
 		else {
-			columnSection = '';
+			columnSection = '.page-main';
 		}
 
         if ($trigger.hasClass('active')) {
