@@ -10,6 +10,7 @@ if(!empty($post_details->brand_id)){
 			<li><div class="pull-sm-left"><i class="tf-icon tf-icon-plus circle-border bg-black" title="Add Approvers">+</i></div><div class="add-approver">Add <br>Approvers</div></li>
 		</ul>
 
+		<label>Must approve by:</label>
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
@@ -55,13 +56,6 @@ if(!empty($post_details->brand_id)){
 		<h2 class="clearfix">Phase 1 <button type="button" title="Edit Phase" class="btn-icon edit-phase"><i class="fa fa-pencil"></i></button></h2>
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>
 		</ul>
-		sdfsfs
-		<!-- <input type="hidden" name="phase[0][approve_date]" class="phase-date-time-input" />
-		<input type="hidden" name="phase[0][approve_hour]" class="hour-select" />
-		<input type="hidden" name="phase[0][approve_minute]" class="minute-select" />
-		<input type="hidden" name="phase[0][approve_ampm]" class="amselect" />
-		<input type="hidden" name="phase[0][time_zone]" class="zone" />
-		<textarea name="phase[0][note]" class="note hide"></textarea>	 -->	
 
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
@@ -78,6 +72,7 @@ if(!empty($post_details->brand_id)){
 			<li><div class="pull-sm-left"><i class="tf-icon tf-icon-plus circle-border bg-black" title="Add Approvers">+</i></div><div class="add-approver">Add <br>Approvers</div></li>
 		</ul>
 
+		<label>Must approve by:</label>
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
@@ -123,13 +118,6 @@ if(!empty($post_details->brand_id)){
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">						<li></li>			
 		</ul>
 
-		<!-- <input type="hidden" name="phase[1][approve_date]" class="phase-date-time-input" />
-		<input type="hidden" name="phase[1][approve_hour]" class="hour-select" />
-		<input type="hidden" name="phase[1][approve_minute]" class="minute-select" />
-		<input type="hidden" name="phase[1][approve_ampm]" class="amselect" />
-		<input type="hidden" name="phase[1][time_zone]" class="zone" />
-		<textarea name="phase[1][note]" class="note hide"></textarea> -->
-
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>
@@ -145,6 +133,7 @@ if(!empty($post_details->brand_id)){
 			<li><div class="pull-sm-left"><i class="tf-icon tf-icon-plus circle-border bg-black" title="Add Approvers">+</i></div><div class="add-approver">Add <br>Approvers</div></li>
 		</ul>
 		
+		<label>Must approve by:</label>
 		<div class="clearfix">
 			<div class="form-group form-inline pull-sm-left date-time-div">
 				<div class="hide-top-bx-shadow">
@@ -182,7 +171,6 @@ if(!empty($post_details->brand_id)){
 		</div>
 		<div class="form-group">
 			<button type="button" class="btn btn-sm btn-default btn-change-phase" data-new-phase="2">Previous</button>
-			<!-- <button type="button" class="btn btn-sm btn-secondary pull-sm-right save-phases btn-disabled" disabled="disabled">Save Phases</button> -->
 		</div>
 	</div>
 	<div class="bg-white approval-phase saved-phase animated fadeIn hide" id="preview_approvalPhase3" data-id="2">
@@ -190,12 +178,6 @@ if(!empty($post_details->brand_id)){
 		<ul class="timeframe-list user-list approval-list border-bottom clearfix">					
 			<li></li>
 		</ul>
-		<!-- <input type="hidden" name="phase[2][approve_date]" class="phase-date-time-input" />
-		<input type="hidden" name="phase[2][approve_hour]" class="hour-select" />
-		<input type="hidden" name="phase[2][approve_minute]" class="minute-select" />
-		<input type="hidden" name="phase[2][approve_ampm]" class="amselect" />
-		<input type="hidden" name="phase[2][time_zone]" class="zone" />
-		<textarea name="phase[2][note]" class="note hide"></textarea> -->
 		<div class="approval-date">
 			<span class="uppercase">Must approve by:</span> <span class="date-preview"></span> <span class="time-preview">at <span class="hour-preview"></span>:<span class="minute-preview"></span> <span class="ampm-preview"></span></span>
 		</div>

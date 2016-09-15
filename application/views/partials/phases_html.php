@@ -54,6 +54,7 @@ else
 										</li>
 									</ul>
 									<input type="hidden"  value="<?php echo $obj[0]->phase_id; ?>" name="phase[<?php echo $phase_no;?>][phase_id]" >
+									<label>Must approve by:</label>
 									<div class="clearfix">
 										<div class="form-group form-inline pull-sm-left date-time-div">
 											<div class="hide-top-bx-shadow">
