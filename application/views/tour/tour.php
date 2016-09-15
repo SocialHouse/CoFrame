@@ -248,8 +248,9 @@
 							</div>
 							<div class="col-md-3 text-center animated col-sm-6" data-animation="fadeInRight animate-delay-900">
 								<header class="price-title">
-									<h2>Premiere</h2>
-									<h3><small>Contact for Pricing.*</small></h3>
+									<h2>Premiere
+									<small>Contact for Pricing.</small></h2>
+									<p class="disclaimer">Additional brands, users, upgrades and customizations are available. <a href="#">Contact for details</a></p>
 								</header>
 								<ul>
 									<li>Includes Unlimited Master Admins</li>
@@ -261,7 +262,6 @@
 									<li>High Priority Online Support </li>
 									<li>Phased Approvals</li>
 								</ul>
-								<p class="disclaimer">*Additional brands, users, upgrades and customizations are available. <a href="#">Contact for details</a></p>
 								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Premiere" data-price="$499.00">Get Started</a></p>
 							</div>
 						</div>

@@ -693,6 +693,11 @@ a {
 	}
 	h2 {
 		font-size: 2.75rem;
+		small {
+			font-family: $bebas-light;
+			display: block;
+			font-size: 3.65rem;
+		}
 	}
 	h3 {
 		font-family: $bebas-light;
@@ -708,9 +713,9 @@ a {
 	}
 	.disclaimer {
 		font-family: $futura-light;
-		font-size: 1rem;
-		margin-top: .75rem;
-		text-align: left;
+		font-size: .85rem;
+		line-height: 1.2;
+		margin-bottom: -1rem;
 		a {
 			color: #fff;
 			text-decoration: underline;
@@ -859,9 +864,9 @@ a {
 }
 .pricing-list {
 	> [class*="col-"] {
-		padding: 0 2.875rem 6rem;
+		padding: 0 2.875rem 7rem;
 		@include media-breakpoint-only(sm) {
-			min-height: 645px;
+			min-height: 565px;
 		}
 	}
 	.btn {
@@ -883,8 +888,8 @@ a {
 			min-height: 179px;
 		}
 		@media(min-width: 1440px) {
-			padding: 2.875rem;
-			min-height: 267px;
+			padding: 2.5rem 2.875rem;
+			min-height: 292px;
 		}
 	}
 }
