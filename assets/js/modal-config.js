@@ -41,8 +41,8 @@ jQuery(function($) {
 				if ($target.data('clear') == 'no') {
 					$target.attr('data-toggle', 'modal-ajax-inline');
 				}
-				if ($('#qtip-popover-post-menu-content')) {
-					$('#qtip-popover-post-menu-content').hide();
+				if ($('#qtip-popover-post-menu')) {
+					$('#qtip-popover-post-menu').hide();
 				}
 			});
 		});
@@ -64,6 +64,9 @@ jQuery(function($) {
 			$('#' + mid).on('hide.bs.modal', function() {
 				$('.modal-toggler').fadeOut();
 			});
+			if ($('#qtip-popover-post-menu')) {
+				$('#qtip-popover-post-menu').hide();
+			}
 		});
 
 		//append modal content to the body to prevent zindex issues
@@ -100,7 +103,6 @@ jQuery(function($) {
 				equalColumns();
 			}
 
-			$('#qtip-popover-post-menu-content').show();
 			$('.modal').modal('hide');
 		});
 	});
