@@ -43,11 +43,20 @@
 						</div>
 						<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
 					</div>
-					<footer class="post-content-footer">
+					<div class="cocreate-approve bg-gray-lightest">
+						<button type="button" class="btn btn-sm btn-secondary color-success pull-sm-left" disabled>Approve Post</button>
+						<span class="sep pull-sm-left"></span>
 						<div class="pull-sm-right">
-						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
-						<button type="submit" class="btn btn-sm btn-disabled btn-secondary" disabled>Post Now</button>
+							<ul class="timeframe-list user-list approval-list  clearfix">
+								<li class="pull-sm-left approved"><img src="/uploads/3/users/3.png" width="36" height="36" alt="Jamie Doherty" class="circle-img" data-toggle="popover-hover" data-content="Jamie Doherty"></li>
+								<li class="pull-sm-left pending"><img src="/uploads/6/users/11.png" width="36" height="36" alt="Norel Mancuso" class="circle-img" data-toggle="popover-hover" data-content="Norel Mancuso"></li>
+								<li class="pull-sm-left pending"><img src="/uploads/6/users/10.png" width="36" height="36" alt="Bree Hardaway" class="circle-img" data-toggle="popover-hover" data-content="Bree Hardaway"></li>
+							</ul>
 						</div>
+					</div>
+					<footer class="post-content-footer">
+						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
+						<button type="submit" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled>Post Now</button>
 					</footer>
 				</div>
 			</div>

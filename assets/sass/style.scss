@@ -2302,6 +2302,9 @@ a {
 	.container-post-approval-preview {
 		padding-bottom: 1.5rem;
 	}
+	.container-cocreate-discussion {
+		padding-bottom: 200px;
+	}
 	#step_1_edit {
 		height:100%;
 	}
@@ -3362,6 +3365,23 @@ a {
 			box-shadow: 0 0 8px rgba(0,0,0,.75);
 			left: 50%;
 		}
+	}
+}
+.cocreate-approve {
+	padding: 1rem;
+	position: absolute;
+	bottom: 100px;
+	left:0;
+	right: 0;	
+	.btn {
+		margin: 1rem;
+	}
+	.sep {
+		height: 4.25rem;
+		margin-left: 1.5rem;
+	}
+	.timeframe-list.approval-list {
+		margin: 1rem 0 0;
 	}
 }
 .cocreate-list {
