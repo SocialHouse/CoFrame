@@ -119,7 +119,6 @@
 									?>
 									Phase <?php echo $ph_number ; ?>
 									<i class="fa fa-angle-down"></i> 
-									<button class="btn btn-xs btn-default color-success pull-sm-right no-hover">Current</button>
 									<?php
 								}
 								else
