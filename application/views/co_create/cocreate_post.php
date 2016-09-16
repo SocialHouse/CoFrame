@@ -44,7 +44,7 @@
 						<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
 					</div>
 					<div class="cocreate-approve bg-gray-lightest">
-						<button type="button" class="btn btn-sm btn-secondary color-success pull-sm-left" disabled>Approve Post</button>
+						<button type="button" class="btn btn-sm btn-secondary color-success pull-sm-left">Approve Post</button>
 						<span class="sep pull-sm-left"></span>
 						<div class="pull-sm-right">
 							<ul class="timeframe-list user-list approval-list  clearfix">
