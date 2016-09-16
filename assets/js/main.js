@@ -203,6 +203,10 @@ jQuery(function($) {
 					show_classes += ', #mediaUpload';
 				}
 				showHide($(this), show_classes);
+				$('#defaultPostCopy label').text('Video Description');
+			}
+			if (outlet_const !== 'youtube') {
+				$('#defaultPostCopy label').text('Post Copy');
 			}
 
 
