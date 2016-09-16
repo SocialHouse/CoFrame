@@ -232,7 +232,7 @@ jQuery(function($) {
 				eventDropModal(event, revertFunc, '#calendar-month');
 			},
 			// events: base_url+'calendar/get_events/'+$('#brand_id').val(),
-			events: function(start, end, timezone, callback) {				
+			events: function(start, end, timezone, callback) {
 		        $.ajax({
 		            url: base_url+'calendar/get_events',
 		            dataType: 'json',
@@ -242,7 +242,9 @@ jQuery(function($) {
 		                start: start.format('YYYY-MM-DD'),
 		                end: end.format('YYYY-MM-DD'),
 		                brand_id:$('#brand_id').val(),
-		                tags:$('#tags').val(),
+		                outlets:$('#outlet_ids').val(),
+			            statuses:$('#statuses').val(),
+			            tags:$('#tags').val(),
 		                view_type:'month'
 		            },
 		            success: function(doc) {
@@ -448,7 +450,7 @@ jQuery(function($) {
 			}, e);
 		});
 
-		$('body').on('click', '#calendar-change-day #getPostsByDate', function() {
+		$('#calendar-change-day #getPostsByDate').unbind('click').bind('click', function() {
 			var date = moment(daySelectedDate);
 			selectedmonth = moment(daySelectedDate).format('MMM');
 			selectedday = moment(daySelectedDate).format('DD, YYYY');

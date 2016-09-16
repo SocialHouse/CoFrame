@@ -151,25 +151,48 @@ class Approvals extends CI_Controller {
 		    			'media' => $uploaded_file
 		    		);
 
+		    	$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id,slate_date_time,outlet_id');
+
 		    	if(isset($post_data['parent_id']))
 		    	{
 		    		$parent_data = array(
 		    				'parent_id' => $post_data['parent_id']
 		    			);
 		    		$request_data = array_merge($request_data, $parent_data);
+
+		    		$parent_comment = $this->timeframe_model->get_data_by_condition('post_comments',array('id' => $post_data['parent_id']),'user_id');
+
+		    		if(!empty($parent_comment))
+		    		{
+		    			$reminder_data = array(
+					    				'type' => 'reminder',
+					    				'text' => 'Please check comment from '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' on '.date('d/n g:i a',strtotime($post[0]->slate_date_time)).' '.get_outlet_by_id($post[0]->outlet_id).' post',
+					    				'brand_id' => $post[0]->brand_id,
+					    				'user_id' => $parent_comment[0]->user_id,
+					    				'post_id' => $post_data['post_id'],
+					    				'phase_id' => $post_data['phase_id']
+					    			);			    		
+		    		}
+
 		    	}
 		    	else
 		    	{
-		    		$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id,slate_date_time,outlet_id');
+		    		if($this->user_id != $post[0]->user_id)
+		    		{
+			    		$reminder_data = array(
+					    				'type' => 'reminder',
+					    				'text' => 'Review feedback from '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' on '.date('d/n g:i a',strtotime($post[0]->slate_date_time)).' '.get_outlet_by_id($post[0]->outlet_id).' post',
+					    				'brand_id' => $post[0]->brand_id,
+					    				'user_id' => $post[0]->user_id,
+					    				'post_id' => $post_data['post_id'],
+					    				'phase_id' => $post_data['phase_id']
+					    			);
+			    		
+			    	}
+		    	}
 
-		    		$reminder_data = array(
-				    				'type' => 'reminder',
-				    				'text' => 'Review feedback from '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' on '.date('m/d',strtotime($post[0]->slate_date_time)).' '.get_outlet_by_id($post[0]->outlet_id).' post',
-				    				'brand_id' => $post[0]->brand_id,
-				    				'user_id' => $post[0]->user_id,
-				    				'post_id' => $post_data['post_id'],
-				    				'phase_id' => $post_data['phase_id']
-				    			);
+		    	if(isset($reminder_data) AND !empty($reminder_data))
+		    	{
 		    		$this->timeframe_model->insert_data('reminders',$reminder_data);
 		    	}
 

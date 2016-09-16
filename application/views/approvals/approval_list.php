@@ -301,7 +301,39 @@
 										<i class="fa fa-<?php echo strtolower($outlet); ?>"><span class="bg-outlet bg-<?php echo strtolower($outlet); ?>"></span></i>
 									</td>
 									
-									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');"><?php echo read_more($post->content,35); ?></td>
+									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
+										<?php 
+											if(!empty($post->tumblr_content_type))
+											{
+												if($post->tumblr_content_type == 'Photo')
+												{
+													echo $post->tumblr_caption;
+												}
+												else if($post->tumblr_content_type == 'Text')
+												{
+													echo $post->tumblr_title;
+												}
+												else if($post->tumblr_content_type == 'Quote')
+												{
+													echo $post->tumblr_quote;
+												}
+												else if($post->tumblr_content_type == 'Link')
+												{
+													echo $post->tumblr_custom_url;
+												}
+												else if($post->tumblr_content_type == 'chat')
+												{
+													echo $post->tumblr_chat_title;
+												}
+												else if($post->tumblr_content_type == 'Video')
+												{
+													echo $post->tumblr_video_caption;
+												}
+											}
+											else
+												echo read_more($post->content,35); 
+										?>
+									</td>
 
 									<?php
 									if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'approve',$brand_id) OR !empty($deadline) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))

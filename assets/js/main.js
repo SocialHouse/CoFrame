@@ -460,8 +460,8 @@ jQuery(function($) {
 				var activePhaseId = $activePhase.attr('id');
 				if ($btn.hasClass('selected')) {
 					var phase_number = $activePhase.data('id');
-					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';						
-					if($('[name="post_id"]').val() > 0)
+					var inputDiv = '<input class="hidden-xs-up approvers" type="checkbox" checked="checked" value="' + buttonVal + '" name="phase[' + phase_number + '][approver][]">';
+					if($('[name="post_id"]').val() > 0 && $('.add-phases').length > 0)
 					{
 						inputDiv = '';
 					}
@@ -1902,14 +1902,49 @@ jQuery(function($) {
 
 	 $('#timezone_abbreviation').text($('select[name="time_zone"]').find(':selected').data('abbreviation'));
 
-		if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+	if (desktop_notify_status == 0 && plan_data.real_time_notification != 0)
+	{
+		if(Notification.permission !== 'granted'){
+			Notification.requestPermission();
+		}
+		alert_notification();
+	}
+
+	jQuery(document).on('click','.check-all-user-outlet',function(){
+		var applyClass = 'selected';
+		var removeClass = 'disabled';
+		console.log(jQuery(this).attr('data-value'));
+		if(jQuery(this).attr('data-value') == 'checked')
+		{			
+			applyClass = 'disabled';
+			removeClass = 'selected';
+			jQuery(this).attr('data-value','disabled');
+		}
+		else
 		{
-			if(Notification.permission !== 'granted'){
-				Notification.requestPermission();
-			}
-			alert_notification();
+			jQuery(this).attr('data-value','checked');
+		}
+		var newOutlets = [];
+		jQuery('#user-selected-outlet li:not(.check-all-user-outlet)').each(function(){
+			var savedOutlets = $('#userOutlet').val();
+			if (savedOutlets !== '') {
+				newOutlets.push(savedOutlets);
+			}			
+			jQuery(this).addClass(applyClass);
+			jQuery(this).removeClass(removeClass);
+			newOutlets.push($(this).data('selected-outlet'));
+		});
+		
+		if(newOutlets.length > 0)
+		{
+			$('#userOutlet').val(newOutlets);
+		}
+		if(applyClass == 'disabled'){
+			$('#userOutlet').val('');
 		}
 	});
+});
+
 
 function alert_notification() {
 	setTimeout(function() {

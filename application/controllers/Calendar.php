@@ -833,7 +833,7 @@ class Calendar extends CI_Controller {
 											'type' 		=> 'reminder',
 											'brand_id' 	=> $post_data['brand_id'],
 											'due_date' 	=> $approve_date_time,
-											'text' 		=> 'The approval process of '.get_outlet_by_id($previous_post_details->outlet_id).'  has been reset '.date('m/d',strtotime($slate_date_time)),
+											'text' 		=> 'The approval process of '.get_outlet_by_id($previous_post_details->outlet_id).'  has been reset '.date('d/n g:i a',strtotime($slate_date_time)),
 											'phase_id'  => $new_phase['phase_id']
 											);
 										$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -925,6 +925,16 @@ class Calendar extends CI_Controller {
 
 			echo "1";
 		}
+	}
+
+	function reset_filter()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$this->timeframe_model->delete_data('filters',array('id' => $post_data['filter_id']));
+		}
+		echo "1";
 	}
 
 	function reschedule()

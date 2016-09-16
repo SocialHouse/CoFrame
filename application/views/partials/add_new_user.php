@@ -90,6 +90,7 @@
 				}
 			}
 			?>
+			<li data-group="post-tag" data-value="disabled" class="check-all-user-outlet"><i class="fa fa-circle tag-custom"></i><span class="tag-title">All</span></li>
 		</ul>
 	</div>
 	<input type="hidden" id="userOutlet">

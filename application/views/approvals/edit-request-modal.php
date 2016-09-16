@@ -67,7 +67,7 @@
 					</div>
 				</div>
 				<?php
-				if($post_details->outlet_name == $this->user_id)
+				if(($post_details->user_id == $this->user_id) OR ($this->user_id == $this->user_data['account_id']) OR get_user_groups($this->user_id,'',$this->user_data['account_id']) == 'Master Admin')
 				{
 					?>
 					<footer class="post-content-footer post-actions text-xs-center">
@@ -233,9 +233,9 @@
 															{
 																?>
 																<div class="comment-asset">
-																	<a target="_blank" href="<?php echo upload_url().$this->user_data['img_folder'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
+																	<a target="_blank" download="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
 																		<i class="tf-icon-download"></i>
-																		<img width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['img_folder'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" />
+																		<img width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" />
 																	</a>
 																</div>
 																<?php
@@ -399,7 +399,7 @@
 					</div>
 					<footer class="post-content-footer text-xs-right">
 						<?php 
-						if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && $this->user_data['user_group'] == "Master Admin"))
+						if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && ($this->user_data['user_group'] == "Master Admin" OR $this->user_data['user_group'] == "Manager")))
 						{
 							if($post_details->status == 'scheduled' )
 							{

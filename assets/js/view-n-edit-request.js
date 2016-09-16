@@ -16,6 +16,7 @@ jQuery(function($) {
             var textarea = $div_suggest_edit.find("textarea");
             var attachment = input_files[0].files[0];
             var img = $div_suggest_edit.find("img");
+            var remove_img = $div_suggest_edit.find('.remove-attached-img');
 
             var data = new FormData();
 
@@ -45,9 +46,10 @@ jQuery(function($) {
                         $div_suggest_edit.next('.comment-list').prepend(response.html);
                         textarea.val('');
                         input_files.remove();
-                        var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+                        var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
                         $div_suggest_edit.find(".attachment.pull-sm-left").prepend(attachment_html);
                         img.attr('src', '').addClass('hide');
+                        $(remove_img).hide();
                         toggleBtnClass($(this).parent().children('.save-edit-req'), true);
                         equalColumns(columnSection);
                     } else {
@@ -222,8 +224,9 @@ jQuery(function($) {
                 getConfirm(language_message.invalid_extention, '', 'alert', function(confResponse) {});
                 return false;
                 // alert(language_message.invalid_extention);
-            };
-            $(control).next().next().attr('src', event.target.result);
+            };          
+            $(control).siblings('img').attr('src', event.target.result)
+            // $(control).next().next().attr('src', event.target.result);
             $(control).next().next().removeClass('hide');
             $(control).parent('.attachment ').find('.remove-attached-img').show();
         }
@@ -318,7 +321,7 @@ jQuery(function($) {
         $('.remove-attached-img').hide();
         $("input[name='attachment" + parent_id + "']").remove();
 
-        var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+        var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
         $(parent_div).prepend(attachment_html);
         $("textarea[name='comment" + parent_id + "']").val('');
         toggleBtnClass($(this).parent().children('.save-reply'), true);
@@ -365,7 +368,7 @@ jQuery(function($) {
                     $(reply_div).prepend(response.html);
                     $("input[name='comment" + parent_id + "']").val('');
                     $("input[name='attachment" + parent_id + "']").remove();
-                    var attachment_html = '<input type="file" name="attachment" class="hidden" id="attachment">';
+                    var attachment_html = '<input type="file" name="attachment" class="hidden attachment_image">';
                     $("input[name='attachment" + parent_id + "']").prepend(attachment_html);
                 } else {
                     getConfirm(language_message.unable_to_save_reply, '', 'alert', function(confResponse) {

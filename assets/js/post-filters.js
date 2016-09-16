@@ -79,17 +79,49 @@ jQuery(function($) {
 	});	
 	
 	$('body').on('click', '.reset-filter', function() {
-		$('.filter').each( function() {
-			var $filter = $(this);
-			var inputGroup = $filter.attr('data-group');
-			$filter.removeClass('checked');
-			if(inputGroup === "post-outlet") {
-				$filter.not('[data-value="check-all"]').addClass('disabled');
-			}
-			
-		});
-		$('#selectedFilters ul').empty();
-		filterPosts();
+		var inclusives = [];
+		var outlet_ids = [];
+		var statuses = [];
+		var tags = [];
+		var filter_id;
+		if($('#filter-id').val())
+			filter_id = $('#filter-id').val();
+
+		if(filter_id)
+		{
+			$.ajax({
+				url:base_url+'calendar/reset_filter',
+				type:'POST',
+				data:{filter_id:filter_id},
+				success:function(response){
+					$('.filter').each( function() {
+						var $filter = $(this);
+						var inputGroup = $filter.attr('data-group');
+						$filter.removeClass('checked');
+						if(inputGroup === "post-outlet") {
+							$filter.not('[data-value="check-all"]').addClass('disabled');
+						}						
+					});
+					$('#selectedFilters ul').empty();
+					filterPosts();
+				}
+			});
+		}
+		else
+		{
+			$('.filter').each( function() {
+				var $filter = $(this);
+				var inputGroup = $filter.attr('data-group');
+				$filter.removeClass('checked');
+				if(inputGroup === "post-outlet") {
+					$filter.not('[data-value="check-all"]').addClass('disabled');
+				}
+				
+			});
+			$('#selectedFilters ul').empty();
+			filterPosts();
+		}
+		
 	});
 	
 	$('#selectedFilters').on('click', '.filter-remove', function() {		
@@ -98,6 +130,11 @@ jQuery(function($) {
 	});
 
 	$(document).on('click','.save-filter',function(){
+		updateFilters();
+	});
+
+	function updateFilters()
+	{
 		var inclusives = [];
 		var outlet_ids = [];
 		var statuses = [];
@@ -140,13 +177,14 @@ jQuery(function($) {
 
 			}
 		});
-	});
+	}
 
-	$('#selectedFilters').on('click', '.filter-remove-list', function() {
+	$('#selectedFilters').on('click', '.filter-remove-list', function() {		
 		var filterVal = $(this).data('value');
 		$('.post-filters').find('.filter[data-value="' + filterVal + '"]').click();
 		$(this).fadeOut();
 		$(this).remove();
+		updateFilters();
 		applyFilter();
 	});
 
@@ -160,7 +198,7 @@ jQuery(function($) {
 			setTimeout(function(){
 				$('.qtip-hide').trigger('click');
 				applyFilter();
-			},150);
+			},1000);
 		},50);
 	}
 
@@ -213,8 +251,7 @@ jQuery(function($) {
 		$('#outlet_ids').val(outlet_ids.join());
 		$('#statuses').val(statuses.join());
 		$('#tags').val(tags.join());
-		if($container.length){
-			console.log(outlet_inclusive + status_inclusive + tag_inclusive);
+		if($container.length){			
 			if(outlet_inclusive !== "" || status_inclusive !== "" || tag_inclusive !== "") {
 				$container.isotope({ filter: function(){
 					return returnFilter(this,outlet_inclusive,status_inclusive,tag_inclusive);

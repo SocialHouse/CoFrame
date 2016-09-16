@@ -346,7 +346,7 @@ class Posts extends CI_Controller {
 		    								'type' => 'reminder',
 		    								'brand_id' => $post_data['brand_id'],
 		    								'due_date' => $approve_date_time,
-		    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
+		    								'text' => 'Approve '.date('d/n g:i a',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
 		    								'phase_id' => $phase_insert_id
 		    								);
 
@@ -406,7 +406,7 @@ class Posts extends CI_Controller {
 			    								'type' => 'reminder',
 			    								'brand_id' => $post_data['brand_id'],
 			    								'due_date' => $approve_date_time,
-			    								'text' => 'Approve '.date('n/d',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
+			    								'text' => 'Approve '.date('d/n g:i a',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
 			    								'phase_id' => $phase_insert_id
 			    								);
 
@@ -949,7 +949,7 @@ class Posts extends CI_Controller {
 	    								'type' => 'reminder',
 	    								'brand_id' => $post_details->brand_id,
 	    								'due_date' => $post_details->slate_date_time,
-	    								'text' => 'Schedule '.get_outlet_by_id($post_details->outlet_id).' post having slate date '.date('Y-m-d h:i a',strtotime($post_details->slate_date_time))
+	    								'text' => 'Schedule '.get_outlet_by_id($post_details->outlet_id).' post having slate date '.date('d/n g:i a',strtotime($post_details->slate_date_time))
     								);
 							$this->timeframe_model->insert_data('reminders',$reminder_data);
 						}

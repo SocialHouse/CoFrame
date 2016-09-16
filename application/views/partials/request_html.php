@@ -24,7 +24,7 @@ if(!empty($comment))
 			{
 				?>
 				<div class="comment-asset">
-					<a target="_blank" href="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" title="Download Asset">
+					<a download="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" href="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" title="Download Asset">
 						<i class="tf-icon-download"></i>
 						<img src="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
 					</a>

@@ -249,7 +249,7 @@ class Brands extends CI_Controller {
 				$user_outlet_html .='<ul>';
 				foreach($outlets as $outlet)
 				{					
-					$user_outlet_html .='<li class="disabled sub-user-outlet" data-selected-outlet-name="'.strtolower($outlet->outlet_name).'" data-selected-outlet="'.strtolower($outlet->id).'"><i class="fa fa-'.strtolower($outlet->outlet_name).'"><span class="bg-outlet bg-'.strtolower($outlet->outlet_name).'"></span></i></li>';					
+					$user_outlet_html .='<li class="disabled sub-user-outlet" data-selected-outlet-name="'.strtolower($outlet->outlet_name).'" data-selected-outlet="'.strtolower($outlet->id).'"><i class="fa fa-'.strtolower($outlet->outlet_name).'"><span class="bg-outlet bg-'.strtolower($outlet->outlet_name).'"></span></i></li><li data-group="post-tag" data-value="disabled" class="check-all-user-outlet"><i class="fa fa-circle tag-custom"></i><span class="tag-title">All</span></li>';					
 				}
 				$user_outlet_html .='</ul>';
 			}

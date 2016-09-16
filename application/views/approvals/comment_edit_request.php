@@ -34,7 +34,7 @@ foreach ($replies as $key => $obj) {
 				{
 					?>
 					<div class="comment-asset">
-						<a  target="_blank" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>" title="Download Asset">
+						<a download="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" title="Download Asset">
 							<i class="tf-icon-download"></i>
 							<img  width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>"/>
 						</a>
