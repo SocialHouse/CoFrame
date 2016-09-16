@@ -1136,7 +1136,11 @@ a {
 		bottom: inherit;
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
+		h2 {
+			font-family: $futura;
+		}
 		.modal-content {
+			font-family: $futura;
 			padding-top: 1rem;
 		}
 	}
@@ -2453,6 +2457,7 @@ a {
 }
 
 .table-approvals {
+	font-family: $futura;
 	.calendar-app {
 		opacity: 0;
 	}
@@ -4303,7 +4308,6 @@ textarea.form-control {
 	margin: 0;
 	th {
 		text-transform: uppercase;
-		font-family: $futura-light;
 		font-size: 11px;
 		letter-spacing: .25em;
 		text-align:center;
