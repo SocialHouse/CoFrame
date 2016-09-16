@@ -26,8 +26,12 @@ jQuery(function($) {
 			$('#calendar').children('div:last').find('table').find('[data-date="' + date_on_cal + '"]').addClass('fc-today');
 		}
 
-		// Prevent enter key from submitting forms.
 		$(document).keydown(function(event) {
+			//close modals if escape key hit
+			if(event.keyCode === 27) {
+				$('.modal').modal('hide');
+			}
+			// Prevent enter key from submitting forms.
 			var allow_enter = 0;
 			if (event.keyCode === 13) {
 				$.each($('textarea'), function(i, item){
