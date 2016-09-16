@@ -10,7 +10,7 @@
 										<ul class="nav navbar-nav">
 											<li><a href="<?php echo base_url()?>terms-of-use" target="_blank">Contact Us</a></li>
 											<li><a href="<?php echo base_url()?>terms-of-use" target="_blank">Terms of Use</a></li>
-											<li><a href="<?php echo base_url()?>terms-of-use" target="_blank">Privacy Policy</a></li>
+											<li><a href="<?php echo base_url()?>privacy-policy" target="_blank">Privacy Policy</a></li>
 											<li><a href="<?php echo base_url()?>terms-of-use" target="_blank">FAQ</a></li>
 											<li><a href="<?php echo base_url()?>terms-of-use" target="_blank">Help Center</a></li>
 										</ul>

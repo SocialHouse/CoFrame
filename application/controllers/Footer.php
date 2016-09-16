@@ -33,5 +33,10 @@ class Footer extends CI_Controller {
         $this->data['view'] = 'tour/terms_of_use';
         _render_view($this->data);
     }
+	public function privacy_policy()
+    {
+        $this->data['view'] = 'tour/privacy_policy';
+        _render_view($this->data);
+    }
 }
 ?>

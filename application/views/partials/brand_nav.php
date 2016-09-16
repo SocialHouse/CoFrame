@@ -42,7 +42,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo base_url()?>terms-of-use" class="nav-link" target="_blank">Contact Us</a></li>
 					<li><a href="<?php echo base_url()?>terms-of-use" class="nav-link" target="_blank">Terms of Use</a></li>
-					<li><a href="<?php echo base_url()?>terms-of-use" class="nav-link" target="_blank">Privacy Policy</a></li>
+					<li><a href="<?php echo base_url()?>privacy-policy" class="nav-link" target="_blank">Privacy Policy</a></li>
 					<li><a href="<?php echo base_url()?>terms-of-use" class="nav-link" target="_blank">FAQ</a></li>
 					<li><a href="<?php echo base_url()?>terms-of-use" class="nav-link" target="_blank">Help Center</a></li>
 				</ul>

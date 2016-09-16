@@ -96,5 +96,6 @@ $route['user_preferences/edit_user_info'] = "user_preferences/edit_user_info";
 $route['user_preferences/(:any)'] = "user_preferences/index/$1";
 $route['user_preferences/edit_user_info'] = "user_preferences/edit_user_info";
 $route['terms-of-use'] = "footer/terms_of_use";
+$route['privacy-policy'] = "footer/privacy_policy";
 
 
