@@ -1,74 +1,206 @@
 <section class="page-main bg-white col-sm-12" id="content-page">
 			<div class="relative-wrapper">
 				<header class="page-main-header">
-					<h1 class="center-title section-title">Terms of Use</h1>
+					<h1 class="center-title section-title">Terms of Service</h1>
 				</header>
 				<div class="row">
 					<div class="col-md-12 content-body">
-						<p>
-							<strong>Lorem Ipsum Dolor Sit Amet</strong><br>
-							Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-						<p>
-							Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et <br> dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-						</p>
-						<p>
-							<strong>Accusamus Et Iusto</strong><br>
-							At vero eos et odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus<br> autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-						</p>
-						<p> 
-							Aliquam praesent eum ad, vix nihil nonumes admodum an, quo molestie consectetuer in. Gubergren intellegebat usu ne. Ius id illud constituto adversarium. Ne nam labitur detraxit, suavitate referrentur usu te, nec postea adipiscing eloquentiam at. Nam duis appellantur ut, in est unum eius democritum. Et nam omnis everti imperdiet, has postea legimus ex. Ei usu quaeque fuisset, cetero docendi persecuti ad eos. Ius idque intellegebat at.
-						</p> 
-						<p> Ius no dolorum mediocritatem, no qui novum populo noster. Vel in delectus splendide, choro vivendum eum te, ex pri electram moderatius reprimique. Persecuti signiferumque cuusu, pro eu oratio fabulas sensibus. Cu assum voluptua invidunt eos, augue cetero omnesque ne pro. Cu iuvaret consulatu has, adipiscing intellegam qui ei. Ex per erant maluisset contentiones, noster tractatos argumentum sea in, vix cu mazim dicant philosophia. Solum accusam in duo, et nulla nonumy vel. Sed nusquam molestiae ea, quo assum congue<br> quaestio id. Ei sit mollis invenire, vitae labores deserunt vis ei, no nam fierent constituto. An inermis expetendis efficiendi nam, porro quidam ei his.</p>
-						<p>
-							<strong>Eleifend Constituto Cum Te</strong><br>
-							Pri elitr possim ea, cum in quodsi definitionem. Congue indoctum consectetuer ei sea, mel dolores reprehendunt ad. Pri ornatus voluptatum ea, veniam forensibus dissentias ad vix, clita persecuti cum ei. Duo cu quidam graeco voluptatibus. Elitr zril vim eu. Ei labitur volumus mediocrem per. Ut praesent appellantur sit. Novum scaevola philosophia ea nec. Detraxit conclusionemque eum eu. Eos ex epicuri iracundia, novum sadipscing usu cu, graeco gloriatur mel ad. Quas volutpat eam id, summo quaerendum mediocritatem ad quo.<br> Est saepe forensibus ad, id solet nemore sit. Quem appetere gubergren cum eu, an novum instructior his. Cum ex dicit rationibus suscipiantur, esse vidisse per ei. Quo at agam tincidunt, augue dicta sapientem eos in.
-						</p>
-						<p>
-							Qui incorrupte mediocritatem an, eu vix verear constituam. Cu nullam aperiamest, sed no atqui mucius accusam. Aeterno erroribus signiferumque no nec, detracto dissentiet persequeris nec an. Eius rebum in has, agam iuvaret est eu, quidam audiam molestiae nec ad. Et est modus propriae persequeris, cum sonet scripserit et, cum error mollis conceptam
-						</p>
-						<p>
-							<strong>Lorem Ipsum Dolor Sit Amet</strong><br>
-							Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea   commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-						<p>
-							Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt  explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et<br> dolore magnam aliquam quaerat volupt
-						</p>
-					</div>
+						<p>These  Terms of Service are effective as of August __, 2016.   THESE TERMS OF SERVICE (&ldquo;TERMS&rdquo;) GOVERN YOUR USE OF OUR SERVICE. IF YOU  REGISTER FOR A FREE TRIAL OF OUR SERVICE, THESE TERMS WILL ALSO GOVERN THAT  FREE TRIAL. </p>
+						<p><strong>1. Acceptance of Terms </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>CoFrame™ (&ldquo;CoFrame&rdquo;, &ldquo;We&rdquo; or &ldquo;Our&rdquo; or &ldquo;Us&rdquo;) provides  its Service (as defined below) to You through its this Software, subject to  these Terms.						<br>
+								<br>
+							</li>
+							<li>By accepting the Terms, or by accessing or using the  Service or Software, You represent and acknowledge that You have read,  understood, and agree to be bound by these Terms, and that the information You  provide in registering to the Service is accurate, complete, and is Yours or  within Your right to use.  If You are  entering into these Terms on behalf of a company or another legal entity, You  represent that You have the authority to bind such entity and its affiliates to  these Terms, in which case the terms &ldquo;You,&rdquo; &ldquo;Your&rdquo; or related capitalized terms  herein shall refer to such entity and its affiliates.  If You do not have such authority, or if You  do not agree with these Terms, You must not accept these Terms and may not use  the Service. <br>
+								<br>
+							</li>
+							<li>You acknowledge that these Terms constitute a contract  between You and, even though it is electronic and is not physically signed by  You and CoFrame. You further acknowledge that these Terms govern Your use of  the Service and, except for written addendums signed by the parties that  specifically modify these Terms, these Terms supersede any other agreements  between You and CoFrame™.						</li>
+						</ol>
+						<p><strong>2. Availability  of the Software</strong><br>
+						You  acknowledge that there may be interruptions in service or events that are  beyond our control. While we use reasonable efforts to keep the Software  accessible, the Software may be unavailable from time to time for any reason  including, without limitation, routine maintenance. You understand and  acknowledge that due to circumstances both within and outside of our control,  Software access may be interrupted, suspended or terminated. You further  understand that there may be interruptions in service or events on third-party  softwares, including, but not limited to, Facebook, Twitter, etc., that will  affect your use of the Service (defined below) and that are beyond our control  to prevent or correct. Interruptions in the Service that are beyond our control  shall not serve as a basis to terminate your subscription or demand a full or  partial refund of any prepaid fees. </p>
+						<p><strong>3. Description of Service </strong>						</p>
+						<ol style="list-style: upper-alpha;">
+							<li>The &ldquo;Service&rdquo; includes (a) the Software, (b) the Mobile Application(s)  and (c) the other services provided to You through the Software based on the  plan purchased, including all software, data, text, images, sounds, videos, and  other content made available through the Software (collectively, &ldquo;Content&rdquo;).  Any new features added to or augmenting the  Service are also subject to these Terms.   Certain new features made generally available at no cost to all  subscribing customers will be made available to You at no additional charge.  However, the availability of some new  features may require the payment of additional fees, and CoFrame will determine  at its sole discretion whether access to any other such new features will  require an additional fee.<br>
+								<br>
+							</li>
+							<li>The Service may also include basic or expanded services based on the  Service plan purchased. CoFrame will use commercially reasonable efforts to  make the Service available except for any unavailability caused by  circumstances beyond Our reasonable control, such as, but not limited to, acts  of God, acts of government, acts of terror or civil unrest, or technical  failures beyond Our control. <br>
+								<br>
+							</li>
+							<li>CoFrame may offer Free Trial accounts where you may use the Service  free of charge for a specified time period. Upon expiration of this time  period, your access to the Service will be terminated unless you choose to pay  the applicable subscription fee and become a subscriber. You understand that  only a single Free Trial account will be granted for a given email address. The  provision, maintenance and termination of Free Trial accounts are within the  sole discretion of CoFrame.  CoFrame has  no obligation or liability related to the provision, maintenance and  termination of Free Trial accounts. <br>
+								<br>
+							</li>
+							<li>CoFrame is hosted on Rackspace (Cloud Server)						</li>
+						</ol>
+						<p><strong>4. Mobile  Applications </strong><br>
+						CoFrame  makes Mobile Applications to access the Service via a mobile device. To use the  Mobile Application, You must have a mobile device that is compatible with the  mobile service.  We do not warrant that  the Mobile Application will be compatible with Your mobile device.  CoFrame hereby grants to You a non-exclusive,  non-transferable, revocable license to use an object code copy of the Mobile  Application for one registered account on one mobile device owned or leased  solely by You, for Your personal use.   You may not: (i) modify, disassemble, decompile or reverse engineer the  Mobile Application, except to the extent that such restriction is expressly  prohibited by law; (ii) rent, lease, loan, resell, sublicense, distribute or  otherwise transfer the Mobile Application to any third-party or use the Mobile  Application to provide time sharing or similar services for any third-party;  (iii) make any copies of the Mobile Application; (iv) remove, circumvent,  disable, damage or otherwise interfere with security-related features of the  Mobile Application, features that prevent or restrict use or copying of any  content accessible through the Mobile Application, or features that enforce  limitations on use of the Mobile Application; or (v) delete the copyright and  other proprietary rights notices on the Mobile Application.  You acknowledge that We may from time to time  issue upgraded versions of the Mobile Application, and may automatically  electronically upgrade the version of the Mobile Application that You are using  on Your mobile device.  You consent to  such automatic upgrading on your mobile device, and agree that these Terms will  apply to all such upgrades. The foregoing license grant is not a sale of the  Mobile Application or any copy thereof, and CoFrameand its third-party  licensors or suppliers retain all right, title, and interest in and to the  Mobile Application (and any copy of the Mobile Application). Standard carrier  data charges may apply to Your use of the Mobile Application. </p>
+						<p>The  following additional terms and conditions apply with respect to any Mobile  Application that CoFrame provides to you designed for use on an Apple  iOS-powered mobile device (an &ldquo;iOS App&rdquo;): </p>
+						<ul>
+							<li>You acknowledge that these Terms are between You and CoFrame only, and  not with Apple, Inc. (&ldquo;Apple&rdquo;).						</li>
+						</ul>
+						<ul>
+							<li>Your use of the iOS App must comply with Apple&rsquo;s current App Store  Terms of Service. </li>
+						</ul>
+						<ul>
+							<li>CoFrame, and not Apple, is solely responsible for the iOS App and the  services and content available thereon. You acknowledge that Apple has no  obligation to provide maintenance and support services with respect to Our iOS  App.  To the maximum extent permitted by  applicable law, Apple will have no warranty obligation whatsoever with respect  to the iOS App.						</li>
+						</ul>
+						<ul>
+							<li>You agree that CoFrame, and not Apple, is responsible for addressing  any claims by You or any third-party relating to the iOS App or your possession  and/or use of the iOS App, including, but not limited to: (i) product liability  claims; (ii) any claim that the iOS App fails to conform to any applicable  legal or regulatory requirement; and (iii) claims arising under consumer  protection or similar legislation, and all such claims are governed solely by  these Terms and any law applicable to us as provider of the iOS App. </li>
+						</ul>
+						<ul>
+							<li>You agree that CoFrame, and not Apple, shall be responsible, to the  extent required by these Terms, for the investigation, defense, settlement and  discharge of any third-party intellectual property infringement claim related  to the iOS App or Your possession and use of the iOS App.						</li>
+						</ul>
+						<ul>
+							<li>You represent and warrant that (i) You are not located in a country  that is subject to a U.S. Government embargo, or that has been designated by  the U.S. Government as a &ldquo;terrorist supporting&rdquo; country; and (ii) You are not  listed on any U.S. Government list of prohibited or restricted parties. </li>
+						</ul>
+						<ul>
+							<li>You agree to comply with all applicable third-party terms of agreement  when using the iOS App (e.g., you must not be in violation of your wireless  data service terms of agreement when using the iOS App).						</li>
+						</ul>
+						<ul>
+							<li>You agree that Apple and Apple&rsquo;s subsidiaries are third-party  beneficiaries to these Terms as they relate to your license of the iOS  App.  Upon Your acceptance of these  Terms, Apple will have the right (and will be deemed to have accepted the  right) to enforce these Terms against You as they relate to Your license of the  iOS App as a third-party beneficiary thereof. </li>
+						</ul>
+						<p>The  following additional terms and conditions apply with respect to any Mobile  Application that CoFrame provides to you designed for use on an Android-powered  mobile device (an &ldquo;Android App&rdquo;): </p>
+						<ul>
+							<li>You acknowledge that these Terms are between you and CoFrame only, and  not with Google, Inc. (&ldquo;Google&rdquo;).						</li>
+						</ul>
+						<ul>
+							<li>Your use of the Android App must comply with Google&rsquo;s then-current  Android Market Terms of Service. </li>
+						</ul>
+						<ul>
+							<li>Google is only a provider of the Android Market where you obtained the  Android App.  CoFrame, and not Google, is  solely responsible for the Android App and the services and content available  thereon. Google has no obligation or liability to You with respect to the Android  App or these Terms.						</li>
+						</ul>
+						<ul>
+							<li>You acknowledge and agree that Google is a third-party beneficiary to  the Terms as they relate to the Android App. </li>
+						</ul>
+						<p><strong>5. Third Party Services </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>External Sites.<strong>  </strong>The Service may contain  links to, or otherwise may allow <br>
+								You to connect to and use certain third party products,  services or software under separate terms and conditions (collectively,  &ldquo;Third-party Services&rdquo;) in conjunction with Our Service.  If You decide to access and use such  Third-party Services, be advised that Your use of such Third-party Services is  governed solely by the terms and conditions of such Third-party Services, and  We do not endorse, are not responsible for, and make no representations as to  such Third-party Services, their content or the manner in which they handle  Your data. CoFrame is not liable for any damage or loss caused or alleged to be  caused by or in connection with Your access or use of any such Third-party  Services, or Your reliance on the privacy practices or other policies of such  Third-party Services. </li>
+							<li>Integration.  The  Service may contain features that enable various Third-party Services (such as  social media services like Facebook and Twitter) to be directly integrated into  your CoFrame account. To take advantage of these features, You will be required  to register for or log into such Third-party Services on their respective  websoftwares.  By enabling Third-party  services within the Service, You are allowing CoFrame to pass Your log-in  information to these Third-party Services for this purpose. </li>
+						</ol>
+						<p><strong>6. Billing, Plan  Modifications and Payments </strong><br>
+						Unless  otherwise agreed to in writing by CoFrame, the Service is billed in advance for  each month and is non-refundable.  In the  case of upgrades or downgrades, credit cards will be charged new billing rates  immediately.  If You do not provide Your  credit card or other payment information to CoFrame before the expiration of  any applicable free trial period, Your account will be suspended until payment  information and charge authorization are provided.  You will be promptly billed and, if applicable,  any trial period will terminate.  Unless  You cancel Your subscription prior to the expiration of its current  subscription term, We will automatically renew Your subscription based on Your  plan&rsquo;s renewal cycle and will charge Your credit card with the applicable  renewal subscription fees.  Subscriptions  must be cancelled at least 3 days prior to expiration thereof to avoid  automatic renewal.  You may cancel your  subscription by emailing Us at support@coframe.com  or calling us at ________________.</p>
+						<ol style="list-style: upper-alpha;">
+							<li>The Service provides an interface for the account owner to change  credit card information (e.g., upon card renewal).</li>
+							<li>Authorization to Charge Your Credit Card.  By becoming a subscriber of the Service and  submitting your credit card information to CoFrame, you authorize CoFrame to  store your payment card information and to charge the billing source you have  provided for your account according to the subscription plan you selected until  your account is terminated.</li>
+							<li>After your subscription is terminated, We will remove such settings  from our servers within a reasonable time with NO liability to Us or notice to  you. </li>
+							<li>Taxes.  Unless otherwise stated,  Our charges do not include any taxes, levies, duties or similar governmental  assessments, including value-added, sales, use or withholding taxes assessable  by any local, state, provincial or foreign jurisdiction (collectively  &ldquo;Taxes&rdquo;).  You are responsible for paying  Taxes except those assessable against CoFrame based on its income.  We will invoice You for such Taxes if we  believe we have a legal obligation to do so. </li>
+						</ol>
+						<p><strong>7. Intellectual Property Rights </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>CoFrame  retains all rights, title and interest in and to all patents, inventions,  copyrights, trademarks, domain names, trade secrets, know-how and any other intellectual  property and/or proprietary rights (collectively, &ldquo;Intellectual Property  Rights&rdquo;) related to the Service. The rights granted to You to use the Service  under these Terms do not convey any additional rights in the Service, or  ownership of any Intellectual Property Rights associated therewith. <br>
+								<br>
+							</li>
+							<li>As between You and CoFrame You own the information you  provide CoFrame or input on third-party websoftwares through the Service. You  grant CoFrame a nonexclusive, revocable, worldwide, perpetual, unlimited fully  paid up and royalty-free right to us to use copy, prepare derivative works of,  distribute, publish, remove, retain, add, process, or analyze the foregoing  described information for the sole purpose of providing the Service to You and  Your Users (as defined below).  By  providing information to us or to third-parties through the Service, You  represent and warrant that You are entitled to and authorized to submit the  information and that the information is accurate, not confidential, and not in  violation of any contractual restrictions or other third party rights. Licensee  may not upload, post or otherwise make available through the Service any  material protected by copyright, trademark, or any other proprietary right  without first having obtained all rights, permissions and consents necessary  (a) to make such content available on or through the Service, and (b) to grant  CoFrame the limited rights to use the content as set forth in this  Agreement.  The burden of determining  whether any content is protected by any such right is on You. <br>
+								<br>
+							</li>
+							<li>CoFrame shall have a royalty-free, worldwide, transferable,  sub-licensable, irrevocable and perpetual license to incorporate into the  Service or otherwise use any suggestions, enhancement requests, recommendations  or other feedback (&ldquo;Feedback&rdquo;) We receive from You. You understand and agree,  however, that CoFrame™ is not obligated to use, display, reproduce, or  distribute any such ideas, know-how, concepts, or techniques contained in the  Feedback, and You have no right to compel such use, display, reproduction, or  distribution. <br>
+								<br>
+							</li>
+							<li>CoFrame, and its other product and service names, and logos  used or displayed on the Service are registered or unregistered trademarks of  CoFrame (collectively, &ldquo;Marks&rdquo;), and You may only use such Marks to identify  yourself as a customer and user of the Service; provided You do not attempt,  now or in the future, to claim any rights in the Marks, degrade the  distinctiveness of the Marks, or use the Marks to disparage or misrepresent  CoFrame, its services or products. <br>
+								<br>
+							</li>
+							<li>All rights, title and interest in and to the Service and its  components, including all related intellectual property rights, will remain  with and belong exclusively to CoFrame and its third-party vendors. <br>
+								<br>
+							</li>
+							<li>Upon subscribing to the Service and subject to Your compliance with the  terms and conditions of these Terms, CoFrame grants you a non-exclusive,  non-transferable, non-sublicenseable, revocable license to access and use the  Service (for the particular subscription purchased) and the Software, strictly  in accordance with this Agreement and subject to all the limitations set forth  in this Agreement. <br>
+								<br>
+							</li>
+							<li>You grant Us the right to use Your logo, image, etc. for  branding/pr/marketing purposes.						</li>
+						</ol>
+						<p><strong>8. Account Registration </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>Subject to the terms and conditions of these Terms, You agree  to access and use the Service only for Your internal personal or business  purposes as contemplated by these Terms.   In order to use the Service, you are required to register for our  service for which you will pay a subscription fee for use of the Service  following the expiration or termination of any Free Trial accounts.  The subscription fee, following the  expiration or termination of any Free Trial accounts, must be prepaid in order  to use the Service. <br>
+								<br>
+							</li>
+							<li>To the extent applicable, if You add Users to your account or  allow them to use the Service, You must contractually bind each of such User to  these Terms and, as between You and CoFrame you will be solely liable for any  breach of these Terms by Your Users.  By  adding any User to your account or allowing them to use the Service, You  represent and warrant that: (i) You have obtained all necessary authorizations,  consents, and licenses from such User to bind it to this Agreement.  You are at all times fully responsible and  liable for all acts and omissions by Your Users and You agree to indemnify  CoFrame for all claims and losses related to any such acts and/or omissions. <br>
+								<br>
+							</li>
+							<li>To be eligible to use the Service, You and any authorized User  by You must meet, represent and warrant the following criteria: (1) be 18 years  of age or older; (2) not currently restricted from the Service; (3) not be a  competitor of CoFrame and/or not use the Service for reasons that are in  competition with CoFrame; (4) have full power and authority to enter into this  Agreement and doing so will not violate any other agreement to which you are a  party; (5) will not violate any rights of CoFrame, including intellectual  property rights such as copyright or trademark rights; and (6) agree to provide  at Your cost all equipment, software, and internet access necessary to use the  Service. </li>
+						</ol>
+						<p><strong>9. Use of the Service </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>You shall not, and shall not permit, induce or encourage any  third party (including, without limitation, any User) to:  (a) license, sublicense, sell, resell, rent,  lease, transfer, assign, distribute, time share or otherwise commercially  exploit or make the Service available to any third party, other than as  expressly permitted by these Terms; (b) use the Service to process data on behalf  of any third party, (c) modify, adapt or hack the Service to falsely imply any  sponsorship or association with CoFrame, or otherwise attempt to gain  unauthorized access to the Service or its related systems or networks; (d) use  the Service in any unlawful manner, including but not limited to violation of  any persons privacy rights, infringing any person&rsquo;s intellectual property  rights, or sending spam or otherwise duplicative or unsolicited messages in  violation of applicable law; (e) use the Service in any manner that interferes  with or disrupts the integrity or performance of the Service and its  components; (f) attempt to decipher, decompile, reverse engineer or otherwise  discover the source code of any software making up the Service; (g) use the Service  to knowingly post, upload, link to, send or store any content that is unlawful,  racist, hateful, obscene, discriminatory, or contains any viruses, malware,  Trojan horses, time bombs, or any other similar harmful software; (h) attempt  to use any method to gain unauthorized access to any paid features of the  Software; (i) unless otherwise explicitly agreed to in writing by CoFrame, use  the Software or any content obtained from it to develop, as a component of, any  information, storage and retrieval system, database, information base, or  similar resource (in any media now existing or hereafter developed), that is  offered for commercial distribution of any kind, including through sale,  license, lease, rental, subscription, or any other commercial distribution  mechanism; (j) use automated scripts to collect information from or otherwise  interact with the Software or the Service; (k) deep-link to the Software for  any purpose (other than CoFrame&rsquo;s home page), unless expressly authorized in  writing by CoFrame; (l) impersonate any other user of the Service; or (m) try  to use, or use the Service in violation of these Terms. <br>
+								<br>
+							</li>
+							<li>You are responsible for all information, data, text, messages  or other materials that You or Your Users post or otherwise transmit via the  Service. You are responsible for maintaining the confidentiality of Your login  and account, and are fully responsible for any and all activities that occur  under or in connection with Your login or account.  You agree and acknowledge that Your login may  only be used by one (1) person, and that You will not share a single login  among multiple people.  You agree that  You will not sell, trade or otherwise transfer Your login or account to another  party and that you will not, unless otherwise specifically agreed to in writing  by CoFrame, charge anyone for access to any portion of the Software, or any  information therein.  You agree that you  are responsible for anything that happens through your account, including the  acts or omissions of your Users. </li>
+						</ol>
+						<p><strong>10. Data Privacy and Security </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>In providing You the Service We shall maintain appropriate  administrative, physical and technical safeguards to protect the security,  confidentiality and integrity of Your data and the personal data of Your  end-users. These safeguards include encryption of Your data in transmission  (using SSL or similar technologies), except for external third party  integrations that do not support encryption, which You may link to the Service  at Your choice. We agree to promptly notify You in the event that CoFrame  learns or has reason to believe that any person or entity has breached  CoFrame&rsquo;s measures, or gained unauthorized access to Your data (&ldquo;Information  Security Breach&rdquo;). Upon any such discovery, We will: (a) investigate, and  mitigate the effects of the Information Security Breach, (b) use Our best  efforts to ensure that such Information Security Breach will not recur, and (c)  assist You in remediation of the Information Security Breach.  We shall use commercially reasonable efforts  to promptly and properly deal with inquiries and requests from You in relation  to the processing of Your data. <br>
+								<br>
+							</li>
+							<li>You agree that CoFrame can access Your account information in  order to respond to Your service requests and/or as necessary, in Our sole  discretion, to provide You with the Services. We will not disclose such data  except if compelled by law, permitted by You, or pursuant to the terms of the  CoFrame&rsquo; Privacy Policy, which is incorporated into these Terms.  We agree to store, use and process Your contact  information, including name(s), phone number(s), and e-mail address(es) only to  the extent necessary to provide You the Services. We will not disclose such  contact information to third parties except if permitted by You in writing or  as part of the offering of Services hereunder. <br>
+								<br>
+							</li>
+							<li>The Privacy Policy governs our treatment of any information,  including personally identifiable information, You submit to Us.  Please note that certain information,  statements, data, and content which You may submit to or through the Service  may reveal your gender, ethnic origin, nationality, age, and/or other personal  information about You. You acknowledge that Your submission of any information,  statements, data, and content to Us is voluntary on Your part.  CoFrame&rsquo;s Privacy Policy is incorporated into  this Agreement by reference. <br>
+								<br>
+							</li>
+							<li>For Your personal data or personal information (collectively,  &ldquo;Your personal data&rdquo;) received by CoFrame from the European Union (EU) in any  form or format with respect to any identified or identifiable person covered by  the European Union Privacy Directive, CoFrame agrees to comply as follows: (i)  when acting in the capacity of a data processor, CoFrame only acts on Your  instructions and does not control or share Your personal data without direction  from You; and (ii) when acting in the capacity of a data controller, CoFrame  will adhere to the EU Safe Harbor Privacy Principles regarding the collection,  use and retention of personal information from European Union member countries. </li>
+						</ol>
+						<p><strong>11. Cancellation and Termination </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>You may cancel your account with CoFrame at any time; however,  unless CoFrame is in breach of this Agreement and does not cure said breach  within thirty (30) days of receiving written notice from You of an actual  breach, identifying specifically the nature of the breach, You are not entitled  to any refunds for the month you have paid for service.   We may suspend or cancel Your account  without notice or refund to You if you violate this Agreement.  If your account is cancelled, CoFrame  reserves the right to remove Your account information along with any account  settings from our servers with NO liability or notice to You. Once Your account  information and account settings are removed, You will not be able to recover  this data and You will lose access to all of Your content (except that content  stored/published to third-party websoftwares, that data will remain on said  third-party websoftwares pursuant to those websoftware&rsquo;s terms and conditions).  If You cancel the Service before the end of  Your current paid-up period, Your cancellation will take effect immediately at  the end of that period and You will not be charged again. <br>
+								<br>
+							</li>
+							<li>CoFrame reserves the right to: (i) modify or discontinue,  temporarily or permanently, the Service (or any part thereof); and (ii) refuse  any/all current and future use of the Service, suspend or terminate your  account or any part thereof (or Your use of the Service), and remove and  discard any of Your content within the Service if We believe that You have  violated these Terms.  CoFrame will use  reasonable efforts to contact You directly via email to warn You prior to  suspension or termination of Your account. Any suspected fraudulent, abusive,  or illegal activity may be grounds for immediate termination of Your use of  Service, and may be referred to law enforcement authorities.  CoFrame shall not be liable to You or any  third party for any modification, suspension or discontinuation of the Service  pursuant to this section. </li>
+						</ol>
+						<p><strong>12. Disclaimer of Warranties and Liability </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>THE SERVICE, INCLUDING THE SOFTWARE AND CONTENT, AND ALL  SERVER AND NETWORK COMPONENTS ARE PROVIDED ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo;  BASIS, WITHOUT ANY WARRANTIES OF ANY KIND TO THE FULLEST EXTENT PERMITTED BY  LAW, AND COFRAME EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES, WHETHER EXPRESS OR  IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF  MERCHANTABILITY, TITLE, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. <br>
+								<br>
+							</li>
+							<li>COFRAME  DOES NOT REPRESENT OR WARRANT THAT THE SERVICE, CONTENT OR MATERIALS FROM OR  RELATED TO THE SERVICE ARE ACCURATE, COMPLETE, RELIABLE, CURRENT OR ERROR-FREE  OR THAT THE SOFTWARE OR THE SERVICE, SERVERS, OR ANY PLATFORM APPLICATIONS ARE  FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS. THEREFORE, YOU SHOULD EXERCISE  CAUTION IN THE USE AND DOWNLOADING OF ANY SUCH SOFTWARE, CONTENT OR MATERIALS  AND USE INDUSTRY-RECOGNIZED SOFTWARE TO DETECT AND DISINFECT VIRUSES. ALL  RESPONSIBILITY OR LIABILITY FOR ANY DAMAGES CAUSED BY VIRUSES CONTAINED WITHIN  THE ELECTRONIC FILE CONTAINING A FORM OR DOCUMENT IS DISCLAIMED. WITHOUT  LIMITING THE FOREGOING, YOU UNDERSTAND AND AGREE THAT YOU DOWNLOAD OR OTHERWISE  OBTAIN CONTENT, MATERIAL, DATA OR SOFTWARE (INCLUDING ANY MOBILE CLIENT) FROM  OR THROUGH THE SOFTWARE, THE SOFTWARE, OR ANY PLATFORM APPLICATIONS AT YOUR OWN  DISCRETION AND RISK AND THAT YOU WILL BE SOLELY RESPONSIBLE FOR YOUR USE  THEREOF AND ANY DAMAGES TO YOUR MOBILE DEVICE OR COMPUTER SYSTEM, LOSS OF DATA  OR OTHER HARM OF ANY KIND THAT MAY RESULT. <br>
+								<br>
+							</li>
+							<li>NO INFORMATION OR ADVICE OBTAINED FROM COFRAME OR THROUGH THE  SERVICE SHALL CREATE ANY WARRANTY NOT EXPRESSLY STATED IN THESE TERMS. COFRAME  DISCLAIMS ALL LIABILITY FOR DAMAGES CAUSED BY ANY SUCH INTERRUPTION OR ERRORS  IN THE FUNCTIONING OF THE WEBSOFTWARE, EXCEPT AS OTHERWISE EXPRESSLY SETFORTH  HEREIN. FURTHERMORE, COFRAME™ DISCLAIMS ALL LIABILITY FOR ANY MALFUNCTIONING,  IMPOSSIBILITY OF ACCESS, OR POOR USE CONDITIONS OF THE SERVICE DUE TO  INAPPROPRIATE EQUIPMENT, DISTURBANCES RELATED TO INTERNET SERVICE PROVIDERS, TO  THE SATURATION OF THE INTERNET NETWORK, ERROR, OMISSION, INTERRUPTION,  DELETION, DEFECT, DELAY IN OPERATION OR TRANSMISSION, COMMUNICATIONS LINE  FAILURE, THEFT OR DESTRUCTION OR UNAUTHORIZED ACCESS TO, OR ALTERATION OF, USER  COMMUNICATIONS, PROBLEMS RELATED TO THE SERVICE OR ITS USE, LOSS OF PERSONAL  CONTENT ON THE SOFTWARE, LOST OR UNDELIVERABLE EMAIL, AND FOR ANY OTHER REASON.  UNDER NO CIRCUMSTANCES WILL COFRAME™ BE RESPONSIBLE FOR ANY LOSS OR DAMAGE,  INCLUDING, BUT NOT LIMITED TO PERSONAL INJURY OR DEATH, RESULTING FROM USE OF  THE SOFTWARE OR THE SERVICE, OR ANY INTERACTIONS BETWEEN USERS OF THE SOFTWARE  OR THE SERVICE, WHETHER ONLINE OR OFFLINE. <br>
+								<br>
+							</li>
+							<li>CoFrame provides the platform for the Service.  CoFrame does not control or vet User  generated content for accuracy.  Although  We provide rules for user conduct and postings, We do not control and We are  not responsible for what users post, transmit or share on or through the  Software or any other websoftware (even if such content is published on or  through the Software).  Furthermore, we  are not responsible for any offensive, inappropriate, obscene, unlawful or otherwise  objectionable content You may encounter on the Software.  CoFrame is not responsible for the conduct,  whether online or offline, of any user of the Software or the Service.  Further, CoFrame is not responsible or liable  in any manner for any 3rd party applications, software, viruses, etc. that are  uploaded or posted on the Software, caused by users of the Software, or that  are related to the use of the Service by third parties, or caused by any third  parties&rsquo; use of the equipment or programming associated with or utilized in the  Software or the Service.<br>
+								<br>
+							</li>
+							<li>COFRAME CANNOT GUARANTEE AND DOES NOT PROMISE ANY SPECIFIC  RESULTS FROM USE OF THE SOFTWARE AND/OR THE SERVICE. <br>
+								<br>
+							</li>
+							<li>We do not monitor content published through the Service and  We are not responsible for content published through the Service.  Notwithstanding the foregoing, CoFrame reserves the right to delete, move, or  edit messages or materials, including, but not limited to, advertisements,  public postings, and messages, that we, in our sole discretion, deem necessary  to be removed. </li>
+						</ol>
+						<p><strong>13. Limitation of Liability </strong></p>
+						<ol style="list-style: upper-alpha;">
+							<li>NO CONSEQUENTIAL DAMAGES.  UNDER  NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY (WHETHER IN CONTRACT, TORT,  NEGLIGENCE OR OTHERWISE) WILL COFRAME, ITS AFFILIATES OR THEIR RESPECTIVE  OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, SUPPLIERS OR LICENSORS BE LIABLE TO THE  YOU, YOUR USERS OR ANY OTHER THIRD PARTY FOR ANY INDIRECT, INCIDENTAL, SPECIAL,  EXEMPLARY, CONSEQUENTIAL, PUNITIVE OR OTHER SIMILAR DAMAGES, INCLUDING LOST  PROFITS, LOST SALES OR BUSINESS, LOST DATA, BUSINESS INTERRUPTION OR ANY OTHER  LOSS INCURRED BY SUCH PARTY IN CONNECTION WITH THESE TERMS OR THE SERVICE,  REGARDLESS OF WHETHER COFRAME HAS BEEN ADVISED OF THE POSSIBILITY OF OR COULD  HAVE FORESEEN SUCH DAMAGES. <br>
+								<br>
+							</li>
+							<li>LIMITS ON MONETARY DAMAGES.   NOTWITHSTANDING ANYTHING TO THE CONTRARY IN THESE TERMS, COFRAME&rsquo;S  (INCLUDING ANY OF ITS AFFILIATES) AGGREGATE LIABILITY FOR DAMAGES (MONETARY OR  OTHERWISE) UNDER THESE TERMS SHALL BE LIMITED TO THE PAYMENTS MADE BY YOU FOR  THE SERVICE DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM.  THE PARTIES ACKNOWLEDGE AND AGREE THAT THE  ESSENTIAL PURPOSE OF THIS SECTION IS TO ALLOCATE THE RISKS UNDER THESE TERMS  BETWEEN THE PARTIES AND LIMIT THEIR POTENTIAL LIABILITY GIVEN THE FEES CHARGED  UNDER THIS AGREEMENT, WHICH WOULD HAVE BEEN SUBSTANTIALLY HIGHER IF COFRAME  WERE TO ASSUME ANY FURTHER LIABILITY OTHER THAN AS SET FORTH HEREIN.  THE PARTIES HAVE RELIED ON THESE LIMITATIONS  IN DETERMINING WHETHER TO ENTER INTO THESE TERMS. <br>
+								<br>
+							</li>
+							<li>Some jurisdictions do not allow the exclusion of implied warranties or  limitation of liability for incidental or consequential damages, which means  that some of the above limitations may not apply to You.  IN THESE JURISDICTIONS, COFRAME&rsquo;S LIABILITY  WILL BE LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW.						</li>
+						</ol>
+						<p><strong>14. Indemnification </strong><br>
+						You  agree to defend, indemnify, and hold harmless CoFrame from and against any  claims, actions or demands, including, without limitation, reasonable legal and  professional services fees, arising or resulting from Your or Your Users&rsquo;  breach of these Terms, or Your and Your Users&rsquo; access to, use, misuse or  illegal use of the Service. CoFrame will provide You notice of any such claim,  suit, or proceeding.  CoFrame reserves  the right to assume the exclusive defense and control of any matter which is subject  to indemnification under this section, in which case.  You agree to cooperate with any reasonable  requests to assist CoFrame&rsquo;s defense of such matter. </p>
+						<p><strong>15. Assignment </strong><br>
+						Neither  party may assign these Terms or any of its rights under these Terms, directly,  by operation of law or otherwise, without the prior written consent of the  other party, except that CoFrame may assign these Terms, without Your consent  to a parent, affiliate, or successor by way of a merger, reorganization or  purchase of the Software.  Subject to the  foregoing restrictions on assignment, these Terms will be fully binding upon,  inure to the benefit of and be enforceable by the parties and their respective  successors and assigns. Any assignment in violation of this Section will be void.  These Terms shall be binding upon, and inure  to the benefit of, the successors and permitted assigns of the parties hereto. </p>
+						<p><strong>16. Entire  Agreement; Amended Terms </strong><br>
+						This  Agreement constitutes the entire agreement between the parties with respect to  the subject matter hereof, all previous understandings whether oral or written  having been merged herein.  No  representations or warranties have been made other than those expressly set  forth herein.  Without limiting the  foregoing, the parties have not relied on any oral statements that are not  included in the Terms.  Except as  otherwise provided in these Terms, the Terms may not be changed, modified,  renewed, extended, or discharged or any covenant or provision hereof waived  except by an agreement in writing signed by both parties.  These Terms supersede prior versions of these  Terms. </p>
+						<p>We  may amend these Terms from time to time, in which case the new Terms will  supersede prior versions. We will notify You of such changes and direct You to  the latest version.  Upon notice of  modification of these Terms, except such modifications required by law, You may  notify us within 7 days of Our sending You notice of the amended Terms that You  are exercising Your right to terminate Your subscription to the Service. Upon  such termination of your Subscription under this Section, any prepaid fees will  be prorated and returned to You.  If You  do not notify use within 7 days or if you continue using the Service after we  have provided notice of any changes to these Terms, You will be deemed to have  accepted the revised Terms. </p>
+						<p><strong>17. Severability </strong><br>
+						If  any provision of these Terms, or the application thereof under certain  circumstances, is held to be invalid or unenforceable, such provision shall be  modified by the court and interpreted so as to best accomplish the original  provision to the fullest extent permitted by law, and the remaining provisions  of these Terms, or the application of such provision under other circumstances,  shall remain in full force and effect. </p>
+						<p><strong>18. Export  Control </strong><br>
+						Your  use of Service, including our software, is subject to export and re-export  control laws and regulations, including the Export Administration Regulations  (&ldquo;EAR&rdquo;) maintained by the United States Department of Commerce and sanctions  programs maintained by the Treasury Department's Office of Foreign Assets  Control. You shall not — directly or indirectly — sell, export, re-export,  transfer, divert, or otherwise dispose of any Service or software to any  end-user without obtaining the required authorizations from the appropriate  government authorities. You also warrant that you are not prohibited from  receiving US origin products, including services or software. </p>
+						<p><strong>19. Relationship;  Independent Contractor </strong><br>
+						Nothing  herein contained shall be so construed as to constitute the parties as  principal and agent, employer and employee, partners or joint venturers, nor  shall any similar relationship be deemed to exist between the parties.  Neither party shall have any power to  obligate or bind the other party, except as specifically provided herein. </p>
+						<p><strong>20. Survival</strong><br>
+						Sections  1 (Acceptance of Terms), 6 (Billing, Plan Modifications and Payments), 7.A-D.  (Intellectual Property Rights) 11 (Cancellation and Termination), 12  (Disclaimer of Warranties and Liability), 13 (Limitation of Liability), 14  (Indemnification), 15 (Assignment), 16 (Entire Agreement; Amended Terms), 17  (Severability), 18 (Export Compliance and Use Restrictions), 19 (Relationship;  Independent Contractor), 21 (Governing Law), 22 (Arbitration of Disputes), and  25 (No Waiver) will survive any termination of these Terms. </p>
+						<p><strong>21. Governing  Law </strong><br>
+						The  validity, interpretation and performance of these Terms shall be governed by  the laws of the State of California without giving effect to the conflicts of  laws provisions or principals thereof. </p>
+						<p><strong>22. Federal  Government End Use Provisions </strong><br>
+						If  you are a U.S. federal government end user, this Service is a &ldquo;Commercial Item&rdquo;  as that term is defined at 48 C.F.R. §2.101, consisting of &ldquo;Commercial Computer  Software&rdquo; and &ldquo;Commercial Computer Software Documentation&rdquo;, as those terms are  used in 48 C.F.R. §12.212 or 48 C.F.R. §227.7202. Consistent with 48 C.F.R.  §12.212 or 48 C.F.R. §227.7202-1 through 227.7202-4, as applicable, this  Service is licensed to you with only those rights as provided under the terms  and conditions of these Terms. </p>
+						<p><strong>23. Digital Millennium Copyright Act </strong></p>
+						<ol style="list-style:upper-alpha;">
+							<li>The  Digital Millennium Copyright Act of 1998 (the &ldquo;DMCA&rdquo;) provides recourse for  copyright owners who believe that infringes their rights under US copyright  law.  If you believe in good faith that  content or material on this Software infringes a copyright owned by you, you  (or your agent) may send CoFrame a notice requesting that the material be  removed, or access to it blocked. This request should be sent to: <a href="mailto:support@coframe.com">support@coframe.com</a> ___________________________ </li>
+							<li>The notice must include the following information: (a) a  physical or electronic signature of a person authorized to act on behalf of the  owner of an exclusive right that is allegedly infringed; (b) identification of  the copyrighted work claimed to have been infringed; (c) identification of the  material that is claimed to be infringing or the subject of infringing  activity; (d) the name, address, telephone number, and email address of the  complaining party; (e) a statement that the complaining party has a good faith  belief that use of the material in the manner complained of is not authorized  by the copyright owner, its agent or the law; and (f) a statement that the  information in the notification is accurate and, under penalty of perjury, that  the complaining party is authorized to act on behalf of the owner of an  exclusive right that is allegedly infringed.   If you believe in good faith that a notice of copyright infringement has  been wrongly filed against you, the DMCA permits you to send us a  counter-notice.  Notices and  counter-notices must meet the then-current statutory requirements imposed by  the DMCA.  Notices and counter-notices  with respect to the websoftware should be sent to the address above. </li>
+						</ol>
+						<p><strong>24. No Waiver </strong><br>
+						CoFrame&rsquo;s  failure to enforce at any time any provision of these Terms does not constitute  a waiver of that provision or of any other provision of these Terms. </p></div>
 				</div>
-				<footer class="bg-black" id="global-footer">
-					<div class="row">
-						<div class="col-sm-6">
-							<a href="/" class="navbar-brand hidden-print">
-								<span style="background-image: url(/assets/uploads/2016/02/logo.png);" class="brand-logo hide-text">CoFrame</span>
-							</a>
-						</div>
-						<div class="col-sm-6 text-sm-right">
-							<ul class="social-media">
-								<li><a target="_blank" href="#"><i class="fa fa-facebook"><span class="bg-outlet"></span></i></a></li>
-								<li><a target="_blank" href="#"><i class="fa fa-twitter"><span class="bg-outlet"></span></i></a></li>
-								<li><a target="_blank" href="#"><i class="fa fa-instagram"><span class="bg-outlet"></span></i></a></li>
-								<li><a target="_blank" href="#"><i class="fa fa-linkedin"><span class="bg-outlet"></span></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-sm-5">
-							COPYRIGHT &copy; <?php echo date('Y'); ?> SOCIAL HOUSE, INC. ALL RIGHTS RESERVED.
-						</div>
-						<div class="col-sm-7 text-sm-right">
-							<ul class="nav navbar-nav">
-								<li><a target="_blank" href="#">Contact Us</a></li>
-								<li><a target="_blank" href="<?php echo base_url()?>/terms-of-use">Terms of Use</a></li>
-								<li><a target="_blank" href="#">Privacy Policy</a></li>
-								<li><a target="_blank" href="#">FAQ</a></li>
-								<li><a target="_blank" href="#">Careers</a></li>
-								<li><a target="_blank" href="#">Help Center</a></li>
-							</ul>
-						</div>
-					</div>
-				</footer>
+				<?php $this->load->view('partials/footer_nav'); ?>
 			</div>		
 		</section>
 		<div aria-hidden="true" role="dialog" tabindex="-1" id="schedule_post" class="modal alert-modal fade">
