@@ -678,9 +678,10 @@ a {
 
 .feature-list {
 	position: relative;
-	font-size: 1.857rem;
+	font-size: 1.5625rem;
 	line-height: 1;
 	margin: 0;
+	font-family: $univers-light;
 	> [class*="col-"] {
 		padding: 2.875rem;
 		background: rgba(0,0,0,.5);
@@ -693,10 +694,13 @@ a {
 	}
 	h2 {
 		font-size: 2.75rem;
+		font-family: $univers-uc;
+		text-transform: uppercase;
 		small {
 			font-family: $bebas-light;
 			display: block;
 			font-size: 3.65rem;
+			text-transform: none;
 		}
 	}
 	h3 {
@@ -729,10 +733,10 @@ a {
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: 1.125rem;
 		line-height: 1.5rem;
 		border-top: 1px solid #fff;
-		font-family: $futura-light;
+		font-family: $futura;
 		li {
 			border-bottom: 1px solid #fff;
 			padding: 5px 0;
@@ -740,6 +744,7 @@ a {
 	}
 	[class*="box-"] {
 		h2 {
+			font-size: 2.375rem;
 			&:before {
 				height: 105px;
 				width: 105px;
@@ -749,9 +754,17 @@ a {
 				display: block;
 				margin: 0px auto 1.75rem;
 			}
+			+ p {
+				@include  media-breakpoint-up(md) {
+					min-height: 90px;
+				}
+				@media (min-width: 1400px) {
+					min-height: 125px;
+				}
+			}
 		}
 		ul {
-			margin-top: 1rem;
+			margin-top: 2.25rem;
 		}
 	}
 	.box-create {
@@ -843,8 +856,14 @@ a {
 			}
 		}
 	}
-	@media (min-width: 1025px) {
-		width: 78.75rem;
+	@media (min-width: 1100px) {
+		width: 98rem;
+	}
+	@media (min-width: 1400px) {
+		width: 85rem;
+	}
+	@media (min-width: 1660px) {
+		width: 100rem;
 	}
 	@include media-breakpoint-down(sm) {
 		> [class*="col-"] {
@@ -859,7 +878,13 @@ a {
 .feature-list-btn {
 	position: relative;
 	@include media-breakpoint-up(md) {
-		top: 13%;
+		top: 18%;
+	}
+	@media (min-width: 1400px) {
+		top: 16%;
+	}
+	@media (min-width: 1660px) {
+		top: 20%;
 	}
 }
 .pricing-list {
@@ -873,6 +898,7 @@ a {
 		position: absolute;
 		bottom: 1.875rem;
 		left: 2.875rem;
+		right: 2.875rem;
 		display: block;
 		@include media-breakpoint-down(sm) {
 			left: 50%;
@@ -889,7 +915,7 @@ a {
 		}
 		@media(min-width: 1440px) {
 			padding: 2.5rem 2.875rem;
-			min-height: 292px;
+			min-height: 245px;
 		}
 	}
 }
