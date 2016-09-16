@@ -370,7 +370,7 @@
 								We’re so confident in our product that you know you’re going to love us (and need us!) beyond the 30 days - so no need to enter your payment details till later!</p>
 								<hr />
 								<p><strong>Need help signing up?</strong><br />
-								If you have any questions please email us at: <a href="mailto:support@coframeapp.com">support@coframeapp.com</a>.</p>
+								If you have any questions, please email us at: <a href="mailto:help@coframeapp.com">help@coframeapp.com</a>.</p>
 								<hr />
 								<p>At CoFrame, we value your privacy and will never share your personal data with any 3rd parties. 
 							</div>
