@@ -367,7 +367,7 @@
 							</div>
 							<div class="col-md-4 faq" data-animation=""></p>
 								<p><strong>Will I have to enter my payment details?</strong><br />
-								We’re so confident in our product that you know you’re going to love us (and need us!) beyond the 30 days - so no need to enter your payment details till later!</p>
+								We’re so confident in our product that we know you’re going to want us beyond the 30 day trial - so no need to enter your payment details until later!</p>
 								<hr />
 								<p><strong>Need help signing up?</strong><br />
 								If you have any questions, please email us at: <a href="mailto:help@coframeapp.com">help@coframeapp.com</a>.</p>
