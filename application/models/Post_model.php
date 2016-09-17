@@ -503,4 +503,32 @@ class Post_model extends CI_Model
 		}
 		return FALSE;
 	}
+
+	public function get_phase($phase_id)
+	{
+		$this->db->where('phases.id',$phase_id);
+		$query = $this->db->get('phases');
+		if($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+		return FALSE;
+	}
+
+	public function delete_comments($comment_id ='',$phase_id='',$post_id='')
+	{
+		if(!empty($comment_id) || (!empty($phase_id) && !empty($post_id)) ){
+			if(!empty($comment_id)){
+				$this->db->where('comment_id',$phase_id);
+			}
+			else
+			{
+				$this->db->where('phase_id',$phase_id);
+				$this->db->where('post_id',$phase_id);				
+			}
+			$this->db->delete('post_comments');
+			return TRUE;
+		}
+		return FALSE;
+	}
 }

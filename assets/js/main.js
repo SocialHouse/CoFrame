@@ -1747,7 +1747,7 @@ jQuery(function($) {
 			 		$.ajax({
 			 			'type': 'POST',
 			 			dataType: 'json',
-			 			url: base_url + 'phases/delete',
+			 			url: base_url + 'posts/delete_phase',
 			 			data: {
 			 				'post_id': post_id,
 			 				'phase_id': phase_id

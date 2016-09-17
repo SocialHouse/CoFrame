@@ -1036,4 +1036,84 @@ class Posts extends CI_Controller {
 			}
 		}
 	}
+
+	public function delete_phase()
+	{
+		$phase_id = $this->input->post('phase_id');
+		if($phase_id)
+		{
+			$phase_data = $this->post_model->get_phase($phase_id);
+			//echo '<pre>'; print_r($phase_data);echo '</pre>'; die;
+			if(!empty($phase_data))
+			{
+				//delete phase
+				$condition = array('id' => $phase_data->id);
+				$this->timeframe_model->delete_data('phases',$condition);
+
+				//delete users in phase
+				$condition = array('phase_id' => $phase_data->id);
+				$this->timeframe_model->delete_data('phases_approver',$condition);
+
+				$condition = array(
+								'phase >' => $phase_data->phase,
+								'brand_id' => $phase_data->brand_id
+							);
+				$phases = $this->timeframe_model->get_data_by_condition('phases',$condition);
+				//decrement phase number by one if there are phases after the phase which we are deleting
+				if(!empty($phases))
+				{
+					foreach($phases as $phase)
+					{						
+						$condition = array(
+										'id' => $phase->id
+									);
+						$data = array(
+									'phase' => --$phase->phase
+								);
+						$this->timeframe_model->update_data('phases',$data,$condition);
+					}
+				}
+
+				$this->post_model->delete_comments('',$phase_id,$phase_data->post_id);
+
+				$this->session->set_flashdata('message','Phase has been deleted successfully');
+				
+				$this->load->model('post_model');
+				$post_phases = $this->post_model->get_post_phases($phase_data->post_id);
+				$this->data['selected_tags'] = $this->post_model->get_post_tags($phase_data->post_id);		
+				if(!empty($post_phases))
+				{
+					foreach($post_phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase;
+					}
+				}
+				$brand = $this->timeframe_model->get_data_by_condition('brands',array('id' => $phase_data->brand_id));
+				$this->data['brand'] = $brand[0];
+				$this->data['post_details'] = $this->post_model->get_post($phase_data->post_id);
+				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['users'] = $this->brand_model->get_approvers($brand[0]->id);
+				$this->load->model('user_model');
+				$this->data['timezone_list'] = $this->user_model->get_timezones();
+
+				foreach ($this->data['timezone_list']  as $key => $values) 
+				{
+					if($this->user_data['timezone'] == $values->value)
+					{
+						$this->data['user_timezone'] = array(
+											'name' =>  $values->timezone,
+											'value' => $values->value
+											);
+						unset($this->data['timezone_list'][$key]);
+					}
+				}
+				$html = $this->load->view('partials/all_phases',$this->data,true);
+
+				echo json_encode(array('status'=>'success','html' => $html));
+			}else{
+				echo json_encode(array('status'=>'fail'));
+			}
+		}
+	}
 }
