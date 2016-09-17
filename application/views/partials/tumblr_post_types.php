@@ -58,10 +58,9 @@ if(isset($post_details))
 
 <!-- Tumblr Photo Post -->
 <div id="tumblrPhotoPost" class="hidden form-group extra-outlet-fields extra-tb-fields"  style="<?php echo $photo_style; ?>" >
-	<div class="form-group">
+	<!-- <div class="form-group">
 		<label>Photo(s): <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Images (jpg,gif,png) should be less than 2MB in size, and videos (.mp4) should be less than 100MB in size." data-popover-arrow="true"></i></label>
-		<!--Upload field here-->
-	</div>
+	</div> -->
 	<div class="form-group">
 		<label for="tbCaption">Caption (Optional):</label>
 		<input type="text" placeholder="Photo Caption" class="form-control" name="tbCaption" id="tbCaption" value="<?php if(!empty($photo_style) AND !empty($post_details)) { echo $post_details->tumblr_caption; } ?>">
@@ -163,10 +162,9 @@ if(isset($post_details))
 
 <!-- Tumblr Video Post -->
 <div id="tumblrVideoPost" class="hidden form-group extra-outlet-fields extra-tb-fields" style="<?php echo $video_style; ?>" >
-	<div class="form-group">
+	<!-- <div class="form-group">
 		<label for="tbAudio">Video:</label>
-		<!--File upload here-->
-	</div>
+	</div> -->
 	<div class="form-group">
 		<label for="tbVideoDescr">Caption (Optional):</label>
 		<input type="text" placeholder="Video Caption" class="form-control" name="tbVideoDescr" id="tbVideoDescr" value="<?php if(!empty($video_style) AND !empty($post_details)) { echo $post_details->tumblr_video_caption; } ?>">
