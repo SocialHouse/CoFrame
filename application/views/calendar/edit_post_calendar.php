@@ -4,6 +4,7 @@
 	<input type="hidden" name="redirect_url" id="redirect_url" value="<?php echo $redirect_url; ?>" >
 	<input type="hidden" name="resubmit" id="resubmit" value="">
 	<input type="hidden" name="save_as" id="save_as" value="" >
+	<input type="hidden" name="post_status" id="post_status" value="<?php echo $post_details->status; ?>" >
 	<div  id="edit-post-manage" class="row equal-columns create">
 		<div class="col-md-4 equal-height">
 			<div class="container-post-preview post-content">
@@ -407,17 +408,8 @@
 				$data['is_edit'] = 'true';
 				$data['brand'] = $brand;
 				$data['timezone_list'] = $timezones;
-				?>
-				<div class="col-md-4 equal-height">
-					<div class="container-approvals">
-						<div id="phaseDetails">
-							<?php
-							$this->load->view('partials/all_phases',$data);
-							?>							
-						</div>
-					</div>
-				</div>
-				<?php
+				
+				$this->load->view('partials/all_phases',$data);
 			} 
 			else
 			{ 
@@ -650,7 +642,7 @@
 										?>
 											<div class="bg-white approval-phase animated fadeIn edit-phase-div <?php echo $inactive ;?>" id="approvalPhase<?php echo $i; ?>" data-id="<?php echo $i -1; ?>">
 												<h2 class="clearfix">Phase <?php echo $i?>
-												<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase"><i class="fa fa-trash-o"></i></button></h2>
+												<button type="button" title="Delete Phase" class="pull-sm-right btn-icon btn-icon-lg delete-phase" data-id="<?php echo $i -1; ?>" ><i class="fa fa-trash-o"></i></button></h2>
 
 												<ul class="timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/get_brand_users/'.$post_details->brand_id; ?>" data-title="Add to Phase <?php echo $i; ?>" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list-<?php echo $i?>" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="#edit-post-details">
 													<li>

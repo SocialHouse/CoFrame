@@ -1283,7 +1283,14 @@ jQuery(function($) {
 		
 		if(i == $('#phaseDetails').find('.approval-phase:not(".saved-phase"):not(".hide")').length)
 		{
-			$activePhase.find('.delete-phase').removeClass('hide');
+			if($activePhase.find('.delete-phase').data('id') == 0)
+			{
+				$activePhase.find('.delete-phase').addClass('hide');
+			}
+			else
+			{
+				$activePhase.find('.delete-phase').removeClass('hide');
+			}
 		}
 		else
 		{

@@ -262,8 +262,14 @@
 										}
 									}
 								}
+
+								$tr_class = '';
+								if($inserted_post == $post->id)
+								{
+									$tr_class = 'background-tr';
+								}
 								?>
-								<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet);?>">
+								<tr data-filters="<?php echo 'f-'.strtolower($outlet).' '.$tag_list.' '.'f-'.$post->status; ?>" class="<?php echo $tr_class; ?> post-approver f-<?php echo $post->status; ?> f-<?php echo strtolower($outlet);?>">
 									<?php
 									if($show_date == 1)
 									{

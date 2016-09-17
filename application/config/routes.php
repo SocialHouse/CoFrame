@@ -69,7 +69,7 @@ $route['approvals/edit-approval-phase/(:any)/(:any)/(:any)'] = "approvals/edit_a
 
 
 
-$route['approvals/(:any)'] = "approvals/index/$1";
+$route['approvals/(:any)/(:any)'] = "approvals/index/$1/$2";
 $route['reminders/(:any)'] = "reminders/index/$1";
 
 $route['brands/add-existing-user/(:num)'] = "brand_users/add_existing_user/$1";

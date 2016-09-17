@@ -25,24 +25,14 @@
 					</footer>
 				</div>
 			</div>
-
-			<?php $this->load->view('partials/post_details'); ?>
-
-			<div class="col-md-4 equal-height">
-				<div class="container-approvals">
-					<div id="phaseDetails">
-						<?php
-						if($this->plan_data['phase_approvals'] == 1)
-						{
-							$this->data['timezone_list'] = $timezones;							
-							$this->load->view('partials/all_phases',$this->data);
-							?>
-						<?php
-						}
-						?>						
-					</div>
-				</div>
-			</div>
+			<?php
+			$this->load->view('partials/post_details');
+			if($this->plan_data['phase_approvals'] == 1)
+			{
+				$this->data['timezone_list'] = $timezones;
+				$this->load->view('partials/all_phases',$this->data);
+			}
+			?>
 		</div>
 	</form>
 </section>

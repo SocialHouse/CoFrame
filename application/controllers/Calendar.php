@@ -872,7 +872,7 @@ class Calendar extends CI_Controller {
 				}
 				if($post_data['save_as'] == 'draft')
 				{
-					$post['status'] = 'pending';
+					$post['status'] = 'draft';
 				}
 				$result = $this->timeframe_model->update_data('posts', $post, $post_condition);
 				$this->session->set_flashdata('message','Post has been updated successfuly.');

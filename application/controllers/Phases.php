@@ -261,8 +261,20 @@ class Phases extends CI_Controller {
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['users'] = $this->brand_model->get_approvers($brand[0]->id);
 				$this->load->model('user_model');
-				$this->data['timezones'] = $this->user_model->get_timezones();
-				$html = $this->load->view('partials/phases_html',$this->data,true);
+				$this->data['timezone_list'] = $this->user_model->get_timezones();
+
+				foreach ($this->data['timezone_list']  as $key => $values) 
+				{
+					if($this->user_data['timezone'] == $values->value)
+					{
+						$this->data['user_timezone'] = array(
+											'name' =>  $values->timezone,
+											'value' => $values->value
+											);
+						unset($this->data['timezone_list'][$key]);
+					}
+				}
+				$html = $this->load->view('partials/all_phases',$this->data,true);
 
 				echo json_encode(array('status'=>'success','html' => $html));
 			}else{

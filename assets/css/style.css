@@ -12655,3 +12655,7 @@ textarea.form-control {
 
   .post-day .post-body p {
     word-break: break-all; } }
+
+ .background-tr{
+  background-color: #FAEBD7 !important;
+}

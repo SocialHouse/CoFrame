@@ -3,7 +3,7 @@ if(empty($phases))
 {
 	$data['is_edit'] = 'true';
 	$data['brand'] = $brand;
-	$this->load->view('partials/default_phase' ,$data);
+	$this->load->view('partials/all_phases' ,$data);
 } 
 else
 { 

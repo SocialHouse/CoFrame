@@ -102,6 +102,7 @@
 	$lang['disconnected_from_session'] ="You were disconnected from the session";
 	$lang['connecting_error_session'] ="There was an error connecting to the session: ";
 	$lang['valid_date'] ="Please select the valid date";
+	$lang['valid_approver'] ="Please select at least one approver";
 	$lang['select_re_date'] ="Please select date";
 	$lang['post_update_successful'] ="Your post has been update successfully";
 	$lang['unable_to_add_user'] ="Unable to add user, Please try again";

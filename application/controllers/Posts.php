@@ -429,16 +429,22 @@ class Posts extends CI_Controller {
 	    				}
 		    			
 		    		}
-		    		if($multiple_phases == 1)
+
+		    		if($status == 'draft')
 		    		{
-		    			$this->session->set_flashdata('message','Post has been saved successfuly');
-		    			redirect(base_url().'approvals/'.$post_data['slug']);
-		    		}else
+		    			$redirect_url = base_url().'drafts/'.$post_data['slug'];
+		    		}		    		
+		    		elseif($multiple_phases == 1)
 		    		{
-			    		$this->session->set_userdata( 'selected_date' , $slate_date_time);
-			    		$this->session->set_flashdata('message','Post has been saved successfuly');
-	    				redirect(base_url().'calendar/day/'.$post_data['slug']);
+		    			$redirect_url = base_url().'approvals/'.$post_data['slug'].'/'.$inserted_id;
 		    		}
+		    		else
+		    		{
+			    		$this->session->set_userdata( 'selected_date' , $slate_date_time);			    		
+			    		$redirect_url = base_url().'calendar/day/'.$post_data['slug'];
+		    		}
+		    		$this->session->set_flashdata('message','Post has been saved successfuly');
+		    		redirect($redirect_url);
 	    		}		    		
 		    }
 		}
