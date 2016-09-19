@@ -8852,7 +8852,8 @@ x:-o-prefocus, .qtip .qtip-tip {
   .tb_post .tags {
     color: #a1a1a1;
     font-size: 13px;
-    margin: 0 20px; }
+    margin: 0 20px;
+    word-spacing: 8px; }
     .tb_post .tags:empty {
       display: none; }
 

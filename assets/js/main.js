@@ -325,7 +325,7 @@ jQuery(function($) {
 					$('.content-list li:first').removeClass('disabled');
 					$('.content-list li:first').siblings().addClass('disabled');
 					$('#tumblrContent').val($('.content-list li:first').data('selected-content'));
-					showHide($(this), '#tumblrTextPost',hide_classes);	
+					showHide($(this), '#tumblrTextPost',hide_classes);
 				}
 				
 			}
@@ -1367,12 +1367,15 @@ jQuery(function($) {
 	window.showHide = function showHide(trigger, show, hide) {
 		if (hide) {
 			$(hide).slideUp(function() {
-				//call custom function on completion
-				$(hide).trigger('contentSlidUp', [trigger]);
-				$(show).slideDown(function() {
-					$(show).trigger('contentSlidDown', [trigger]);
-					equalColumns();
-				});
+				setTimeout(function() {
+					//call custom function on completion
+					$(hide).trigger('contentSlidUp', [trigger]);
+
+					$(show).slideDown(function() {
+						$(show).trigger('contentSlidDown', [trigger]);
+						equalColumns();
+					});
+				}, 400);
 			});
 		} else {
 			$(show).slideToggle(function() {
