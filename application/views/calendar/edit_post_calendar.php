@@ -329,7 +329,7 @@
 							<div class="form-group pull-sm-left">
 								<div class="pull-xs-left">
 									<label class="hidden">Post Time</label>
-									<div class="time-select form-control">
+									<div class="time-select form-control slate-time-div">
 										<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
 										<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
 										<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">

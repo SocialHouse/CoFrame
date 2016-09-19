@@ -180,7 +180,7 @@
 					<div class="form-group pull-sm-left">
 						<div class="pull-xs-left">
 							<label class="hidden">Post Time</label>
-							<div class="time-select form-control">
+							<div class="time-select form-control slate-time-div">
 								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
 								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
 								<input type="text" class="time-input amselect" name="post-ampm" value="am">

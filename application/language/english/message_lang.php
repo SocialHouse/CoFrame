@@ -84,17 +84,17 @@
 	$lang['upload_error'] = "There was a problem with your upload. Please try again";
 	$lang['video_size_limit'] = "video size should be less than %size%";
 	$lang['video_upload_error'] = "You can not add more than 1 video";
-	$lang['enter_valid_datetime_slate_greater_than_date_than_approval'] = "Please enter valid date and time or Slate date must be greater than date than Approval phase 1";
-	$lang['enter_valid_datetime_approval_than_date_than_slate_date'] = "Please enter valid date and time or Approval date must be less than Slate date";
+	$lang['enter_valid_datetime_slate_greater_than_date_than_approval'] = "Please enter valid date and time or slate date must be greater than date than Approval phase 1";
+	$lang['enter_valid_datetime_approval_than_date_than_slate_date'] = "Please enter valid date and time or Approval date must be less than slate date";
 	$lang['enter_hour_minutes'] ="Please enter hour and minutes";
 	$lang['valid_hour_minutes'] ="Please enter valid hour and minutes";
-	$lang['enter_slate_date'] ="Please enter Slate date";
+	$lang['enter_slate_date'] ="Please enter slate date";
 	$lang['enter_hour_minutes_slate_date'] ="Please enter Slate date or hour and minutes";
 	$lang['date_less_than_phase'] ="Please enter valid date and time or date must be less than phase ";
 	$lang['select_date'] ="Please select date in Phase ";
-	$lang['select_sdate'] ="Please select Sdate first";
+	$lang['select_sdate'] ="Please select slate date first";
 	$lang['phase_less_than'] ="Date must be less than Phase";
-	$lang['date_less_than_sdate'] ="Date must be less than Sdate";
+	$lang['date_less_than_sdate'] ="Date must be less than slate date";
 	$lang['select_image_video'] ="Please select images or video";	
 	$lang['enter_post_content'] ="Please enter post content";
 	$lang['date_greater_than_today'] ="Please select valid date. Date must be greater than todays date";
@@ -107,9 +107,9 @@
 	$lang['post_update_successful'] ="Your post has been update successfully";
 	$lang['unable_to_add_user'] ="Unable to add user, Please try again";
 	$lang['user_add_success'] ="User added successfully!!";
-	$lang['phase_one_date_error'] ="Date must be greater than today's date and less than Slate date";
-	$lang['phase_two_date_error'] ="Date must be greater than phase one approver date and less than Slate date";
-	$lang['phase_three_date_error'] ="Date must be greater than phase two approver date and less than Slate date";
+	$lang['phase_one_date_error'] ="Date must be greater than today's date and less than slate date";
+	$lang['phase_two_date_error'] ="Date must be greater than phase one approver date and less than slate date";
+	$lang['phase_three_date_error'] ="Date must be greater than phase two approver date and less than slate date";
 
 	
 

@@ -11,6 +11,317 @@ $(document).on('click','.user-list li .pull-sm-left .check-box' ,function(){
 	$('#submit-approval').text(txt);
 });
 
+
+$(document).on( 'click blur change keyup', 'input[name="post-date"], input[name="post-hour"],input[name="post-minute"], .slate-time-div .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var active_phase_no = $('#phaseDetails').find('.approval-phase.active').data('id');
+			if(active_phase_no == 0)
+			{
+				$('#ph_one_date').trigger('click');
+			}
+			else if(active_phase_no == 1)
+			{
+				$('input[name="phase[1][approve_date]"]').trigger('click');
+			}
+			else if(active_phase_no == 2)
+			{
+				$('input[name="phase[2][approve_date]"]').trigger('click');	
+			}
+		},100);
+	}
+);
+
+$(document).on( 'click blur change keyup', '#ph_one_date, #ph_one_hour, #ph_one_minute, #ph_one_ampm, .1-phase-time-input .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var $div 		= $(this).closest('div.form-group'),
+			date_error =  $('.phase-one-error-all'),
+			phase_no 	= 0 ,
+			old_date 	= $('input[name="post-date"]').val(),
+			old_hour 	= $('input[name="post-hour"]').val(),
+			old_minute 	= $('input[name="post-minute"]').val(),
+			old_ampm 	= $('input[name="post-ampm"]').val(),
+			new_date 	= $('#ph_one_date').val(),
+			new_hour 	= $('#ph_one_hour').val(),
+			new_minute 	= $('#ph_one_minute').val(),
+			new_ampm 	= $('#ph_one_ampm').val(),
+			is_error  	= true;
+			
+			if(old_date != ''){				
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){					
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
+						
+						var slate_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+						console.log([convertDateFormat(current_ph_date) ,convertDateFormat(slate_date)]);
+						is_error = comparePhases(current_ph_date ,slate_date, date_error,phase_no);
+
+					}else{
+						is_error = true;
+						date_error.text(language_message.enter_hour_minutes);
+						date_error.show();
+					}
+				}else{
+					date_error.text(language_message.enter_hour_minutes);
+					date_error.show();
+				}
+			}else{
+				date_error.text(language_message.enter_slate_date);
+				date_error.show();
+			}
+		},100);	
+	}
+);
+
+$(document).on( 'click blur change keyup', 'input[name="phase[1][approve_date]"], input[name="phase[1][approve_hour]"], input[name="phase[1][approve_minute]"], input[name="phase[1][approve_ampm]"], .2-phase-time-input .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var date_error 	= $('.phase-two-error'),
+				phase_no 	= 1 ,
+				new_date 	= $('input[name="phase[1][approve_date]"]').val(),
+				new_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
+				new_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
+				new_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),
+				old_date 	= $('#ph_one_date').val(),
+				old_hour 	= $('#ph_one_hour').val(),
+				old_minute 	= $('#ph_one_minute').val(),
+				old_ampm 	= $('#ph_one_ampm').val(),
+				is_error  	= true;
+
+			if(old_date != ''){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
+
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+						
+					}else{
+						is_error = true;
+						date_error.text(language_message.enter_hour_minutes);
+						date_error.show();
+					}
+				}else{
+					$('#hm_error').text(language_message.enter_hour_minutes);
+					$('#hm_error').show();
+				}
+			}else{
+				date_error.text(language_message.enter_slate_date);
+				date_error.show();
+			}
+		},100);
+	}
+);
+
+$(document).on( 'click blur change keyup', 'input[name="phase[2][approve_date]"], input[name="phase[2][approve_hour]"], input[name="phase[2][approve_minute]"], input[name="phase[2][approve_ampm]"], .3-phase-time-input .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var date_error 	= $('.phase-three-error'),
+				phase_no 	= 2 ,
+				new_date 	= $('input[name="phase[2][approve_date]"]').val(),
+				new_hour 	= $('input[name="phase[2][approve_hour]"]').val(),
+				new_minute 	= $('input[name="phase[2][approve_minute]"]').val(),
+				new_ampm 	= $('input[name="phase[2][approve_ampm]"]').val(),
+				old_date 	= $('input[name="phase[1][approve_date]"]').val(),
+				old_hour 	= $('input[name="phase[1][approve_hour]"]').val(),
+				old_minute 	= $('input[name="phase[1][approve_minute]"]').val(),
+				old_ampm 	= $('input[name="phase[1][approve_ampm]"]').val(),
+				is_error  	= true;
+
+			if(old_date != ''){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
+
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+
+					}else{
+						is_error = true;
+						date_error.text(language_message.enter_hour_minutes);
+						date_error.show();
+					}
+				}else{
+					$('#hm_error').text(language_message.enter_hour_minutes);
+					$('#hm_error').show();
+				}
+			}else{
+				$('#hm_error').text(language_message.enter_hour_minutes);
+				$('#hm_error').show();
+			}
+		},100);
+	}
+);
+
+//for edit
+$(document).on( 'click blur change keyup', 'input[name="date1"], input[name="phase_approve_hour1"], input[name="phase_approve_minute1"], input[name="phase_approve_ampm1"], .2phase-time-input .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var date_error 	= $('.phase-two-error'),
+				phase_no 	= 1 ,
+				new_date 	= $('input[name="date1"]').val(),
+				new_hour 	= $('input[name="phase_approve_hour1"]').val(),
+				new_minute 	= $('input[name="phase_approve_minute1"]').val(),
+				new_ampm 	= $('input[name="phase_approve_ampm1').val(),
+				old_date 	= $('#ph_one_date').val(),
+				old_hour 	= $('#ph_one_hour').val(),
+				old_minute 	= $('#ph_one_minute').val(),
+				old_ampm 	= $('#ph_one_ampm').val(),
+				is_error  	= true;
+
+			if(old_date != ''){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
+
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+						
+					}else{
+						is_error = true;
+						date_error.text(language_message.enter_hour_minutes);
+						date_error.show();
+					}
+				}else{
+					$('#hm_error').text(language_message.enter_hour_minutes);
+					$('#hm_error').show();
+				}
+			}else{
+				date_error.text(language_message.enter_slate_date);
+				date_error.show();
+			}
+		},100);
+	}
+);
+
+$(document).on( 'click blur change keyup', 'input[name="date2"], input[name="phase_approve_hour2"], input[name="phase_approve_minute2"], input[name="phase_approve_ampm2"], .3phase-time-input .incrementer i',
+	function( e )
+	{
+		setTimeout(function(){
+			var date_error 	= $('.phase-three-error'),
+				phase_no 	= 2 ,
+				new_date 	= $('input[name="date2"]').val(),
+				new_hour 	= $('input[name="phase_approve_hour2"]').val(),
+				new_minute 	= $('input[name="phase_approve_minute2"]').val(),
+				new_ampm 	= $('input[name="phase_approve_ampm2"]').val(),
+				old_date 	= $('input[name="date1"]').val(),
+				old_hour 	= $('input[name="phase_approve_hour1"]').val(),
+				old_minute 	= $('input[name="phase_approve_minute1"]').val(),
+				old_ampm 	= $('input[name="phase_approve_ampm1"]').val(),
+				is_error  	= true;
+
+			if(old_date != ''){
+				if(old_hour != '' && old_minute !=''  && old_hour > 0 && old_hour < 13 && old_minute < 60 && old_minute >= 0 && old_ampm !='' && (old_ampm.toLowerCase() =='am' || old_ampm.toLowerCase() =='pm') ){
+					if( new_minute != '' &&  new_hour !=''  && new_hour > 0 && new_hour < 13 && new_minute < 60 && new_minute >= 0 && new_ampm !='' && (new_ampm.toLowerCase() =='am' || new_ampm.toLowerCase() =='pm')){
+
+						var previous_ph_date = old_date+' '+old_hour+':'+old_minute+' '+old_ampm;
+						var current_ph_date = new_date+' '+new_hour+':'+new_minute+' '+new_ampm;
+
+						is_error = comparePhases(current_ph_date ,previous_ph_date, date_error,phase_no);
+
+					}else{
+						is_error = true;
+						date_error.text(language_message.enter_hour_minutes);
+						date_error.show();
+					}
+				}else{
+					$('#hm_error').text(language_message.enter_hour_minutes);
+					$('#hm_error').show();
+				}
+			}else{
+				$('#hm_error').text(language_message.enter_hour_minutes);
+				$('#hm_error').show();
+			}
+		},100);
+	}
+);
+
+comparePhases = function(startDate, endDate, error_div, phase_no){
+		var sdate 			= $('input[name="post-date"]').val(),
+			sdate_hour 		= $('input[name="post-hour"]').val(),
+			sdate_minute 	= $('input[name="post-minute"]').val(), 
+			sdate_ampm 		= $('input[name="post-ampm"]').val(),
+			$display_error 	= true,
+			message 		='',
+			is_error  		= true;
+
+		startDate = convertDateFormat(startDate);
+
+		endDate =convertDateFormat(endDate);
+
+		error_div.empty();
+		error_div.hide();
+
+		if(sdate ==''  && sdate_hour == '' && sdate_minute == '' && sdate_ampm == '' ){
+			if(sdate ==''){
+				message =language_message.enter_slate_date;
+			}else{
+				if(sdate_hour == '' && sdate_minute == '' && sdate_ampm == ''){
+					message = language_message.enter_hour_minutes_slate_date;
+				}				
+			}
+		}else{
+			var slate_date = sdate+' '+sdate_hour+':'+sdate_minute+' '+sdate_ampm;
+			slate_date = convertDateFormat(slate_date);
+			if( startDate == '' ){
+				if(phase_no == 0 ){
+					message = language_message.select_sdate;
+				}
+				if(phase_no == 1 ){
+					message = language_message.select_date+phase_no;
+				}
+				if(phase_no == 2 ){
+					message = language_message.select_date+phase_no;
+				}
+			}else{
+					// compaire phase two with sdate and phase one(sdate is greter than phase two/three and sdate is less than phase one/two )
+					// moment().isBetween(moment-like, moment-like, String);
+					// where moment-like is Moment|String|Number|Date|Array
+					// moment('2010-10-20').isBetween('2010-10-19', '2010-10-25'); // true
+					// '2010-10-19' < '2010-10-20' > '2010-10-25'
+
+					if(phase_no == 0){
+						endDate =convertDateFormat('');
+					}
+					console.log([endDate,startDate,slate_date]);
+					if (moment(startDate).isBetween(endDate, slate_date, compare_array)){
+						$display_error = false;
+						console.log('isBetween true');
+					}else{
+						console.log('isBetween false');
+						if(phase_no == 0 ){
+							message = language_message.phase_one_date_error;
+						}
+						if(phase_no == 1 ){
+							message =language_message.phase_two_date_error;
+						}
+						if(phase_no == 2 ){
+							message =language_message.phase_three_date_error;
+						}
+					}
+			}
+			error_div.text(message);
+			error_div.show();
+		}
+		if(!$display_error){
+			error_div.empty();
+			error_div.hide();
+			message ='';
+			is_error = false;
+		}
+		return is_error;
+	};
+
+
 window.create_post_validation = function create_post_validation(){
  	var disable_btn 	= true,
  	is_outlet_selected 	= false,
