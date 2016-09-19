@@ -421,6 +421,11 @@
 <div class="modal alert-modal fade" id="schedule_post" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
+			<button type="button" class="modal-toggler">
+				<span class="sr-only">Toggle Modal</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			<div class="modal-body">
 				<h2 class="text-xs-center">Alert</h2>
 				<p class="text-xs-center"><?php echo $this->lang->line('schedule_post_modal_msg'); ?></p>

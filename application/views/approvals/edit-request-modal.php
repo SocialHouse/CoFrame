@@ -427,7 +427,7 @@
 							if($post_details->status != 'posted')
 							{
 								?>
-								<a href="#" data-target="#postNow" data-toggle="modal" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm pull-sm-right">Post Now</a>
+								<a href="#" data-target="#postNow" data-toggle="modal" data-append="body" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm pull-sm-right">Post Now</a>
 								<?php
 							}
 						}

@@ -283,6 +283,11 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 <div class="modal alert-modal fade" id="deleteDrafts" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
+			<button type="button" class="modal-toggler">
+				<span class="sr-only">Toggle Modal</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			<div class="modal-body">
 				<h2 class="text-xs-center">Delete Drafts</h2>
 				<p class="text-xs-center"><?php echo $this->lang->line('delete_draft') ?></p>
@@ -299,6 +304,11 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 <div class="modal alert-modal fade" id="undoApproval" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
+			<button type="button" class="modal-toggler">
+				<span class="sr-only">Toggle Modal</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			<div class="modal-body">
 				<h2 class="text-xs-center">Undo Approval</h2>
 				<p class="text-xs-center">Are you sure you want to undo your approval?
@@ -317,6 +327,11 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 	<div class="modal alert-modal fade" id="postNow" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
+				<button type="button" class="modal-toggler">
+					<span class="sr-only">Toggle Modal</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<div class="modal-body">
 					<h2 class="text-xs-center">Post Now</h2>
 					<p class="text-xs-center">You are about to post to an outlet. You can’t undo this action.</p>
@@ -334,6 +349,11 @@ if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($us
 	<div class="modal alert-modal fade" id="confirmbox" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:9999" >
 		<div class="modal-dialog" role="document">
 			<div class="modal-content bg-white">
+				<button type="button" class="modal-toggler">
+					<span class="sr-only">Toggle Modal</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<div class="modal-body">
 					<h2 class="text-xs-center" id="confirmTitle"></h2>
 					<p class="text-xs-center" id="confirmMessage"></p>

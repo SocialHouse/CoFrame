@@ -111,17 +111,17 @@
 	<div class="modal hide fade" id="emptyModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
+			<button type="button" class="modal-toggler">
+				<span class="sr-only">Toggle Modal</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 		  <div class="modal-body">
 		  </div>
 		</div>
 	  </div>
 	</div>
 	<?php $this->load->view('partials/modals'); ?>
-	<button type="button" class="modal-toggler">
-		<span class="sr-only">Toggle Modal</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	</button>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=4.0.0'></script>	

@@ -127,18 +127,3 @@
 				<?php $this->load->view('partials/footer_nav'); ?>
 			</div>		
 		</section>
-		<div aria-hidden="true" role="dialog" tabindex="-1" id="schedule_post" class="modal alert-modal fade">
-			<div role="document" class="modal-dialog">
-				<div class="modal-content bg-white">
-					<div class="modal-body">
-						<h2 class="text-xs-center">Alert</h2>
-						<p class="text-xs-center"></p>
-						<footer class="overlay-footer">
-							<button class="btn btn-sm btn-default modal-hide" type="button">Go Back</button>
-							<button class="btn btn-sm pull-sm-right btn-primary" type="button" id="schedule-post">Yes</button>
-							<button class="btn btn-sm pull-sm-right btn-secondary" type="button" id="send-mail">Send Mail</button>
-						</footer>
-					</div>
-				</div>
-			</div>
-		</div>

@@ -34,9 +34,6 @@ jQuery(function($) {
 					equalColumns('#' + mid);
 					addIncrements();
 				});
-				newModal.on('hide.bs.modal', function() {
-					$('.modal-toggler').fadeOut();
-				});
 	
 				if ($target.data('clear') == 'no') {
 					$target.attr('data-toggle', 'modal-ajax-inline');
@@ -45,6 +42,16 @@ jQuery(function($) {
 					$('#qtip-popover-post-menu').hide();
 				}
 			});
+		});
+
+		$('body').on('hidden.bs.modal', '#edit-post-modal', function() {
+			$(this).remove();
+			allFiles = [];
+			equalColumns();
+		});
+		$('body').on('hidden.bs.modal', '#edit-request-modal', function() {
+			$(this).remove();
+			equalColumns();
 		});
 	
 		//Get modal content from inline source
@@ -57,12 +64,8 @@ jQuery(function($) {
 				backdrop: 'static'
 			});
 			$('#' + mid).on('shown.bs.modal', function() {
-				$('.modal-toggler').fadeIn();
 				equalColumns('#' + mid);
 				addIncrements();
-			});
-			$('#' + mid).on('hide.bs.modal', function() {
-				$('.modal-toggler').fadeOut();
 			});
 			if ($('#qtip-popover-post-menu')) {
 				$('#qtip-popover-post-menu').hide();
@@ -71,38 +74,15 @@ jQuery(function($) {
 
 		//append modal content to the body to prevent zindex issues
 		$('body').on('click', '[data-toggle="modal"]', function(e) {
+			e.preventDefault();
 			var appendTo = $(this).data('append');
-			if(appendTo.length) {
+			if(appendTo) {
 				var modalDiv = $(this).data('target');
 				$(modalDiv).appendTo(appendTo);
 			}
 		});
-
-		$('.modal').on('show.bs.modal', function() {
-			$('.modal-toggler').fadeIn();
-		});
 	
-		$('.modal').on('hide.bs.modal', function() {
-			$('.modal-toggler').fadeOut();
-		});
-	
-		$('.modal-toggler').on('click', function() {
-	
-			if ($('#edit-post-modal').length) {
-				setTimeout(function() {
-					$('#edit-post-modal').remove();
-				}, 500);
-				allFiles = [];
-				equalColumns();
-			}
-
-			if($("#edit-request-modal").length){
-				setTimeout(function() {
-					$("#edit-request-modal").remove();
-				}, 500);
-				equalColumns();
-			}
-
+		$('body').on('click', '.modal-toggler', function() {
 			$('.modal').modal('hide');
 		});
 	});

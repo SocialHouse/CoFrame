@@ -1622,6 +1622,7 @@ jQuery(function($) {
 	});
 
 	$(document).on("click", ".change-approve-status", function(event) {
+		event.preventDefault();
 		var phase_id = $(this).data('phase-id');
 		var status = $(this).data('phase-status');
 		var user_id = $('#user-id').val()
@@ -2181,23 +2182,11 @@ function getConfirm(confirmMessage,confirmTitle,is_alert,callback){
 
 	$('#confirmFalse').click(function(){
 		$('#confirmbox').modal('hide');
-		if($('.modal-backdrop').length > 1){
-			setTimeout(function(){
-				$('.modal-toggler').show();
-			},500);
-		}
 		if (callback) callback(false);
 	});
 
 	$('#confirmTrue').click(function(){
 		$('#confirmbox').modal('hide');
-		
-		if($('.modal-backdrop').length > 1){
-			setTimeout(function(){
-				$('.modal-toggler').show();
-			},500);
-		}
 		if (callback) callback(true);
-		
 	});
 }
