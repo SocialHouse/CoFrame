@@ -250,7 +250,7 @@
 								<header class="price-title">
 									<h2>Premiere
 									<small>Contact for Pricing.</small></h2>
-									<p class="disclaimer">Additional brands, users, upgrades and customizations are available. <a href="#">Contact for details</a></p>
+									<p class="disclaimer">Additional brands, users, upgrades and customizations are available. <a href="<?php echo base_url()?>contact-us">Contact for details</a></p>
 								</header>
 								<ul>
 									<li>Includes Unlimited Master Admins</li>
@@ -262,7 +262,7 @@
 									<li>High Priority Online Support </li>
 									<li>Phased Approvals</li>
 								</ul>
-								<p><a class="btn btn-primary btn-lg btn-choose-plan" href="#get-started" data-plan="Premiere" data-price="$499.00">Get Started</a></p>
+								<p><a class="btn btn-primary btn-lg" href="<?php echo base_url()?>contact-us">Contact Us</a></p>
 							</div>
 						</div>
 					</div>
