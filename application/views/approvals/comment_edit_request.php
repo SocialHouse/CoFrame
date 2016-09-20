@@ -15,7 +15,17 @@ foreach ($replies as $key => $obj) {
 				<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>" >
 
 				<div class="author-meta pull-sm-left">
-					<?php echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name); ?>	
+					<?php 
+					echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name);
+					if($obj->user_id == $this->user_id)
+					{
+						?>
+						<a data-id="<?php echo $obj->id; ?>" class="pull-right delete-suggest" href="javascript:;">
+						<i class="fa fa-trash-o"></i>
+						</a>
+						<?php
+					}
+					?>	
 					<span class="dateline">
 						<?php echo relative_date(strtotime($obj->created_at)); ?>
 					</span>
@@ -43,14 +53,14 @@ foreach ($replies as $key => $obj) {
 				}
 				?>
 				<?php 
-				if($obj->user_id != $this->user_id)
-				{
+				// if($obj->user_id != $this->user_id)
+				// {
 					?>
 					<div class="comment-btns">
 						<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $obj->id; ?>">Reply</a>
 					</div>
 					<?php 
-				}
+				// }
 				?>
 				<?php
 				if(!empty($obj->replies)){

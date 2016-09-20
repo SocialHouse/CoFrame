@@ -1973,7 +1973,7 @@ function alert_notification() {
 			dataType: 'json',
 			success: function(response) {
 				if (response) {
-					n = new Notification("Please check the notification", {
+					n = new Notification('', {
 						body: response.text,
 						icon: "star.ico"
 					});

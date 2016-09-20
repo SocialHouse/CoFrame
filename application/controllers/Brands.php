@@ -460,6 +460,10 @@ class Brands extends CI_Controller {
                     if(!empty($outlets))
                     {
                     	$outlets = explode(',',$outlets);
+                    	if(!empty($outlets))
+                    	{
+                    		$outlets = array_unique($outlets);
+                    	}
                     	foreach($outlets as $outlet)
                     	{
                     		 $user_outlets = array(
@@ -745,6 +749,8 @@ class Brands extends CI_Controller {
 				$this->timeframe_model->delete_data('aauth_perm_to_user',array('brand_id' => $post_data['brand_id'],'user_id' => $post_data['aauth_user_id']));
 
 				$this->timeframe_model->delete_data('aauth_user_to_group',array('brand_id' => $post_data['brand_id'],'user_id' => $post_data['aauth_user_id']));
+
+				$this->timeframe_model->delete_data('user_outlets',array('brand_id' => $post_data['brand_id'],'user_id' => $post_data['aauth_user_id']));
 			}
 
 			//check this user is master user(added through user preferences) of current account

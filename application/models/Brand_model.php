@@ -306,7 +306,7 @@ class Brand_model extends CI_Model
 		$this->db->where('is_hidden',0);
 		$this->db->where('account_id',$this->user_data['account_id']);
 		$this->db->group_by('brand_user_map.access_user_id');
-		$query = $this->db->get($this->table);		
+		$query = $this->db->get($this->table);
 		// plus one for master user who added the brand because above query only
 		// users who are present in brand can be calculated
 		//whe nwe complete with functionality like add multiple master users we need to change this
@@ -344,6 +344,34 @@ class Brand_model extends CI_Model
         {
            $master_users = $query->num_rows() + 1;
            return $master_users;
+        }
+        return 1;
+	}
+
+	function get_all_account_user_ids()
+	{
+		$this->db->select('aauth_users.id as aauth_user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+        $this->db->join('user_info','user_info.aauth_user_id = aauth_users.id');
+
+        $this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+        $this->db->where('aauth_user_to_group.parent_id',$this->user_data['account_id']);
+        $this->db->where('aauth_user_to_group.brand_id' , NULL);
+        $this->db->group_start();
+        $this->db->where('aauth_groups.name','Master Admin');
+        $this->db->where('aauth_groups.name','Billing');
+        $this->db->group_end();
+        $query = $this->db->get('aauth_user_to_group');
+
+        if($query->num_rows() > 0)
+        {
+           	$master_users = $query->result_array();
+           	if(!empty($master_users))
+           	{
+           		$master_users = array_column($master_users,'aauth_user_id');
+           	}
+           	array_push($master_users,$this->user_data['account_id']);
+           	return $master_users;
         }
         return 1;
 	}

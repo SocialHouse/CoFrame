@@ -70,6 +70,8 @@ jQuery(function($) {
 		}
        if ($(this).hasClass('btn-secondary')) {
             toggleBtnClass($(this), true);
+            $(this).closest('ul').siblings('div.comment-btns').find('.show-hide-reply').removeClass('active');
+
             var $div_suggest_edit = $(this).closest('li')
             var input_files = $div_suggest_edit.find("input[type='file']");
             var textarea = $div_suggest_edit.find("textarea");
@@ -101,7 +103,7 @@ jQuery(function($) {
                 data: data,
                 dataType: 'json',
                 success: function(response) {
-                    if (response.response == 'success') {
+                    if (response.response == 'success') {                        
                         $div_suggest_edit.closest('.commentReply').slideUp(function() {
                             $div_suggest_edit.closest('.commentReply').remove();
                         });
@@ -514,6 +516,31 @@ jQuery(function($) {
                 $('#edit-approval-phase-modal').remove();
             });
         },600);
+    });
+
+    $(document).on('click','.delete-suggest',function(){
+        var btn = this;
+        getConfirm(language_message.suggesion_delete_confirm, '', '', function(confResponse) {
+            var suggesion_id = $(btn).data('id');
+            $.ajax({
+                data:{'suggesion_id' : suggesion_id},
+                type:'POST',
+                url: base_url+"approvals/delete_suggest_edit",
+                success:function(response)
+                {
+                    if(response == 1)
+                    {
+                        $(btn).parents('.comment-section:first').remove();
+                    }
+                    else
+                    {
+                        getConfirm(language_message.suggesion_unable_delete, '', 'alert', function(confResponse) {
+
+                        });
+                    }
+                }
+            });
+        });
     });
 
 });

@@ -268,7 +268,7 @@ class Co_create extends CI_Controller {
 		    								'type' => 'reminder',
 		    								'brand_id' => $post_data['brand_id'],
 		    								'due_date' => date('Y-m-d H:i:s',strtotime('+1 days')),
-		    								'text' => 'Please join cocreate'
+		    								'text' => 'Please join cocreate here <a href="'.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'"> '.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'</a>'
 		    							);
 
 	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
@@ -454,5 +454,29 @@ class Co_create extends CI_Controller {
 
 	    	_render_view($this->data);
 	    }
+	}
+
+	function join_co_create()
+	{
+		$account_id = $this->uri->segment(3);	
+		$slug = $this->uri->segment(4);	
+		$request_string = $this->uri->segment(5);
+
+		if($account_id && $slug && $request_string)
+		{
+			$session_data = $this->user_data;
+			
+			$check_user = $this->timeframe_model->check_user_is_account_user($account_id);
+            if($check_user)
+            {
+                $session_data['user_group'] = $check_user;               
+            }
+            $session_data['account_id'] = $account_id;
+
+			$session_data['plan'] = strtolower(get_plan($account_id));
+
+			$this->session->set_userdata('user_info',$session_data);
+            redirect(base_url().'co_create/cocreate_post/'.$slug.'/'.$request_string);
+		}		
 	}
 }

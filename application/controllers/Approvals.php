@@ -163,7 +163,7 @@ class Approvals extends CI_Controller {
 
 		    		$parent_comment = $this->timeframe_model->get_data_by_condition('post_comments',array('id' => $post_data['parent_id']),'user_id');
 
-		    		if(!empty($parent_comment))
+		    		if(!empty($parent_comment) AND $parent_comment[0]->user_id != $this->user_id)
 		    		{
 		    			$reminder_data = array(
 					    				'type' => 'reminder',
@@ -458,6 +458,20 @@ class Approvals extends CI_Controller {
 				echo $this->load->view('approvals/edit-request-modal', $this->data, TRUE);
 		    }
 	    }
+	}
+
+	function delete_suggest_edit()
+	{
+		$suggesion_id = $this->input->post('suggesion_id');
+		if($suggesion_id)
+		{
+			$this->timeframe_model->delete_data('post_comments',array('id'=>$suggesion_id));
+			echo "1";
+		}
+		else
+		{
+			echo "0";
+		}
 	}
 
 }

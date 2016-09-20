@@ -59,6 +59,7 @@ $route['edit-request-modal/(:any)'] = "approvals/edit_request_modal/$1";
 
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";
+$route['approvals/delete_suggest_edit'] = "approvals/delete_suggest_edit";
 
 $route['approvals/change_comment_status'] = "approvals/change_comment_status";
 $route['approvals/get_approvals_by_date'] = "approvals/get_approvals_by_date";

@@ -95,7 +95,7 @@ class Settings extends CI_Controller {
 
 			if($step_number == 3 ){
 				$this->data['groups'] = $this->aauth->list_groups();
-				$this->data['added_users'] = $this->brand_model->get_brand_users($brand[0]->id);
+				$this->data['added_users'] = $this->brand_model->get_brand_users($brand[0]->id);				
 				$this->data['all_users'] = $this->brand_model->get_all_users($this->user_data['account_id']);
 
 				$current_brand_users = $this->timeframe_model->get_data_array_by_condition('brand_user_map',array('brand_id' => $brand[0]->id),'access_user_id');
@@ -103,6 +103,17 @@ class Settings extends CI_Controller {
 				$brands_users = [];
 				if(!empty($current_brand_users))
 					$brands_users = array_column($current_brand_users,'access_user_id');
+
+				$brand_account_users = $this->brand_model->get_all_account_user_ids();
+
+				if(!empty($brands_users))
+				{
+					$brands_users = array_merge($brands_users,$brand_master_users);
+				}
+				else
+				{
+					$brands_users = $brand_account_users;
+				}
 
 				$this->data['users'] = $this->brand_model->get_users_sub_users($this->user_id,$brand[0]->id,$brands_users);
 								
@@ -184,6 +195,7 @@ class Settings extends CI_Controller {
         		if(!empty($post_data['outlets']))
         		{
         			$new_selected_outlets = explode(',', $post_data['outlets']);
+        			$new_selected_outlets = array_unique($new_selected_outlets);
         		}
         		
         		$outlets_to_add = $new_selected_outlets;

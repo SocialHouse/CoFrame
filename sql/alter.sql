@@ -470,3 +470,6 @@ ALTER TABLE `co_create_requests` ADD `account_id` INT NOT NULL AFTER `user_id`;
 
 ---13-09-2016
 ALTER TABLE `reminders` CHANGE `post_id` `post_id` INT(11) NULL;
+
+---20-09-2016
+ALTER TABLE `post_comments` ADD FOREIGN KEY (`parent_id`) REFERENCES `timeframe`.`post_comments`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;

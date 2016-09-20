@@ -213,4 +213,8 @@
 	$lang['tumblr_change_img_audio_error'] = "please delete images or audio and then switch to %Content_type%";
 	$lang['tumblr_change_audio_video_error'] = "please delete audio or video and then switch to %Content_type%";
 
+
+	$lang['suggesion_delete_confirm'] = "Are you sure you want to delete this comment?";
+	$lang['suggesion_unable_delete'] = "Unable to delete comment please try again";
+
 ?>

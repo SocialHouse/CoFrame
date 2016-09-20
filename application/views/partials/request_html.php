@@ -9,11 +9,21 @@ if(!empty($comment))
 	}
 
 	?>
-	<li>
+	<li class="comment-section">
 		<div class="author clearfix">
 			<img class="circle-img pull-sm-left" width="36"  height="36" src="<?php echo $path; ?>"  alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>">
 			<div class="author-meta pull-sm-left">
-				<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
+				<?php 
+				echo ucfirst($comment->first_name).' '.$comment->last_name; 
+				if($comment->user_id == $this->user_id)
+				{
+					?>
+					<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">
+					<i class="fa fa-trash-o"></i>
+					</a>
+					<?php
+				}
+				?>
 				<span class="dateline">Now</span>
 			</div>
 		</div>		
@@ -32,6 +42,9 @@ if(!empty($comment))
 				<?php
 			}
 			?>
+			<div class="comment-btns">
+				<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
+			</div>
 		</div>
 	</li>
 	<?php

@@ -253,6 +253,7 @@ class Post_model extends CI_Model
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
 		$this->db->where('posts.brand_id',$brand_id);
 		$this->db->where('posts.status != "deleted"');
+		$this->db->where('posts.status != "draft"');
 		if(get_user_groups($this->user_id,$brand_id) == 'Creator')
 		{
 			$this->db->where('posts.user_id',$this->user_id);

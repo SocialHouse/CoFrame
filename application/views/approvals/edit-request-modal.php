@@ -93,6 +93,17 @@
 					$shown_anch = 'false';
 					foreach ($phase as $ph_number => $phs) 
 					{
+						$approver_status = '';
+						$phase_status = '';
+						foreach($phs['phase_users'] as $phase_data)
+						{
+							if($phase_data->aauth_user_id == $this->user_id)
+							{
+								$approver_status = $phase_data->status;
+								$phase_status = $phase_data->phase_status;
+							}
+						}
+
 						if($phs['phase_users'][0]->phase_status == 'approved'){
 							if($len = 1){
 								$cls = 'active';	
@@ -116,8 +127,14 @@
 								<?php 
 								if($cls =='active')
 								{
-									?>
-									Phase <?php echo $ph_number ; ?>
+									if(empty($phase_status))
+									{
+										?>
+										Phase 
+										<?php 
+										echo $ph_number ; 
+									}
+									?>									
 									<i class="fa fa-angle-down"></i> 
 									<?php
 								}
@@ -125,8 +142,14 @@
 								{
 									if($shown_anch =='false')
 									{
+										if(empty($phase_status))
+										{
+											?>
+											Phase 
+											<?php 
+											echo $ph_number;
+										}
 										?>
-										Phase <?php echo $ph_number ; ?>
 										<i class="fa fa-angle-right"></i>
 										<button class="btn btn-xs btn-default btn-disabled pull-sm-right ">Finished</button>
 										<?php
@@ -136,7 +159,15 @@
 
 										?>
 										<a title="Edit Phase" class="toggleActive" href="#approvalPhase<?php echo $ph_number ; ?>">
-											Phase <?php echo $ph_number ; ?>
+											<?php
+											if(empty($phase_status))
+											{
+												?>
+												Phase 
+												<?php 
+												echo $ph_number;
+											}
+											?>
 											<i class="fa fa-angle-right"></i>
 										</a>
 										<?php
@@ -206,14 +237,25 @@
 														$path = upload_url().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png';
 													}
 													?>
-													<li>
+													<li class="comment-section">
 														<div class="author clearfix">
 															<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" >
 															<div class="author-meta pull-sm-left">
-																<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>
+																<?php 
+																echo ucfirst($comment->first_name).' '.$comment->last_name; 
+																if($comment->user_id == $this->user_id)
+																{
+																	?>
+																	<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">
+																	<i class="fa fa-trash-o"></i>
+																	</a>
+																	<?php
+																}
+																?>
 																<span class="dateline">
 																	<?php echo relative_date(strtotime($comment->created_at)); ?>
 																</span>
+
 															</div>
 														</div>
 														<?php
@@ -242,14 +284,14 @@
 															?>
 															<?php 
 
-															if($comment->user_id != $this->user_id)
-															{
+															// if($comment->user_id != $this->user_id)
+															// {
 																?>
 																<div class="comment-btns">
 																	<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
 																</div>
 																<?php 
-															}
+															// }
 															?>
 
 															<?php
@@ -332,17 +374,6 @@
 								<footer class="post-content-footer text-xs-center">
 									<div class="d-inline-block">
 										<?php
-										$approver_status = '';
-										$phase_status = '';
-										foreach($phs['phase_users'] as $phase_data)
-										{
-											if($phase_data->aauth_user_id == $this->user_id)
-											{
-												$approver_status = $phase_data->status;
-												$phase_status = $phase_data->phase_status;
-											}
-										}
-
 										if(!empty($approver_status)){
 											if($approver_status == 'approved')
 											{

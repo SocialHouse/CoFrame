@@ -17,6 +17,8 @@ class Approval_model extends CI_Model
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
 			$this->db->where('posts.status !=','posted');
+			$this->db->where('posts.status !=','deleted');
+			$this->db->where('posts.status !=','draft');
 
 			if(!empty($date))
 			{
@@ -48,6 +50,8 @@ class Approval_model extends CI_Model
 				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) = "'.date("m-d-Y",strtotime($date)).'"');
 			}
 			$this->db->where('posts.status !=','approved');
+			$this->db->where('posts.status !=','deleted');
+			$this->db->where('posts.status !=','draft');
 			$this->db->where('phases_approver.user_id',$user_id);
 			$this->db->order_by('slate_date_time','ASC');
 			$query = $this->db->get('phases');		
