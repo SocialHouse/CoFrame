@@ -21,6 +21,7 @@ if(!empty($comment))
 					<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">
 					<i class="fa fa-trash-o"></i>
 					</a>
+					<a data-id="<?php echo $comment->id; ?>" class="pull-right edit-suggest" href="javascript:;"><i class="fa fa-pencil"></i></a>
 					<?php
 				}
 				?>
@@ -28,20 +29,50 @@ if(!empty($comment))
 			</div>
 		</div>		
 		<div class="comment">
-			<p><?php echo $comment->comment; ?></p>
-			<?php
-			if(!empty($comment->media))
-			{
-				?>
-				<div class="comment-asset">
-					<a download="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" href="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" title="Download Asset">
-						<i class="tf-icon-download"></i>
-						<img src="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
-					</a>
-				</div>
+			<div class="comment_view<?php echo $comment->id; ?>">
+				<p class="text"><?php echo $comment->comment; ?></p>
 				<?php
-			}
-			?>
+				if(!empty($comment->media))
+				{
+					?>
+					<div class="comment-asset">
+						<a download="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" href="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" title="Download Asset">
+							<i class="tf-icon-download"></i>
+							<img src="<?php echo upload_url().$brand_owner.'/brands/'.$brand_id.'/requests/'.$comment->media ?>" width="60" height="60" alt=""/>
+						</a>
+					</div>
+					<?php
+				}
+				?>				
+			</div>
+			<div class="hide edit_suggest_form<?php echo $comment->id; ?> suggest-edit" data-state="hide">
+				<div class="form-group">
+					<input type="hidden" id="suggestId<?php echo $comment->id; ?>">
+					<textarea id="comment_copy" class="form-control suggestTect<?php echo $comment->id; ?>"><?php echo $comment->comment; ?></textarea>
+				</div>
+				<div class="form-group clearfix">
+					<div class="attachment pull-sm-left">
+						<input type="file" class="hidden attachment_image" name="replay-attachment">
+						<button class="btn-icon add-attachment" title="Add Attachment">
+							<i class="fa fa-paperclip"></i>
+						</button>
+						<?php
+						$media_class = 'hide';
+						if(!empty($comment->media))
+						{
+							$media_class = '';
+						}
+						?>
+						<img width="30" height="30" class="base-64-img <?php echo $media_class; ?>">
+						<a class="remove-attached-img <?php echo $media_class; ?>" href="#">
+							<i class="tf-icon-circle remove-upload">x</i>
+						</a>
+					</div>
+					<div class="pull-sm-right">			
+						<button data-id="<?php echo $comment->id; ?>" data-phase-id="64" class="btn btn-secondary btn-sm save-edit-req" type="button" data-parent-id="43">Submit</button>
+					</div>
+				</div>
+			</div>
 			<div class="comment-btns">
 				<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
 			</div>

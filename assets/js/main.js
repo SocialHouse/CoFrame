@@ -1761,6 +1761,8 @@ jQuery(function($) {
 			 					$('.phases-div').remove();
 			 					$('.modal-backdrop').remove();
 								$( ".insert_after" ).after(response.html);
+								
+								$btn.parent().find('.close-phase-modal').click();
 								addIncrements();
 								qtipEqualColumns();
 			 				} else {

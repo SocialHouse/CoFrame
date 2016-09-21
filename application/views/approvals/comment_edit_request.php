@@ -23,6 +23,7 @@ foreach ($replies as $key => $obj) {
 						<a data-id="<?php echo $obj->id; ?>" class="pull-right delete-suggest" href="javascript:;">
 						<i class="fa fa-trash-o"></i>
 						</a>
+						<a data-id="<?php echo $obj->id; ?>" class="pull-right edit-suggest" href="javascript:;"><i class="fa fa-pencil"></i></a>
 						<?php
 					}
 					?>	
@@ -38,30 +39,54 @@ foreach ($replies as $key => $obj) {
 				}
 			?>	
 			<div class="comment <?php echo $cmt_cls; ?>">
-				<p><?php echo $obj->comment; ?></p>
-				<?php
-				if(!empty($obj->media))
-				{
-					?>
-					<div class="comment-asset">
-						<a download="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" title="Download Asset">
-							<i class="tf-icon-download"></i>
-							<img  width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>"/>
-						</a>
-					</div>
+				<div class="comment_view<?php echo $obj->id; ?>">
+					<p class="text"><?php echo $obj->comment; ?></p>
 					<?php
-				}
-				?>
-				<?php 
-				// if($obj->user_id != $this->user_id)
-				// {
-					?>
-					<div class="comment-btns">
-						<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $obj->id; ?>">Reply</a>
+					if(!empty($obj->media))
+					{
+						?>
+						<div class="comment-asset">
+							<a download="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media; ?>" title="Download Asset">
+								<i class="tf-icon-download"></i>
+								<img  width="60" height="60" alt="" src="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$obj->media ?>"/>
+							</a>
+						</div>
+						<?php
+					}
+					?>		
+				</div>
+				<div class="hide edit_suggest_form<?php echo $obj->id; ?> suggest-edit" data-state="hide">
+					<div class="form-group">
+						<input type="hidden" id="suggestId<?php echo $obj->id; ?>">
+						<textarea id="comment_copy" class="form-control suggestTect<?php echo $obj->id; ?>"><?php echo $obj->comment; ?></textarea>
 					</div>
-					<?php 
-				// }
-				?>
+					<div class="form-group clearfix">
+						<div class="attachment pull-sm-left">
+							<input type="file" class="hidden attachment_image" name="replay-attachment">
+							<button class="btn-icon add-attachment" title="Add Attachment">
+								<i class="fa fa-paperclip"></i>
+							</button>
+							<?php
+							$media_class = 'hide';
+							if(!empty($obj->media))
+							{
+								$media_class = '';
+							}
+							?>
+							<img width="30" height="30" class="base-64-img <?php echo $media_class; ?>">
+							<a class="remove-attached-img <?php echo $media_class; ?>" href="#">
+								<i class="tf-icon-circle remove-upload">x</i>
+							</a>
+						</div>
+						<div class="pull-sm-right">			
+							<button data-id="<?php echo $obj->id; ?>" data-phase-id="64" class="btn btn-secondary btn-sm save-edit-req" type="button" data-parent-id="43">Submit</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="comment-btns">
+					<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $obj->id; ?>">Reply</a>
+				</div>
 				<?php
 				if(!empty($obj->replies)){
 					$data['replies'] = $obj->replies;

@@ -790,7 +790,7 @@ if(!function_exists('relative_date'))
             else
             {
                 $reldays = abs(floor($reldays));
-                return $reldays.' day'.($reldays != 1 ? 's' : '').' ago at date ' . date('g:i a', $time);
+                return $reldays.' day'.($reldays != 1 ? 's' : '').' ago on '.date('Y-m-d', $time).' at ' . date('g:i a', $time);
             }
         }
 

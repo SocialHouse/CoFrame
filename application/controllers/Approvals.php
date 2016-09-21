@@ -111,6 +111,10 @@ class Approvals extends CI_Controller {
 					$this->data['js_files'] = array(js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'view-n-edit-request.js?ver=1.0.0',js_url().'custom_validation.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0');
 			        _render_view($this->data);
 			    }
+			    else
+			    {
+			    	redirect(base_url().'approvals/'.$this->data['post_details']->slug);
+			    }
 		    }
 		}else{
 			// show_404();
@@ -154,7 +158,7 @@ class Approvals extends CI_Controller {
 
 		    	$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'user_id,brand_id,slate_date_time,outlet_id');
 
-		    	if(isset($post_data['parent_id']))
+		    	if(isset($post_data['parent_id']) AND !isset($post_data['suggest_id']))
 		    	{
 		    		$parent_data = array(
 		    				'parent_id' => $post_data['parent_id']
@@ -178,7 +182,7 @@ class Approvals extends CI_Controller {
 		    	}
 		    	else
 		    	{
-		    		if($this->user_id != $post[0]->user_id)
+		    		if($this->user_id != $post[0]->user_id AND !isset($post_data['suggest_id']))
 		    		{
 			    		$reminder_data = array(
 					    				'type' => 'reminder',
@@ -197,7 +201,19 @@ class Approvals extends CI_Controller {
 		    		$this->timeframe_model->insert_data('reminders',$reminder_data);
 		    	}
 
-		    	$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
+		    	if(isset($post_data['suggest_id']) AND !empty($post_data['suggest_id']))
+		    	{
+		    		if(isset($post_data['remove_img']))
+		    		{
+		    			$request_data['media'] = '';
+		    		}
+		    		$this->timeframe_model->update_data('post_comments',$request_data,array('id' => $post_data['suggest_id']));
+		    		$inserted_id = $post_data['suggest_id'];
+		    	}
+		    	else
+		    	{
+		    		$inserted_id = $this->timeframe_model->insert_data('post_comments',$request_data);
+		    	}
 
 		    	$this->data['comment'] = $this->approval_model->get_comment($inserted_id);
 
@@ -205,7 +221,19 @@ class Approvals extends CI_Controller {
 		    	$this->data['post_id'] = $post_data['post_id'];
 		    	$this->data['brand_id'] = $post_data['brand_id'];
 
-		    	$response_html = $this->load->view('partials/request_html',$this->data,true);
+		    	if(isset($post_data['suggest_id']) AND !empty($post_data['suggest_id']))
+		    	{
+		    		$response_html = '<p class="text">'.$this->data['comment']->comment.'</p>';
+		    		if(!empty($this->data['comment']->media))
+		    		{
+			    		$response_html .= '<div class="comment-asset">';
+			    		$response_html .= '<a title="Download Asset" href="'.upload_url().$this->user_data['account_id'].'/brands/'.$post[0]->brand_id.'/requests/'.$this->data['comment']->media.'" download="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post[0]->brand_id.'/requests/'.$this->data['comment']->media.'" title="Download Asset"><i class="tf-icon-download"></i> <img width="60" height="60" alt="" src="'.upload_url().$this->user_data['account_id'].'/brands/'.$post[0]->brand_id.'/requests/'.$this->data['comment']->media.'" /></div>';
+			    	}
+		    	}
+		    	else
+		    	{
+		    		$response_html = $this->load->view('partials/request_html',$this->data,true);
+		    	}
 		    	echo json_encode(array('response' => 'success','html' => $response_html));
 		    }
 		    else
@@ -291,7 +319,7 @@ class Approvals extends CI_Controller {
 		$this->data['post_id'] = $post_id;
 		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
-		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
+		$this->data['phase_details'] = $this->post_model->get_phase($phase_id);
 
 		if( $this->uri->segment(5) == 'edit')
 		{
@@ -387,7 +415,7 @@ class Approvals extends CI_Controller {
 	public function phase_user_list($phase_id)
 	{
 		$this->data['phase_users'] = $this->approval_model->get_phase_users($phase_id);
-		$this->data['phase_details'] = $this->phase_model->get_phase($phase_id);
+		$this->data['phase_details'] = $this->post_model->get_phase($phase_id);
 		$brand_id = $this->data['phase_details']->brand_id;
 		$this->data['brand_id'] = $brand_id;
 		$this->data['users'] = $this->brand_model->get_approvers($brand_id);

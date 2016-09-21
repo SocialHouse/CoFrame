@@ -108,7 +108,7 @@ class Settings extends CI_Controller {
 
 				if(!empty($brands_users))
 				{
-					$brands_users = array_merge($brands_users,$brand_master_users);
+					$brands_users = array_merge($brands_users,$brand_account_users);
 				}
 				else
 				{

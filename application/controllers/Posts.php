@@ -1043,7 +1043,6 @@ class Posts extends CI_Controller {
 		if($phase_id)
 		{
 			$phase_data = $this->post_model->get_phase($phase_id);
-			//echo '<pre>'; print_r($phase_data);echo '</pre>'; die;
 			if(!empty($phase_data))
 			{
 				//delete phase
@@ -1053,7 +1052,8 @@ class Posts extends CI_Controller {
 				//delete users in phase
 				$condition = array('phase_id' => $phase_data->id);
 				$this->timeframe_model->delete_data('phases_approver',$condition);
-
+				//delete phase reminders
+				$this->timeframe_model->delete_data('reminders',$condition);
 				$condition = array(
 								'phase >' => $phase_data->phase,
 								'brand_id' => $phase_data->brand_id

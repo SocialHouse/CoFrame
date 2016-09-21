@@ -206,72 +206,75 @@
 														<a href="#" class="remove-attached-img hide">
 															<i class="tf-icon-circle remove-upload">x</i>
 														</a>
-													</div>
-													<div class="pull-sm-right">
-														<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-														<?php 
-														if(!empty($phs['phase_users'][0]->id)){
-															$ph_id = $phs['phase_users'][0]->id;
-														}else{
-															$ph_id = 1;
-														}
-														?>
-														<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php echo $ph_id ;?>" disabled="disabled">Submit</button>
-													</div>
+												</div>
+												<div class="pull-sm-right">
+													<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
+													<?php 
+													if(!empty($phs['phase_users'][0]->id)){
+														$ph_id = $phs['phase_users'][0]->id;
+													}else{
+														$ph_id = 1;
+													}
+													?>
+													<button type="button" class="btn btn-secondary btn-sm btn-disabled save-edit-req" data-phase-id="<?php echo $ph_id ;?>" disabled="disabled">Submit</button>
 												</div>
 											</div>
 										</div>
-										<!-- Suggest an Edit Start -->
+									</div>
+									<!-- Suggest an Edit Start -->
 
-										<!-- Display Comments End -->
-										<ul class="timeframe-list comment-list clearfix">
-											<?php
-											if(!empty($phs['phase_comments']))
+									<!-- Display Comments End -->
+									<ul class="timeframe-list comment-list clearfix">
+										<?php
+										if(!empty($phs['phase_comments']))
+										{
+											foreach($phs['phase_comments'] as $key => $comment)
 											{
-												foreach($phs['phase_comments'] as $key => $comment)
-												{
-													$path = img_url()."default_profile.jpg";
+												$path = img_url()."default_profile.jpg";
 
-													if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png'))
+												if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png'))
+												{
+													$path = upload_url().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png';
+												}
+												?>
+												<li class="comment-section">
+													<div class="author clearfix">
+														<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" >
+														<div class="author-meta pull-sm-left">
+															<?php 
+															echo ucfirst($comment->first_name).' '.$comment->last_name; 
+															if($comment->user_id == $this->user_id)
+															{
+																?>
+																<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">
+																<i class="fa fa-trash-o"></i>
+																</a>
+																<a data-id="<?php echo $comment->id; ?>" class="pull-right edit-suggest" href="javascript:;"><i class="fa fa-pencil"></i></a>
+																<?php
+															}
+															?>
+															<span class="dateline">
+																<?php echo relative_date(strtotime($comment->created_at)); ?>
+															</span>
+														</div>															
+													</div>
+													<?php
+													$class = "";
+													$replies = get_comment_reply($comment->id);
+													if($replies)
 													{
-														$path = upload_url().$this->user_data['img_folder'].'/users/'.$comment->user_id.'.png';
+														$class = " has-reply";
 													}
 													?>
-													<li class="comment-section">
-														<div class="author clearfix">
-															<img class="circle-img pull-sm-left" src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo ucfirst($comment->first_name).' '.$comment->last_name; ?>" >
-															<div class="author-meta pull-sm-left">
-																<?php 
-																echo ucfirst($comment->first_name).' '.$comment->last_name; 
-																if($comment->user_id == $this->user_id)
-																{
-																	?>
-																	<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">
-																	<i class="fa fa-trash-o"></i>
-																	</a>
-																	<?php
-																}
-																?>
-																<span class="dateline">
-																	<?php echo relative_date(strtotime($comment->created_at)); ?>
-																</span>
 
-															</div>
-														</div>
-														<?php
-														$class = "";
-														$replies = get_comment_reply($comment->id);
-														if($replies)
-														{
-															$class = " has-reply";
-														}
-														?>
-
-														<div class="comment<?php echo $class; ?>">
-															<p><?php echo $comment->comment; ?></p>
+													<div class="comment<?php echo $class; ?>">
+														<div class="comment_view<?php echo $comment->id; ?>">
+															<p class="text"><?php echo $comment->comment; ?></p>
 															<?php
+															$media = 0;
 															if(!empty($comment->media))
 															{
+																$media = 1;
 																?>
 																<div class="comment-asset">
 																	<a target="_blank" download="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" href="<?php echo upload_url().$this->user_data['account_id'].'/brands/'.$brand->id.'/requests/'.$comment->media ?>" title="Download Asset">
@@ -282,229 +285,248 @@
 																<?php
 															}
 															?>
-															<?php 
-
-															// if($comment->user_id != $this->user_id)
-															// {
-																?>
-																<div class="comment-btns">
-																	<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
-																</div>
-																<?php 
-															// }
-															?>
-
-															<?php
-														//echo '<pre>'; print_r($replays);echo '</pre>'; 
-															if($replies)
-															{
-																$data['replies'] = $replies;
-																$this->load->view('approvals/comment_edit_request' , $data);
-															}
-															?>
 														</div>
-													</li>
-													<?php
-												}
-											}
-											?>
-										</ul>
-										<!-- Display Comments End -->
-									</div>
-									<!-- Comments End-->
-
-									<!-- Pending Approvals Start-->
-									<div class="col-md-4 bg-gray-lightest equal-section container-view-approvals">
-										<h5>Pending Approvals:</h5>
-										<ul class="timeframe-list user-list approval-list  clearfix">
-											<?php
-											$is_any_pending_approval = false;
-											foreach ($phs['phase_users']as $key => $user) {				
-												if( $user->status != 'approved')
-												{
-													$is_any_pending_approval = true;
-													?>
-													<li class="pull-sm-left">
+														<div class="hide edit_suggest_form<?php echo $comment->id; ?> suggest-edit" data-state="hide">
+															<div class="form-group">
+																<input type="hidden" id="suggestId<?php echo $comment->id; ?>">
+																<textarea id="comment_copy" class="form-control suggestTect<?php echo $comment->id; ?>"><?php echo $comment->comment; ?></textarea>
+															</div>
+															<div class="form-group clearfix">
+																<div class="attachment pull-sm-left">
+																	<input type="file" class="hidden attachment_image" name="replay-attachment">
+																	<button class="btn-icon add-attachment" title="Add Attachment">
+																		<i class="fa fa-paperclip"></i>
+																	</button>
+																	<?php
+																	$media_class = 'hide';
+																	if($media == 1)
+																	{
+																		$media_class = '';
+																	}
+																	?>
+																	<img width="30" height="30" class="base-64-img <?php echo $media_class; ?>">
+																	<a class="remove-attached-img <?php echo $media_class; ?>" href="#">
+																		<i class="tf-icon-circle remove-upload">x</i>
+																	</a>
+																</div>
+																<div class="pull-sm-right">			
+																	<button data-id="<?php echo $comment->id; ?>" data-phase-id="64" class="btn btn-secondary btn-sm save-edit-req" type="button" data-parent-id="43">Submit</button>
+																</div>
+															</div>
+														</div>															
+														<div class="comment-btns">
+															<a href="#" class="reply-link show-hide-reply" data-show="#commentReply_<?php echo $comment->id; ?>">Reply</a>
+														</div>
 														<?php
-														if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
-															echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" />';
-														}else{
-															echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'">';
+														if($replies)
+														{
+															$data['replies'] = $replies;
+															$this->load->view('approvals/comment_edit_request' , $data);
 														}
 														?>
-													</li>
-													<?php
-												}
+													</div>
+												</li>
+												<?php
 											}
-											if(!$is_any_pending_approval){
+										}
+										?>
+									</ul>
+									<!-- Display Comments End -->
+								</div>
+								<!-- Comments End-->
 
-												echo '<li class="pull-sm-left"><span class="btn btn-default color-success btn-xs">Complete</span></li>';
+								<!-- Pending Approvals Start-->
+								<div class="col-md-4 bg-gray-lightest equal-section container-view-approvals">
+									<h5>Pending Approvals:</h5>
+									<ul class="timeframe-list user-list approval-list  clearfix">
+										<?php
+										$is_any_pending_approval = false;
+										foreach ($phs['phase_users']as $key => $user) {				
+											if( $user->status != 'approved')
+											{
+												$is_any_pending_approval = true;
+												?>
+												<li class="pull-sm-left">
+													<?php
+													if (file_exists(upload_path().$user->img_folder.'/users/'.$user->aauth_user_id.'.png')) {
+														echo '<img src="'.upload_url().$user->img_folder.'/users/'.$user->aauth_user_id.'.png" class="circle-img pull-sm-left" width="36" height="36" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" />';
+													}else{
+														echo '<img class="circle-img pull-sm-left" width="36" height="36" src="'.img_url().'default_profile.jpg" alt="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'" data-toggle="popover-hover" data-content="'.ucfirst($user->first_name).' '.ucfirst($user->last_name).'">';
+													}
+													?>
+												</li>
+												<?php
 											}
-											?>
-										</ul>
-										<div class="approval-date">
-											<h5>Must approve by:</h5>
-											<?php echo date('m/d/Y \a\t h:i A' , strtotime($phs['phase_users'][0]->approve_by)); ?>
+										}
+										if(!$is_any_pending_approval){
+
+											echo '<li class="pull-sm-left"><span class="btn btn-default color-success btn-xs">Complete</span></li>';
+										}
+										?>
+									</ul>
+									<div class="approval-date">
+										<h5>Must approve by:</h5>
+										<?php echo date('m/d/Y \a\t h:i A' , strtotime($phs['phase_users'][0]->approve_by)); ?>
+									</div>
+									<?php 
+									if(!empty( $phs['phase_users'][0]->note))
+									{
+										?>
+										<div class="approval-note">
+											<h5>Notes:</h5>
+											<?php echo $phs['phase_users'][0]->note; ?>
 										</div>
-										<?php 
-										if(!empty( $phs['phase_users'][0]->note))
+										<?php
+									}
+									?>
+									<?php
+									if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
+									{
+										?>
+										<footer class="post-content-footer text-xs-center">
+											<a href="#" class="btn btn-default btn-sm" data-modal-id="edit-approval-phase-modal" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
+										</footer>
+										<?php
+									}
+									?>
+								</div>
+								<!-- Pending Approvals End -->
+
+							</div>
+							<footer class="post-content-footer text-xs-center">
+								<div class="d-inline-block">
+									<?php
+									if(!empty($approver_status)){
+										if($approver_status == 'approved')
 										{
 											?>
-											<div class="approval-note">
-												<h5>Notes:</h5>
-												<?php echo $phs['phase_users'][0]->note; ?>
+											<div class="before-approve post-actions pull-sm-left">
+												<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
+												<?php
+												if($phase_status == 'pending' && $post_details->status == 'pending')
+												{
+													?>
+													<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
+													<?php
+												}
+												?>
+											</div>
+
+											<div class="after-approve hide">
+												<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+											</div>
+
+											<?php
+										}
+										elseif($approver_status == 'pending')
+										{
+											?>
+											<div class="before-approve pull-sm-left ">
+												<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
+											</div>
+											<div class="after-approve post-actions pull-sm-left hide">
+												<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
+												<br/>
+												<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
 											</div>
 											<?php
 										}
-										?>
-										<?php
-										if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
-										{
-											?>
-											<footer class="post-content-footer text-xs-center">
-												<a href="#" class="btn btn-default btn-sm" data-modal-id="edit-approval-phase-modal" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
-											</footer>
-											<?php
-										}
-										?>
-									</div>
-									<!-- Pending Approvals End -->
+									}
 
+									if(($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && $this->user_data['user_group'] == "Master Admin")) && $len > 1)
+									{
+										?>
+										<a href="#" class="btn btn-secondary btn-md finish_phase"  data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
+										<?php
+									}
+									?>
 								</div>
-								<footer class="post-content-footer text-xs-center">
-									<div class="d-inline-block">
-										<?php
-										if(!empty($approver_status)){
-											if($approver_status == 'approved')
-											{
-												?>
-												<div class="before-approve post-actions pull-sm-left">
-													<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
-													<?php
-													if($phase_status == 'pending' && $post_details->status == 'pending')
-													{
-														?>
-														<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending">Undo</a>
-														<?php
-													}
-													?>
-												</div>
-
-												<div class="after-approve hide">
-													<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
-												</div>
-
-												<?php
-											}
-											elseif($approver_status == 'pending')
-											{
-												?>
-												<div class="before-approve pull-sm-left ">
-													<a href="#" class="btn btn-default color-success btn-md change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="approved">Approve</a>
-												</div>
-												<div class="after-approve post-actions pull-sm-left hide">
-													<a href="#" class="btn btn-secondary btn-md btn-disabled">Approved</a>
-													<br/>
-													<a href="#" class="change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" data-phase-status="pending" >Undo</a>
-												</div>
-												<?php
-											}
-										}
-
-										if(($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && $this->user_data['user_group'] == "Master Admin")) && $len > 1)
-										{
-											?>
-											<a href="#" class="btn btn-secondary btn-md finish_phase"  data-phase-number="<?php echo $ph_number ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" >Finish Phase <?php echo $ph_number ?></a>
-											<?php
-										}
-										?>
-									</div>
-								</footer>
+							</footer>
+						</div>
+						<?php
+				// }
+						$i++;
+					}
+					?>
+				</div>
+				<footer class="post-content-footer text-xs-right">
+					<?php 
+					if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && ($this->user_data['user_group'] == "Master Admin" OR $this->user_data['user_group'] == "Manager")))
+					{
+						if($post_details->status == 'scheduled' )
+						{
+							?>
+							<div class="before-approve post-actions">
+								<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+								<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>"  data-phase-status="unschedule" href="#">Undo</a>
+							</div>
+							<div class="after-approve hide">
+								<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
 							</div>
 							<?php
-					// }
-							$i++;
 						}
-						?>
-					</div>
-					<footer class="post-content-footer text-xs-right">
-						<?php 
-						if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && ($this->user_data['user_group'] == "Master Admin" OR $this->user_data['user_group'] == "Manager")))
+						else
 						{
-							if($post_details->status == 'scheduled' )
-							{
-								?>
-								<div class="before-approve post-actions">
-									<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
-									<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>"  data-phase-status="unschedule" href="#">Undo</a>
-								</div>
-								<div class="after-approve hide">
-									<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
-								</div>
-								<?php
-							}
-							else
-							{
-								?>
-								<div class="before-approve hide post-actions">
-									<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
-									<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
-								</div>
-								<div class="after-approve">
-									<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
-								</div>
-								<?php
-							}
-							if($post_details->status != 'posted')
-							{
-								?>
-								<a href="#" data-target="#postNow" data-toggle="modal" data-append="body" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm pull-sm-right">Post Now</a>
-								<?php
-							}
+							?>
+							<div class="before-approve hide post-actions">
+								<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+								<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
+							</div>
+							<div class="after-approve">
+								<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
+							</div>
+							<?php
 						}
-						?>
-					</footer>
-				</div>
+						if($post_details->status != 'posted')
+						{
+							?>
+							<a href="#" data-target="#postNow" data-toggle="modal" data-append="body" data-post-id="<?php echo $post_id; ?>" class="btn btn-secondary btn-sm pull-sm-right">Post Now</a>
+							<?php
+						}
+					}
+					?>
+				</footer>
 			</div>
 		</div>
+	</div>
 
-		<div id="commentReplyStatic">
-			<ul class="commentReply emptyCommentReply timeframe-list hide">
-				<li class="comment-section">
-					<div class="author clearfix">
-						<?php
-						$path = img_url()."default_profile.jpg";
+	<div id="commentReplyStatic">
+		<ul class="commentReply emptyCommentReply timeframe-list hide">
+			<li class="comment-section">
+				<div class="author clearfix">
+					<?php
+					$path = img_url()."default_profile.jpg";
 
-						if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
-						{
-							$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
-						}
-						?>
-						<img class="circle-img pull-sm-left" width="36" height="36" src="<?php echo $path; ?>">
+					if (file_exists(upload_path().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png'))
+					{
+						$path = upload_url().$this->user_data['img_folder'].'/users/'.$this->user_id.'.png';
+					}
+					?>
+					<img class="circle-img pull-sm-left" width="36" height="36" src="<?php echo $path; ?>">
 
-						<div class="author-meta pull-sm-left">
-							<?php echo $this->user_data["first_name"] .' '.$this->user_data["last_name"]; ?>
-							<span class="dateline">Reply to request</span>
-						</div>
+					<div class="author-meta pull-sm-left">
+						<?php echo $this->user_data["first_name"] .' '.$this->user_data["last_name"]; ?>
+						<span class="dateline">Reply to request</span>
 					</div>
-					<div class="form-group">
-						<textarea class="form-control" rows="2" name="comment" id="reply_comment_copy" placeholder="Suggest an edit here..."></textarea>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control" rows="2" name="comment" id="reply_comment_copy" placeholder="Suggest an edit here..."></textarea>
+				</div>
+				<div class="form-group clearfix">
+					<div class="attachment pull-sm-left">
+						<input type="file" name="replay-attachment" class="hidden attachment_image">
+						<button title="Add Attachment" class="btn-icon add-attachment">
+							<i class="fa fa-paperclip"></i></button>
+							<img class="base-64-img hide" height="30" width="30" >
+							<a href="#" class="remove-attached-img hide">
+								<i class="tf-icon-circle remove-upload">x</i>
+							</a>
 					</div>
-					<div class="form-group clearfix">
-						<div class="attachment pull-sm-left">
-							<input type="file" name="replay-attachment" class="hidden attachment_image">
-							<button title="Add Attachment" class="btn-icon add-attachment">
-								<i class="fa fa-paperclip"></i></button>
-								<img class="base-64-img hide" height="30" width="30" >
-								<a href="#" class="remove-attached-img hide">
-									<i class="tf-icon-circle remove-upload">x</i>
-								</a>
-							</div>
-							<div class="pull-sm-right">
-								<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
-								<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" disabled="disabled">Submit</button>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
+					<div class="pull-sm-right">
+						<button type="button" class="btn btn-default btn-sm reset-edit-request">Clear</button>
+						<button type="button" class="btn btn-secondary btn-sm btn-disabled reply-comment-submit" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" disabled="disabled">Submit</button>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>

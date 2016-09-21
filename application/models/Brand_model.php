@@ -362,18 +362,17 @@ class Brand_model extends CI_Model
         $this->db->where('aauth_groups.name','Billing');
         $this->db->group_end();
         $query = $this->db->get('aauth_user_to_group');
-
+        $master_users = [];
         if($query->num_rows() > 0)
         {
            	$master_users = $query->result_array();
            	if(!empty($master_users))
            	{
            		$master_users = array_column($master_users,'aauth_user_id');
-           	}
-           	array_push($master_users,$this->user_data['account_id']);
-           	return $master_users;
+           	}           
         }
-        return 1;
+    	array_push($master_users,$this->user_data['account_id']);
+       	return $master_users;
 	}
 
 	function get_brand_wise_tags()
