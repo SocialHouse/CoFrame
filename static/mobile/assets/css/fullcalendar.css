@@ -1454,53 +1454,53 @@ be a descendant of the grid when it is being dragged.
 }
 
 /* line 1270, ../sass/fullcalendar.scss */
-.calendar-summary, .calendar-select-date, .archive-calendar {
+.calendar-summary, .calendar-select-date {
   padding: 1.375rem;
   height: 100%;
 }
 /* line 1273, ../sass/fullcalendar.scss */
-.calendar-summary .fc-head, .calendar-select-date .fc-head, .archive-calendar .fc-head {
+.calendar-summary .fc-head, .calendar-select-date .fc-head {
   border-bottom: 1px solid #666666;
 }
 /* line 1276, ../sass/fullcalendar.scss */
-.calendar-summary .fc th, .calendar-summary .fc td, .calendar-select-date .fc th, .calendar-select-date .fc td, .archive-calendar .fc th, .archive-calendar .fc td {
+.calendar-summary .fc th, .calendar-summary .fc td, .calendar-select-date .fc th, .calendar-select-date .fc td {
   border-width: 0;
   border-radius: 8px;
   vertical-align: middle;
 }
 /* line 1280, ../sass/fullcalendar.scss */
-.calendar-summary .fc th.ui-state-highlight, .calendar-summary .fc td.ui-state-highlight, .calendar-select-date .fc th.ui-state-highlight, .calendar-select-date .fc td.ui-state-highlight, .archive-calendar .fc th.ui-state-highlight, .archive-calendar .fc td.ui-state-highlight {
+.calendar-summary .fc th.ui-state-highlight, .calendar-summary .fc td.ui-state-highlight, .calendar-select-date .fc th.ui-state-highlight, .calendar-select-date .fc td.ui-state-highlight {
   background: #C71F2A;
 }
 /* line 1284, ../sass/fullcalendar.scss */
-.calendar-summary .fc td.fc-day-number, .calendar-select-date .fc td.fc-day-number, .archive-calendar .fc td.fc-day-number {
+.calendar-summary .fc td.fc-day-number, .calendar-select-date .fc td.fc-day-number {
   padding-top: 8px;
   padding-bottom: 8px;
 }
 /* line 1288, ../sass/fullcalendar.scss */
-.calendar-summary .fc-day-header, .calendar-select-date .fc-day-header, .archive-calendar .fc-day-header {
+.calendar-summary .fc-day-header, .calendar-select-date .fc-day-header {
   color: #bfbfbf;
   font-weight: normal;
 }
 /* line 1292, ../sass/fullcalendar.scss */
-.calendar-summary .fc-ltr .fc-basic-view .fc-day-number, .calendar-select-date .fc-ltr .fc-basic-view .fc-day-number, .archive-calendar .fc-ltr .fc-basic-view .fc-day-number {
+.calendar-summary .fc-ltr .fc-basic-view .fc-day-number, .calendar-select-date .fc-ltr .fc-basic-view .fc-day-number {
   text-align: center;
 }
 /* line 1295, ../sass/fullcalendar.scss */
-.calendar-summary .fc-basic-view .fc-body .fc-row, .calendar-select-date .fc-basic-view .fc-body .fc-row, .archive-calendar .fc-basic-view .fc-body .fc-row {
+.calendar-summary .fc-basic-view .fc-body .fc-row, .calendar-select-date .fc-basic-view .fc-body .fc-row {
   min-height: inherit;
   height: auto !important;
 }
 /* line 1299, ../sass/fullcalendar.scss */
-.calendar-summary .fc-row .fc-content-skeleton, .calendar-select-date .fc-row .fc-content-skeleton, .archive-calendar .fc-row .fc-content-skeleton {
+.calendar-summary .fc-row .fc-content-skeleton, .calendar-select-date .fc-row .fc-content-skeleton {
   padding-bottom: 0;
 }
 /* line 1302, ../sass/fullcalendar.scss */
-.calendar-summary button, .calendar-select-date button, .archive-calendar button {
+.calendar-summary button, .calendar-select-date button {
   height: auto;
 }
 /* line 1305, ../sass/fullcalendar.scss */
-.calendar-summary h2, .calendar-select-date h2, .archive-calendar h2 {
+.calendar-summary h2, .calendar-select-date h2 {
   text-transform: none;
   font-size: 1.25rem;
   border: 0;
@@ -1518,423 +1518,66 @@ be a descendant of the grid when it is being dragged.
   border-bottom: 1px solid #bfbfbf;
 }
 /* line 1319, ../sass/fullcalendar.scss */
+.calendar-select-date .fc .fc-toolbar > * > * {
+  margin-left: 0;
+}
+/* line 1322, ../sass/fullcalendar.scss */
 .calendar-select-date .fc-row {
   border: 1px solid transparent;
 }
-/* line 1322, ../sass/fullcalendar.scss */
+/* line 1325, ../sass/fullcalendar.scss */
 .calendar-select-date .fc-day-number {
   cursor: pointer;
 }
-/* line 1325, ../sass/fullcalendar.scss */
+/* line 1328, ../sass/fullcalendar.scss */
 .calendar-select-date .fc-day-number.fc-other-month {
   color: #bfbfbf;
 }
-/* line 1328, ../sass/fullcalendar.scss */
+/* line 1331, ../sass/fullcalendar.scss */
 .calendar-select-date .fc td.ui-state-highlight {
   background: #f4d3d5;
 }
-/* line 1330, ../sass/fullcalendar.scss */
+/* line 1333, ../sass/fullcalendar.scss */
 .calendar-select-date .fc td.ui-state-highlight.fc-today {
   background: none;
 }
-/* line 1332, ../sass/fullcalendar.scss */
+/* line 1335, ../sass/fullcalendar.scss */
 .popover-date-filter .calendar-select-date .fc td.ui-state-highlight.fc-today {
   background: #f4d3d5;
 }
-/* line 1337, ../sass/fullcalendar.scss */
+/* line 1340, ../sass/fullcalendar.scss */
 .calendar-select-date .fc-highlight {
   background: #f4d3d5;
 }
-/* line 1340, ../sass/fullcalendar.scss */
+/* line 1343, ../sass/fullcalendar.scss */
 .calendar-select-date .fc-bgevent {
   opacity: 1;
 }
-/* line 1343, ../sass/fullcalendar.scss */
+/* line 1346, ../sass/fullcalendar.scss */
 .calendar-select-date h2 {
   font-size: 1.5rem;
+  line-height: inherit;
 }
-/* line 1346, ../sass/fullcalendar.scss */
+/* line 1350, ../sass/fullcalendar.scss */
 .calendar-select-date hr {
   margin-top: 0;
   margin-bottom: 1rem;
   border-color: #bfbfbf;
 }
-/* line 1351, ../sass/fullcalendar.scss */
+/* line 1355, ../sass/fullcalendar.scss */
 .calendar-select-date .selected-week {
   border: 1px solid #C71F2A;
   border-radius: 8px;
 }
 
-/* line 1357, ../sass/fullcalendar.scss */
+/* line 1361, ../sass/fullcalendar.scss */
 .future-dates-only .fc-past {
   opacity: .3;
   cursor: not-allowed;
 }
 
-/* line 1362, ../sass/fullcalendar.scss */
-.archive-calendar {
-  padding: 1.5rem 1.46667rem 1.46667rem;
-}
-/* line 1364, ../sass/fullcalendar.scss */
-.archive-calendar h2 {
-  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
-  padding: 0;
-  line-height: 30px;
-  font-size: 1.0625rem;
-}
-/* line 1370, ../sass/fullcalendar.scss */
-.archive-calendar .fc {
-  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
-}
-/* line 1372, ../sass/fullcalendar.scss */
-.archive-calendar .fc td.ui-state-highlight {
-  background: none;
-}
-/* line 1376, ../sass/fullcalendar.scss */
-.archive-calendar .fc-day-header {
-  color: #bfbfbf;
-  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-}
-/* line 1380, ../sass/fullcalendar.scss */
-.archive-calendar .fc-other-month {
-  opacity: 0;
-}
-
-/* line 1384, ../sass/fullcalendar.scss */
-#calendar-week {
-  margin-top: -26px;
-}
-/* line 1386, ../sass/fullcalendar.scss */
-#calendar-week .fc-row.fc-widget-header {
-  margin-bottom: 4px;
-}
-/* line 1389, ../sass/fullcalendar.scss */
-#calendar-week th {
-  padding-top: 10px;
-}
-/* line 1391, ../sass/fullcalendar.scss */
-#calendar-week th.fc-today-header {
-  padding: 0;
-}
-/* line 1394, ../sass/fullcalendar.scss */
-#calendar-week th .fc-today-highlight {
-  padding: 8px 0;
-  border: 2px #C71F2A solid;
-  border-radius: 7px;
-  font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif;
-}
-/* line 1403, ../sass/fullcalendar.scss */
-#calendar-week td.fc-widget-content:first-child {
-  border-width: 0;
-  border-top: 1px solid #bfbfbf;
-}
-/* line 1411, ../sass/fullcalendar.scss */
-#calendar-week .fc-content-skeleton > table > tbody > tr:first-child .fc-event {
-  border-top: 0;
-}
-/* line 1416, ../sass/fullcalendar.scss */
-#calendar-week .fc-today {
-  background: #fcf4f4;
-}
-/* line 1419, ../sass/fullcalendar.scss */
-#calendar-week .fc-event-container {
-  height: 90px;
-}
-/* line 1422, ../sass/fullcalendar.scss */
-#calendar-week .fc-event {
-  border: 0;
-  border-top: 1px solid #bfbfbf;
-  border-radius: 0;
-  padding-top: 8px;
-  padding-bottom: 10px;
-  background: none;
-}
-/* line 1429, ../sass/fullcalendar.scss */
-#calendar-week .fc-event .fc-content {
-  overflow: visible;
-}
-/* line 1431, ../sass/fullcalendar.scss */
-#calendar-week .fc-event .fc-content .fc-time {
-  font-weight: normal;
-}
-/* line 1435, ../sass/fullcalendar.scss */
-#calendar-week .fc-event:before {
-  top: 15px;
-}
-/* line 1439, ../sass/fullcalendar.scss */
-#calendar-week .fc-day-grid-event .fc-content {
-  white-space: normal;
-}
-/* line 1442, ../sass/fullcalendar.scss */
-#calendar-week .fc-time {
-  display: block;
-  font-family: "Futura LT W01 Heavy", Arial, Helvetica, sans-serif;
-  padding-top: 5px;
-}
-/* line 1447, ../sass/fullcalendar.scss */
-#calendar-week .fc-title {
-  overflow: visible;
-  height: 45px;
-  display: inline-block;
-}
-
-/* line 1453, ../sass/fullcalendar.scss */
-#calendar-month {
-  margin-top: -1rem;
-}
-/* line 1455, ../sass/fullcalendar.scss */
-#calendar-month th {
-  padding: 0 0 1rem;
-}
-/* line 1459, ../sass/fullcalendar.scss */
-#calendar-month td.fc-day-number {
-  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  padding-top: 8px;
-  padding-left: 8px;
-}
-/* line 1466, ../sass/fullcalendar.scss */
-#calendar-month .fc-body > tr > td.fc-widget-content {
-  border-left: 0;
-  border-right: 0;
-}
-/* line 1470, ../sass/fullcalendar.scss */
-#calendar-month.fc-ltr .fc-basic-view .fc-day-number {
-  text-align: left;
-}
-/* line 1473, ../sass/fullcalendar.scss */
-#calendar-month .fc-day-grid-event {
-  margin-top: 0;
-  margin-left: 0;
-}
-/* line 1476, ../sass/fullcalendar.scss */
-#calendar-month .fc-day-grid-event .fc-time {
-  font-weight: normal;
-}
-/* line 1481, ../sass/fullcalendar.scss */
-#calendar-month .fc-bg .fc-today {
-  background: #fcf4f4;
-}
-/* line 1485, ../sass/fullcalendar.scss */
-#calendar-month .fc-event {
-  border: 0;
-}
-/* line 1487, ../sass/fullcalendar.scss */
-#calendar-month .fc-event .fc-content {
-  line-height: 27px;
-  margin-bottom: 4px;
-  text-overflow: ellipsis;
-}
-/* line 1492, ../sass/fullcalendar.scss */
-#calendar-month .fc-event:before {
-  top: 7px;
-}
-/* line 1496, ../sass/fullcalendar.scss */
-#calendar-month .fc-more {
-  position: relative;
-  padding-left: 31px;
-  line-height: 27px;
-  font-size: 12px;
-}
-/* line 1501, ../sass/fullcalendar.scss */
-#calendar-month .fc-more .bg-outlet {
-  top: 0px;
-  left: 4px;
-}
-/* line 1504, ../sass/fullcalendar.scss */
-#calendar-month .fc-more .bg-outlet:before {
-  height: 19px;
-  width: 19px;
-}
-/* line 1508, ../sass/fullcalendar.scss */
-#calendar-month .fc-more .bg-outlet i {
-  position: absolute;
-  color: #fff;
-  font-size: 22px;
-  line-height: 16px;
-  top: 0;
-  left: 3px;
-  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-  font-style: normal;
-}
-/* line 1520, ../sass/fullcalendar.scss */
-#calendar-month .fc-more-popover {
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
-  width: 200px;
-  margin-left: -7px;
-}
-/* line 1524, ../sass/fullcalendar.scss */
-#calendar-month .fc-more-popover .fc-widget-header {
-  display: none;
-}
-
-/* line 1531, ../sass/fullcalendar.scss */
-#calendar-month .fc-event,
-#calendar-month .fc-event:hover,
-#calendar-month .ui-widget .fc-event, #calendar-week .fc-event,
-#calendar-week .fc-event:hover,
-#calendar-week .ui-widget .fc-event {
-  color: #000;
-}
-/* line 1536, ../sass/fullcalendar.scss */
-#calendar-month th, #calendar-week th {
-  font-size: 11px;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  border-color: transparent;
-}
-/* line 1542, ../sass/fullcalendar.scss */
-#calendar-month td, #calendar-week td {
-  border-color: #bfbfbf;
-}
-/* line 1544, ../sass/fullcalendar.scss */
-#calendar-month td.fc-widget-header, #calendar-week td.fc-widget-header {
-  border-width: 0;
-}
-/* line 1548, ../sass/fullcalendar.scss */
-#calendar-month .fc-highlight, #calendar-week .fc-highlight {
-  background: #fcf4f4;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-/* line 1553, ../sass/fullcalendar.scss */
-#calendar-month .fc-event, #calendar-week .fc-event {
-  font-size: 12px;
-  cursor: pointer;
-  background: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-/* line 1562, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.blogger:before, #calendar-week .fc-event.blogger:before {
-  font-family: 'icomoon';
-  content: "\e901";
-}
-/* line 1566, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.blogger .fc-content:before, #calendar-week .fc-event.blogger .fc-content:before {
-  background: #ff9334;
-}
-/* line 1571, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.facebook:before, #calendar-week .fc-event.facebook:before {
-  content: "";
-}
-/* line 1574, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.facebook .fc-content:before, #calendar-week .fc-event.facebook .fc-content:before {
-  background: #547BBC;
-}
-/* line 1579, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.google:before, #calendar-week .fc-event.google:before {
-  content: "";
-}
-/* line 1582, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.google .fc-content:before, #calendar-week .fc-event.google .fc-content:before {
-  background: #de5246;
-}
-/* line 1587, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.instagram:before, #calendar-week .fc-event.instagram:before {
-  content: "";
-}
-/* line 1590, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.instagram .fc-content:before, #calendar-week .fc-event.instagram .fc-content:before {
-  background: #696969;
-}
-/* line 1595, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.linkedin:before, #calendar-week .fc-event.linkedin:before {
-  content: "";
-}
-/* line 1598, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.linkedin .fc-content:before, #calendar-week .fc-event.linkedin .fc-content:before {
-  background: #1384C7;
-}
-/* line 1603, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.pinterest:before, #calendar-week .fc-event.pinterest:before {
-  content: "";
-}
-/* line 1606, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.pinterest .fc-content:before, #calendar-week .fc-event.pinterest .fc-content:before {
-  background: #E95655;
-}
-/* line 1611, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.tumblr:before, #calendar-week .fc-event.tumblr:before {
-  content: "";
-}
-/* line 1614, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.tumblr .fc-content:before, #calendar-week .fc-event.tumblr .fc-content:before {
-  background: #5E8FAE;
-}
-/* line 1619, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.twitter:before, #calendar-week .fc-event.twitter:before {
-  content: "";
-}
-/* line 1622, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.twitter .fc-content:before, #calendar-week .fc-event.twitter .fc-content:before {
-  background: #78CBEF;
-}
-/* line 1627, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.youtube:before, #calendar-week .fc-event.youtube:before {
-  content: "";
-}
-/* line 1630, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.youtube .fc-content:before, #calendar-week .fc-event.youtube .fc-content:before {
-  background: #E9644A;
-}
-/* line 1635, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.vimeo:before, #calendar-week .fc-event.vimeo:before {
-  content: "";
-}
-/* line 1638, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.vimeo .fc-content:before, #calendar-week .fc-event.vimeo .fc-content:before {
-  background: #1DAD87;
-}
-/* line 1643, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.vine:before, #calendar-week .fc-event.vine:before {
-  content: "";
-}
-/* line 1646, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.vine .fc-content:before, #calendar-week .fc-event.vine .fc-content:before {
-  background: #1DAD87;
-}
-/* line 1651, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.wordpress:before, #calendar-week .fc-event.wordpress:before {
-  content: "";
-}
-/* line 1654, ../sass/fullcalendar.scss */
-#calendar-month .fc-event.wordpress .fc-content:before, #calendar-week .fc-event.wordpress .fc-content:before {
-  background: #1e8cbe;
-}
-/* line 1658, ../sass/fullcalendar.scss */
-#calendar-month .fc-event:before, #calendar-week .fc-event:before {
-  font-family: "FontAwesome";
-  color: #fff;
-  position: absolute;
-  text-align: center;
-  z-index: 11;
-  width: 27px;
-  left: 2px;
-}
-/* line 1667, ../sass/fullcalendar.scss */
-#calendar-month .fc-event .fc-content, #calendar-week .fc-event .fc-content {
-  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
-  padding-left: 32px;
-}
-/* line 1670, ../sass/fullcalendar.scss */
-#calendar-month .fc-event .fc-content:before, #calendar-week .fc-event .fc-content:before {
-  height: 19px;
-  width: 19px;
-  top: 4px;
-  left: 5px;
-  display: block;
-  content: "";
-  -webkit-transform: rotateZ(45deg);
-  transform: rotateZ(45deg);
-  position: absolute;
-  z-index: 10;
-}
-
 /*Theme*/
-/* line 1687, ../sass/fullcalendar.scss */
+/* line 1368, ../sass/fullcalendar.scss */
 .ui-button {
   background: none;
   border-radius: 0;
@@ -1942,24 +1585,24 @@ be a descendant of the grid when it is being dragged.
   color: #666666;
 }
 
-/* line 1694, ../sass/fullcalendar.scss */
+/* line 1375, ../sass/fullcalendar.scss */
 .fc .ui-button {
   font-family: "FontAwesome";
   font-size: 21px;
 }
-/* line 1698, ../sass/fullcalendar.scss */
+/* line 1379, ../sass/fullcalendar.scss */
 .fc .ui-button.fc-prev-button:before {
   content: "";
 }
-/* line 1703, ../sass/fullcalendar.scss */
+/* line 1384, ../sass/fullcalendar.scss */
 .fc .ui-button.fc-prevYear-button:before {
   content: "";
 }
-/* line 1708, ../sass/fullcalendar.scss */
+/* line 1389, ../sass/fullcalendar.scss */
 .fc .ui-button.fc-next-button:before {
   content: "";
 }
-/* line 1713, ../sass/fullcalendar.scss */
+/* line 1394, ../sass/fullcalendar.scss */
 .fc .ui-button.fc-nextYear-button:before {
   content: "";
 }

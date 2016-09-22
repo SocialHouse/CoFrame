@@ -21,8 +21,10 @@
 					<h1 class="center-title section-title border-none">Dashboard</h1>
 				</header>
 				<div class="bg-white col-sm-12 content-shadow brand-main">
-					<div class="content-shadow brand-header">
-						<img src="assets/images/fpo/jbrand-brand-logo.png" class="circle-img pull-xs-left" height="75" width="75"> J Brand
+					<div class="content-shadow brand-header row">
+						<div class="col-sm-12">
+							<img src="assets/images/fpo/jbrand-brand-logo.png" class="circle-img pull-xs-left" height="75" width="75"> J Brand
+						</div>
 					</div>
 					<ul class="timeframe-list to-do-list">
 						<li class="reminder-list"><a href="#reminderList" class="pos-relative" data-toggle="collapse">Reminders<span class="tag tag-danger tag-pill">5</span><i class="fa fa-angle-right expand-collapse"></i></a>
