@@ -38,20 +38,28 @@
 						}
 						?>
 					</div>
-					<footer class="post-content-footer clearfix">
-						<?php
-						echo week_month_overlay_buttons($user_is,$approver_status,$phase_status,$phase_id,$post_details,$view_type);
+					<?php
+					$edit_req_btn = '';
+					if($user_is == 'approver' OR get_user_groups($this->user_id) == "Master admin" OR  get_user_groups($this->user_id,'',$this->user_data['parent_id']) == "Master admin")
+					{
+						
+						$edit_req_btn = '<a type="button" class="btn btn-xs btn-default" href="'.base_url().'"edit-request/"'.$post_details->id.'">Edit Requests</a>';
+						
+					}
+
+					$btns = week_month_overlay_buttons($user_is,$approver_status,$phase_status,$phase_id,$post_details,$view_type);
+					if(!empty($edit_req_btn) OR !empty($btns))
+					{
 						?>
-						<?php
-						// $is_edit_request = is_edit_request($post_details->id);
-						// if($is_edit_request)
-						// {
-							?>
-							<a type="button" class="btn btn-xs btn-default" href="<?php echo base_url().'edit-request/'.$post_details->id; ?>">Edit Requests</a>
+						<footer class="post-content-footer clearfix">
 							<?php
-						// }
-						?>
-					</footer>
+							echo $btns;
+							echo $edit_req_btn;
+							?>						
+						</footer>
+						<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
