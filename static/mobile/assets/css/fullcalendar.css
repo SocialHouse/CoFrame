@@ -1,0 +1,1965 @@
+@charset "UTF-8";
+/*!
+ * FullCalendar v2.7.1 Stylesheet
+ * Docs & License: http://fullcalendar.io/
+ * (c) 2016 Adam Shaw
+ */
+/* line 11, ../sass/fullcalendar.scss */
+.fc {
+  direction: ltr;
+  text-align: left;
+}
+
+/* line 16, ../sass/fullcalendar.scss */
+.fc-rtl {
+  text-align: right;
+}
+
+/* line 20, ../sass/fullcalendar.scss */
+body .fc {
+  /* extra precedence to overcome jqui */
+  font-size: 1em;
+}
+
+/* Colors
+--------------------------------------------------------------------------------------------------*/
+/* line 28, ../sass/fullcalendar.scss */
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-popover {
+  border-color: #ddd;
+}
+
+/* line 39, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-popover {
+  background-color: #fff;
+}
+
+/* line 43, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-popover .fc-header {
+  background: #eee;
+}
+
+/* line 48, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  color: #666;
+}
+
+/* line 52, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-today {
+  background: #fcf8e3;
+}
+
+/* line 56, ../sass/fullcalendar.scss */
+.fc-highlight {
+  /* when user is selecting cells */
+  background: #bce8f1;
+  opacity: .3;
+  filter: alpha(opacity=30);
+  /* for IE */
+}
+
+/* line 62, ../sass/fullcalendar.scss */
+.fc-bgevent {
+  /* default look for background events */
+  background: #8fdf82;
+  opacity: .3;
+  filter: alpha(opacity=30);
+  /* for IE */
+}
+
+/* line 68, ../sass/fullcalendar.scss */
+.fc-nonbusiness {
+  /* default look for non-business-hours areas */
+  /* will inherit .fc-bgevent's styles */
+  background: #d7d7d7;
+}
+
+/* Icons (inline elements with styled text that mock arrow icons)
+--------------------------------------------------------------------------------------------------*/
+/* line 77, ../sass/fullcalendar.scss */
+.fc-icon {
+  display: inline-block;
+  height: 1em;
+  line-height: 1em;
+  font-size: 1em;
+  text-align: center;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+  /* don't allow browser text-selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*
+Acceptable font-family overrides for individual icons:
+	"Arial", sans-serif
+	"Times New Roman", serif
+
+NOTE: use percentage font sizes or else old IE chokes
+*/
+/* line 103, ../sass/fullcalendar.scss */
+.fc-icon:after {
+  position: relative;
+}
+
+/* line 107, ../sass/fullcalendar.scss */
+.fc-icon-left-single-arrow:after {
+  content: "\02039";
+  font-weight: bold;
+  font-size: 200%;
+  top: -7%;
+}
+
+/* line 114, ../sass/fullcalendar.scss */
+.fc-icon-right-single-arrow:after {
+  content: "\0203A";
+  font-weight: bold;
+  font-size: 200%;
+  top: -7%;
+}
+
+/* line 121, ../sass/fullcalendar.scss */
+.fc-icon-left-double-arrow:after {
+  content: "\000AB";
+  font-size: 160%;
+  top: -7%;
+}
+
+/* line 127, ../sass/fullcalendar.scss */
+.fc-icon-right-double-arrow:after {
+  content: "\000BB";
+  font-size: 160%;
+  top: -7%;
+}
+
+/* line 133, ../sass/fullcalendar.scss */
+.fc-icon-left-triangle:after {
+  content: "\25C4";
+  font-size: 125%;
+  top: 3%;
+}
+
+/* line 139, ../sass/fullcalendar.scss */
+.fc-icon-right-triangle:after {
+  content: "\25BA";
+  font-size: 125%;
+  top: 3%;
+}
+
+/* line 145, ../sass/fullcalendar.scss */
+.fc-icon-down-triangle:after {
+  content: "\25BC";
+  font-size: 125%;
+  top: 2%;
+}
+
+/* line 151, ../sass/fullcalendar.scss */
+.fc-icon-x:after {
+  content: "\000D7";
+  font-size: 200%;
+  top: 6%;
+}
+
+/* Buttons (styled <button> tags, normalized to work cross-browser)
+--------------------------------------------------------------------------------------------------*/
+/* line 161, ../sass/fullcalendar.scss */
+.fc button {
+  /* force height to include the border and padding */
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /* dimensions */
+  margin: 0;
+  height: 2.1em;
+  padding: 0 .6em;
+  /* text & cursor */
+  font-size: 1em;
+  /* normalize */
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Firefox has an annoying inner border */
+/* line 179, ../sass/fullcalendar.scss */
+.fc button::-moz-focus-inner {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 181, ../sass/fullcalendar.scss */
+.fc-state-default {
+  /* non-theme */
+  border: 1px solid;
+}
+
+/* line 185, ../sass/fullcalendar.scss */
+.fc-state-default.fc-corner-left {
+  /* non-theme */
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* line 190, ../sass/fullcalendar.scss */
+.fc-state-default.fc-corner-right {
+  /* non-theme */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* icons in buttons */
+/* line 197, ../sass/fullcalendar.scss */
+.fc button .fc-icon {
+  /* non-theme */
+  position: relative;
+  top: -0.05em;
+  /* seems to be a good adjustment across browsers */
+  margin: 0 .2em;
+  vertical-align: middle;
+}
+
+/*
+  button states
+  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
+*/
+/* line 209, ../sass/fullcalendar.scss */
+.fc-state-default {
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* line 224, ../sass/fullcalendar.scss */
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+  color: #333333;
+  background-color: #e6e6e6;
+}
+
+/* line 232, ../sass/fullcalendar.scss */
+.fc-state-hover {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+/* line 242, ../sass/fullcalendar.scss */
+.fc-state-down,
+.fc-state-active {
+  background-color: #cccccc;
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* line 249, ../sass/fullcalendar.scss */
+.fc-state-disabled {
+  cursor: default;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  box-shadow: none;
+}
+
+/* Buttons Groups
+--------------------------------------------------------------------------------------------------*/
+/* line 261, ../sass/fullcalendar.scss */
+.fc-button-group {
+  display: inline-block;
+}
+
+/*
+every button that is not first in a button group should scootch over one pixel and cover the
+previous button's border...
+*/
+/* line 270, ../sass/fullcalendar.scss */
+.fc .fc-button-group > * {
+  /* extra precedence b/c buttons have margin set to zero */
+  float: left;
+  margin: 0 0 0 -1px;
+}
+
+/* line 275, ../sass/fullcalendar.scss */
+.fc .fc-button-group > :first-child {
+  /* same */
+  margin-left: 0;
+}
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+/* line 283, ../sass/fullcalendar.scss */
+.fc-popover {
+  position: absolute;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* line 288, ../sass/fullcalendar.scss */
+.fc-popover .fc-header {
+  /* TODO: be more consistent with fc-head/fc-body */
+  padding: 2px 4px;
+}
+
+/* line 292, ../sass/fullcalendar.scss */
+.fc-popover .fc-header .fc-title {
+  margin: 0 2px;
+}
+
+/* line 296, ../sass/fullcalendar.scss */
+.fc-popover .fc-header .fc-close {
+  cursor: pointer;
+}
+
+/* line 300, ../sass/fullcalendar.scss */
+.fc-ltr .fc-popover .fc-header .fc-title,
+.fc-rtl .fc-popover .fc-header .fc-close {
+  float: left;
+}
+
+/* line 305, ../sass/fullcalendar.scss */
+.fc-rtl .fc-popover .fc-header .fc-title,
+.fc-ltr .fc-popover .fc-header .fc-close {
+  float: right;
+}
+
+/* unthemed */
+/* line 312, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-popover {
+  border-width: 1px;
+  border-style: solid;
+}
+
+/* line 317, ../sass/fullcalendar.scss */
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  font-size: .9em;
+  margin-top: 2px;
+}
+
+/* jqui themed */
+/* line 324, ../sass/fullcalendar.scss */
+.fc-popover > .ui-widget-header + .ui-widget-content {
+  border-top: 0;
+  /* where they meet, let the header have the border */
+}
+
+/* Misc Reusable Components
+--------------------------------------------------------------------------------------------------*/
+/* line 332, ../sass/fullcalendar.scss */
+.fc-divider {
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* line 337, ../sass/fullcalendar.scss */
+hr.fc-divider {
+  height: 0;
+  margin: 0;
+  padding: 0 0 2px;
+  /* height is unreliable across browsers, so use padding */
+  border-width: 1px 0;
+}
+
+/* line 344, ../sass/fullcalendar.scss */
+.fc-clear {
+  clear: both;
+}
+
+/* line 348, ../sass/fullcalendar.scss */
+.fc-bg,
+.fc-bgevent-skeleton,
+.fc-highlight-skeleton,
+.fc-helper-skeleton {
+  /* these element should always cling to top-left/right corners */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* line 359, ../sass/fullcalendar.scss */
+.fc-bg {
+  bottom: 0;
+  /* strech bg to bottom edge */
+}
+
+/* line 363, ../sass/fullcalendar.scss */
+.fc-bg table {
+  height: 100%;
+  /* strech bg to bottom edge */
+}
+
+/* Tables
+--------------------------------------------------------------------------------------------------*/
+/* line 371, ../sass/fullcalendar.scss */
+.fc table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 1em;
+  /* normalize cross-browser */
+}
+
+/* line 379, ../sass/fullcalendar.scss */
+.fc th {
+  text-align: center;
+}
+
+/* line 383, ../sass/fullcalendar.scss */
+.fc th,
+.fc td {
+  border-style: solid;
+  border-width: 1px;
+  padding: 0;
+  vertical-align: top;
+}
+
+/* line 391, ../sass/fullcalendar.scss */
+.fc td.fc-today {
+  border-style: double;
+  /* overcome neighboring borders */
+}
+
+/* Fake Table Rows
+--------------------------------------------------------------------------------------------------*/
+/* line 399, ../sass/fullcalendar.scss */
+.fc .fc-row {
+  /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
+  /* no visible border by default. but make available if need be (scrollbar width compensation) */
+  border-style: solid;
+  border-width: 0;
+}
+
+/* line 405, ../sass/fullcalendar.scss */
+.fc-row table {
+  /* don't put left/right border on anything within a fake row.
+     the outer tbody will worry about this */
+  border-left: 0 hidden transparent;
+  border-right: 0 hidden transparent;
+  /* no bottom borders on rows */
+  border-bottom: 0 hidden transparent;
+}
+
+/* line 415, ../sass/fullcalendar.scss */
+.fc-row:first-child table {
+  border-top: 0 hidden transparent;
+  /* no top border on first row */
+}
+
+/* Day Row (used within the header and the DayGrid)
+--------------------------------------------------------------------------------------------------*/
+/* line 423, ../sass/fullcalendar.scss */
+.fc-row {
+  position: relative;
+}
+
+/* line 427, ../sass/fullcalendar.scss */
+.fc-row .fc-bg {
+  z-index: 1;
+}
+
+/* highlighting cells & background event skeleton */
+/* line 433, ../sass/fullcalendar.scss */
+.fc-row .fc-bgevent-skeleton,
+.fc-row .fc-highlight-skeleton {
+  bottom: 0;
+  /* stretch skeleton to bottom of row */
+}
+
+/* line 438, ../sass/fullcalendar.scss */
+.fc-row .fc-bgevent-skeleton table,
+.fc-row .fc-highlight-skeleton table {
+  height: 100%;
+  /* stretch skeleton to bottom of row */
+}
+
+/* line 443, ../sass/fullcalendar.scss */
+.fc-row .fc-highlight-skeleton td,
+.fc-row .fc-bgevent-skeleton td {
+  border-color: transparent;
+}
+
+/* line 448, ../sass/fullcalendar.scss */
+.fc-row .fc-bgevent-skeleton {
+  z-index: 2;
+}
+
+/* line 453, ../sass/fullcalendar.scss */
+.fc-row .fc-highlight-skeleton {
+  z-index: 3;
+}
+
+/*
+row content (which contains day/week numbers and events) as well as "helper" (which contains
+temporary rendered events).
+*/
+/* line 462, ../sass/fullcalendar.scss */
+.fc-row .fc-content-skeleton {
+  position: relative;
+  z-index: 4;
+  padding-bottom: 2px;
+  /* matches the space above the events */
+}
+
+/* line 468, ../sass/fullcalendar.scss */
+.fc-row .fc-helper-skeleton {
+  z-index: 5;
+}
+
+/* line 472, ../sass/fullcalendar.scss */
+.fc-row .fc-content-skeleton td,
+.fc-row .fc-helper-skeleton td {
+  /* see-through to the background below */
+  background: none;
+  /* in case <td>s are globally styled */
+  border-color: transparent;
+  /* don't put a border between events and/or the day number */
+  border-bottom: 0;
+}
+
+/* line 482, ../sass/fullcalendar.scss */
+.fc-row .fc-content-skeleton tbody td,
+.fc-row .fc-helper-skeleton tbody td {
+  /* don't put a border between event cells */
+  border-top: 0;
+}
+
+/* Scrolling Container
+--------------------------------------------------------------------------------------------------*/
+/* line 492, ../sass/fullcalendar.scss */
+.fc-scroller {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* TODO: move to agenda/basic */
+/* line 497, ../sass/fullcalendar.scss */
+.fc-scroller > .fc-day-grid,
+.fc-scroller > .fc-time-grid {
+  position: relative;
+  /* re-scope all positions */
+  width: 100%;
+  /* hack to force re-sizing this inner element when scrollbars appear/disappear */
+}
+
+/* Global Event Styles
+--------------------------------------------------------------------------------------------------*/
+/* line 507, ../sass/fullcalendar.scss */
+.fc-event {
+  position: relative;
+  /* for resize handle and other inner positioning */
+  display: block;
+  /* make the <a> tag block */
+  font-size: .85em;
+  line-height: 1.3;
+  border-radius: 3px;
+  border: 1px solid #3a87ad;
+  /* default BORDER color */
+  background-color: #3a87ad;
+  /* default BACKGROUND color */
+  font-weight: normal;
+  /* undo jqui's ui-widget-header bold */
+}
+
+/* overpower some of bootstrap's and jqui's styles on <a> tags */
+/* line 519, ../sass/fullcalendar.scss */
+.fc-event,
+.fc-event:hover,
+.ui-widget .fc-event {
+  color: #fff;
+  /* default TEXT color */
+  text-decoration: none;
+  /* if <a> has an href */
+}
+
+/* line 526, ../sass/fullcalendar.scss */
+.fc-event[href],
+.fc-event.fc-draggable {
+  cursor: pointer;
+  /* give events with links and draggable events a hand mouse pointer */
+}
+
+/* line 531, ../sass/fullcalendar.scss */
+.fc-not-allowed,
+.fc-not-allowed .fc-event {
+  /* to override an event's custom cursor */
+  cursor: not-allowed;
+}
+
+/* line 536, ../sass/fullcalendar.scss */
+.fc-event .fc-bg {
+  /* the generic .fc-bg already does position */
+  z-index: 1;
+  background: #fff;
+  opacity: .25;
+  filter: alpha(opacity=25);
+  /* for IE */
+}
+
+/* line 543, ../sass/fullcalendar.scss */
+.fc-event .fc-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* resizer (cursor AND touch devices) */
+/* line 550, ../sass/fullcalendar.scss */
+.fc-event .fc-resizer {
+  position: absolute;
+  z-index: 4;
+}
+
+/* resizer (touch devices) */
+/* line 557, ../sass/fullcalendar.scss */
+.fc-touch .fc-event .fc-resizer {
+  display: none;
+  /* only show when selected */
+}
+
+/* line 561, ../sass/fullcalendar.scss */
+.fc-touch .fc-event.fc-selected .fc-resizer {
+  display: block;
+}
+
+/* Hit Area (for events and expander)
+--------------------------------------------------------------------------------------------------*/
+/* line 569, ../sass/fullcalendar.scss */
+.fc-expander {
+  /* fc-event is already position:relative */
+  position: relative;
+}
+
+/* line 573, ../sass/fullcalendar.scss */
+.fc-touch .fc-expander:before,
+.fc-touch .fc-event .fc-resizer:before {
+  /* 40x40 touch area */
+  content: "";
+  position: absolute;
+  z-index: 9999;
+  /* user of this util can scope within a lower z-index */
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+/* Event Selection (only for touch devices)
+--------------------------------------------------------------------------------------------------*/
+/* line 591, ../sass/fullcalendar.scss */
+.fc-event.fc-selected {
+  z-index: 9999 !important;
+  /* overcomes inline z-index */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* line 596, ../sass/fullcalendar.scss */
+.fc-event.fc-selected.fc-dragging {
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+}
+
+/* Horizontal Events
+--------------------------------------------------------------------------------------------------*/
+/* bigger touch area when selected */
+/* line 605, ../sass/fullcalendar.scss */
+.fc-h-event.fc-selected:before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  /* below resizers */
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+}
+
+/* events that are continuing to/from another week. kill rounded corners and butt up against edge */
+/* line 617, ../sass/fullcalendar.scss */
+.fc-ltr .fc-h-event.fc-not-start,
+.fc-rtl .fc-h-event.fc-not-end {
+  margin-left: 0;
+  border-left-width: 0;
+  padding-left: 1px;
+  /* replace the border with padding */
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* line 626, ../sass/fullcalendar.scss */
+.fc-ltr .fc-h-event.fc-not-end,
+.fc-rtl .fc-h-event.fc-not-start {
+  margin-right: 0;
+  border-right-width: 0;
+  padding-right: 1px;
+  /* replace the border with padding */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* resizer (cursor AND touch devices) */
+/* left resizer  */
+/* line 638, ../sass/fullcalendar.scss */
+.fc-ltr .fc-h-event .fc-start-resizer,
+.fc-rtl .fc-h-event .fc-end-resizer {
+  cursor: w-resize;
+  left: -1px;
+  /* overcome border */
+}
+
+/* right resizer */
+/* line 645, ../sass/fullcalendar.scss */
+.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-rtl .fc-h-event .fc-start-resizer {
+  cursor: e-resize;
+  right: -1px;
+  /* overcome border */
+}
+
+/* resizer (cursor devices) */
+/* line 653, ../sass/fullcalendar.scss */
+.fc-cursor .fc-h-event .fc-resizer {
+  width: 7px;
+  top: -1px;
+  /* overcome top border */
+  bottom: -1px;
+  /* overcome bottom border */
+}
+
+/* resizer (touch devices) */
+/* line 661, ../sass/fullcalendar.scss */
+.fc-touch .fc-h-event .fc-resizer {
+  /* 8x8 little dot */
+  border-radius: 4px;
+  border-width: 1px;
+  width: 6px;
+  height: 6px;
+  border-style: solid;
+  border-color: inherit;
+  background: #fff;
+  /* vertically center */
+  top: 50%;
+  margin-top: -4px;
+}
+
+/* left resizer  */
+/* line 676, ../sass/fullcalendar.scss */
+.fc-touch.fc-ltr .fc-h-event .fc-start-resizer,
+.fc-touch.fc-rtl .fc-h-event .fc-end-resizer {
+  margin-left: -4px;
+  /* centers the 8x8 dot on the left edge */
+}
+
+/* right resizer */
+/* line 682, ../sass/fullcalendar.scss */
+.fc-touch.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-touch.fc-rtl .fc-h-event .fc-start-resizer {
+  margin-right: -4px;
+  /* centers the 8x8 dot on the right edge */
+}
+
+/* DayGrid events
+----------------------------------------------------------------------------------------------------
+We use the full "fc-day-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+/* line 694, ../sass/fullcalendar.scss */
+.fc-day-grid-event {
+  margin: 1px 2px 0;
+  /* spacing between events and edges */
+  padding: 0 1px;
+}
+
+/* line 699, ../sass/fullcalendar.scss */
+.fc-day-grid-event.fc-selected:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  /* same z-index as fc-bg, behind text */
+  /* overcome the borders */
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  /* darkening effect */
+  background: #000;
+  opacity: .25;
+  filter: alpha(opacity=25);
+  /* for IE */
+}
+
+/* line 714, ../sass/fullcalendar.scss */
+.fc-day-grid-event .fc-content {
+  /* force events to be one-line tall */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 719, ../sass/fullcalendar.scss */
+.fc-day-grid-event .fc-time {
+  font-weight: bold;
+}
+
+/* resizer (cursor devices) */
+/* left resizer  */
+/* line 726, ../sass/fullcalendar.scss */
+.fc-cursor.fc-ltr .fc-day-grid-event .fc-start-resizer,
+.fc-cursor.fc-rtl .fc-day-grid-event .fc-end-resizer {
+  margin-left: -2px;
+  /* to the day cell's edge */
+}
+
+/* right resizer */
+/* line 732, ../sass/fullcalendar.scss */
+.fc-cursor.fc-ltr .fc-day-grid-event .fc-end-resizer,
+.fc-cursor.fc-rtl .fc-day-grid-event .fc-start-resizer {
+  margin-right: -2px;
+  /* to the day cell's edge */
+}
+
+/* Event Limiting
+--------------------------------------------------------------------------------------------------*/
+/* "more" link that represents hidden events */
+/* line 743, ../sass/fullcalendar.scss */
+a.fc-more {
+  margin: 1px 3px;
+  font-size: .85em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* line 750, ../sass/fullcalendar.scss */
+a.fc-more:hover {
+  text-decoration: underline;
+}
+
+/* line 754, ../sass/fullcalendar.scss */
+.fc-limited {
+  /* rows and cells that are hidden because of a "more" link */
+  display: none;
+}
+
+/* popover that appears when "more" link is clicked */
+/* line 760, ../sass/fullcalendar.scss */
+.fc-day-grid .fc-row {
+  z-index: 1;
+  /* make the "more" popover one higher than this */
+}
+
+/* line 764, ../sass/fullcalendar.scss */
+.fc-more-popover {
+  z-index: 2;
+  width: 220px;
+}
+
+/* line 769, ../sass/fullcalendar.scss */
+.fc-more-popover .fc-event-container {
+  padding: 10px;
+}
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+/* line 777, ../sass/fullcalendar.scss */
+.fc-now-indicator {
+  position: absolute;
+  border: 0 solid red;
+}
+
+/* Utilities
+--------------------------------------------------------------------------------------------------*/
+/* line 786, ../sass/fullcalendar.scss */
+.fc-unselectable {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Toolbar
+--------------------------------------------------------------------------------------------------*/
+/* line 799, ../sass/fullcalendar.scss */
+.fc-toolbar {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+/* line 804, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-left {
+  float: left;
+}
+
+/* line 808, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-right {
+  float: right;
+}
+
+/* line 812, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-center {
+  display: inline-block;
+}
+
+/* the things within each left/right/center section */
+/* line 817, ../sass/fullcalendar.scss */
+.fc .fc-toolbar > * > * {
+  /* extra precedence to override button border margins */
+  float: left;
+  margin-left: .75em;
+}
+
+/* the first thing within each left/center/right section */
+/* line 823, ../sass/fullcalendar.scss */
+.fc .fc-toolbar > * > :first-child {
+  /* extra precedence to override button border margins */
+  margin-left: 0;
+}
+
+/* title text */
+/* line 829, ../sass/fullcalendar.scss */
+.fc-toolbar h2 {
+  margin: 0;
+}
+
+/* button layering (for border precedence) */
+/* line 835, ../sass/fullcalendar.scss */
+.fc-toolbar button {
+  position: relative;
+}
+
+/* line 839, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-state-hover,
+.fc-toolbar .ui-state-hover {
+  z-index: 2;
+}
+
+/* line 844, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-state-down {
+  z-index: 3;
+}
+
+/* line 848, ../sass/fullcalendar.scss */
+.fc-toolbar .fc-state-active,
+.fc-toolbar .ui-state-active {
+  z-index: 4;
+}
+
+/* line 853, ../sass/fullcalendar.scss */
+.fc-toolbar button:focus {
+  z-index: 5;
+}
+
+/* View Structure
+--------------------------------------------------------------------------------------------------*/
+/* undo twitter bootstrap's box-sizing rules. normalizes positioning techniques */
+/* don't do this for the toolbar because we'll want bootstrap to style those buttons as some pt */
+/* line 863, ../sass/fullcalendar.scss */
+.fc-view-container *,
+.fc-view-container *:before,
+.fc-view-container *:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 871, ../sass/fullcalendar.scss */
+.fc-view,
+.fc-view > table {
+  /* so dragged elements can be above the view's main element */
+  position: relative;
+  z-index: 1;
+}
+
+/* BasicView
+--------------------------------------------------------------------------------------------------*/
+/* day row structure */
+/* line 882, ../sass/fullcalendar.scss */
+.fc-basicWeek-view .fc-content-skeleton,
+.fc-basicDay-view .fc-content-skeleton {
+  /* we are sure there are no day numbers in these views, so... */
+  padding-top: 1px;
+  /* add a pixel to make sure there are 2px padding above events */
+  padding-bottom: 1em;
+  /* ensure a space at bottom of cell for user selecting/clicking */
+}
+
+/* line 889, ../sass/fullcalendar.scss */
+.fc-basic-view .fc-body .fc-row {
+  min-height: 4em;
+  /* ensure that all rows are at least this tall */
+}
+
+/* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
+/* line 895, ../sass/fullcalendar.scss */
+.fc-row.fc-rigid {
+  overflow: hidden;
+}
+
+/* line 899, ../sass/fullcalendar.scss */
+.fc-row.fc-rigid .fc-content-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* week and day number styling */
+/* line 908, ../sass/fullcalendar.scss */
+.fc-basic-view .fc-week-number,
+.fc-basic-view .fc-day-number {
+  padding: 0 2px;
+}
+
+/* line 913, ../sass/fullcalendar.scss */
+.fc-basic-view td.fc-week-number span,
+.fc-basic-view td.fc-day-number {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* line 919, ../sass/fullcalendar.scss */
+.fc-basic-view .fc-week-number {
+  text-align: center;
+}
+
+/* line 923, ../sass/fullcalendar.scss */
+.fc-basic-view .fc-week-number span {
+  /* work around the way we do column resizing and ensure a minimum width */
+  display: inline-block;
+  min-width: 1.25em;
+}
+
+/* line 929, ../sass/fullcalendar.scss */
+.fc-ltr .fc-basic-view .fc-day-number {
+  text-align: right;
+}
+
+/* line 933, ../sass/fullcalendar.scss */
+.fc-rtl .fc-basic-view .fc-day-number {
+  text-align: left;
+}
+
+/* line 937, ../sass/fullcalendar.scss */
+.fc-day-number.fc-other-month {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  /* for IE */
+  /* opacity with small font can sometimes look too faded
+     might want to set the 'color' property instead
+     making day-numbers bold also fixes the problem */
+}
+
+/* AgendaView all-day area
+--------------------------------------------------------------------------------------------------*/
+/* line 948, ../sass/fullcalendar.scss */
+.fc-agenda-view .fc-day-grid {
+  position: relative;
+  z-index: 2;
+  /* so the "more.." popover will be over the time grid */
+}
+
+/* line 953, ../sass/fullcalendar.scss */
+.fc-agenda-view .fc-day-grid .fc-row {
+  min-height: 3em;
+  /* all-day section will never get shorter than this */
+}
+
+/* line 957, ../sass/fullcalendar.scss */
+.fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+  padding-top: 1px;
+  /* add a pixel to make sure there are 2px padding above events */
+  padding-bottom: 1em;
+  /* give space underneath events for clicking/selecting days */
+}
+
+/* TimeGrid axis running down the side (for both the all-day area and the slot area)
+--------------------------------------------------------------------------------------------------*/
+/* line 966, ../sass/fullcalendar.scss */
+.fc .fc-axis {
+  /* .fc to overcome default cell styles */
+  vertical-align: middle;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+/* line 972, ../sass/fullcalendar.scss */
+.fc-ltr .fc-axis {
+  text-align: right;
+}
+
+/* line 976, ../sass/fullcalendar.scss */
+.fc-rtl .fc-axis {
+  text-align: left;
+}
+
+/* line 980, ../sass/fullcalendar.scss */
+.ui-widget td.fc-axis {
+  font-weight: normal;
+  /* overcome jqui theme making it bold */
+}
+
+/* TimeGrid Structure
+--------------------------------------------------------------------------------------------------*/
+/* line 988, ../sass/fullcalendar.scss */
+.fc-time-grid-container,
+.fc-time-grid {
+  /* so slats/bg/content/etc positions get scoped within here */
+  position: relative;
+  z-index: 1;
+}
+
+/* line 994, ../sass/fullcalendar.scss */
+.fc-time-grid {
+  min-height: 100%;
+  /* so if height setting is 'auto', .fc-bg stretches to fill height */
+}
+
+/* line 998, ../sass/fullcalendar.scss */
+.fc-time-grid table {
+  /* don't put outer borders on slats/bg/content/etc */
+  border: 0 hidden transparent;
+}
+
+/* line 1002, ../sass/fullcalendar.scss */
+.fc-time-grid > .fc-bg {
+  z-index: 1;
+}
+
+/* line 1006, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-slats,
+.fc-time-grid > hr {
+  /* the <hr> AgendaView injects when grid is shorter than scroller */
+  position: relative;
+  z-index: 2;
+}
+
+/* line 1012, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-content-col {
+  position: relative;
+  /* because now-indicator lives directly inside */
+}
+
+/* line 1016, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-content-skeleton {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* divs within a cell within the fc-content-skeleton */
+/* line 1026, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-business-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* line 1031, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-bgevent-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* line 1036, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-highlight-container {
+  position: relative;
+  z-index: 3;
+}
+
+/* line 1041, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-event-container {
+  position: relative;
+  z-index: 4;
+}
+
+/* line 1046, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-now-indicator-line {
+  z-index: 5;
+}
+
+/* line 1050, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-helper-container {
+  /* also is fc-event-container */
+  position: relative;
+  z-index: 6;
+}
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+/* line 1059, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-slats td {
+  height: 1.5em;
+  border-bottom: 0;
+  /* each cell is responsible for its top border */
+}
+
+/* line 1064, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-slats .fc-minor td {
+  border-top-style: dotted;
+}
+
+/* line 1068, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-slats .ui-widget-content {
+  /* for jqui theme */
+  background: none;
+  /* see through to fc-bg */
+}
+
+/* TimeGrid Highlighting Slots
+--------------------------------------------------------------------------------------------------*/
+/* line 1076, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-highlight-container {
+  /* a div within a cell within the fc-highlight-skeleton */
+  position: relative;
+  /* scopes the left/right of the fc-highlight to be in the column */
+}
+
+/* line 1080, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* top and bottom will be in by JS */
+}
+
+/* TimeGrid Event Containment
+--------------------------------------------------------------------------------------------------*/
+/* line 1091, ../sass/fullcalendar.scss */
+.fc-ltr .fc-time-grid .fc-event-container {
+  /* space on the sides of events for LTR (default) */
+  margin: 0 2.5% 0 2px;
+}
+
+/* line 1095, ../sass/fullcalendar.scss */
+.fc-rtl .fc-time-grid .fc-event-container {
+  /* space on the sides of events for RTL */
+  margin: 0 2px 0 2.5%;
+}
+
+/* line 1099, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-event,
+.fc-time-grid .fc-bgevent {
+  position: absolute;
+  z-index: 1;
+  /* scope inner z-index's */
+}
+
+/* line 1105, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-bgevent {
+  /* background events always span full width */
+  left: 0;
+  right: 0;
+}
+
+/* Generic Vertical Event
+--------------------------------------------------------------------------------------------------*/
+/* line 1115, ../sass/fullcalendar.scss */
+.fc-v-event.fc-not-start {
+  /* events that are continuing from another day */
+  /* replace space made by the top border with padding */
+  border-top-width: 0;
+  padding-top: 1px;
+  /* remove top rounded corners */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* line 1125, ../sass/fullcalendar.scss */
+.fc-v-event.fc-not-end {
+  /* replace space made by the top border with padding */
+  border-bottom-width: 0;
+  padding-bottom: 1px;
+  /* remove bottom rounded corners */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* TimeGrid Event Styling
+----------------------------------------------------------------------------------------------------
+We use the full "fc-time-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+/* line 1142, ../sass/fullcalendar.scss */
+.fc-time-grid-event {
+  overflow: hidden;
+  /* don't let the bg flow over rounded corners */
+}
+
+/* line 1146, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-selected {
+  /* need to allow touch resizers to extend outside event's bounding box */
+  /* common fc-selected styles hide the fc-bg, so don't need this anyway */
+  overflow: visible;
+}
+
+/* line 1152, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-selected .fc-bg {
+  display: none;
+  /* hide semi-white background, to appear darker */
+}
+
+/* line 1156, ../sass/fullcalendar.scss */
+.fc-time-grid-event .fc-content {
+  overflow: hidden;
+  /* for when .fc-selected */
+}
+
+/* line 1160, ../sass/fullcalendar.scss */
+.fc-time-grid-event .fc-time,
+.fc-time-grid-event .fc-title {
+  padding: 0 1px;
+}
+
+/* line 1165, ../sass/fullcalendar.scss */
+.fc-time-grid-event .fc-time {
+  font-size: .85em;
+  white-space: nowrap;
+}
+
+/* short mode, where time and title are on the same line */
+/* line 1172, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-content {
+  /* don't wrap to second line (now that contents will be inline) */
+  white-space: nowrap;
+}
+
+/* line 1177, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-time,
+.fc-time-grid-event.fc-short .fc-title {
+  /* put the time and title on the same line */
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* line 1184, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-time span {
+  display: none;
+  /* don't display the full time text... */
+}
+
+/* line 1188, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-time:before {
+  content: attr(data-start);
+  /* ...instead, display only the start time */
+}
+
+/* line 1192, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-time:after {
+  content: "\000A0-\000A0";
+  /* seperate with a dash, wrapped in nbsp's */
+}
+
+/* line 1196, ../sass/fullcalendar.scss */
+.fc-time-grid-event.fc-short .fc-title {
+  font-size: .85em;
+  /* make the title text the same size as the time */
+  padding: 0;
+  /* undo padding from above */
+}
+
+/* resizer (cursor device) */
+/* line 1203, ../sass/fullcalendar.scss */
+.fc-cursor .fc-time-grid-event .fc-resizer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8px;
+  overflow: hidden;
+  line-height: 8px;
+  font-size: 11px;
+  font-family: monospace;
+  text-align: center;
+  cursor: s-resize;
+}
+
+/* line 1216, ../sass/fullcalendar.scss */
+.fc-cursor .fc-time-grid-event .fc-resizer:after {
+  content: "=";
+}
+
+/* resizer (touch device) */
+/* line 1222, ../sass/fullcalendar.scss */
+.fc-touch .fc-time-grid-event .fc-resizer {
+  /* 10x10 dot */
+  border-radius: 5px;
+  border-width: 1px;
+  width: 8px;
+  height: 8px;
+  border-style: solid;
+  border-color: inherit;
+  background: #fff;
+  /* horizontally center */
+  left: 50%;
+  margin-left: -5px;
+  /* center on the bottom edge */
+  bottom: -5px;
+}
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+/* line 1242, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-now-indicator-line {
+  border-top-width: 1px;
+  left: 0;
+  right: 0;
+}
+
+/* arrow on axis */
+/* line 1250, ../sass/fullcalendar.scss */
+.fc-time-grid .fc-now-indicator-arrow {
+  margin-top: -5px;
+  /* vertically center on top coordinate */
+}
+
+/* line 1254, ../sass/fullcalendar.scss */
+.fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+  left: 0;
+  /* triangle pointing right... */
+  border-width: 5px 0 5px 6px;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* line 1262, ../sass/fullcalendar.scss */
+.fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+  right: 0;
+  /* triangle pointing left... */
+  border-width: 5px 6px 5px 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* line 1270, ../sass/fullcalendar.scss */
+.calendar-summary, .calendar-select-date, .archive-calendar {
+  padding: 1.375rem;
+  height: 100%;
+}
+/* line 1273, ../sass/fullcalendar.scss */
+.calendar-summary .fc-head, .calendar-select-date .fc-head, .archive-calendar .fc-head {
+  border-bottom: 1px solid #666666;
+}
+/* line 1276, ../sass/fullcalendar.scss */
+.calendar-summary .fc th, .calendar-summary .fc td, .calendar-select-date .fc th, .calendar-select-date .fc td, .archive-calendar .fc th, .archive-calendar .fc td {
+  border-width: 0;
+  border-radius: 8px;
+  vertical-align: middle;
+}
+/* line 1280, ../sass/fullcalendar.scss */
+.calendar-summary .fc th.ui-state-highlight, .calendar-summary .fc td.ui-state-highlight, .calendar-select-date .fc th.ui-state-highlight, .calendar-select-date .fc td.ui-state-highlight, .archive-calendar .fc th.ui-state-highlight, .archive-calendar .fc td.ui-state-highlight {
+  background: #C71F2A;
+}
+/* line 1284, ../sass/fullcalendar.scss */
+.calendar-summary .fc td.fc-day-number, .calendar-select-date .fc td.fc-day-number, .archive-calendar .fc td.fc-day-number {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+/* line 1288, ../sass/fullcalendar.scss */
+.calendar-summary .fc-day-header, .calendar-select-date .fc-day-header, .archive-calendar .fc-day-header {
+  color: #bfbfbf;
+  font-weight: normal;
+}
+/* line 1292, ../sass/fullcalendar.scss */
+.calendar-summary .fc-ltr .fc-basic-view .fc-day-number, .calendar-select-date .fc-ltr .fc-basic-view .fc-day-number, .archive-calendar .fc-ltr .fc-basic-view .fc-day-number {
+  text-align: center;
+}
+/* line 1295, ../sass/fullcalendar.scss */
+.calendar-summary .fc-basic-view .fc-body .fc-row, .calendar-select-date .fc-basic-view .fc-body .fc-row, .archive-calendar .fc-basic-view .fc-body .fc-row {
+  min-height: inherit;
+  height: auto !important;
+}
+/* line 1299, ../sass/fullcalendar.scss */
+.calendar-summary .fc-row .fc-content-skeleton, .calendar-select-date .fc-row .fc-content-skeleton, .archive-calendar .fc-row .fc-content-skeleton {
+  padding-bottom: 0;
+}
+/* line 1302, ../sass/fullcalendar.scss */
+.calendar-summary button, .calendar-select-date button, .archive-calendar button {
+  height: auto;
+}
+/* line 1305, ../sass/fullcalendar.scss */
+.calendar-summary h2, .calendar-select-date h2, .archive-calendar h2 {
+  text-transform: none;
+  font-size: 1.25rem;
+  border: 0;
+  letter-spacing: normal;
+  padding: 0;
+}
+
+/* line 1313, ../sass/fullcalendar.scss */
+.calendar-select-date {
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
+  padding: 0;
+}
+/* line 1316, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-head {
+  border-bottom: 1px solid #bfbfbf;
+}
+/* line 1319, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-row {
+  border: 1px solid transparent;
+}
+/* line 1322, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-day-number {
+  cursor: pointer;
+}
+/* line 1325, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-day-number.fc-other-month {
+  color: #bfbfbf;
+}
+/* line 1328, ../sass/fullcalendar.scss */
+.calendar-select-date .fc td.ui-state-highlight {
+  background: #f4d3d5;
+}
+/* line 1330, ../sass/fullcalendar.scss */
+.calendar-select-date .fc td.ui-state-highlight.fc-today {
+  background: none;
+}
+/* line 1332, ../sass/fullcalendar.scss */
+.popover-date-filter .calendar-select-date .fc td.ui-state-highlight.fc-today {
+  background: #f4d3d5;
+}
+/* line 1337, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-highlight {
+  background: #f4d3d5;
+}
+/* line 1340, ../sass/fullcalendar.scss */
+.calendar-select-date .fc-bgevent {
+  opacity: 1;
+}
+/* line 1343, ../sass/fullcalendar.scss */
+.calendar-select-date h2 {
+  font-size: 1.5rem;
+}
+/* line 1346, ../sass/fullcalendar.scss */
+.calendar-select-date hr {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-color: #bfbfbf;
+}
+/* line 1351, ../sass/fullcalendar.scss */
+.calendar-select-date .selected-week {
+  border: 1px solid #C71F2A;
+  border-radius: 8px;
+}
+
+/* line 1357, ../sass/fullcalendar.scss */
+.future-dates-only .fc-past {
+  opacity: .3;
+  cursor: not-allowed;
+}
+
+/* line 1362, ../sass/fullcalendar.scss */
+.archive-calendar {
+  padding: 1.5rem 1.46667rem 1.46667rem;
+}
+/* line 1364, ../sass/fullcalendar.scss */
+.archive-calendar h2 {
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
+  padding: 0;
+  line-height: 30px;
+  font-size: 1.0625rem;
+}
+/* line 1370, ../sass/fullcalendar.scss */
+.archive-calendar .fc {
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
+}
+/* line 1372, ../sass/fullcalendar.scss */
+.archive-calendar .fc td.ui-state-highlight {
+  background: none;
+}
+/* line 1376, ../sass/fullcalendar.scss */
+.archive-calendar .fc-day-header {
+  color: #bfbfbf;
+  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+}
+/* line 1380, ../sass/fullcalendar.scss */
+.archive-calendar .fc-other-month {
+  opacity: 0;
+}
+
+/* line 1384, ../sass/fullcalendar.scss */
+#calendar-week {
+  margin-top: -26px;
+}
+/* line 1386, ../sass/fullcalendar.scss */
+#calendar-week .fc-row.fc-widget-header {
+  margin-bottom: 4px;
+}
+/* line 1389, ../sass/fullcalendar.scss */
+#calendar-week th {
+  padding-top: 10px;
+}
+/* line 1391, ../sass/fullcalendar.scss */
+#calendar-week th.fc-today-header {
+  padding: 0;
+}
+/* line 1394, ../sass/fullcalendar.scss */
+#calendar-week th .fc-today-highlight {
+  padding: 8px 0;
+  border: 2px #C71F2A solid;
+  border-radius: 7px;
+  font-family: "Futura LT W01 Bold", Arial, Helvetica, sans-serif;
+}
+/* line 1403, ../sass/fullcalendar.scss */
+#calendar-week td.fc-widget-content:first-child {
+  border-width: 0;
+  border-top: 1px solid #bfbfbf;
+}
+/* line 1411, ../sass/fullcalendar.scss */
+#calendar-week .fc-content-skeleton > table > tbody > tr:first-child .fc-event {
+  border-top: 0;
+}
+/* line 1416, ../sass/fullcalendar.scss */
+#calendar-week .fc-today {
+  background: #fcf4f4;
+}
+/* line 1419, ../sass/fullcalendar.scss */
+#calendar-week .fc-event-container {
+  height: 90px;
+}
+/* line 1422, ../sass/fullcalendar.scss */
+#calendar-week .fc-event {
+  border: 0;
+  border-top: 1px solid #bfbfbf;
+  border-radius: 0;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  background: none;
+}
+/* line 1429, ../sass/fullcalendar.scss */
+#calendar-week .fc-event .fc-content {
+  overflow: visible;
+}
+/* line 1431, ../sass/fullcalendar.scss */
+#calendar-week .fc-event .fc-content .fc-time {
+  font-weight: normal;
+}
+/* line 1435, ../sass/fullcalendar.scss */
+#calendar-week .fc-event:before {
+  top: 15px;
+}
+/* line 1439, ../sass/fullcalendar.scss */
+#calendar-week .fc-day-grid-event .fc-content {
+  white-space: normal;
+}
+/* line 1442, ../sass/fullcalendar.scss */
+#calendar-week .fc-time {
+  display: block;
+  font-family: "Futura LT W01 Heavy", Arial, Helvetica, sans-serif;
+  padding-top: 5px;
+}
+/* line 1447, ../sass/fullcalendar.scss */
+#calendar-week .fc-title {
+  overflow: visible;
+  height: 45px;
+  display: inline-block;
+}
+
+/* line 1453, ../sass/fullcalendar.scss */
+#calendar-month {
+  margin-top: -1rem;
+}
+/* line 1455, ../sass/fullcalendar.scss */
+#calendar-month th {
+  padding: 0 0 1rem;
+}
+/* line 1459, ../sass/fullcalendar.scss */
+#calendar-month td.fc-day-number {
+  font-family: "Futura LT W01 Book", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+/* line 1466, ../sass/fullcalendar.scss */
+#calendar-month .fc-body > tr > td.fc-widget-content {
+  border-left: 0;
+  border-right: 0;
+}
+/* line 1470, ../sass/fullcalendar.scss */
+#calendar-month.fc-ltr .fc-basic-view .fc-day-number {
+  text-align: left;
+}
+/* line 1473, ../sass/fullcalendar.scss */
+#calendar-month .fc-day-grid-event {
+  margin-top: 0;
+  margin-left: 0;
+}
+/* line 1476, ../sass/fullcalendar.scss */
+#calendar-month .fc-day-grid-event .fc-time {
+  font-weight: normal;
+}
+/* line 1481, ../sass/fullcalendar.scss */
+#calendar-month .fc-bg .fc-today {
+  background: #fcf4f4;
+}
+/* line 1485, ../sass/fullcalendar.scss */
+#calendar-month .fc-event {
+  border: 0;
+}
+/* line 1487, ../sass/fullcalendar.scss */
+#calendar-month .fc-event .fc-content {
+  line-height: 27px;
+  margin-bottom: 4px;
+  text-overflow: ellipsis;
+}
+/* line 1492, ../sass/fullcalendar.scss */
+#calendar-month .fc-event:before {
+  top: 7px;
+}
+/* line 1496, ../sass/fullcalendar.scss */
+#calendar-month .fc-more {
+  position: relative;
+  padding-left: 31px;
+  line-height: 27px;
+  font-size: 12px;
+}
+/* line 1501, ../sass/fullcalendar.scss */
+#calendar-month .fc-more .bg-outlet {
+  top: 0px;
+  left: 4px;
+}
+/* line 1504, ../sass/fullcalendar.scss */
+#calendar-month .fc-more .bg-outlet:before {
+  height: 19px;
+  width: 19px;
+}
+/* line 1508, ../sass/fullcalendar.scss */
+#calendar-month .fc-more .bg-outlet i {
+  position: absolute;
+  color: #fff;
+  font-size: 22px;
+  line-height: 16px;
+  top: 0;
+  left: 3px;
+  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+/* line 1520, ../sass/fullcalendar.scss */
+#calendar-month .fc-more-popover {
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+  width: 200px;
+  margin-left: -7px;
+}
+/* line 1524, ../sass/fullcalendar.scss */
+#calendar-month .fc-more-popover .fc-widget-header {
+  display: none;
+}
+
+/* line 1531, ../sass/fullcalendar.scss */
+#calendar-month .fc-event,
+#calendar-month .fc-event:hover,
+#calendar-month .ui-widget .fc-event, #calendar-week .fc-event,
+#calendar-week .fc-event:hover,
+#calendar-week .ui-widget .fc-event {
+  color: #000;
+}
+/* line 1536, ../sass/fullcalendar.scss */
+#calendar-month th, #calendar-week th {
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  border-color: transparent;
+}
+/* line 1542, ../sass/fullcalendar.scss */
+#calendar-month td, #calendar-week td {
+  border-color: #bfbfbf;
+}
+/* line 1544, ../sass/fullcalendar.scss */
+#calendar-month td.fc-widget-header, #calendar-week td.fc-widget-header {
+  border-width: 0;
+}
+/* line 1548, ../sass/fullcalendar.scss */
+#calendar-month .fc-highlight, #calendar-week .fc-highlight {
+  background: #fcf4f4;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+/* line 1553, ../sass/fullcalendar.scss */
+#calendar-month .fc-event, #calendar-week .fc-event {
+  font-size: 12px;
+  cursor: pointer;
+  background: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* line 1562, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.blogger:before, #calendar-week .fc-event.blogger:before {
+  font-family: 'icomoon';
+  content: "\e901";
+}
+/* line 1566, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.blogger .fc-content:before, #calendar-week .fc-event.blogger .fc-content:before {
+  background: #ff9334;
+}
+/* line 1571, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.facebook:before, #calendar-week .fc-event.facebook:before {
+  content: "";
+}
+/* line 1574, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.facebook .fc-content:before, #calendar-week .fc-event.facebook .fc-content:before {
+  background: #547BBC;
+}
+/* line 1579, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.google:before, #calendar-week .fc-event.google:before {
+  content: "";
+}
+/* line 1582, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.google .fc-content:before, #calendar-week .fc-event.google .fc-content:before {
+  background: #de5246;
+}
+/* line 1587, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.instagram:before, #calendar-week .fc-event.instagram:before {
+  content: "";
+}
+/* line 1590, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.instagram .fc-content:before, #calendar-week .fc-event.instagram .fc-content:before {
+  background: #696969;
+}
+/* line 1595, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.linkedin:before, #calendar-week .fc-event.linkedin:before {
+  content: "";
+}
+/* line 1598, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.linkedin .fc-content:before, #calendar-week .fc-event.linkedin .fc-content:before {
+  background: #1384C7;
+}
+/* line 1603, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.pinterest:before, #calendar-week .fc-event.pinterest:before {
+  content: "";
+}
+/* line 1606, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.pinterest .fc-content:before, #calendar-week .fc-event.pinterest .fc-content:before {
+  background: #E95655;
+}
+/* line 1611, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.tumblr:before, #calendar-week .fc-event.tumblr:before {
+  content: "";
+}
+/* line 1614, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.tumblr .fc-content:before, #calendar-week .fc-event.tumblr .fc-content:before {
+  background: #5E8FAE;
+}
+/* line 1619, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.twitter:before, #calendar-week .fc-event.twitter:before {
+  content: "";
+}
+/* line 1622, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.twitter .fc-content:before, #calendar-week .fc-event.twitter .fc-content:before {
+  background: #78CBEF;
+}
+/* line 1627, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.youtube:before, #calendar-week .fc-event.youtube:before {
+  content: "";
+}
+/* line 1630, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.youtube .fc-content:before, #calendar-week .fc-event.youtube .fc-content:before {
+  background: #E9644A;
+}
+/* line 1635, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.vimeo:before, #calendar-week .fc-event.vimeo:before {
+  content: "";
+}
+/* line 1638, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.vimeo .fc-content:before, #calendar-week .fc-event.vimeo .fc-content:before {
+  background: #1DAD87;
+}
+/* line 1643, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.vine:before, #calendar-week .fc-event.vine:before {
+  content: "";
+}
+/* line 1646, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.vine .fc-content:before, #calendar-week .fc-event.vine .fc-content:before {
+  background: #1DAD87;
+}
+/* line 1651, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.wordpress:before, #calendar-week .fc-event.wordpress:before {
+  content: "";
+}
+/* line 1654, ../sass/fullcalendar.scss */
+#calendar-month .fc-event.wordpress .fc-content:before, #calendar-week .fc-event.wordpress .fc-content:before {
+  background: #1e8cbe;
+}
+/* line 1658, ../sass/fullcalendar.scss */
+#calendar-month .fc-event:before, #calendar-week .fc-event:before {
+  font-family: "FontAwesome";
+  color: #fff;
+  position: absolute;
+  text-align: center;
+  z-index: 11;
+  width: 27px;
+  left: 2px;
+}
+/* line 1667, ../sass/fullcalendar.scss */
+#calendar-month .fc-event .fc-content, #calendar-week .fc-event .fc-content {
+  font-family: "Futura LT W01 Light", Arial, Helvetica, sans-serif;
+  padding-left: 32px;
+}
+/* line 1670, ../sass/fullcalendar.scss */
+#calendar-month .fc-event .fc-content:before, #calendar-week .fc-event .fc-content:before {
+  height: 19px;
+  width: 19px;
+  top: 4px;
+  left: 5px;
+  display: block;
+  content: "";
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  position: absolute;
+  z-index: 10;
+}
+
+/*Theme*/
+/* line 1687, ../sass/fullcalendar.scss */
+.ui-button {
+  background: none;
+  border-radius: 0;
+  border: 0;
+  color: #666666;
+}
+
+/* line 1694, ../sass/fullcalendar.scss */
+.fc .ui-button {
+  font-family: "FontAwesome";
+  font-size: 21px;
+}
+/* line 1698, ../sass/fullcalendar.scss */
+.fc .ui-button.fc-prev-button:before {
+  content: "";
+}
+/* line 1703, ../sass/fullcalendar.scss */
+.fc .ui-button.fc-prevYear-button:before {
+  content: "";
+}
+/* line 1708, ../sass/fullcalendar.scss */
+.fc .ui-button.fc-next-button:before {
+  content: "";
+}
+/* line 1713, ../sass/fullcalendar.scss */
+.fc .ui-button.fc-nextYear-button:before {
+  content: "";
+}
