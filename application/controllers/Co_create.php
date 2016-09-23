@@ -464,6 +464,8 @@ class Co_create extends CI_Controller {
 
 		if($account_id && $slug && $request_string)
 		{
+			$this->timeframe_model->delete_data('reminders',array('text like' => '%'.base_url(uri_string()).'%','user_id' => $this->user_id));
+
 			$session_data = $this->user_data;
 			
 			$check_user = $this->timeframe_model->check_user_is_account_user($account_id);

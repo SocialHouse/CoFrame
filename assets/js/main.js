@@ -1964,6 +1964,27 @@ jQuery(function($) {
 			$('#userOutlet').val('');
 		}
 	});
+
+	jQuery(document).on('click','.reminders',function(){		
+		var parent = $(this).parent();
+		$(this).parent().remove();
+		var reminder_id = $(this).data('reminder-id');
+		var brand_id = $(this).data('brand-id');
+		$.ajax({
+			data:{'reminder_id':reminder_id,'brand_id':brand_id},
+			type:'POST',
+			dataType:'json',
+			url:base_url+'brands/delete_reminders',
+			success: function(response){
+				console.log($(parent).parents('.reminder-list-div'));
+				if(response.response == 'success')
+				{
+					$('.reminder-list-div'+brand_id).empty();
+					$('.reminder-list-div'+brand_id).append(response.html);
+				}
+			}
+		})
+	});
 });
 
 

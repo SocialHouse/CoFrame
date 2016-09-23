@@ -914,6 +914,19 @@ class Brands extends CI_Controller {
 	    	}
 	    }
     }
+
+    function delete_reminders()
+    {
+    	$reminder_id = $this->input->post('reminder_id');
+    	$brand_id = $this->input->post('brand_id');
+    	if($reminder_id)
+    	{
+    		$this->timeframe_model->delete_data('reminders',array('id' => $reminder_id));
+    		$this->data['brand'] = $this->brand_model->get_brand_by_id($brand_id);
+    		$html = $this->load->view('brands/reminder_list_html',$this->data,true);
+    		echo json_encode(array('response' => 'success', 'html' => $html));
+    	}
+    }
 }
 
 

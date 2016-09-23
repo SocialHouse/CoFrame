@@ -71,7 +71,20 @@
 				{
 					?>
 					<footer class="post-content-footer post-actions text-xs-center">
-						<a href="#" data-clear="yes" class="btn btn-default btn-sm" data-modal-id="edit-post-modal"  data-toggle="modal-ajax" data-modal-size="lg" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/edit-request/<?php echo $post_details->slug.'/'.$post_details->id; ?>">Edit</a>
+						<?php
+						if(isset($show_model) AND $show_model == 1)
+						{
+							?>
+							<a href="#" data-clear="yes" class="btn btn-default btn-sm" data-modal-id="edit-post-modal"  data-toggle="modal-ajax" data-modal-size="lg" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/edit-request/<?php echo $post_details->slug.'/'.$post_details->id; ?>">Edit</a>
+							<?php
+						}
+						else
+						{
+							?>
+							<a class="btn btn-default btn-sm" href="<?php echo base_url()?>posts/edit_post/overview/<?php echo $post_details->slug.'/'.$post_details->id; ?>">Edit</a>
+							<?php
+						}
+						?>						
 					</footer>
 					<?php
 				}

@@ -40,10 +40,10 @@ class Settings extends CI_Controller {
 	{
 		$this->data = array();
 		$slug = $this->uri->segment(3);	
-		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);
-		check_access('settings',$brand);
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			check_access('settings',$brand);
 			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
 			$brand_id = $brand[0]->id;

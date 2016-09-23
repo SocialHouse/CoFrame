@@ -340,7 +340,6 @@
 												<option data-price="$99" value="START-UP">START-UP</option>
 												<option data-price="$199" value="BUSINESS">BUSINESS</option>
 												<option data-price="$299" value="CORPORATE">CORPORATE</option>
-												<option data-price="$499" value="PREMIERE">PREMIERE</option>
 											</select>
 										</fieldset>
 										<fieldset class="form-group">

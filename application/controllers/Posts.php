@@ -1116,4 +1116,79 @@ class Posts extends CI_Controller {
 			}
 		}
 	}
+
+	function edit_post()
+	{
+		$redirect_uri = $this->uri->segment(3);
+		$this->data['slug'] = $this->uri->segment(4);
+		if($redirect_uri == 'dashboard')
+		{
+			$redirect_uri = $redirect_uri.'/'.$this->data['slug'];
+		}
+
+		$this->data['redirect_url'] = 'brands/'.$redirect_uri;		
+		$this->data['post_id'] = $this->uri->segment(5);		
+		$this->data['timezones'] = $this->user_model->get_timezones();
+
+		foreach ($this->data['timezones']  as $key => $values) 
+		{
+			if($this->user_data['timezone'] == $values->value)
+			{
+				$this->data['user_timezone'] = array(
+									'name' =>  $values->timezone,
+									'value' => $values->value
+									);
+				unset($this->data['timezones'][$key]);
+			}
+		}
+
+
+
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$this->data['slug']);
+		if(!empty($brand))
+		{
+			$this->user_data['timezone'] = $brand[0]->timezone;
+			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['brand'] = $brand[0];
+			$this->data['users'] = $this->brand_model->get_approvers($brand[0]->id);
+			$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+
+			if(!empty($this->data['post_id'])){
+				$post_id = $this->data['post_id'];
+				$post_details = $this->post_model->get_post($this->data['post_id']);
+				$this->data['post_details'] = $post_details;
+				$this->data['post_images'] = $this->post_model->get_images($post_id);
+				// $this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
+				if($this->user_id == $this->user_data['account_id'] OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
+				{
+					$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand[0]->id);
+				}
+				else
+				{
+					$this->data['outlets'] = $this->post_model->get_user_outlets($brand[0]->id,$this->user_id);
+				}
+			
+				$post_phases = $this->post_model->get_post_phases($post_id);
+				$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);		
+				if(!empty($post_phases))
+				{
+					foreach($post_phases as $phase)
+					{
+						$this->data['phases'][$phase->phase][] = $phase;
+					}
+				}
+			}
+
+			$this->data['css_files'] = array(css_url().'fullcalendar.css');
+			$this->data['js_files'] = array(js_url().'vendor/isotope.pkgd.min.js?ver=3.0.0',js_url().'vendor/moment.min.js?ver=2.11.0',js_url().'vendor/fullcalendar.min.js?ver=2.6.1',js_url().'calendar-config.js?ver=1.0.0',js_url().'post-filters.js?ver=1.0.0', js_url().'drag-drop-file-upload.js?ver=1.0.0',js_url().'datepicker.js',js_url().'timepicker.js',js_url().'custom_validation.js?ver=1.0.0', js_url().'tumblr-preview.js?ver=1.0.0' );
+			
+			$this->data['view'] = 'calendar/edit_post_calendar';
+			$this->data['layout'] = 'layouts/new_user_layout';		
+			
+			$this->data['background_image'] = 'bg-brand-management.jpg';		
+			$this->data['is_brand_nav'] = 1;
+			_render_view($this->data);
+		}
+	}
 }

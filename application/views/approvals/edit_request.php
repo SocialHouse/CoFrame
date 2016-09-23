@@ -8,7 +8,8 @@
 		</header>
 
 		<?php
-			$this->load->view('approvals/edit-request-modal');
+		$this->data['show_model'] = 1;
+		$this->load->view('approvals/edit-request-modal',$this->data);
 		?>
 	</section>
 

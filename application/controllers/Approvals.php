@@ -482,7 +482,7 @@ class Approvals extends CI_Controller {
 				$this->data['brand_id'] = $brand[0]->id;
 				$this->data['brand'] = $brand[0];
 				$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
-				// echo '<pre>'; print_r($this->data);echo '</pre>'; die;
+				// echo '<pre>'; print_r($this->data);echo '</pre>'; die;				
 				echo $this->load->view('approvals/edit-request-modal', $this->data, TRUE);
 		    }
 	    }
