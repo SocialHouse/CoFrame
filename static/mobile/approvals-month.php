@@ -19,7 +19,7 @@
 		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main col-sm-12">
 				<header class="page-main-header header-fixed-top bg-white row">
-					<h1 class="center-title section-title border-none">Today's Approvals</h1>
+					<h1 class="center-title section-title border-none">Approvals by Month</h1>
 				</header>
 				<div class="bg-white col-sm-12 content-shadow brand-main">
 					<div class="content-shadow brand-header row">
@@ -30,12 +30,13 @@
 					<div class="date-header row">
 						<div class="col-sm-12">
 							<div class="pull-xs-left">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
+								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 month' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
 							</div>
 							<div class="pull-xs-right">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
+								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 month' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
 							</div>
-							<div class="center-title"><a href="#calendarSelectModal" data-toggle="modal"><?php echo date('F d, Y'); ?></a></div>
+							<div class="center-title"><a href="#approvalMonth" class="target-hidden"><?php echo date('F, Y'); ?></a></div>
+							<input type="month" id="approvalMonth" class="invisible pos-absolute" name="approvalMonth">
 						</div>
 					</div>
 					<ul class="my-approvals">
@@ -111,38 +112,11 @@
 			</section>
 		</div>
 	</div>
-	
-	
-	<!-- Calender -->
-	<div class="modal hide fade" id="calendarSelectModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content bg-white">
-			<button type="button" class="modal-toggler">
-				<span class="sr-only">Toggle Modal</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		  <div class="modal-body">
-			<div id="calendar-change-day" class="calendar-select-date">
-				<div class="date-select-calendar"></div>
-			</div>
-			<div class="text-xs-center overlay-footer border-gray-lighter">
-				<button type="button" class="btn btn-sm btn-default modal-hide">Cancel</button>
-				<button type="button" id="getPostsByDate" class="btn btn-sm btn-secondary btn-disabled modal-hide" disabled="">Apply</button>
-			</div>			
-		  </div>
-		</div>
-	  </div>
-	</div>	
 
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
-	<script src="assets/js/vendor/moment.min.js?ver=2.11.0"></script>
-	<script src="assets/js/vendor/fullcalendar.min.js?ver=2.6.1"></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/tooltip-config.js?ver=1.0.0'></script>
-	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
-	<script type='text/javascript' src='assets/js/modal-config.js?ver=1.0.0'></script>
 </body>
 </html>

@@ -19,7 +19,7 @@
 		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main col-sm-12">
 				<header class="page-main-header header-fixed-top bg-white row">
-					<h1 class="center-title section-title border-none">Today's Approvals</h1>
+					<h1 class="center-title section-title border-none">Approvals by Month</h1>
 				</header>
 				<div class="bg-white col-sm-12 content-shadow brand-main">
 					<div class="content-shadow brand-header row">
@@ -30,12 +30,22 @@
 					<div class="date-header row">
 						<div class="col-sm-12">
 							<div class="pull-xs-left">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
+								<div id="outlet-prev" class="next-outlet"></div>
 							</div>
 							<div class="pull-xs-right">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
+								<div id="outlet-next" class="next-outlet"></div>
 							</div>
-							<div class="center-title"><a href="#calendarSelectModal" data-toggle="modal"><?php echo date('F d, Y'); ?></a></div>
+							<ul class="outlet-list bxslider">
+								<li class="" data-value="check-all"><i class="fa"><span class="bg-outlet bg-all"></span><span class="outlet-text">All</span></i></li>
+								<li class="disabled" data-selected-outlet="facebook"><i class="fa fa-facebook"><span class="bg-outlet bg-facebook"></span></i></li>
+								<li class="disabled" data-selected-outlet="twitter"><i class="fa fa-twitter"><span class="bg-outlet bg-twitter"></span></i></li>
+								<li class="disabled" data-selected-outlet="instagram"><i class="fa fa-instagram"><span class="bg-outlet bg-instagram"></span></i></li>
+								<li class="disabled" data-selected-outlet="linkedin"><i class="fa fa-linkedin"><span class="bg-outlet bg-linkedin"></span></i></li>
+								<li class="disabled" data-selected-outlet="vimeo"><i class="fa fa-vimeo"><span class="bg-outlet bg-vimeo"></span></i></li>
+								<li class="disabled" data-selected-outlet="pinterest"><i class="fa fa-pinterest"><span class="bg-outlet bg-pinterest"></span></i></li>
+								<li class="disabled" data-selected-outlet="tumblr"><i class="fa fa-tumblr"><span class="bg-outlet bg-tumblr"></span></i></li>
+								<li class="disabled" data-selected-outlet="youtube"><i class="fa fa-youtube-play"><span class="bg-outlet bg-youtube"></span></i></li>
+							</ul>
 						</div>
 					</div>
 					<ul class="my-approvals">
@@ -111,38 +121,12 @@
 			</section>
 		</div>
 	</div>
-	
-	
-	<!-- Calender -->
-	<div class="modal hide fade" id="calendarSelectModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content bg-white">
-			<button type="button" class="modal-toggler">
-				<span class="sr-only">Toggle Modal</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		  <div class="modal-body">
-			<div id="calendar-change-day" class="calendar-select-date">
-				<div class="date-select-calendar"></div>
-			</div>
-			<div class="text-xs-center overlay-footer border-gray-lighter">
-				<button type="button" class="btn btn-sm btn-default modal-hide">Cancel</button>
-				<button type="button" id="getPostsByDate" class="btn btn-sm btn-secondary btn-disabled modal-hide" disabled="">Apply</button>
-			</div>			
-		  </div>
-		</div>
-	  </div>
-	</div>	
 
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
-	<script src="assets/js/vendor/moment.min.js?ver=2.11.0"></script>
-	<script src="assets/js/vendor/fullcalendar.min.js?ver=2.6.1"></script>
+	<script type='text/javascript' src='assets/js/vendor/jquery.bxslider.min.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/tooltip-config.js?ver=1.0.0'></script>
-	<script type='text/javascript' src='assets/js/calendar-config.js?ver=1.0.0'></script>
-	<script type='text/javascript' src='assets/js/modal-config.js?ver=1.0.0'></script>
 </body>
 </html>

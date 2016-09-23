@@ -170,7 +170,6 @@ h5 {
 		border-color: #000;
 		&:hover {
 			color: #fff;
-			border-color: $brand-primary;
 		}
 		&.color-success {
 			color: $brand-success;
@@ -240,6 +239,7 @@ h5 {
 	&.btn-secondary {
 		background: $gray-lighter;
 		color: #fff;
+		border-color: $gray-lighter;
 		.post-actions & {
 			background: #e5e5e5;
 			color: $gray;
@@ -682,8 +682,30 @@ a {
 		line-height: remCalc(26px);
 		font-size: remCalc(30px);
 	}
+	.next-outlet {
+		position: relative;
+		z-index: 2;
+		.disabled {
+			.bg-black {
+				background: $gray-lightest;
+			}
+		}
+	}
 	.form-search {
 		margin-top: 6px;
+	}
+	.bx-viewport {
+		padding-left:6px;
+	}
+	.bx-wrapper {
+		position: absolute;
+		top: .25rem;
+		left: 0;
+		padding-left: 4rem;
+		padding-right: 4.25rem;
+	}
+	.outlet-list {
+		z-index:1;
 	}
 }
 .content-shadow {
@@ -2106,6 +2128,7 @@ a {
 		}
 		ul {
 			padding-top: 1rem;
+			padding-left: 0;
 			.form-group {
 				padding-left: 48px;
 			}
@@ -2173,6 +2196,9 @@ a {
 	border-top: 1px solid #000;
 	padding-top: 1rem;
 	margin-top: 2rem;
+	.btn + .btn {
+		margin-left: 1rem;
+	}
 }
 #live-post-preview {
 	box-shadow: 0px 0px 5px rgba(0,0,0,.4);
@@ -2187,6 +2213,8 @@ a {
 
 .outlet-list {
 	line-height: remCalc(36px);
+	margin: 0;
+	padding: 0;
 	label {
 		margin-bottom:0;
 	}
@@ -2849,6 +2877,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 .pos-relative {
 	position: relative;
 }
+.pos-absolute {
+	position: absolute;
+}
 .highlight {
 	background: #000;
 	color: #fff;
@@ -2861,8 +2892,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 	line-height: remCalc(18px);
 }
 .small {
-	font-size: 1rem;
-	line-height: 1.5rem;
+	font-size: .8em;
 }
 .uppercase {
 	text-transform:  uppercase;

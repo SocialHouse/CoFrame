@@ -126,7 +126,7 @@ jQuery(function($) {
 					start: $.fullCalendar.moment(startDate),
 					end: $.fullCalendar.moment(endDate).add(1, 'days'), //end returns one day prior for highlighting, so adding one day.
 					rendering: 'background',
-					color: '#f4d3d5'
+					color: '#c71f2a'
 				};
 				
 				daySelectedDate = $.fullCalendar.moment(startDate);
@@ -224,13 +224,18 @@ jQuery(function($) {
 						start: $.fullCalendar.moment(date),
 						end: $.fullCalendar.moment(date).add(1, 'days'), //end was returning one day prior for highlighting, so adding one day.
 						rendering: 'background',
-						color: '#f4d3d5'
+						color: '#c71f2a'
 					};
 					$('#' + id + ' .date-select-calendar').fullCalendar('renderEvent', eventData, true);
 					daySelectedDate = date.format();
 					
 				}
 				$('#getPostsByDate').removeClass('btn-disabled').removeAttr('disabled');
+				//set selected day color to white
+				if(id === "calendar-change-day") {
+					$('.fc-day-number[data-date='+date.format()+']').css('color', '#fff');
+					$('.fc-day-number[data-date!='+date.format()+']').css('color', '');
+				}
 			},
 			theme: true,
 			themeButtonIcons: false,

@@ -31,6 +31,12 @@ jQuery(function($) {
 		});
 
 
+		$('body').on('click', '.outlet-list li', function() {
+			var outlet = $(this).data('selectedOutlet');
+			$(this).toggleClass('disabled');
+			$(this).siblings().addClass('disabled');
+		});
+
 		$('body').on('click', '.show-hide', function(e) {
 			e.preventDefault();
 			var $trigger = $(this);
@@ -52,6 +58,12 @@ jQuery(function($) {
 			}
 		});
 
+	});
+
+	$('body').on('click', '.target-hidden', function(e) {
+		e.preventDefault();
+		var target = $(this).attr('href');
+		$(target).click();
 	});
 
 
@@ -95,6 +107,30 @@ jQuery(function($) {
 			setAmPm(input);
 		}
 	});
+
+	function horizSlider() {
+		slider = $('.bxslider').bxSlider({
+			slideMargin:16,
+			infiniteLoop: false,
+			autoReload: true,
+			nextSelector: '#outlet-next',
+			prevSelector: '#outlet-prev',
+			nextText: '<i class="fa fa-angle-right fa-custom-circle bg-black"></i>',
+			prevText: '<i class="fa fa-angle-left fa-custom-circle bg-black"></i>',
+			hideControlOnEnd: true,
+			moveSlides: 1,
+			pager: false,
+			touchEnabled: false,
+			breaks: [{screen:320, slides:5},{screen:375, slides:6}]
+		});
+	}
+	function destroySlider() {
+		slider.reloadSlider();
+		horizSlider();
+	}
+	window.onload = function() {
+		horizSlider();
+	};
 
 	function setHrs(input, incDec) {
 		var newVal;

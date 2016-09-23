@@ -19,7 +19,7 @@
 		<div class="content-area row animated fadeIn">
 			<section id="overview" class="page-main col-sm-12">
 				<header class="page-main-header header-fixed-top bg-white row">
-					<h1 class="center-title section-title border-none">Today's Approvals</h1>
+					<h1 class="center-title section-title border-none">Approvals by Week</h1>
 				</header>
 				<div class="bg-white col-sm-12 content-shadow brand-main">
 					<div class="content-shadow brand-header row">
@@ -30,12 +30,12 @@
 					<div class="date-header row">
 						<div class="col-sm-12">
 							<div class="pull-xs-left">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
+								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-8 days' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
 							</div>
 							<div class="pull-xs-right">
-								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
+								<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+8 days' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
 							</div>
-							<div class="center-title"><a href="#calendarSelectModal" data-toggle="modal"><?php echo date('F d, Y'); ?></a></div>
+							<div class="center-title small"><a href="#calendarSelectWeekModal" data-toggle="modal"><?php echo date('M d, Y'); ?>&#8212;<?php echo date('M d, Y', strtotime( '+7 days' )); ?></a></div>
 						</div>
 					</div>
 					<ul class="my-approvals">
@@ -114,7 +114,7 @@
 	
 	
 	<!-- Calender -->
-	<div class="modal hide fade" id="calendarSelectModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+	<div class="modal hide fade" id="calendarSelectWeekModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
 			<button type="button" class="modal-toggler">
@@ -123,7 +123,7 @@
 				<span class="icon-bar"></span>
 			</button>
 		  <div class="modal-body">
-			<div id="calendar-change-day" class="calendar-select-date">
+			<div id="calendar-change-week" class="calendar-select-date">
 				<div class="date-select-calendar"></div>
 			</div>
 			<div class="text-xs-center overlay-footer border-gray-lighter">

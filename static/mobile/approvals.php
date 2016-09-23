@@ -30,7 +30,7 @@
 						<li><a href="approvals-today.php" class="pos-relative">Today's Approvals<i class="fa fa-angle-right expand-collapse"></i></a></li>
 						<li><a href="approvals-week.php" class="pos-relative">Approvals by Week<i class="fa fa-angle-right expand-collapse"></i></a></li>
 						<li><a href="approvals-month.php" class="pos-relative">Approvals by Month<i class="fa fa-angle-right expand-collapse"></i></a></li>
-						<li><a href="approvals-todays.php" class="pos-relative">Approvals by Outlet<i class="fa fa-angle-right expand-collapse"></i></a></li>
+						<li><a href="approvals-outlet.php" class="pos-relative">Approvals by Outlet<i class="fa fa-angle-right expand-collapse"></i></a></li>
 					</ul>
 				</div>
 			</section>
