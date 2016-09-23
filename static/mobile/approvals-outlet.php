@@ -128,5 +128,6 @@
 	<script type='text/javascript' src='assets/js/vendor/jquery.bxslider.min.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/main.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='assets/js/tooltip-config.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='assets/js/bxslider-config.js?ver=1.0.0'></script>
 </body>
 </html>

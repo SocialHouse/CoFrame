@@ -939,12 +939,6 @@ a {
 	position:  absolute;
 	.modal-content {
 		font-size: 1.25rem;
-		border-radius: 0;
-		a {
-			&:not(.btn) {
-				text-decoration: underline;
-			}
-		}
 	}
 	.modal-open & {
 		overflow: visible;
@@ -966,6 +960,7 @@ a {
 .modal-dialog {
 	margin: 0 auto;
 	box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.25);
+	max-width:90%;
 }
 
 .modal-contain {
@@ -2456,16 +2451,25 @@ a {
 }
 .edit-menu {
 	text-transform: uppercase;
-	font-size: 11px;
+	font-size: remCalc(24px);
 	letter-spacing: .25em;
+	font-family: $futura;
+	margin: -1rem;
+	text-align: center;
 	.list-group-item {
 		list-style: none;
 		border-left: 0;
 		border-right: 0;
-		padding: remCalc(9px) remCalc(18px);
+		padding: 0;
+		li {
+			padding: remCalc(9px) remCalc(18px);
+			+ li {
+				border-top: 1px solid $gray-lighter;
+			}
+		}
 		a {
 			display: block;
-			padding: remCalc(9px) 0;
+			text-decoration: none;
 		}
 		&:first-child {
 			border-top: 0;
