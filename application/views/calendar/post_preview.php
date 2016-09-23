@@ -40,7 +40,7 @@
 					</div>
 					<?php
 					$edit_req_btn = '';
-					if($user_is == 'approver' OR get_user_groups($this->user_id) == "Master admin" OR  get_user_groups($this->user_id,'',$this->user_data['parent_id']) == "Master admin")
+					if($user_is == 'approver' OR get_user_groups($this->user_id) == "Master admin" OR  get_user_groups($this->user_id,NULL,$this->user_data['parent_id']) == "Master admin")
 					{
 						
 						$edit_req_btn = '<a type="button" class="btn btn-xs btn-default" href="'.base_url().'"edit-request/"'.$post_details->id.'">Edit Requests</a>';
