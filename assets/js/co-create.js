@@ -77,7 +77,7 @@ function initializeSession(apiKey, sessionId,token) {
 				publishAudio:true, 
 				publishVideo:true
 			},function(error){
-				console.log(error.message);
+				// console.log(error.message);
 			});			
 		  	session.publish(publisher);
 			if(!$('#subscriber').hasClass('hidden')) {

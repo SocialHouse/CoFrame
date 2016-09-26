@@ -288,7 +288,8 @@ class Co_create extends CI_Controller {
 				$this->timeframe_model->insert_data('co_create_requests',array('request_string' => $post_data['request_string'],'brand_slug' => $post_data['slug'],'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
 
 				$subject = "Co create requst";
-				$message = "To join co create click below link <br/> <a href=".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'].">".base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string']."</a>";
+				$this->data['url'] = base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'];
+				$message = $this->load->view('mails/join_co_create',$this->data,true);
 				foreach($post_data['selected_users'] as $email)
 				{
 					$user_id = $this->aauth->get_user_id($email);
@@ -301,7 +302,7 @@ class Co_create extends CI_Controller {
 		    								'text' => 'Please join cocreate here <a href="'.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'"> '.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'</a>'
 		    							);
 
-	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+					$this->timeframe_model->insert_data('reminders',$reminder_data);
 
 					email_send($email,$subject,$message);
 				}
