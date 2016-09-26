@@ -473,3 +473,58 @@ ALTER TABLE `reminders` CHANGE `post_id` `post_id` INT(11) NULL;
 
 ---20-09-2016
 ALTER TABLE `post_comments` ADD FOREIGN KEY (`parent_id`) REFERENCES `timeframe`.`post_comments`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+---26-09-2016
+CREATE TABLE IF NOT EXISTS `cocreate_post_info` (
+`id` int(11) NOT NULL,
+  `request_id` int(11) NOT NULL,
+  `content` longtext,
+  `video_title` varchar(500) DEFAULT NULL,
+  `share_with` varchar(10) DEFAULT NULL,
+  `pinterest_board` varchar(250) DEFAULT NULL,
+  `pinterest_source` varchar(250) DEFAULT NULL,
+  `tumblr_content_type` varchar(150) DEFAULT NULL,
+  `tumblr_tags` varchar(500) DEFAULT NULL,
+  `tumblr_custom_url` varchar(500) DEFAULT NULL,
+  `tumblr_content_source` varchar(500) DEFAULT NULL,
+  `tumblr_title` varchar(500) DEFAULT NULL,
+  `tumblr_text_content` text,
+  `tumblr_caption` varchar(500) DEFAULT NULL,
+  `tumblr_quote` text,
+  `tumblr_source` varchar(500) DEFAULT NULL,
+  `tumblr_link` varchar(500) DEFAULT NULL,
+  `tumblr_link_description` text,
+  `tumblr_chat_title` varchar(500) DEFAULT NULL,
+  `tumblr_chat` text,
+  `tumblr_audio_description` text,
+  `tumblr_video_caption` varchar(500) DEFAULT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `outlet_id` int(11) DEFAULT NULL,
+  `slate_date_time` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_zone` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `cocreate_post_info`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `cocreate_post_info`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+CREATE TABLE IF NOT EXISTS `cocreate_post_media` (
+`id` int(11) NOT NULL,
+  `cocreate_post_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `type` enum('images','video','','') DEFAULT NULL,
+  `mime` varchar(250) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `cocreate_post_media`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `cocreate_post_media`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

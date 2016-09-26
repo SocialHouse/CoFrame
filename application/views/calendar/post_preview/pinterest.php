@@ -15,10 +15,15 @@ if(!empty($post_details)){
 		<div class="pinterest-img-div img-div">
 			<?php
 				if(!empty($post_images)){
+					$folder = 'posts';
+					if(isset($is_cocreate) AND !empty($is_cocreate))
+					{
+						$folder = 'posts/co_create';
+					}
 					foreach ($post_images as $key) {
-						if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+						if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
 							if($key->type  == 'images' ){
-								echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'"	/>';
+								echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'"	/>';
 								break;
 							}
 						}

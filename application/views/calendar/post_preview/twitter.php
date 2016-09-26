@@ -39,9 +39,14 @@ if(!empty($post_images)){
 						$i = 1;
 						$more_div = '';
 						if(!empty($post_images)){
+							$folder = 'posts';
+							if(isset($is_cocreate) AND !empty($is_cocreate))
+							{
+								$folder = 'posts/co_create';
+							}
 							if($img_count == 1 && $post_images[0]->type == 'video'){
 								echo '<video autobuffer autoloop loop controls width="100%" >
-									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'">
+									<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $post_images[0]->name.'">
 										<object type="'.$post_images[0]->mime.'">
 											<param name="src" value="/media/video.oga">
 											<param name="autoplay" value="false">
@@ -51,15 +56,15 @@ if(!empty($post_images)){
 									</video>';
 							}
 							if($img_count == 1 && $post_images[0]->type == 'images'){
-								if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$post_images[0]->name)){
-									echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $post_images[0]->name.'" />';
+								if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$post_images[0]->name)){
+									echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $post_images[0]->name.'" />';
 								}
 							}
 							if($img_count == 2 ){
 								foreach ($post_images as $key) {					
 									echo '<div class="width_50 img-item">';
-									if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-										echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" />';
+									if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
+										echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'" />';
 									}else{
 										echo '<img src="'.img_url().'default_profile.jpg" />';	
 									}
@@ -72,8 +77,8 @@ if(!empty($post_images)){
 								foreach ($post_images as $key) {
 									if($i == 1) {
 										echo '<div class="section1 pull-left width_twothirds" >';
-										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-											echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" />';
+										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
+											echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'" />';
 										}else{
 											echo '<img src="'.img_url().'default_profile.jpg" />';	
 										}
@@ -81,8 +86,8 @@ if(!empty($post_images)){
 										echo '<div class="section2 pull-left img-wrapper width_33">';
 									}
 									else {
-										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-											echo '<div class="img-wrapper height_50"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" /></div>';
+										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
+											echo '<div class="img-wrapper height_50"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'" /></div>';
 										}else{
 											echo '<div class="img-wrapper height_50"><img src="'.img_url().'default_profile.jpg" /></div>';	
 										}
@@ -97,8 +102,8 @@ if(!empty($post_images)){
 									if($i == 1) {
 										echo '<div class="section1 pull-left width_twothirds">';
 	
-										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-											echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" />';
+										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
+											echo '<img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'" />';
 										}else{
 											echo '<img src="'.img_url().'default_profile.jpg" />';	
 										}	
@@ -106,8 +111,8 @@ if(!empty($post_images)){
 										echo '<div class="section2 pull-left img-wrapper width_33"> ';
 									}
 									else {
-										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
-											echo '<div class="img-wrapper height_33"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'" /></div>';
+										if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
+											echo '<div class="img-wrapper height_33"><img src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'" /></div>';
 										}else{
 											echo '<div class="img-wrapper height_33"><img src="'.img_url().'default_profile.jpg" /></div>';	
 										}

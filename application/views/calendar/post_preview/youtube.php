@@ -14,11 +14,16 @@ if(!empty($post_images)){
 	<div class="video-div">
 		<?php
 			if(!empty($post_images)){
+				$folder = 'posts';
+				if(isset($is_cocreate) AND !empty($is_cocreate))
+				{
+					$folder = 'posts/co_create';
+				}
 				foreach ($post_images as $key) {
-					if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'.$key->name)) {
+					if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {
 						if ($key->type == 'video') {
 							echo '<video autobuffer autoloop loop controls width="100%" >
-								<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/posts/'. $key->name.'">
+								<source src="'.base_url().'uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'. $key->name.'">
 								<object type="'.$key->mime.'">
 									<param name="src" value="/media/video.oga">
 									<param name="autoplay" value="false">

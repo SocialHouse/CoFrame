@@ -86,14 +86,28 @@ class Co_create extends CI_Controller {
 
 			$opentok = new OpenTok($this->config->item('opentok_key'), $this->config->item('opentok_secret'));					
 
-			$generate_new_session = 1;
+			$generate_new_session = 1;			
 			if(!empty($request_string))
 			{
 				$request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
 				if(!empty($request) AND !empty($request[0]->session_id))
-				{
+				{					
 					$generate_new_session = 0;
-					$this->data['sessionId'] = $request[0]->session_id;					
+					$this->data['sessionId'] = $request[0]->session_id;
+					$this->data['req_id'] = $request[0]->id;
+					
+					if($request[0]->user_id == $this->user_id)
+					{
+						$this->data['is_sender'] = true;
+
+						$cocreate_post_info = $this->timeframe_model->get_data_by_condition('cocreate_post_info',array('request_id' => $request[0]->id),'id');
+						if(!empty($cocreate_post_info))
+						{
+							$this->timeframe_model->delete_data('cocreate_post_media',array('cocreate_post_id' => $cocreate_post_info[0]->id));
+							$this->timeframe_model->delete_data('cocreate_post_info',array('request_id' => $request[0]->id));
+						}
+					}
+							
 					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('user_id'=> $this->user_id,'data' => $connection_metadata));
 			    }
 			}
@@ -105,6 +119,7 @@ class Co_create extends CI_Controller {
 		        {
 			        $session = $opentok->createSession();
 			        $this->data['sessionId'] = $session->getSessionId();
+			        $this->data['req_id'] = $is_request[0]->id;
 					$this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
 		        
 		       
@@ -117,10 +132,16 @@ class Co_create extends CI_Controller {
 			    }
 			    else
 			    {
+			    	$this->data['req_id'] = $is_request[0]->id;
 			    	$this->data['sessionId'] = $is_request[0]->session_id;
 			        $this->data['token'] = $opentok->generateToken($this->data['sessionId'],array('data' => $connection_metadata));
 			        $this->data['request_string'] = $is_request[0]->request_string;
 			    }
+
+			    if($is_request[0]->user_id == $this->user_id)
+				{
+					$this->data['is_sender'] = true;
+				}
 		    }
 
 		    $this->load->model('user_model');
@@ -159,6 +180,15 @@ class Co_create extends CI_Controller {
 						unset($this->data['timezones'] [$key]);
 					}
 				}
+			}
+
+			if(isset($this->data['req_id']) AND !empty($this->data['req_id']) AND !isset($this->data['is_sender']))
+			{
+				$this->data['is_cocreate'] = true;
+				$this->data['post_details'] = $this->post_model->get_cocreate_post($this->data['req_id']);
+				$this->data['post_images'] = [];
+				if(!empty($this->data['post_details']))
+					$this->data['post_images'] = $this->post_model->get_cocreate_images($this->data['post_details']->id);
 			}
 
 			$this->data['view'] = 'co_create/cocreate_post';
@@ -304,157 +334,7 @@ class Co_create extends CI_Controller {
 			$this->session->set_flashdata('error','Brand is not available');
 			redirect(base_url().'brands');
 		}		
-	}
-
-	public function save_post()
-	{
-		$this->data = array();
-		$error = '';
-		$uploaded_files = array();
-		$post_data = $this->input->post();
-
-		$brand = get_users_brand(isset($post_data['brand_id'])?$post_data['brand_id']:'');
-
-		if($brand)
-		{
-	        $this->form_validation->set_rules('outlets[]','Outlets','required',                                            
-	                                            array('required' => 'At least select one outlet')
-	                                        );
-	        $this->form_validation->set_rules('post_copy','post copy','required',
-	                                            array('required' => 'Post copy is required')
-	                                        );
-	        $this->form_validation->set_rules('date','date','required',
-	                                            array('required' => 'Date is required')
-	                                        );
-	        $this->form_validation->set_rules('time','time','required',
-	                                            array('required' => 'Time is required')
-	                                        );
-	        $this->form_validation->set_rules('users[]','users','required',
-	                                            array('required' => 'At least select one user for approval')
-	                                        );
-	       	
-	       	if($this->form_validation->run() === TRUE)
-	        {
-		       	if(isset($_FILES['media_files']) && !empty($_FILES['media_files']))
-				{
-					$number_of_files = sizeof($_FILES['media_files']['tmp_name']);
-					$files = $_FILES['media_files'];
-					
-					for ($i = 0; $i < $number_of_files; $i++)
-					{
-						if(!empty($files['name'][$i]))
-						{
-					        $_FILES['uploadedimage']['name'] = $files['name'][$i];
-					        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
-					        $randname = uniqid().'.'.$ext;
-					        $_FILES['uploadedimage']['type'] = $files['type'][$i];
-					        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
-					        $_FILES['uploadedimage']['error'] = $files['error'][$i];
-					        $_FILES['uploadedimage']['size'] = $files['size'][$i];
-					        $status = upload_file('uploadedimage',$randname,'posts');
-					       
-					        if(array_key_exists("upload_errors",$status))
-					        {
-					        	$error =  $status['upload_errors'];				        	
-					        	break;
-					        }
-					        else
-					        {
-					        	$uploaded_files[$i]['file'] = $status['file_name'];
-					        	$uploaded_files[$i]['type'] = 'images';
-					        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];
-					        	
-					        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
-					        	{
-					        		$uploaded_files[$i]['type'] = 'video';
-					        	}
-					        }
-					    }
-			      	}			      
-			    }
-			    if(empty($error))
-			    {
-			    	$date_time = $post_data['date']." ".$post_data['time'];
-			    	$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
-
-			    	if(!empty($post_data['outlets']))
-		    		{
-		    			foreach($post_data['outlets'] as $outlet)
-		    			{
-		    				$post = array(
-			    						'content' => $this->input->post('post_copy'),
-			    						'slate_date_time' => $slate_date_time,
-			    						'brand_id' => $post_data['brand_id'],
-			    						'outlet_id' => $outlet
-			    					);
-
-		    				$inserted_id = $this->timeframe_model->insert_data('posts',$post);
-
-		    				if($inserted_id)
-					    	{
-					    		if(!empty($post_data['tags']))
-					    		{
-					    			foreach($post_data['tags'] as $tag)
-					    			{
-					    				$post_tag_data = array(
-					    										'post_id' => $inserted_id,
-					    										'brand_tag_id' => $tag
-					    									);
-					    			
-					    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
-					    			}
-					    		}					    		
-
-					    		if(!empty($post_data['users']))
-					    		{
-					    			foreach($post_data['users'] as $user)
-					    			{
-					    				$post_approver_data = array(
-					    										'post_id' => $inserted_id,
-					    										'user_id' => $user
-					    									);
-
-					    				$this->timeframe_model->insert_data('post_approvers',$post_approver_data);
-					    			}
-					    		}
-
-					    		if(!empty($uploaded_files))
-					    		{
-					    			foreach($uploaded_files as $file)
-					    			{
-					    				$post_media_data = array(
-					    										'post_id' => $inserted_id,
-					    										'name' => $file['file'],
-					    										'type' => $file['type'],
-					    										'mime' => $file['mime']
-					    									);
-
-					    				$this->timeframe_model->insert_data('post_media',$post_media_data);
-					    			}
-					    		}
-			    			}
-			    		}			    	
-			    		$this->session->set_flashdata('message','Post has been saved successfuly');
-			    		redirect(base_url().'posts/index/'.$brand[0]->id);
-			    	}
-			    }
-			    $this->data['error'] = "Unable to save post please try again";
-		    }
-
-		    $this->data['brand_id'] = $brand[0]->id;
-	    	$this->data['brand_name'] = $brand[0]->name;
-			$this->data['outlets'] = $this->post_model->get_brand_outlets($brand[0]->id);
-			$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
-			$this->data['users'] = $this->post_model->get_brand_users($brand[0]->id);
-
-			$this->data['view'] = 'posts/create';
-
-			$this->data['css_files'] = array(css_url().'datepicker.css',css_url().'timepicker.css');
-			$this->data['js_files'] = array(js_url().'datepicker.js',js_url().'timepicker.js');
-
-	    	_render_view($this->data);
-	    }
-	}
+	}	
 
 	function join_co_create()
 	{
@@ -480,5 +360,292 @@ class Co_create extends CI_Controller {
 			$this->session->set_userdata('user_info',$session_data);
             redirect(base_url().'co_create/cocreate_post/'.$slug.'/'.$request_string);
 		}		
+	}
+
+	function save_cocreate_info()
+	{
+		$this->data = array();
+		$error = '';
+		$uploaded_files = array();
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			if(!empty($post_data['brand_id']))
+			{
+				$slate_date_time = '';
+				if(!empty($post_data['post-date']) && !empty($post_data['post-hour']) && !empty($post_data['post-minute']) && !empty($post_data['post-ampm'])){
+					$date_time =  $post_data['post-date'].' '.add_leading_zero($post_data['post-hour']).':'.add_leading_zero($post_data['post-minute']).' '.$post_data['post-ampm'];
+		    		$slate_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+				}
+
+
+		    	if(!empty($post_data['post_outlet']))
+	    		{
+    				$condition = array('id' => $post_data['post_outlet']);
+					$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
+
+					$status = 'pending';
+					if($post_data['save_as'] == 'draft')
+					{
+						$status = 'draft';
+					}
+
+    				$post = array(
+	    						'content' => $this->input->post('post_copy'),
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id
+	    					);
+    				$outlet = strtolower(get_outlet_by_id($post_data['post_outlet']));
+    				
+    				if($outlet == 'youtube')
+    				{
+    					$post['video_title'] = $post_data['ytVideoTitle'];
+    					$post['share_with'] = NULL;
+    					$post['pinterest_board'] = NULL;
+    					$post['pinterest_source'] = NULL;
+    				}
+
+    				if($outlet == 'linkedin')
+    				{
+    					$post['share_with'] = $post_data['shareWithLinkedin'];
+    					$post['video_title'] = NULL;
+    					$post['pinterest_board'] = NULL;
+    					$post['pinterest_source'] = NULL;
+    				}
+
+    				if($outlet == 'pinterest')
+    				{
+    					$post['pinterest_board'] = $post_data['pinterestBoard'];
+    					$post['pinterest_source'] = $post_data['pinSource'];
+    					$post['share_with'] = NULL;
+    					$post['video_title'] = NULL;
+    				}
+
+    				if($outlet == 'tumblr')
+    				{
+    					if($post_data['tumblrContent'] == 'Text')
+    					{
+    						$post = array(
+	    						'tumblr_title' => $post_data['tb_text_title'],
+	    						'tumblr_text_content' => $post_data['tumblr_post_copy'],
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_text_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_text_url']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Photo')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_photo_tags'],
+	    						'tumblr_caption' => $post_data['tbCaption'],
+	    						'tumblr_content_source' => $post_data['tbPhotoSource']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Quote')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_quote_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_quote_url'],
+	    						'tumblr_quote' => $post_data['tumblr_quote_post_copy'],
+	    						'tumblr_source' => $post_data['tbSource']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Link')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_link' => $post_data['tbLink'],
+	    						'tumblr_custom_url' => $post_data['tb_link_url'],
+	    						'tumblr_link_description' => $post_data['tbLinkDesc']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Chat')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_chat_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_chat_url'],
+	    						'tumblr_chat_title' => $post_data['tb_chat_title'],
+	    						'tumblr_chat' => $post_data['tumblr_chat_post_copy'],
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Audio')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_audio_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_audio_url'],
+	    						'tumblr_audio_description' => $post_data['tbAudioDescr']
+	    					);
+    					}
+    					elseif($post_data['tumblrContent'] == 'Video')
+    					{
+    						$post = array(	    						
+	    						'brand_id' => $post_data['brand_id'],
+	    						'outlet_id' =>$post_data['post_outlet'],
+	    						'time_zone'=>$post_data['time_zone'],
+	    						'user_id' =>$this->user_id,
+	    						'tumblr_tags' => $post_data['tb_video_tags'],
+	    						'tumblr_custom_url' => $post_data['tb_video_url'],
+	    						'tumblr_source' => $post_data['tbVideoSource'],
+	    						'tumblr_video_caption' => $post_data['tbVideoDescr']
+	    					);
+    					}
+
+    					$post['tumblr_content_type'] = $post_data['tumblrContent'];
+    				}
+    				
+
+    				if(!empty($slate_date_time)){
+    					$post['slate_date_time'] =  $slate_date_time;
+    				}
+
+    				$post['request_id'] = $post_data['co_create_req_id'];
+
+    				if(isset($post_data['cocreate_info_id']) AND !empty($post_data['cocreate_info_id']))
+    				{
+    					$inserted_id = $post_data['cocreate_info_id'];
+    					$this->timeframe_model->update_data('cocreate_post_info',$post,array('id' => $post_data['cocreate_info_id']));
+    				}
+    				else
+    				{
+    					$inserted_id = $this->timeframe_model->insert_data('cocreate_post_info',$post);
+    				}
+
+    				if($inserted_id)
+			    	{
+			    		if(!empty($post_data['post_tag']))
+			    		{
+			    			foreach($post_data['post_tag'] as $tag)
+			    			{
+			    				$post_tag_data = array(
+			    										'post_id' => $inserted_id,
+			    										'brand_tag_id' => $tag
+			    									);
+			    			
+			    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+			    			}
+			    		}
+	    				if(isset($post_data['uploaded_files'][0]) AND !empty($post_data['uploaded_files'][0]) AND $post_data['uploaded_files'][0] !== ' ')
+						{
+	    					$files = json_decode($post_data['uploaded_files'][0])->success;
+	    				}
+	    				$this->timeframe_model->delete_data('cocreate_post_media',array('cocreate_post_id' => $inserted_id));
+	    				
+			    		if(isset($files) AND !empty($files))
+			    		{			    			
+			    			foreach($files as $file)
+			    			{
+			    				$post_media_data = array(
+			    										'cocreate_post_id' => $inserted_id,
+			    										'name' => $file->file,
+			    										'type' => $file->type,
+			    										'mime' => $file->mime
+			    									);			    				
+
+			    				$this->timeframe_model->insert_data('cocreate_post_media',$post_media_data);
+			    			}
+			    		}
+			    		
+			    		$multiple_phases = 0;
+			    		$phase_number = 1;
+	    				if(isset($post_data['phase']) AND !empty($post_data['phase']))
+	    				{
+	    					foreach($post_data['phase'] as $key=>$phase)
+	    					{
+	    						if(isset($phase['approver']) AND !empty($phase['approver']))
+	    						{
+	    							$multiple_phases = 1;
+	    							$date_time =  $phase['approve_date'].' '.add_leading_zero($phase['approve_hour']).':'.add_leading_zero($phase['approve_minute']).' '.$phase['approve_ampm'];
+								    	
+								    $approve_date_time = date("Y-m-d H:i:s", strtotime($date_time));
+
+		    						$phase_data = array(
+		    										'phase' => $phase_number,
+		    										'brand_id' => $post_data['brand_id'],
+		    										'post_id' => $inserted_id,
+		    										'approve_by' => $approve_date_time,
+		    										'time_zone' => $phase['time_zone'],
+			    									'note' => $phase['note']
+		    									);
+		    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
+		    						$phase['approver'] = array_unique($phase['approver']);
+		    						foreach($phase['approver'] as $user)
+		    						{
+		    							// $user_info = $this->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $post_data['user_id']),'first_name,last_name');
+		    							$phases_approver = array(
+		    								'user_id' => $user,
+		    								'phase_id' => $phase_insert_id
+		    								);
+		    							$phase_approver_id = $this->timeframe_model->insert_data('phases_approver',$phases_approver);
+
+		    							$reminder_data = array(
+		    								'post_id' => $inserted_id,
+		    								'user_id' => $user,
+		    								'type' => 'reminder',
+		    								'brand_id' => $post_data['brand_id'],
+		    								'due_date' => $approve_date_time,
+		    								'text' => 'Approve '.date('d/n g:i a',strtotime($slate_date_time)).' '.$outlet_data[0]->outlet_name.' post by '.ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']).' by '.date('m/d',strtotime($approve_date_time)),
+		    								'phase_id' => $phase_insert_id
+		    								);
+
+	    								$this->timeframe_model->insert_data('reminders',$reminder_data);
+	    							}
+	    							$phase_number++;
+	    						}
+	    					}	    					
+
+	    					if($phase_number == 1 AND $status != 'draft')
+	    					{
+	    						$post = array(
+		    							'status' => 'approved'
+		    						);
+
+	    						$condition = array('id' => $inserted_id);
+    							$this->timeframe_model->update_data('posts',$post,$condition);
+    						}
+	    				}
+		    		}
+		    		echo json_encode(array('response' => 'success','inserted_id' => $inserted_id));
+	    		}		    		
+		    }
+		}
+	}
+
+	function update_preview()
+	{
+		$request_id = $this->input->post('req_id');
+
+		if(isset($request_id) AND !empty($request_id))
+		{
+			$this->data['post_details'] = $this->post_model->get_cocreate_post($request_id);
+			if(!empty($this->data['post_details']))
+				$this->data['post_images'] = $this->post_model->get_cocreate_images($this->data['post_details']->id);
+			$this->data['is_cocreate'] = true;
+			$html = $this->load->view('calendar/post_preview/'.strtolower($this->data['post_details']->outlet_name),$this->data,true);
+			echo json_encode(array('response' => 'success','html' => $html));
+		}
 	}
 }

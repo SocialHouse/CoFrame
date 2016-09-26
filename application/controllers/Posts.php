@@ -750,6 +750,70 @@ class Posts extends CI_Controller {
 		}
 	}
 
+	public function upload_co_create()
+	{
+		$post_data = $this->input->post();
+		//echo '<pre>'; print_r( $_FILES['file']);echo '</pre>';
+		if(isset($_FILES['file']['name'][0]))
+		{
+			$files = $_FILES['file'];
+			
+			$files_count = count($files['tmp_name']);
+			$error = '';
+			if($files_count > 0)
+			{
+				for($i = 0;$i < $files_count; $i++)
+				{
+					if(!empty($files['name'][$i]))
+					{
+				        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+				        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+				        $randname = uniqid().'.'.$ext;
+				        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+				        $status = upload_file('uploadedimage',$randname,$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts/co_create');
+				      
+				        if(array_key_exists("upload_errors",$status))
+				        {
+				        	$error =  $status['upload_errors'];
+				        	break;
+				        }
+				        else
+				        {
+				        	$uploaded_files[$i]['file'] = $status['file_name'];
+				        	$uploaded_files[$i]['type'] = 'images';
+				        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];					        	
+				        	
+				        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+				        	{
+				        		$uploaded_files[$i]['type'] = 'video';
+				        	}
+				        }
+				    }
+				}
+			}
+			else
+			{
+				$error = "Please select atleast one file";
+			}
+
+			if(!empty($error))
+			{
+				echo json_encode(array('error' => $error));
+			}
+			else
+			{
+				echo json_encode(array('success'=>$uploaded_files));
+			}
+		}
+		else
+		{
+			echo json_encode(array('success'=>'no_files'));
+		}
+	}
+
 	public function add_phase_details($brand_id)
 	{
 		$this->data = array();

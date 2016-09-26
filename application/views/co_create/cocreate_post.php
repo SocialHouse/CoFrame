@@ -1,5 +1,6 @@
-<?php $this->load->view('partials/brand_nav'); ?>
-
+<?php 
+$this->load->view('partials/brand_nav');
+?>
 <section id="brand-manage" class="page-main bg-white col-sm-10 cocreate-post">
 	<div class="row">
 		<div class="col-sm-8">
@@ -13,19 +14,53 @@
 			</header>
 		</div>
 	</div>
-	<form action="http://timeframe.localhost:8080/static/create-post.php//?" id="post-details" class="file-upload clearfix">	
+	<form action="" method="POST" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
+		<input type="hidden" id="post_type" name="post_type" value="cocreate">
+		<input type="hidden" name="cocreate_info_id" value="" id="cocreate_info_id">
+		<input type="hidden" name="co_create_req_id" id="co_create_req_id" value="<?php echo $req_id; ?>">
+
+		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
+		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $this->user_data['account_id']; ?>">
+		<input type="hidden" name="save_as" id="save_as" value="">
+		<input type="hidden" name="slug" id="slug" value="<?php echo $brand->slug; ?>">
+
+		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
+		<input type="hidden" id="all_files">
 		<div class="row equal-columns">
 
 			<div class="col-md-4 equal-height">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
-					<div id="live-post-preview">
-						<img src="<?php echo img_url(); ?>post-preview.png" width="406" height="506" alt="" class="center-block"/>
-						
-					</div>
-					<footer class="post-content-footer">
-					<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
-					</footer>
+					<?php
+					if(isset($is_sender))
+					{
+						?>
+						<div id="live-post-preview">
+							<img src="<?php echo img_url(); ?>post-preview.png" width="406" height="506" alt="" class="center-block"/>
+							
+						</div>
+						<footer class="post-content-footer">
+						<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
+						</footer>
+						<?php
+					}
+					else
+					{
+						// $this->data['cocreate'] = $cocreate;
+						?>
+						<div id="live-cocreate-preview">
+							<?php							
+							if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
+							 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
+							}
+							?>							
+						</div>
+						<footer class="post-content-footer">
+						<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
+						</footer>
+						<?php
+					}
+					?>
 				</div>
 			</div>			
 
@@ -72,4 +107,5 @@ $this->load->view('partials/previews');
 	var apiKey = '<?php echo $this->config->item('opentok_key'); ?>';
 	var sessionId = '<?php echo $sessionId; ?>';
 	var token = '<?php echo $token; ?>';
+	var is_sender = '<?php echo isset($is_sender) ? $is_sender : ''; ?>';
 </script>

@@ -128,6 +128,24 @@ class Post_model extends CI_Model
 		return FALSE;
 	}
 
+	function get_cocreate_post($req_id)
+	{
+		$this->db->select('cocreate_post_info.id,cocreate_post_info.content,cocreate_post_info.video_title,share_with,pinterest_board,pinterest_source,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type ,cocreate_post_info.outlet_id, cocreate_post_info.brand_id, cocreate_post_info.slate_date_time, cocreate_post_info.created_at, CONCAT (CONCAT(UCASE(LEFT(user.first_name,1)), 
+                             SUBSTRING(user.first_name, 2))," ",CONCAT(UCASE(LEFT(user.last_name,1)), 
+                             SUBSTRING(user.last_name, 2))) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name,brands.slug, cocreate_post_info.time_zone,outlets.outlet_constant');
+		$this->db->join('user_info as user','user.aauth_user_id = cocreate_post_info.user_id');
+		$this->db->join('brands','brands.id = cocreate_post_info.brand_id','left');
+		$this->db->join('outlets','outlets.id = cocreate_post_info.outlet_id','left');
+		$this->db->where('cocreate_post_info.request_id',$req_id);
+		$query = $this->db->get('cocreate_post_info');
+		// echo $this->db->last_query();
+		if($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+		return FALSE;
+	}
+
 	public function get_post_approvers($post_id)
 	{
 		$this->db->select('aauth_user_id');
@@ -312,7 +330,7 @@ class Post_model extends CI_Model
 		$this->db->where('brand_id',$brand_id);
 		$query = $this->db->get('posts');
 
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		
 		if($query->num_rows() > 0)
 		{
@@ -325,6 +343,18 @@ class Post_model extends CI_Model
 		$this->db->select('post_media.id,post_media.name, post_media.type, post_media.mime');
 		$this->db->where('post_media.post_id',$post_id);
 		$query = $this->db->get('post_media');
+
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
+	public function get_cocreate_images($cocreate_post_id){
+		$this->db->select('cocreate_post_media.id,cocreate_post_media.name, cocreate_post_media.type, cocreate_post_media.mime');
+		$this->db->where('cocreate_post_media.cocreate_post_id',$cocreate_post_id);
+		$query = $this->db->get('cocreate_post_media');
 
 		if($query->num_rows() > 0)
 		{
