@@ -528,3 +528,6 @@ ALTER TABLE `cocreate_post_media`
 
 ALTER TABLE `cocreate_post_media`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--27-09-2016
+ALTER TABLE `social_media_keys` ADD `fb_page_id` VARCHAR(500) NULL AFTER `social_media_id`;

@@ -694,6 +694,7 @@ class Cron extends CI_Controller {
         {
             // $this->session->userdata('fb_access_token', $access_token->getValue());
             $access_token = $this->session->userdata('fb_access_token');
+            $fb_page_id = $this->session->userdata('fb_page_id');
             echo 'In session <br/>';
         }
         else
@@ -702,7 +703,9 @@ class Cron extends CI_Controller {
             if(!empty($is_key_exist))
             {
                 $access_token = $is_key_exist->access_token;
+                $fb_page_id = $is_key_exist->fb_page_id;
                 $this->session->set_userdata('fb_access_token',$access_token);
+                $this->session->set_userdata('fb_page_id',$fb_page_id);
                 echo 'Set session <br/>';
             }
             else
@@ -730,7 +733,7 @@ class Cron extends CI_Controller {
                 if (!isset($user_info['error']))
                 {
                     foreach ($user_info['accounts']['data'] as $key => $pages) {
-                        if( $pages['id'] =='318999534866425')
+                        if( $pages['id'] == $fb_page_id)
                         {
                             $page_token = $pages['access_token'];
                             $page_name = $pages['name'];

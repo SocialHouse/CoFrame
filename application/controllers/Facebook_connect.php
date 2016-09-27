@@ -67,13 +67,7 @@ class Facebook_connect extends CI_Controller {
 		{
 			redirect($this->facebook->login_url());
 		}else{
-
-			$status 	= true;
-			$outlet 	= 'facebook';
-			$title 		= 'Successful';
-			$message 	= str_replace('%type%', 'facebook', $this->lang->line('already_saved'));
-			echo social_callbacks($status, $outlet,$title, $message );
-			//$this->me();
+			redirect(base_url().'facebook_connect/login');
 		}
 	}
 
@@ -104,18 +98,21 @@ class Facebook_connect extends CI_Controller {
 			$user = $this->facebook->request('get', '/me?fields=accounts');
 			if (!isset($user['error']))
 			{
-				echo '<ul> Pages ';
+				echo "<select id='select'>";
 				foreach ($user['accounts']['data'] as $key => $pages) 
 				{
-					echo '<li>&nbsp;</li>';
-					echo '<ol><b>Access token:-</b> '.$pages['access_token']. '</ol>';
-					echo '<ol><b>Category:-</b> '.$pages['category']. '</ol>';
-                    echo '<ol><b>Name:-</b>'.$pages['name']. '</ol>';
-                   	echo '<ol><b>Id:-</b>'.$pages ['id']. '</ol>';
+					echo "<option value='".$pages ['id']."'>".$pages['name']."</option>";
 				}
-				echo '</ul>';
+				echo '</select>';
 			}
-			
+			?>
+			<script type='text/javascript'>			
+				$('#select').on('change',function(){
+					alert('test');
+				});
+			</script>
+			<?php
+
 		}
 	}
 
@@ -231,7 +228,7 @@ class Facebook_connect extends CI_Controller {
 	{
 		// redirect('url', 'location_or_refresh', response_code)
 		if ($this->facebook->is_authenticated())
-		{
+		{			
 			$user = $this->facebook->request('get', '/me?fields=id,name,email');
 			
 			$token = array(
@@ -239,24 +236,60 @@ class Facebook_connect extends CI_Controller {
 					'accessToken'=>$this->session->userdata('fb_access_token'),
 					'expiresIn'=>$this->session->userdata('fb_expire')
 				);
+
+			$user = $this->facebook->request('get', '/me?fields=accounts');
+			if (!isset($user['error']))
+			{
+				echo "<div style='margin-left:25%'>";
+				echo "<form method='post' action='".base_url()."facebook_connect/save_page_id'>";
+				// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+				echo "<input type='hidden' name='access_token' value='".$token['accessToken']."'>";
+				echo "<input type='hidden' name='response' value='".json_encode($token)."'>";
+				
+
+				echo "<h3>Please select page on which you want to upload your posts<h3><br>";
+				if(!empty($user['accounts']['data']))
+				{
+					echo "<select name='page'>";				
+					foreach ($user['accounts']['data'] as $key => $pages) 
+					{
+						echo "<option value='".$pages ['id']."'>".$pages['name']."</option>";
+					}
+					echo '</select><br/><br/>';
+					echo "<input type='submit' value='save'>";
+				}
+				else
+				{
+					echo $this->lang->line('no_fb_page');
+				}
+				echo "</form></div>";
+			}			
+		}
+		// redirect(base_url().'facebook_connect/me','refresh',200);
+	}
+
+	function save_page_id()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data) AND !empty($post_data))
+		{
 			$data = array(
-					'access_token' => $token['accessToken'],
+					'access_token' => $post_data['access_token'],
 					'user_id' => $this->user_id,
 					'brand_id' => $this->brand_id,
 					'outlet_id' => $this->outlet_id,
-					'response' => json_encode($token),
-					'type' => 'facebook'
+					'response' => $post_data['response'],
+					'type' => 'facebook',
+					'fb_page_id' => $post_data['page']
 				);
-				$this->social_media_model->save_token($data);
-				$status 	= true;
-				$outlet 	= 'facebook';
-				$title 		= 'Successful';
-				$message 	= str_replace('%type%', 'facebook', $this->lang->line('save_successfully'));
-				echo social_callbacks($status, $outlet,$title, $message );
-			//$this->me();
-			
+
+			$last_id = $this->social_media_model->save_token($data);
+			$status 	= true;
+			$outlet 	= 'facebook';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'facebook', $this->lang->line('save_successfully'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
-		redirect(base_url().'facebook_connect/me','refresh',200);
 	}
 
 	public function logout()

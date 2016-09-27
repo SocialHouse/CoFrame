@@ -70,8 +70,12 @@ class Timeframe_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_data_array_by_condition($table,$condition)
+	public function get_data_array_by_condition($table,$condition,$select = '')
 	{
+		if(!empty($select))
+		{
+			$this->db->select($select);
+		}
 		$this->db->where($condition);
 		$query = $this->db->get($table);
 		if($query->num_rows() > 0)

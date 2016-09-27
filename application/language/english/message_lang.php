@@ -217,4 +217,6 @@
 	$lang['suggesion_delete_confirm'] = "Are you sure you want to delete this comment?";
 	$lang['suggesion_unable_delete'] = "Unable to delete comment please try again";
 
+	$lang['no_fb_page'] = "Currently there is no facebook page associalted with your account please add it first.";
+
 ?>
