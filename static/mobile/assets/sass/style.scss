@@ -358,7 +358,7 @@ a {
 		}
 	}
 	.nav-link {
-		padding: 1rem;
+		padding: 1.5rem;
 		line-height: 1;
 		&:focus, &:active, &:hover {
 			background-color: transparent;
@@ -397,12 +397,16 @@ a {
 		display: block;
 		background-size: contain;
 		background-repeat: no-repeat;
-		width: 168px;
-		height: 45px;
+		width: 158px;
+		height: 43px;
 		-webkit-transition: all 500ms;
 		-moz-transition: all 500ms;
 		-o-transition: all 500ms;
 		transition: all 500ms;
+		@include media-breakpoint-up(sm) {
+			width: 168px;
+			height: 45px;
+		}
 		@media (max-width: 320px) {
 			width: 140px;
 			height: 38px;
@@ -417,8 +421,8 @@ a {
 	display: block;
 	background: url(../images/icons/go-to-brand.png) no-repeat;
 	background-size: contain;
-	height: 48px;
-	width: 48px;
+	height: 40px;
+	width: 40px;
 	margin: 0px auto;
 	-webkit-animation-duration: 2s;
 	animation-duration: 2s;
@@ -500,11 +504,10 @@ a {
 	height: 34px;
 	width: 34px;
 	outline: none;
-	display: none;
-	position: fixed;
+	position: absolute;
 	z-index: 1060;
-	left: 1.5rem;
-	top: 1.5rem;
+	left: remCalc(22px);
+	top: remCalc(22px);
 	.icon-bar {
 		display: block;
 		width: 34px;
@@ -629,18 +632,16 @@ a {
 	#user-preferences & {
 		padding: remCalc(26px)  0 .75rem;
 	}
+}
+.toolbar {
 	.tf-icon-circle {
+		margin-right: 10px;
 		background: #dedede;
 		height: 40px;
 		width: 40px;
 		line-height: 52px;
 		&:hover, &.active {
 			background: #c0c0c0;
-		}
-	}
-	.toolbar {
-		.tf-icon-circle {
-			margin-left: 10px;
 		}
 	}
 }
@@ -952,6 +953,12 @@ a {
 			padding-top: 1rem;
 		}
 	}
+	h1 {
+		font-size: remCalc(20px);
+		text-transform: uppercase;
+		line-height: 34px;
+		margin:0;
+	}
 	h5 {
 		font-size: 10px;
 		margin-bottom: .5rem;
@@ -986,11 +993,6 @@ a {
 	}
 }
 
-/*Bootstrap tags*/
-.tag {
-	font-family: $futura-heavy;
-	letter-spacing: normal;
-}
 
 /*Theme Colors*/
 .bg-primary {
@@ -1550,6 +1552,10 @@ a {
 			}
 		}
 	}
+	.tag {
+		font-family: $futura-heavy;
+		letter-spacing: normal;
+	}
 }
 .expand-collapse {
 	position: absolute;
@@ -1973,7 +1979,7 @@ a {
 	}
 }
 .post-meta {
-	padding: remCalc(30px) 0;
+	padding: remCalc(30px) 0 1.5rem;
 	font-size: remCalc(20px);
 	span {
 		display: block;
@@ -2185,8 +2191,6 @@ a {
 #albumType {
 	position: relative;
 }
-.post-content-footer {
-}
 .overlay-footer {
 	border-top: 1px solid #000;
 	padding-top: 1rem;
@@ -2282,6 +2286,11 @@ a {
 	.tag {
 		cursor: pointer;
 		position: relative;
+		color: #000;
+		font-weight: normal;
+		font-size: 1.25rem;
+		padding: 0;
+		text-align: left;
 		&.selected, &.checked {
 			.fa {
 				border-color: inherit;
@@ -2310,6 +2319,9 @@ a {
 		&.tag-custom {
 			border-color: transparent !important;
 		}
+	}
+	.tag-title {
+		line-height: 1.5rem;
 	}
 }
 .tag-red {
@@ -2357,25 +2369,28 @@ a {
 	margin-bottom: 0;
 }
 #selectedFilters {
-	padding-top: remCalc(20px);
-	margin-top: 10px;
 	clear: both;
+	margin-top: -1.25rem;
+	padding-bottom:remCalc(4px);
 	strong {
 		font-size: 13px;
 		letter-spacing: .25em;
 	}
 	.filter-list {
 		display: inline-block;
-		margin: 0;
+		margin: 0 -12px 0 0;
 		padding: 0;
 		li {
 			cursor: pointer;
 			display: inline-block;
 			list-style: none;
-			background: $gray-lightest;
+			background: #fff;
 			border-radius: 18px;
 			padding: 10px;
-			margin-left: 12px;
+			font-size: 1.25rem;
+			line-height: 1.5rem;
+			margin-right: remCalc(12px);
+			margin-bottom: remCalc(12px);
 			.fa-circle {
 				margin-right: 0;
 			}
@@ -2384,6 +2399,11 @@ a {
 			line-height: normal;
 			padding: 5px 10px 5px 15px;
 		}
+	}
+	.fa-circle {
+		height:22px;
+		width: 22px;
+		font-size: 19px;
 	}
 	.tag-title {
 		display: none;
@@ -2454,22 +2474,26 @@ a {
 	font-size: remCalc(24px);
 	letter-spacing: .25em;
 	font-family: $futura;
-	margin: -1rem;
 	text-align: center;
 	.list-group-item {
 		list-style: none;
+		border-width: 2px;
 		border-left: 0;
 		border-right: 0;
 		padding: 0;
+		margin-bottom: -2px;
 		li {
-			padding: remCalc(9px) remCalc(18px);
 			+ li {
 				border-top: 1px solid $gray-lighter;
 			}
 		}
 		a {
+			padding: remCalc(12px) remCalc(18px);
 			display: block;
 			text-decoration: none;
+			&:focus {
+				background: $gray-lightest;
+			}
 		}
 		&:first-child {
 			border-top: 0;
@@ -2478,12 +2502,31 @@ a {
 			border-bottom: 0;
 		}
 	}
+	.last-group-item {
+		border-radius: 6px;
+		margin-top: 10px;
+		border-top: 0;
+	}
+	+ .edit-menu {
+		margin-top: 10px;
+	}
+}
+#modal-post-menu {
+	.modal-dialog {
+		box-shadow: none;
+	}
+	.modal-content {
+		background: transparent;
+	}
+	.modal-body {
+		padding: 0;
+	}
 }
 .post-filters, .select-box {
-	.square-border {
-		width: 16px;
-		height: 16px;
-		margin-right: 10px;
+	.check-box {
+		width: remCalc(25px);
+		height: remCalc(25px);
+		margin-right: 1rem;
 		.fa {
 			margin: 0;
 			position: relative;
@@ -2492,17 +2535,56 @@ a {
 			display: none;
 		}
 	}
-	.checked .square-border .fa {
-		display: inline-block;
+	.circle-border {
+		.fa {
+			font-size: 1rem;
+			top: 0;
+		}
+	}
+	.checked {
+		.square-border .fa, .circle-border .fa {
+			display: inline-block;
+		}
+		.circle-border {
+			border-width: 2px;
+		}
 	}
 	.form-group {
 		margin-bottom: .5rem;
+	}
+	label {
+		text-transform: none;
+		font-size: 1.25rem;
+		letter-spacing: normal;
+		line-height: remCalc(25px);
 	}
 	.outlet-list {
 		margin: 0 -3px;
 		li {
 			padding: 0 8px 12px;
 		}
+	}
+	.tag-list {
+		.tag {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 100%;
+		}
+		.fa-circle {
+			height: remCalc(28px);
+			width: remCalc(28px);
+			font-size: remCalc(24px);
+			@media(min-width: 376px) {
+				font-size: remCalc(25px);
+			}
+		}
+	}
+}
+.post-filters {
+	h2 {
+		border-top: 2px solid #000;
+		padding: remCalc(20px) 0;
+		margin: remCalc(20px) 0;
 	}
 }
 .select-box {

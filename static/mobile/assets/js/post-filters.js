@@ -45,7 +45,12 @@ jQuery(function($) {
 			}
 			$('.filter[data-group="' + inputGroup + '"]').not($filter).each(function() {
 				$filterItem =  $(document.createElement('li'));
-				filterContent = $(this).html();
+				if(inputGroup === "post-status") {
+					filterContent = $(this).find('label').text();
+				}
+				else {
+					filterContent = $(this).html();
+				}
 				filterVal = $(this).attr('data-value');
 				$filterItem.attr('data-value', filterVal).addClass('filter-remove' + filterClass).append(filterContent + "<i class='tf-icon-close'></i>");
 				$selectedFilters.find('.filter-list').append($filterItem);
@@ -106,14 +111,10 @@ jQuery(function($) {
 
 		$container.isotope({ filter: filterValue });
 		if(inclusives.length) {
-			$('#selectedFilters').slideDown(function() {
-				equalColumns();
-			});
+			$('#selectedFilters').slideDown();
 		}
 		else {
-			$('#selectedFilters').slideUp(function() {
-				equalColumns();
-			});
+			$('#selectedFilters').slideUp();
 		}
 	}
 });

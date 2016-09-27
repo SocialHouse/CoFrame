@@ -31,11 +31,6 @@ jQuery(function($) {
 		});
 
 
-		$('body').on('click', '.outlet-list li', function() {
-			$(this).toggleClass('disabled');
-			$(this).siblings().addClass('disabled');
-		});
-
 		$('body').on('click', '.show-hide', function(e) {
 			e.preventDefault();
 			var $trigger = $(this);

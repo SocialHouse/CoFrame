@@ -30,15 +30,29 @@ jQuery(function($) {
 					show: true,
 					backdrop: 'static'
 				});
-				newModal.on('shown.bs.modal', function() {
-					$('.modal-toggler').fadeIn();
-				});
 	
-				if ($target.data('clear') == 'no') {
+				if ($target.data('clear') === 'no') {
 					$target.attr('data-toggle', 'modal-ajax-inline');
 				}
 			});
 		});
 
+		//Get modal content from inline source
+		$('body').on('click', '[data-toggle="modal-ajax-inline"]', function(e) {
+			e.preventDefault();
+			var $target = $(this);
+			var mid = $target.data('modalId');
+			$('#' + mid).modal({
+				show: true,
+				backdrop: 'static'
+			});
+			$('#' + mid).on('shown.bs.modal', function() {
+				addIncrements();
+			});
+		});
+
+		$('body').on('click', '.modal-hide', function() {
+			$('.modal').modal('hide');
+		});
 	});
 });

@@ -12,3 +12,8 @@
 		<li><a href="#">Delete</a></li>
 	</ul>
 </div>
+<div class="edit-menu list-group">
+	<ul class="list-group-item">
+		<li><a href="#" class="modal-hide">Cancel</a></li>
+	</ul>
+</div>

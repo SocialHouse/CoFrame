@@ -342,10 +342,6 @@ jQuery(function($) {
 			if ($target.hasClass('qtip-hide')) {
 				$('.qtip').qtip('hide');
 			}
-			//hide modals
-			if ($target.hasClass('modal-hide')) {
-				$('.modal').modal('hide');
-			}
 		});
 
 	});
