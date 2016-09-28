@@ -309,35 +309,41 @@
 									
 									<td onClick="showPostPopover(jQuery(this).parent().find('.bg-outlet'),<?php echo $post->id; ?>, 'click', 'approvals-post');">
 										<?php 
-											if(!empty($post->tumblr_content_type))
+										$title = '';
+										if(!empty($post->tumblr_content_type))
+										{
+											if($post->tumblr_content_type == 'Photo')
 											{
-												if($post->tumblr_content_type == 'Photo')
-												{
-													echo $post->tumblr_caption;
-												}
-												else if($post->tumblr_content_type == 'Text')
-												{
-													echo $post->tumblr_title;
-												}
-												else if($post->tumblr_content_type == 'Quote')
-												{
-													echo $post->tumblr_quote;
-												}
-												else if($post->tumblr_content_type == 'Link')
-												{
-													echo $post->tumblr_custom_url;
-												}
-												else if($post->tumblr_content_type == 'chat')
-												{
-													echo $post->tumblr_chat_title;
-												}
-												else if($post->tumblr_content_type == 'Video')
-												{
-													echo $post->tumblr_video_caption;
-												}
+												$title = $post->tumblr_caption;
 											}
-											else
-												echo read_more($post->content,35); 
+											else if($post->tumblr_content_type == 'Text')
+											{
+												$title = $post->tumblr_title;
+											}
+											else if($post->tumblr_content_type == 'Quote')
+											{
+												$title = $post->tumblr_quote;
+											}
+											else if($post->tumblr_content_type == 'Link')
+											{
+												$title = $post->tumblr_custom_url;
+											}
+											else if($post->tumblr_content_type == 'chat')
+											{
+												$title = $post->tumblr_chat_title;
+											}
+											else if($post->tumblr_content_type == 'Video')
+											{
+												$title = $post->tumblr_video_caption;
+											}
+										}
+										else
+											$title = $post->content;
+
+										if(!empty($title))
+										{											
+											echo read_more(strip_tags($title),35); 
+										}
 										?>
 									</td>
 

@@ -1185,12 +1185,21 @@ class Posts extends CI_Controller {
 	{
 		$redirect_uri = $this->uri->segment(3);
 		$this->data['slug'] = $this->uri->segment(4);
+		$post_id = $this->uri->segment(5);
 		if($redirect_uri == 'dashboard')
 		{
-			$redirect_uri = $redirect_uri.'/'.$this->data['slug'];
+			$redirect_uri = 'brands/'.$redirect_uri.'/'.$this->data['slug'];
+		}
+		elseif ($redirect_uri == 'overview')
+		{
+			$redirect_uri = 'brands/'.$redirect_uri.'/'.$this->data['slug'];
+		}
+		elseif($redirect_uri == 'edit-request')
+		{
+			$redirect_uri = $redirect_uri;	
 		}
 
-		$this->data['redirect_url'] = 'brands/'.$redirect_uri;		
+		$this->data['redirect_url'] = $redirect_uri;		
 		$this->data['post_id'] = $this->uri->segment(5);		
 		$this->data['timezones'] = $this->user_model->get_timezones();
 

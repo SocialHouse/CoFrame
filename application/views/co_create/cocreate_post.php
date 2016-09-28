@@ -1,6 +1,7 @@
 <?php 
 $this->load->view('partials/brand_nav');
 ?>
+<input type="hidden" value="co_create" id="page">
 <section id="brand-manage" class="page-main bg-white col-sm-10 cocreate-post">
 	<div class="row">
 		<div class="col-sm-8">

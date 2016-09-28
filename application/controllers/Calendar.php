@@ -188,16 +188,6 @@ class Calendar extends CI_Controller {
     	$end_date = $this->input->post('end');
     	$tags =  $this->input->post('tags');
     	$posts = $this->post_model->get_posts_by_time($brand_id,$start_date,$end_date,$outlets,$statuses,$tags);
-    	if(!empty($posts))
-    	{
-	    	foreach($posts as $key=>$post)
-	    	{
-	    		if(!is_bool($post->editable))
-	    		{
-	    			$posts[$key]->editable = (bool)$post->editable;
-	    		}
-	    	}
-	    }
     	echo json_encode($posts);    	
     }
 

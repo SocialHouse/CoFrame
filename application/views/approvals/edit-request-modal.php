@@ -397,7 +397,8 @@
 									{
 										?>
 										<footer class="post-content-footer text-xs-center">
-											<a href="#" class="btn btn-default btn-sm" data-modal-id="edit-approval-phase-modal" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a>
+											<!-- <a href="#" class="btn btn-default btn-sm" data-modal-id="edit-approval-phase-modal" data-class="alert-modal edit-approvals-modal"  data-toggle="modal-ajax" data-modal-src="<?php echo base_url('approvals/edit-approval-phase').'/'.$phs['phase_users'][0]->id.'/'.$post_id ;?>" data-title="Edit Approvals - Phase <?php echo $ph_number; ?>">Edit Approvers</a> -->
+											<a class="btn btn-default btn-sm" href="<?php echo base_url('posts/edit_post/edit-request/'.$post_details->slug.'/'.$post_id); ?>">Edit Approvers</a>
 										</footer>
 										<?php
 									}

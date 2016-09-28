@@ -64,7 +64,7 @@ if(!empty($post_images)){
 			<span class="post_copy_text">
 			<?php 
 				$content = $post_details->content;
-				$content = replace_with_expression($content);
+				$content = replace_with_expression(strip_tags($content));
 				echo (!empty($content)) ? $content : '';
 			?>
 			</span>

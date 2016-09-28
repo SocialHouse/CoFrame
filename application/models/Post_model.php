@@ -265,7 +265,7 @@ class Post_model extends CI_Model
 
 	public function get_posts_by_time($brand_id, $start, $end, $outlets = '',$statuses = '',$tags)
 	{
-		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className,IF(slate_date_time >= "'.date('Y-m-d H:i:s').'",("true" = "true"), ("true" = "false")) as editable');
+		$this->db->select('posts.id,content as title,REPLACE(slate_date_time, " ", "T") as start,LOWER(outlets.outlet_name) as className,IF(slate_date_time >= "'.date('Y-m-d H:i:s').'",("true" = "true"), ("true" = "false")) as editable,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->join('post_media','post_media.post_id = posts.id','left');		
 		$this->db->where('(slate_date_time between "'.$start.'" AND "'.$end.'")');
@@ -316,7 +316,50 @@ class Post_model extends CI_Model
 		 // echo $this->db->last_query();
 		if($query->num_rows() > 0)
 		{
-			return $query->result();
+			$posts = $query->result();
+			if(!empty($posts))
+	    	{
+		    	foreach($posts as $key=>$post)
+		    	{
+		    		$title = '';
+					if(!empty($post->tumblr_content_type))
+					{
+						if($post->tumblr_content_type == 'Photo')
+						{
+							$title = $post->tumblr_caption;
+						}
+						else if($post->tumblr_content_type == 'Text')
+						{
+							$title = $post->tumblr_title;
+						}
+						else if($post->tumblr_content_type == 'Quote')
+						{
+							$title = $post->tumblr_quote;
+						}
+						else if($post->tumblr_content_type == 'Link')
+						{
+							$title = $post->tumblr_custom_url;
+						}
+						else if($post->tumblr_content_type == 'Chat')
+						{
+							$title = $post->tumblr_chat_title;
+						}
+						else if($post->tumblr_content_type == 'Video')
+						{
+							$title = $post->tumblr_video_caption;
+						}
+					}
+					else
+						$title = $post->title;
+
+		    		$posts[$key]->title = strip_tags($title);
+		    		if(!is_bool($post->editable))
+		    		{
+		    			$posts[$key]->editable = (bool)$post->editable;
+		    		}
+		    	}
+		    }
+		    return $posts;
 		}
 		return FALSE;
 	}
@@ -365,7 +408,7 @@ class Post_model extends CI_Model
 
 
 	public function get_post_by_date($brand_id='',$user_id='', $date='',$status = ''){
-		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug');
+		$this->db->select('posts.id,posts.content,posts.outlet_id, posts.brand_id, posts.slate_date_time, posts.created_at,posts.status, CONCAT (user.first_name," ",user.last_name) as user ,user.aauth_user_id as user_id,brands.created_by,LOWER(outlets.outlet_constant) as outlet_name, brands.slug,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type');
 		$this->db->join('user_info as user','user.aauth_user_id = posts.user_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id','left');
 		$this->db->join('brands','brands.id = posts.brand_id','left');

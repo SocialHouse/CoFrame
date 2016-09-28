@@ -57,30 +57,40 @@
 			<?php 
 			$title = '';
 			$custom_class ='';
-				if($post_details->tumblr_content_type == "Quote" ){
-					$custom_class = 'quote';
-					$title = (!empty( $post_details->tumblr_quote_post_copy))? $post_details->tumblr_quote_post_copy:'';
+			if(!empty($post_details->tumblr_content_type))
+			{
+				if($post_details->tumblr_content_type == 'Photo')
+				{
+					$title = $post_details->tumblr_caption;
 				}
-				if($post_details->tumblr_content_type == "Text" ){
-					$title = (!empty( $post_details->tumblr_title))? $post_details->tumblr_title:'';
-					$post_details->content = $post_details->tumblr_text_content;
+				else if($post_details->tumblr_content_type == 'Text')
+				{
+					$title = $post_details->tumblr_title;
 				}
-				if($post_details->tumblr_content_type == "Photo" ){
-					$title = (!empty( $post_details->tumblr_caption))? $post_details->tumblr_caption:'';
+				else if($post_details->tumblr_content_type == 'Quote')
+				{
+					$title = $post_details->tumblr_quote;
 				}
-				if($post_details->tumblr_content_type == "Chat" ){
-					$title = (!empty( $post_details->tb_chat_title))? $post_details->tb_chat_title:'';
+				else if($post_details->tumblr_content_type == 'Link')
+				{
+					$title = $post_details->tumblr_custom_url;
 				}
-				if($post_details->tumblr_content_type == "Video" ){
-					$title = (!empty( $post_details->tbVideoDescr))? $post_details->tbVideoDescr:'';
+				else if($post_details->tumblr_content_type == 'chat')
+				{
+					$title = $post_details->tumblr_chat_title;
 				}
-				if($post_details->tumblr_content_type == "Audio" ){
-					$title = (!empty( $post_details->tbAudioDescr))? $post_details->tbAudioDescr:'';
+				else if($post_details->tumblr_content_type == 'Video')
+				{
+					$title = $post_details->tumblr_video_caption;
 				}
+			}
 			?>
 			<div class="post-title">
 			<?php 
-				echo $title;
+			if(!empty($title))
+			{
+				echo read_more(nl2br(strip_tags($title)), 100);
+			}
 			?>
 			</div>
 			<?php 

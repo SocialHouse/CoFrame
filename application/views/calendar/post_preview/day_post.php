@@ -148,7 +148,40 @@
 						<div class="col-md-10">
 							<h6>POST COPY</h6>
 							<div class="post-body">
-								<p><?php echo (!empty($post->content))? read_more(nl2br($post->content), 100) :'&nbsp;';?></p>
+								<?php 
+								$title = '';
+								if(!empty($post->tumblr_content_type))
+								{
+									if($post->tumblr_content_type == 'Photo')
+									{
+										$title = $post->tumblr_caption;
+									}
+									else if($post->tumblr_content_type == 'Text')
+									{
+										$title = $post->tumblr_title;
+									}
+									else if($post->tumblr_content_type == 'Quote')
+									{
+										$title = $post->tumblr_quote;
+									}
+									else if($post->tumblr_content_type == 'Link')
+									{
+										$title = $post->tumblr_custom_url;
+									}
+									else if($post->tumblr_content_type == 'Chat')
+									{
+										$title = $post->tumblr_chat_title;
+									}
+									else if($post->tumblr_content_type == 'Video')
+									{
+										$title = $post->tumblr_video_caption;
+									}
+								}
+								else
+									$title = strip_tags($post->content);
+								
+								?>
+								<p><?php echo (!empty($title))? read_more(nl2br(strip_tags($title)), 100) :'&nbsp;';?></p>
 							</div>
 							<span class="post-actions pull-xs-left">
 								<?php 

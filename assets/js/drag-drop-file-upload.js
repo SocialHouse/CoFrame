@@ -543,116 +543,120 @@
 
 			function save_cocreate_data()
 			{
-				setTimeout(function(){
-					if(typeof is_sender !== 'undefined' && is_sender)
-				    {
-						// preventing the duplicate submissions if the current one is in progress
-						if( $form.hasClass( 'is-uploading' ) ) return false;
+				console.log($('#page').length);
+				if($('#page').length > 0 && $('#page').val() == 'co_create')
+				{
+					setTimeout(function(){
+						if(typeof is_sender !== 'undefined' && is_sender)
+					    {
+							// preventing the duplicate submissions if the current one is in progress
+							if( $form.hasClass( 'is-uploading' ) ) return false;
 
-						$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+							$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
 
-						// ajax file upload for modern browsers
-						if( isAdvancedUpload ) {
-							// gathering the form data
-							var ajaxData = new FormData( $form.get( 0 ) );
+							// ajax file upload for modern browsers
+							if( isAdvancedUpload ) {
+								// gathering the form data
+								var ajaxData = new FormData( $form.get( 0 ) );
 
-							if( allFiles ){
-								var file_count = 0;
-								$.each( allFiles, function( i, file ){
-									if(typeof(file) == 'object' && file.name){
-										ajaxData.append( 'file['+file_count+']',file,file.name);
-										file_count++;
+								if( allFiles ){
+									var file_count = 0;
+									$.each( allFiles, function( i, file ){
+										if(typeof(file) == 'object' && file.name){
+											ajaxData.append( 'file['+file_count+']',file,file.name);
+											file_count++;
+										}
+										
+									});
+								}
+								// return false;
+								var other_data = $('form').serializeArray();
+								$.each(other_data,function(key,input){
+									if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
+							        	ajaxData.append(input.name,input.value);
+							    });
+							   
+								$('#uploaded_files').val(' ');
+								// ajax request
+								$.ajax({
+									url: 			$form.attr( 'upload' ),
+									type:			$form.attr( 'method' ),
+									data: 			ajaxData,
+									dataType:		'json',
+									cache:			false,
+									contentType:	false,
+									processData:	false,
+									complete: function(){
+										$form.removeClass( 'is-uploading' );
+									},
+									success: function( data ){
+										if(data.success)
+										{	
+											if(data.success != 'no_files')
+												$('#uploaded_files').val(JSON.stringify(data));
+
+											setTimeout(function(){
+												var ajaxData = new FormData( $form.get( 0 ) );
+												console.log(ajaxData);
+												$.ajax({
+										    		url:base_url+'co_create/save_cocreate_info',
+										    		data:ajaxData,
+										    		type:"POST",
+										    		processData: false,
+	    											contentType: false,
+	    											dataType: 'json',
+	    											success:function(response){
+	    												if(response.response == 'success')
+	    												{
+	    													$('#cocreate_info_id').val(response.inserted_id);
+	    												}
+	    											}
+										    	});
+											},100);
+
+											save_cocreate_data();										
+										}
+									},
+									error: function(){
+										getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
 									}
-									
 								});
 							}
-							// return false;
-							var other_data = $('form').serializeArray();
-							$.each(other_data,function(key,input){
-								if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
-						        	ajaxData.append(input.name,input.value);
-						    });
-						   
-							$('#uploaded_files').val(' ');
-							// ajax request
-							$.ajax({
-								url: 			$form.attr( 'upload' ),
-								type:			$form.attr( 'method' ),
-								data: 			ajaxData,
-								dataType:		'json',
-								cache:			false,
-								contentType:	false,
-								processData:	false,
-								complete: function(){
-									$form.removeClass( 'is-uploading' );
-								},
-								success: function( data ){
-									if(data.success)
-									{	
-										if(data.success != 'no_files')
-											$('#uploaded_files').val(JSON.stringify(data));
 
-										setTimeout(function(){
-											var ajaxData = new FormData( $form.get( 0 ) );
-											console.log(ajaxData);
-											$.ajax({
-									    		url:base_url+'co_create/save_cocreate_info',
-									    		data:ajaxData,
-									    		type:"POST",
-									    		processData: false,
-    											contentType: false,
-    											dataType: 'json',
-    											success:function(response){
-    												if(response.response == 'success')
-    												{
-    													$('#cocreate_info_id').val(response.inserted_id);
-    												}
-    											}
-									    	});
-										},100);
+							// fallback Ajax solution upload for older browsers
+							else {
+								var iframeName	= 'uploadiframe' + new Date().getTime(),
+									$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
 
-										save_cocreate_data();										
-									}
-								},
-								error: function(){
-									getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
-								}
-							});
-						}
+								$( 'body' ).append( $iframe );
+								$form.attr( 'target', iframeName );
 
-						// fallback Ajax solution upload for older browsers
-						else {
-							var iframeName	= 'uploadiframe' + new Date().getTime(),
-								$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
-
-							$( 'body' ).append( $iframe );
-							$form.attr( 'target', iframeName );
-
-							$iframe.one( 'load', function(){
-								var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
-								$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
-								if( !data.success ) $errorMsg.text( data.error );
-								$iframe.remove();
-							});
-						}	
-				    }
-				    else
-				    {
-				    	$.ajax({
-				    		url: base_url+'co_create/update_preview',
-				    		data:{'req_id': $('#co_create_req_id').val()},
-				    		dataType: 'json',
-				    		type:'POST',
-				    		success:function(response){
-				    			if(response.response == 'success')
-				    			{
-				    				$('#live-cocreate-preview').html(response.html);
-				    			}
-				    			save_cocreate_data();
-				    		}
-				    	});
-				    }
-				},5000);
+								$iframe.one( 'load', function(){
+									var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+									$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+									if( !data.success ) $errorMsg.text( data.error );
+									$iframe.remove();
+								});
+							}	
+					    }
+					    else
+					    {
+					    	$.ajax({
+					    		url: base_url+'co_create/update_preview',
+					    		data:{'req_id': $('#co_create_req_id').val()},
+					    		dataType: 'json',
+					    		type:'POST',
+					    		success:function(response){
+					    			if(response.response == 'success')
+					    			{
+					    				$('#live-cocreate-preview').html(response.html);
+					    			}
+					    			save_cocreate_data();
+					    		}
+					    	});
+					    }
+					},5000);
+				}
 			}
 
 
