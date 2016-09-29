@@ -30,6 +30,32 @@ $(document).ready(function() {
     		});
     	}
     });
+
+    $('.approve-cocreate').on('click',function(){
+    	var req_id = $(this).data('req-id');
+    	var btn = this;
+    	$.ajax({
+			url:base_url+'co_create/approve_cocreate',
+			type:'post',
+			data:{req_id:req_id},
+			datatype:'json',
+			success:function(response)
+			{
+				if(response.response == 'success')
+				{
+					$(btn).prop('disabled',true);
+					$(btn).addClass('btn-disabled');
+					$(btn).text('Approved');
+				}
+				else
+				{
+					$(btn).prop('disabled',false);
+					$(btn).removeClass('btn-disabled');
+					$(btn).text('Approve');	
+				}
+			}
+		});
+    });
 });	
 
 

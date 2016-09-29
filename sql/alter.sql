@@ -531,3 +531,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --27-09-2016
 ALTER TABLE `social_media_keys` ADD `fb_page_id` VARCHAR(500) NULL AFTER `social_media_id`;
+
+--29-09-2016
+CREATE TABLE IF NOT EXISTS `cocreate_approvers` (
+`id` int(11) NOT NULL,
+  `cocreate_post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `cocreate_approvers`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `cocreate_approvers`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

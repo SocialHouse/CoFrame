@@ -543,7 +543,6 @@
 
 			function save_cocreate_data()
 			{
-				console.log($('#page').length);
 				if($('#page').length > 0 && $('#page').val() == 'co_create')
 				{
 					setTimeout(function(){
@@ -596,8 +595,7 @@
 												$('#uploaded_files').val(JSON.stringify(data));
 
 											setTimeout(function(){
-												var ajaxData = new FormData( $form.get( 0 ) );
-												console.log(ajaxData);
+												var ajaxData = new FormData( $form.get( 0 ) );			
 												$.ajax({
 										    		url:base_url+'co_create/save_cocreate_info',
 										    		data:ajaxData,
@@ -609,6 +607,7 @@
 	    												if(response.response == 'success')
 	    												{
 	    													$('#cocreate_info_id').val(response.inserted_id);
+	    													$('.approval-list').html(response.approver_html);
 	    												}
 	    											}
 										    	});
@@ -649,7 +648,23 @@
 					    		success:function(response){
 					    			if(response.response == 'success')
 					    			{
-					    				$('#live-cocreate-preview').html(response.html);
+					    				if(response.html)
+					    					$('#live-cocreate-preview').html(response.html);
+					    				if(response.status)
+					    				{
+						    				if(response.status == 'approved')
+											{
+												$(btn).prop('disabled',true);
+												$(btn).addClass('btn-disabled');
+												$(btn).text('Approved');
+											}
+											else
+											{
+												$(btn).prop('disabled',false);
+												$(btn).removeClass('btn-disabled');
+												$(btn).text('Approve');	
+											}
+										}
 					    			}
 					    			save_cocreate_data();
 					    		}

@@ -15,7 +15,7 @@ $this->load->view('partials/brand_nav');
 			</header>
 		</div>
 	</div>
-	<form action="" method="POST" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
+	<form action="<?php echo base_url()."co_create/save_post"; ?>" method="POST" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
 		<input type="hidden" id="post_type" name="post_type" value="cocreate">
 		<input type="hidden" name="cocreate_info_id" value="" id="cocreate_info_id">
 		<input type="hidden" name="co_create_req_id" id="co_create_req_id" value="<?php echo $req_id; ?>">
@@ -50,9 +50,12 @@ $this->load->view('partials/brand_nav');
 						// $this->data['cocreate'] = $cocreate;
 						?>
 						<div id="live-cocreate-preview">
-							<?php							
-							if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
-							 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
+							<?php
+							if(!empty($post_details))
+							{
+								if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
+								 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
+								}
 							}
 							?>							
 						</div>
@@ -80,19 +83,30 @@ $this->load->view('partials/brand_nav');
 						<input type="text" class="form-control" id="cocreate-comment" placeholder="Type a message ...">
 					</div>
 					<div class="cocreate-approve bg-gray-lightest">
-						<button type="button" class="btn btn-sm btn-secondary color-success pull-sm-left">Approve Post</button>
-						<span class="sep pull-sm-left"></span>
-						<div class="pull-sm-right">
-							<ul class="timeframe-list user-list approval-list  clearfix">
-								<li class="pull-sm-left approved"><img src="/uploads/3/users/3.png" width="36" height="36" alt="Jamie Doherty" class="circle-img" data-toggle="popover-hover" data-content="Jamie Doherty"></li>
-								<li class="pull-sm-left pending"><img src="/uploads/6/users/11.png" width="36" height="36" alt="Norel Mancuso" class="circle-img" data-toggle="popover-hover" data-content="Norel Mancuso"></li>
-								<li class="pull-sm-left pending"><img src="/uploads/6/users/10.png" width="36" height="36" alt="Bree Hardaway" class="circle-img" data-toggle="popover-hover" data-content="Bree Hardaway"></li>
-							</ul>
-						</div>
+						<?php
+						if(!isset($is_sender) OR empty($is_sender))
+						{
+							?>
+							<button data-req-id="<?php echo $req_id; ?>" type="button" class="btn btn-sm btn-secondary color-success pull-sm-left approve-cocreate">Approve Post</button>
+							<?php
+						}
+						else
+						{
+							?>
+							<!-- <span class="sep pull-sm-left"></span> -->
+							<div class="pull-sm-right">
+								<ul class="timeframe-list user-list approval-list  clearfix">
+									<!-- <li class="pull-sm-left pending"><img src="/uploads/6/users/11.png" width="36" height="36" alt="Norel Mancuso" class="circle-img" data-toggle="popover-hover" data-content="Norel Mancuso"></li>
+									<li class="pull-sm-left pending"><img src="/uploads/6/users/10.png" width="36" height="36" alt="Bree Hardaway" class="circle-img" data-toggle="popover-hover" data-content="Bree Hardaway"></li> -->
+								</ul>
+							</div>
+							<?php
+						}
+						?>
 					</div>
 					<footer class="post-content-footer">
 						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
-						<button type="submit" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled>Post Now</button>
+						<button type="submit" class="btn btn-sm btn-disabled btn-secondary pull-sm-right submit-btn">Slate post</button>
 					</footer>
 				</div>
 			</div>

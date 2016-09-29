@@ -605,4 +605,14 @@ class Post_model extends CI_Model
 		}
 		return FALSE;
 	}
+
+	function save_cocreate($cocreate_info_id)
+	{
+		$query = $this->db->query('INSERT into posts select content,video_title,share_with,pinterest_board,	pinterest_source,tumblr_content_type,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_text_content,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat_title,tumblr_audio_description,tumblr_video_caption,brand_id,user_id,	outlet_id,slate_date_time,time_zone WHERE id='.$cocreate_info_id);
+		if($query->num_rows() > 0)
+		{
+			return $this->db->insert_id();
+		}
+		return FALSE;
+	}
 }

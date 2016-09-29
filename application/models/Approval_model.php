@@ -91,6 +91,19 @@ class Approval_model extends CI_Model
 		return FALSE;
 	}
 
+	public function get_cocreate_approvers($cocreate_id)
+	{
+		$this->db->select('first_name,last_name,img_folder,aauth_user_id,cocreate_approvers.status');
+		$this->db->join('user_info','user_info.aauth_user_id = cocreate_approvers.user_id');
+		$this->db->where('cocreate_post_id',$cocreate_id);
+		$query = $this->db->get('cocreate_approvers');
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		return FALSE;
+	}
+
 	public function get_post_approvers($post_id,$status = '')
 	{
 		$this->db->select('account_id');
