@@ -106,7 +106,7 @@ $this->load->view('partials/brand_nav');
 					</div>
 					<footer class="post-content-footer">
 						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
-						<button type="submit" class="btn btn-sm btn-disabled btn-secondary pull-sm-right submit-btn">Slate post</button>
+						<button type="submit" class="btn btn-sm btn-secondary pull-sm-right submit-btn">Slate post</button>
 					</footer>
 				</div>
 			</div>

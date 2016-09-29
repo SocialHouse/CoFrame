@@ -38,7 +38,7 @@ $(document).ready(function() {
 			url:base_url+'co_create/approve_cocreate',
 			type:'post',
 			data:{req_id:req_id},
-			datatype:'json',
+			dataType: 'json',
 			success:function(response)
 			{
 				if(response.response == 'success')
@@ -51,7 +51,7 @@ $(document).ready(function() {
 				{
 					$(btn).prop('disabled',false);
 					$(btn).removeClass('btn-disabled');
-					$(btn).text('Approve');	
+					$(btn).text('Approve Post');	
 				}
 			}
 		});

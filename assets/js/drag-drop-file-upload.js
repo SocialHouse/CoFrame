@@ -650,9 +650,11 @@
 					    			{
 					    				if(response.html)
 					    					$('#live-cocreate-preview').html(response.html);
-					    				if(response.status)
+					    				
+					    				if(response.approver_status)
 					    				{
-						    				if(response.status == 'approved')
+					    					var btn = '.approve-cocreate';
+						    				if(response.approver_status == 'approved')
 											{
 												$(btn).prop('disabled',true);
 												$(btn).addClass('btn-disabled');
@@ -660,9 +662,11 @@
 											}
 											else
 											{
+												alert('test');
+												console.log($(btn));
 												$(btn).prop('disabled',false);
 												$(btn).removeClass('btn-disabled');
-												$(btn).text('Approve');	
+												$(btn).text('Approve Post');	
 											}
 										}
 					    			}

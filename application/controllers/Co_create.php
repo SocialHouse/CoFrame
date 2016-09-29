@@ -221,7 +221,7 @@ class Co_create extends CI_Controller {
 			{
 				$this->timeframe_model->insert_data('co_create_requests',array('request_string' => $post_data['request_string'],'brand_slug' => $post_data['slug'],'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
 
-				$subject = "Co create requst";
+				$subject = "Co create request";
 				$this->data['url'] = base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'];
 				$message = $this->load->view('mails/join_co_create',$this->data,true);
 				foreach($post_data['selected_users'] as $email)
