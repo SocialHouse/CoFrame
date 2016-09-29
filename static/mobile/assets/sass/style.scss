@@ -757,6 +757,11 @@ a {
 			color: $brand-danger;
 		}
 	}
+	&.popover-brand-list {
+		.qtip-tip {
+			margin-right: 9px;
+		}
+	}
 }
 .qtip-titlebar {
 	text-align: center;
@@ -996,14 +1001,14 @@ a {
 
 .bg-outlet {
 	position: absolute;
-	left: -2px;
+	left: -1px;
 	top: remCalc(5px);
 	z-index: 0;
 	&:before {
 		display: block;
 		content: "";
-		height: remCalc(24px);
-		width: remCalc(24px);
+		width: remCalc(34px);
+		height: remCalc(34px);
 		-webkit-transform: rotateZ(45deg);
 		transform: rotateZ(45deg);
 		transition: all 500ms;
@@ -1011,8 +1016,8 @@ a {
 			background: #E5E5E5 !important;
 		}
 	}
-	.calendar-list & {
-		left: 0;
+	.list-block & {
+		left: -2px;
 	}
 }
 .outlet-text {
@@ -1021,7 +1026,7 @@ a {
 	position: relative;
 	z-index: 1;
 	color: #fff;
-	font-size: 11px;
+	font-size: remCalc(14px);
 	font-family: $futura;
 }
 .bg-blogger:before {
@@ -1387,7 +1392,7 @@ a {
 			text-decoration: none;
 		}
 	}
-	.fa, [class*="tf-icon"]{
+	.fa[data-toggle="popover"]{
 		margin-left: .5rem;
 	}
 	&.calendar-list {
@@ -1530,10 +1535,8 @@ a {
 		right: 20px;
 	}
 	.post-tags {
-		margin-right: 1.5rem;
-		.fa + .fa {
-			margin-left: remCalc(-17px);
-		}
+		margin-right: 1rem;
+		margin-top: 2px;
 	}
 	textarea {
 		font-size: 1.3rem;
@@ -1860,18 +1863,11 @@ a {
 .post-meta {
 	padding: remCalc(30px) 0 1.5rem;
 	font-size: remCalc(20px);
-	span {
-		display: block;
-	}
 	.outlet-list .fa {
-		width: remCalc(34px);
-		font-size: remCalc(20px);
-		line-height: remCalc(44px);
 		margin-left: remCalc(8px);
 	}
-	.bg-outlet:before {
-		width: remCalc(34px);
-		height: remCalc(34px);
+	span {
+		display: block;
 	}
 }
 .post-meta-content {
@@ -2114,11 +2110,12 @@ a {
 	}
 	.fa, [class^='icon-'] {
 		color: #fff;
-		font-size: 1rem;
+		font-size: remCalc(20px);
 		position: relative;
 		text-align: center;
-		width: remCalc(24px);
-		line-height: remCalc(34px);
+		width: remCalc(34px);
+		line-height: remCalc(44px);
+		margin-left: .5rem;
 		#post-details & {
 			font-size: remCalc(12px);
 		}
@@ -2168,7 +2165,7 @@ a {
 		color: #000;
 		font-weight: normal;
 		font-size: 1.25rem;
-		padding: 0;
+		padding: 0 0 0 6px;
 		text-align: left;
 		border-radius: 0;
 		&.selected, &.checked {
@@ -2178,85 +2175,91 @@ a {
 					border-color: inherit !important;
 				}
 			}
+			.tf-icon-circle {
+				&:before {
+					opacity: .5;
+				}
+			}
 		}
 		&.saved {
 			cursor: not-allowed;
 		}
-		.qtip-content & {
-			padding-bottom: 2px;
-			padding-top: 2px;
-		}
 	}
-	.fa-circle {
-		padding: 0 1px;
-		border-radius: 100%;
-		border: 2px solid transparent;
+	.tf-icon-circle {
 		transition: all 500ms;
-		margin-right: 10px;
-		font-size: 15px;
-		width: 19px;
-		height: 19px;
-		&.tag-custom {
-			border-color: transparent !important;
+		margin-right: 1rem;
+		width: remCalc(28px);
+		height: remCalc(28px);
+		position: relative;
+		float: left;
+		&:before {
+			width: remCalc(41px);
+			height: remCalc(41px);
+			content: '';
+			background-color: inherit;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			border-radius: 50%;
+			z-index: 1;
+			opacity: 0;
+			transition: opacity 500ms;
 		}
 	}
 	.tag-title {
-		line-height: 1.5rem;
+		line-height: remCalc(28px);
 	}
 	&.list-block {
 		.tag {
-			padding: 1rem 0;
+			padding: 1rem 0 1rem remCalc(6px);
 		}
 		.tag-title {
 			font-family: $futura-light;
 			text-transform: none;
 			font-size: 1.5rem;
 		}
-		.fa-circle {
-			font-size: 30px;
-			width: 32px;
-			height: 34px;
-		}
 	}
 }
 .tag-red {
-	color: #EF3C39;
+	background-color: #EF3C39;
 }
 .tag-pink {
-	color: #FF7BAC;
+	background-color: #FF7BAC;
 }
 .tag-orange {
-	color: #F7931E;
+	background-color: #F7931E;
 }
 .tag-yellow {
-	color: #FFDF7F;
+	background-color: #FFDF7F;
 }
 .tag-green {
-	color: #8CC63F;
+	background-color: #8CC63F;
 }
 .tag-green-dark {
-	color: #009245;
+	background-color: #009245;
 }
 .tag-blue {
-	color: #58B0E3;
+	background-color: #58B0E3;
 }
 .tag-blue-dark {
-	color: #0071BC;
+	background-color: #0071BC;
 }
 .tag-purple-dark {
-	color: #662D91;
+	background-color: #662D91;
 }
 .tag-purple {
-	color: #A75574;
+	background-color: #A75574;
 }
 .tag-brown {
-	color: #A67C52;
+	background-color: #A67C52;
 }
 .tag-tan {
-	color: #C7B299;
+	background-color: #C7B299;
 }
 .tag-gray {
-	color: $gray-lighter;
+	background-color: $gray-lighter;
 }
 
 /*Filtering Stuff*/
@@ -2295,10 +2298,10 @@ a {
 			padding: 5px 10px 5px 15px;
 		}
 	}
-	.fa-circle {
-		height:22px;
-		width: 22px;
-		font-size: 19px;
+	.tf-icon-circle {
+		height:19px;
+		width: 19px;
+		margin-right: 0;
 	}
 	.tag-title {
 		display: none;
@@ -2343,16 +2346,13 @@ a {
 	display: inline-block;
 }
 .post-tags {
-	.fa {
-		+ .fa {
-			margin-left: -9px;
-		}
-		&:before {
-			border: 1px solid #fff;
-			border-radius: 100%;
-			height: 15px;
-			width: 15px;
-			overflow: hidden;
+	height: 20px;
+	.tf-icon-circle {
+		width: 20px;
+		border: 1px solid #fff;
+		height: 20px;
+		+ .tf-icon-circle {
+			margin-left: -17px;
 		}
 	}
 }
@@ -2464,6 +2464,8 @@ a {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			width: 100%;
+			height:41px;
+			padding: 6px 0 0 6px;
 		}
 		.fa-circle {
 			height: remCalc(28px);
@@ -2828,8 +2830,6 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		border-color: $gray-lighter;
 		font-size: 22px;
 		line-height: 18px;
-		margin-right: 10px;
-		margin-left: 0;
 	}
 }
 .form__input {
@@ -2926,7 +2926,7 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 			font-family: $futura-light;
 		}
 	}
-	.fa {
+	.fa, .tf-icon-circle {
 		margin-right: 1.5rem;
 	}
 }

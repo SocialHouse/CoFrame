@@ -69,7 +69,7 @@
 									<button class="btn btn-secondary btn-disabled btn-sm" disabled="">Approved</button>
 								</div>
 							</span>
-							<button class="btn-icon btn-icon-lg btn-menu popover-toggle pull-xs-right" data-toggle="popover-ajax" data-hide="false" data-content-src="lib/calendar-edit-menu.php" data-popover-class="popover-menu popover-clickable" data-popover-id="popover-post-menu" data-attachment="bottom left" data-target-attachment="top left" data-offset-x="6" data-offset-y="0" data-popover-container=".calendar-day">
+							<button class="btn-icon btn-icon-lg btn-menu pull-xs-right" data-toggle="modal-ajax" data-hide="false" data-modal-src="lib/calendar-edit-menu.php" data-modal-id="modal-post-menu">
 								<i class="fa fa-circle-o"></i> 
 								<i class="fa fa-circle-o"></i> 
 								<i class="fa fa-circle-o"></i>
@@ -215,6 +215,16 @@
 		</div>
 	  </div>
 	</div>	
+
+	<!-- Blank Modal -->
+	<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-body">
+		  </div>
+		</div>
+	  </div>
+	</div>
 
 	<script type='text/javascript' src='assets/js/vendor/jquery.js?ver=1.11.3'></script>
 	<script type='text/javascript' src='assets/js/vendor/jquery.qtip.min.js'></script>

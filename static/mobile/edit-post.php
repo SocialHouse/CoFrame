@@ -58,8 +58,8 @@
 							</li>
 							<li data-toggle="modal-ajax" data-modal-src="lib/select-tags.php" data-class="full-page-modal" data-title="Edit Tags" data-clear="no" data-modal-id="modal-post-tags">
 								<div class="post-tags pull-xs-left">
-									<i class="fa fa-circle" style="color:#ff7bac"></i>
-									<i class="fa fa-circle" style="color:#662d91"></i>
+									<i class="tf-icon-circle" style="background-color:#ff7bac"></i>
+									<i class="tf-icon-circle" style="background-color:#662d91"></i>
 								</div>
 								Tags						
 								<i class="fa fa-angle-right expand-collapse pull-xs-right"></i>

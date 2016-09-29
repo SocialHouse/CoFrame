@@ -76,16 +76,31 @@ jQuery(function($) {
 
 	//assign tags to post
 	$('body').on('click', '.tag:not(.filter)', function() {
-		$(this).toggleClass('selected');
-		var checked = false;
-		if ($(this).hasClass('selected')) {
-			checked = true;
-		} else {
-			checked = false;
+		var tagVal = $(this).data('value');
+		var tagGroup = $(this).data('group');
+		if(tagVal !== 'check-all') {
+			$(this).toggleClass('selected');
+			var checked = false;
+			if ($(this).hasClass('selected')) {
+				checked = true;
+			} else {
+				checked = false;
+			}
+			//set the input value
+			var $input = $(this).find('input');
+			$input.prop('checked', checked);
 		}
-		//set the input value
-		var $input = $(this).find('input');
-		$input.prop('checked', checked);
+		else {
+			$('.tag[data-group="' + tagGroup + '"]').each(function() {
+				if(!$(this).hasClass('selected')) {
+					$(this).addClass('selected');
+					checked = true;
+					//set the input value
+					var $input = $(this).find('input');
+					$input.prop('checked', checked);
+				}
+			});
+		}
 	});
 
 	//Time selector functions

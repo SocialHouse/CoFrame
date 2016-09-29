@@ -49,24 +49,24 @@
 	<div class="row">
 		<div class="col-xs-6 tag-list">
 			<ul>
-				<li class="tag filter" data-value="brandbuilding" data-group="post-tag"><i class="fa fa-circle tag-red"></i><span class="tag-title">Brand Building / Product Education</span></li>
-				<li class="tag filter" data-value="marketing" data-group="post-tag"><i class="fa fa-circle tag-pink"></i><span class="tag-title">Marketing</span></li>
-				<li class="tag filter" data-value="orange" data-group="post-tag"><i class="fa fa-circle tag-orange"></i><span class="tag-title">Orange Tag</span></li>
-				<li class="tag filter" data-value="ecommerce" data-group="post-tag"><i class="fa fa-circle tag-yellow"></i><span class="tag-title">E-Commerce</span></li>
-				<li class="tag filter" data-value="retail" data-group="post-tag"><i class="fa fa-circle tag-green"></i><span class="tag-title">Retail Support</span></li>
-				<li class="tag filter" data-value="darkgreen" data-group="post-tag"><i class="fa fa-circle tag-green-dark"></i><span class="tag-title">Dark Green Tag</span></li>
-				<li class="tag filter" data-value="blue" data-group="post-tag"><i class="fa fa-circle tag-blue"></i><span class="tag-title">Blue Tag</span></li>
+				<li class="tag filter" data-value="brandbuilding" data-group="post-tag"><i class="tf-icon-circle tag-red"></i><span class="tag-title">Brand Building / Product Education</span></li>
+				<li class="tag filter" data-value="marketing" data-group="post-tag"><i class="tf-icon-circle tag-pink"></i><span class="tag-title">Marketing</span></li>
+				<li class="tag filter" data-value="orange" data-group="post-tag"><i class="tf-icon-circle tag-orange"></i><span class="tag-title">Orange Tag</span></li>
+				<li class="tag filter" data-value="ecommerce" data-group="post-tag"><i class="tf-icon-circle tag-yellow"></i><span class="tag-title">E-Commerce</span></li>
+				<li class="tag filter" data-value="retail" data-group="post-tag"><i class="tf-icon-circle tag-green"></i><span class="tag-title">Retail Support</span></li>
+				<li class="tag filter" data-value="darkgreen" data-group="post-tag"><i class="tf-icon-circle tag-green-dark"></i><span class="tag-title">Dark Green Tag</span></li>
+				<li class="tag filter" data-value="blue" data-group="post-tag"><i class="tf-icon-circle tag-blue"></i><span class="tag-title">Blue Tag</span></li>
 			</ul>
 		</div>
 		<div class="col-xs-6 tag-list">
 			<ul>
-				<li class="tag filter" data-value="darkblue" data-group="post-tag"><i class="fa fa-circle tag-blue-dark"></i><span class="tag-title">Dark Blue Tag</span></li>
-				<li class="tag filter" data-value="lorem" data-group="post-tag"><i class="fa fa-circle tag-purple-dark"></i><span class="tag-title">Lorem Ipsum Dolor</span></li>
-				<li class="tag filter" data-value="purple" data-group="post-tag"><i class="fa fa-circle tag-purple"></i><span class="tag-title">Purple Tag</span></li>
-				<li class="tag filter" data-value="onsectetur" data-group="post-tag"><i class="fa fa-circle tag-brown"></i><span class="tag-title">Onsectetur Adipiscing</span></li>
-				<li class="tag filter" data-value="tan" data-group="post-tag"><i class="fa fa-circle tag-tan"></i><span class="tag-title">Tan Tag</span></li>
-				<li class="tag filter" data-value="gray" data-group="post-tag"><i class="fa fa-circle tag-gray"></i><span class="tag-title">Gray Tag</span></li>
-				<li class="tag filter" data-value="check-all" data-group="post-tag"><i class="fa fa-circle tag-custom" style="color: #000; border-color: #000"></i><span class="tag-title">All</span></li>
+				<li class="tag filter" data-value="darkblue" data-group="post-tag"><i class="tf-icon-circle tag-blue-dark"></i><span class="tag-title">Dark Blue Tag</span></li>
+				<li class="tag filter" data-value="lorem" data-group="post-tag"><i class="tf-icon-circle tag-purple-dark"></i><span class="tag-title">Lorem Ipsum Dolor</span></li>
+				<li class="tag filter" data-value="purple" data-group="post-tag"><i class="tf-icon-circle tag-purple"></i><span class="tag-title">Purple Tag</span></li>
+				<li class="tag filter" data-value="onsectetur" data-group="post-tag"><i class="tf-icon-circle tag-brown"></i><span class="tag-title">Onsectetur Adipiscing</span></li>
+				<li class="tag filter" data-value="tan" data-group="post-tag"><i class="tf-icon-circle tag-tan"></i><span class="tag-title">Tan Tag</span></li>
+				<li class="tag filter" data-value="gray" data-group="post-tag"><i class="tf-icon-circle tag-gray"></i><span class="tag-title">Gray Tag</span></li>
+				<li class="tag filter" data-value="check-all" data-group="post-tag"><i class="tf-icon-circle tag-custom" style="background-color: #000"></i><span class="tag-title">All</span></li>
 			</ul>
 		</div>
 	</div>
