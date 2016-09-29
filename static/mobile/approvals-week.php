@@ -21,6 +21,9 @@
 				<header class="page-main-header header-fixed-top bg-white row">
 					<h1 class="center-title section-title border-none">Approvals by Week</h1>
 				</header>
+				<div id="selectedFilters" class="clearfix hidden" style="">
+					<ul class="filter-list tag-list"></ul>
+				</div>
 				<div class="bg-white col-sm-12 content-shadow brand-main">
 					<div class="content-shadow brand-header row">
 						<div class="col-sm-12">
@@ -117,11 +120,6 @@
 	<div class="modal hide fade" id="calendarSelectWeekModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
-			<button type="button" class="modal-toggler">
-				<span class="sr-only">Toggle Modal</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
 		  <div class="modal-body">
 			<div id="calendar-change-week" class="calendar-select-date">
 				<div class="date-select-calendar"></div>

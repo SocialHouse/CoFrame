@@ -59,7 +59,34 @@ jQuery(function($) {
 		var target = $(this).attr('href');
 		$(target).click();
 	});
+	
+	$('body').on('click', '.outlet-list li:not(.filter)', function(e) {
+		$(this).toggleClass('disabled');
+		$(this).siblings().addClass('disabled');
+	});
+	
+	$('.content-editable').each(function() {
+		var id = $(this).attr('id');
+		document.getElementById(id).addEventListener("input", function() {
+			var input = $(this).data('input');
+			var content = $(this).html();
+			$(input).val(content);
+		});
+	});
 
+	//assign tags to post
+	$('body').on('click', '.tag:not(.filter)', function() {
+		$(this).toggleClass('selected');
+		var checked = false;
+		if ($(this).hasClass('selected')) {
+			checked = true;
+		} else {
+			checked = false;
+		}
+		//set the input value
+		var $input = $(this).find('input');
+		$input.prop('checked', checked);
+	});
 
 	//Time selector functions
 	$('body').on('click', '.incrementer', function(e) {

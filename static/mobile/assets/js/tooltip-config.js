@@ -7,6 +7,10 @@ jQuery(function($) {
 			var $target = $(this);
 			var pcontent = $target.data('content');
 			var pclass = $target.data('popoverClass');
+			var pcontainer = $target.data('popoverContainer');
+			if(!pcontainer) {
+				pcontainer = '.page-main';
+			}
 			$target.qtip({
 				content: {
 					text: pcontent
@@ -18,7 +22,7 @@ jQuery(function($) {
 					},
 					my: 'top center',
 					at: 'bottom center',
-					container: $('.page-main'),
+					container: $(pcontainer),
 					target: $target,
 					viewport: $(window)
 				},
@@ -43,7 +47,6 @@ jQuery(function($) {
 						corner: true,
 						mimic: 'center'
 					},
-					width: 280
 				}
 			}, e);
 		});
@@ -280,6 +283,76 @@ jQuery(function($) {
 					ready: true
 				}, e);
 			}
+		});
+
+		//Get popover content from an inline div
+		$('body').on('click', '[data-toggle="popover-inline"]', function(e) {
+			var $target = $(this);
+			var pid = $target.data('popoverId');
+			var pclass = $target.data('popoverClass');
+			var pattachment = $target.data('attachment');
+			var ptattachment = $target.data('targetAttachment');
+			var poffsetX = $target.data('offsetX');
+			var poffsetY = $target.data('offsetY');
+			var pwidth = $target.data('popover-width');
+			var parrow = $target.data('popoverArrow');
+			var arrowcorner = $target.data('arrowCorner');
+			var pcontainer = $target.data('popoverContainer');
+			if (!pcontainer) {
+				pcontainer = '.page-main';
+			}
+			var tipW = 1;
+			var tipH = 1;
+			if (parrow) {
+				tipW = 20;
+				tipH = 10;
+			}
+			$target.qtip({
+				content: {
+					text: $('#' + pid)
+				},
+				events: {
+					visible: function() {
+						var classes = $(this).qtip('api').get('style.classes');
+						$('.qtip').trigger('qtipShown', [classes]);
+					}
+				},
+				hide: {
+					effect: function() {
+						$(this).fadeOut();
+					},
+					event: 'click unfocus'
+				},
+				position: {
+					adjust: {
+						x: poffsetX,
+						y: poffsetY
+					},
+					at: ptattachment,
+					my: pattachment,
+					container: $(pcontainer),
+					target: $target
+				},
+				overwrite: false,
+				show: {
+					effect: function() {
+						$(this).fadeIn();
+					},
+					event: e.type,
+					ready: true,
+					show: true,
+				},
+				style: {
+					classes: 'qtip-shadow ' + pclass,
+					tip: {
+						corner: true,
+						mimic: 'center',
+						height: tipH,
+						width: tipW
+					},
+					width: pwidth
+				}
+			}, e);
 		});
 
 		$('body').on('click blur', '.popover-toggle', function(e) {

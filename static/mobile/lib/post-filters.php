@@ -1,9 +1,3 @@
-<button type="button" class="modal-toggler modal-hide">
-	<span class="sr-only">Toggle Modal</span>
-	<span class="icon-bar"></span>
-	<span class="icon-bar"></span>
-</button>
-<h1 class="text-xs-center">Filters</h1>
 <div class="post-filters">
 	<div class="row">
 		<div class="col-xs-12">

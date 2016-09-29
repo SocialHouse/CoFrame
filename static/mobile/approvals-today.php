@@ -120,11 +120,6 @@
 	<div class="modal hide fade" id="calendarSelectModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content bg-white">
-			<button type="button" class="modal-toggler">
-				<span class="sr-only">Toggle Modal</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
 		  <div class="modal-body">
 			<div id="calendar-change-day" class="calendar-select-date">
 				<div class="date-select-calendar"></div>

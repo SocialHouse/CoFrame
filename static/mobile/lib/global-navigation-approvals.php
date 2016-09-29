@@ -8,7 +8,7 @@
 	</button>
 	<a class="navbar-brand hidden-print" href="overview.php"><span class="brand-logo hide-text">CoFrame</span></a>
 	<div class="go-to-brands pull-xs-right toolbar">
-		<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="modal-ajax" data-modal-src="lib/post-filters.php" data-hide="false" data-clear="no" data-modal-id="modal-post-filters"><i class="tf-icon-filter"></i></a>
+		<a href="#" class="tf-icon-circle pull-xs-left" data-toggle="modal-ajax" data-modal-src="lib/post-filters.php" data-class="full-page-modal" data-title="Filters" data-clear="no" data-modal-id="modal-post-filters"><i class="tf-icon-filter"></i></a>
 		<a href="#" class="hide-text show-brands-toggler pull-xs-left animated infinite pulse popover-toggle" data-toggle="popover-ajax" data-content-src="lib/go-to-brand.php" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-brand-list" data-attachment="top right" data-target-attachment="bottom right" data-offset-x="-3" data-offset-y="6" data-popover-arrow="true" data-arrow-corner="top right" data-popover-container="body" data-popover-width="90%">Go To Brand</a>
 	</div>
 	

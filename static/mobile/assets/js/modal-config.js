@@ -15,17 +15,20 @@ jQuery(function($) {
 			var mid = $target.data('modalId');
 			var mtitle = $target.data('title');
 			var mclass = $target.data('class');
+			var mhead = document.createElement('div');
+			mhead.className = 'modal-header';
+			var closeBtn = '<button type="button" class="modal-toggler modal-hide"><span class="sr-only">Toggle Modal</span><span class="icon-bar"></span><span class="icon-bar"></span></button>';
 			$.get($target.data('modalSrc'), function(data) {
 				newModal.attr('id', mid);
 				if (mclass !== "") {
 					newModal.addClass(mclass);
 				}
 				if (mtitle) {
-					mtitle = '<h2 class="text-xs-center">' + mtitle + '</h2>';
-					newModal.find('.modal-body').html(mtitle + data);
-				} else {
-					newModal.find('.modal-body').html(data);
+					mtitle = '<h1 class="text-xs-center">' + mtitle + '</h1>';
+					mhead.innerHTML = closeBtn + mtitle;
+					newModal.find('.modal-body').before(mhead);
 				}
+				newModal.find('.modal-body').html(data);
 				newModal.modal({
 					show: true,
 					backdrop: 'static'
