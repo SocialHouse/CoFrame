@@ -2271,19 +2271,18 @@ a {
 }
 #selectedFilters {
 	clear: both;
-	margin-top: -1.25rem;
-	padding-bottom:remCalc(4px);
+	margin-top: -.75rem;
 	strong {
 		font-size: 13px;
 		letter-spacing: .25em;
 	}
 	.filter-list {
 		display: inline-block;
-		margin: 0 -12px 0 0;
+		margin: 0 -0.75rem 0 0;
 		padding: 0;
 		li {
 			cursor: pointer;
-			display: inline-block;
+			float: left;
 			list-style: none;
 			background: #fff;
 			border-radius: 18px;
