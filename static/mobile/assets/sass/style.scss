@@ -2286,21 +2286,29 @@ a {
 			border-radius: 18px;
 			padding: 10px;
 			font-size: 1.25rem;
-			line-height: 1.5rem;
+			line-height: 30px;
 			margin-right: remCalc(12px);
 			margin-bottom: remCalc(12px);
-			.fa-circle {
-				margin-right: 0;
-			}
+			height: 50px;
 		}
 		.outlet-list {
 			line-height: normal;
 			padding: 5px 10px 5px 15px;
+			.fa, [class^="icon"] {
+				width: 1.75rem;
+				line-height: 2.5rem;
+				margin-left: 0;
+			}
+			.bg-outlet:before {
+				width: 1.75rem;
+				height: 1.75rem;
+			}
 		}
 	}
 	.tf-icon-circle {
-		height:19px;
-		width: 19px;
+		height:23px;
+		width: 23px;
+		margin-top:4px;
 		margin-right: 0;
 	}
 	.tag-title {
