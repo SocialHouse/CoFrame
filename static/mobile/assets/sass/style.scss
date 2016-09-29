@@ -454,6 +454,9 @@ a {
 	height: 20px;
 	width: 36px;
 	outline: none;
+	&:focus {
+		outline: none;
+	}
 	.icon-bar {
 		display: block;
 		width: 36px;
@@ -2286,10 +2289,10 @@ a {
 			border-radius: 18px;
 			padding: 10px;
 			font-size: 1.25rem;
-			line-height: 30px;
+			line-height: remCalc(30px);
 			margin-right: remCalc(12px);
 			margin-bottom: remCalc(12px);
-			height: 50px;
+			height: remCalc(50px);
 		}
 		.outlet-list {
 			line-height: normal;
@@ -2306,9 +2309,9 @@ a {
 		}
 	}
 	.tf-icon-circle {
-		height:23px;
-		width: 23px;
-		margin-top:4px;
+		height:remCalc(23px);
+		width: remCalc(23px);
+		margin-top:remCalc(4px);
 		margin-right: 0;
 	}
 	.tag-title {
