@@ -346,7 +346,7 @@ a {
 	left: 0;
 	z-index: 1050;
 	font-family: $futura;
-	font-size: remCalc(20px);
+	font-size: remCalc(18px);
 	max-width: 75%;
 	padding-top: 22px;
 	letter-spacing: .25em;
@@ -697,10 +697,25 @@ a {
 	}
 	.outlet-list {
 		z-index:1;
+		.fa, [class^="icon"] {
+			width: 1.75rem;
+			line-height: 2.5rem;
+			margin-left: 0;
+		}
+		.bg-outlet:before {
+			width: 1.75rem;
+			height: 1.75rem;
+		}
+		.outlet-text {
+			top: -2px;
+		}
 	}
 }
 .brand-main {
 	margin-bottom: 10px;
+	#user-preferences & {
+		padding-bottom: 20px;
+	}
 }
 .content-shadow {
 	box-shadow: 0 0 20px rgba(0,0,0,.25);
@@ -2591,6 +2606,13 @@ a {
 		position: relative;
 		z-index: 100;
 	}
+	.brand-image {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		.btn {
+			margin-top:  1rem;
+		}
+	}
 	.btn-group {
 		margin: 0px auto 3rem;
 		.btn {
@@ -2606,14 +2628,11 @@ a {
 	.form-group {
 		margin-bottom: 1rem;
 	}
-	.page-divider {
-		position: absolute;
-		top: remCalc(91px);
-		bottom: 0;
-		left: 50%;
-		margin-left: -1px;
-		border-left: 1px solid #000;
-		z-index: 1;
+	.intl-tel-input.allow-dropdown .flag-container {
+		font-size: 1rem;
+	}
+	.intl-tel-input.allow-dropdown.separate-dial-code .selected-dial-code {
+		text-align: center;
 	}
 	.price-title {
 		h2 {
@@ -2664,7 +2683,7 @@ a {
 	display: block;
 	text-align: left;
 	font-family: $futura;
-	font-size: 11px;
+	font-size: remCalc(15px);
 	letter-spacing: inherit;
 	padding-left: 5px;
 }
@@ -2723,8 +2742,8 @@ select.form-control {
 		padding: 0;
 	}
 }
-select.form-control, input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control {
-	font-family: $bebas-book;
+select.form-control, input[type="text"].form-control, input[type="email"].form-control, input[type="tel"].form-control, input[type="number"].form-control, input[type="password"].form-control {
+	font-family: $futura-light;
 	font-size: remCalc(20px);
 	&.form-control-sm {
 		font-size: remCalc(18px);
@@ -2967,6 +2986,9 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		padding: 2px 20px 20px;
 		margin: -2px -20px -20px;
 	}
+}
+.width-50 {
+	width: 50%;
 }
 .center-block {
 	float: none;

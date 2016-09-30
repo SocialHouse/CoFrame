@@ -15,7 +15,7 @@ jQuery(function($) {
 			moveSlides: 1,
 			pager: false,
 			touchEnabled: false,
-			breaks: [{screen:320, slides:5},{screen:375, slides:6},{screen:560, slides:8}]
+			breaks: [{screen:320, slides:5},{screen:560, slides:8}]
 		});
 	}
 	function destroySlider() {
