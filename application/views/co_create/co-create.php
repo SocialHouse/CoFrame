@@ -11,7 +11,7 @@
 		<h1 class="center-title section-title">Co-Create</h1>
 	</header>	
 	<div class="row equal-columns relative-wrapper cocreate">
-		<div class="col-lg-6 center-block">
+		<div class="col-xl-6 col-lg-8 center-block">
 			<div class="col-sm-6 equal-height">
 				<div class="container-cocreate">
 					<h2 class="text-xs-center">Step 1</h2>
@@ -40,7 +40,7 @@
 										?>
 										<img src="<?php echo $path; ?>" width="36" height="36" alt="<?php echo $user->first_name; ?>" class="circle-img"/>
 									</div>
-									<div class="pull-sm-left post-approver-name">
+									<div class="post-approver-name">
 										<strong>
 										<?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>
 										</strong>
@@ -54,7 +54,7 @@
 							<li class="option-all-users">
 								<div class="pull-sm-left"><i class="tf-icon check-box circle-border" data-value="check-all" data-group="join_req[]"><i class="fa fa-check"></i></i></div>
 								<div class="pull-sm-left"><div class="circle-border bg-black tf-icon">All</div></div>
-								<div class="pull-sm-left post-approver-name">Check<br>All</div>
+								<div class="post-approver-name">Check<br>All</div>
 							</li>
 						</ul>
 						<?php
