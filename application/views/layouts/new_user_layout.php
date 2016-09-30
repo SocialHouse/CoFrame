@@ -84,14 +84,31 @@
 					<a class="nav-link" href="#"><?php echo print_user_image($this->user_data['img_folder'],$this->user_id); ?></a>
 					<ul class="dropdown-menu">
 						<li class="user-info"><?php echo $this->user_data['first_name'] . " " . $this->user_data['last_name']; ?><br>
-						<?php
-						$parent_id = NULL;
-						if(empty($current_brand) AND isset($this->user_data['user_group']))
-						{
-							$parent_id = $this->user_data['account_id'];
-						}
-						?>
-						<span class="user-role"><?php echo get_user_groups($this->user_id,$current_brand,$parent_id); ?></span></li>
+							<?php
+							$parent_id = NULL;
+							$is_account_user = 0;
+							if(empty($current_brand) AND isset($this->user_data['user_group']))
+							{
+								$parent_id = $this->user_data['account_id'];
+								$is_account_user = 1;
+							}
+
+							if($this->user_id == $this->user_data['account_id'])
+							{
+								$is_account_user = 1;	
+							}
+							if($is_account_user == 1 OR !empty($current_brand))
+							{						
+								?>
+								<span class="user-role">
+									<?php
+									echo get_user_groups($this->user_id,$current_brand,$parent_id); 
+							 		?>
+							 	</span>
+							 	<?php
+							}
+							?>
+						 </li>
 						<li>
 							<a class="nav-link" href="<?php echo base_url()?>user_preferences">Account Settings</a>
 						</li>
