@@ -2681,6 +2681,9 @@ a {
 	.active-plan {
 	}
 }
+#payment-form {
+	padding-top: 1rem;
+}
 .section-label {
 	display: block;
 	text-align: left;
@@ -2989,8 +2992,14 @@ select.form-control, input[type="text"].form-control, input[type="email"].form-c
 		margin: -2px -20px -20px;
 	}
 }
+.width-70 {
+	width: 70%;
+}
 .width-50 {
 	width: 50%;
+}
+.width-30 {
+	width: 30%;
 }
 .center-block {
 	float: none;
