@@ -510,9 +510,7 @@ class Co_create extends CI_Controller {
 									<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
 								</li>';
 
-								$participant_html .= '<li class="pull-sm-left">
-									<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
-								</li>';
+								$participant_html .= ucfirst($approver->first_name).' '.ucfirst($approver->last_name);
 							}
 						}
 		    		}	    		
