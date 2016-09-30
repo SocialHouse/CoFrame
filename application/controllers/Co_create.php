@@ -908,7 +908,7 @@ class Co_create extends CI_Controller {
 				{
 					$this->timeframe_model->insert_data('cocreate_approvers',array('user_id' => $this->user_id,'cocreate_post_id' => $this->data['post_details']->id));
 				}
-				$status = 'pneding';
+				$status = 'pending';
 				$approver_status = $this->timeframe_model->get_data_by_condition('cocreate_approvers',array('cocreate_post_id' => $this->data['post_details']->id,'user_id' => $this->user_id),'status');
 				if(!empty($approver_status))
 				{
@@ -932,9 +932,7 @@ class Co_create extends CI_Controller {
 							<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
 						</li>';
 
-						$participant_html .= '<li class="pull-sm-left">
-							<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
-						</li>';
+						$participant_html .= ucfirst($approver->first_name).' '.ucfirst($approver->last_name);
 					}
 				}
 
