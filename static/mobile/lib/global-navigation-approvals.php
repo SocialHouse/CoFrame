@@ -22,7 +22,7 @@
 			</li>
 			<li class="nav-item"> <a class="nav-link" href="overview.php">Overview</a> </li>
 			<li class="nav-item"> <a class="nav-link" href="approvals.php">Approvals</a> </li>
-			<li class="nav-item"> <a class="nav-link" href="user-preferences.php">User Preferences</a> </li>
+			<li class="nav-item"> <a class="nav-link" href="user-preferences.php">Account Settings</a> </li>
 			<li class="nav-item"> <a class="nav-link border-gray-lighter border-top border-bottom" href="#">Log out</a> </li>
 			<li>
 				<div class="current-user-details">

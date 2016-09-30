@@ -616,27 +616,11 @@ a {
 	}
 }
 .page-main-header {
+	padding: remCalc(10px)  0;
+	border-bottom: 1px solid $gray-lighter;
 	h1 {
 		font-family: $futura-light;
 		font-size: remCalc(18px);
-	}
-	.title-search {
-		border: 0;
-		font-size: 25px;
-		font-family: $futura-light;
-		padding: 0;
-		margin: 0;
-		line-height: 40px;
-	}
-	#brand-manage & {
-		padding: remCalc(60px) 0 2rem;
-	}
-	#overview & {
-		padding: remCalc(10px)  0;
-		border-bottom: 1px solid $gray-lighter;
-	}
-	#user-preferences & {
-		padding: remCalc(26px)  0 .75rem;
 	}
 }
 .toolbar {
@@ -2334,6 +2318,24 @@ a {
 		border-top: 2px solid #000;
 		padding-top: 1.25rem;
 		padding-bottom: 1rem;
+	}
+}
+.btn-group-background {
+	background: #c0c0c0;
+	border-radius: 9px;
+	padding: 4px;
+	display: inline-block;
+	.btn {
+		font-size: 1rem;
+		color: #fff;
+		background: #c0c0c0;
+		&:hover, &.active {
+			background: #fff;
+			color: #000;
+		}
+	}
+	#user-preferences & {
+		margin-bottom: 1rem;
 	}
 }
 .post-actions {
