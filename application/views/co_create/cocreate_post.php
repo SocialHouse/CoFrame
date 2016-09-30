@@ -15,7 +15,8 @@ $this->load->view('partials/brand_nav');
 			</header>
 		</div>
 	</div>
-	<form action="<?php echo base_url()."co_create/save_post"; ?>" method="POST" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
+	<?php //echo base_url()."co_create/save_post"; actio for this for is removed because it triggers save when click on mute button ?>
+	<form method="POST" id="cocreate_form" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
 		<input type="hidden" id="post_type" name="post_type" value="cocreate">
 		<input type="hidden" name="cocreate_info_id" value="" id="cocreate_info_id">
 		<input type="hidden" name="co_create_req_id" id="co_create_req_id" value="<?php echo $req_id; ?>">
@@ -68,7 +69,16 @@ $this->load->view('partials/brand_nav');
 				</div>
 			</div>			
 
-			<?php $this->load->view('partials/post_details'); ?>
+			<?php 
+			if(isset($is_sender))
+				$this->load->view('partials/post_details'); 
+			else
+			{
+				?>
+				<div class="col-md-4 equal-height"></div>
+				<?php
+			}
+			?>
 
 			<div class="col-md-4 equal-height">
 				<div class="container-cocreate-discussion">
@@ -76,7 +86,11 @@ $this->load->view('partials/brand_nav');
 				        <div id="subscriber" class="hidden"></div>
 				        <div id="publisher" class="hidden"></div>
 					</div>
-					<div class="cocreate-participants"><strong>Participants:</strong> <span id="participants"></span><i class="tf-icon circle-border pull-sm-right">+</i></div>
+					<div class="cocreate-participants"><strong>Participants:</strong>
+						<ul class="timeframe-list user-list participant-list clearfix">							
+						</ul>
+						<i class="tf-icon circle-border pull-sm-right">+</i>
+					</div>
 					<div class="discussion-list">
 						<div class="chat-panel">
 						</div>
@@ -88,25 +102,18 @@ $this->load->view('partials/brand_nav');
 						{
 							?>
 							<button data-req-id="<?php echo $req_id; ?>" type="button" class="btn btn-sm btn-secondary color-success pull-sm-left approve-cocreate">Approve Post</button>
-							<?php
-						}
-						else
-						{
-							?>
-							<!-- <span class="sep pull-sm-left"></span> -->
-							<div class="pull-sm-right">
-								<ul class="timeframe-list user-list approval-list  clearfix">
-									<!-- <li class="pull-sm-left pending"><img src="/uploads/6/users/11.png" width="36" height="36" alt="Norel Mancuso" class="circle-img" data-toggle="popover-hover" data-content="Norel Mancuso"></li>
-									<li class="pull-sm-left pending"><img src="/uploads/6/users/10.png" width="36" height="36" alt="Bree Hardaway" class="circle-img" data-toggle="popover-hover" data-content="Bree Hardaway"></li> -->
-								</ul>
-							</div>
+							<span class="sep pull-sm-left"></span>
 							<?php
 						}
 						?>
+						<div class="pull-sm-right">
+							<ul class="timeframe-list user-list approval-list  clearfix">		
+							</ul>
+						</div>
 					</div>
 					<footer class="post-content-footer">
 						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
-						<button type="submit" class="btn btn-sm btn-secondary pull-sm-right submit-btn">Slate post</button>
+						<button type="button" class="btn btn-sm btn-secondary pull-sm-right submit-btn">Post Now</button>
 					</footer>
 				</div>
 			</div>

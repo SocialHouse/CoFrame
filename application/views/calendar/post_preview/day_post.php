@@ -230,7 +230,7 @@
 	}
 	else
 	{
-		echo '<div class="row bg-white post-day no-data"><div class="col-sm-12">No data found</div></div>';
+		echo '<div class="row bg-white post-day no-data"><div class="col-sm-12">'.$this->lang->line('no_post_found').'</div></div>';
 	}
 
 ?>

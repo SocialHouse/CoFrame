@@ -443,6 +443,7 @@ class Co_create extends CI_Controller {
     				}
 
     				$approver_html = '';
+    				$participant_html = '';
     				if($inserted_id)
 			    	{
 			    		if(!empty($post_data['post_tag']))
@@ -508,11 +509,15 @@ class Co_create extends CI_Controller {
 						        $approver_html .= '<li class="pull-sm-left '.$approver->status.'">
 									<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
 								</li>';
+
+								$participant_html .= '<li class="pull-sm-left">
+									<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
+								</li>';
 							}
 						}
 		    		}	    		
 
-		    		echo json_encode(array('response' => 'success','inserted_id' => $inserted_id,'approver_html' => $approver_html));
+		    		echo json_encode(array('response' => 'success','inserted_id' => $inserted_id,'approver_html' => $approver_html,'participant_html' => $participant_html));
 	    		}		    		
 		    }
 		}
@@ -912,9 +917,32 @@ class Co_create extends CI_Controller {
 					$status = $approver_status[0]->status;
 				}
 
+				$this->load->model('approval_model');
+	    		$approvers = $this->approval_model->get_cocreate_approvers($this->data['post_details']->id);
+	    		$approver_html = '';
+	    		$participant_html = '';
+				if(!empty($approvers))
+				{
+					foreach($approvers as $approver)
+					{
+						$path = img_url()."default_profile.jpg";
+						if (file_exists(upload_path().$approver->img_folder.'/users/'.$approver->aauth_user_id.'.png'))
+				        {
+				            $path = upload_url().$approver->img_folder.'/users/'.$approver->aauth_user_id.'.png?'.uniqid();
+				        }
+				        $approver_html .= '<li class="pull-sm-left '.$approver->status.'">
+							<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
+						</li>';
+
+						$participant_html .= '<li class="pull-sm-left">
+							<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
+						</li>';
+					}
+				}
+
 				$this->data['is_cocreate'] = true;
 				$html = $this->load->view('calendar/post_preview/'.strtolower($this->data['post_details']->outlet_name),$this->data,true);
-				echo json_encode(array('response' => 'success','html' => $html,'approver_status' => $status));
+				echo json_encode(array('response' => 'success','html' => $html,'approver_status' => $status,'approver_html' => $approver_html,'participant_html' => $participant_html));
 			}
 			else
 			{

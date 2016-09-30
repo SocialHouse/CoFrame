@@ -320,9 +320,34 @@ class Tour extends CI_Controller {
         $slug = $this->uri->segment(2);
         $request_string = $this->uri->segment(3);
         $request = $this->timeframe_model->get_data_by_condition('co_create_requests', array('request_string' => $request_string,'brand_slug' => $slug));
+        $user_id = $this->session->userdata('id');       
        
         if(!empty($request))
         {
+            if(isset($user_id) AND !empty($user_id))
+            {
+                $this->load->model('brand_model');
+                $this->user_data = $this->session->userdata('user_info');
+                $this->user_data['account_id'] = $request[0]->account_id;
+                $brand =  $this->brand_model->get_brand_by_slug($user_id,$slug);          
+                if(!empty($brand))
+                {
+                    $session_data = $this->user_data;
+                    $account_id = $this->user_data['account_id'];
+                    $check_user = $this->timeframe_model->check_user_is_account_user($this->user_data['account_id']);
+                    if($check_user)
+                    {
+                        $session_data['user_group'] = $check_user;               
+                    }
+                    $session_data['account_id'] = $account_id;
+
+                    $session_data['plan'] = strtolower(get_plan($account_id));
+
+                    $this->session->set_userdata('user_info',$session_data);
+                    redirect(base_url().'co_create/cocreate_post/'.$slug.'/'.$request_string);
+                }
+            }
+        
             $this->data['slug'] = $slug;
             $this->data['request_string'] = $request_string;
             $this->data['request_id'] = $request[0]->id;

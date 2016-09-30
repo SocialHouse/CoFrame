@@ -219,4 +219,6 @@
 
 	$lang['no_fb_page'] = "Currently there is no facebook page associalted with your account please add it first.";
 
+	$lang['no_post_found'] = 'There are no posts slated for this day';
+	
 ?>

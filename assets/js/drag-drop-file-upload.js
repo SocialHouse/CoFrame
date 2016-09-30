@@ -551,7 +551,7 @@
 							// preventing the duplicate submissions if the current one is in progress
 							if( $form.hasClass( 'is-uploading' ) ) return false;
 
-							$form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+							// $form.addClass( 'is-uploading' ).removeClass( 'is-error' );
 
 							// ajax file upload for modern browsers
 							if( isAdvancedUpload ) {
@@ -608,6 +608,7 @@
 	    												{
 	    													$('#cocreate_info_id').val(response.inserted_id);
 	    													$('.approval-list').html(response.approver_html);
+	    													$('.participant-list').html(response.participant_html);
 	    												}
 	    											}
 										    	});
@@ -662,12 +663,16 @@
 											}
 											else
 											{
-												alert('test');
-												console.log($(btn));
 												$(btn).prop('disabled',false);
 												$(btn).removeClass('btn-disabled');
 												$(btn).text('Approve Post');	
 											}
+										}
+
+										if(response.approver_html)
+										{
+											$('.approval-list').html(response.approver_html);
+	    									$('.participant-list').html(response.participant_html);
 										}
 					    			}
 					    			save_cocreate_data();
