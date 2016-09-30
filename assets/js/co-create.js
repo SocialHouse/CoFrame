@@ -84,6 +84,7 @@ function initializeSession(apiKey, sessionId,token) {
 		      }
 		  });
 		$('#subscriber').removeClass('hidden');
+
 	});
 
 	session.on('sessionDisconnected', function(event) {
@@ -133,7 +134,6 @@ function initializeSession(apiKey, sessionId,token) {
 		msg_div += append_div;
 		msg_div += '</div>';
   		$('.discussion-list .chat-panel').append(msg_div);
-		equalColumns();
 
 		var participants = $('#participants').text()
 		if(participants.indexOf(userData[0]) === -1)

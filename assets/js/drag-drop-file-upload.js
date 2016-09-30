@@ -609,6 +609,13 @@
 	    													$('#cocreate_info_id').val(response.inserted_id);
 	    													$('.approval-list').html(response.approver_html);
 	    													$('.participant-list').html(response.participant_html);
+															//set height of chat list
+														    var discussionH = $('.container-cocreate-discussion').height();
+															var videoHeight = $('#videos').height();
+															var participantH = $('.cocreate-participants').height();
+															var approveH = $('.cocreate-approve').height();
+															var chatH = discussionH - videoHeight - participantH - approveH;
+															$('.discussion-list').css('height', chatH);
 	    												}
 	    											}
 										    	});
@@ -675,6 +682,14 @@
 	    									$('.participant-list').html(response.participant_html);
 										}
 					    			}
+									//set height of chat list
+								    var discussionH = $('.container-cocreate-discussion').height();
+									var videoHeight = $('#videos').height();
+									var participantH = $('.cocreate-participants').height();
+									var approveH = $('.cocreate-approve').height();
+									var chatH = discussionH - videoHeight - participantH - approveH;
+									$('.discussion-list').css('height', chatH);
+
 					    			save_cocreate_data();
 					    		}
 					    	});
