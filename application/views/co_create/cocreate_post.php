@@ -87,8 +87,7 @@ $this->load->view('partials/brand_nav');
 				        <div id="publisher" class="hidden"></div>
 					</div>
 					<div class="cocreate-participants"><strong>Participants:</strong>
-						<ul class="timeframe-list user-list participant-list clearfix">							
-						</ul>
+						<span class="participant-list"></span>
 						<i class="tf-icon circle-border pull-sm-right">+</i>
 					</div>
 					<div class="discussion-list">
