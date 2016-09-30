@@ -21,11 +21,11 @@ jQuery(function($) {
 			$('html').removeClass('nav-expand');
 		});
 		
-		$('.to-do-list ol, .to-do-list ul').on('show.bs.collapse', function () {
+		$('.to-do-list ol, .to-do-list ul, .pricing-details ul').on('show.bs.collapse', function () {
 			var arrow = $(this).parent().find('.expand-collapse:first');
 			arrow.addClass('fa-angle-down').removeClass('fa-angle-right');
 		});
-		$('.to-do-list ol, .to-do-list ul').on('hide.bs.collapse', function () {
+		$('.to-do-list ol, .to-do-list ul, .pricing-details ul').on('hide.bs.collapse', function () {
 			var arrow = $(this).parent().find('.expand-collapse');
 			arrow.removeClass('fa-angle-down').addClass('fa-angle-right');
 		});
