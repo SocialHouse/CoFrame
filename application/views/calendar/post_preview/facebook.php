@@ -48,7 +48,7 @@ if(!empty($post_images)){
 					$folder = 'posts';
 					if(isset($is_cocreate) AND !empty($is_cocreate))
 					{
-						$folder = 'posts/co_create';
+						$folder = 'posts';
 					}
 					foreach ($post_images as $key) {
 						if($img_count == 2 ){

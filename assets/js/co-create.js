@@ -83,11 +83,19 @@ function initializeSession(apiKey, sessionId,token) {
 		        console.log('Subscriber added.');
 		      }
 		  });
+
+		SpeakerDetection(subscriber, function() {
+		  	console.log('started talking');
+		}, function() {
+		  	console.log('stopped talking');
+		});		
+
 		$('#subscriber').removeClass('hidden');
 
 	});
 
 	session.on('sessionDisconnected', function(event) {
+		console.log(event);
 		console.log(language_message.disconnected_from_session, event.reason);
 	});
 
@@ -151,6 +159,38 @@ function initializeSession(apiKey, sessionId,token) {
 			}
 		}
 	});
+
+	var SpeakerDetection = function(subscriber, startTalking, stopTalking) {	
+	  	var activity = null;
+		subscriber.on('audioLevelUpdated', function(event) {
+			var id = event.target.id;
+			var now = Date.now();
+			if (event.audioLevel > 0.2) {
+				if (!activity) {
+					activity = {timestamp: now, talking: false};
+				} else if (activity.talking) {
+					activity.timestamp = now;
+				} else if (now- activity.timestamp > 1000) {
+					// detected audio activity for more than 1s
+					// for the first time.
+					activity.talking = true;
+					if (typeof(startTalking) === 'function') {
+						startTalking();
+						$('#subscriber').find('#'+id).show();
+					}
+				}
+			} else if (activity && now - activity.timestamp > 3000) {
+				// detected low audio activity for more than 3s
+				if (activity.talking) {
+					if (typeof(stopTalking) === 'function') {
+						stopTalking();
+						$('#subscriber').find('#'+id).hide();
+					}
+				}
+				activity = null;
+			}
+		});
+	};
 }
 
 function exceptionHandler(event) {

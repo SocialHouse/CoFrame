@@ -16,10 +16,11 @@ $this->load->view('partials/brand_nav');
 		</div>
 	</div>
 	<?php //echo base_url()."co_create/save_post"; actio for this for is removed because it triggers save when click on mute button ?>
-	<form method="POST" id="cocreate_form" upload="<?php echo base_url()."posts/upload_co_create"; ?>" id="post-details" class="file-upload clearfix">	
+	<form method="POST" id="<?php echo (isset($post_details) AND !empty($post_details)) ? 'edit-post-details' : 'post-details'; ?>" upload="<?php echo base_url()."posts/upload_co_create"; ?>" class="file-upload clearfix">	
 		<input type="hidden" id="post_type" name="post_type" value="cocreate">
-		<input type="hidden" name="cocreate_info_id" value="" id="cocreate_info_id">
+		<input type="hidden" name="cocreate_info_id" value="<?php echo (isset($post_details) AND !empty($post_details)) ? $post_details->id : '';?>" id="cocreate_info_id">
 		<input type="hidden" name="co_create_req_id" id="co_create_req_id" value="<?php echo $req_id; ?>">
+		<input type="hidden" name="post_id" id="post_id" value="<?php echo (isset($draft) AND !empty($draft)) ? $draft[0]->id : ''; ?>">
 
 		<input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_id; ?>">
 		<input type="hidden" name="user_id" id="post_user_id" value="<?php echo $this->user_data['account_id']; ?>">
@@ -36,15 +37,29 @@ $this->load->view('partials/brand_nav');
 					<?php
 					if(isset($is_sender))
 					{
-						?>
-						<div id="live-post-preview">
-							<img src="<?php echo img_url(); ?>post-preview.png" width="406" height="506" alt="" class="center-block"/>
-							
-						</div>
-						<footer class="post-content-footer">
-						<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
-						</footer>
-						<?php
+						if(!empty($post_details))
+						{
+							if (file_exists(APPPATH."views/calendar/post_preview/".strtolower($post_details->outlet_name).".php")){
+								?>
+								<div id="live-post-preview">
+									<?php
+								 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));							 	
+								 	?>
+							 	</div>
+							 	<?php
+							}
+						}
+						else
+						{
+							?>
+							<div id="live-post-preview">
+								<img src="<?php echo img_url(); ?>post-preview.png" width="406" height="506" alt="" class="center-block"/>
+														</div>
+							<footer class="post-content-footer">
+							<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
+							</footer>
+							<?php
+						}
 					}
 					else
 					{
@@ -58,7 +73,7 @@ $this->load->view('partials/brand_nav');
 								 	$this->load->view('calendar/post_preview/'.strtolower($post_details->outlet_name));
 								}
 							}
-							?>							
+							?>				
 						</div>
 						<footer class="post-content-footer">
 						<!-- 	<a href="#" class="btn btn-default btn-xs">Delete</a> -->
@@ -71,7 +86,14 @@ $this->load->view('partials/brand_nav');
 
 			<?php 
 			if(isset($is_sender))
-				$this->load->view('partials/post_details'); 
+				if(isset($post_details) AND !empty($post_details))
+				{
+					$this->load->view('co_create/edit_post_details');
+				}
+				else
+				{
+					$this->load->view('partials/post_details'); 
+				}
 			else
 			{
 				?>

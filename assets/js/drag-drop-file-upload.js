@@ -607,6 +607,7 @@
 	    												if(response.response == 'success')
 	    												{
 	    													$('#cocreate_info_id').val(response.inserted_id);
+	    													$('#post_id').val(response.post_id);
 	    													$('.approval-list').html(response.approver_html);
 	    													$('.participant-list').html(response.participant_html);
 															//set height of chat list

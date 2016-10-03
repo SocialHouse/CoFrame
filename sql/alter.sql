@@ -545,3 +545,6 @@ ALTER TABLE `cocreate_approvers`
 
 ALTER TABLE `cocreate_approvers`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+---03-10-2016
+ALTER TABLE `posts` ADD `cocreate_post_id` INT NULL AFTER `time_zone`;

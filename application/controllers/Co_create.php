@@ -103,9 +103,14 @@ class Co_create extends CI_Controller {
 						$cocreate_post_info = $this->timeframe_model->get_data_by_condition('cocreate_post_info',array('request_id' => $request[0]->id),'id');
 						if(!empty($cocreate_post_info))
 						{
-							$this->timeframe_model->delete_data('cocreate_post_media',array('cocreate_post_id' => $cocreate_post_info[0]->id));
-							$this->timeframe_model->delete_data('cocreate_approvers',array('cocreate_post_id' => $cocreate_post_info[0]->id));
-							$this->timeframe_model->delete_data('cocreate_post_info',array('request_id' => $request[0]->id));							
+							$this->user_data['timezone'] = $brand[0]->timezone;
+							$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+							$this->data['tags'] = $this->post_model->get_brand_tags($brand[0]->id);
+
+							$this->data['post_details'] = $this->post_model->get_cocreate_post($request[0]->id);
+							$this->data['draft'] = $this->timeframe_model->get_data_by_condition('posts',array('cocreate_post_id' => $this->data['post_details']->id),'id');
+							$this->data['post_images'] = $this->post_model->get_images($this->data['draft'][0]->id);
+							$this->data['slug'] = $slug;
 						}
 					}
 							
@@ -293,11 +298,6 @@ class Co_create extends CI_Controller {
 					$outlet_data = $this->timeframe_model->get_data_by_condition('outlets',$condition,'outlet_name');
 
 					$status = 'pending';
-					if($post_data['save_as'] == 'draft')
-					{
-						$status = 'draft';
-					}
-
     				$post = array(
 	    						'content' => $this->input->post('post_copy'),
 	    						'brand_id' => $post_data['brand_id'],
@@ -343,8 +343,20 @@ class Co_create extends CI_Controller {
 	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_text_tags'],
-	    						'tumblr_custom_url' => $post_data['tb_text_url']
+	    						'tumblr_custom_url' => $post_data['tb_text_url'],
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_audio_description' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_video_caption' => NULL,
 	    					);
+
     					}
     					elseif($post_data['tumblrContent'] == 'Photo')
     					{
@@ -355,7 +367,19 @@ class Co_create extends CI_Controller {
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_photo_tags'],
 	    						'tumblr_caption' => $post_data['tbCaption'],
-	    						'tumblr_content_source' => $post_data['tbPhotoSource']
+	    						'tumblr_content_source' => $post_data['tbPhotoSource'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_custom_url' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_audio_description' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_video_caption' => NULL
 	    					);
     					}
     					elseif($post_data['tumblrContent'] == 'Quote')
@@ -368,7 +392,17 @@ class Co_create extends CI_Controller {
 	    						'tumblr_tags' => $post_data['tb_quote_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_quote_url'],
 	    						'tumblr_quote' => $post_data['tumblr_quote_post_copy'],
-	    						'tumblr_source' => $post_data['tbSource']
+	    						'tumblr_source' => $post_data['tbSource'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,	    						
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_audio_description' => NULL,
+	    						'tumblr_video_caption' => NULL
 	    					);
     					}
     					elseif($post_data['tumblrContent'] == 'Link')
@@ -380,7 +414,19 @@ class Co_create extends CI_Controller {
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_link' => $post_data['tbLink'],
 	    						'tumblr_custom_url' => $post_data['tb_link_url'],
-	    						'tumblr_link_description' => $post_data['tbLinkDesc']
+	    						'tumblr_link_description' => $post_data['tbLinkDesc'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_tags' => NULL,
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_audio_description' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_video_caption' => NULL
 	    					);
     					}
     					elseif($post_data['tumblrContent'] == 'Chat')
@@ -394,6 +440,17 @@ class Co_create extends CI_Controller {
 	    						'tumblr_custom_url' => $post_data['tb_chat_url'],
 	    						'tumblr_chat_title' => $post_data['tb_chat_title'],
 	    						'tumblr_chat' => $post_data['tumblr_chat_post_copy'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_audio_description' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_video_caption' => NULL
 	    					);
     					}
     					elseif($post_data['tumblrContent'] == 'Audio')
@@ -405,7 +462,19 @@ class Co_create extends CI_Controller {
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_audio_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_audio_url'],
-	    						'tumblr_audio_description' => $post_data['tbAudioDescr']
+	    						'tumblr_audio_description' => $post_data['tbAudioDescr'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_video_caption' => NULL
 	    					);
     					}
     					elseif($post_data['tumblrContent'] == 'Video')
@@ -418,12 +487,46 @@ class Co_create extends CI_Controller {
 	    						'tumblr_tags' => $post_data['tb_video_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_video_url'],
 	    						'tumblr_source' => $post_data['tbVideoSource'],
-	    						'tumblr_video_caption' => $post_data['tbVideoDescr']
+	    						'tumblr_video_caption' => $post_data['tbVideoDescr'],
+	    						'tumblr_title' => NULL,
+	    						'tumblr_text_content' => NULL,
+	    						'tumblr_caption' => NULL,
+	    						'tumblr_content_source' => NULL,
+	    						'tumblr_quote' => NULL,
+	    						'tumblr_source' => NULL,
+	    						'tumblr_link' => NULL,
+	    						'tumblr_link_description' => NULL,
+	    						'tumblr_chat_title' => NULL,
+	    						'tumblr_chat' => NULL,
+	    						'tumblr_audio_description' => NULL
 	    					);
     					}
-
     					$post['tumblr_content_type'] = $post_data['tumblrContent'];
+						$post['share_with'] = NULL;
+						$post['pinterest_board'] = NULL;
+						$post['pinterest_source'] = NULL;
+						$post['video_title'] = NULL;
+    					$post['tumblr_content_type'] = $post_data['tumblrContent'];
+    					$post['content'] = NULL;
     				}
+    				else
+					{
+						$post['tumblr_tags'] = NULL;
+						$post['tumblr_custom_url'] = NULL;
+						$post['tumblr_source'] = NULL;
+						$post['tumblr_video_caption'] = NULL;
+						$post['tumblr_title'] = NULL;
+						$post['tumblr_text_content'] = NULL;
+						$post['tumblr_caption'] = NULL;
+						$post['tumblr_content_source'] = NULL;
+						$post['tumblr_quote'] = NULL;
+						$post['tumblr_link'] = NULL;
+						$post['tumblr_link_description'] = NULL;
+						$post['tumblr_chat_title'] = NULL;
+						$post['tumblr_chat'] = NULL;
+						$post['tumblr_audio_description'] = NULL;
+						$post['tumblr_content_type'] = NULL;
+					}
     				
 
     				if(!empty($slate_date_time)){
@@ -435,11 +538,22 @@ class Co_create extends CI_Controller {
     				if(isset($post_data['cocreate_info_id']) AND !empty($post_data['cocreate_info_id']))
     				{
     					$inserted_id = $post_data['cocreate_info_id'];
-    					$this->timeframe_model->update_data('cocreate_post_info',$post,array('id' => $post_data['cocreate_info_id']));
+    					$this->timeframe_model->update_data('cocreate_post_info',$post,array('id' => $post_data['cocreate_info_id'])); 
+    					$post['cocreate_post_id'] = $inserted_id;
+    					$post_id = $post_data['post_id'];
+    					unset($post['request_id']);
+    					$post['updated_at'] = date('Y-m-d H:i:s');
+    					$this->timeframe_model->update_data('posts',$post,array('cocreate_post_id' => $post_data['cocreate_info_id']));
     				}
     				else
     				{
     					$inserted_id = $this->timeframe_model->insert_data('cocreate_post_info',$post);
+
+    					$post['status'] = 'draft';
+    					unset($post['request_id']);
+    					$post['cocreate_post_id'] = $inserted_id;
+    					$post['updated_at'] = date('Y-m-d H:i:s');
+    					$post_id = $this->timeframe_model->insert_data('posts',$post);
     				}
 
     				$approver_html = '';
@@ -463,7 +577,7 @@ class Co_create extends CI_Controller {
 	    					$files = json_decode($post_data['uploaded_files'][0])->success;
 	    				}
 
-	    				$media = $this->timeframe_model->get_data_array_by_condition('cocreate_post_media',array('cocreate_post_id' => $inserted_id),'name');
+	    				$media = $this->timeframe_model->get_data_array_by_condition('post_media',array('post_id' => $post_id),'name');
 	    				if(!empty($media))
 	    				{
 	    					$media_array = array_column($media,'name');
@@ -471,26 +585,25 @@ class Co_create extends CI_Controller {
 	    					{
 	    						foreach($media_array as $media_file)
 	    						{
-	    							delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts/co_create/'.$media_file);
+	    							delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts/'.$media_file);
 	    						}
-	    					}
-	    					
+	    					}	    					
 	    				}
 
-	    				$this->timeframe_model->delete_data('cocreate_post_media',array('cocreate_post_id' => $inserted_id));
-	    				
+	    				$this->timeframe_model->delete_data('post_media',array('post_id' => $post_id));
+
 			    		if(isset($files) AND !empty($files))
 			    		{			    			
 			    			foreach($files as $file)
 			    			{
-			    				$post_media_data = array(
-			    										'cocreate_post_id' => $inserted_id,
+			    				$post_media_data = array(			    										
 			    										'name' => $file->file,
 			    										'type' => $file->type,
 			    										'mime' => $file->mime
 			    									);
-
-			    				$this->timeframe_model->insert_data('cocreate_post_media',$post_media_data);
+			    				
+			    				$post_media_data['post_id'] = $post_id;
+			    				$this->timeframe_model->insert_data('post_media',$post_media_data);
 			    			}
 			    		}
 
@@ -515,7 +628,7 @@ class Co_create extends CI_Controller {
 						}
 		    		}	    		
 
-		    		echo json_encode(array('response' => 'success','inserted_id' => $inserted_id,'approver_html' => $approver_html,'participant_html' => $participant_html));
+		    		echo json_encode(array('response' => 'success','inserted_id' => $inserted_id,'post_id' => $post_id,'approver_html' => $approver_html,'participant_html' => $participant_html));
 	    		}		    		
 		    }
 		}
@@ -538,7 +651,7 @@ class Co_create extends CI_Controller {
 					{
 						foreach($media as $media_file)
 						{
-							delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts/co_create/'.$media_file);
+							delete_file(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts/'.$media_file);
 						}
 					}
 
@@ -901,7 +1014,8 @@ class Co_create extends CI_Controller {
 			$this->data['post_details'] = $this->post_model->get_cocreate_post($request_id);
 			if(!empty($this->data['post_details']))
 			{
-				$this->data['post_images'] = $this->post_model->get_cocreate_images($this->data['post_details']->id);
+				$draft = $this->timeframe_model->get_data_by_condition('posts',array('cocreate_post_id' => $this->data['post_details']->id),'id');
+				$this->data['post_images'] = $this->post_model->get_images($draft[0]->id);
 
 				$approver_present = $this->timeframe_model->get_data_by_condition('cocreate_approvers',array('user_id' => $this->user_id,'cocreate_post_id' => $this->data['post_details']->id));
 				if(empty($approver_present))

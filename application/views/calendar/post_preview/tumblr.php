@@ -31,7 +31,7 @@
 						$folder = 'posts';
 						if(isset($is_cocreate) AND !empty($is_cocreate))
 						{
-							$folder = 'posts/co_create';
+							$folder = 'posts';
 						}
 						foreach ($post_images as $key) {
 							if (file_exists('uploads/'.$brand_onwer.'/brands/'.$brand_id.'/'.$folder.'/'.$key->name)) {

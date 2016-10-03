@@ -95,35 +95,35 @@ jQuery(function($) {
 			$('#userOutlet').val(newOutlets);
 		});
 
-		var outlet_id = $('.outlet_ul li:first').data('selected-outlet');
-		var outlet_const = $('.outlet_ul li:first').data('outlet-const');
-		$('.outlet_ul li:first').toggleClass('disabled');
-		$('.outlet_ul li:first').siblings().addClass('disabled');
-		$('#postOutlet').val(outlet_id);
-		$('#postOutlet').attr('data-outlet-const', outlet_const);
-		if (outlet_const == 'twitter') {
-			//only allow 140 characters for tweets
-			text_char_limit(outlet_const, '140');
+
+		if($('#edit-post-details').length < 1)
+		{
+			var outlet_id = $('.outlet_ul li:first').data('selected-outlet');		
+			var outlet_const = $('.outlet_ul li:first').data('outlet-const');
+			$('.outlet_ul li:first').toggleClass('disabled');
+			$('.outlet_ul li:first').siblings().addClass('disabled');
+			$('#postOutlet').val(outlet_id);
+			$('#postOutlet').attr('data-outlet-const', outlet_const);
+			if (outlet_const == 'twitter') {
+				//only allow 140 characters for tweets
+				text_char_limit(outlet_const, '140');
+			}
+
+			if (outlet_const == 'linkedin') {
+				//only allow 140 characters for tweets
+				text_char_limit(outlet_const, '256');
+			}
+
+			if (outlet_const == 'tumblr') {
+				setTimeout(function(){
+					$('#post-details .outlet-list li, #edit-post-details .outlet-list li').click();
+					$('.outlet_ul li:first').removeClass('disabled');
+				},200);
+			}
+			createPreview();
 		}
 
-		if (outlet_const == 'linkedin') {
-			//only allow 140 characters for tweets
-			text_char_limit(outlet_const, '256');
-		}
-
-		if (outlet_const == 'tumblr') {
-			setTimeout(function(){
-				$('#post-details .outlet-list li, #edit-post-details .outlet-list li').click();
-				$('.outlet_ul li:first').removeClass('disabled');
-			},200);
-		}
-
-
-
-		createPreview();
-
-		$(document).on('click','#post-details .outlet-list li, #edit-post-details .outlet-list li', function() {
-
+		$(document).on('click','#post-details .outlet-list li, #edit-post-details .outlet-list li', function() {			
 			var previous_outlet = $('#postOutlet').val();
 			var outlet = $(this).data('selectedOutlet');
 			var outlet_const = $(this).data('outlet-const');
