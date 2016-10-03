@@ -85,8 +85,11 @@ function initializeSession(apiKey, sessionId,token) {
 		  });
 
 		SpeakerDetection(subscriber, function() {
+			console.log(subscriber.id);
+			$('#subscriber').find('#'+subscriber.id).show();
 		  	console.log('started talking');
 		}, function() {
+			$('#subscriber').find('#'+subscriber.id).hide();
 		  	console.log('stopped talking');
 		});		
 
@@ -163,9 +166,8 @@ function initializeSession(apiKey, sessionId,token) {
 	var SpeakerDetection = function(subscriber, startTalking, stopTalking) {	
 	  	var activity = null;
 		subscriber.on('audioLevelUpdated', function(event) {
-			var id = event.target.id;
 			var now = Date.now();
-			if (event.audioLevel > 0.2) {
+			if (event.audioLevel > 0.3) {
 				if (!activity) {
 					activity = {timestamp: now, talking: false};
 				} else if (activity.talking) {
@@ -176,7 +178,6 @@ function initializeSession(apiKey, sessionId,token) {
 					activity.talking = true;
 					if (typeof(startTalking) === 'function') {
 						startTalking();
-						$('#subscriber').find('#'+id).show();
 					}
 				}
 			} else if (activity && now - activity.timestamp > 3000) {
@@ -184,7 +185,6 @@ function initializeSession(apiKey, sessionId,token) {
 				if (activity.talking) {
 					if (typeof(stopTalking) === 'function') {
 						stopTalking();
-						$('#subscriber').find('#'+id).hide();
 					}
 				}
 				activity = null;
