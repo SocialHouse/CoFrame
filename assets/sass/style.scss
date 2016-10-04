@@ -436,8 +436,11 @@ a {
 			}
 		}
 	}
-	.nav-item + .nav-item {
-		margin-left: 0;
+	.nav-item {
+		float:none;
+		+ .nav-item {
+			margin-left: 0;
+		}
 	}
 }
 .dropdown-user {

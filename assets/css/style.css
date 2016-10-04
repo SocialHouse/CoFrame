@@ -9350,8 +9350,10 @@ a {
       .navbar-dark .dropdown-menu .nav-link:hover {
         color: #000;
         background: #fff; }
-  .dropdown-menu .nav-item + .nav-item {
-    margin-left: 0; }
+  .dropdown-menu .nav-item {
+    float: none; }
+    .dropdown-menu .nav-item + .nav-item {
+      margin-left: 0; }
 
 .dropdown-user > .nav-link {
   padding-top: 0;
