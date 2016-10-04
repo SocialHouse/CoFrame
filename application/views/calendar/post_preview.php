@@ -29,7 +29,7 @@
 		<input type="hidden" name="outlet_id" id="postOutlet" value="<?php echo $post_details->user_id; ?>" />
 
 		<div class="row">
-			<div class="col-md-12 bg-white">
+			<div class="col-sm-12 bg-white">
 				<div class="container-post-preview">
 					<div id="live-post-preview-approver">
 						<?php

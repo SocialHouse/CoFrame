@@ -2,7 +2,7 @@
 <h1 class="text-xs-center">Print or Export</h1>
 <form id="print_posts_submit" method="post" action="<?php echo base_url().'archives/export_post/_no';?>" accept-charset="utf-8">
 	<div class="row form-inline" id="selectExportDates">
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<h2 class="text-xs-center">Starts</h2>
 			<select class="form-control" name="start-date-type" id="startDateType">
 				<option value="on-date">On Date</option>
@@ -12,7 +12,7 @@
 			<input type="text" class="form-control" name="start-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-start-date" data-popover-class="popover-clickable popover-sm" data-attachment="top left" data-target-attachment="bottom left" data-popover-container="#qtip-calendar-post-print" data-popover-width="300">
 		</div>
 		<input type="hidden" name="exportDate" value="daterange" >
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<h2 class="text-xs-center">Ends</h2>
 			<select class="form-control" name="end-date-type" id="endDateType">
 				<option value="on-date">On Date</option>
@@ -24,7 +24,7 @@
 	</div>
 	<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
 	<div class="row hidden" id="exportPosts">
-		<div class="col-md-12">
+		<div class="col-sm-12">
 			<h2 class="text-xs-center">Select Export Option</h2>
 			<div class="text-sm-center col-sm-8 center-block">
 				<div class="radio-inline col-sm-6">

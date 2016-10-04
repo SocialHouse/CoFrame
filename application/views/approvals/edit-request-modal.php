@@ -4,7 +4,7 @@
 	<input type="hidden" name="brand_id" id="brand-id" value="<?php echo $brand_id; ?>" />
 
 	<div class="row equal-columns">
-		<div class="col-md-4 equal-height">
+		<div class="col-sm-4 equal-height">
 			<div class="container-post-approval-preview post-content">
 				<h4 class="text-xs-center">Post</h4>
 				<div id="live-post-preview-approver">
@@ -91,7 +91,7 @@
 				?>
 			</div>
 		</div>
-		<div class="col-md-8 equal-height">
+		<div class="col-sm-8 equal-height">
 			<div class="container-post-discussion post-content">
 				<h4 class="text-xs-center">Edit Requests</h4>
 				<div class="bg-gray-lightest border-top padding-22px">
@@ -193,7 +193,7 @@
 							<div class="row equal-columns">
 
 								<!-- Comments Start-->
-								<div class="col-md-8 equal-section">
+								<div class="col-sm-8 equal-section">
 									<?php
 									$path = img_url()."default_profile.jpg";
 
@@ -349,7 +349,7 @@
 								<!-- Comments End-->
 
 								<!-- Pending Approvals Start-->
-								<div class="col-md-4 bg-gray-lightest equal-section container-view-approvals">
+								<div class="col-sm-4 bg-gray-lightest equal-section container-view-approvals">
 									<h5>Pending Approvals:</h5>
 									<ul class="timeframe-list user-list approval-list  clearfix">
 										<?php

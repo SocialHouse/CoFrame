@@ -18,7 +18,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 			<input type="hidden" name="save_as" id="save_as" value="" >
 			<input type="hidden" name="post_status" id="post_status" value="<?php echo $post_details->status; ?>" >
 			<div  id="edit-post-manage" class="row equal-columns create">
-				<div class="col-md-4 equal-height">
+				<div class="col-sm-4 equal-height">
 					<div class="container-post-preview post-content">
 						<h4 class="text-xs-center">Live Preview</h4>
 						<div id="live-post-preview">
@@ -34,7 +34,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 					</div>
 				</div>
 				
-				<div class="col-md-4 equal-height insert_after">
+				<div class="col-sm-4 equal-height insert_after">
 					<div class="container-post-details post-content">
 						<h4 class="text-xs-center">Post Details</h4>
 						<div class="form-group">
@@ -202,7 +202,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 
 						<div id="facebookMediaUpload" class="media-type clearfix hidden extra-outlet-fields" style="" >
 							<div class="clearfix">
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									<input type="radio" name="media-type" value="Photos" class="hidden-xs-up">
 									<figure class="media-item clearfix" data-value="Photos">
 										<img src="assets/images/icons/photos-video.png" alt="Photos or Video" class="pull-sm-left">
@@ -212,7 +212,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 										</figcaption>
 									</figure>
 								</div>
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									<input type="radio" name="media-type" value="Album" class="hidden-xs-up">
 									<figure class="media-item clearfix" data-value="Album">
 										<img src="assets/images/icons/photos-video.png" alt="Photo Album" class="pull-sm-left">
@@ -224,7 +224,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 								</div>
 							</div>
 							<div class="clearfix">
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									<input type="radio" name="media-type" value="Carousel" class="hidden-xs-up">
 									<figure class="media-item clearfix" data-value="Carousel">
 										<img src="assets/images/icons/photos-video.png" alt="Photo Carousel" class="pull-sm-left">
@@ -234,7 +234,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 										</figcaption>
 									</figure>
 								</div>
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									<input type="radio" name="media-type" value="Slideshow" class="hidden-xs-up">
 									<figure class="media-item clearfix" data-value="Slideshow">
 										<img src="assets/images/icons/photos-video.png" alt="Slideshow" class="pull-sm-left">
@@ -426,7 +426,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 					else
 					{ 
 						?>
-						<div class="col-md-4 equal-height phases-div">
+						<div class="col-sm-4 equal-height phases-div">
 							<div class="container-approvals">
 								<div class="add-phases">
 									<div class="container-phases">
@@ -797,7 +797,7 @@ if(isset($is_brand_nav) AND $is_brand_nav == 1)
 				else
 				{
 					?>
-					<div class="col-md-4 equal-height">
+					<div class="col-sm-4 equal-height">
 						<div class="container-phases">
 							<footer class="post-content-footer day-edit-post">
 								<button type="submit" class="btn btn-sm submit-btn btn-default">Save Changes</button>

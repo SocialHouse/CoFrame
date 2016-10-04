@@ -4,7 +4,7 @@ echo form_open(base_url().'outlets/save_outlet',array('method'=>'post','enctype'
 	<h1>Add outlet for <?php echo $brand_name; ?></h1>       
     <div class="row">
     	<input type="hidden" name="brand_id" value="<?php echo $brand_id; ?>">
-	    <div class="col-md-12">
+	    <div class="col-sm-12">
 	    	<?php
 
 	    	foreach($outlets as $outlet)

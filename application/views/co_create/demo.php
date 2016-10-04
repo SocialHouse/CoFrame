@@ -19,7 +19,7 @@
 		if(empty($request) AND (check_user_perm($this->user_id,'create',$brand_id) OR $this->user_id == $this->user_data['account_id']) OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			?>
-			<div class="col-md-6 " style="height:900px;">
+			<div class="col-sm-6 " style="height:900px;">
 				<div class="container-approvals">
 					<div class="dafault-phase">
 						<div>
@@ -75,7 +75,7 @@
 			<?php
 			}
 			?>
-			<div class="col-md-6" style="height:900px;">
+			<div class="col-sm-6" style="height:900px;">
 				<div class="container-approvals">
 					<div class="dafault-phase">
 						<div>
@@ -90,10 +90,10 @@
 							    <div class="chat-window discussion-list" id="chat_window_1" style="margin-left:10px;">
 							       	<div class="panel panel-default">
 							        	<div class="panel-heading top-bar hidden">
-							            	<div class="col-md-8 col-xs-8">
+							            	<div class="col-xs-8">
 							                	<h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat here</h3>
 							              	</div>
-							            	<div class="col-md-4 col-xs-4" style="text-align: right;">
+							            	<div class="col-xs-4" style="text-align: right;">
 							                	<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
 							                	<a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
 							             	</div>

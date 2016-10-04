@@ -8,19 +8,19 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 				<h1 class="center-title section-title">Account Settings</h1>
 			</header>
 			<div class="row">
-				<div class="col-xl-4 col-xl-offset-4 col-md-6 col-md-offset-3 text-xs-center">
+				<div class="col-xl-4 col-xl-offset-4 col-sm-6 col-sm-offset-3 text-xs-center">
 					<div class="user-info">
 						<?php 
 							$this->load->view('user_preferences/preference_nav');
 						?>
 						<div class="row relative-wrapper ">
-							<div class="brand-step col-md-12" id="brandStep3">
+							<div class="brand-step col-sm-12" id="brandStep3">
 								<?php
 									
 									$message = $this->session->flashdata('message');
 									if(!empty($message)){
 										?>
-										   <div class="col-md-12 center">
+										   <div class="col-sm-12 center">
 											  <strong><?php echo $message; ?></strong>
 										   </div>
 										<?php
@@ -274,7 +274,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 										else
 										{
 											?>
-											<div class="col-md-12">
+											<div class="col-sm-12">
 												<?php echo str_replace("%user_number%", $this->plan_data['users'], $this->lang->line('user_limit')) ;?>
 											</div>
 											<?php

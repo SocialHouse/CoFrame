@@ -3,7 +3,7 @@ if(!empty($post_details->brand_id)){
 	$brand_id = $post_details->brand_id;
 }
 ?>
-<div class="col-md-4 equal-height">
+<div class="col-sm-4 equal-height">
 	<div class="container-approvals">
 		<div class="dafault-phase">
 			<h4 class="text-xs-center">Mandatory Approvals</h4>

@@ -18,7 +18,7 @@
 		</header>
 		
 		<div class="row">
-			<div class="col-md-4 col-md-offset-4 text-xs-center">
+			<div class="col-sm-4 col-sm-offset-4 text-xs-center">
 				<div class="user-info">
 					<div class="btn-group-background">
 						<?php

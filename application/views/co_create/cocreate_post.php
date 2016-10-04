@@ -31,7 +31,7 @@ $this->load->view('partials/brand_nav');
 		<input type="hidden" id="all_files">
 		<div class="row equal-columns">
 
-			<div class="col-md-4 equal-height">
+			<div class="col-sm-4 equal-height">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
 					<?php
@@ -97,12 +97,12 @@ $this->load->view('partials/brand_nav');
 			else
 			{
 				?>
-				<div class="col-md-4 equal-height"></div>
+				<div class="col-sm-4 equal-height"></div>
 				<?php
 			}
 			?>
 
-			<div class="col-md-4 equal-height">
+			<div class="col-sm-4 equal-height">
 				<div class="container-cocreate-discussion">
 					<div id="videos">
 				        <div id="subscriber" class="hidden"></div>

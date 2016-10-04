@@ -70,12 +70,12 @@ if(!empty($post_details)){
 				{
 					?>
 					<div class="pinterest-user-avatar row">
-						<div class="col-md-3">
+						<div class="col-sm-3">
 						<?php 
 							echo print_user_image($this->user_data['account_id'],$this->user_id);
 						?>
 						</div>
-						<div class="col-md-9">
+						<div class="col-sm-9">
 							<?php
 							echo 'Saved by <br/>';
 							echo '<strong >'.$this->user_data['first_name'].' '.$this->user_data['last_name'].'</strong>';

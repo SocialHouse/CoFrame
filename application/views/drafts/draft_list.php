@@ -10,7 +10,7 @@
 		</div>
 	</header>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-sm-12">
 			<table class="table table-striped table-approvals table-drafts">
 				<thead>
 					<tr>

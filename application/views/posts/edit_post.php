@@ -39,25 +39,25 @@
     </div>
 
     <div class="row">
-    	<div class="col-md-12">
+    	<div class="col-sm-12">
     		<label for="date_time">Slate post</label>
 	    </div>
 
-	    <div class="col-md-3">
+	    <div class="col-sm-3">
 	    	<div class="form-group"> 
 	    		<label for="date">Date</label>
 	    		<input type="text" id="date" name="date" class="form-control" value="<?php echo set_value('date') ? set_value('date') : date('Y-m-d',strtotime($post->slate_date_time)); ?>">
 	    		<?php echo form_error('date', '<div class="text-danger">', '</div>'); ?>
 	    	</div>
 	    </div>
-	    <div class="col-md-3">
+	    <div class="col-sm-3">
 	    	<div class="form-group">
 	    		<label for="time">Time</label>
 		    	<input type="text" id="time" name="time" class="form-control time" value="<?php echo set_value('time') ? set_value('time') : date('h:i A',strtotime($post->slate_date_time)); ?>">
 		    	<?php echo form_error('time', '<div class="text-danger">', '</div>'); ?>
 	    	</div>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-sm-6">
 	    	<div class="form-group">
 	    		<label for="date_time">Tag(s)</label>
 		    	<select name="tags[]" id="tags" class="form-control" multiple>		    		
@@ -90,9 +90,9 @@
 	 	foreach($phases as $key=>$phase)
 	 	{
 			?>	   
-		    <div class="col-md-12 well phase_container">
+		    <div class="col-sm-12 well phase_container">
 		    	<input type="hidden" id="phase_number" value="<?php echo $key; ?>">
-		    	<div class="col-md-12 phase_num_div">
+		    	<div class="col-sm-12 phase_num_div">
 		    		<a href="javascript:void(0)"  id="<?php echo $phase[0]->phase_id; ?>" class="pull-right post-remove-phase">&times;</a>
 			    	<label for="date_time">Phase <?php echo $key; ?></label><br/>
 			    	<?php			    	
@@ -105,12 +105,12 @@
 					    }
 					?>
 				</div>
-			    <div class="col-md-12">
+			    <div class="col-sm-12">
 		    		<label for="date_time">Approve by</label>
 			    </div>
-			    <div class="col-md-12">
+			    <div class="col-sm-12">
 			    	<div class="row">
-					    <div class="col-md-3">
+					    <div class="col-sm-3">
 					    	<div class="form-group"> 
 					    		<label for="date">Month</label>
 					    		<select  name="approve_month[a]" class="form-control" readonly>
@@ -131,7 +131,7 @@
 					    		</select>   		
 					    	</div>
 					    </div>
-					    <div class="col-md-3">
+					    <div class="col-sm-3">
 					    	<div class="form-group"> 
 					    		<label for="date">Day</label>			    		
 					    		<select  name="approve_day[a]" class="form-control" readonly>
@@ -151,7 +151,7 @@
 					    		</select> 	    		
 					    	</div>
 					    </div>
-					    <div class="col-md-3">
+					    <div class="col-sm-3">
 					    	<div class="form-group"> 
 					    		<label for="date">Year</label>
 					    		<select  name="approve_year[a]" class="form-control" readonly>
@@ -172,7 +172,7 @@
 					    		</select>		    		
 					    	</div>
 					    </div>
-					    <div class="col-md-3">
+					    <div class="col-sm-3">
 					    	<div class="form-group">
 					    		<label for="approve_time">Time</label>
 						    	<input type="text" id="approve_time" name="approve_time[a]" class="form-control time" value="<?php echo date('h:i A',strtotime($phase[0]->approve_by)); ?>" readonly>
@@ -180,7 +180,7 @@
 					    </div>
 				    </div>
 			    </div>
-			    <div class="col-md-12">
+			    <div class="col-sm-12">
 					<label for="time">Note to approvers(optional)</label>
 					<textarea name="note[a]" class="form-control" readonly><?php echo $phase[0]->note; ?></textarea>
 				</div>
@@ -192,14 +192,14 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-12 well" align="center">
+		<div class="col-sm-12 well" align="center">
 			<label for="time">Approval phases(optional)</label><br/>
 			<button type="button" class="btn btn-info" id="add_next_approval_phase">Add next approval phase</button>
 		</div>
 	</div>
 
 	<div class="row">
-	    <div class="col-md-12">
+	    <div class="col-sm-12">
 	    	<button type="submit" class="btn btn-primary">Save post</button>    
 	    </div>
 	</div>
@@ -207,9 +207,9 @@
    
 <?php echo form_close(); ?>
 
-<div class="col-md-12 hide well phase_container">
+<div class="col-sm-12 hide well phase_container">
 	<input type="hidden" id="phase_number" value="a">
-	<div class="col-md-12 phase_num_div">
+	<div class="col-sm-12 phase_num_div">
     	<label for="date_time">Phase 1</label><br/>
     	<?php
     	if(!empty($users))
@@ -226,12 +226,12 @@
 		}
 		?>
 	</div>
-    <div class="col-md-12">
+    <div class="col-sm-12">
 		<label for="date_time">Approve by</label>
     </div>
-    <div class="col-md-12">
+    <div class="col-sm-12">
     	<div class="row">
-		    <div class="col-md-3">
+		    <div class="col-sm-3">
 		    	<div class="form-group"> 
 		    		<label for="date">Month</label>			    		
 		    		<select  name="approve_month[a]" class="form-control">
@@ -246,7 +246,7 @@
 		    		</select>   		
 		    	</div>
 		    </div>
-		    <div class="col-md-3">
+		    <div class="col-sm-3">
 		    	<div class="form-group"> 
 		    		<label for="date">Day</label>			    		
 		    		<select  name="approve_day[a]" class="form-control">
@@ -261,7 +261,7 @@
 		    		</select> 	    		
 		    	</div>
 		    </div>
-		    <div class="col-md-3">
+		    <div class="col-sm-3">
 		    	<div class="form-group"> 
 		    		<label for="date">Year</label>
 		    		<select  name="approve_year[a]" class="form-control">
@@ -276,7 +276,7 @@
 		    		</select>		    		
 		    	</div>
 		    </div>
-		    <div class="col-md-3">
+		    <div class="col-sm-3">
 		    	<div class="form-group">
 		    		<label for="approve_time">Time</label>
 			    	<input type="text" id="approve_time" name="approve_time[a]" class="form-control approve_time">
@@ -284,7 +284,7 @@
 		    </div>
 	    </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-sm-12">
 		<label for="time">Note to approvers(optional)</label>
 		<textarea name="note[a]" class="form-control"></textarea>
 	</div>

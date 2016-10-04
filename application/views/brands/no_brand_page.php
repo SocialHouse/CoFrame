@@ -7,36 +7,36 @@
 	<div id="brand-sort">
 		<div class="brand-overview border-gray-lighterer" data-list-order="0" data-brand="Lorac Cosmetics">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-2">
+				<div class="col-sm-10 col-sm-offset-2">
 					<h2 class="border-bottom border-gray-lighterer"><img src="<?php echo img_url(); ?>blank-title.png" alt=""/></h2>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-sm-2">
 					<img src="<?php echo img_url(); ?>blank-brand-img.png" class="center-block" alt=""/>
 				</div>
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<img src="<?php echo img_url(); ?>blank-reminders.png" alt=""/>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<img src="<?php echo img_url(); ?>blank-summary.png" alt=""/>
 				</div>
 			</div>
 		</div>
 		<div class="brand-overview border-gray-lighterer" data-list-order="1" data-brand="J Brand">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-2">
+				<div class="col-sm-10 col-sm-offset-2">
 					<h2 class="border-bottom border-gray-lighterer"><img src="<?php echo img_url(); ?>blank-title.png" alt=""/></h2>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-sm-2">
 					<img src="<?php echo img_url(); ?>blank-brand-img.png" class="center-block" alt=""/>
 				</div>
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<img src="<?php echo img_url(); ?>blank-reminders.png" alt=""/>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<img src="<?php echo img_url(); ?>blank-summary.png" alt=""/>
 				</div>
 			</div>

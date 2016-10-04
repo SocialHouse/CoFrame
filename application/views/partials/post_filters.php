@@ -13,7 +13,7 @@ if(!empty($filters))
 ?>
 <h1 class="text-xs-center">Filters</h1>
 <div class="row post-filters">
-	<div class="col-md-2">
+	<div class="col-sm-2">
 		<input type="hidden" id="filter_id" value="<?php echo !empty($filters) ? $filters[0]['id'] : ''; ?>" />
 		<input type="hidden" id="filter_brand_id" value="<?php echo $brand_id; ?>" />
 		<h2 class="text-xs-center">Post Status</h2>
@@ -42,7 +42,7 @@ if(!empty($filters))
 		?>
 		<div class="form-group filter" data-status="posted" data-value="check-all" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for="check-all">All</label></div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<h2 class="text-xs-center">Outlets</h2>
 		<div class="outlet-list">
 			<ul>
@@ -71,7 +71,7 @@ if(!empty($filters))
 			</ul>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-sm-6">
 		<div class="row">
 			<div class="col-sm-12">
 				<h2 class="text-xs-center">Tags</h2>

@@ -4,7 +4,7 @@
 					<h1 class="center-title section-title">Terms of Service</h1>
 				</header>
 				<div class="row">
-					<div class="col-md-12 content-body">
+					<div class="col-sm-12 content-body">
 						<p>These  Terms of Service are effective as of August __, 2016.   THESE TERMS OF SERVICE (&ldquo;TERMS&rdquo;) GOVERN YOUR USE OF OUR SERVICE. IF YOU  REGISTER FOR A FREE TRIAL OF OUR SERVICE, THESE TERMS WILL ALSO GOVERN THAT  FREE TRIAL. </p>
 						<p><strong>1. Acceptance of Terms </strong></p>
 						<ol style="list-style: upper-alpha;">

@@ -1,4 +1,4 @@
-<div class="col-md-4 equal-height insert_after">
+<div class="col-sm-4 equal-height insert_after">
 	<div class="container-post-details post-content">
 		<h4 class="text-xs-center">Post Details</h4>
 		<div class="form-group">
@@ -160,7 +160,7 @@
 
 		<div id="facebookMediaUpload" class="media-type clearfix hidden extra-outlet-fields" style="" >
 			<div class="clearfix">
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<input type="radio" name="media-type" value="Photos" class="hidden-xs-up">
 					<figure class="media-item clearfix" data-value="Photos">
 						<img src="assets/images/icons/photos-video.png" alt="Photos or Video" class="pull-sm-left">
@@ -170,7 +170,7 @@
 						</figcaption>
 					</figure>
 				</div>
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<input type="radio" name="media-type" value="Album" class="hidden-xs-up">
 					<figure class="media-item clearfix" data-value="Album">
 						<img src="assets/images/icons/photos-video.png" alt="Photo Album" class="pull-sm-left">
@@ -182,7 +182,7 @@
 				</div>
 			</div>
 			<div class="clearfix">
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<input type="radio" name="media-type" value="Carousel" class="hidden-xs-up">
 					<figure class="media-item clearfix" data-value="Carousel">
 						<img src="assets/images/icons/photos-video.png" alt="Photo Carousel" class="pull-sm-left">
@@ -192,7 +192,7 @@
 						</figcaption>
 					</figure>
 				</div>
-				<div class="col-md-6">
+				<div class="col-sm-6">
 					<input type="radio" name="media-type" value="Slideshow" class="hidden-xs-up">
 					<figure class="media-item clearfix" data-value="Slideshow">
 						<img src="assets/images/icons/photos-video.png" alt="Slideshow" class="pull-sm-left">

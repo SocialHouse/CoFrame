@@ -4,7 +4,7 @@
 					<h1 class="center-title section-title">COFRAME PRIVACY POLICY</h1>
 				</header>
 				<div class="row">
-					<div class="col-md-12 content-body">
+					<div class="col-sm-12 content-body">
 <p>CoFrame™ (&ldquo;CoFrame&rdquo;, &ldquo;We&rdquo; or &ldquo;Our&rdquo; or &ldquo;Us&rdquo;) is committed  to doing business with the highest ethical standards and appropriate internal  controls. Our Privacy Policy applies to all users of this Software.   Terms of Service (&ldquo;Terms&rdquo;) is incorporated  herein by reference.  All defined terms  in the Privacy Policy shall have the same meaning as defined in the Terms.  CoFrame adheres to the following policies  with regards to Your privacy. </p>
 <p><strong>1. Definitions </strong>
 </p>

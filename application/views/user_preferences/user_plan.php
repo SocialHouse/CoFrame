@@ -44,7 +44,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 					?>
 	
 						<div class="row table pricing-plans">
-							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $start_up; ?>">
+							<div class="col-sm-3 text-center table-cell pricing-details <?php echo $start_up; ?>">
 								<header class="price-title">
 									<h2>Start-Up</h2>
 									<h3>$99 <small>per month</small></h3>
@@ -75,7 +75,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									}
 								?>
 							</div>
-							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $business; ?>">	
+							<div class="col-sm-3 text-center table-cell pricing-details <?php echo $business; ?>">	
 	
 								<header class="price-title">
 									<h2>Business</h2>
@@ -113,7 +113,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									}
 								?>	
 							</div>
-							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $corporate; ?>">
+							<div class="col-sm-3 text-center table-cell pricing-details <?php echo $corporate; ?>">
 								<header class="price-title">
 									<h2>Corporate</h2>
 									<h3>$599 <small>per month</small></h3>
@@ -151,7 +151,7 @@ if(check_user_perm($this->user_id,'master') OR check_user_perm($this->user_id,'b
 									}
 								?>
 							</div>
-							<div class="col-md-3 text-center col-sm-6 table-cell pricing-details <?php echo $premiere; ?>">
+							<div class="col-sm-3 text-center table-cell pricing-details <?php echo $premiere; ?>">
 								<header class="price-title">
 									<h2>Premiere</h2>
 									<h3 class="smaller">Contact for Pricing.</h2>

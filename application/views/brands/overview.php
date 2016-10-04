@@ -30,7 +30,7 @@
 				{
 					?>
 					<div class="row">
-						<div class="col-md-12 center-title">
+						<div class="col-sm-12 center-title">
 							<strong><?php echo $trial_message ?></strong>
 						</div>
 					</div>
@@ -42,12 +42,12 @@
 					?>
 					<div class="brand-overview" data-list-order="<?php echo $key; ?>" data-brand="<?php echo $brand->order; ?>">
 						<div class="row">
-							<div class="col-md-10 col-md-offset-2">
+							<div class="col-sm-10 col-sm-offset-2">
 								<h2><?php echo $brand->name ?></h2>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-sm-2">
 								<div class="brand-link text-xs-center">
 									<?php
 									$image_path = img_url().'default_brand.png';
@@ -62,13 +62,13 @@
 									<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>" class="btn btn-default btn-xs">View Dashboard</a>
 								</div>
 							</div>
-							<div class="col-md-6 reminder-list-div<?php echo $brand->id; ?>">								
+							<div class="col-sm-6 reminder-list-div<?php echo $brand->id; ?>">								
 								<?php
 								$this->data['brand'] = $brand;
 								$this->load->view('brands/reminder_list_html',$this->data);
 								?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-sm-4">
 								<div class="container-summary-list border-top bg-gray-lightest padding-2rem">
 									<h3>Total Summary <i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard."></i></h3>
 									
@@ -118,36 +118,36 @@
 			<div id="brand-sort">
 				<div class="brand-overview border-gray-lighterer" data-list-order="0" data-brand="Lorac Cosmetics">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-2">
+						<div class="col-sm-10 col-sm-offset-2">
 							<h2 class="border-bottom border-gray-lighterer"><img src="<?php echo img_url(); ?>blank-title.png" alt=""/></h2>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-sm-2">
 							<img src="<?php echo img_url(); ?>blank-brand-img.png" class="center-block" alt=""/>
 						</div>
-						<div class="col-md-6">
+						<div class="col-sm-6">
 							<img src="<?php echo img_url(); ?>blank-reminders.png" alt=""/>
 						</div>
-						<div class="col-md-4">
+						<div class="col-sm-4">
 							<img src="<?php echo img_url(); ?>blank-summary.png" alt=""/>
 						</div>
 					</div>
 				</div>
 				<div class="brand-overview border-gray-lighterer" data-list-order="1" data-brand="J Brand">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-2">
+						<div class="col-sm-10 col-sm-offset-2">
 							<h2 class="border-bottom border-gray-lighterer"><img src="<?php echo img_url(); ?>blank-title.png" alt=""/></h2>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-sm-2">
 							<img src="<?php echo img_url(); ?>blank-brand-img.png" class="center-block" alt=""/>
 						</div>
-						<div class="col-md-6">
+						<div class="col-sm-6">
 							<img src="<?php echo img_url(); ?>blank-reminders.png" alt=""/>
 						</div>
-						<div class="col-md-4">
+						<div class="col-sm-4">
 							<img src="<?php echo img_url(); ?>blank-summary.png" alt=""/>
 						</div>
 					</div>

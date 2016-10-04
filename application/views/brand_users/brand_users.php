@@ -1,6 +1,6 @@
 <h2>Users for: <?php echo $brand_name; ?></h2>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-sm-12">
 		<table class="table">
 			<thead>
 				<tr>

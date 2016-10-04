@@ -17,10 +17,10 @@
 	  	</div>  	
 
 	  	<div class="row">
-	  		<div class="col-md-12">
+	  		<div class="col-sm-12">
 	  			<label for="expiry_month">Card expiry date:</label>
 	  		</div>
-	        <div class="col-md-6">
+	        <div class="col-sm-6">
 	        	<div class="form-group">
 		            <select class="form-control" name="expiry_month" data-stripe="exp-month" id="expiry_month" required>
 		        	    <option value="">Month</option>
@@ -47,7 +47,7 @@
 		            </select>
 		        </div>
 	        </div>
-	        <div class="col-md-6">
+	        <div class="col-sm-6">
 	        	<div class="form-group">
 		            <select class="form-control" name="expiry_year" data-stripe="exp-year" id="expiry_year" required>
 		        	    <option value="">Year</option>

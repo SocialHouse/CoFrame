@@ -4,7 +4,7 @@
 			<h1 class="center-title section-title">Account Settings</h1>
 		</header>
 		<div class="row equal-columns">
-			<div class="col-xl-4 col-xl-offset-4 col-md-6 col-md-offset-3 text-xs-center equal-height">
+			<div class="col-xl-4 col-xl-offset-4 col-sm-6 col-sm-offset-3 text-xs-center equal-height">
 				<div class="user-info">
 					<?php 
 					$this->load->view('user_preferences/preference_nav');

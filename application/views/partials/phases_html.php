@@ -8,7 +8,7 @@ if(empty($phases))
 else
 { 
 	?>
-	<div class="col-md-4 equal-height phases-div">
+	<div class="col-sm-4 equal-height phases-div">
 		<div class="container-approvals">
 			<div class="add-phases">
 				<div class="container-phases">

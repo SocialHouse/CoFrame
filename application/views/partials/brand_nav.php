@@ -52,8 +52,8 @@
 	<div class="current-user-details">
 		<div class="user-name btn btn-secondary btn-xs no-hover"><?php echo get_user_groups($this->user_id,$brand_id); ?></div>
 		<div class="user-time row">
-			<div class="col-md-5">Current Brand Time </div>
-			<div class="col-md-7 text-md-right current-time">
+			<div class="col-sm-5">Current Brand Time </div>
+			<div class="col-sm-7 text-md-right current-time">
 				<strong id="userTime"></strong><br>
 				<span id="userTimeZone"></span>
 			</div>

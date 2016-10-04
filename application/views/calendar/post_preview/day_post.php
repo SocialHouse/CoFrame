@@ -30,7 +30,7 @@
 			
 
 			<div  data-filters="<?php echo 'f-'.$outlet_name.' '.$tag_list.' '.'f-'.$post->status; ?>" class="row bg-white clearfix post-day f-<?php echo $post->status; ?> f-<?php echo $outlet_name; ?>">
-				<div class="col-md-4 post-img day-image">
+				<div class="col-sm-4 post-img day-image">
 					<?php 
 					$display_img = 'false';
 						if(!empty($post->post_images))
@@ -63,12 +63,12 @@
 						}
 					?>
 				</div>
-				<div class="col-md-8 post-content">
+				<div class="col-sm-8 post-content">
 					<div class="row">
-						<div class="col-md-2 outlet-list text-xs-center">
+						<div class="col-sm-2 outlet-list text-xs-center">
 							<i class="fa fa-<?php echo $outlet_name; ?>" title="<?php echo $outlet_name; ?>"><span class="bg-outlet bg-<?php echo $outlet_name; ?>"></span></i>
 						</div>
-						<div class="col-md-10 post-meta">
+						<div class="col-sm-10 post-meta">
 							<span class="post-author"><?php echo $outlet_name; ?> Post By <?php echo (!empty($post->user))?$post->user :'';?>:</span>
 							<span class="post-date"><?php echo date('l, m/d/y \a\t h:i A' , strtotime($post->slate_date_time )); ?> PST <a href="#" class="btn-icon btn-gray hidden-print" data-toggle="popover-ajax" data-hide="false" data-content-src="<?php echo base_url()?>calendar/get_view/edit_date/<?php echo $post->slug.'/'.$post->id; ?>" title="Reschedule Post" data-title="Reschedule Post" data-popover-width="415" data-popover-class="popover-post-date popover-clickable form-inline popover-lg" data-popover-id="date-postid-<?php echo $post->id; ?>" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 								<i class="fa fa-pencil"></i>
@@ -108,7 +108,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-<?php echo $post->id; ?>" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
+						<div class="col-sm-2 post-tags text-xs-center" tabindex="0" data-toggle="popover-inline" data-popover-id="tags-<?php echo $post->id; ?>" data-popover-class="popover-inline popover-sm" data-attachment="top center" data-target-attachment="bottom center" data-popover-arrow="true" data-arrow-corner="top center" data-popover-container=".calendar-day">
 						<?php 
 							if(!empty($post->post_tags))
 							{
@@ -145,7 +145,7 @@
 								</div>
 							</div>								
 						</div>
-						<div class="col-md-10">
+						<div class="col-sm-10">
 							<h6>POST COPY</h6>
 							<div class="post-body">
 								<?php 

@@ -98,7 +98,7 @@
 		<?php 
 			echo print_flashdata();
 		?>
-		<div class="col-md-12">
+		<div class="col-sm-12">
 			<table class="table table-striped table-approvals">
 				<thead>
 					<tr>

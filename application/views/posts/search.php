@@ -2,9 +2,9 @@
 
 <section id="brand-manage" class="page-main bg-white col-sm-10">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-sm-3">
 			<div class="row post-filters search-filters">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<h2 class="text-xs-center">Refine Search</h2>
 					<h4 class="text-xs-center">Post Status</h4>					
 					<div class="form-group filter" data-status="posted" data-value="f-posted" data-group="post-status"><i class="tf-icon square-border border-black pull-xs-left"><i class="fa fa-square"></i></i> <label class="label-check-box" data-for=".f-posted">Posted</label></div>
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-sm-9">
 			<header class="page-main-header search-header">
 				<div class="clearfix">
 					<?php

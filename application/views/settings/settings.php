@@ -7,22 +7,22 @@
 		<input type="hidden" name="brand_slug" value="<?php echo $brand->slug; ?>" id="brand_slug">
 		<div class="brand-steps brand-settings col-sm-12 create">
 			<div class="row">
-				<div class="col-md-3 col-sm-6 brand-step  equal-height" id="brandStep1">
+				<div class="col-sm-3 brand-step  equal-height" id="brandStep1">
 					<?php 
 						$this->load->view('settings/step_1');
 					?>
 				</div>
-				<div class="col-md-3 col-sm-6 brand-step  equal-height" id="brandStep2">
+				<div class="col-sm-3 brand-step  equal-height" id="brandStep2">
 					<?php 
 						$this->load->view('settings/step_2');
 					?>
 				</div>
-				<div class="col-md-3 col-sm-6 brand-step  equal-height" id="brandStep3">
+				<div class="col-sm-3 brand-step  equal-height" id="brandStep3">
 					<?php 
 						$this->load->view('settings/step_3');
 					?>
 				</div>
-				<div class="col-md-3 col-sm-6 brand-step  equal-height" id="brandStep4">
+				<div class="col-sm-3 brand-step  equal-height" id="brandStep4">
 					<?php 
 						$this->load->view('settings/step_4');
 					?>

@@ -4434,4 +4434,11 @@ textarea.form-control {
   font-size: 13px !important;
 }
 
+/*maintain 1280 breakpoint for smaller screens*/
+@media (max-width: 1279px) {
+	.container {
+		width: 1280px;
+	}
+}
+
 @import "partials/print";

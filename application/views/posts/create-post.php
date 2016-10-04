@@ -13,7 +13,7 @@
 		<input type="hidden" name="uploaded_files[]" id="uploaded_files">
 		<input type="hidden" id="all_files">
 		<div class="row equal-columns create">
-			<div class="col-md-4 equal-height">
+			<div class="col-sm-4 equal-height">
 				<div class="container-post-preview post-content">
 					<h4 class="text-xs-center">Live Preview</h4>
 					<div id="live-post-preview">

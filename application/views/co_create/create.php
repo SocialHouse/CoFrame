@@ -31,24 +31,24 @@
     </div>
 
     <div class="row">
-    	<div class="col-md-12">
+    	<div class="col-sm-12">
     		<label for="date_time">Slate post</label>
 	    </div>
-	    <div class="col-md-3">
+	    <div class="col-sm-3">
 	    	<div class="form-group"> 
 	    		<label for="date">Date</label>
 	    		<input type="text" id="date" name="date" class="form-control" value="<?php echo set_value('date') ?>">
 	    		<?php echo form_error('date', '<div class="text-danger">', '</div>'); ?>
 	    	</div>
 	    </div>
-	    <div class="col-md-3">
+	    <div class="col-sm-3">
 	    	<div class="form-group">
 	    		<label for="time">Time</label>
 		    	<input type="text" id="time" name="time" class="form-control" value="<?php echo set_value('time') ?>">
 		    	<?php echo form_error('time', '<div class="text-danger">', '</div>'); ?>
 	    	</div>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-sm-6">
 	    	<div class="form-group">
 	    		<label for="date_time">Tag(s)</label>
 		    	<select name="tags[]" id="tags" class="form-control" multiple>		    		
