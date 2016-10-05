@@ -34,7 +34,8 @@ class Tour extends CI_Controller {
         }
         //echo '<pre>'; print_r($this->user_data );echo '</pre>'; die;
         $this->data['timezones'] = $this->user_model->get_timezones();
-        $this->load->view('tour/tour',$this->data);
+        load_tour_view($this->data);
+        // $this->load->view('tour/tour',$this->data);
         $this->load->view('partials/modals');
     }
 
@@ -310,7 +311,8 @@ class Tour extends CI_Controller {
         {
             $this->data['error'] = "error";
         }
-        $this->load->view('tour/tour',$this->data);
+        // $this->load->view('tour/tour',$this->data);
+        load_tour_view($this->data);
         $this->load->view('partials/modals');
     }
 
@@ -357,7 +359,8 @@ class Tour extends CI_Controller {
         {
             $this->data['request_error'] = "error";
         }
-        $this->load->view('tour/tour',$this->data);
+        // $this->load->view('tour/tour',$this->data);
+        load_tour_view($this->data);
         $this->load->view('partials/modals');
     }
 
@@ -519,7 +522,8 @@ class Tour extends CI_Controller {
         {
             $this->data['verify'] = 'fail';   
         }
-        $this->load->view('tour/tour',$this->data);
+        // $this->load->view('tour/tour',$this->data);
+        load_tour_view($this->data);
         $this->load->view('partials/modals');
     }
 
@@ -538,7 +542,8 @@ class Tour extends CI_Controller {
             $this->data['is_user'] = 'success';
         }
 
-        $this->load->view('tour/tour',$this->data);
+        // $this->load->view('tour/tour',$this->data);
+        load_tour_view($this->data);
         $this->load->view('partials/modals');
     }
 

@@ -49,14 +49,36 @@ if(!function_exists('_render_view'))
                 $CI->data['error'] = $data['error'];
             }
 
-            $CI->data['yield'] = $CI->load->view($data['view'],$data,true);
+            $mobile_view = '';
+            $CI->load->library('user_agent');
+            if($CI->agent->is_mobile())
+            {
+                $mobile_view = 'mobile/';
+            }
+
+            $CI->data['yield'] = $CI->load->view($mobile_view.$data['view'],$data,true);
             $CI->data['current_brand'] = isset($data['brand_id']) ? $data['brand_id'] : NULL;
-            echo $CI->load->view($data['layout'],$CI->data,true);
+            echo $CI->load->view($mobile_view.$data['layout'],$CI->data,true);
         }
         else
         {
             echo "please define the view to be loaded";
         }
+    }
+}
+
+if(!function_exists('load_tour_view')) 
+{
+    function load_tour_view($data) 
+    {
+        $CI = & get_instance();
+        $mobile_view = '';
+        $CI->load->library('user_agent');
+        if($CI->agent->is_mobile())
+        {
+            $mobile_view = 'mobile/';
+        }
+        $CI->load->view($mobile_view.'tour/tour',$data);
     }
 }
 

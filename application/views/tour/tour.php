@@ -411,7 +411,7 @@
 
 			</div><!--/.content-area.row-->
 		</div><!--/.container-fluid-->
-		<p><a href="#registerResponse" class="btn btn-warning btn-sm pull-right hide" data-backdrop="static" data-toggle="modal" id="regResponseBtn">Go to login</a></p>
+		<p><a href="#registerResponse" class="btn btn-warning btn-sm pull-right hide" style="display:none;" data-backdrop="static" data-toggle="modal" id="regResponseBtn">Go to login</a></p>
 
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/tether.min.js?ver=3.0.0'></script>
 		<script type='text/javascript' src='<?php echo js_url(); ?>vendor/bootstrap.min.js?ver=3.0.0'></script>
