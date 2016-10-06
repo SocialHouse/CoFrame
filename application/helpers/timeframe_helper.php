@@ -1020,6 +1020,54 @@ if(!function_exists('get_email'))
     }
 }
 
+if(!function_exists('count_reminders'))
+{
+    function count_reminders($user_id,$brand_id)
+    {
+        $CI = & get_instance();     
+        $CI->load->model('reminder_model');
+        $reminder_count = $CI->reminder_model->get_reminder_count($user_id,$brand_id);
+        if($reminder_count)
+        {
+            return $reminder_count;
+        }
+        return FALSE;
+    }
+}
+
+if(!function_exists('get_brand_outlet_name'))
+{
+    function get_brand_outlet_name($brand_id)
+    {
+        $CI = & get_instance();     
+        $CI->load->model('reminder_model');
+        $outlet_name = $CI->reminder_model->get_brand_outlet_name($brand_id);
+        if($outlet_name)
+        {
+            return $outlet_name;
+        }
+        return FALSE;
+    }
+}
+
+if(!function_exists('get_post_media'))
+{
+    function get_post_media($post_id)
+    {
+        $CI = & get_instance();     
+        $CI->load->model('timeframe_model');
+        $post_media = $CI->timeframe_model->get_data_by_condition('post_media',array('post_id' => $post_id));
+        if($post_media)
+        {
+            return $post_media;
+        }
+        return FALSE;
+    }
+}
+
+
+
+
 
 
 

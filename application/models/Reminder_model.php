@@ -54,6 +54,23 @@ class Reminder_model extends CI_Model
 		return FALSE;
 	}
 
+	function get_reminder_count($user_id = 0, $brand_id)
+	{
+		$this->db->select('id');
+		if($user_id > 0)
+			$this->db->where('user_id',$user_id);	
+
+		$this->db->where('brand_id',$brand_id);
+		$this->db->where('status',0);
+		$this->db->order_by('due_date','ASC');
+		$query = $this->db->get('reminders');
+		if($query->num_rows() > 0)
+		{
+			return $query->num_rows();
+		}
+		return FALSE;
+	}
+
 	public function get_active_notifications()
 	{
 		$this->db->select('id,text');
@@ -74,6 +91,19 @@ class Reminder_model extends CI_Model
 			$this->db->where('id',$row->id);			
 			$this->db->update('reminders',array('desktop_notification_status' => 1)); 
 			return $row;
+		}
+		return FALSE;
+	}
+
+	function get_brand_outlet_name($brand_id)
+	{
+		$this->db->select('outlets.outlet_name');
+		$this->db->join('brand_outlets','outlets.id = brand_outlets.outlet_id');
+		$this->db->where('brand_id',$brand_id);
+		$query = $this->db->get('outlets');
+		if($query->num_rows() > 0)
+		{
+			return $query->row()->outlet_name;
 		}
 		return FALSE;
 	}

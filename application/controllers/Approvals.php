@@ -502,4 +502,101 @@ class Approvals extends CI_Controller {
 		}
 	}
 
+	function approvals_menu()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
+		if(!empty($brand))
+		{
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'approvals/approval_menu';
+			$this->data['layout'] = 'layouts/new_user_layout';
+
+	        _render_view($this->data);
+	    }
+	}
+
+	function approvals_today()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
+		if(!empty($brand))
+		{
+			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,'',date('Y-m-d',strtotime('+1 days')));
+			
+			$this->data['approval_list'] = array();
+			if(!empty($approvals))
+			{							
+				foreach($approvals as $approval)
+				{
+					$this->data['approval_list'][$approval->id] = $approval;
+				}
+			}
+			
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'approvals/approvals_today';
+			$this->data['layout'] = 'layouts/new_user_layout';
+
+	        _render_view($this->data);
+	    }
+	}
+
+	function approvals_week()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
+		if(!empty($brand))
+		{
+			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+7 days')));
+			
+			$this->data['approval_list'] = array();
+			if(!empty($approvals))
+			{							
+				foreach($approvals as $approval)
+				{
+					$this->data['approval_list'][$approval->id] = $approval;
+				}
+			}
+			
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'approvals/approvals_week';
+			$this->data['layout'] = 'layouts/new_user_layout';
+
+	        _render_view($this->data);
+	    }
+	}
+
+	function approvals_month()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
+		if(!empty($brand))
+		{
+			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+1 month')));
+			
+			$this->data['approval_list'] = array();
+			if(!empty($approvals))
+			{							
+				foreach($approvals as $approval)
+				{
+					$this->data['approval_list'][$approval->id] = $approval;
+				}
+			}
+			
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'approvals/approvals_month';
+			$this->data['layout'] = 'layouts/new_user_layout';
+
+	        _render_view($this->data);
+	    }
+	}
+
 }

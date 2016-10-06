@@ -57,6 +57,10 @@ $route['edit-request/(:any)'] = "approvals/edit_request/(:any)";
 $route['view-request/(:any)'] = "approvals/view_request/(:any)";
 $route['edit-request-modal/(:any)'] = "approvals/edit_request_modal/$1";
 
+$route['approvals/approvals-menu/(:any)'] = "approvals/approvals_menu/$1";
+$route['approvals/approvals-today/(:any)'] = "approvals/approvals_today/$1";
+$route['approvals/approvals-week/(:any)'] = "approvals/approvals_week/$1";
+$route['approvals/approvals-month/(:any)'] = "approvals/approvals_month/$1";
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";
 $route['approvals/delete_suggest_edit'] = "approvals/delete_suggest_edit";
