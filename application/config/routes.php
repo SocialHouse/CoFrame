@@ -61,6 +61,9 @@ $route['approvals/approvals-menu/(:any)'] = "approvals/approvals_menu/$1";
 $route['approvals/approvals-today/(:any)'] = "approvals/approvals_today/$1";
 $route['approvals/approvals-week/(:any)'] = "approvals/approvals_week/$1";
 $route['approvals/approvals-month/(:any)'] = "approvals/approvals_month/$1";
+$route['approvals/approvals-outlet/(:any)'] = "approvals/approvals_outlet/$1";
+$route['approvals/get_outlet_approvals'] = "approvals/get_outlet_approvals";
+
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";
 $route['approvals/delete_suggest_edit'] = "approvals/delete_suggest_edit";

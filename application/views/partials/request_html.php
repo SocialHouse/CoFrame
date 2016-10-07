@@ -15,7 +15,7 @@ if(!empty($comment))
 			<div class="author-meta pull-sm-left">
 				<?php 
 				echo ucfirst($comment->first_name).' '.$comment->last_name; 
-				if($comment->user_id == $this->user_id)
+				if($comment->user_id == $this->user_id AND !isset($is_mobile))
 				{
 					?>
 					<a data-id="<?php echo $comment->id; ?>" class="pull-right delete-suggest" href="javascript:;">

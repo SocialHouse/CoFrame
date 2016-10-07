@@ -78,7 +78,7 @@ class Approval_model extends CI_Model
 		return $result;
 	}
 
-	function approvals_between_date($user_id,$brand_id,$start_date='',$end_date='')
+	function approvals_between_date($user_id,$brand_id,$start_date='',$end_date='',$outlet ='')
 	{
 		$result = [];
 		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id']  OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
@@ -101,6 +101,11 @@ class Approval_model extends CI_Model
 				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) <= "'.date("m-d-Y",strtotime($end_date)).'"');
 			}
 
+			if(!empty($outlet))
+			{
+				$this->db->where('posts.outlet_id',$outlet);
+			}
+
 			//if user creator he can see only posts which is created by him
 			if(check_user_perm($user_id,'create',$brand_id))
 			{
@@ -108,7 +113,7 @@ class Approval_model extends CI_Model
 			}			
 			$this->db->group_by('posts.id');
 			$this->db->order_by('slate_date_time','ASC');			
-			$query = $this->db->get('phases');		
+			$query = $this->db->get('phases');	
 			if($query->num_rows() > 0)
 			{
 				$result =  $query->result();
@@ -129,6 +134,11 @@ class Approval_model extends CI_Model
 			if(!empty($end_date))
 			{
 				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) <= "'.date("m-d-Y",strtotime($end_date)).'"');
+			}
+
+			if(!empty($outlet))
+			{
+				$this->db->where('posts.outlet_id',$outlet);
 			}
 
 			$this->db->where('posts.status !=','approved');
@@ -304,7 +314,7 @@ class Approval_model extends CI_Model
 
 	function get_comment_reply($comment_id)
 	{
-		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media,user_info.img_folder');
+		$this->db->select('post_comments.id,comment,post_comments.created_at,first_name,last_name,post_comments.user_id,post_comments.status,media,user_info.img_folder,parent_id');
 		$this->db->join('user_info','user_info.aauth_user_id = post_comments.user_id');
 		$this->db->where('parent_id',$comment_id);
 		$this->db->order_by('created_at','ASC');

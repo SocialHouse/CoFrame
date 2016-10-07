@@ -19,7 +19,7 @@
 			<li><a href="<?php echo base_url().'approvals/approvals-today/'.$brand->slug; ?>" class="pos-relative">Today's Approvals<i class="fa fa-angle-right expand-collapse"></i></a></li>
 			<li><a href="<?php echo base_url().'approvals/approvals-week/'.$brand->slug; ?>" class="pos-relative">Approvals by Week<i class="fa fa-angle-right expand-collapse"></i></a></li>
 			<li><a href="<?php echo base_url().'approvals/approvals-month/'.$brand->slug; ?>" class="pos-relative">Approvals by Month<i class="fa fa-angle-right expand-collapse"></i></a></li>
-			<li><a href="approvals-outlet.php" class="pos-relative">Approvals by Outlet<i class="fa fa-angle-right expand-collapse"></i></a></li>
+			<li><a href="<?php echo base_url().'approvals/approvals-outlet/'.$brand->slug; ?>" class="pos-relative">Approvals by Outlet<i class="fa fa-angle-right expand-collapse"></i></a></li>
 		</ul>
 	</div>
 </section>

@@ -214,6 +214,15 @@ jQuery(function($) {
 	};
 	addIncrements();
 
+	toggleBtnClass = function(btnClass, btnState) {
+	 	$(btnClass).prop('disabled', btnState);
+	 	if (btnState) {
+	 		$(btnClass).addClass('btn-disabled');
+	 	} else {
+	 		$(btnClass).removeClass('btn-disabled');
+	 	}
+	 };
+
 });
 
 	var today = new Date();

@@ -323,7 +323,7 @@
 																	</a>
 																</div>
 																<div class="pull-sm-right">			
-																	<button data-id="<?php echo $comment->id; ?>" data-phase-id="64" class="btn btn-secondary btn-sm save-edit-req" type="button" data-parent-id="43">Submit</button>
+																	<button data-id="<?php echo $comment->id; ?>" data-phase-id="<?php echo $phs['phase_users'][0]->id; ?>" class="btn btn-secondary btn-sm save-edit-req" type="button" data-parent-id="43">Submit</button>
 																</div>
 															</div>
 														</div>															

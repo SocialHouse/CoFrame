@@ -514,7 +514,7 @@ if(!function_exists('get_master_user'))
 
 if(!function_exists('get_approval_list_buttons'))
 {
-    function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id,$is_any_pending_approver)
+    function get_approval_list_buttons($post,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id,$is_any_pending_approver,$edit_req_required = 1)
     {
         $CI = & get_instance(); 
         $html_to_return = '';
@@ -538,7 +538,10 @@ if(!function_exists('get_approval_list_buttons'))
             // if(!empty($approver_status))
             // {
                 // $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Suggest an<br>Edit</a>';
+            if($edit_req_required == 1)
+            {
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+            }
             // }
         }
         elseif(check_user_perm($CI->user_id,'create',$brand_id) OR $post->user_id == $CI->user_id OR (($CI->user_id == $CI->user_data['account_id']) OR ( isset($CI->user_data['user_group']) AND $CI->user_data['user_group'] == 'Master Admin')))
@@ -580,7 +583,10 @@ if(!function_exists('get_approval_list_buttons'))
             // $is_edit_request = is_edit_request($post->id);
             // if($is_edit_request AND empty($approver_status))
             // {
+            if($edit_req_required == 1)
+            {
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+            }
             // }
         }
         else
@@ -615,7 +621,10 @@ if(!function_exists('get_approval_list_buttons'))
             // $is_edit_request = is_edit_request($post->id);
             // if($is_edit_request AND empty($approver_status))
             // {
+            if($edit_req_required == 1)
+            {
                 $html_to_return .= '<a href="'.base_url().'edit-request/'.$post->id.'" class="btn btn-xs btn-wrap btn-default">Edit<br>Requests</a>';
+            }
             // }
         }
         return $html_to_return;
@@ -1060,6 +1069,21 @@ if(!function_exists('get_post_media'))
         if($post_media)
         {
             return $post_media;
+        }
+        return FALSE;
+    }
+}
+
+if(!function_exists('get_brand_slug'))
+{
+    function get_brand_slug($brand_id)
+    {
+        $CI = & get_instance();     
+        $CI->load->model('timeframe_model');
+        $brand = $CI->timeframe_model->get_data_by_condition('brands',array('id' => $brand_id),'slug');
+        if($brand)
+        {
+            return $brand[0]->slug;
         }
         return FALSE;
     }

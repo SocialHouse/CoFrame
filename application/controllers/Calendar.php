@@ -241,6 +241,11 @@ class Calendar extends CI_Controller {
 				$this->data['user_is'] = $this->uri->segment(6) ? $this->uri->segment(6) : '';
 				$this->data['post_details'] = $this->post_model->get_post($this->data['post_id']);
 			}
+			$this->load->library('user_agent');		
+			if($this->agent->is_mobile())
+		    {
+		    	$this->data['is_mobile'] = 1;
+		    }
 			$this->load->view('calendar/'.$path, $this->data);
 		}
 		else{

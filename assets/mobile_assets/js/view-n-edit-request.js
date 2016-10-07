@@ -163,6 +163,7 @@ jQuery(function($) {
                 }
             });
         } else {
+            console.log(html_body);
             $comment.append(html_body);
             $comment.find('.emptyCommentReply').attr('id', reply_id);
             $comment.find('.reply-comment-submit').attr('data-parent-id', reply_id.split("_")[1]);

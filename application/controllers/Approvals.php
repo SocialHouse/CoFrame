@@ -232,6 +232,11 @@ class Approvals extends CI_Controller {
 		    	}
 		    	else
 		    	{
+		    		$this->load->library('user_agent');		    		
+		    		if($this->agent->is_mobile())
+		    		{
+		    			$this->data['is_mobile'] = 1;
+		    		}
 		    		$response_html = $this->load->view('partials/request_html',$this->data,true);
 		    	}
 		    	echo json_encode(array('response' => 'success','html' => $response_html));
@@ -597,6 +602,51 @@ class Approvals extends CI_Controller {
 
 	        _render_view($this->data);
 	    }
+	}
+
+	function approvals_outlet()
+	{
+		$this->data = array();
+		$slug = $this->uri->segment(3);	
+		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
+		if(!empty($brand))
+		{
+			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id);
+			
+			$this->data['approval_list'] = array();
+			if(!empty($approvals))
+			{							
+				foreach($approvals as $approval)
+				{
+					$this->data['approval_list'][$approval->id] = $approval;
+				}
+			}
+			
+			$this->data['outlets'] = $this->brand_model->get_brand_outlets($brand[0]->id);
+			$this->data['brand'] = $brand[0];
+			$this->data['brand_id'] = $brand[0]->id;
+			$this->data['view'] = 'approvals/approvals_outlet';
+			$this->data['layout'] = 'layouts/new_user_layout';
+
+	        _render_view($this->data);
+	    }
+	}
+
+	function get_outlet_approvals()
+	{
+		$outlet_id = $this->input->post('outlet_id');
+		$this->data['brand_id'] = $this->input->post('brand_id');
+		$approvals = $this->approval_model->approvals_between_date($this->user_id,$this->data['brand_id'],'','',$outlet_id);
+
+		$this->data['approval_list'] = array();
+		if(!empty($approvals))
+		{							
+			foreach($approvals as $approval)
+			{
+				$this->data['approval_list'][$approval->id] = $approval;
+			}
+		}
+		echo $this->load->view('mobile/approvals/approval_post',$this->data,true);
 	}
 
 }

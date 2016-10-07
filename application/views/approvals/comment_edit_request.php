@@ -2,7 +2,7 @@
 
 foreach ($replies as $key => $obj) {
 	?>
-	<ul class="commentReply timeframe-list replay">
+	<ul class="commentReply replay">
 		<li class="comment-section">
 			<div class="author clearfix">
 				<?php
@@ -17,7 +17,7 @@ foreach ($replies as $key => $obj) {
 				<div class="author-meta pull-sm-left">
 					<?php 
 					echo ucfirst($obj->first_name).' '.ucfirst($obj->last_name);
-					if($obj->user_id == $this->user_id)
+					if($obj->user_id == $this->user_id AND !isset($is_mobile))
 					{
 						?>
 						<a data-id="<?php echo $obj->id; ?>" class="pull-right delete-suggest" href="javascript:;">
