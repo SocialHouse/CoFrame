@@ -76,7 +76,7 @@ if(!function_exists('load_tour_view'))
         $CI->load->library('user_agent');
         if($CI->agent->is_mobile())
         {
-            $mobile_view = 'mobile/';
+            $mobile_view = '';
         }
         $CI->load->view($mobile_view.'tour/tour',$data);
     }
