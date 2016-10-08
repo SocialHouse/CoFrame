@@ -129,7 +129,7 @@ if(!empty($approval_list))
 					echo get_approval_list_buttons($approval,$deadline,$phase_status,$user_group,$approver_status,$phase_id,$brand_id,$is_any_pending_approver,0);
 					?>					
 				</span>
-				<button class="btn-icon btn-icon-lg btn-menu pull-xs-right" data-toggle="modal-ajax" data-hide="false" data-modal-src="<?php echo base_url().'calendar/get_view/edit_menu/'.get_brand_slug($post_details->brand_id).'/'.$post_details->id; ?>" data-modal-id="modal-post-menu">
+				<button class="btn-icon btn-icon-lg btn-menu pull-xs-right" data-toggle="modal-ajax" data-hide="false" data-modal-src="<?php echo base_url().'calendar/get_view/edit_menu/'.get_brand_slug($brand_id).'/'.$approval->id; ?>" data-modal-id="modal-post-menu">
 					<i class="fa fa-circle-o"></i> 
 					<i class="fa fa-circle-o"></i> 
 					<i class="fa fa-circle-o"></i>

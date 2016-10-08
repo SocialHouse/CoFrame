@@ -1,3 +1,5 @@
+<input type="hidden" id="type" value="week">
+<input type="hidden" id="brand-id" value="<?php echo $brand_id; ?>">
 <section id="overview" class="page-main col-sm-12">
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Approvals by Week</h1>

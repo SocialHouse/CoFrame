@@ -207,7 +207,14 @@ class Calendar extends CI_Controller {
     	// $this->data['outlets'] = $this->post_model->get_brand_outlets($brand_id);
     	$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
     	$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand_id,'user_id' => $this->user_id));
-    	echo $this->load->view('partials/post_filters',$this->data,true);
+    	
+    	$mobile_view = 'mobile/';
+        $this->load->library('user_agent');
+        if($this->agent->is_mobile())
+        {
+            $mobile_view = 'mobile/';
+        }
+    	echo $this->load->view($mobile_view.'partials/post_filters',$this->data,true);
     }
 
     public function print_posts()

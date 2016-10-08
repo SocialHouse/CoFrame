@@ -1,3 +1,5 @@
+<input type="hidden" id="type" value="today">
+<input type="hidden" id="brand-id" value="<?php echo $brand_id; ?>">
 <section id="overview" class="page-main col-sm-12">
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Today's Approvals</h1>
@@ -21,10 +23,10 @@
 		<div class="date-header row">
 			<div class="col-sm-12">
 				<div class="pull-xs-left">
-					<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
+					<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '-1 days' ) ); ?>" class="next-date previous"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
 				</div>
 				<div class="pull-xs-right">
-					<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 days' ) ); ?>" class="next-date"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
+					<a href="#" data-date="<?php echo date('Y-m-d', strtotime( '+1 days' ) ); ?>" class="next-date next"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
 				</div>
 				<div class="center-title"><a href="#calendarSelectModal" data-toggle="modal"><?php echo date('F d, Y'); ?></a></div>
 			</div>

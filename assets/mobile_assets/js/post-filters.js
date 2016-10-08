@@ -117,4 +117,54 @@ jQuery(function($) {
 			$('#selectedFilters').slideUp();
 		}
 	}
+
+	$(document).on('click','.save-filter',function(){
+		updateFilters();
+	});
+
+	function updateFilters()
+	{
+		var inclusives = [];
+		var outlet_ids = [];
+		var statuses = [];
+		var tags = [];
+		var filter_id;
+		if($('#filter_id').val())
+			filter_id = $('#filter_id').val();
+
+		$('.filter').each( function() {
+			inclusives.push( '[data-filters*="' + $(this).data('value') + '"]' );
+			//use value if checked
+			if ( $(this).hasClass('checked' )) {				
+				if($(this).data('id'))
+					outlet_ids.push( $(this).data('id') );
+				if($(this).data('status'))
+					statuses.push( $(this).data('status') );
+
+				if($(this).data('tag-id'))
+				{
+					tags.push($(this).data('tag-id'));
+				}
+
+			}
+			else {				
+				var index = inclusives.indexOf($(this).data('value'));
+				if( index > -1) {
+					inclusives.splice(index, 1);
+					outlet_ids.splice(index, 1);
+					statuses.splice(index, 1);
+					tags.splice(index, 1);
+				}
+			}
+		});
+
+		$.ajax({
+			url:base_url+'calendar/save_filters',
+			type:'POST',
+			data:{tags:tags,outlets:outlet_ids,statuses:statuses,brand_id:$('#filter_brand_id').val(),filter_id:filter_id},
+			success:function(response){
+
+			}
+		});
+	}
 });

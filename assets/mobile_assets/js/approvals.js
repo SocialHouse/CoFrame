@@ -50,5 +50,54 @@ jQuery(function($) {
 				});
 			}
 		});
+
+		$(document).on('click','.set_schedule_id',function(){			
+			var post_id = $(this).data('post-id');
+			$('#schedule-post').attr('data-post-id',post_id);
+			$('#send-mail').attr('data-post-id',post_id);
+		});
+
+		$(document).on('click','#schedule-post',function(){
+	    	var post_id = $(this).attr('data-post-id');
+	    	$.ajax({
+	    		url:base_url+'posts/schedule_post',
+	    		data:{post_id:post_id},
+	    		type:'POST',
+	    		success:function(response)
+	    		{
+	    			if(response == '1')
+	    			{
+	    				window.location.reload();
+	    			}
+	    			else
+	    			{
+	    				getConfirm(language_message.unable_to_schedule,'','alert',function(confResponse) {
+							return false;
+						});
+	    			}
+
+	    		}
+	    	});
+	    });
+
+	    $(document).on('click','.next-date',function(){
+	    	var bt_clicked = 'previous';
+	    	if($(this).hasClass('.next'))
+	    	{
+	    		bt_clicked = 'next';
+	    	}
+
+	    	var date = $(this).attr('data-date');
+	    	$.ajax({
+	    		url:base_url+'approvals/get_approval_list',
+	    		type:'POST',
+	    		data:{'date':date,'type':$('#type').val(),'btn_clicked':bt_clicked,'brand_id':$('#brand-id').val()},
+	    		dataType:'JSON',
+	    		success:function(response){
+	    			$('.my-approvals').html(response.response);
+	    			$('.date-header').html(response.date_header);
+	    		}
+	    	})
+	    });
 	});
 })

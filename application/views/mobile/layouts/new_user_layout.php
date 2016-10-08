@@ -22,7 +22,14 @@
 </head>
 <body class="page-global">
 	<div class="container container-head navbar-fixed-top bg-white">
-		<?php $this->load->view('mobile/partials/global_nav'); ?>
+		<?php 
+		if(isset($show_filter))
+		{
+			$this->load->view('mobile/partials/approval_nav'); 
+		}
+		else
+			$this->load->view('mobile/partials/global_nav'); 
+		?>
 	</div>
 	<div class="container content-container">
 		<div class="content-area row animated fadeIn">

@@ -39,13 +39,36 @@
 			}
 			?>
 			<div class="post-footer clearfix">
-				<span class="pull-xs-left post-actions">
-					<div class="before-approve">
-						<a class="btn btn-sm btn-secondary change-approve-status" data-post-id="28" data-phase-id="" data-phase-status="approved">Approve</a>
-					</div>
-					<div class="after-approve hidden">
-						<button class="btn btn-secondary btn-disabled btn-sm" disabled="">Approved</button>
-					</div>
+				<span class="pull-xs-left post-actions">					
+					<?php 
+					if($this->user_id == $this->user_data['account_id'] OR check_user_perm($this->user_id,'create',$brand_id) OR (isset($this->user_data['user_group']) && ($this->user_data['user_group'] == "Master Admin" OR $this->user_data['user_group'] == "Manager")))
+					{
+						if($post_details->status == 'scheduled' )
+						{
+							?>
+							<div class="before-approve post-actions">
+								<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+								<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>"  data-phase-status="unschedule" href="#">Undo</a>
+							</div>
+							<div class="after-approve hidden">
+								<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
+							</div>
+							<?php
+						}
+						else
+						{
+							?>
+							<div class="before-approve hidden post-actions">
+								<button class="btn btn-default color-success btn-disabled btn-sm" disabled>Scheduled</button><br>
+								<a class="change-approve-status"  data-post-id="<?php echo $post_id; ?>" data-phase-status="unschedule" href="#">Undo</a>
+							</div>
+							<div class="after-approve">
+								<a class="btn btn-sm btn-default color-success change-approve-status" data-post-id="<?php echo $post_id ?>" data-phase-status="scheduled">Schedule</a>
+							</div>
+							<?php
+						}						
+					}
+					?>
 				</span>
 				<button class="btn-icon btn-icon-lg btn-menu pull-xs-right" data-toggle="modal-ajax" data-hide="false" data-modal-src="<?php echo base_url().'calendar/get_view/edit_menu/'.get_brand_slug($post_details->brand_id).'/'.$post_details->id; ?>" data-modal-id="modal-post-menu">
 					<i class="fa fa-circle-o"></i> 

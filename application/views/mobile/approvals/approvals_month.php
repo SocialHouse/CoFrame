@@ -1,3 +1,6 @@
+<input type="hidden" id="type" value="month">
+<input type="hidden" id="brand-id" value="<?php echo $brand_id; ?>">
+
 <section id="overview" class="page-main col-sm-12">
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Approvals by Month</h1>
@@ -37,3 +40,30 @@
 		</ul>
 	</div>
 </section>
+
+<!-- Calender -->
+<div class="modal hide fade" id="calendarSelectWeekModal" data-keyboard="false" role="dialog" aria-hidden="true" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content bg-white">
+	  <div class="modal-body">
+		<div id="calendar-change-week" class="calendar-select-date">
+			<div class="date-select-calendar"></div>
+		</div>
+		<div class="text-xs-center overlay-footer border-gray-lighter">
+			<button type="button" class="btn btn-sm btn-default modal-hide">Cancel</button>
+			<button type="button" id="getPostsByDate" class="btn btn-sm btn-secondary btn-disabled modal-hide" disabled="">Apply</button>
+		</div>			
+	  </div>
+	</div>
+  </div>
+</div>	
+
+<!-- Blank Modal -->
+<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-body">
+	  </div>
+	</div>
+  </div>
+</div>

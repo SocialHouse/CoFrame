@@ -4,15 +4,25 @@ if(!empty($post_id) && !empty($slug)){
 	<div class="edit-menu list-group">
 		<?php
 		if($user_is != 'approver')
-		{
-			?>
-			<ul class="list-group-item">
+		{	
+			echo '<ul class="list-group-item">';
+			if(isset($is_mobile))
+		    {
+		    	?>		    	
+				<li>
+					<a href="<?php echo base_url().'posts/edit_post/approvals/'.$slug.'/',$post_id; ?>">Edit</a>
+				</li>
+				<?php
+		    }
+		    else
+		    {
+				?>
 				<li>
 					<a href="#" data-clear="yes" data-modal-id="edit-post-modal"  data-modal-size="lg" data-toggle="modal-ajax" data-modal-src="<?php echo base_url()?>calendar/edit_post_calendar/day/<?php echo $slug.'/'.$post_id; ?>" >Edit</a>
 				</li>
-				<li><a href="#">Post Now</a></li>
-			</ul>
-		<?php
+				<?php
+			}
+			echo '<li><a href="#">Post Now</a></li></ul>';
 		}
 		?>
 		<ul class="list-group-item">

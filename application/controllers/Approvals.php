@@ -514,6 +514,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			$this->data['show_filter'] = 1;
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['view'] = 'approvals/approval_menu';
@@ -530,6 +531,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			$this->data['show_filter'] = 1;
 			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,'',date('Y-m-d',strtotime('+1 days')));
 			
 			$this->data['approval_list'] = array();
@@ -557,6 +559,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			$this->data['show_filter'] = 1;
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+7 days')));
 			
 			$this->data['approval_list'] = array();
@@ -584,6 +587,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			$this->data['show_filter'] = 1;
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+1 month')));
 			
 			$this->data['approval_list'] = array();
@@ -611,6 +615,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
+			$this->data['show_filter'] = 1;
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id);
 			
 			$this->data['approval_list'] = array();
@@ -649,4 +654,76 @@ class Approvals extends CI_Controller {
 		echo $this->load->view('mobile/approvals/approval_post',$this->data,true);
 	}
 
+	function get_approval_list()
+	{
+		$date = $this->input->post('date');
+		$this->data['brand_id'] = $this->input->post('brand_id');
+		$btn_clicked = $this->input->post('btn_clicked');
+		$type = $this->input->post('type');
+		if($type == 'today')
+		{
+			$start_date = $date;
+			$end_date = $date;
+			$previous = date('Y-m-d',strtotime($date.' -1 days'));
+			$next = date('Y-m-d',strtotime($date.' +1 days'));			
+			$current = date('F d, Y',strtotime($date));
+		}
+
+		if($type == 'week')
+		{
+			$start_date = date('Y-m-d',strtotime($date));
+			$end_date = date('Y-m-d',strtotime($date.' +7 days'));
+			$previous = date('Y-m-d',strtotime($date.' -8 days'));
+			$next = date('Y-m-d',strtotime($date.' +8 days'));			
+			$current = date('M d, Y',strtotime($date)).'-'.date('M d, Y', strtotime($date.'+7 days' ));
+		}
+
+		if($type == 'month')
+		{
+			$start_date = date('Y-m-d',strtotime($date));
+			$end_date = date('Y-m-d',strtotime($date.' +1 month'));
+			$previous = date('Y-m-d',strtotime($date.' -1 month'));
+			$next = date('Y-m-d',strtotime($date.' +1 month'));			
+			$current = date('F, Y',strtotime($date));
+		}
+
+		$approvals = $this->approval_model->approvals_between_date($this->user_id,$this->data['brand_id'],$start_date,$end_date);	
+
+		$this->data['approval_list'] = array();
+		if(!empty($approvals))
+		{							
+			foreach($approvals as $approval)
+			{
+				$this->data['approval_list'][$approval->id] = $approval;
+			}
+		}
+		
+		$date_header = '<div class="col-sm-12">';
+		$date_header .= '<div class="pull-xs-left">';
+		$date_header .= '<a href="#" data-date="'.$previous.'" class="next-date previous"><i class="fa fa-angle-left fa-custom-circle bg-black"></i></a>
+				</div>
+				<div class="pull-xs-right">
+					<a href="#" data-date="'.$next.'" class="next-date next"><i class="fa fa-angle-right fa-custom-circle bg-black"></i></a>
+				</div>
+				<div class="center-title"><a href="#calendarSelectModal" data-toggle="modal">'.$current.'</a></div>
+			</div>';
+
+		$html = $this->load->view('mobile/approvals/approval_post',$this->data,true);
+		echo json_encode(array('response' => $html,'date_header' => $date_header));
+	}
+
+	function view_approvals()
+	{
+		$post_id = $this->uri->segment(3);
+		$post_phases = $this->post_model->get_post_phases($post_id);
+		if(!empty($post_phases))
+		{
+			foreach($post_phases as $phase)
+			{
+				$this->data['phases'][$phase->phase][] = $phase;
+			}
+		}
+		$this->data['post_details'] = $this->post_model->get_post($post_id);
+		echo $this->load->view('mobile/approvals/approvals',$this->data,true);
+	}
 }
