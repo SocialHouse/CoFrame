@@ -1,8 +1,3 @@
-<?php
-// echo "<pre>";
-// print_r($post_details);
-// die;
-?>
 <section id="overview" class="page-main col-sm-12">
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Edit Post</h1>
@@ -89,17 +84,16 @@
 								else if($key->type =='video'){
 									echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';
 								}										
-                            }
-                            echo '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>';
-						}						
+                            }                           
+						}	
+						echo '<label class="file-upload-label" id="postFileLabel" for="postFile"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>';
 						?>
 
-						<input type="file" name="files[]" id="postFile" class="form__file" data-multiple-caption="{count} files selected" multiple>
-						<label for="postFile" id="postFileLabel" class="file-upload-label"><i class="tf-icon circle-border">+</i><span class="form__label-text">Click to upload<span class="form__dragndrop"> or drag &amp; drop here ...</span></span></label>
+						<input type="file" name="files[]" id="postFile" class="form__file" data-multiple-caption="{count} files selected" multiple>						
 					</div>
 				</div>
 				</li>
-				<li data-toggle="modal-ajax" data-modal-src="lib/select-tags.php" data-class="full-page-modal" data-title="Edit Tags" data-clear="no" data-modal-id="modal-post-tags">
+				<li data-toggle="modal-ajax" data-modal-src="<?php echo base_url().'approvals/get_brand_tags/'.$post_details->id; ?>" data-class="full-page-modal" data-title="Edit Tags" data-clear="no" data-modal-id="modal-post-tags">
 					<div class="post-tags pull-xs-left">
 						<?php
 						if(!empty($selected_tags))
@@ -156,9 +150,9 @@
 			<div class="modal-footer">
 				<div class="btn-group" role="group">
 				  <button type="button" class="btn btn-sm btn-default modal-hide col-xs-6">Cancel</button>
-				  <button type="button" class="btn btn-sm btn-default col-xs-6" data-toggle="modal-ajax" data-modal-src="lib/select-outlet.php" data-class="full-page-modal" data-title="Change Outlet" data-clear="no" data-modal-id="modal-post-outlet">Continue</button>
+				  <button type="button" class="btn btn-sm btn-default col-xs-6" data-toggle="modal-ajax" data-modal-src="<?php echo base_url().'approvals/get_outlet_list/'.$post_details->id; ?>" data-class="full-page-modal" data-title="Change Outlet" data-clear="no" data-modal-id="modal-post-outlet">Continue</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+</div>

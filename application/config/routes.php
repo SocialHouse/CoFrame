@@ -65,6 +65,10 @@ $route['approvals/approvals-outlet/(:any)'] = "approvals/approvals_outlet/$1";
 $route['approvals/get_outlet_approvals'] = "approvals/get_outlet_approvals";
 $route['approvals/get_approval_list'] = "approvals/get_approval_list";
 $route['approvals/view_approvals/(:num)'] = "approvals/view_approvals/$1";
+$route['approvals/get_outlet_list/(:num)'] = "approvals/get_outlet_list/$1";
+$route['approvals/save_post_outlet'] = "approvals/save_post_outlet";
+$route['approvals/get_brand_tags/(:num)'] = "approvals/get_brand_tags/$1";
+$route['approvals/save_post_tags'] = "approvals/save_post_tags";
 
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";

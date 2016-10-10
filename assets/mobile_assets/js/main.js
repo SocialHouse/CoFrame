@@ -63,6 +63,7 @@ jQuery(function($) {
 	$('body').on('click', '.outlet-list li:not(.filter)', function(e) {
 		$(this).toggleClass('disabled');
 		$(this).siblings().addClass('disabled');
+		$('#postOutlet').val($(this).data('outlet-id'));
 	});
 	
 	$('.content-editable').each(function() {

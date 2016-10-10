@@ -1243,7 +1243,7 @@ class Posts extends CI_Controller {
 				}
 			
 				$post_phases = $this->post_model->get_post_phases($post_id);
-				$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);		
+				$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
 				if(!empty($post_phases))
 				{
 					foreach($post_phases as $phase)

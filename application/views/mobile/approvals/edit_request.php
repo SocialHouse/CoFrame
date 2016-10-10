@@ -23,7 +23,7 @@
 		<div class="post-meta pos-relative border-bottom border-black row">
 			<div class="col-sm-12">
 				<div class="outlet-list pull-xs-left">
-					<i class="fa fa-twitter" title="twitter"><span class="bg-outlet bg-twitter"></span></i>
+					<i class="fa fa-<?php echo strtolower($post_details->outlet_name); ?>" title="<?php echo strtolower($post_details->outlet_name); ?>"><span class="bg-outlet bg-<?php echo strtolower($post_details->outlet_name); ?>"></span></i>
 				</div>
 				<div class="post-meta-content">
 					<span class="post-author"><?php echo $post_details->outlet_name; ?> Post By <?php echo get_users_full_name($post_details->user_id); ?>:</span>

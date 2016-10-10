@@ -726,4 +726,87 @@ class Approvals extends CI_Controller {
 		$this->data['post_details'] = $this->post_model->get_post($post_id);
 		echo $this->load->view('mobile/approvals/approvals',$this->data,true);
 	}
+
+	function get_outlet_list()
+	{
+		$post_id = $this->uri->segment(3);
+		$this->data['post'] = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_id),'brand_id,id,outlet_id');
+		if(!empty($this->data['post']))
+		{
+			$this->load->model('post_model');			
+			$this->data['outlets'] = $this->post_model->get_brand_outlets($this->data['post'][0]->brand_id);
+			echo $this->load->view('mobile/approvals/oultet_list',$this->data,true);
+		}
+	}
+
+	function save_post_outlet()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			$this->timeframe_model->update_data('posts',array('outlet_id' => $post_data['post_outlet']),array('id' => $post_data['post_id']));
+			$brand = $this->brand_model->get_brand_by_id($post_data['brand_id']);
+			redirect(base_url().'posts/edit_post/approvals/'.$brand->slug.'/'.$post_data['post_id']);
+		}
+	}
+
+	function get_brand_tags()
+	{
+		$post_id = $this->uri->segment(3);
+		$this->data['post'] = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_id),'brand_id,id,outlet_id');
+		if(!empty($this->data['post']))
+		{
+			$this->data['tags'] = $this->post_model->get_brand_tags($this->data['post'][0]->brand_id);
+			$this->data['selected_tags'] = $this->post_model->get_post_tags($post_id);
+			if(!empty($this->data['selected_tags']))
+			{
+				$this->data['selected_tags'] = object_to_array($this->data['selected_tags']);			
+				$this->data['selected_tags'] = array_column($this->data['selected_tags'],'id');
+			}
+			echo $this->load->view('mobile/approvals/tag_list',$this->data,true);
+		}
+	}
+
+	function save_post_tags()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data))
+		{
+			if(!empty($post_data['post_tag'])){
+
+				$selected_tags = $this->post_model->get_post_tags($post_data['post_id']);
+				
+				$tags_to_add = isset($post_data['post_tag']) ? $post_data['post_tag']: array();
+
+				if(!empty($selected_tags )){
+					$selected_tags_ids = array_column($selected_tags,'id'); // list of selected tags ids
+					
+					$tags_to_add = array_diff($post_data['post_tag'],$selected_tags_ids); // new tags to add 
+		        	
+		        	$tags_to_delete = array_diff($selected_tags_ids,$post_data['post_tag']); // old tags that we want to remove 
+		        	print_r($tags_to_delete);
+		        	foreach ($tags_to_delete as $tag)
+		        	{
+		        		$condition = array('brand_tag_id' => $tag,'post_id' => $post_data['post_id']);
+		        		$this->timeframe_model->delete_data('post_tags',$condition);
+		        	}
+				}
+				
+				foreach($tags_to_add as $tag)
+    			{
+
+    				$post_tag_data = array(
+    										'post_id' => $post_data['post_id'],
+    										'brand_tag_id' => $tag
+    									);
+    			
+    				$this->timeframe_model->insert_data('post_tags',$post_tag_data);
+    			}
+
+			}
+
+			$brand = $this->brand_model->get_brand_by_id($post_data['brand_id']);
+			redirect(base_url().'posts/edit_post/approvals/'.$brand->slug.'/'.$post_data['post_id']);
+		}
+	}
 }
