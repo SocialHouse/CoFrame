@@ -110,7 +110,7 @@ $this->load->view('partials/brand_nav');
 					</div>
 					<div class="cocreate-participants"><strong>Participants:</strong>
 						<span class="participant-list"></span>
-						<i class="tf-icon circle-border pull-sm-right">+</i>
+						<a class="co-create-approver timeframe-list user-list border-bottom popover-toggle approver-selected" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'co_create/get_brand_users/'.$brand_id.'/'.$req_id; ?>" data-title="Add participants" data-popover-class="popover-users popover-clickable" data-popover-id="popover-user-list" data-attachment="top right" data-target-attachment="top left" data-offset-x="-4" data-offset-y="-15" data-popover-arrow="true" data-arrow-corner="right top" data-popover-container="body"><i class="tf-icon circle-border pull-sm-right">+</i></a>
 					</div>
 					<div class="discussion-list">
 						<div class="chat-panel">

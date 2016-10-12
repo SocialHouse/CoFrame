@@ -57,7 +57,25 @@ $(document).ready(function() {
 		});
     });
 
-    // $=".OT_mute"
+    jQuery(document).on('click','.add-approvers',function(){
+    	var selected_approvers = [];
+		$('.check-box.selected').each(function(a,b){
+			selected_approvers.push($(this).data('value'))
+		})
+		console.log(selected_approvers);
+		if(selected_approvers.length)
+		{
+			$.ajax({
+				url:base_url+'co_create/add_participants',
+				type:'post',
+				data:{selected_users:selected_approvers,request_string: $('#co_create_req_id').val(),slug: $('#slug').val(),'brand_id':$('#brand_id').val(),'on_cocreate_post':1},
+				success:function(response)
+				{
+					
+				}
+			});
+		}
+	});	
 });	
 
 

@@ -623,6 +623,11 @@ class Co_create extends CI_Controller {
 									<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
 								</li>';
 
+								if(!empty($participant_html))
+								{
+									$participant_html .= ', ';
+								}
+
 								$participant_html .= ucfirst($approver->first_name).' '.ucfirst($approver->last_name);
 							}
 						}
@@ -1046,6 +1051,10 @@ class Co_create extends CI_Controller {
 							<img src="'.$path.'" width="36" height="36" alt="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'" class="circle-img" data-toggle="popover-hover" data-content="'.ucfirst($approver->first_name).' '.ucfirst($approver->last_name).'">
 						</li>';
 
+						if(!empty($participant_html))
+						{
+							$participant_html .= ', ';
+						}
 						$participant_html .= ucfirst($approver->first_name).' '.ucfirst($approver->last_name);
 					}
 				}
@@ -1078,6 +1087,67 @@ class Co_create extends CI_Controller {
 			{
 				echo json_encode(array('response' => 'fail'));
 			}
+		}
+	}
+
+	public function get_brand_users($brand_id,$req_id)
+	{
+		$post = $this->timeframe_model->get_data_by_condition('cocreate_post_info',array('request_id' => $req_id),'id');
+		$this->data['approvers'] = [];
+		if(!empty($post))
+		{
+			$this->data['approvers'] = $this->timeframe_model->get_data_array_by_condition('cocreate_approvers',array('cocreate_post_id' => $post[0]->id),'user_id');
+			if(!empty($this->data['approvers']))
+			{
+				$this->data['approvers'] = array_column($this->data['approvers'],'user_id');
+			}
+			// print_r($this->data['approvers']);
+		}
+
+		$this->data['users'] = $this->brand_model->get_approvers($brand_id);
+		$this->data['brand'] =  $this->brand_model->get_users_brands($this->user_id,$brand_id);
+		echo $this->load->view('co_create/cocreate_users',$this->data,true);
+	}
+
+	public function add_participants()
+	{
+		$post_data = $this->input->post();
+
+		if(!empty($post_data))
+		{
+			if(!empty($post_data['selected_users']))
+			{
+				$post = $this->timeframe_model->get_data_by_condition('cocreate_post_info',array('request_id' => $post_data['request_string']),'id');				
+				$users = $this->timeframe_model->get_data_array_by_condition('cocreate_approvers',array('cocreate_post_id' => $post[0]->id),'user_id');
+				if(!empty($users))
+				{
+					$users = array_column($users,'user_id');
+				}
+
+				$subject = "Co create request";
+				$this->data['url'] = base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'];
+				$message = $this->load->view('mails/join_co_create',$this->data,true);
+				foreach($post_data['selected_users'] as $user_id)
+				{
+					if(empty($users) OR !in_array($user_id,$users))
+					{
+						$user_data = $this->aauth->get_user($user_id);
+						$reminder_data = array(
+			    								'user_id' => $user_id,
+			    								'type' => 'reminder',
+			    								'brand_id' => $post_data['brand_id'],
+			    								'due_date' => date('Y-m-d H:i:s',strtotime('+1 days')),
+			    								'text' => 'Please join cocreate here <a href="'.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'"> '.base_url().'co_create/join_co_create/'.$this->user_data['account_id'].'/'.$post_data['slug'].'/'.$post_data['request_string'].'</a>'
+			    							);
+
+						$this->timeframe_model->insert_data('reminders',$reminder_data);
+
+						email_send($user_data->email,$subject,$message);
+					
+						$this->timeframe_model->insert_data('cocreate_approvers',array('user_id' => $user_id,'cocreate_post_id' => $post[0]->id));
+					}
+				}
+			}			
 		}
 	}
 }
