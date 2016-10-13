@@ -81,11 +81,14 @@ $(document).ready(function() {
 		console.log(publisher);
 		if($(this).is(':checked'))
 		{
+			session.publish(publisher);
+			// publisher.publishAudio(false);
 			publisher.publishAudio(true);
 			publisher.publishVideo(true);
 		}
 		else
 		{
+			session.unpublish(publisher);
 			publisher.publishAudio(false);
 			publisher.publishVideo(false);	
 		}		
