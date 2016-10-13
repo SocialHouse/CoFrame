@@ -84,7 +84,7 @@ if($user_count > 0)
 	?>
 	<div class="clearfix bg-white padding_bottom">
 		<a href="#" class="btn btn-default btn-sm pull-left qtip-hide">Cancel</a>
-		<button type="button" class="btn btn-secondary btn-sm pull-right add-approvers">Submit</button>		
+		<button type="button" class="btn btn-secondary btn-sm pull-right add-approvers">Add</button>		
 	</div>
 	<?php
 }
