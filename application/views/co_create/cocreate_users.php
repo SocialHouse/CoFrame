@@ -82,9 +82,9 @@
 if($user_count > 0)
 {
 	?>
-	<div class="clearfix">
-		<a href="#" class="btn btn-default btn-sm pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-		<button type="button" class="btn btn-primary btn-sm pull-right add-approvers">Submit</button>		
+	<div class="clearfix bg-white padding_bottom">
+		<a href="#" class="btn btn-default btn-sm pull-left qtip-hide">Cancel</a>
+		<button type="button" class="btn btn-secondary btn-sm pull-right add-approvers">Submit</button>		
 	</div>
 	<?php
 }

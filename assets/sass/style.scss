@@ -1587,20 +1587,20 @@ a {
 .tf-icon-chat {
 	background-image: url(../images/icons/chat.png);
 	height: 90px;
-	width: 90px;
-	background-position: center 23px;
+	width: 45px;
+	background-position: center 18px;
 }
 .tf-icon-tele {
 	background-image: url(../images/icons/tele.png);
 	height: 90px;
-	width: 90px;
-	background-position: center 23px;
+	width: 45px;
+	background-position: center 18px;
 }
 .tf-icon-video {
 	background-image: url(../images/icons/video-chat.png);
 	height: 90px;
-	width: 90px;
-	background-position: center 23px;
+	width: 45px;
+	background-position: center 18px;
 }
 .tf-icon-text {
 	background-image: url(../images/icons/text.png);
@@ -3399,11 +3399,13 @@ a {
 	.circle-border {
 		border-width: 4px;
 		overflow: hidden;
+		width: 90px;
+		height: 90px;
 		&:hover {
 			background: #000;
 			box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.25);
 			[class*="tf-icon"] {
-				background-position: center -23px;
+				background-position: center -26px;
 			}
 		}
 	}
@@ -3434,7 +3436,7 @@ a {
 	margin-bottom: 1.5rem;
 	padding: 11px 0;
 	margin: 0 0 1.5rem;
-	.tf-icon {
+	.tf-icon, .timeframe-list.user-list .tf-icon {
 		font-size: 19px;
 		height: 19px;
 		width: 19px;
