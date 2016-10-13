@@ -103,6 +103,10 @@ $this->load->view('partials/brand_nav');
 			?>
 
 			<div class="col-sm-4 equal-height">
+				<label class="switch">
+				  <input type="checkbox" id="toogle-vide-aud" checked>
+				  <div class="slider round"></div>
+				</label>
 				<div class="container-cocreate-discussion">
 					<div id="videos">
 				        <div id="subscriber" class="hidden"></div>

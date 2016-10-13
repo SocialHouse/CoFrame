@@ -3,7 +3,7 @@ var $ = jQuery;
 // // var apiKey = '<?php echo $this->config->item('opentok_key'); ?>';
 // var token = 'T1==cGFydG5lcl9pZD00NTYxNzExMiZzaWc9YmJhOTMyNzQzMDg1ZGE0OWZlZWZhNDY0OGFkMDhlZWMzNWY5NGYxZjpzZXNzaW9uX2lkPTJfTVg0ME5UWXhOekV4TW41LU1UUTJOemM0T0RJek1EY3dNMzVFWmxRNWREQjRObFl5T1d4WE5sUXhVSGRoWm1KelJXVi1VSDQmY3JlYXRlX3RpbWU9MTQ2Nzc4ODIzMiZyb2xlPXB1Ymxpc2hlciZub25jZT0xNDY3Nzg4MjMyLjQzOTgxNDcyNTk0NTUz';
 var session;
-
+var publisher;
 $(document).ready(function() {		
 	initializeSession(apiKey, sessionId,token);
 
@@ -76,6 +76,20 @@ $(document).ready(function() {
 			});
 		}
 	});	
+
+	$(document).on('click','#toogle-vide-aud',function(){
+		console.log(publisher);
+		if($(this).is(':checked'))
+		{
+			publisher.publishAudio(true);
+			publisher.publishVideo(true);
+		}
+		else
+		{
+			publisher.publishAudio(false);
+			publisher.publishVideo(false);	
+		}		
+	});
 });	
 
 
@@ -127,7 +141,7 @@ function initializeSession(apiKey, sessionId,token) {
 			var targetElement = 'publisherContainer';
 			console.log(session.capabilities.publish);
 			// var pubOptions = {publishAudio:true, publishVideo:true};
-			var publisher = OT.initPublisher('publisher', {
+			publisher = OT.initPublisher('publisher', {
 				insertMode: 'append',
 				width: '100%',
 				height: '100%',
@@ -136,7 +150,7 @@ function initializeSession(apiKey, sessionId,token) {
 				publishVideo:true
 			},function(error){
 				// console.log(error.message);
-			});			
+			});
 		  	session.publish(publisher);
 			if(!$('#subscriber').hasClass('hidden')) {
 				$('#publisher').removeClass('hidden');
