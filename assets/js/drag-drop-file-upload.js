@@ -538,6 +538,132 @@
 				}				
 			});
 
+			$(document).on( 'click','.schedule-cocreate', function( e ){		
+				var btn = this;				
+		    	if(!cocreate_validation()){
+		    		return false;
+		    	}
+
+			    var newModal = $('#emptyModal').clone();
+				newModal.attr('id', '');
+				newModal.addClass('alert-modal modal-reschedule-post');
+				newModal.find('.modal-dialog').addClass('form-inline').css('width', 380);
+				$.get(base_url+'co_create/schedule/'+$('#brand_id').val(),function(data) {
+					newModal.find('.modal-body').html('<h2 class="text-xs-center">Schedule Post</h2>' + data);
+					newModal.find('[name="post_id"]').val($('#post_id').val());
+					newModal.find('[type="submit"]').attr('type','button').addClass('schedule_cocreate');
+					newModal.modal({
+						show: true,
+						backdrop: 'static'
+					});
+					newModal.on('shown.bs.modal', function () {
+						addIncrements();
+					});
+				});
+			    // $('.co-create-form').attr('action',base_url+"")
+			    // $('.co-create-form').submit();
+
+				// if($(btn).attr('name') == 'resubmit')
+				// {
+				// 	$('#resubmit').val('resubmit');
+				// }
+				// else
+				// {
+				// 	$('#resubmit').val('');	
+				// }
+					
+				// if($(btn).attr('id') == 'draft')
+				// {
+				// 	$('#save_as').val('draft');
+				// }
+				// else{
+				// 	$('#save_as').val('');
+				// }
+				// // preventing the duplicate submissions if the current one is in progress
+				// if( $form.hasClass( 'is-uploading' ) ) return false;
+
+				// $form.addClass( 'is-uploading' ).removeClass( 'is-error' );
+
+				// // ajax file upload for modern browsers
+				// if( isAdvancedUpload ) {
+				// 	e.preventDefault();
+
+				// 	// gathering the form data
+				// 	var ajaxData = new FormData( $form.get( 0 ) );
+
+				// 	if( allFiles ){
+				// 		var file_count = 0;
+				// 		$.each( allFiles, function( i, file ){
+				// 			if(typeof(file) == 'object' && file.name){
+				// 				ajaxData.append( 'file['+file_count+']',file,file.name);
+				// 				file_count++;
+				// 			}
+							
+				// 		});
+				// 	}
+				// 	// return false;
+				// 	var other_data = $('form').serializeArray();
+				// 	$.each(other_data,function(key,input){
+				// 		if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
+				//         	ajaxData.append(input.name,input.value);
+				//     });
+				   
+
+				// 	// ajax request
+				// 	$.ajax({
+				// 		url: 			$form.attr( 'upload' ),
+				// 		type:			$form.attr( 'method' ),
+				// 		data: 			ajaxData,
+				// 		dataType:		'json',
+				// 		cache:			false,
+				// 		contentType:	false,
+				// 		processData:	false,
+				// 		complete: function(){
+				// 			$form.removeClass( 'is-uploading' );
+				// 		},
+				// 		success: function( data ){
+				// 			if(data.success)
+				// 			{
+				// 				if($(btn).hasClass('clear-phase'))
+				// 				{
+				// 					$.each($('[data-clear-phase]'),function(a,b){
+				// 						b.remove();
+				// 					});
+
+				// 				}
+				// 				// return;
+				// 				if(data.success != 'no_files')
+				// 					$('#uploaded_files').val(JSON.stringify(data));
+
+				// 				setTimeout(function(){
+				// 					$form.submit();
+				// 				},100);
+								
+				// 			}
+				// 		},
+				// 		error: function(){
+				// 			getConfirm(language_message.upload_error,'','alert',function(confResponse) {});
+				// 		}
+				// 	});
+				// }
+
+				// // fallback Ajax solution upload for older browsers
+				// else {
+				// 	var iframeName	= 'uploadiframe' + new Date().getTime(),
+				// 		$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+				// 	$( 'body' ).append( $iframe );
+				// 	$form.attr( 'target', iframeName );
+
+				// 	$iframe.one( 'load', function(){
+				// 		var data = $.parseJSON( $iframe.contents().find( 'body' ).text() );
+				// 		$form.removeClass( 'is-uploading' ).addClass( data.success == true ? 'is-success' : 'is-error' ).removeAttr( 'target' );
+				// 		if( !data.success ) $errorMsg.text( data.error );
+				// 		$iframe.remove();
+				// 	});
+				// }				
+			});
+
 			save_cocreate_data();
 			
 

@@ -69,6 +69,7 @@ $route['approvals/get_outlet_list/(:num)'] = "approvals/get_outlet_list/$1";
 $route['approvals/save_post_outlet'] = "approvals/save_post_outlet";
 $route['approvals/get_brand_tags/(:num)'] = "approvals/get_brand_tags/$1";
 $route['approvals/save_post_tags'] = "approvals/save_post_tags";
+$route['approvals/save_mobile_post'] = "approvals/save_mobile_post";
 
 $route['approvals/save_edit_request'] = "approvals/save_edit_request";
 $route['approvals/save_reply'] = "approvals/save_reply";

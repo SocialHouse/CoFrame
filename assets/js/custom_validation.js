@@ -464,6 +464,55 @@ window.create_post_validation = function create_post_validation(){
 	}
 }
 
+window.cocreate_validation = function cocreate_validation(){
+ 	var disable_btn 	= true,
+ 	is_outlet_selected 	= false,
+ 	post_copy_error 	= $('#post_copy_error'),
+ 	outlet_error		= $('#outlet_error'),
+ 	img_error 			= $('#img_error'), 	
+ 	outlet_const		= $('#postOutlet').attr('data-outlet-const') ;
+
+ 	if(outlet_const != '' &&  $('#postOutlet').val().trim() !== '' ){
+ 		is_outlet_selected = true;
+ 	}
+
+ 	reset_outlet_validation();
+
+ 	if(!is_outlet_selected)
+ 	{
+ 		outlet_error.show();
+ 		outlet_error.text('Please select outlet');
+ 	}else{
+ 		outlet_error.hide();
+ 		outlet_error.empty(); 
+ 		if(($('#postCopy').val()!='' || $('.form__file-preview').length > 0 ) || outlet_const == 'tumblr')
+ 		{
+ 			post_copy_error.hide();
+ 			disable_btn = false; 			
+		}else{
+			var error_disp = false;
+			if($('#postCopy').val()==''){
+				post_copy_error.text(language_message.enter_post_content);
+				post_copy_error.show();
+				error_disp = true;
+				disable_btn = true;
+			}
+			if(!error_disp){
+				img_error.text(language_message.select_image_video);
+				img_error.show();
+				disable_btn = true;
+			}
+		}			
+	}
+
+	if(disable_btn){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
 window.phaseValidation 	= function phaseValidation() {
 	var disable_save_phase_btn 	= true,
 	 	img_error 		= $('#img_error'),

@@ -18,7 +18,16 @@
 		display: none !important;
 	}
 </style>
-
+<?php
+// create json message file
+if($this->config->item('compile_json_message_js')){
+	$msg_file = $this->config->item('json_msg_file');
+	$json_message = $this->lang->language;
+	$json_str = 'var language_message = '.json_encode($json_message);
+	@unlink($msg_file);
+	file_put_contents($msg_file, $json_str);
+}
+?>
 </head>
 <body class="page-global">
 	<div class="container container-head navbar-fixed-top bg-white">
@@ -37,7 +46,21 @@
 		</div>
 	</div>
 
+	<script type='text/javascript' src='<?php echo js_url(); ?>json_message.json'></script>
+
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/vendor/jquery.js?ver=1.11.3'></script>
+
+	<script type="text/javascript">
+		var plan_data = '<?php echo json_encode($this->plan_data); ?>';	
+		plan_data = jQuery.parseJSON(plan_data);
+
+		var user_data = '<?php echo json_encode($this->user_data); ?>';	
+		user_data = jQuery.parseJSON(user_data);
+
+		var upload_limit = '<?php echo json_encode($this->config->item('upload_limit')) ?>';
+		upload_limit = jQuery.parseJSON(upload_limit);	
+	</script>
+
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/vendor/jquery-ui-sortable.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/vendor/jquery.qtip.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/vendor/bootstrap.min.js?ver=4.0.0'></script>
@@ -53,5 +76,6 @@
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/approvals.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/post-filters.js?ver=1.0.0'></script>
 	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/view-n-edit-request.js?ver=1.0.0'></script>
+	<script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/user_preference.js?ver=1.0.0'></script>
 </body>
 </html>

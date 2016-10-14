@@ -144,6 +144,234 @@ jQuery(function($) {
 			setAmPm(input);
 		}
 	});
+	var supported_files = ['gif','png','jpg','jpeg','mp4'];
+	var all_images = [];
+	$(document).on('change','#postFile',function(event){
+		var $fileDiv = $(this).parents('.form__input');
+		var file = event.target.files[0];
+		var current_outlet = $('#current_outlet').val()
+		img_count = $('img.form__file-preview').length + 1;
+		var file_type = file.type.split('/');
+		var fileInput = this;		
+
+		if($.inArray(file_type[1] ,supported_files) == -1){		
+			alert(language_message.invalid_extention)
+			return false;
+		}
+
+		if(current_outlet == 'twitter' && img_count == 5)
+		{			
+			alert(language_message.twitter_img_allowed);
+			return false;
+		}
+
+		if(file_type[0] == 'image')
+		{
+			if( file.size > upload_limit[current_outlet].image_size){
+				alert(language_message.image_size_limit.replace('%size%', upload_limit[outlet_const].image_size/1000000)+' MB');		
+				return false;
+			}
+
+			if(upload_limit[current_outlet].height !="" || upload_limit[current_outlet].width !=""){
+				var img_obj = new Image();
+				img_obj.onload = function() {
+					if(upload_limit[current_outlet].height < img_obj.height){
+						console.log("In valid Height: " + img_obj.height );
+						//is_valid_image = false;
+					}
+
+					if(upload_limit[current_outlet].width < img_obj.width){
+						console.log("In valid Width: " + img_obj.width );
+					}
+					
+				}
+				img_obj.src = window.URL.createObjectURL(file);
+			}
+
+
+			if($fileDiv.find('video').length > 0){
+				getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+				return false;
+			}
+
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function (e) {
+				if(all_images.length == 5 && current_outlet == 'twitter')
+				{
+					alert(language_message.twitter_img_allowed);
+					return false;
+				}
+				else if((current_outlet == 'youtube' || current_outlet == 'vine') && file_type[0]== 'image')
+				{					
+					if(current_outlet == 'youtube')
+					{
+						alert(language_message.youtube_outlet_change_error);
+						return false;
+					}else{
+						alert(language_message.vine_outlet_change_error);						
+						return false;
+					}
+					
+				}
+
+				if(current_outlet == 'instagram' && file_type[0]== 'video')
+				{
+					alert(language_message.insta_video_not_allowed);
+					return false;
+				}
+
+				if(all_images.length == 2 && (current_outlet == 'instagram' || current_outlet == 'linkedin' || current_outlet == 'pinterest'))
+				{
+					var message = language_message.insta_img_allowed;
+					if(outlet_const == 'linkedin')
+					{
+						message = language_message.linkedin_img_allowed;
+					}
+					else if(outlet_const == 'pinterest')
+					{
+						message = language_message.pinterest_img_allowed;
+					}
+					alert(message);
+					return false;
+				}
+				else
+				{
+					var img = document.createElement('img');
+					var preview_img = document.createElement('img');					
+					img.className = 'form__file-preview';
+
+					var imgDiv = document.createElement('div');
+					imgDiv.className = 'form__preview-wrapper';
+					$(imgDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+					$(imgDiv).append(img);
+						
+					$fileDiv.prepend(imgDiv).addClass('has-files');
+
+					// set  data (data-preview-number) to image tag for deleting image 
+					total_images = $('img.form__file-preview').length;
+					$(img).attr('data-preview-number',total_images);
+					img.src = e.target.result;
+					file.img_src = e.target.result;
+					all_images.push(file);
+					
+					var image_string = all_images.join('___');
+					$('#all_images').val(image_string);
+					$('#type').val('images');
+
+				}								
+            };	                
+
+			//to sho user uploded img on add role page
+			if($('.user-img-preview').length)
+			{
+				$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
+			}
+		}
+		else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image'))
+		{
+			if(current_outlet == 'instagram' ){
+				alert(language_message.insta_video_not_allowed);
+				return false;
+			}
+
+			if( file.size > upload_limit[current_outlet].video){
+				alert(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB');				
+				return false;
+			}
+
+
+
+			if($('.form__file-preview').length >= 1){
+
+				if(file_type[0] =='video'){
+					alert(language_message.video_upload_error);
+					return false;
+					// alert(language_message.video_upload_error);
+				}else{
+					alert(language_message.invalid_extention);
+					return false;
+					// alert(language_message.invalid_extention);
+				}
+			}else{
+				if($(fileInput).parents('.brand-image').length)
+				{
+					$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+					all_images = [];
+				}
+				if($(fileInput).parents('.user_upload_img_div').length)
+				{
+					$(fileInput).parents('.brand-image').children('.form__file-preview').remove();
+					$('.remove-user-img').show();
+					all_images =[];
+				}
+
+				var video = document.createElement('video');
+				video.className = 'form__file-preview';									
+				var videoDiv = document.createElement('div');
+				videoDiv.className = 'form__preview-wrapper';
+				$(videoDiv).html('<i class="tf-icon-circle remove-upload">x</i>');
+				$(videoDiv).append(video);
+
+				$fileDiv.prepend(videoDiv).addClass('has-files');
+
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = function (e) {
+					video.src = e.target.result;
+					file.img_src = e.target.result;
+					all_images.push(file);
+					$('#type').val('video');
+                }
+
+				if($('.user-img-preview').length)
+				{
+					$('.user-img-preview').attr('src',window.URL.createObjectURL(file));
+				}
+			}							
+		}
+		else{
+			$fileDiv.parent().find('.upload-error').removeClass('hide');
+		}
+	});
+
+	//remove post media upload on icon click
+    $('body').on('click', '.form__input .remove-upload', function(){		    	
+		var $uploader = $(this).closest('.form__input');
+		var imgIndex;
+		var control = $(this).parent().find('img');
+		if($(this).data('deleteId'))
+		{
+			var deleted = $('#delete_img').val()
+			if(deleted)
+			{
+				$('#delete_img').val(deleted+','+$(this).data('delete-id'));
+			}
+			else
+			{
+				$('#delete_img').val($(this).data('deleteId'));
+			}
+		}
+
+		$(this).parent('.form__preview-wrapper').fadeOut(function() {
+			$.each(all_images,function(a,img){
+				if(img.img_src === $(control).attr('src'))
+				{
+					imgIndex = a;							
+					return;
+				}
+			});
+			all_images.splice(imgIndex, 1);
+			var image_string = all_images.join('__');
+			$('#all_images').val(image_string);
+
+			$(this).remove();
+			var $uploads = $uploader.find('.form__preview-wrapper');
+			if(!$uploads.length) {
+				$uploader.removeClass('has-files');
+			}
+		});
+    });
 
 	function setHrs(input, incDec) {
 		var newVal;

@@ -1,42 +1,6 @@
 var $ = jQuery;
 
 $(document).ready(function(){
-	
-	
-	if(jQuery("#edit_user_info").length)
-	{
-		$.fn.intlTelInput.loadUtils( "assets/js/vendor/utils.js");
-		var $phone_no = jQuery('#phone').val();
-		var telInput = $("#phone");
-		
-		telInput.intlTelInput({
-			dropdownContainer: "body",
-			geoIpLookup: function(callback) {
-				$.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-					var countryCode = (resp && resp.country) ? resp.country : "";
-					callback(countryCode);
-				});
-			},
-			initialCountry: "auto",
-			separateDialCode: true,
-			setNumber:$phone_no
-		});
-		// initialise plugin
-
-		// on blur: validate
-		telInput.blur(function() {
-			if ($.trim(telInput.val())) {
-			    if (telInput.intlTelInput("isValidNumber")) {
-			    	$(telInput).data('error','true');
-				    console.log( $(telInput).data('error'));
-			    }else{
-			    	console.log($(telInput).data('error'));
-			    	$(telInput).data('error','false');	
-		    	}
-		  	}
-		});
-
-	}
 
 	$('.change_plan').click(function(event) {
 		event.preventDefault();
@@ -324,6 +288,15 @@ $(document).ready(function(){
 				},500);
 			});
 			//alert(language_message.user_limit.replace('%user_number%',plan_data.users));
+		}
+	});
+
+	$(document).on('change','#userfileInput',function(event){
+		var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		reader.onload = function (e) {			
+			$('.circle-img').attr('src',e.target.result);
+			$('#user_pic_base64').val(e.target.result);
 		}
 	});
 	

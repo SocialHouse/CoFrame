@@ -16,7 +16,7 @@ $this->load->view('partials/brand_nav');
 		</div>
 	</div>
 	<?php //echo base_url()."co_create/save_post"; actio for this for is removed because it triggers save when click on mute button ?>
-	<form method="POST" id="<?php echo (isset($post_details) AND !empty($post_details)) ? 'edit-post-details' : 'post-details'; ?>" upload="<?php echo base_url()."posts/upload_co_create"; ?>" class="file-upload clearfix">	
+	<form method="POST" id="<?php echo (isset($post_details) AND !empty($post_details)) ? 'edit-post-details' : 'post-details'; ?>" upload="<?php echo base_url()."posts/upload_co_create"; ?>" class="file-upload clearfix co-create-form">	
 		<input type="hidden" id="post_type" name="post_type" value="cocreate">
 		<input type="hidden" name="cocreate_info_id" value="<?php echo (isset($post_details) AND !empty($post_details)) ? $post_details->id : '';?>" id="cocreate_info_id">
 		<input type="hidden" name="co_create_req_id" id="co_create_req_id" value="<?php echo $req_id; ?>">
@@ -86,14 +86,17 @@ $this->load->view('partials/brand_nav');
 
 			<?php 
 			if(isset($is_sender))
+			{
+				$this->data['is_cocreate'] = 1;
 				if(isset($post_details) AND !empty($post_details))
 				{
-					$this->load->view('co_create/edit_post_details');
+					$this->load->view('co_create/edit_post_details',$this->data);
 				}
 				else
 				{
-					$this->load->view('partials/post_details'); 
+					$this->load->view('partials/post_details',$this->data); 
 				}
+			}
 			else
 			{
 				?>
@@ -137,7 +140,7 @@ $this->load->view('partials/brand_nav');
 						</div>
 					</div>
 					<footer class="post-content-footer">
-						<button type="button" class="btn btn-sm btn-default btn-disabled" disabled>Schedule</button>
+						<button type="button" class="btn btn-sm btn-default schedule-cocreate">Schedule</button>
 						<button type="button" class="btn btn-sm btn-secondary pull-sm-right submit-btn">Post Now</button>
 					</footer>
 				</div>

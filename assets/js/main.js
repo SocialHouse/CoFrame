@@ -1504,10 +1504,10 @@ jQuery(function($) {
 				post_length = length + 23;
 			}
 
-			if($('.form__preview-wrapper img').length > 0)
-			{
-				post_length = post_length + 24;
-			}
+			// if($('.form__preview-wrapper img').length > 0)
+			// {
+			// 	post_length = post_length + 24;
+			// }
 		}
 
 		//$('.form__preview-wrapper img').length
@@ -2127,10 +2127,10 @@ function text_char_limit(outlet_const, limit){
 			chars = chars + 23;
 		}
 
-		if($('.form__preview-wrapper img').length > 0)
-		{
-			chars = chars + 24;
-		}
+		// if($('.form__preview-wrapper img').length > 0)
+		// {
+		// 	chars = chars + 24;
+		// }
 	}
 
 	limit = parseInt(limit);

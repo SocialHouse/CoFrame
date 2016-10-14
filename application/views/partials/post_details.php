@@ -169,34 +169,38 @@
 		<?php $this->load->view('partials/tumblr_post_types'); ?>
 
 		<div class="clearfix">
-			<div class="pull-sm-left">
-				<label>Slate Post:</label>
-				<div class="clearfix slate-post">
-					<div class="form-group form-inline pull-sm-left">
-						<div class="hide-top-bx-shadow">
-							<input  type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+			<?php
+			if(!isset($is_cocreate))
+			{
+				?>
+				<div class="pull-sm-left">
+					<label>Slate Post:</label>
+					<div class="clearfix slate-post">
+						<div class="form-group form-inline pull-sm-left">
+							<div class="hide-top-bx-shadow">
+								<input  type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-hasqtip="0">
+							</div>
 						</div>
-					</div>
-					<div class="form-group pull-sm-left">
-						<div class="pull-xs-left">
-							<label class="hidden">Post Time</label>
-							<div class="time-select form-control slate-time-div">
-								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
-								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
-								<input type="text" class="time-input amselect" name="post-ampm" value="am">
+						<div class="form-group pull-sm-left">
+							<div class="pull-xs-left">
+								<label class="hidden">Post Time</label>
+								<div class="time-select form-control slate-time-div">
+									<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" max="12" min="00" placeholder="HH">
+									<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" max="59" min="00"  placeholder="MM">
+									<input type="text" class="time-input amselect" name="post-ampm" value="am">
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="slate-post-errors">
-					<div id="date_error" class="error"></div>
-					<div id="hm_error" class="error"></div>
-				</div>
-				<div class="form-group slate-post-tz">
-					<select class="form-control" name="time_zone">
-						<!--  By default brand_timezone is selcted  -->
-						<option  selected="selected"  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
-						<?php 
+					<div class="slate-post-errors">
+						<div id="date_error" class="error"></div>
+						<div id="hm_error" class="error"></div>
+					</div>
+					<div class="form-group slate-post-tz">
+						<select class="form-control" name="time_zone">
+							<!--  By default brand_timezone is selcted  -->
+							<option  selected="selected"  data-abbreviation="<?php echo get_abbreviation($user_timezone['value']); ?>" value="<?php echo $user_timezone['value']; ?>"><?php echo $user_timezone['name']; ?></option>
+							<?php 
 							// Display remaining timezones
 							foreach ($timezones as $key => $obj) 
 							{
@@ -204,11 +208,12 @@
 								<option data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
 								<?php
 							}
-						?>
-					</select>
+							?>
+						</select>
+					</div>
 				</div>
-			</div>
-			<?php
+				<?php
+			}
 			if(!empty($tags))
 			{
 				?>

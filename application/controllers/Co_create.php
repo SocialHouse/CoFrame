@@ -110,6 +110,7 @@ class Co_create extends CI_Controller {
 							$this->data['post_details'] = $this->post_model->get_cocreate_post($request[0]->id);
 							$this->data['draft'] = $this->timeframe_model->get_data_by_condition('posts',array('cocreate_post_id' => $this->data['post_details']->id),'id');
 							$this->data['post_images'] = $this->post_model->get_images($this->data['draft'][0]->id);
+							$this->data['selected_tags'] = $this->post_model->get_post_tags($this->data['draft'][0]->id);
 							$this->data['slug'] = $slug;
 						}
 					}
@@ -280,7 +281,7 @@ class Co_create extends CI_Controller {
 		$this->data = array();
 		$error = '';
 		$uploaded_files = array();
-		$post_data = $this->input->post();
+		$post_data = $this->input->post();		
 		if(!empty($post_data))
 		{
 			if(!empty($post_data['brand_id']))
@@ -302,7 +303,6 @@ class Co_create extends CI_Controller {
 	    						'content' => $this->input->post('post_copy'),
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id
 	    					);
     				$outlet = strtolower(get_outlet_by_id($post_data['post_outlet']));
@@ -340,7 +340,6 @@ class Co_create extends CI_Controller {
 	    						'tumblr_text_content' => $post_data['tumblr_post_copy'],
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_text_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_text_url'],
@@ -363,7 +362,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_photo_tags'],
 	    						'tumblr_caption' => $post_data['tbCaption'],
@@ -387,7 +385,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_quote_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_quote_url'],
@@ -410,7 +407,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_link' => $post_data['tbLink'],
 	    						'tumblr_custom_url' => $post_data['tb_link_url'],
@@ -434,7 +430,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_chat_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_chat_url'],
@@ -458,7 +453,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_audio_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_audio_url'],
@@ -482,7 +476,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'tumblr_tags' => $post_data['tb_video_tags'],
 	    						'tumblr_custom_url' => $post_data['tb_video_url'],
@@ -560,12 +553,14 @@ class Co_create extends CI_Controller {
     				$participant_html = '';
     				if($inserted_id)
 			    	{
+			    		$this->timeframe_model->delete_data('post_tags',array('post_id' => $post_id));
+
 			    		if(!empty($post_data['post_tag']))
 			    		{
 			    			foreach($post_data['post_tag'] as $tag)
 			    			{
 			    				$post_tag_data = array(
-			    										'post_id' => $inserted_id,
+			    										'post_id' => $post_id,
 			    										'brand_tag_id' => $tag
 			    									);
 			    			
@@ -688,7 +683,6 @@ class Co_create extends CI_Controller {
 	    						'content' => $this->input->post('post_copy'),
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s')
@@ -728,7 +722,6 @@ class Co_create extends CI_Controller {
 	    						'tumblr_text_content' => $post_data['tumblr_post_copy'],
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -741,7 +734,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -755,7 +747,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -770,7 +761,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -784,7 +774,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -799,7 +788,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -813,7 +801,6 @@ class Co_create extends CI_Controller {
     						$post = array(	    						
 	    						'brand_id' => $post_data['brand_id'],
 	    						'outlet_id' =>$post_data['post_outlet'],
-	    						'time_zone'=>$post_data['time_zone'],
 	    						'user_id' =>$this->user_id,
 	    						'status' => $status,
 	    						'updated_at' => date('Y-m-d H:i:s'),
@@ -886,7 +873,6 @@ class Co_create extends CI_Controller {
 		    										'brand_id' => $post_data['brand_id'],
 		    										'post_id' => $inserted_id,
 		    										'approve_by' => $approve_date_time,
-		    										'time_zone' => $phase['time_zone'],
 			    									'note' => $phase['note']
 		    									);
 		    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
@@ -946,7 +932,6 @@ class Co_create extends CI_Controller {
 			    										'brand_id' => $post_data['brand_id'],
 			    										'post_id' => $inserted_id,
 			    										'approve_by' => $approve_date_time,
-			    										'time_zone' => $phase['time_zone'],
 				    									'note' => $phase['note']
 			    									);
 			    						$phase_insert_id = $this->timeframe_model->insert_data('phases',$phase_data);
@@ -1147,6 +1132,66 @@ class Co_create extends CI_Controller {
 						$this->timeframe_model->insert_data('cocreate_approvers',array('user_id' => $user_id,'cocreate_post_id' => $post[0]->id));
 					}
 				}
+			}			
+		}
+	}
+
+	function schedule($brand_id)
+	{
+		$this->load->model('user_model');
+		$brand = $this->timeframe_model->get_data_by_condition('brands',array('id' => $brand_id),'timezone');
+		$this->data['timezones'] = $this->user_model->get_timezones();
+		foreach ($this->data['timezones']  as $key => $values) 
+		{
+			if($brand[0]->timezone  == $values->value)
+			{
+				$this->data['brand_timezone'] = array(
+										'name' =>  $values->timezone,
+										'value' => $values->value
+										);
+				unset($this->data['timezones'] [$key]);
+			}
+			
+			if($this->user_data['timezone'] == $values->value)
+			{
+				$this->data['user_timezone'] = array(
+									'name' =>  $values->timezone,
+									'value' => $values->value
+									);
+				if($brand[0]->timezone  != $this->user_data['timezone'] )
+				{
+					unset($this->data['timezones'] [$key]);
+				}
+			}
+		}
+		echo $this->load->view('co_create/schedule',$this->data,true);
+	}
+
+	function schedule_post()
+	{
+		$post_data = $this->input->post();
+		if(!empty($post_data['post_id']))
+		{
+			$post = $this->timeframe_model->get_data_by_condition('posts',array('id' => $post_data['post_id']),'cocreate_post_id,brand_id');
+
+			$date_time =  date('Y-m-d H:i:s',strtotime($post_data['date'].' '.add_leading_zero($post_data['hour']).':'.add_leading_zero($post_data['minute']).' '.$post_data['ampm']));
+
+			$this->timeframe_model->update_data('posts',array('status' => 'pending','cocreate_post_id' => NULL,'slate_date_time' => $date_time),array('id' => $post_data['post_id']));
+			
+			if(!empty($post))
+			{
+				$brand = $this->timeframe_model->get_data_by_condition('brands',array('id' => $post[0]->brand_id),'slug');
+
+				// $request = $this->timeframe_model->get_data_by_condition('cocreate_post_info',array('id' => $post[0]->cocreate_post_id),'request_id');
+				// if(!empty($request))
+				// {
+				// 	$this->timeframe_model->delete_data('co_create_request',array('id' => $request[0]->request_id));					
+				// }
+
+				// $this->timeframe_model->delete_data('cocreate_approvers',array('id' => $post[0]->cocreate_post_id));
+				// $this->timeframe_model->delete_data('cocreate_post_info',array('cocreate_post_id' => $post[0]->cocreate_post_id));
+				$this->session->set_userdata( 'selected_date' , $date_time);			    		
+				echo json_encode(array('response'=>base_url().'calendar/day/'.$brand[0]->slug));
 			}			
 		}
 	}

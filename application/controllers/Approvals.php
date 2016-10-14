@@ -784,7 +784,6 @@ class Approvals extends CI_Controller {
 					$tags_to_add = array_diff($post_data['post_tag'],$selected_tags_ids); // new tags to add 
 		        	
 		        	$tags_to_delete = array_diff($selected_tags_ids,$post_data['post_tag']); // old tags that we want to remove 
-		        	print_r($tags_to_delete);
 		        	foreach ($tags_to_delete as $tag)
 		        	{
 		        		$condition = array('brand_tag_id' => $tag,'post_id' => $post_data['post_id']);
@@ -808,5 +807,65 @@ class Approvals extends CI_Controller {
 			$brand = $this->brand_model->get_brand_by_id($post_data['brand_id']);
 			redirect(base_url().'posts/edit_post/approvals/'.$brand->slug.'/'.$post_data['post_id']);
 		}
+	}
+
+	function save_mobile_post()
+	{
+		$post_data = $this->input->post();
+		echo "<pre>";
+		print_r($post_data);
+		if(!empty($post_data))
+		{
+			if(!empty($post_data['delete_img']))
+			{
+				$delete_image_array = explode(',', $post_data['delete_img']);
+				foreach($delete_image_array as $img)
+				{
+					$this->timeframe_model->delete_data('post_media',array('id' => $img));
+				}
+			}
+		}
+		if(!empty($post_data['images']))
+		{
+			$files = explode('___', $_POST['images']);
+			if(!empty($files))
+			{
+				foreach($files as $file)
+				{
+					$image_name = uniqid().'.png';					
+	    		  	$base64_str = substr($file, strpos($file, ",")+1);
+
+		        	//decode base64 string
+			        $decoded = base64_decode($base64_str);
+
+			        //create jpeg from decoded base 64 string and save the image in the parent folder
+			        if(!is_dir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts')){
+			        	mkdir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts',0755,true);
+			        }
+			        echo $url = upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts'.$image_name;
+			        $result = file_put_contents($url, $decoded);
+			        // $source_url = imagecreatefrompng($url);
+
+			        // header('Content-Type: image/png');
+			        // imagepng($source_url, $url, 8);
+
+			        $post_media_data = array(
+											'post_id' 	=> $post_data['post_id'],
+											'name' 		=> $image_name,
+											'type' 		=> $post_data['type']
+										);
+			        if($post_data['type'] == 'images')
+			        {
+			        	$post_media_data['mime'] = 'image/jpeg';
+			        }
+			        else
+			        {
+			        	$post_media_data['mime'] = 'video/mp4';
+			        }
+					$this->timeframe_model->insert_data('post_media',$post_media_data);
+				}
+			}
+		}		
+		
 	}
 }

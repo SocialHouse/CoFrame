@@ -93,6 +93,61 @@ $(document).ready(function() {
 			publisher.publishVideo(false);	
 		}		
 	});
+
+	$(document).on('click','.schedule_cocreate',function(event){
+		event.preventDefault();
+		var error_display = false;
+		$error_div = $('#reschedule_error');
+		$('#reschedule_error').hide();
+		$('#reschedule_error').empty();
+
+		edit_date = $('#reschedule_day').val();
+		edit_hour = $('#edit_hour').val();
+		edit_minute = $('#edit_minute').val();
+		edit_ampm = $('#edit_ampm').val();
+
+		if(edit_date != '' && edit_hour != '' && edit_minute != '' && edit_ampm != ''){
+			var selected_date = edit_date+' '+edit_hour+':'+edit_minute+' '+edit_ampm;
+			var today = moment().format("YYYY-MM-DD H:mm");
+
+			selected_date = moment(new Date (selected_date)).format('YYYY-MM-DD H:mm');
+
+			if(moment(selected_date).isAfter(today)){
+				error_display = false;
+			}else{
+				message = 'please select valid date and time';
+				error_display = true;
+			}
+		}else{
+			message = 'please select date, hour and time';
+			error_display = true;
+		}
+
+		if(error_display){
+			$error_div.text(message);
+			$error_div.removeClass('hide');
+			$error_div.show();
+			
+		}else{
+			
+			$error_div.text('');
+			$error_div.hide();
+			$.ajax({
+				url:base_url+'co_create/schedule_post',
+				data:{'post_id': $('#post_id').val(),'timezone': $('[name="time_zone"]').val(),'date':edit_date,'hour':edit_hour,'minute':edit_minute,'ampm':edit_ampm},
+				type:'POST',
+				dataType:'json',
+				success:function(response)
+				{
+					if(response.response)
+					{						
+						window.location.href = response.response;
+					}
+				}
+			});
+		}
+
+	});
 });	
 
 

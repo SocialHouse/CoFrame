@@ -287,60 +287,64 @@
 
 		<?php $this->load->view('partials/tumblr_post_types'); ?>
 		
-		<div class="clearfix">
-			<div class="pull-sm-left">
-				<label>Slate Post:</label>
-				<div class="slate-post clearfix">
-					<div class="form-group form-inline pull-sm-left">
-						<div class="hide-top-bx-shadow">
-							<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
+		<div class="clearfix">			
+			<?php
+			if(!isset($is_cocreate))
+			{
+				?>
+				<div class="pull-sm-left">
+					<label>Slate Post:</label>
+					<div class="slate-post clearfix">
+						<div class="form-group form-inline pull-sm-left">
+							<div class="hide-top-bx-shadow">
+								<input type="text" class="form-control popover-toggle single-date-select" name="post-date" placeholder="DD/MM/YYYY" data-toggle="popover-calendar" data-popover-id="calendar-select-date" data-popover-class="popover-clickable popover-sm future-dates-only" data-attachment="bottom left" data-target-attachment="top left" data-popover-width="300" data-popover-container="#edit-post-details" value="<?php echo !empty($post_details->slate_date_time) ? date('m/d/Y' , strtotime($post_details->slate_date_time)) : ''; ?>" >
+							</div>
 						</div>
-					</div>
-					<div class="form-group pull-sm-left">
-						<div class="pull-xs-left">
-							<label class="hidden">Post Time</label>
-							<div class="time-select form-control slate-time-div">
-								<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
-								<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
-								<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
+						<div class="form-group pull-sm-left">
+							<div class="pull-xs-left">
+								<label class="hidden">Post Time</label>
+								<div class="time-select form-control slate-time-div">
+									<input type="text" class="time-input hour-select" name="post-hour" data-min="1" data-max="12" placeholder="HH" value="<?php echo date('h' , strtotime($post_details->slate_date_time)); ?>">
+									<input type="text" class="time-input minute-select" name="post-minute" data-min="0" data-max="59" placeholder="MM" value="<?php echo date('i' , strtotime($post_details->slate_date_time)); ?>">
+									<input type="text" class="time-input amselect" name="post-ampm"  value="<?php echo date('A' , strtotime($post_details->slate_date_time)); ?>">
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="slate-post-errors">
-					<div id="date_error" class="error"></div>
-					<div id="hm_error" class="error"></div>
-				</div>
-				<div class="form-group slate-post-tz">
-					<select class="form-control" name="time_zone">
-						<?php 
-						foreach ($timezones as $key => $obj) {
-							$selected_tz = '';
-							if(!empty($post_details->time_zone))
-							{
-								if( $obj->value == $post_details->time_zone ){
-									$selected_tz = 'selected="selected"';
-								}
-							}
-							else
-							{
-								if( $obj->value == $this->user_data['timezone'])
+					<div class="slate-post-errors">
+						<div id="date_error" class="error"></div>
+						<div id="hm_error" class="error"></div>
+					</div>
+					<div class="form-group slate-post-tz">
+						<select class="form-control" name="time_zone">
+							<?php 
+							foreach ($timezones as $key => $obj) {
+								$selected_tz = '';
+								if(!empty($post_details->time_zone))
 								{
-									$selected_tz = 'selected = "selected"';
+									if( $obj->value == $post_details->time_zone ){
+										$selected_tz = 'selected="selected"';
+									}
 								}
+								else
+								{
+									if( $obj->value == $this->user_data['timezone'])
+									{
+										$selected_tz = 'selected = "selected"';
+									}
+								}
+								?>
+								<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
+								<?php
 							}
 							?>
-							<option <?php echo $selected_tz ;?> data-abbreviation="<?php echo $obj->abbreviation; ?>" value="<?php echo $obj->value; ?>"><?php echo $obj->timezone; ?></option>
-							<?php
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<?php
+						</select>
+					</div>
+				<?php
+			}
 			if(!empty($tags))
 			{
-			?>
+				?>
 				<div class="form-group form-inline pull-xl-right">
 					<label>Tags:</label><br>
 					<div class="hide-top-bx-shadow">
