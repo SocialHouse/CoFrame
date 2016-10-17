@@ -812,60 +812,78 @@ class Approvals extends CI_Controller {
 	function save_mobile_post()
 	{
 		$post_data = $this->input->post();
-		echo "<pre>";
-		print_r($post_data);
-		if(!empty($post_data))
+		// print_r($post_data);
+		if(isset($_FILES['file']['name'][0]))
+		{
+			$files = $_FILES['file'];
+			
+			$files_count = count($files['tmp_name']);
+			$error = '';
+			if($files_count > 0)
+			{
+				for($i = 0;$i < $files_count; $i++)
+				{
+					if(!empty($files['name'][$i]))
+					{
+				        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+				        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+				        $randname = uniqid().'.'.$ext;
+				        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+				        $status = upload_file('uploadedimage',$randname,$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts');
+				      
+				        if(array_key_exists("upload_errors",$status))
+				        {
+				        	$error =  $status['upload_errors'];
+				        	break;
+				        }
+				        else
+				        {
+				        	$uploaded_files[$i]['name'] = $status['file_name'];
+				        	$uploaded_files[$i]['type'] = 'images';
+				        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];
+				        	$uploaded_files[$i]['post_id'] = $post_data['post_id'];	        	
+				        	
+				        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+				        	{
+				        		$uploaded_files[$i]['type'] = 'video';
+				        	}
+
+				        	$this->timeframe_model->insert_data('post_media',$uploaded_files[$i]);
+				        }
+				    }
+				}
+			}		
+		}
+
+		if(isset($error) AND !empty($error))
+		{
+			echo json_encode(array('response' => 'fail'));
+		}
+		else
 		{
 			if(!empty($post_data['delete_img']))
 			{
-				$delete_image_array = explode(',', $post_data['delete_img']);
-				foreach($delete_image_array as $img)
+				if(!empty($post_data['delete_img']))
 				{
-					$this->timeframe_model->delete_data('post_media',array('id' => $img));
+					$delete_image_array = explode(',', $post_data['delete_img']);
+					foreach($delete_image_array as $img)
+					{
+						$this->timeframe_model->delete_data('post_media',array('id' => $img));
+					}
 				}
 			}
-		}
-		if(!empty($post_data['images']))
-		{
-			$files = explode('___', $_POST['images']);
-			if(!empty($files))
+			$post_copy = $post_data['post_copy'];
+			$num = stripos($post_copy,'<textarea id');
+			if($num > 0)
 			{
-				foreach($files as $file)
-				{
-					$image_name = uniqid().'.png';					
-	    		  	$base64_str = substr($file, strpos($file, ",")+1);
-
-		        	//decode base64 string
-			        $decoded = base64_decode($base64_str);
-
-			        //create jpeg from decoded base 64 string and save the image in the parent folder
-			        if(!is_dir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts')){
-			        	mkdir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts',0755,true);
-			        }
-			        echo $url = upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts'.$image_name;
-			        $result = file_put_contents($url, $decoded);
-			        // $source_url = imagecreatefrompng($url);
-
-			        // header('Content-Type: image/png');
-			        // imagepng($source_url, $url, 8);
-
-			        $post_media_data = array(
-											'post_id' 	=> $post_data['post_id'],
-											'name' 		=> $image_name,
-											'type' 		=> $post_data['type']
-										);
-			        if($post_data['type'] == 'images')
-			        {
-			        	$post_media_data['mime'] = 'image/jpeg';
-			        }
-			        else
-			        {
-			        	$post_media_data['mime'] = 'video/mp4';
-			        }
-					$this->timeframe_model->insert_data('post_media',$post_media_data);
-				}
+				$post_copy =  substr($post_data['post_copy'], 0, $num);
 			}
-		}		
-		
+			$this->timeframe_model->update_data('posts',array('content' => $post_copy),array('id' => $post_data['post_id']));
+
+			echo json_encode(array('response' => 'success'));
+		}
 	}
 }

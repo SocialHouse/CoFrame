@@ -478,7 +478,7 @@
 					// return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
-						if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
+						if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'post_copy')
 				        	ajaxData.append(input.name,input.value);
 				    });
 				   

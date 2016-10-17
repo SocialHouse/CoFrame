@@ -61,6 +61,49 @@ jQuery(function($) {
 	});
 	
 	$('body').on('click', '.outlet-list li:not(.filter)', function(e) {
+		var outlet_const = $(this).data('selected-outlet');
+		var video_count = $('.form__preview-wrapper video').length;
+		var all_images = $('.form__preview-wrapper img').length;
+		
+		if (outlet_const === 'vine' || outlet_const === 'youtube') {
+			if ($('.form__preview-wrapper img').length) {
+				if (outlet_const === 'youtube') {
+					alert(language_message.youtube_outlet_change_error);
+					return false;
+				} else {
+					alert(language_message.vine_outlet_change_error);
+					return false;
+				}
+				
+			}				
+		}
+
+		if (outlet_const == 'instagram') {
+			if ($('.form__preview-wrapper video').length) {
+				alert(language_message.insta_outlet_change_error);
+				return false;
+			}
+
+			if ($('.form__preview-wrapper img').length > 1) {
+				alert(language_message.insta_outlet_change_img_error);
+				return false;
+			}
+		}
+
+		if (outlet_const == 'linkedin') {			
+			if ($('.form__preview-wrapper img').length > 1) {
+				alert(language_message.linkedin_outlet_change_error);
+				return false;
+			}
+		}
+
+		if (outlet_const == 'pinterest') {			
+			if ($('.form__preview-wrapper img').length > 1) {
+				alert(language_message.pinterest_outlet_change_error);
+				return false;
+			}
+		}
+
 		$(this).toggleClass('disabled');
 		$(this).siblings().addClass('disabled');
 		$('#postOutlet').val($(this).data('outlet-id'));
@@ -120,6 +163,7 @@ jQuery(function($) {
 			setAmPm(relatedInput);
 		}
 	});
+
 	$('body').on('keydown', '.time-input', function(e) {
 		var incDec;
 		//up arrow pressed
@@ -144,6 +188,7 @@ jQuery(function($) {
 			setAmPm(input);
 		}
 	});
+
 	var supported_files = ['gif','png','jpg','jpeg','mp4'];
 	var all_images = [];
 	$(document).on('change','#postFile',function(event){
@@ -190,14 +235,14 @@ jQuery(function($) {
 
 
 			if($fileDiv.find('video').length > 0){
-				getConfirm(language_message.invalid_extention,'','alert',function(confResponse) {});
+				alert(language_message.img_vid_error);
 				return false;
 			}
 
 			var reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function (e) {
-				if(all_images.length == 5 && current_outlet == 'twitter')
+				if(img_count == 5 && current_outlet == 'twitter')
 				{
 					alert(language_message.twitter_img_allowed);
 					return false;
@@ -221,14 +266,14 @@ jQuery(function($) {
 					return false;
 				}
 
-				if(all_images.length == 2 && (current_outlet == 'instagram' || current_outlet == 'linkedin' || current_outlet == 'pinterest'))
+				if(img_count == 2 && (current_outlet == 'instagram' || current_outlet == 'linkedin' || current_outlet == 'pinterest'))
 				{
 					var message = language_message.insta_img_allowed;
-					if(outlet_const == 'linkedin')
+					if(current_outlet == 'linkedin')
 					{
 						message = language_message.linkedin_img_allowed;
 					}
-					else if(outlet_const == 'pinterest')
+					else if(current_outlet == 'pinterest')
 					{
 						message = language_message.pinterest_img_allowed;
 					}
@@ -254,11 +299,6 @@ jQuery(function($) {
 					img.src = e.target.result;
 					file.img_src = e.target.result;
 					all_images.push(file);
-					
-					var image_string = all_images.join('___');
-					$('#all_images').val(image_string);
-					$('#type').val('images');
-
 				}								
             };	                
 
@@ -284,14 +324,17 @@ jQuery(function($) {
 
 			if($('.form__file-preview').length >= 1){
 
+				if($('.form__preview-wrapper img').length > 0 && file_type[0] =='video')
+				{
+					alert(language_message.img_vid_error);
+					return false;
+				}
 				if(file_type[0] =='video'){
 					alert(language_message.video_upload_error);
 					return false;
-					// alert(language_message.video_upload_error);
 				}else{
 					alert(language_message.invalid_extention);
 					return false;
-					// alert(language_message.invalid_extention);
 				}
 			}else{
 				if($(fileInput).parents('.brand-image').length)
@@ -321,7 +364,6 @@ jQuery(function($) {
 					video.src = e.target.result;
 					file.img_src = e.target.result;
 					all_images.push(file);
-					$('#type').val('video');
                 }
 
 				if($('.user-img-preview').length)
@@ -362,13 +404,60 @@ jQuery(function($) {
 				}
 			});
 			all_images.splice(imgIndex, 1);
-			var image_string = all_images.join('__');
-			$('#all_images').val(image_string);
 
 			$(this).remove();
 			var $uploads = $uploader.find('.form__preview-wrapper');
-			if(!$uploads.length) {
-				$uploader.removeClass('has-files');
+			// if(!$uploads.length) {
+			// 	 $uploader.removeClass('has-files');
+			// }
+		});
+    });
+
+    $(document).on('click','.update-post',function(){
+    	var $form = $('.edit-post');
+    	var ajaxData = new FormData( $form.get( 0 ) );
+    	if( all_images ){
+			var file_count = 0;
+			$.each( all_images, function( i, file ){
+				if(typeof(file) == 'object' && file.name){
+					ajaxData.append( 'file['+file_count+']',file,file.name);
+					file_count++;
+				}
+				
+			});
+		}
+
+		var other_data = $('form').serializeArray();
+		$.each(other_data,function(key,input){
+			if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
+	        	ajaxData.append(input.name,input.value);
+	    });
+
+	    // ajax request
+		$.ajax({
+			url: 			$form.attr( 'action' ),
+			type:			$form.attr( 'method' ),
+			data: 			ajaxData,
+			dataType:		'json',
+			cache:			false,
+			contentType:	false,
+			processData:	false,
+			complete: function(){
+				$form.removeClass( 'is-uploading' );
+			},
+			success: function( data ){
+				if(data.response == 'fail')
+				{
+					alert(language_message.edit_post_fail);
+				}
+				else
+				{
+					location.reload();
+				}
+			},
+			error: function(){
+				alert(language_message.upload_error);
+				return false;
 			}
 		});
     });

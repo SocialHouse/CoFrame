@@ -220,5 +220,6 @@
 	$lang['no_fb_page'] = "Currently there is no facebook page associalted with your account please add it first.";
 
 	$lang['no_post_found'] = 'There are no posts slated for this day';
-	
+	$lang['edit_post_fail'] = 'Unbable to upload image please try again';
+	$lang['img_vid_error'] = 'You can not upload image and video together';
 ?>

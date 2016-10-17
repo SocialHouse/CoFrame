@@ -2,9 +2,10 @@
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Edit Post</h1>
 	</header>
-	<form method="post" action="<?php echo base_url().'approvals/save_mobile_post'; ?>" enctype="multipart/formdata">
+	<form method="post" action="<?php echo base_url().'approvals/save_mobile_post'; ?>" enctype="multipart/formdata" class="edit-post">
 		<input type="hidden" name="post_id" value="<?php echo $post_details->id; ?>">
 		<input type="hidden" name="brand_id" value="<?php echo $post_details->brand_id; ?>">
+		<input type="hidden" name="post_user_id" value="<?php echo $post_details->user_id; ?>">
 		<input type="hidden" name="type" id="type">
 		<div class="bg-white col-sm-12 content-shadow brand-main">
 			<div class="content-shadow brand-header row">
@@ -20,8 +21,8 @@
 					?>
 				</div>
 				<div class="col-md-2">
-<!-- 					<button class="btn btn-sm btn-primary update-post">Update</button>
- -->				</div>
+					<button type="button" class="btn btn-sm btn-primary update-post">Update</button>
+				</div>
 			</div>
 			<form>
 				<ul class="timeframe-list full-width-list edit-post">
@@ -73,7 +74,7 @@
 					echo $title;
 					?>
 					
-					<textarea id="postContent" class="hidden"><?php echo $title; ?></textarea>
+					<textarea id="postContent" name="post_copy" class="hidden"><?php echo $title; ?></textarea>
 					</li>
 					<li>
 					<div class="form-group" id="mediaUpload">
@@ -92,7 +93,7 @@
 										$class++;
 									}
 									else if($key->type =='video'){
-										echo '<video class="form__file-preview"src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video>';
+										echo '<div class="form__preview-wrapper"><i data-delete-id="'.$key->id.'" class="tf-icon-circle remove-upload">x</i><video class="form__file-preview"src="'.base_url().'uploads/'.$this->user_data['account_id'].'/brands/'.$post_details->brand_id.'/posts/'. $key->name.'"></video></div>';
 									}										
 	                            }                           
 							}	
