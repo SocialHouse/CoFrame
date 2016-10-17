@@ -251,12 +251,11 @@ jQuery(function($) {
 				{					
 					if(current_outlet == 'youtube')
 					{
-						alert(language_message.youtube_outlet_change_error);
-						return false;
+						alert(language_message.youtube_outlet_change_error);						
 					}else{
 						alert(language_message.vine_outlet_change_error);						
-						return false;
 					}
+					return false;
 					
 				}
 
@@ -326,16 +325,14 @@ jQuery(function($) {
 
 				if($('.form__preview-wrapper img').length > 0 && file_type[0] =='video')
 				{
-					alert(language_message.img_vid_error);
-					return false;
+					alert(language_message.img_vid_error);					
 				}
 				if(file_type[0] =='video'){
-					alert(language_message.video_upload_error);
-					return false;
+					alert(language_message.video_upload_error);					
 				}else{
-					alert(language_message.invalid_extention);
-					return false;
+					alert(language_message.invalid_extention);					
 				}
+				return false;
 			}else{
 				if($(fileInput).parents('.brand-image').length)
 				{
