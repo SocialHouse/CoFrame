@@ -85,8 +85,38 @@ jQuery(function($) {
 	});
 	
 	$('#selectedFilters').on('click', '.filter-remove', function() {
-		var filterVal = $(this).data('value');
-		$('.post-filters').find('.filter[data-value="' + filterVal + '"]').click();
+		var current = this;
+		var inclusives = [];
+		var outlet_ids = [];
+		var statuses = [];
+		var tags = [];
+
+		$('#selectedFilters .filter-list .filter-remove').each( function() {
+			if($(this).data('id'))
+			{
+				if($(current).data('id') != $(this).data('id'))
+					outlet_ids.push( $(this).data('id') );
+			}
+
+			if($(this).data('status'))
+			{
+				if($(current).data('status') != $(this).data('status'))
+					statuses.push( $(this).data('status') );
+			}
+
+			if($(this).data('tag-id'))
+			{
+				if($(current).data('tag-id') != $(this).data('tag-id'))
+					tags.push($(this).data('tag-id'));
+			}
+		});
+		$('#statuses_ids').val(statuses)
+		$('#tags_ids').val(tags);
+		$('#outlets_ids').val(outlet_ids);
+
+		setTimeout(function(){
+			$('#filter-form-remove').submit();
+		},100);		
 	});
 
 	function filterPosts() {
@@ -157,14 +187,21 @@ jQuery(function($) {
 				}
 			}
 		});
+		$('#statuses').val(statuses)
+		$('#tags').val(tags);
+		$('#outlets').val(outlet_ids);
 
-		$.ajax({
-			url:base_url+'calendar/save_filters',
-			type:'POST',
-			data:{tags:tags,outlets:outlet_ids,statuses:statuses,brand_id:$('#filter_brand_id').val(),filter_id:filter_id},
-			success:function(response){
+		setTimeout(function(){
+			$('#filter-form').submit();
+		},100);
+		
+		// $.ajax({
+		// 	url:base_url+'calendar/save_filters',
+		// 	type:'POST',
+		// 	data:{tags:tags,outlets:outlet_ids,statuses:statuses,brand_id:$('#filter_brand_id').val(),filter_id:filter_id},
+		// 	success:function(response){
 
-			}
-		});
+		// 	}
+		// });
 	}
 });

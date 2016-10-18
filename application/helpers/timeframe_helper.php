@@ -49,7 +49,7 @@ if(!function_exists('_render_view'))
                 $CI->data['error'] = $data['error'];
             }
 
-            $mobile_view = '';
+            $mobile_view = 'mobile/';
             $CI->load->library('user_agent');
             if($CI->agent->is_mobile())
             {

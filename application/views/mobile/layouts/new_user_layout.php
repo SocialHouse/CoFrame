@@ -5,8 +5,8 @@
 <title>Timeframe | Overview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
-<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/mobile_assets/css/style.css" media="all">
+<!-- <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/52d091f9-f8ff-4b93-9cd6-aeca0d7761f4.css"/>
+ --><link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/mobile_assets/css/style.css" media="all">
 <link href="<?php echo base_url(); ?>assets/mobile_assets/css/fullcalendar.css" rel="stylesheet">
 <script type='text/javascript' src='<?php echo base_url(); ?>assets/mobile_assets/js/vendor/modernizr.3.3.1.custom.js?ver=3.3.1'></script>
 <script type="text/javascript">

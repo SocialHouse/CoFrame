@@ -514,7 +514,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
-			$this->data['show_filter'] = 1;
+			// $this->data['show_filter'] = 1;
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['view'] = 'approvals/approval_menu';
@@ -532,6 +532,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,'',date('Y-m-d',strtotime('+1 days')));
 			
 			$this->data['approval_list'] = array();
@@ -560,6 +564,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+7 days')));
 			
 			$this->data['approval_list'] = array();
@@ -588,6 +596,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+1 month')));
 			
 			$this->data['approval_list'] = array();
@@ -616,6 +628,9 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+
+			$this->data['post_data'] = $this->input->post();			
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id);
 			
 			$this->data['approval_list'] = array();
@@ -884,6 +899,38 @@ class Approvals extends CI_Controller {
 			$this->timeframe_model->update_data('posts',array('content' => $post_copy),array('id' => $post_data['post_id']));
 
 			echo json_encode(array('response' => 'success'));
+		}
+	}
+
+	function search()
+	{
+		$get_data = $this->input->get();
+		if(!empty($get_data))
+		{
+			$brand = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $get_data['slug']));
+			if(!empty($brand))
+			{
+				$this->data['search'] = $get_data['search'];
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand'] = $brand[0];
+				$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,'','','',$get_data['search']);
+
+				$this->data['approval_list'] = array();
+				if(!empty($approvals))
+				{							
+					foreach($approvals as $approval)
+					{
+						$this->data['approval_list'][$approval->id] = $approval;
+					}
+				}
+				$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+				
+				$this->data['show_filter'] = 1;
+				$this->data['view'] = 'posts/search';
+				$this->data['layout'] = 'layouts/new_user_layout';
+
+		        _render_view($this->data);
+			}
 		}
 	}
 }
