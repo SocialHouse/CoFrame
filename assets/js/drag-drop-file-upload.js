@@ -132,7 +132,7 @@
 									
 								}
 
-								if(outlet_const == 'instagram' && file_type[0]== 'video')
+								if(outlet_const == 'instagram' && file.type == 'image/gif')
 								{
 									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
 									return false;
@@ -183,10 +183,10 @@
 
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-							if(outlet_const == 'instagram' ){
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
-								return false;
-							}
+							// if(outlet_const == 'instagram' ){
+							// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							// 	return false;
+							// }
 
 							if( file.size > upload_limit[outlet_const].video){
 								getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
@@ -304,11 +304,17 @@
 								return false;
 							}
 
-							if(outlet_const == 'instagram' && file_type[0]== 'video')
-							{
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
-								return false;
-							}
+							if(outlet_const == 'instagram' && file.type == 'image/gif')
+								{
+									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+									return false;
+								}
+
+							// if(outlet_const == 'instagram' && file_type[0]== 'video')
+							// {
+							// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							// 	return false;
+							// }
 
 							if( file_type[0]== 'image'){
 								if( file.size > upload_limit[outlet_const].image_size){
@@ -378,10 +384,10 @@
 				                }
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
-							if(outlet_const == 'instagram' ){
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
-								return false;
-							}							
+								// if(outlet_const == 'instagram' ){
+								// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+								// 	return false;
+								// }							
 
 								if( file.size > upload_limit[outlet_const].video){
 									getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
@@ -1292,6 +1298,27 @@
 
 				jQuery('#live-post-preview .twitter-img-div').prepend(video);
 				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .twitter-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .insta-img-div').prepend(video);
+				jQuery("#live-post-preview .insta-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .insta-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview video").css("width", "100%");
+				jQuery("#live-post-preview video").removeAttr('class');
+
+				jQuery('#live-post-preview .img-div').prepend(video);
+				jQuery("#live-post-preview .img-div video").css("width", "100%");
+				jQuery("#live-post-preview .img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .twitter-img-div').prepend(video);
+				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .twitter-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview .video-div video").css("width", "100%");
+				jQuery("#live-post-preview .video-div video").removeAttr('class');
 			});
 		}
 		else

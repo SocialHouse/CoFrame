@@ -208,7 +208,7 @@ class Calendar extends CI_Controller {
     	$this->data['tags'] = $this->post_model->get_brand_tags($brand_id);
     	$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand_id,'user_id' => $this->user_id));
     	
-    	$mobile_view = 'mobile/';
+    	$mobile_view = '';
         $this->load->library('user_agent');
         if($this->agent->is_mobile())
         {

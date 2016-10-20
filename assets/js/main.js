@@ -211,14 +211,25 @@ jQuery(function($) {
 
 
 			if (outlet_const == 'instagram') {
-				if ($('.form__preview-wrapper video').length) {
-					getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
-					return false;
-				}
+				// if ($('.form__preview-wrapper video').length) {
+				// 	getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
+				// 	return false;
+				// }
 
-				if ($('.form__preview-wrapper img').length > 1) {
+				if ($('.form__preview-wrapper img').length > 1) {					
 					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {});
 					return false;
+				}
+				else
+				{
+					if ($('.form__preview-wrapper img').length)
+					{
+						if($('.form__preview-wrapper img').attr('src').indexOf('gif') >= 0)
+						{
+							getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							return false;
+						}
+					}
 				}
 			}
 

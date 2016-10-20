@@ -429,7 +429,7 @@
 			var user_id = "<?php echo isset($user_id) ? $user_id : ''; ?>";
 			var verification_code = "<?php echo isset($verification_code) ? $verification_code : ''; ?>";
 			var is_user = "<?php echo isset($is_user) ? $is_user : ''; ?>";
-			var request_id = "<?php echo isset($request_id) ? $request_id : ''; ?>";request_error
+			var request_id = "<?php echo isset($request_id) ? $request_id : ''; ?>";
 			var request_error = "<?php echo isset($request_error) ? $request_error : ''; ?>";
 
 			jQuery(document).ready(function(){
