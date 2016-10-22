@@ -119,6 +119,10 @@
 	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records - please try again";
 
 	$lang['twitter_img_allowed'] = "You can upload a max of 4 images to one tweet.";
+	$lang['twitter_gif_error'] = "You can upload a max of 1 gif image to one tweet.";
+
+	$lang['twitter_gif_error_outlet_change'] = "You can upload a max of 1 gif to one tweet - please delete extra images or gif image.";
+
 	$lang['twitter_img_allowed_outlet_change'] = "You can upload a max of 4 images to one tweet - please delete extra images.";
 	$lang['vine_img_not_allwed'] = "Vine does not allow images - please upload a video.";
 	$lang['youtube_img_not_allwed'] = "Youtube does not allow images - please upload a video.";
@@ -213,6 +217,9 @@
 	$lang['tumblr_change_img_video_error'] = "Please delete images or video before switching to %Content_type%.";
 	$lang['tumblr_change_img_audio_error'] = "Please delete images or audio before switching to %Content_type%.";
 	$lang['tumblr_change_audio_video_error'] = "Please delete audio or video before switching to %Content_type%.";
+
+	$lang['tumblr_upload_video_error'] = "You can not upload video for the content type Photo.";
+	$lang['tumblr_upload_photo_error'] = "You can not upload photo for the content type Video.";	
 
 
 	$lang['suggesion_delete_confirm'] = "Are you sure you want to delete this comment?";

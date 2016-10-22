@@ -111,8 +111,22 @@
 
 							var reader = new FileReader();
 							reader.readAsDataURL(file);
-							reader.onload = function (e) {
-								
+							reader.onload = function (e) {								
+								if(outlet_const == 'tumblr')
+								{
+									if($('.content-list li:not(".disabled")').data('selected-content') == 'Video' && file_type != 'video')
+									{
+										getConfirm(language_message.tumblr_upload_photo_error,'','alert',function(confResponse) {});
+										return false;
+									}	
+								}
+
+								if(allFiles.length == 1 && outlet_const == 'twitter' && (allFiles[0].type == 'image/gif' || file.type == 'image/gif'))
+								{
+									getConfirm(language_message.twitter_gif_error,'','alert',function(confResponse) {});
+									return false;
+								}
+
 								if(allFiles.length == 4 && outlet_const == 'twitter')
 								{
 									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
@@ -187,6 +201,15 @@
 							// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
 							// 	return false;
 							// }
+
+							if(outlet_const == 'tumblr')
+							{
+								if($('.content-list li:not(".disabled")').data('selected-content') == 'Photo' && file_type != 'image')
+								{
+									getConfirm(language_message.tumblr_upload_video_error,'','alert',function(confResponse) {});
+									return false;
+								}
+							}
 
 							if( file.size > upload_limit[outlet_const].video){
 								getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
@@ -341,6 +364,11 @@
 								var reader = new FileReader();
 								reader.readAsDataURL(file);
 			                    reader.onload = function (e) {
+			                    	if(allFiles.length == 1 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter' && (allFiles[0].type == 'image/gif' || file.type == 'image/gif'))
+									{
+										getConfirm(language_message.twitter_gif_error,'','alert',function(confResponse) {});
+										return false;
+									}
 			                    	if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 									{
 										getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});

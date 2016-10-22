@@ -61,8 +61,7 @@ class Cron extends CI_Controller {
         // echo $this->db->last_query();
 
         // $posts = $this->post_model->get_post_by_date('','',date('Y-m-d'),'scheduled');
-        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));       
-        
+        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));     
         if(!empty($posts))
         {
             $previous_owner = '';
@@ -423,17 +422,25 @@ class Cron extends CI_Controller {
 
                         $reply = $this->connection->post('statuses/update', $parameters);                       
                         if(!isset($reply->errors))
-                        {                           
-                            $status_data = array(
-                                            'status' => 'posted'
-                                        );
-                            $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                        {
+                            $is_post_uploaded = 1;
                         }
                     }
                 }
-                return;
             }         
-        }        
+        }
+
+        if(isset($is_post_uploaded))
+        {
+            $status_data = array(
+                                'status' => 'posted'
+                            );
+            $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+        }
+        else
+        {
+            //send mail to creator that unable to updat post
+        }
     }
 
     public function youtube_post($post_data,$flag) {
@@ -620,16 +627,24 @@ class Cron extends CI_Controller {
 
                     if(!empty($image_url)){
                         $content['submitted-image-url'] = $image_url;
-                        $content['submitted-url']       = $image_url;
+                        // $content['submitted-url']       = $image_url;
                     }
 
-                    /*$content['submitted-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';
-                    $content['submitted-image-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';*/
+                    // $content['submitted-url'] = 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif';
+                    // $content['submitted-image-url'] = 'http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v';
                    
-                    $private = FALSE;
+                    $private = TRUE;
+                    if($post_data->share_with == 'public')
+                    {
+                        $private = TRUE;
+                    }
                     $twitter = FALSE;
                     $response = $this->linkedin->share('new', $content, $private, $twitter);
                     if($response['success'] === TRUE) {
+                        $status_data = array(
+                                            'status' => 'posted'
+                                        );
+                        $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
                      // echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
                     }else{
                         // send mail to creator 
@@ -667,7 +682,6 @@ class Cron extends CI_Controller {
         }
         
         if(!empty( $token )){
-            //echo 'got Token <br/>';
             $this->load->config('pinterest');
             $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
             $this->pinterest->auth->setOAuthToken($token['access_token']);
@@ -695,7 +709,6 @@ class Cron extends CI_Controller {
             // $this->session->userdata('fb_access_token', $access_token->getValue());
             $access_token = $this->session->userdata('fb_access_token');
             $fb_page_id = $this->session->userdata('fb_page_id');
-            echo 'In session <br/>';
         }
         else
         {
@@ -706,110 +719,139 @@ class Cron extends CI_Controller {
                 $fb_page_id = $is_key_exist->fb_page_id;
                 $this->session->set_userdata('fb_access_token',$access_token);
                 $this->session->set_userdata('fb_page_id',$fb_page_id);
-                echo 'Set session <br/>';
             }
             else
             {
-                echo 'record not found <br/>';     
+                $is_error = TRUE;
             }
         }
         if(!empty( $access_token ))
         {
-            $this->load->library('facebook');
-            $tags = array();
-            if(!empty($post_data->post_tags))
+            try
             {
-                $tags = implode(", @", array_column($post_data->post_tags, 'tag_name')) ;
-                $tags = '@'.$tags;
-            }
-            if ($this->facebook->is_authenticated())
-            {
-                $post_array = array();               
-                $all_images = $this->get_media($post_data->id,'images');
-                $all_videos = $this->get_media($post_data->id,'video',1);
-                
-                $user_info = $this->facebook->request('get', '/me?fields=accounts');
-                $page_token = $page_name = $page_id = '';
-                if (!isset($user_info['error']))
+                $this->load->library('facebook');
+                $tags = array();
+                if(!empty($post_data->post_tags))
                 {
-                    foreach ($user_info['accounts']['data'] as $key => $pages) {
-                        if( $pages['id'] == $fb_page_id)
-                        {
-                            $page_token = $pages['access_token'];
-                            $page_name = $pages['name'];
-                            $page_id = $pages['id'];
-                        }
-                        // echo '<pre>'; print_r($pages);echo '</pre>';
-                    }
+                    $tags = implode(", @", array_column($post_data->post_tags, 'tag_name')) ;
+                    $tags = '@'.$tags;
                 }
-                if(empty($page_token)){
-                    $page_id = 'me';
-                    $page_token = '';
-                }
-
-                if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
-                    $privacy = array(
-                        'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
-                    );
-                    $result = $this->facebook->request(
-                        'POST',
-                        $page_id.'/feed',
-                        ['message' => $post_data->content],
-                        $page_token
-                    );
-                    echo "only text is posted <br/>".json_encode($result);
-                }
-
-                $this->fb = $this->facebook->object();
-                
-                if(!empty($all_images))
+                if ($this->facebook->is_authenticated())
                 {
-                    if(count($all_images)>1){
-                        echo 'multiple ';
-                        $images =[];
-
-                        foreach ($all_images as $key => $img) {
-                            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
+                    $post_array = array();               
+                    $all_images = $this->get_media($post_data->id,'images');
+                    $all_videos = $this->get_media($post_data->id,'video',1);
+                    
+                    $user_info = $this->facebook->request('get', '/me?fields=accounts');
+                    $page_token = $page_name = $page_id = '';
+                    if (!isset($user_info['error']))
+                    {
+                        foreach ($user_info['accounts']['data'] as $key => $pages) {
+                            if( $pages['id'] == $fb_page_id)
                             {
-                                $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
-                                $images[$key]['img_url'] = str_replace("https://", "http://", $path);
-                                $images[$key]['desc']   = $post_data->content;
+                                $page_token = $pages['access_token'];
+                                $page_name = $pages['name'];
+                                $page_id = $pages['id'];
+                            }
+                            // echo '<pre>'; print_r($pages);echo '</pre>';
+                        }
+                    }
+
+                    if(empty($page_token)){
+                        $page_id = 'me';
+                        $page_token = '';
+                    }
+
+                    if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
+                        $privacy = array(
+                            'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
+                        );
+                        $result = $this->facebook->request(
+                            'POST',
+                            $page_id.'/feed',
+                            ['message' => $post_data->content],
+                            $page_token
+                        );
+
+                        if(isset($result['error']))
+                        {
+                            $is_error = TRUE;
+                        }
+                    }
+
+                    $this->fb = $this->facebook->object();
+                    
+                    if(!empty($all_images))
+                    {
+                        if(count($all_images)>1){
+                            $images =[];
+
+                            foreach ($all_images as $key => $img) {
+                                if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
+                                {
+                                    $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
+                                    $images[$key]['img_url'] = str_replace("https://", "http://", $path);
+                                    $images[$key]['desc']   = $post_data->content;
+                                }
+                            }
+                            
+                            $is_error = $this->facebook_upload_images($page_id, $images,$page_token);
+                        }else{
+                            // if only one image is present
+                            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name))
+                            {
+                                $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name;
+                                $result = $this->facebook->request(
+                                                    'POST',
+                                                    $page_id.'/photos',
+                                                    ['message' => $post_data->content,'picture' => $path,'source'  => $this->fb->fileToUpload($path)],
+                                                    $page_token
+                                                );
+                                if(isset($result['error']))
+                                {
+                                    $is_error = TRUE;
+                                }
+                            }else{                           
+                                $is_error = TRUE;
                             }
                         }
-                        
-                        $this->facebook_upload_images($page_id, $images,$page_token);
-                    }else{
-                        // if only one image is present
-                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name))
+                    }
+
+                    if(!empty($all_videos))
+                    {
+                        $videos = array();
+                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name))
                         {
-                            $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name;
-                            $result = $this->facebook->request(
-                                                'POST',
-                                                $page_id.'/photos',
-                                                ['message' => $post_data->content,'picture' => $path,'source'  => $this->fb->fileToUpload($path)],
-                                                $page_token
-                                            );
-                            echo json_encode($result);
-                        }else{
-                            echo '<br/> file not found <br/>';
+                            $videos['video_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name;
+                            $videos['desc']   = $post_data->content;
+                        }
+                        $response = $this->facebook_upload_video($page_id, $videos, $page_token);
+                        if(isset($response))
+                        {
+                            $is_error = TRUE;
                         }
                     }
-                    // echo '<pre>'; print_r($data);echo '</pre>'; die;                     
-                }
 
-                if(!empty($all_videos))
-                {
-                    $videos = array();
-                    if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name))
-                    {
-                        $videos['video_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name;
-                        $videos['desc']   = $post_data->content;
-                    }
-                    $this->facebook_upload_video($page_id, $videos, $page_token);
+                }else{                
+                    $is_error = TRUE;
                 }
+            }
+            catch(Exception $ex)
+            {
+                $is_error = TRUE;
+            }
 
-            }else{
-                echo "is_not_authenticated <br/>";
+            if(isset($is_error))
+            {
+                echo "error";
+                //send mail to post creator;
+            }
+            else
+            {
+                $status_data = array(
+                                    'status' => 'posted'
+                                );
+                $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
             }
         }
     }
@@ -820,7 +862,7 @@ class Cron extends CI_Controller {
             // Creating new photo album
         
             $album_id = $this->create_album('6 album','this is album',$page_id, $page_token );
-            $response = $this->add_imgs_to_album($album_id, $images, $page_token);
+            return $response = $this->add_imgs_to_album($album_id, $images, $page_token);
         }
     }
 
@@ -833,18 +875,20 @@ class Cron extends CI_Controller {
                 'source '   => $this->fb->videoToUpload($video['video_url'])
             );
         $video_response = $this->facebook->request('POST',$page_id."/videos",$parms,$token);
-        echo json_encode($video_response);
+        if(isset($video_response['error']))
+        {
+            return $is_error = TRUE;
+        }
     }
 
     public function add_imgs_to_album( $album_id, $images, $token){
-        $error = TRUE;
+        $is_error = '';
         foreach ($images as $key => $img) {
             $parms = array('message' =>  $img['desc']);
             $parms['url'] = $img['img_url'];
             $data = $this->facebook->request('POST','/'. $album_id .'/photos',$parms, $token);
-            echo '<br/>'.json_encode($data);
             if (isset($data['error'])){
-                $is_error = FALSE;
+                $is_error = TRUE;
             }
         }
         return $error;

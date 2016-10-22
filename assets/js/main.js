@@ -143,7 +143,11 @@ jQuery(function($) {
 			}
 			//only allow 140 characters for tweets
 			if (outlet_const === 'twitter') {
-				text_char_limit(outlet_const, '140');
+
+				if(!text_char_limit(outlet_const, '140'))
+				{
+					return false;
+				}
 			}
 
 			//tot show default posty copy and media view
@@ -2175,6 +2179,24 @@ function text_char_limit(outlet_const, limit){
 	else
 		$("#postCopy").attr("maxlength", limit);
 
+	if($('.form__preview-wrapper img').length > 1 && outlet_const == 'twitter')
+	{
+		var should_change = 1;
+		$('.form__preview-wrapper img').each(function(a,b){
+			
+			if($(this).attr('src').indexOf('gif') >= 0)
+			{
+				getConfirm(language_message.twitter_gif_error_outlet_change,'','alert',function(confResponse) {});
+				should_change = 0;
+				return false;
+			}			
+		});
+
+		if(should_change == 0)
+		{
+			return false;
+		}
+	}
 	if ($('.form__preview-wrapper img').length > 4 && outlet_const == 'twitter') {
 		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
 		return false;
@@ -2185,6 +2207,7 @@ function text_char_limit(outlet_const, limit){
 	else {
 		$('#charsLeft').text(charsLeft);
 	}
+	return true;
 }
 
 
