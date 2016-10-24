@@ -103,6 +103,20 @@ jQuery(function($) {
 			}				
 		}
 
+		if (outlet_const === 'linkedin') {
+			if ($('.form__preview-wrapper video').length) {
+				alert(language_message.linkedin_outlet_change_video_error);
+				return false;
+			}				
+		}
+
+		if (outlet_const === 'pinterest') {
+			if ($('.form__preview-wrapper video').length) {
+				alert(language_message.pinterest_outlet_change_video_error);
+				return false;
+			}				
+		}
+
 		if (outlet_const == 'instagram') {
 			// if ($('.form__preview-wrapper video').length) {
 			// 	alert(language_message.insta_outlet_change_error);
@@ -377,6 +391,19 @@ jQuery(function($) {
 		}
 		else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image'))
 		{
+
+			if(outlet_const == 'linkedin')
+			{
+				getConfirm(language_message.linkedin_video_error,'','alert',function(confResponse) {});
+				return false;
+			}
+
+			if(outlet_const == 'pinterest')
+			{
+				getConfirm(language_message.pinterest_video_error,'','alert',function(confResponse) {});
+				return false;
+			}
+							
 			if(current_outlet == 'instagram' ){
 				alert(language_message.insta_video_not_allowed);
 				return false;

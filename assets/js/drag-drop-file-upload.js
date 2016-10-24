@@ -211,6 +211,18 @@
 								}
 							}
 
+							if(outlet_const == 'linkedin')
+							{
+								getConfirm(language_message.linkedin_video_error,'','alert',function(confResponse) {});
+								return false;
+							}
+
+							if(outlet_const == 'pinterest')
+							{
+								getConfirm(language_message.pinterest_video_error,'','alert',function(confResponse) {});
+								return false;
+							}
+
 							if( file.size > upload_limit[outlet_const].video){
 								getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
 								return false;

@@ -141,12 +141,73 @@ class Youtube_connect extends CI_Controller {
 				'response' => json_encode($token_info),
 				'type' => 'youtube'
 				);
-			$response = $this->social_media_model->save_token($data);
+			// $response = $this->social_media_model->save_token($data);
 			
 			$status 	= true;
 			$outlet 	= 'youtube';
 			$title 		= 'Successful';
 			$message 	= str_replace('%type%', 'YouTube', $this->lang->line('save_successfully'));
+
+			$youtube = new Google_Service_YouTube($this->client);
+			$channelsResponse = $youtube->channels->listChannels('snippet', array(
+					'mine' => 'true',
+					));
+			$htmlBody = '';
+			echo "<pre>";
+			// print_r($channelsResponse);
+			if(!empty($channelsResponse) AND isset($channelsResponse['items']) AND !empty($channelsResponse['items']))
+			{
+				// echo "tewst".$channel['contentDetails']['relatedPlaylists']['uploads'];
+				echo "<div style='margin-left:25%'>";
+				echo "<form method='post' action='".base_url()."youtube_connect/save_channel'>";
+				// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+				echo "<input type='hidden' name='access_token' value='".$token_info->access_token."'>";
+				echo "<input type='hidden' name='refresh_token' value='".$token_info->refresh_token."'>";
+
+				echo "<input type='hidden' name='response' value='".json_encode($token_info)."'>";
+				
+
+				echo "<h3>Please select channel on which you want to upload your posts<h3><br>";
+				echo "<select name='channel'>";				
+				foreach ($channelsResponse['items'] as $channel) 
+				{
+					echo "<option value='".$channel['id']."'>".$channel['snippet']['title']."</option>";
+				}
+				echo '</select><br/><br/>';
+				echo "<input type='submit' value='save'>";
+				
+				
+				echo "</form></div>";
+			}
+			else
+			{
+				$this->lang->line('no_channel');
+			}
+			// echo social_callbacks($status, $outlet,$title, $message );
+		}
+	}
+
+	function save_channel()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data) AND !empty($post_data))
+		{
+			$data = array(
+					'access_token' => $post_data['access_token'],
+					'refresh_token' => $post_data['refresh_token'],
+					'user_id' => $this->user_id,
+					'brand_id' => $this->session->userdata('brand_id'),
+					'outlet_id' => $this->session->userdata('outlet_id'),
+					'response' => $post_data['response'],
+					'type' => 'youtube',
+					'youtube_channel_id' => $post_data['channel']
+				);
+
+			$last_id = $this->social_media_model->save_token($data);
+			$status 	= true;
+			$outlet 	= 'youtube';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'youtube', $this->lang->line('save_successfully'));
 			echo social_callbacks($status, $outlet,$title, $message );
 		}
 	}

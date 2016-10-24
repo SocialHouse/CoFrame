@@ -12,7 +12,7 @@ class Social_media_model extends CI_Model
 	{
 		if(empty($type) && empty($brand_id)) return FALSE;
 		
-		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type, refresh_token,fb_page_id');
+		$this->db->select('access_token, access_token_secret, social_media_id, user_id, brand_id, outlet_id, response, type, refresh_token,fb_page_id,pinterest_board_id,tumblr_blog_url,youtube_channel_id');
 		if(!empty($user_id))
 		{
 			$this->db->where('user_id',$user_id);

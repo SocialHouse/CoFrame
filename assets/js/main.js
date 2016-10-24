@@ -187,15 +187,30 @@ jQuery(function($) {
 			if (outlet_const === 'vine' || outlet_const === 'youtube') {
 				if ($('.form__preview-wrapper img').length) {
 					if (outlet_const === 'youtube') {
-						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
-						return false;
+						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});						
 					} else {
-						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
-						return false;
+						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});						
 					}
-					
+					return false;
 				}				
 			}
+
+			if(outlet_const === 'linkedin')
+			{
+				if ($('.form__preview-wrapper video').length) {
+					getConfirm(language_message.linkedin_outlet_change_video_error,'','alert',function(confResponse) {});
+					return false;
+				}
+			}
+
+			if(outlet_const === 'pinterest')
+			{
+				if ($('.form__preview-wrapper video').length) {
+					getConfirm(language_message.pinterest_outlet_change_video_error,'','alert',function(confResponse) {});
+					return false;
+				}
+			}
+
 			if (outlet_const === 'youtube') {
 				var show_classes = '#youtubePostFields';
 				if($('#defaultPostCopy:hidden').length > 0)

@@ -56,11 +56,7 @@ class Cron extends CI_Controller {
         //  die;
     }
 
-    public function get_posts(){
-        // $posts = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'scheduled','DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")' => date('m-d-Y')));
-        // echo $this->db->last_query();
-
-        // $posts = $this->post_model->get_post_by_date('','',date('Y-m-d'),'scheduled');
+    public function get_posts(){      
         $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));     
         if(!empty($posts))
         {
@@ -154,7 +150,7 @@ class Cron extends CI_Controller {
     }
 
     public function set_reminders(){
-        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
+        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'scheduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
 
         if(!empty($posts))
         {
@@ -181,6 +177,7 @@ class Cron extends CI_Controller {
 
     public function tumblr_post($post_data,$flag){
         $upload = 0;
+        $is_error = TRUE;
         $is_key_exist = $this->social_media_model->get_token('tumblr', $post_data->brand_id);
 
         if(!empty($is_key_exist))
@@ -215,7 +212,11 @@ class Cron extends CI_Controller {
                         $blogs = $user_info->response->user->blogs;
                         foreach ($blogs as $blog) 
                         {
-                            $str_user_blog = trim(str_replace('/', '', str_replace('http://', '', $blog->url)));
+                            if($blog->url == $is_key_exist->tumblr_blog_url)
+                            {
+                                $str_user_blog = trim(str_replace('/', '', str_replace('http://', '', $blog->url)));
+                                break;
+                            }
                         }
                     }
                     if(!empty($str_user_blog))
@@ -292,12 +293,20 @@ class Cron extends CI_Controller {
                                                 'status' => 'posted'
                                             );
                                 $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                                $is_error = FALSE;
+                            }
+                            else
+                            {
+                                $is_error = TRUE;
                             }
                         }
                     }                    
                 }
-                return;
             }
+        }
+        if($is_error == TRUE)
+        {
+            $this->send_post_fail_mail($post_data->user_id,'Tumblr',$post_data->slate_date_time);
         }
     }
 
@@ -440,6 +449,7 @@ class Cron extends CI_Controller {
         else
         {
             //send mail to creator that unable to updat post
+            $this->send_post_fail_mail($post_data->user_id,'Twitter',$post_data->slate_date_time);
         }
     }
 
@@ -645,10 +655,9 @@ class Cron extends CI_Controller {
                                             'status' => 'posted'
                                         );
                         $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
-                     // echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
                     }else{
                         // send mail to creator 
-                      // echo "Error SHARING content:<br /><br />RESPONSE:<br /><br /><pre>" . print_r($response, TRUE) . "</pre><br /><br />LINKEDIN OBJ:<br /><br />";
+                        $this->send_post_fail_mail($post_data->user_id,'Linked in',$post_data->slate_date_time);
                     }
                 }
             }
@@ -656,16 +665,15 @@ class Cron extends CI_Controller {
     }
 
     public function pintrest_post($post_data,$flag){
-        
+        $is_error = 1;
         $upload = 0;
         $image_url = "";
-
+        $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->brand_id);
         if($this->session->userdata('pinterest_access_token') && $flag == 1 ){
             $token = $this->session->userdata('pinterest_access_token');
            // $this->session->unset_userdata('pinterest_access_token');
             // echo 'In Session <br/>';
-        }else{
-            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->brand_id);
+        }else{            
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
@@ -686,17 +694,45 @@ class Cron extends CI_Controller {
             $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
             $this->pinterest->auth->setOAuthToken($token['access_token']);
             $result = '';
-            $result = $this->pinterest->pins->create(
-                                        array(
-                                            "note"          => (!empty($post_data->content))? $post_data->content :'' ,
-                                            "image_url"     => $image_url,
-                                            "media"         => $image_url,
-                                            // "image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
-                                            // "media"         => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
-                                            "board"         => "309481874332798366"
-                                        )
-                                    );
-           // echo $result;
+            
+            $pinterest_data = array(
+                        "note"          => (!empty($post_data->content))? $post_data->content :'' ,
+                        // "image_url"     => $image_url,
+                        // "media"         => $image_url,
+                        "image_url"     => 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif',
+                        // "media"         => 'https://www.ontwerpeencase.nl/uploads/categories/57a1d618a9466.jpg',
+                        "board"         => $is_key_exist->pinterest_board_id
+                    );
+
+            if(!empty($post_data->pinterest_source))
+            {
+                $pinterest_data['media'] = $post_data->pinterest_source;
+            }
+            $result = $this->pinterest->pins->create($pinterest_data);
+
+            $response = json_decode($result);
+            // print_r($response);
+            if(isset($response) AND isset($response->id))
+            {
+                $is_error = 0;
+            }
+            else
+            {
+                $is_error = 1;
+            }            
+        }
+
+        if($is_error == 1)
+        {
+            //send mail to post creator;
+            $this->send_post_fail_mail($post_data->user_id,'Pinterest',$post_data->slate_date_time);
+        }
+        else
+        {
+            $status_data = array(
+                                    'status' => 'posted'
+                                );
+             $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
         }
     }
 
@@ -841,10 +877,10 @@ class Cron extends CI_Controller {
                 $is_error = TRUE;
             }
 
-            if(isset($is_error))
-            {
-                echo "error";
+            if(isset($is_error) AND !empty($is_error))
+            {              
                 //send mail to post creator;
+                $this->send_post_fail_mail($post_data->user_id,'Facebook',$post_data->slate_date_time);
             }
             else
             {
@@ -862,7 +898,7 @@ class Cron extends CI_Controller {
             // Creating new photo album
         
             $album_id = $this->create_album('6 album','this is album',$page_id, $page_token );
-            return $response = $this->add_imgs_to_album($album_id, $images, $page_token);
+            return $this->add_imgs_to_album($album_id, $images, $page_token);
         }
     }
 
@@ -882,7 +918,7 @@ class Cron extends CI_Controller {
     }
 
     public function add_imgs_to_album( $album_id, $images, $token){
-        $is_error = '';
+        $is_error = FALSE;
         foreach ($images as $key => $img) {
             $parms = array('message' =>  $img['desc']);
             $parms['url'] = $img['img_url'];
@@ -891,7 +927,7 @@ class Cron extends CI_Controller {
                 $is_error = TRUE;
             }
         }
-        return $error;
+        return $is_error;
     }
 
     public function create_album($name,$msg,$page_id,$page_token){
@@ -913,5 +949,15 @@ class Cron extends CI_Controller {
             return $album_response['id'];
         }
         return FALSE;
+    }
+
+    function send_post_fail_mail($user_id,$outlet,$slate_date_time)
+    {
+        $user_data = $this->aauth->get_user($user_id);
+        $subject = ucfirst($outlet).' post upload fail';
+        $this->data['user_id'] = $user_id;
+        $this->data['body'] = 'We are unable to upload your '.ucfirst($outlet).' which was slated on '.date('Y-m-d H:i',strtotime($slate_date_time));
+        $message = $this->load->view('mails/post_upload_fail',$this->data,true);
+        email_send($user_data->email,$subject,$message);
     }
 }

@@ -554,7 +554,7 @@ class Post_model extends CI_Model
 
 	function get_posts_with_outlet($date)
 	{
-		$this->db->select('posts.id,content,slate_date_time,status,user_id,brands.created_by,outlet_constant,posts.brand_id,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type,share_with');
+		$this->db->select('posts.id,content,slate_date_time,status,user_id,brands.created_by,outlet_constant,posts.brand_id,tumblr_tags,tumblr_custom_url,tumblr_content_source,tumblr_title,tumblr_caption,tumblr_quote,tumblr_source,tumblr_link,tumblr_link_description,tumblr_chat_title,tumblr_chat,tumblr_audio_description,tumblr_video_caption,tumblr_text_content,tumblr_content_type,share_with,pinterest_source');
 		$this->db->join('brands','brands.id = posts.brand_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->where('posts.status','scheduled');

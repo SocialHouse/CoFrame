@@ -137,7 +137,12 @@
 	$lang['pinterest_outlet_change_error'] = "Only 1 image is allowed for Pinterest - please delete extra images before switching to Pinterest.";
 	$lang['insta_img_allowed'] = "Only 1 image is allowed for Instagram.";
 	$lang['linkedin_img_allowed'] = "Only 1 image is allowed for LinkedIn.";
+	$lang['linkedin_video_error'] = "LinkedIn does not allow videos.";
+	$lang['linkedin_outlet_change_video_error'] = "LinkedIn does not allow videos - please delete it before switching to LinkedIn.";
 	$lang['pinterest_img_allowed'] = "Only 1 image is allowed for Pinterest.";	
+
+	$lang['pinterest_outlet_change_video_error'] = "Pinterest does not allow videos - please delete it before switching to Pinterest.";
+	$lang['pinterest_video_error'] = "Pinterest does not allow videos.";
 	
 
 	//edit tags
@@ -230,4 +235,8 @@
 	$lang['no_post_found'] = 'There are no posts slated for this day';
 	$lang['edit_post_fail'] = 'Unbable to upload image please try again';
 	$lang['img_vid_error'] = 'You can not upload image and video together';
+
+	$lang['no_board'] = "There is no board created in this account. You need to create one to upload post.";
+	$lang['no_blog'] = "There is no blog present in this account. You need to create one to upload post.";
+	$lang['no_channel'] = "There is no channel present in this account. You need to create one to upload post.";
 ?>

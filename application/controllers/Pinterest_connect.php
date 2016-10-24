@@ -67,7 +67,40 @@ class Pinterest_connect extends CI_Controller {
 			$outlet 	= 'pinterest';
 			$title 		= 'Successful';
 			$message 	= str_replace('%type%', 'pinterest', $this->lang->line('already_saved'));
-			echo social_callbacks($status, $outlet,$title, $message );
+			$this->pin->auth->setOAuthToken($is_key_exist->access_token);
+			$mybords =$this->pin->users->getMeBoards();
+
+			if(!empty($mybords))
+			{					
+				echo "<div style='margin-left:25%'>";
+				echo "<form method='post' action='".base_url()."pinterest_connect/save_board_id'>";
+				// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+				echo "<input type='hidden' name='access_token' value='".$is_key_exist->access_token."'>";
+				// echo "<input type='hidden' name='response' value='".json_encode($temp_array)."'>";
+				
+
+				echo "<h3>Please select board on which you want to upload your posts<h3><br>";
+				echo "<select name='board'>";				
+				foreach ($mybords as $key => $board) 
+				{
+					$selected = '';
+					if($board->id == $is_key_exist->pinterest_board_id)
+					{
+						$selected = 'selected="selected"';
+					}
+					echo "<option ".$selected." value='".$board->id."'>".$board->name."</option>";
+				}
+				echo '</select><br/><br/>';
+				echo "<input type='submit' value='save'>";
+				
+				
+				echo "</form></div>";
+			}
+			else
+			{
+				echo $this->lang->line('no_board');
+			}
+			// echo social_callbacks($status, $outlet,$title, $message );
 			//$this->me();
 		}
 	}
@@ -91,15 +124,15 @@ class Pinterest_connect extends CI_Controller {
 
 				$this->pin->auth->setOAuthToken($token->access_token);
 
-				$data = array(
-					'access_token' => $token->access_token,
-					'user_id' => $this->user_id,
-					'brand_id' => $this->brand_id,
-					'outlet_id' => $this->outlet_id,
-					'response' => json_encode($temp_array),
-					'type' => 'pinterest'
-					);
-				$this->social_media_model->save_token($data);
+				// $data = array(
+				// 	'access_token' => $token->access_token,
+				// 	'user_id' => $this->user_id,
+				// 	'brand_id' => $this->brand_id,
+				// 	'outlet_id' => $this->outlet_id,
+				// 	'response' => json_encode($temp_array),
+				// 	'type' => 'pinterest'
+				// 	);
+				// $this->social_media_model->save_token($data);
 
 				$this->session->set_userdata('pinterest_access_token', $temp_array);
 				
@@ -107,9 +140,66 @@ class Pinterest_connect extends CI_Controller {
 				$outlet 	= 'pinterest';
 				$title 		= 'Successful';
 				$message 	= str_replace('%type%', 'pinterest', $this->lang->line('save_successfully'));
-				echo social_callbacks($status, $outlet,$title, $message );
+
+				$mybords =$this->pin->users->getMeBoards();
+
+				if(!empty($mybords))
+				{					
+					echo "<div style='margin-left:25%'>";
+					echo "<form method='post' action='".base_url()."pinterest_connect/save_board_id'>";
+					// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+					echo "<input type='hidden' name='access_token' value='".$token->access_token."'>";
+					echo "<input type='hidden' name='response' value='".json_encode($temp_array)."'>";
+					
+
+					echo "<h3>Please select board on which you want to upload your posts<h3><br>";
+					echo "<select name='board'>";				
+					foreach ($mybords as $key => $board) 
+					{
+						echo "<option value='".$board->id."'>".$board->name."</option>";
+					}
+					echo '</select><br/><br/>';
+					echo "<input type='submit' value='save'>";
+					
+					
+					echo "</form></div>";
+				}
+				else
+				{
+					echo $this->lang->line('no_board');
+				}
+
+				// echo social_callbacks($status, $outlet,$title, $message );
 				//redirect(base_url().'pinterest_connect/me');
 			}
+		}
+	}
+
+	function save_board_id()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data) AND !empty($post_data))
+		{
+			$data = array(
+					'access_token' => $post_data['access_token'],
+					'user_id' => $this->user_id,
+					'brand_id' => $this->brand_id,
+					'outlet_id' => $this->outlet_id,			
+					'type' => 'pinterest',
+					'pinterest_board_id' => $post_data['board']
+				);
+
+			if(isset($post_data['response']))
+			{
+				$data['response'] = $post_data['response'];
+			}
+
+			$last_id = $this->social_media_model->save_token($data);
+			$status 	= true;
+			$outlet 	= 'pinterest';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'pinterest', $this->lang->line('save_successfully'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 	}
 

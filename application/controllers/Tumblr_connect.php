@@ -99,7 +99,43 @@ class Tumblr_connect extends CI_Controller {
 			$outlet 	= 'tumblr';
 			$title 		= 'Successful';
 			$message 	= str_replace('%type%', 'tumblr', $this->lang->line('already_saved'));
-			echo social_callbacks($status, $outlet,$title, $message );
+			$user_info = $user_info = $this->tumblr_connection->get('user/info');
+			if(isset($user_info) AND isset($user_info->meta->status) AND $user_info->meta->status == 200)
+			{
+				if(isset($user_info->response->user) AND isset($user_info->response->user->blogs) AND !empty($user_info->response->user->blogs))
+				{
+					echo "<div style='margin-left:25%'>";
+					echo "<form method='post' action='".base_url()."tumblr_connect/save_blog_url'>";
+					// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+					echo "<input type='hidden' name='access_token' value='".$is_key_exist->access_token."'>";
+					echo "<input type='hidden' name='access_token_secret' value='".$is_key_exist->access_token_secret."'>";
+
+					// echo "<input type='hidden' name='response' value='".json_encode($access_token)."'>";
+					
+
+					echo "<h3>Please select blog on which you want to upload your posts<h3><br>";
+					echo "<select name='blog'>";				
+					foreach ($user_info->response->user->blogs as $key => $blog) 
+					{
+						$selected = '';
+						if($is_key_exist->tumblr_blog_url == $blog->url)
+						{
+							$selected = 'selected="selected"';
+						}
+						echo "<option ".$selected." value='".$blog->url."'>".$blog->name."</option>";
+					}
+					echo '</select><br/><br/>';
+					echo "<input type='submit' value='save'>";
+					
+					
+					echo "</form></div>";
+				}
+				else
+				{
+					echo $this->lang->line('no_blog');
+				}
+			}
+			// echo social_callbacks($status, $outlet,$title, $message );
 		}
 		else
 		{
@@ -138,32 +174,45 @@ class Tumblr_connect extends CI_Controller {
 				$this->session->unset_userdata('tumblr_request_token');
 				$this->session->unset_userdata('tumblr_request_token_secret');
 
-				$data = array(
-						'access_token' => $access_token['oauth_token'],
-						'access_token_secret' => $access_token['oauth_token_secret'],						
-						'user_id' => $this->user_id,
-						'response' => json_encode($access_token),
-						'type' => 'tumblr',
-						'brand_id' => $this->session->userdata('brand_id'),
-						'outlet_id' => $this->session->userdata('outlet_id'),
-					);
-
 				$is_key_exist = $this->social_media_model->get_token('tumblr',$this->session->userdata('brand_id'));
 
-				if(!empty($is_key_exist))
-				{
-					$condition = array('id' => $is_key_exist->id,'type' => 'tumblr');
-					$this->timeframe_model->update_data('social_media_keys',$data,$condition);
-				}
-				else
-				{				
-					$this->timeframe_model->insert_data('social_media_keys',$data);
-				}
+			
 				$status 	= true;
 				$outlet 	= 'tumblr';
 				$title 		= 'Successful';
 				$message 	= str_replace('%type%', 'tumblr', $this->lang->line('save_successfully'));
-				echo social_callbacks($status, $outlet,$title, $message );
+				$user_info = $user_info = $this->tumblr_connection->get('user/info');
+				if(isset($user_info) AND isset($user_info->meta->status) AND $user_info->meta->status == 200)
+				{
+					if(isset($user_info->response->user) AND isset($user_info->response->user->blogs) AND !empty($user_info->response->user->blogs))
+					{
+						echo "<div style='margin-left:25%'>";
+						echo "<form method='post' action='".base_url()."tumblr_connect/save_blog_url'>";
+						// echo "<input type='hidden' name='social_media_id' value='".$last_id."'>";
+						echo "<input type='hidden' name='access_token' value='".$access_token['oauth_token']."'>";
+						echo "<input type='hidden' name='access_token_secret' value='".$access_token['oauth_token_secret']."'>";
+
+						echo "<input type='hidden' name='response' value='".json_encode($access_token)."'>";
+						
+
+						echo "<h3>Please select blog on which you want to upload your posts<h3><br>";
+						echo "<select name='blog'>";				
+						foreach ($user_info->response->user->blogs as $key => $blog) 
+						{
+							echo "<option value='".$blog->url."'>".$blog->name."</option>";
+						}
+						echo '</select><br/><br/>';
+						echo "<input type='submit' value='save'>";
+						
+						
+						echo "</form></div>";
+					}
+					else
+					{
+						echo $this->lang->line('no_blog');
+					}
+				}				
+			
 			}
 			else
 			{
@@ -171,6 +220,35 @@ class Tumblr_connect extends CI_Controller {
 				// An error occured. Add your notification code here.
 				redirect(base_url('/tumblr_connect/tumblr'));
 			}
+		}
+	}
+
+	function save_blog_url()
+	{
+		$post_data = $this->input->post();
+		if(isset($post_data) AND !empty($post_data))
+		{
+			$data = array(
+					'access_token' => $post_data['access_token'],
+					'access_token_secret' => $post_data['access_token_secret'],
+					'user_id' => $this->user_id,
+					'brand_id' => $this->session->userdata('brand_id'),
+					'outlet_id' => $this->session->userdata('outlet_id'),					
+					'type' => 'tumblr',
+					'tumblr_blog_url' => $post_data['blog']
+				);
+
+			if(isset($post_data['response']))
+			{
+				$data['response'] = $post_data['response'];
+			}
+
+			$last_id = $this->social_media_model->save_token($data);
+			$status 	= true;
+			$outlet 	= 'tumblr';
+			$title 		= 'Successful';
+			$message 	= str_replace('%type%', 'tumblr', $this->lang->line('save_successfully'));
+			echo social_callbacks($status, $outlet,$title, $message );
 		}
 	}
 
