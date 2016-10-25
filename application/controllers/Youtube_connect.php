@@ -80,7 +80,7 @@ class Youtube_connect extends CI_Controller {
 			if(!empty($token_data))
 			{
 				$token_data = json_decode(json_encode($token_data));
-				echo '<pre>'; print_r($token_data);echo '</pre>';
+				// echo '<pre>'; print_r($token_data);echo '</pre>';
 				$data = array(
 					'access_token' => $token_data->access_token,
 					'user_id' => $this->user_id,
