@@ -455,6 +455,7 @@ class Cron extends CI_Controller {
 
     public function youtube_post($post_data,$flag) {
         $upload = 0;
+        $is_error = true;
         $this->load->config('youtube');
         $this->client_id = $this->config->item('youtube_client_id');
         $this->client_secret = $this->config->item('youtube_client_secret');
@@ -517,7 +518,7 @@ class Cron extends CI_Controller {
                         {
                             echo gmdate("Y-m-d\Th:i:s.sZ", strtotime($post_data->slate_date_time));
                             $snippet = new Google_Service_YouTube_VideoSnippet();
-                            $snippet->setTitle("POST ID".$post_data->id);
+                            $snippet->setTitle($post_data->video_title);
                             $snippet->setDescription($post_data->content);
                             $snippet->setTags($tags);
                             // Numeric video category. See
@@ -562,9 +563,14 @@ class Cron extends CI_Controller {
                             // If you want to make other calls after the file upload, set setDefer back to false
                             $this->client->setDefer(false);
 
-                            $htmlBody .= "<h3>Video Uploaded</h3><ul>";
-                            $htmlBody .= sprintf('<li>%s (%s)</li>', $status['snippet']['title'], $status['id']);
-                            $htmlBody .= '</ul>';
+                            if(isset($status) AND isset($status['status']['uploadStatus']) AND $status['status']['uploadStatus'] == 'uploaded')
+                            {
+                                $is_error = false;
+                                $status_data = array(
+                                            'status' => 'posted'
+                                        );
+                                $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                            }                            
                         }else{
                             $htmlBody='Invalid file path or file dose not exits';
                         }
@@ -573,20 +579,22 @@ class Cron extends CI_Controller {
                 catch (Google_Service_Exception $e) 
                 {
                     $errors = json_decode($e->getMessage())->error->errors[0];
-                    echo '<pre>'; print_r($errors);echo '</pre>';
                     //$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
                 } 
                 catch (Google_Exception $e) 
                 {
-                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                    htmlspecialchars($e->getMessage());
                 }
                 catch (Exception $e) 
                 {
-                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                    htmlspecialchars($e->getMessage());
                 }
-            }
-            echo $htmlBody;
-            return;
+            }            
+        }
+
+        if($is_error)
+        {
+            $this->send_post_fail_mail($post_data->user_id,'Youtube',$post_data->slate_date_time);
         }
     }
 
