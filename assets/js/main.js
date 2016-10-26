@@ -371,7 +371,7 @@ jQuery(function($) {
 		});
 
 		$(".alert").fadeTo(5000, 500).slideUp(500, function() {
-			// $(".alert").alert('close');
+			$(".alert").alert('close');
 		});
 
 		$(document).on('click', '.has-archive, .category_date', function(event) {

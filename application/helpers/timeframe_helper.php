@@ -1089,6 +1089,39 @@ if(!function_exists('get_brand_slug'))
     }
 }
 
+if(!function_exists('check_subscription'))
+{
+    function check_subscription_expinred($user_id)
+    {
+        $CI = & get_instance();     
+        $CI->load->model('timeframe_model');
+        $user = $CI->timeframe_model->get_data_by_condition('user_info',array('aauth_user_id' => $user_id),'created_at,stripe_customer_id,aauth_user_id');
+        $date_diff = calculate_date_diff($user[0]->created_at,'');
+
+        if(!empty($user[0]->stripe_customer_id))
+        {             
+            $CI->load->model('transaction_model');
+            $is_any_record = $CI->transaction_model->get_last_transaction($user[0]->aauth_user_id);                    
+            if($is_any_record)
+            {
+                $end_date = date('Y:m:d H:i:s',$is_any_record->current_period_end);                
+                if($end_date < date("Y:m:d H:i:s",strtotime('today')))
+                {
+                    $data = array('is_trial_period_expired'=>1);
+                    $CI->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user[0]->aauth_user_id));
+                    return TRUE;
+                }
+            }
+        }
+        else if($date_diff > 30 AND empty($user[0]->stripe_customer_id))
+        {
+            $data = array('is_trial_period_expired'=>1);
+            $CI->timeframe_model->update_data('user_info',$data,array('aauth_user_id' => $user[0]->aauth_user_id));
+            return TRUE;
+        }
+        return FALSE;
+    }
+}
 
 
 
