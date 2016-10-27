@@ -56,13 +56,8 @@ class Cron extends CI_Controller {
         //  die;
     }
 
-    public function get_posts(){
-        // $posts = $this->timeframe_model->get_data_by_condition('posts',array('status' => 'scheduled','DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")' => date('m-d-Y')));
-        // echo $this->db->last_query();
-
-        // $posts = $this->post_model->get_post_by_date('','',date('Y-m-d'),'scheduled');
-        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));       
-        
+    public function get_posts(){      
+        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));     
         if(!empty($posts))
         {
             $previous_owner = '';
@@ -155,7 +150,7 @@ class Cron extends CI_Controller {
     }
 
     public function set_reminders(){
-        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'sceduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
+        $posts = $this->timeframe_model->get_data_by_condition('posts',array('status !=' => 'scheduled','date_format(slate_date_time,"%Y-%m-%d %H:%i") >=' => date('Y-m-d H:i'),'date_format(slate_date_time,"%Y-%m-%d %H:%i") <=' => date('Y-m-d H:i',strtotime('+1 hours'))));
 
         if(!empty($posts))
         {
@@ -182,6 +177,7 @@ class Cron extends CI_Controller {
 
     public function tumblr_post($post_data,$flag){
         $upload = 0;
+        $is_error = TRUE;
         $is_key_exist = $this->social_media_model->get_token('tumblr', $post_data->brand_id);
 
         if(!empty($is_key_exist))
@@ -216,7 +212,11 @@ class Cron extends CI_Controller {
                         $blogs = $user_info->response->user->blogs;
                         foreach ($blogs as $blog) 
                         {
-                            $str_user_blog = trim(str_replace('/', '', str_replace('http://', '', $blog->url)));
+                            if($blog->url == $is_key_exist->tumblr_blog_url)
+                            {
+                                $str_user_blog = trim(str_replace('/', '', str_replace('http://', '', $blog->url)));
+                                break;
+                            }
                         }
                     }
                     if(!empty($str_user_blog))
@@ -293,12 +293,20 @@ class Cron extends CI_Controller {
                                                 'status' => 'posted'
                                             );
                                 $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                                $is_error = FALSE;
+                            }
+                            else
+                            {
+                                $is_error = TRUE;
                             }
                         }
                     }                    
                 }
-                return;
             }
+        }
+        if($is_error == TRUE)
+        {
+            $this->send_post_fail_mail($post_data->user_id,'Tumblr',$post_data->slate_date_time);
         }
     }
 
@@ -423,21 +431,31 @@ class Cron extends CI_Controller {
 
                         $reply = $this->connection->post('statuses/update', $parameters);                       
                         if(!isset($reply->errors))
-                        {                           
-                            $status_data = array(
-                                            'status' => 'posted'
-                                        );
-                            $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                        {
+                            $is_post_uploaded = 1;
                         }
                     }
                 }
-                return;
             }         
-        }        
+        }
+
+        if(isset($is_post_uploaded))
+        {
+            $status_data = array(
+                                'status' => 'posted'
+                            );
+            $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+        }
+        else
+        {
+            //send mail to creator that unable to updat post
+            $this->send_post_fail_mail($post_data->user_id,'Twitter',$post_data->slate_date_time);
+        }
     }
 
     public function youtube_post($post_data,$flag) {
         $upload = 0;
+        $is_error = true;
         $this->load->config('youtube');
         $this->client_id = $this->config->item('youtube_client_id');
         $this->client_secret = $this->config->item('youtube_client_secret');
@@ -500,7 +518,7 @@ class Cron extends CI_Controller {
                         {
                             echo gmdate("Y-m-d\Th:i:s.sZ", strtotime($post_data->slate_date_time));
                             $snippet = new Google_Service_YouTube_VideoSnippet();
-                            $snippet->setTitle("POST ID".$post_data->id);
+                            $snippet->setTitle($post_data->video_title);
                             $snippet->setDescription($post_data->content);
                             $snippet->setTags($tags);
                             // Numeric video category. See
@@ -545,9 +563,14 @@ class Cron extends CI_Controller {
                             // If you want to make other calls after the file upload, set setDefer back to false
                             $this->client->setDefer(false);
 
-                            $htmlBody .= "<h3>Video Uploaded</h3><ul>";
-                            $htmlBody .= sprintf('<li>%s (%s)</li>', $status['snippet']['title'], $status['id']);
-                            $htmlBody .= '</ul>';
+                            if(isset($status) AND isset($status['status']['uploadStatus']) AND $status['status']['uploadStatus'] == 'uploaded')
+                            {
+                                $is_error = false;
+                                $status_data = array(
+                                            'status' => 'posted'
+                                        );
+                                $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
+                            }                            
                         }else{
                             $htmlBody='Invalid file path or file dose not exits';
                         }
@@ -556,20 +579,22 @@ class Cron extends CI_Controller {
                 catch (Google_Service_Exception $e) 
                 {
                     $errors = json_decode($e->getMessage())->error->errors[0];
-                    echo '<pre>'; print_r($errors);echo '</pre>';
                     //$htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
                 } 
                 catch (Google_Exception $e) 
                 {
-                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                    htmlspecialchars($e->getMessage());
                 }
                 catch (Exception $e) 
                 {
-                    $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>', htmlspecialchars($e->getMessage()));
+                    htmlspecialchars($e->getMessage());
                 }
-            }
-            echo $htmlBody;
-            return;
+            }            
+        }
+
+        if($is_error)
+        {
+            $this->send_post_fail_mail($post_data->user_id,'Youtube',$post_data->slate_date_time);
         }
     }
 
@@ -620,20 +645,27 @@ class Cron extends CI_Controller {
 
                     if(!empty($image_url)){
                         $content['submitted-image-url'] = $image_url;
-                        $content['submitted-url']       = $image_url;
+                        // $content['submitted-url']       = $image_url;
                     }
 
-                    /*$content['submitted-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';
-                    $content['submitted-image-url'] = 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg';*/
+                    // $content['submitted-url'] = 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif';
+                    // $content['submitted-image-url'] = 'http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v';
                    
-                    $private = FALSE;
+                    $private = TRUE;
+                    if($post_data->share_with == 'public')
+                    {
+                        $private = TRUE;
+                    }
                     $twitter = FALSE;
                     $response = $this->linkedin->share('new', $content, $private, $twitter);
                     if($response['success'] === TRUE) {
-                     // echo 'SHARING content:<br /><br />RESPONSE:<br /><br /><pre>'; print_r($response);echo '</pre>'; 
+                        $status_data = array(
+                                            'status' => 'posted'
+                                        );
+                        $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
                     }else{
                         // send mail to creator 
-                      // echo "Error SHARING content:<br /><br />RESPONSE:<br /><br /><pre>" . print_r($response, TRUE) . "</pre><br /><br />LINKEDIN OBJ:<br /><br />";
+                        $this->send_post_fail_mail($post_data->user_id,'Linked in',$post_data->slate_date_time);
                     }
                 }
             }
@@ -641,16 +673,15 @@ class Cron extends CI_Controller {
     }
 
     public function pintrest_post($post_data,$flag){
-        
+        $is_error = 1;
         $upload = 0;
         $image_url = "";
-
+        $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->brand_id);
         if($this->session->userdata('pinterest_access_token') && $flag == 1 ){
             $token = $this->session->userdata('pinterest_access_token');
            // $this->session->unset_userdata('pinterest_access_token');
             // echo 'In Session <br/>';
-        }else{
-            $is_key_exist = $this->social_media_model->get_token('pinterest', $post_data->brand_id);
+        }else{            
             if(!empty($is_key_exist)){
                 $token = json_decode($is_key_exist->response,true);
                 $this->session->set_userdata('pinterest_access_token',$token);
@@ -667,22 +698,49 @@ class Cron extends CI_Controller {
         }
         
         if(!empty( $token )){
-            //echo 'got Token <br/>';
             $this->load->config('pinterest');
             $this->pinterest = new Pinterest($this->config->item('pinterest_app_id'), $this->config->item('pinterest_app_secret'));
             $this->pinterest->auth->setOAuthToken($token['access_token']);
             $result = '';
-            $result = $this->pinterest->pins->create(
-                                        array(
-                                            "note"          => (!empty($post_data->content))? $post_data->content :'' ,
-                                            "image_url"     => $image_url,
-                                            "media"         => $image_url,
-                                            // "image_url"     => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
-                                            // "media"         => 'http://timeframe-dev.blueshoon.com/uploads/4/brands/3/posts/579c9e17bf338.jpg',
-                                            "board"         => "309481874332798366"
-                                        )
-                                    );
-           // echo $result;
+            
+            $pinterest_data = array(
+                        "note"          => (!empty($post_data->content))? $post_data->content :'' ,
+                        // "image_url"     => $image_url,
+                        // "media"         => $image_url,
+                        "image_url"     => 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif',
+                        // "media"         => 'https://www.ontwerpeencase.nl/uploads/categories/57a1d618a9466.jpg',
+                        "board"         => $is_key_exist->pinterest_board_id
+                    );
+
+            if(!empty($post_data->pinterest_source))
+            {
+                $pinterest_data['media'] = $post_data->pinterest_source;
+            }
+            $result = $this->pinterest->pins->create($pinterest_data);
+
+            $response = json_decode($result);
+            // print_r($response);
+            if(isset($response) AND isset($response->id))
+            {
+                $is_error = 0;
+            }
+            else
+            {
+                $is_error = 1;
+            }            
+        }
+
+        if($is_error == 1)
+        {
+            //send mail to post creator;
+            $this->send_post_fail_mail($post_data->user_id,'Pinterest',$post_data->slate_date_time);
+        }
+        else
+        {
+            $status_data = array(
+                                    'status' => 'posted'
+                                );
+             $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
         }
     }
 
@@ -695,7 +753,6 @@ class Cron extends CI_Controller {
             // $this->session->userdata('fb_access_token', $access_token->getValue());
             $access_token = $this->session->userdata('fb_access_token');
             $fb_page_id = $this->session->userdata('fb_page_id');
-            echo 'In session <br/>';
         }
         else
         {
@@ -706,110 +763,139 @@ class Cron extends CI_Controller {
                 $fb_page_id = $is_key_exist->fb_page_id;
                 $this->session->set_userdata('fb_access_token',$access_token);
                 $this->session->set_userdata('fb_page_id',$fb_page_id);
-                echo 'Set session <br/>';
             }
             else
             {
-                echo 'record not found <br/>';     
+                $is_error = TRUE;
             }
         }
         if(!empty( $access_token ))
         {
-            $this->load->library('facebook');
-            $tags = array();
-            if(!empty($post_data->post_tags))
+            try
             {
-                $tags = implode(", @", array_column($post_data->post_tags, 'tag_name')) ;
-                $tags = '@'.$tags;
-            }
-            if ($this->facebook->is_authenticated())
-            {
-                $post_array = array();               
-                $all_images = $this->get_media($post_data->id,'images');
-                $all_videos = $this->get_media($post_data->id,'video',1);
-                
-                $user_info = $this->facebook->request('get', '/me?fields=accounts');
-                $page_token = $page_name = $page_id = '';
-                if (!isset($user_info['error']))
+                $this->load->library('facebook');
+                $tags = array();
+                if(!empty($post_data->post_tags))
                 {
-                    foreach ($user_info['accounts']['data'] as $key => $pages) {
-                        if( $pages['id'] == $fb_page_id)
-                        {
-                            $page_token = $pages['access_token'];
-                            $page_name = $pages['name'];
-                            $page_id = $pages['id'];
-                        }
-                        // echo '<pre>'; print_r($pages);echo '</pre>';
-                    }
+                    $tags = implode(", @", array_column($post_data->post_tags, 'tag_name')) ;
+                    $tags = '@'.$tags;
                 }
-                if(empty($page_token)){
-                    $page_id = 'me';
-                    $page_token = '';
-                }
-
-                if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
-                    $privacy = array(
-                        'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
-                    );
-                    $result = $this->facebook->request(
-                        'POST',
-                        $page_id.'/feed',
-                        ['message' => $post_data->content],
-                        $page_token
-                    );
-                    echo "only text is posted <br/>".json_encode($result);
-                }
-
-                $this->fb = $this->facebook->object();
-                
-                if(!empty($all_images))
+                if ($this->facebook->is_authenticated())
                 {
-                    if(count($all_images)>1){
-                        echo 'multiple ';
-                        $images =[];
-
-                        foreach ($all_images as $key => $img) {
-                            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
+                    $post_array = array();               
+                    $all_images = $this->get_media($post_data->id,'images');
+                    $all_videos = $this->get_media($post_data->id,'video',1);
+                    
+                    $user_info = $this->facebook->request('get', '/me?fields=accounts');
+                    $page_token = $page_name = $page_id = '';
+                    if (!isset($user_info['error']))
+                    {
+                        foreach ($user_info['accounts']['data'] as $key => $pages) {
+                            if( $pages['id'] == $fb_page_id)
                             {
-                                $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
-                                $images[$key]['img_url'] = str_replace("https://", "http://", $path);
-                                $images[$key]['desc']   = $post_data->content;
+                                $page_token = $pages['access_token'];
+                                $page_name = $pages['name'];
+                                $page_id = $pages['id'];
+                            }
+                            // echo '<pre>'; print_r($pages);echo '</pre>';
+                        }
+                    }
+
+                    if(empty($page_token)){
+                        $page_id = 'me';
+                        $page_token = '';
+                    }
+
+                    if(empty( $all_images) && empty( $all_videos) && !empty($post_data->content)){
+                        $privacy = array(
+                            'value' => 'EVERYONE' //EVERYONE, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS, CUSTOM .
+                        );
+                        $result = $this->facebook->request(
+                            'POST',
+                            $page_id.'/feed',
+                            ['message' => $post_data->content],
+                            $page_token
+                        );
+
+                        if(isset($result['error']))
+                        {
+                            $is_error = TRUE;
+                        }
+                    }
+
+                    $this->fb = $this->facebook->object();
+                    
+                    if(!empty($all_images))
+                    {
+                        if(count($all_images)>1){
+                            $images =[];
+
+                            foreach ($all_images as $key => $img) {
+                                if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name))
+                                {
+                                    $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$img->name;
+                                    $images[$key]['img_url'] = str_replace("https://", "http://", $path);
+                                    $images[$key]['desc']   = $post_data->content;
+                                }
+                            }
+                            
+                            $is_error = $this->facebook_upload_images($page_id, $images,$page_token);
+                        }else{
+                            // if only one image is present
+                            if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name))
+                            {
+                                $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name;
+                                $result = $this->facebook->request(
+                                                    'POST',
+                                                    $page_id.'/photos',
+                                                    ['message' => $post_data->content,'picture' => $path,'source'  => $this->fb->fileToUpload($path)],
+                                                    $page_token
+                                                );
+                                if(isset($result['error']))
+                                {
+                                    $is_error = TRUE;
+                                }
+                            }else{                           
+                                $is_error = TRUE;
                             }
                         }
-                        
-                        $this->facebook_upload_images($page_id, $images,$page_token);
-                    }else{
-                        // if only one image is present
-                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name))
+                    }
+
+                    if(!empty($all_videos))
+                    {
+                        $videos = array();
+                        if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name))
                         {
-                            $path = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_images[0]->name;
-                            $result = $this->facebook->request(
-                                                'POST',
-                                                $page_id.'/photos',
-                                                ['message' => $post_data->content,'picture' => $path,'source'  => $this->fb->fileToUpload($path)],
-                                                $page_token
-                                            );
-                            echo json_encode($result);
-                        }else{
-                            echo '<br/> file not found <br/>';
+                            $videos['video_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name;
+                            $videos['desc']   = $post_data->content;
+                        }
+                        $response = $this->facebook_upload_video($page_id, $videos, $page_token);
+                        if(isset($response))
+                        {
+                            $is_error = TRUE;
                         }
                     }
-                    // echo '<pre>'; print_r($data);echo '</pre>'; die;                     
-                }
 
-                if(!empty($all_videos))
-                {
-                    $videos = array();
-                    if(file_exists(upload_path().$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name))
-                    {
-                        $videos['video_url']    = base_url().'uploads/'.$post_data->created_by.'/brands/'.$post_data->brand_id.'/posts/'.$all_videos->name;
-                        $videos['desc']   = $post_data->content;
-                    }
-                    $this->facebook_upload_video($page_id, $videos, $page_token);
+                }else{                
+                    $is_error = TRUE;
                 }
+            }
+            catch(Exception $ex)
+            {
+                $is_error = TRUE;
+            }
 
-            }else{
-                echo "is_not_authenticated <br/>";
+            if(isset($is_error) AND !empty($is_error))
+            {              
+                //send mail to post creator;
+                $this->send_post_fail_mail($post_data->user_id,'Facebook',$post_data->slate_date_time);
+            }
+            else
+            {
+                $status_data = array(
+                                    'status' => 'posted'
+                                );
+                $this->timeframe_model->update_data('posts',$status_data,array('id' => $post_data->id));
             }
         }
     }
@@ -820,7 +906,7 @@ class Cron extends CI_Controller {
             // Creating new photo album
         
             $album_id = $this->create_album('6 album','this is album',$page_id, $page_token );
-            $response = $this->add_imgs_to_album($album_id, $images, $page_token);
+            return $this->add_imgs_to_album($album_id, $images, $page_token);
         }
     }
 
@@ -833,21 +919,23 @@ class Cron extends CI_Controller {
                 'source '   => $this->fb->videoToUpload($video['video_url'])
             );
         $video_response = $this->facebook->request('POST',$page_id."/videos",$parms,$token);
-        echo json_encode($video_response);
+        if(isset($video_response['error']))
+        {
+            return $is_error = TRUE;
+        }
     }
 
     public function add_imgs_to_album( $album_id, $images, $token){
-        $error = TRUE;
+        $is_error = FALSE;
         foreach ($images as $key => $img) {
             $parms = array('message' =>  $img['desc']);
             $parms['url'] = $img['img_url'];
             $data = $this->facebook->request('POST','/'. $album_id .'/photos',$parms, $token);
-            echo '<br/>'.json_encode($data);
             if (isset($data['error'])){
-                $is_error = FALSE;
+                $is_error = TRUE;
             }
         }
-        return $error;
+        return $is_error;
     }
 
     public function create_album($name,$msg,$page_id,$page_token){
@@ -869,5 +957,15 @@ class Cron extends CI_Controller {
             return $album_response['id'];
         }
         return FALSE;
+    }
+
+    function send_post_fail_mail($user_id,$outlet,$slate_date_time)
+    {
+        $user_data = $this->aauth->get_user($user_id);
+        $subject = ucfirst($outlet).' post upload fail';
+        $this->data['user_id'] = $user_id;
+        $this->data['body'] = 'We are unable to upload your '.ucfirst($outlet).' which was slated on '.date('Y-m-d H:i',strtotime($slate_date_time));
+        $message = $this->load->view('mails/post_upload_fail',$this->data,true);
+        email_send($user_data->email,$subject,$message);
     }
 }

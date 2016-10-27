@@ -78,9 +78,11 @@ class Approval_model extends CI_Model
 		return $result;
 	}
 
-	function approvals_between_date($user_id,$brand_id,$start_date='',$end_date='',$outlet ='')
+	function approvals_between_date($user_id,$brand_id,$start_date='',$end_date='',$outlet ='',$search = '')
 	{
 		$result = [];
+		$post_data = $this->input->post();
+
 		if(check_user_perm($user_id,'create',$brand_id) OR $user_id == $this->user_data['account_id']  OR (isset($this->user_data['user_group']) AND $this->user_data['user_group'] == "Master Admin"))
 		{
 			$this->db->select('slate_date_time,posts.outlet_id,content,posts.status,posts.id as id,posts.user_id as user_id,phases.id as phase_id,tumblr_content_type,tumblr_caption,tumblr_title,tumblr_quote,tumblr_custom_url,tumblr_chat_title,tumblr_video_caption');
@@ -90,6 +92,37 @@ class Approval_model extends CI_Model
 			$this->db->where('posts.status !=','posted');
 			$this->db->where('posts.status !=','deleted');
 			$this->db->where('posts.status !=','draft');
+			
+			if(isset($post_data) AND !empty($post_data) AND (isset($post_data['statuses']) OR isset($post_data['tags']) OR isset($post_data['outlets'])))
+			{
+				$statuses = $post_data['statuses'];
+				if(!empty($statuses))
+				{
+					$statuses = explode(',', $post_data['statuses']);
+					$this->db->where_in('posts.status',$statuses);
+				}
+				$tags = $post_data['tags'];
+				if(!empty($tags))
+				{
+					$this->db->join('post_tags','post_tags.post_id = posts.id','left');
+					$tags = explode(',', $tags);
+					foreach($tags as $tag)
+					{						
+						$this->db->where('post_tags.id',$tag);
+					}
+				}
+				$outlets = $post_data['outlets'];
+				if(!empty($outlets))
+				{
+					$outlets = explode(',', $post_data['outlets']);
+					$this->db->where_in('posts.outlet_id',$outlets);
+				}
+			}
+
+			if(!empty($search))
+			{
+				$this->db->like('content',$search);
+			}
 
 			if(!empty($start_date))
 			{
@@ -126,6 +159,11 @@ class Approval_model extends CI_Model
 			$this->db->join('phases_approver','phases_approver.phase_id = phases.id');
 			$this->db->where('posts.brand_id',$brand_id);
 
+			if(!empty($search))
+			{
+				$this->db->like('content',$search);
+			}
+			
 			if(!empty($start_date))
 			{
 				$this->db->where('(DATE_FORMAT(posts.slate_date_time,"%m-%d-%Y")) >= "'.date("m-d-Y",strtotime($start_date)).'"');
@@ -141,12 +179,38 @@ class Approval_model extends CI_Model
 				$this->db->where('posts.outlet_id',$outlet);
 			}
 
+			if(isset($post_data) AND !empty($post_data) AND (isset($post_data['statuses']) OR isset($post_data['tags']) OR isset($post_data['outlets'])))
+			{
+				$statuses = $post_data['statuses'];
+				if(!empty($statuses))
+				{
+					$statuses = explode(',', $post_data['statuses']);
+					$this->db->where_in('posts.status',$statuses);
+				}
+				$tags = $post_data['tags'];
+				if(!empty($tags))
+				{
+					$this->db->join('post_tags','post_tags.post_id = posts.id','left');
+					$tags = explode(',', $tags);
+					foreach($tags as $tag)
+					{
+						$this->db->where('post_tags.id',$tag);
+					}
+				}
+				$outlets = $post_data['outlets'];
+				if(!empty($outlets))
+				{
+					$outlets = explode(',', $post_data['outlets']);
+					$this->db->where_in('posts.outlet_id',$outlets);
+				}
+			}
+
 			$this->db->where('posts.status !=','approved');
 			$this->db->where('posts.status !=','deleted');
 			$this->db->where('posts.status !=','draft');
 			$this->db->where('phases_approver.user_id',$user_id);
 			$this->db->order_by('slate_date_time','ASC');
-			$query = $this->db->get('phases');		
+			$query = $this->db->get('phases');
 			if($query->num_rows() > 0)
 			{
 				if(!empty($result))

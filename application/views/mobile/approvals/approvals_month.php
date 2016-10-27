@@ -5,9 +5,10 @@
 	<header class="page-main-header header-fixed-top bg-white row">
 		<h1 class="center-title section-title border-none">Approvals by Month</h1>
 	</header>
-	<div id="selectedFilters" class="hidden" style="">
-		<ul class="filter-list tag-list clearfix"></ul>
-	</div>
+	<?php
+	$this->data['post_data'] = $post_data;
+	$this->load->view('mobile/partials/selected_filters',$this->data);
+	?>
 	<div class="bg-white col-sm-12 content-shadow brand-main">
 		<div class="content-shadow brand-header row">
 			<div class="col-sm-12">

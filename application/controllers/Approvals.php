@@ -514,7 +514,7 @@ class Approvals extends CI_Controller {
 		$brand =  $this->brand_model->get_brand_by_slug($this->user_id,$slug);		
 		if(!empty($brand))
 		{
-			$this->data['show_filter'] = 1;
+			// $this->data['show_filter'] = 1;
 			$this->data['brand'] = $brand[0];
 			$this->data['brand_id'] = $brand[0]->id;
 			$this->data['view'] = 'approvals/approval_menu';
@@ -532,6 +532,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->get_approvals($this->user_id,$brand[0]->id,'',date('Y-m-d',strtotime('+1 days')));
 			
 			$this->data['approval_list'] = array();
@@ -560,6 +564,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+7 days')));
 			
 			$this->data['approval_list'] = array();
@@ -588,6 +596,10 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+			$this->data['post_data'] = $this->input->post();
+
+			$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,date('Y-m-d'),date('Y-m-d',strtotime('+1 month')));
 			
 			$this->data['approval_list'] = array();
@@ -616,6 +628,9 @@ class Approvals extends CI_Controller {
 		if(!empty($brand))
 		{
 			$this->data['show_filter'] = 1;
+
+			$this->data['post_data'] = $this->input->post();			
+
 			$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id);
 			
 			$this->data['approval_list'] = array();
@@ -812,60 +827,110 @@ class Approvals extends CI_Controller {
 	function save_mobile_post()
 	{
 		$post_data = $this->input->post();
-		echo "<pre>";
-		print_r($post_data);
-		if(!empty($post_data))
+		// print_r($post_data);
+		if(isset($_FILES['file']['name'][0]))
+		{
+			$files = $_FILES['file'];
+			
+			$files_count = count($files['tmp_name']);
+			$error = '';
+			if($files_count > 0)
+			{
+				for($i = 0;$i < $files_count; $i++)
+				{
+					if(!empty($files['name'][$i]))
+					{
+				        $_FILES['uploadedimage']['name'] = $files['name'][$i];
+				        $ext = pathinfo($_FILES['uploadedimage']['name'], PATHINFO_EXTENSION);
+				        $randname = uniqid().'.'.$ext;
+				        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+				        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+				        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+				        $_FILES['uploadedimage']['size'] = $files['size'][$i];
+				        $status = upload_file('uploadedimage',$randname,$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts');
+				      
+				        if(array_key_exists("upload_errors",$status))
+				        {
+				        	$error =  $status['upload_errors'];
+				        	break;
+				        }
+				        else
+				        {
+				        	$uploaded_files[$i]['name'] = $status['file_name'];
+				        	$uploaded_files[$i]['type'] = 'images';
+				        	$uploaded_files[$i]['mime'] = $_FILES['uploadedimage']['type'];
+				        	$uploaded_files[$i]['post_id'] = $post_data['post_id'];	        	
+				        	
+				        	if(strpos($_FILES['uploadedimage']['type'],'video') !== false)
+				        	{
+				        		$uploaded_files[$i]['type'] = 'video';
+				        	}
+
+				        	$this->timeframe_model->insert_data('post_media',$uploaded_files[$i]);
+				        }
+				    }
+				}
+			}		
+		}
+
+		if(isset($error) AND !empty($error))
+		{
+			echo json_encode(array('response' => 'fail'));
+		}
+		else
 		{
 			if(!empty($post_data['delete_img']))
 			{
-				$delete_image_array = explode(',', $post_data['delete_img']);
-				foreach($delete_image_array as $img)
+				if(!empty($post_data['delete_img']))
 				{
-					$this->timeframe_model->delete_data('post_media',array('id' => $img));
+					$delete_image_array = explode(',', $post_data['delete_img']);
+					foreach($delete_image_array as $img)
+					{
+						$this->timeframe_model->delete_data('post_media',array('id' => $img));
+					}
 				}
+			}
+			$post_copy = $post_data['post_copy'];
+			$num = stripos($post_copy,'<textarea id');
+			if($num > 0)
+			{
+				$post_copy =  substr($post_data['post_copy'], 0, $num);
+			}
+			$this->timeframe_model->update_data('posts',array('content' => $post_copy),array('id' => $post_data['post_id']));
+
+			echo json_encode(array('response' => 'success'));
+		}
+	}
+
+	function search()
+	{
+		$get_data = $this->input->get();
+		if(!empty($get_data))
+		{
+			$brand = $this->timeframe_model->get_data_by_condition('brands',array('slug' => $get_data['slug']));
+			if(!empty($brand))
+			{
+				$this->data['search'] = $get_data['search'];
+				$this->data['brand_id'] = $brand[0]->id;
+				$this->data['brand'] = $brand[0];
+				$approvals = $this->approval_model->approvals_between_date($this->user_id,$brand[0]->id,'','','',$get_data['search']);
+
+				$this->data['approval_list'] = array();
+				if(!empty($approvals))
+				{							
+					foreach($approvals as $approval)
+					{
+						$this->data['approval_list'][$approval->id] = $approval;
+					}
+				}
+				$this->data['filters'] = $this->timeframe_model->get_data_array_by_condition('filters',array('brand_id' => $brand[0]->id,'user_id' => $this->user_id));
+				
+				$this->data['show_filter'] = 1;
+				$this->data['view'] = 'posts/search';
+				$this->data['layout'] = 'layouts/new_user_layout';
+
+		        _render_view($this->data);
 			}
 		}
-		if(!empty($post_data['images']))
-		{
-			$files = explode('___', $_POST['images']);
-			if(!empty($files))
-			{
-				foreach($files as $file)
-				{
-					$image_name = uniqid().'.png';					
-	    		  	$base64_str = substr($file, strpos($file, ",")+1);
-
-		        	//decode base64 string
-			        $decoded = base64_decode($base64_str);
-
-			        //create jpeg from decoded base 64 string and save the image in the parent folder
-			        if(!is_dir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts')){
-			        	mkdir(upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts',0755,true);
-			        }
-			        echo $url = upload_path().$this->user_data['account_id'].'/brands/'.$post_data['brand_id'].'/posts'.$image_name;
-			        $result = file_put_contents($url, $decoded);
-			        // $source_url = imagecreatefrompng($url);
-
-			        // header('Content-Type: image/png');
-			        // imagepng($source_url, $url, 8);
-
-			        $post_media_data = array(
-											'post_id' 	=> $post_data['post_id'],
-											'name' 		=> $image_name,
-											'type' 		=> $post_data['type']
-										);
-			        if($post_data['type'] == 'images')
-			        {
-			        	$post_media_data['mime'] = 'image/jpeg';
-			        }
-			        else
-			        {
-			        	$post_media_data['mime'] = 'video/mp4';
-			        }
-					$this->timeframe_model->insert_data('post_media',$post_media_data);
-				}
-			}
-		}		
-		
 	}
 }

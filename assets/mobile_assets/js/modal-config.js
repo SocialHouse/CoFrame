@@ -37,6 +37,28 @@ jQuery(function($) {
 				if ($target.data('clear') === 'no') {
 					$target.attr('data-toggle', 'modal-ajax-inline');
 				}
+
+				if(mid == 'modal-post-filters')
+				{
+					setTimeout(function(){
+						$('.post-filters .filter').each(function(a,b){							
+							$('#selectedFilters .filter-list .filter-remove').each( function(c,d) {
+								if($(d).data('status') && $(b).data('status') && ($(d).data('status') == $(b).data('status')))
+								{
+									$(b).addClass('checked').removeClass('disabled');
+								}
+								else if($(b).data('id') && ($(d).data('id') == $(b).data('id')))
+								{
+									$(b).addClass('checked').removeClass('disabled');
+								}
+								else if($(b).data('tag-id') && ($(d).data('tag-id') == $(b).data('tag-id')))
+								{
+									$(b).addClass('checked').removeClass('disabled');
+								}
+							});
+						});
+					},500);
+				}
 			});
 		});
 

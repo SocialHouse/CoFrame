@@ -869,18 +869,26 @@ class Brands extends CI_Controller {
 		$account_id = $this->uri->segment(3);
 		if($account_id)
 		{
-			$session_data = $this->user_data;
-			
-			$check_user = $this->timeframe_model->check_user_is_account_user($account_id);
-            if($check_user)
-            {
-                $session_data['user_group'] = $check_user;
-            }			
-			$session_data['account_id'] = $account_id;
+			if(check_subscription_expinred($account_id))
+			{
+				$this->session->set_flashdata('subscription_error', 'Subscription of account to which you are switching is expired.');
+				// $this->session->set_flashdata()
+			}
+			else
+			{
+				$session_data = $this->user_data;
+				
+				$check_user = $this->timeframe_model->check_user_is_account_user($account_id);
+	            if($check_user)
+	            {
+	                $session_data['user_group'] = $check_user;
+	            }			
+				$session_data['account_id'] = $account_id;
 
-			$session_data['plan'] = strtolower(get_plan($account_id));
+				$session_data['plan'] = strtolower(get_plan($account_id));
 
-			$this->session->set_userdata('user_info',$session_data);			
+				$this->session->set_userdata('user_info',$session_data);
+			}
 		}
 		redirect(base_url().'brands/overview');
 	}

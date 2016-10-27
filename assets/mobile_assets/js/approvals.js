@@ -19,7 +19,7 @@ jQuery(function($) {
 			var phase_id = $(this).data('phase-id');
 			var status = $(this).data('phase-status');
 			var user_id = $('#user-id').val()
-			var post_id = $(this).data('post-id');
+			var post_id = $(this).data('post-id');			
 			var btn = this;
 
 			if (post_id) {
@@ -31,7 +31,7 @@ jQuery(function($) {
 						'phase_id': phase_id,
 						'status': status,
 						'user_id': user_id,
-						'post_id': post_id
+						'post_id': post_id,						
 					},
 					success: function(response) {
 						if ($(btn).attr('id') == 'approval_list_btn') {
@@ -42,8 +42,10 @@ jQuery(function($) {
 							$(btn).parent().addClass('hidden');
 							if ($(btn).parent('.before-approve').length) {
 								$(btn).parent().parent().children('div:last').removeClass('hidden')
+								$(btn).parent().parent().children('div:last').removeClass('hide')
 							} else {
 								$(btn).parent().parent().children('div:first').removeClass('hidden')
+								$(btn).parent().parent().children('div:first').removeClass('hide')
 							}
 						}
 					}
@@ -88,10 +90,15 @@ jQuery(function($) {
 	    	}
 
 	    	var date = $(this).attr('data-date');
+
+	    	var statuses = $('#statuses_ids').val();
+			var tags = $('#tags_ids').val();
+			var outlets = $('#outlets_ids').val();
+
 	    	$.ajax({
 	    		url:base_url+'approvals/get_approval_list',
 	    		type:'POST',
-	    		data:{'date':date,'type':$('#type').val(),'btn_clicked':bt_clicked,'brand_id':$('#brand-id').val()},
+	    		data:{'date':date,'type':$('#type').val(),'btn_clicked':bt_clicked,'brand_id':$('#brand-id').val(),'statuses':statuses,'tags':tags,'outlets':outlets},
 	    		dataType:'JSON',
 	    		success:function(response){
 	    			$('.my-approvals').html(response.response);

@@ -36,6 +36,16 @@
 					</div>
 					<?php
 				}
+
+				$subscription_error = $this->session->flashdata('subscription_error');
+				if($subscription_error)
+				{
+					?>
+					<div class="alert alert-danger center-title">
+					  <?php echo $subscription_error; ?>
+					</div>
+					<?php
+				}
 				
 				foreach($brands as $key=>$brand)
 				{

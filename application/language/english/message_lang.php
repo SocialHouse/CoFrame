@@ -11,6 +11,7 @@
 	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records. Please try again.";
 	$lang['invalid_email_password_title'] = "Invalid Email or Password";
 	$lang['registered_success_link'] = "You have successfully registered for CoFrame. A verification link will be emailed to you - please check your spam/junk email if it doesn't arrive.";
+<<<<<<< HEAD
 	$lang['You have successfully registered for CoFrame.'] = "You have registered successfully";
 	$lang['mail_sending_fail'] = "There's been an internal error. Code #038";
 	$lang['email_not_exist'] = "Email address does not exist";
@@ -19,18 +20,36 @@
 	$lang['unable_to_register_user'] = "There was a problem with your registration. Please contact customer support by emailing us at support@coframeapp.com.";
 	$lang['reset_pass_msg'] = "Thank you. We've sent an email to %email% to reset your password.";
 	$lang['unable_to_verify_account'] = "We were unable to verify your account. Please click the link in your verification email again or contact CoFrame at support@coframeapp.com.";
+=======
+	$lang['registered_success'] = "You have successfully registered for CoFrame.";
+	$lang['mail_sending_fail'] = "There's been an internal error. Code #038";
+	$lang['email_not_exist'] = "Email address does not exist";
+	$lang['password_reset_success'] = "Your password has been reset successfully.";
+	$lang['password_reset_error'] = "There was an issue resetting your password - please try again.";
+	$lang['unable_to_register_user'] = "There was a problem with your registration. Please contact customer support by emailing us at support@coframeapp.com.";
+	$lang['reset_pass_msg'] = "Thank you. We've sent an email to %email% to reset your password.";
+	$lang['unable_to_verify_account'] = "We were unable to verify your account. Please click the link in your verification email again or contact CoFrame at support@coframeapp.com";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['verification_successful'] = "You have successfully set up your CoFrame account. Please login to continue.";
 	$lang['wrong_url'] = "This url seems to be wrong please check email and try again";
 	$lang['link_expired'] = "This password reset link has expired. Click here to resend email.";
 	$lang['successful'] = "Success!";
+<<<<<<< HEAD
 	$lang['error'] = "Something is not right - please try again!";
 	$lang['go_to_login'] = "Please login now.";
 	$lang['validation_fails'] = "Validation fails";
 	$lang['try_again'] = "There was an error processing your request, please try again. ";
+=======
+	$lang['error'] = "Error";
+	$lang['go_to_login'] = "Please login now.";
+	$lang['validation_fails'] = "Validation fails";
+	$lang['try_again'] = "There was an error processing your request, please try again.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['verify_account'] = "Verify account";
 
 	//  validation error
 	$lang['enter_email'] = "Please enter your email address.";
+<<<<<<< HEAD
 	$lang['forgot_pass_error'] = "Password Error";
 	$lang['valid_email'] = "Please enter a valid email address.";
 	$lang['email_used'] = "This email is already in use. Please try a different email or click 'Forgot Password' to recover your password.";
@@ -56,6 +75,42 @@
 
 
 	$lang['cancel_confirmation'] = "Are you sure you want to cancel?";
+=======
+	$lang['forgot_pass_error'] = "Forgot password error";
+	$lang['valid_email'] = "Please enter a valid email address.";
+	$lang['email_used'] = 'This email is already in use. Please try a different email or click "Forgot Password" to recover your password.';
+
+	$lang['email_not_match'] = "The email you entered is not associated with an account. Please try again.";
+
+	$lang['enter_pass'] = "Please enter password.";
+	$lang['enter_new_pass'] = "Please enter a new password.";
+	$lang['re_enter_pass'] = "Please confirm your new password.";
+	$lang['valid_pass'] = "Please enter a valid password";
+	$lang['pass_recovery'] = "Password Recovery";
+	$lang['equal_to_pass'] = "Please enter matching passwords.";
+
+	$lang['enter_fname'] = "Please enter first name.";
+
+	$lang['enter_lname'] = "Please enter last name.";
+	
+	$lang['enter_phone'] = "Please enter a phone number.";
+	$lang['valid_phone'] = "Please enter a valid phone number.";
+	
+
+	$lang['mini_char'] = "Please enter minimum 6 character";
+		
+	$lang['invalid_company_url'] = "Please enter valid url eg. www.example.com";
+	$lang['enter_company_name'] = "Please enter company name";
+
+	$lang['select_timezone'] = "Please select a timezone.";
+	$lang['select_plan'] = "Please select a plan.";
+
+	$lang['enter_username'] = "Please enter username";
+	$lang['username_already_used'] = "This username is already in used";
+
+	
+	$lang['cancel_confirmation'] = "Are you sure, you want to cancel?";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['delete_user'] = "Are you sure you want to delete this user?";
 	$lang['delete_post'] = "Are you sure you want to delete this post?";
 	$lang['unable_to_resubmit'] = "We were unable to resubmit approvals to this phase - please try again.";
@@ -83,34 +138,63 @@
 	$lang['enter_slate_date'] ="Please enter Slate date.";
 	$lang['enter_hour_minutes_slate_date'] ="Please enter Slate date and time.";
 	$lang['date_less_than_phase'] ="The Approve By date for this phase must be earlier than its next phase.";
+<<<<<<< HEAD
 	$lang['select_date'] ="Please set the Approve By date.";
+=======
+	$lang['select_date'] = "Please set the Approve By date.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['select_sdate'] ="Please set a Slate day.";
 	$lang['phase_less_than'] ="The Approve By date for this phase must be earlier than its next phase.";
 	$lang['date_less_than_sdate'] ="The Approve By date for this phase must be before than the Slate date.";
 	$lang['select_image_video'] ="Please select images or video.";	
 	$lang['enter_post_content'] ="Please enter post content.";
+<<<<<<< HEAD
 	$lang['date_greater_than_today'] ="Date must be later than today's date.";
 	$lang['video_audio_not_enabled'] ="Video and audio are not enabled. Please enable one or both to continue.";
 	$lang['disconnected_from_session'] ="You have been disconnected from the Co-Create session.";
 	$lang['connecting_error_session'] ="There was an error connecting to this Co-Create.";
+=======
+	$lang['date_greater_than_today'] = "Date must be later than today's date.";
+	$lang['video_audio_not_enabled'] = "Video and audio are not enabled. Please enable one or both to continue.";
+	$lang['disconnected_from_session'] = "You have been disconnected from the Co-Create session.";
+	$lang['connecting_error_session'] = "There was an error connecting to this Co-Create.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['valid_date'] ="Please select a valid date.";
 	$lang['valid_approver'] ="Please select at least one approver";
 	$lang['select_re_date'] ="Please select a date.";
 	$lang['post_update_successful'] ="Your post has been updated successfully.";
+<<<<<<< HEAD
 	$lang['unable_to_add_user'] ="We were unable to add this user - please try again.";
 	$lang['user_add_success'] ="User has been successfully added!";
 	$lang['phase_one_date_error'] ="Date must be later than today's date and earlier than the Slate date.";
 	$lang['phase_two_date_error'] ="Date must be later than the Phase 1 Approve By date and earlier than the Slate date.";
+=======
+	$lang['unable_to_add_user'] = "We were unable to add this user - please try again.";
+	$lang['user_add_success'] = "User has been successfully added!";
+	$lang['phase_one_date_error'] = "Date must be later than today's date and earlier than the Slate date.";
+	$lang['phase_two_date_error'] = "Date must be later than the Phase 1 Approve By date and earlier than the Slate date.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['phase_three_date_error'] ="Date must be later than the Phase 2 Approve By date and earlier than the Slate date.";
 
 	
 
 	// Delete Draft
 	$lang['delete_draft'] = "Are you sure you want to delete these drafts? You cannot undo this action.";
+<<<<<<< HEAD
 	$lang['invalid_email_password'] = "Are you sure you want to delete these drafts? You cannot undo this action.
 The email and/or password you entered did not match our records - please try again";
 
 	$lang['twitter_img_allowed'] = "OYou can upload a max of 4 images to one tweet. 4 images to one tweet - please delete extra images.";
+=======
+	$lang['invalid_email_password'] = "The email and/or password you entered did not match our records - please try again";
+
+	$lang['twitter_img_allowed'] = "You can upload a max of 4 images to one tweet.";
+	$lang['twitter_gif_error'] = "You can upload a max of 1 gif image to one tweet.";
+
+	$lang['twitter_gif_error_outlet_change'] = "You can upload a max of 1 gif to one tweet - please delete extra images or gif image.";
+
+	$lang['twitter_img_allowed_outlet_change'] = "You can upload a max of 4 images to one tweet - please delete extra images.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	$lang['vine_img_not_allwed'] = "Vine does not allow images - please upload a video.";
 	$lang['youtube_img_not_allwed'] = "Youtube does not allow images - please upload a video.";
 	$lang['insta_video_not_allowed'] = "Instagram does not allow GIFs - please upload a video.";
@@ -124,7 +208,16 @@ The email and/or password you entered did not match our records - please try aga
 	$lang['pinterest_outlet_change_error'] = "Only 1 image is allowed for Pinterest - please delete extra images before switching to Pinterest.";
 	$lang['insta_img_allowed'] = "Only 1 image is allowed for Instagram.";
 	$lang['linkedin_img_allowed'] = "Only 1 image is allowed for LinkedIn.";
+<<<<<<< HEAD
 	$lang['pinterest_img_allowed'] = "Only 1 image is allowed for Pinterest.";	
+=======
+	$lang['linkedin_video_error'] = "LinkedIn does not allow videos.";
+	$lang['linkedin_outlet_change_video_error'] = "LinkedIn does not allow videos - please delete it before switching to LinkedIn.";
+	$lang['pinterest_img_allowed'] = "Only 1 image is allowed for Pinterest.";	
+
+	$lang['pinterest_outlet_change_video_error'] = "Pinterest does not allow videos - please delete it before switching to Pinterest.";
+	$lang['pinterest_video_error'] = "Pinterest does not allow videos.";
+>>>>>>> b96cc0bf199b0b5f4e60c80b889fcfe0561d108e
 	
 
 	//edit tags
@@ -149,9 +242,11 @@ The email and/or password you entered did not match our records - please try aga
 	$lang['master_users_limit_downgrade'] = 'Please remove %master_users_number% Master Admins before changing your plan.';
 	$lang['brand_limit_downgrade'] = 'Please remove %brand_number% brands before changing your plan.';
 	$lang['tag_limit_downgrade'] = 'Please remove tags from %message% before changing your plan.';
+
 	$lang['outlet_limit_downgrade'] = 'Please remove outlets from %message% before changing your plan. ';
 
 	$lang['email_present_in_current_brand'] = 'This user is already an active user on this brand.';
+
 	$lang['email_is_account_user'] = 'You do not have permission to add accounts. Please contact your Master Admin to add users.';
 	$lang['email_present_in_current_ac'] = 'This email address is already in use. Select the user from the dropdown to assign them a role for this brand.';
 
@@ -162,8 +257,9 @@ The email and/or password you entered did not match our records - please try aga
 	$lang['duplicate_error'] = 'We were unable to duplicate this post - please try again.';
 	$lang['duplicated_success'] = 'The post has been successfully duplicated.';
 
-	// $lang['trial_period_expiring_days'] = 'Your trial period is going to expire in  %days% days. Please enter your payment information to continue using CoFrame.';
+	$lang['trial_period_expiring_days'] = 'Your trial period is going to expire in  %days% days. Please enter your payment information to continue using CoFrame.';
 	$lang['trial_period_expiring_days'] = 'You are currently in a trial period.';
+
 	$lang['trial_period_expiried'] = 'Your trial period has expired.';
 
 
@@ -204,13 +300,16 @@ The email and/or password you entered did not match our records - please try aga
 	$lang['tumblr_change_img_video_error'] = "Please delete images or video before switching to %Content_type%.";
 	$lang['tumblr_change_img_audio_error'] = "Please delete images or audio before switching to %Content_type%.";
 	$lang['tumblr_change_audio_video_error'] = "Please delete audio or video before switching to %Content_type%.";
-
-
+	$lang['tumblr_upload_video_error'] = "You can not upload video for the content type photo.";
+	$lang['tumblr_upload_photo_error'] = "You can not upload photo for the content type video.";	
 	$lang['suggesion_delete_confirm'] = "Are you sure you want to delete this comment?";
 	$lang['suggesion_unable_delete'] = "Unable to delete comment please try again";
-
 	$lang['no_fb_page'] = "Currently there is no facebook page associalted with your account please add it first.";
-
 	$lang['no_post_found'] = 'There are no posts slated for this day.';
-	
+	$lang['edit_post_fail'] = 'Unable to upload image. Please try again.';
+	$lang['img_vid_error'] = 'You can not upload an image and video together.';
+	$lang['no_board'] = "There is no board created in this account. You need to create one to upload post.";
+	$lang['no_blog'] = "There is no blog present in this account. You need to create one to upload post.";
+	$lang['no_channel'] = "There is no channel present in this account. You need to create one to upload post.";
+
 ?>

@@ -78,6 +78,7 @@ $route['approvals/delete_suggest_edit'] = "approvals/delete_suggest_edit";
 $route['approvals/change_comment_status'] = "approvals/change_comment_status";
 $route['approvals/get_approvals_by_date'] = "approvals/get_approvals_by_date";
 $route['approvals/edit-approval-phase'] = "approvals/edit_approval_phase";
+$route['approvals/search'] = "approvals/search";
 $route['approvals/phase-user-list/(:any)'] = "approvals/phase_user_list/$1";
 $route['approvals/edit-approval-phase/(:any)/(:any)'] = "approvals/edit_approval_phase/$1/$2";
 $route['approvals/edit-approval-phase/(:any)/(:any)/(:any)'] = "approvals/edit_approval_phase/$1/$2/$3";

@@ -143,7 +143,11 @@ jQuery(function($) {
 			}
 			//only allow 140 characters for tweets
 			if (outlet_const === 'twitter') {
-				text_char_limit(outlet_const, '140');
+
+				if(!text_char_limit(outlet_const, '140'))
+				{
+					return false;
+				}
 			}
 
 			//tot show default posty copy and media view
@@ -183,15 +187,30 @@ jQuery(function($) {
 			if (outlet_const === 'vine' || outlet_const === 'youtube') {
 				if ($('.form__preview-wrapper img').length) {
 					if (outlet_const === 'youtube') {
-						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});
-						return false;
+						getConfirm(language_message.youtube_outlet_change_error,'','alert',function(confResponse) {});						
 					} else {
-						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});
-						return false;
+						getConfirm(language_message.vine_outlet_change_error,'','alert',function(confResponse) {});						
 					}
-					
+					return false;
 				}				
 			}
+
+			if(outlet_const === 'linkedin')
+			{
+				if ($('.form__preview-wrapper video').length) {
+					getConfirm(language_message.linkedin_outlet_change_video_error,'','alert',function(confResponse) {});
+					return false;
+				}
+			}
+
+			if(outlet_const === 'pinterest')
+			{
+				if ($('.form__preview-wrapper video').length) {
+					getConfirm(language_message.pinterest_outlet_change_video_error,'','alert',function(confResponse) {});
+					return false;
+				}
+			}
+
 			if (outlet_const === 'youtube') {
 				var show_classes = '#youtubePostFields';
 				if($('#defaultPostCopy:hidden').length > 0)
@@ -211,14 +230,25 @@ jQuery(function($) {
 
 
 			if (outlet_const == 'instagram') {
-				if ($('.form__preview-wrapper video').length) {
-					getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
-					return false;
-				}
+				// if ($('.form__preview-wrapper video').length) {
+				// 	getConfirm(language_message.insta_outlet_change_error,'','alert',function(confResponse) {});
+				// 	return false;
+				// }
 
-				if ($('.form__preview-wrapper img').length > 1) {
+				if ($('.form__preview-wrapper img').length > 1) {					
 					getConfirm(language_message.insta_outlet_change_img_error,'','alert',function(confResponse) {});
 					return false;
+				}
+				else
+				{
+					if ($('.form__preview-wrapper img').length)
+					{
+						if($('.form__preview-wrapper img').attr('src').indexOf('gif') >= 0)
+						{
+							getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							return false;
+						}
+					}
 				}
 			}
 
@@ -341,7 +371,7 @@ jQuery(function($) {
 		});
 
 		$(".alert").fadeTo(5000, 500).slideUp(500, function() {
-			// $(".alert").alert('close');
+			$(".alert").alert('close');
 		});
 
 		$(document).on('click', '.has-archive, .category_date', function(event) {
@@ -2164,6 +2194,24 @@ function text_char_limit(outlet_const, limit){
 	else
 		$("#postCopy").attr("maxlength", limit);
 
+	if($('.form__preview-wrapper img').length > 1 && outlet_const == 'twitter')
+	{
+		var should_change = 1;
+		$('.form__preview-wrapper img').each(function(a,b){
+			
+			if($(this).attr('src').indexOf('gif') >= 0)
+			{
+				getConfirm(language_message.twitter_gif_error_outlet_change,'','alert',function(confResponse) {});
+				should_change = 0;
+				return false;
+			}			
+		});
+
+		if(should_change == 0)
+		{
+			return false;
+		}
+	}
 	if ($('.form__preview-wrapper img').length > 4 && outlet_const == 'twitter') {
 		getConfirm(language_message.twitter_img_allowed_outlet_change,'','alert',function(confResponse) {});
 		return false;
@@ -2174,6 +2222,7 @@ function text_char_limit(outlet_const, limit){
 	else {
 		$('#charsLeft').text(charsLeft);
 	}
+	return true;
 }
 
 

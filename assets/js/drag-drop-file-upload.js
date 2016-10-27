@@ -111,8 +111,22 @@
 
 							var reader = new FileReader();
 							reader.readAsDataURL(file);
-							reader.onload = function (e) {
-								
+							reader.onload = function (e) {								
+								if(outlet_const == 'tumblr')
+								{
+									if($('.content-list li:not(".disabled")').data('selected-content') == 'Video' && file_type != 'video')
+									{
+										getConfirm(language_message.tumblr_upload_photo_error,'','alert',function(confResponse) {});
+										return false;
+									}	
+								}
+
+								if(allFiles.length == 1 && outlet_const == 'twitter' && (allFiles[0].type == 'image/gif' || file.type == 'image/gif'))
+								{
+									getConfirm(language_message.twitter_gif_error,'','alert',function(confResponse) {});
+									return false;
+								}
+
 								if(allFiles.length == 4 && outlet_const == 'twitter')
 								{
 									getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
@@ -132,7 +146,7 @@
 									
 								}
 
-								if(outlet_const == 'instagram' && file_type[0]== 'video')
+								if(outlet_const == 'instagram' && file.type == 'image/gif')
 								{
 									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
 									return false;
@@ -183,8 +197,29 @@
 
 						//for show preview
 						}else if(file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
-							if(outlet_const == 'instagram' ){
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							// if(outlet_const == 'instagram' ){
+							// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							// 	return false;
+							// }
+
+							if(outlet_const == 'tumblr')
+							{
+								if($('.content-list li:not(".disabled")').data('selected-content') == 'Photo' && file_type != 'image')
+								{
+									getConfirm(language_message.tumblr_upload_video_error,'','alert',function(confResponse) {});
+									return false;
+								}
+							}
+
+							if(outlet_const == 'linkedin')
+							{
+								getConfirm(language_message.linkedin_video_error,'','alert',function(confResponse) {});
+								return false;
+							}
+
+							if(outlet_const == 'pinterest')
+							{
+								getConfirm(language_message.pinterest_video_error,'','alert',function(confResponse) {});
 								return false;
 							}
 
@@ -304,11 +339,17 @@
 								return false;
 							}
 
-							if(outlet_const == 'instagram' && file_type[0]== 'video')
-							{
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
-								return false;
-							}
+							if(outlet_const == 'instagram' && file.type == 'image/gif')
+								{
+									getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+									return false;
+								}
+
+							// if(outlet_const == 'instagram' && file_type[0]== 'video')
+							// {
+							// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+							// 	return false;
+							// }
 
 							if( file_type[0]== 'image'){
 								if( file.size > upload_limit[outlet_const].image_size){
@@ -335,6 +376,11 @@
 								var reader = new FileReader();
 								reader.readAsDataURL(file);
 			                    reader.onload = function (e) {
+			                    	if(allFiles.length == 1 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter' && (allFiles[0].type == 'image/gif' || file.type == 'image/gif'))
+									{
+										getConfirm(language_message.twitter_gif_error,'','alert',function(confResponse) {});
+										return false;
+									}
 			                    	if(allFiles.length == 4 && jQuery('#postOutlet').attr('data-outlet-const') == 'twitter')
 									{
 										getConfirm(language_message.twitter_img_allowed,'','alert',function(confResponse) {});
@@ -378,10 +424,10 @@
 				                }
 							}else if( file_type[0]== 'video' && !$fileDiv.hasClass('user_upload_img_div') && !$fileDiv.hasClass('brand-image')){
 
-							if(outlet_const == 'instagram' ){
-								getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
-								return false;
-							}							
+								// if(outlet_const == 'instagram' ){
+								// 	getConfirm(language_message.insta_video_not_allowed,'','alert',function(confResponse) {});
+								// 	return false;
+								// }							
 
 								if( file.size > upload_limit[outlet_const].video){
 									getConfirm(language_message.video_size_limit.replace('%size%',(upload_limit[outlet_const].video)/1000000)+' MB','','alert',function(confResponse) {});
@@ -478,7 +524,7 @@
 					// return false;
 					var other_data = $('form').serializeArray();
 					$.each(other_data,function(key,input){
-						if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'save_as')
+						if(input.name == 'brand_id' || input.id== 'post_user_id' || input.name == 'post_copy')
 				        	ajaxData.append(input.name,input.value);
 				    });
 				   
@@ -1292,6 +1338,27 @@
 
 				jQuery('#live-post-preview .twitter-img-div').prepend(video);
 				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .twitter-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .insta-img-div').prepend(video);
+				jQuery("#live-post-preview .insta-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .insta-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview video").css("width", "100%");
+				jQuery("#live-post-preview video").removeAttr('class');
+
+				jQuery('#live-post-preview .img-div').prepend(video);
+				jQuery("#live-post-preview .img-div video").css("width", "100%");
+				jQuery("#live-post-preview .img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .twitter-img-div').prepend(video);
+				jQuery("#live-post-preview .twitter-img-div video").css("width", "100%");
+				jQuery("#live-post-preview .twitter-img-div video").removeAttr('class');
+
+				jQuery('#live-post-preview .video-div').prepend(video);
+				jQuery("#live-post-preview .video-div video").css("width", "100%");
+				jQuery("#live-post-preview .video-div video").removeAttr('class');
 			});
 		}
 		else

@@ -21,10 +21,18 @@
       }
       ?>
       <li class="nav-item search-item border-gray-lighter border-top border-bottom">
-        <form action="search.php" class="form-inline form-search">
-          <input type="text" name="search" class="form-control input-search" value="" placeholder="Search">
-          <button type="submit" class="btn btn-search"><i class="tf-icon-search"></i></button>
-        </form>   
+        <?php
+        if(isset($brand_id) AND !empty($brand_id))
+        {
+          ?>
+          <form method="get" action="<?php echo base_url().'approvals/search'; ?>" class="form-inline form-search">
+            <input type="hidden" name="slug" value="<?php echo $brand->slug; ?>" />
+            <input type="text" name="search" class="form-control input-search" value="<?php echo isset($search) ? $search : ''; ?>" placeholder="Search">
+            <button type="submit" class="btn btn-search"><i class="tf-icon-search"></i></button>
+          </form> 
+          <?php
+        }
+        ?>
       </li>
       <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a> </li>
       <?php
