@@ -89,7 +89,7 @@
 							</div>
 						</div>
 						<footer class="post-content-footer">
-							<div class="disclaimer"><button class="btn btn-sm btn-default btn-next-step" type="button" data-next-step="3">Skip this Step</button></div>						
+							<div class="disclaimer"><button class="btn btn-sm btn-default btn-next-step btn-skip-step" type="button" data-next-step="3">Skip this Step</button></div>						
 							<div id="outletStep2Btns">
 								<button type="button" class="btn btn-sm btn-default btn-next-step" data-next-step="1">Back</button>
 								<button type="button" id="save_outlet" class="btn btn-sm btn-disabled btn-secondary pull-sm-right" disabled="disabled">Next</button>

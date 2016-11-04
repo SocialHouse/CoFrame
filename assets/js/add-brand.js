@@ -97,6 +97,17 @@ jQuery(function($) {
 			} else {
 				toggleBtnClass('#save_outlet', true);
 			}
+
+			setTimeout(function(){
+				if($('#selectedOutlets li').length > 0)
+				{
+					$('.btn-skip-step').addClass('hide');
+				}
+				else
+				{
+					$('.btn-skip-step').removeClass('hide');
+				}
+			},500);
 		});
 
 		$('#selectedOutlets').on('contentSlidDown', function() {
@@ -1120,6 +1131,16 @@ jQuery(function($) {
 	    	toggleBtnClass('#addOutletBtns #addOutlet', false);
 			jQuery('#addOutletBtns #addOutlet').click();
 			toggleBtnClass('#addOutletBtns #addOutlet', true);
+			setTimeout(function(){
+				if($('#selectedOutlets li').length > 0)
+				{
+					$('.btn-skip-step').addClass('hide');
+				}
+				else
+				{
+					$('.btn-skip-step').removeClass('hide');
+				}
+			},500);
 	    }else{
 	    	getConfirm(response.message,response.title,'alert',function(confResponse) {});
 	    	jQuery('#addOutletBtns .btn-cancel').click();
