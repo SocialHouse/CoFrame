@@ -47,6 +47,7 @@ class Co_create extends CI_Controller {
 			$this->data['users'] = $this->brand_model->get_approvers($brand_id);
 			$this->user_data['timezone'] = $brand[0]->timezone;
 			$this->data['user_group'] = get_user_groups($this->user_id,$brand[0]->id);
+			$this->data['rooms'] = $this->timeframe_model->get_data_by_condition('co_create_requests',array('brand_slug' => $slug));
 		
 			$brand_id = $brand[0]->id;			
 
@@ -225,15 +226,24 @@ class Co_create extends CI_Controller {
 		{
 			if(!empty($post_data['selected_users']))
 			{
-				$this->timeframe_model->insert_data('co_create_requests',array('request_string' => $post_data['request_string'],'brand_slug' => $post_data['slug'],'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
+				$inserted_id = $this->timeframe_model->insert_data('co_create_requests',array('request_string' => $post_data['request_string'],'brand_slug' => $post_data['slug'],'user_id' => $this->user_id,'account_id' => $this->user_data['account_id']));
 
 				$subject = "Co create request";
 				$this->data['url'] = base_url()."join-co-create/".$post_data['slug']."/".$post_data['request_string'];
 				$message = $this->load->view('mails/join_co_create',$this->data,true);
+				$users = '';
+				$count = 1;
 				foreach($post_data['selected_users'] as $email)
 				{
-					$user_id = $this->aauth->get_user_id($email);
 
+					$user_id = $this->aauth->get_user_id($email);
+					$users .= $user_id;
+					if(count($post_data['selected_users']) > 1 AND $count != count($post_data['selected_users']))
+					{
+						$users .= ',';
+					}
+					
+					$count++;
 					$reminder_data = array(
 		    								'user_id' => $user_id,
 		    								'type' => 'reminder',

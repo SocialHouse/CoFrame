@@ -253,7 +253,8 @@ class Facebook_connect extends CI_Controller {
 					echo "<select name='page'>";				
 					foreach ($user['accounts']['data'] as $key => $pages) 
 					{
-						echo "<option value='".$pages ['id']."'>".$pages['name']."</option>";
+						if($pages['perms'][0] == 'ADMINISTER')
+							echo "<option value='".$pages ['id']."'>".$pages['name']."</option>";
 					}
 					echo '</select><br/><br/>';
 					echo "<input type='submit' value='save'>";

@@ -553,3 +553,6 @@ ALTER TABLE `posts` ADD `cocreate_post_id` INT NULL AFTER `time_zone`;
 ALTER TABLE `social_media_keys` ADD `pinterest_board_id` VARCHAR(250) NULL AFTER `fb_page_id`;
 ALTER TABLE `social_media_keys` ADD `tumblr_blog_url` VARCHAR(500) NULL AFTER `pinterest_board_id`;
 ALTER TABLE `social_media_keys`  ADD `youtube_channel_id` VARCHAR(300) NULL  AFTER `tumblr_blog_url`;
+
+---07-11-2016
+ALTER TABLE `co_create_requests` ADD `users` VARCHAR(200) NULL AFTER `account_id`;
