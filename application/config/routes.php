@@ -114,4 +114,15 @@ $route['user_preferences/edit_user_info'] = "user_preferences/edit_user_info";
 $route['terms-of-use'] = "footer/terms_of_use";
 $route['privacy-policy'] = "footer/privacy_policy";
 
+// admin routes
+$route['accounts'] = "admin/accounts/index";
+$route['accounts/sub-users/(:num)'] = "admin/accounts/account_users/$1";
+$route['accounts/brands/(:num)'] = "admin/accounts/get_account_brands/$1";
+$route['accounts/sub-users/(:num)'] = "admin/accounts/account_users/$1";
+$route['accounts/edit-account/(:num)'] = "admin/accounts/edit_account/$1";
+
+
+
+
+
 
