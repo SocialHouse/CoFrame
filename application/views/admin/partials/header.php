@@ -3,6 +3,7 @@
 	<head>
 		<title>CoFrame</title>
 		<link rel="stylesheet" href="<?php echo css_url()."bootstrap.min.css"; ?>">
+		<link rel="stylesheet" href="<?php echo css_url()."admin/font-awesome.min.css"; ?>">
 		<style type="text/css">
 			.starter-template{
 				padding: 70px 15px;
@@ -34,19 +35,15 @@
 						<li data-url="category" ><a href="<?php echo base_url()."admin/accounts"; ?>">Accounts</a></li>
 					</ul>
 
-					<ul class="nav navbar-nav">
-						<li data-url="category" ><a href="<?php echo base_url()."admin/category"; ?>">Users</a></li>
-					</ul>
-
 					<!-- <ul class="nav navbar-nav">
-						<li data-url="category" ><a href="<?php echo base_url()."admin/discounts"; ?>">Discounts</a></li>
+						<li data-url="category" ><a href="<?php echo base_url()."admin/category"; ?>">Users</a></li>
 					</ul> -->
 
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" role="button" 
 							aria-haspopup="true" aria-expanded="false" >
-								<i class="fa fa-user-o" aria-hidden="true"></i>
+								<i class="fa fa-user" aria-hidden="true"></i> Admin
 							</a>
 							<ul class="dropdown-menu">
 								<li>
@@ -69,7 +66,8 @@
 			<div class="starter-template">
 				<?php 
 				if(!isset($message))
-				$message = $this->session->flashdata('message');
+					$message = $this->session->flashdata('message');
+
 				if (isset($message) AND !empty($message))
 				{ 
 					?>

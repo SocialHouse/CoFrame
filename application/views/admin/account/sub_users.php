@@ -1,8 +1,15 @@
 <div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">
-			Sub-users
-		</h3>
+	<div class="panel-heading">		
+		<div class="row">
+			<div class="col-sm-10">
+				<h3 class="panel-title">
+					Sub users					
+				</h3>
+			</div>
+			<div class="col-sm-2">
+				<a href="<?php echo base_url('admin/accounts'); ?>" class="btn btn-primary pull-right">Back</a>
+			</div>
+		</div>
 	</div>
 
 	<div class="panel-body">
@@ -14,6 +21,7 @@
 					<th>Title</th>
 					<th>Email</th>
 					<th>Phone</th>
+					<th>Verification status</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -29,8 +37,37 @@
 							<td><?php echo ucfirst($user->last_name); ?></td>
 							<td><?php echo ucfirst($user->title); ?></td>
 							<td><?php echo $user->email; ?></td>
-							<td><?php echo $user->phone; ?></td>							
-							<td><a href="<?php echo base_url().'/account/sub-users/'.$user->aauth_user_id; ?>"></a></td>
+							<td><?php echo $user->phone; ?></td>
+							<td>
+								<?php 
+								if(!empty($user->verification_code))
+								{
+									echo "Not verified";
+								}
+								else
+								{
+									echo "Verified";	
+								}
+								?>
+							</td>
+							<td>
+								<a href="<?php echo base_url().'users/edit-account/'.$user->aauth_user_id.'/'.$account_id; ?>">Edit</a>
+								<?php
+								$text = 'Unban';
+								if($user->banned == 0)
+								{
+									$text = 'Ban';
+								}
+
+								if(empty($user->verification_code))
+								{
+									?>
+									|
+									<a href="<?php echo base_url().'admin/accounts/change_status/'.$user->aauth_user_id.'/'.$user->banned.'/'.$account_id; ?>"><?php echo $text; ?></a>
+									<?php
+								}
+								?>
+							</td>
 						</tr>
 						<?php
 					}

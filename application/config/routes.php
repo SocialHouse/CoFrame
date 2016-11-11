@@ -120,6 +120,10 @@ $route['accounts/sub-users/(:num)'] = "admin/accounts/account_users/$1";
 $route['accounts/brands/(:num)'] = "admin/accounts/get_account_brands/$1";
 $route['accounts/sub-users/(:num)'] = "admin/accounts/account_users/$1";
 $route['accounts/edit-account/(:num)'] = "admin/accounts/edit_account/$1";
+$route['users/edit-account/(:num)/(:num)'] = "admin/accounts/edit_account/$1/$2";
+$route['accounts/update-account'] = "admin/accounts/update_account";
+
+$route['brand/brand-details/(:num)/(:num)'] = "admin/brands/index/$1/$2";
 
 
 
