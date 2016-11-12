@@ -112,7 +112,23 @@
 						<li>
 							<a class="nav-link" href="<?php echo base_url()?>user_preferences">Account Settings</a>
 						</li>
-						<li><a class="nav-link" href="<?php echo base_url().'tour/logout' ?>">Log out</a></li>
+						<?php
+						$session_user_type = $this->session->userdata('user_type');
+						if(!empty($session_user_type))
+						{
+							?>
+							<li>
+								<a class="nav-link" href="<?php echo base_url()?>admin/accounts">Back to admin</a>
+							</li>
+							<?php
+						}
+						else
+						{
+							?>						
+							<li><a class="nav-link" href="<?php echo base_url().'tour/logout' ?>">Log out</a></li>
+							<?php
+						}
+						?>
 					</ul>
 		    	</li>
 		  	</ul>

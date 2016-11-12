@@ -124,6 +124,10 @@ $route['users/edit-account/(:num)/(:num)'] = "admin/accounts/edit_account/$1/$2"
 $route['accounts/update-account'] = "admin/accounts/update_account";
 
 $route['brand/brand-details/(:num)/(:num)'] = "admin/brands/index/$1/$2";
+$route['admin'] = "admin/auth/index";
+$route['auth'] = "admin/auth/check_login";
+
+
 
 
 

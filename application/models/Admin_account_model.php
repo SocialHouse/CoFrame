@@ -9,9 +9,12 @@ class Admin_account_model extends CI_Model
 
 	function get_account_holders()
 	{
-		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned');
+		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
 		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
+		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
+
 		$this->db->where('(plan IS NOT NULL)');
+		$this->db->group_by('brands.account_id');
 		$result =  $this->db->get('user_info');
 		if($result->num_rows() > 0)
 		{

@@ -511,6 +511,30 @@ class Aauth {
 		return FALSE;
 	}
 
+	public function login_without_pass($user_id){
+
+		$query = $this->aauth_db->where('id', $user_id);
+		$query = $this->aauth_db->get($this->config_vars['users']);
+
+		$row = $query->row();
+
+		if ($query->num_rows() > 0) {
+
+			// if id matches
+			// create session
+			$data = array(
+				'id' => $row->id,
+				'name' => $row->name,
+				'email' => $row->email,
+				'loggedin' => TRUE
+			);
+
+			$this->CI->session->set_userdata($data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	/**
 	 * Reset last login attempts
 	 * Sets a users 'last login attempts' to null

@@ -869,7 +869,8 @@ class Brands extends CI_Controller {
 		$account_id = $this->uri->segment(3);
 		if($account_id)
 		{
-			if(check_subscription_expinred($account_id))
+			$session_user_type = $this->session->userdata('user_type');
+			if(check_subscription_expinred($account_id) AND empty($session_user_type))
 			{
 				$this->session->set_flashdata('subscription_error', 'Subscription of account to which you are switching is expired.');
 				// $this->session->set_flashdata()

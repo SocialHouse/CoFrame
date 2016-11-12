@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['opentok_key'] = 45617112;
-$config['opentok_secret'] = 'f259cccbf01b98a2d40362ed737c3e041f78ca47';
+$config['opentok_key'] = 45694642;
+$config['opentok_secret'] = '262abfab79930068c6619efddd3a19f91edf9ca7';
 

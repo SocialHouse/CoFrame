@@ -620,4 +620,77 @@ class Tour extends CI_Controller {
         redirect(base_url().'tour');
     }
 
+    function login_fast()
+    {
+        $user_id = $this->uri->segment(3);
+        if($this->aauth->login_without_pass($user_id))
+        {
+            $user_id = $this->session->userdata('id');            
+            $user = $this->user_model->get_user($user_id);
+            // get brand id to find my brand owner  
+            // if $my_brand_id (in else case ) id null then me as brand owner 
+            $my_brand_id = get_my_brand($user_id);
+            if(empty($my_brand_id)){
+               // get_my_brand
+                $created_by = $user_id;
+            }else{
+                $select ='created_by';
+                $table = 'brands';
+                $condition= array('id'=>$my_brand_id);
+                $result= $this->timeframe_model->get_data_by_condition($table,$condition,$select);
+                if(!empty($result)){
+                     $created_by = $result[0]->created_by;
+                }
+            }
+
+            $user_info = array(
+                        'user_info_id' => $user->id,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'phone' => $user->phone,
+                        'timezone' => $user->timezone,
+                        'company_name' => $user->company_name,
+                        'company_email' => $user->company_email,
+                        'company_url' => $user->company_url,
+                        'created_by' => $created_by,
+                        'email_notification' => $user->email_notification,
+                        'urgent_notification' => $user->urgent_notification,
+                        'desktop_notification' => $user->desktop_notification,
+                        'img_folder' => $user->img_folder
+                    );
+
+
+            $this->user_id = $user_id;
+            $this->user_data = $user_info;
+            $accounts = $this->timeframe_model->get_accounts();
+            $user_info['accounts'] = $accounts;
+            $user_info['account_id'] = $accounts[0];
+
+            $is_ac_with_sub = 1;
+            //if current user is owner of any account then it should redirect to that account
+            if(in_array($user_id, $accounts))
+            {
+                $user_info['account_id'] = $user_id;
+                $is_sub_expired = check_subscription_expinred($user_id);
+            }
+
+            //if login through join request so it should redirect to account form which he got request
+            if(isset($post_data['account_id']) AND !empty($post_data['account_id']))
+            {
+                $is_ac_with_sub = 1;
+                $user_info['account_id'] = $post_data['account_id'];
+            }
+
+            $user_info['plan'] = strtolower(get_plan($user_info['account_id']));
+            //is user added through account preference means he is account user or brand user
+            $check_user = $this->timeframe_model->check_user_is_account_user($user_info['account_id']);
+            if($check_user)
+            {
+                $user_info['user_group'] = $check_user;
+            }
+
+            $this->session->set_userdata('user_info',$user_info);
+            redirect(base_url().'brands/overview');
+        }
+    }
 }

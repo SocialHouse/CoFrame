@@ -22,6 +22,7 @@ class Brands extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		is_admin_logged();
 		$this->load->model('timeframe_model');
 		$this->load->model('admin_account_model');
 		$this->load->model('admin_brand_model');

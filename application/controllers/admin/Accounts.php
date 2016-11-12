@@ -22,6 +22,7 @@ class Accounts extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		is_admin_logged();
 		$this->load->model('timeframe_model');
 		$this->load->model('admin_account_model');
 	}
@@ -30,9 +31,12 @@ class Accounts extends CI_Controller {
 	{
 		$this->data['accounts'] = $this->admin_account_model->get_account_holders();
 		$this->data['accounts_count'] = $this->admin_account_model->all_account_count();
-		$this->load->view('admin/partials/header');
-		$this->load->view('admin/account/account_list',$this->data);
-		$this->load->view('admin/partials/footer');
+		// $this->load->view('admin/partials/header');
+		// $this->load->view('admin/account/account_list',$this->data);
+		// $this->load->view('admin/partials/footer');
+		$this->data['view'] = 'admin/account/account_list';
+		$this->data['layout'] = 'admin/layouts/layout';
+		_render_admin_view($this->data);
 	}
 
 	function account_users()
@@ -149,6 +153,15 @@ class Accounts extends CI_Controller {
 			}
 			$this->session->set_flashdata('message',array('message' => $message, 'class' => $class));
 			redirect(base_url($post_data['redirect']));
+		}
+	}
+
+	function statastics()
+	{
+		$account_id = $this->uri->segment(3);
+		if($account_id)
+		{
+			
 		}
 	}
 
