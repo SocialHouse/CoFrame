@@ -7,19 +7,95 @@ class Admin_account_model extends CI_Model
 		parent::__construct();
 	}
 
-	function get_account_holders()
-	{
+	// function get_account_holders()
+	// {
+	// 	$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
+	// 	$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
+	// 	$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
+	// 	$this->db->where('(plan IS NOT NULL)');
+	// 	$this->db->group_by('brands.account_id');
+	// 	$result =  $this->db->get('user_info');
+	// 	if($result->num_rows() > 0)
+	// 	{
+	// 		return $result->result();
+	// 	}
+	// 	return FALSE;
+	// }
+
+	function get_accounts($post_data = ''){
+    	if(isset($post_data['order'][0]['column'])){
+			if(isset($post_data['order'][0]['column'])){
+				$column_array = array( 
+					0 => 'first_name',
+					1 => 'last_name',
+					2 => 'email',
+					3 => 'phone',
+					4 => 'company_name'
+					);
+				$this->db->order_by($column_array[$post_data['order'][0]['column']],$post_data['order'][0]['dir']);
+			}
+
+		}
+
+		if(isset($post_data['length']) AND isset($post_data['start'])){
+			$this->db->limit($post_data['length'],$post_data['start']);
+		}
+
 		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
 		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
 		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
 		$this->db->where('(plan IS NOT NULL)');
+		if(!empty($post_data['search']['value'])) {
+			$this->db->group_start();
+			$this->db->like('first_name',$post_data['search']['value']);
+			$this->db->or_like('last_name',$post_data['search']['value']);
+			$this->db->or_like('phone',$post_data['search']['value']);
+			$this->db->or_like('company_name',$post_data['search']['value']);
+			$this->db->or_like('plan',$post_data['search']['value']);
+			$this->db->group_end();
+		}		
 		$this->db->group_by('brands.account_id');
-		$result =  $this->db->get('user_info');
-		if($result->num_rows() > 0)
-		{
-			return $result->result();
+		$query =  $this->db->get('user_info');
+		// echo $this->db->last_query();
+		if($query->num_rows() > 0){
+			// echo "test";
+			return $query->result();
 		}
+
 		return FALSE;
+	}
+
+	function get_accounts_count($post_data = ''){
+    	if(isset($post_data['order'][0]['column'])){
+			if(isset($post_data['order'][0]['column'])){
+				$column_array = array( 
+					0 => 'first_name',
+					1 => 'last_name',
+					2 => 'email',
+					3 => 'phone',
+					4 => 'company_name'
+					);
+				$this->db->order_by($column_array[$post_data['order'][0]['column']],$post_data['order'][0]['dir']);
+			}
+
+		}
+
+		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
+		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
+		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
+		$this->db->where('(plan IS NOT NULL)');
+		if(!empty($post_data['search']['value'])) {
+			$this->db->group_start();
+			$this->db->like('first_name',$post_data['search']['value']);
+			$this->db->or_like('last_name',$post_data['search']['value']);
+			$this->db->or_like('phone',$post_data['search']['value']);
+			$this->db->or_like('company_name',$post_data['search']['value']);
+			$this->db->or_like('plan',$post_data['search']['value']);
+			$this->db->group_end();
+		}		
+		$this->db->group_by('brands.account_id');
+		$query =  $this->db->get('user_info');
+		return $query->num_rows();
 	}
 
 	function all_account_count()
@@ -179,5 +255,4 @@ class Admin_account_model extends CI_Model
         }
         return FALSE;
     }
-
 }

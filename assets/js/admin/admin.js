@@ -33,4 +33,31 @@ $(document).ready(function(){
             password:{'required': "Please enter password"}
         }
     });
+
+    if($('#account_list').length)
+    {
+         $('#account_list').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": base_url+"admin/accounts/get_accounts",
+                "type": "POST",
+            },
+            "columns":[
+                { "data" : "first_name" },
+                { "data" : "last_name" },
+                { "data" : "email" },
+                { "data" : "phone" },
+                { "data" : "company_name" },        
+                // { "data" : "id" ,
+                // "orderable": false,
+                // "render": function ( data, type, full, meta ) {
+                //     // var action = '<a class="btn btn-primary btn-xs" href="'+base_url+'admin/edit-event/'+data+'"><i class="fa fa-edit" aria-hidden="true"></i></a> &nbsp;';
+                //     // action += '<a class="btn btn-danger btn-xs delete-record"  href="'+base_url+'admin/delete-event/'+data+'"><i class="fa fa-trash" aria-hidden="true"></i></a> &nbsp;';
+                //     // action += '<a class="btn btn-info btn-xs"  href="'+base_url+'admin/invoice-link/'+data+'"><i class="fa fa-envelope" aria-hidden="true"></i></a>';
+                //     // return action;
+                // }}
+            ]
+        });
+    }
 });

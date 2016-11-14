@@ -2015,6 +2015,33 @@ jQuery(function($) {
 			}
 		})
 	});
+
+	$(document).on('click','.send',function(){
+		if($('#subject').val().length > 1)
+		{
+			$('#bug-error').addClass('hide');
+			$('#report-bug').submit();
+		}
+		else
+		{
+			$('#bug-error').removeClass('hide');
+		}
+	});
+
+	$(document).on('keyup','#subject',function(){
+		if($(this).val().length > 1)
+		{
+			$('#bug-error').addClass('hide');
+		}
+		else
+		{
+			$('#bug-error').removeClass('hide');
+		}
+	});
+
+	$(document).on('click','.close-bug-model',function(){
+		$('.modal').modal('hide');
+	});
 });
 
 

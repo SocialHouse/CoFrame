@@ -29,14 +29,28 @@ class Accounts extends CI_Controller {
 
 	function index()
 	{
-		$this->data['accounts'] = $this->admin_account_model->get_account_holders();
-		$this->data['accounts_count'] = $this->admin_account_model->all_account_count();
+		// $this->data['accounts'] = $this->admin_account_model->get_account_holders();
+		// $this->data['accounts_count'] = $this->admin_account_model->all_account_count();
 		// $this->load->view('admin/partials/header');
 		// $this->load->view('admin/account/account_list',$this->data);
 		// $this->load->view('admin/partials/footer');
 		$this->data['view'] = 'admin/account/account_list';
 		$this->data['layout'] = 'admin/layouts/layout';
 		_render_admin_view($this->data);
+	}
+
+	function get_accounts()
+	{
+		$post_data = $this->input->post();
+		$accounts = $this->admin_account_model->get_accounts($post_data);
+		// print_r($accounts);
+		$account_count = $this->admin_account_model->get_accounts_count($post_data);
+		echo json_encode(array(
+			'data' => $accounts,
+			'recordsTotal' => $account_count,
+			"recordsFiltered" => $account_count,
+			"draw" => $post_data['draw'],
+		));
 	}
 
 	function account_users()

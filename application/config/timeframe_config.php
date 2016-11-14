@@ -50,7 +50,7 @@ $config['plans'] = array(
 								'phase_approvals' => 1
 							),
 						'corporate' => array(
-								'brands' => 8,
+								'brands' => 15,
 								'master_admins' => 35,
 								'users' => 35,
 								'outlets' => 8,
@@ -133,4 +133,6 @@ $config['upload_limit'] = array(
 // FALSE 	:- It uses local App configuration. 
 // TRUE 	:- It uses Sercer App configuration.
 
-$config['enable_server_app'] = TRUE;
+$config['enable_server_app'] = FALSE;
+
+$config['zendesk_email'] = 'support@coframeapp.zendesk.com';

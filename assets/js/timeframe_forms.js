@@ -496,4 +496,18 @@ jQuery(document).ready(function(){
         }
     });
 
+    jQuery('#report-bug').validate({
+        rules: {
+            subject : { 
+            	required: true
+            },
+            password : { required : true }
+        },
+        messages :{
+            subject : { 
+            	required :language_message.bug_subject,
+            }
+        }
+    });
+
 });

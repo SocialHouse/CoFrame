@@ -20,7 +20,11 @@
 	<![endif]-->
 	<link rel="stylesheet" href="<?php echo css_url(); ?>admin/others.min.css">
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo css_url(); ?>admin/datatable-bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/main.css">
+    <script type="text/javascript">
+    	var base_url = "<?php echo base_url(); ?>";
+    </script>
 </head>
 <body class="with-side-menu">
 	<?php
@@ -40,6 +44,10 @@
 	<script src="<?php echo js_url(); ?>admin/jquery.peity.min.js"></script>
 	<script src="<?php echo js_url(); ?>admin/jquery.tabledit.min.js"></script>
 	<script src="<?php echo js_url(); ?>admin/app.js"></script>
+	<script src="<?php echo js_url(); ?>jquery.validate.min.js"></script>
+	<script src="<?php echo js_url(); ?>admin/datatables.min.js"></script>
+	<script src="<?php echo js_url(); ?>admin/datatable-bootstrap.js"></script>
+	<script src="<?php echo js_url(); ?>admin/admin.js"></script>
 
 	
 </body>

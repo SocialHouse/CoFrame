@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/main.css">
+    <script type="text/javascript">
+        var base_url = "<?php echo base_url(); ?>";
+    </script>
 </head>
 <body>
 

@@ -50,7 +50,33 @@
 				<a href="#" class="hide-text show-brands-toggler animated infinite pulse popover-toggle" data-toggle="popover-ajax" data-content-src="<?php echo base_url().'brands/brand_list/'.$this->user_id; ?>" data-title="Go To" data-popover-class="popover-brand-list popover-clickable" data-popover-id="popover-brand-list" data-attachment="top left" data-target-attachment="bottom left" data-offset-x="-24" data-offset-y="6" data-popover-arrow="true" data-arrow-corner="top left" data-popover-container="body">Go To Brand</a>
 		  	</div>
 
+		  	<?php
+		  	$parent_id = NULL;
+			$is_account_user = 0;
+			if(empty($current_brand) AND isset($this->user_data['user_group']))
+			{
+				$parent_id = $this->user_data['account_id'];
+				$is_account_user = 1;
+			}
+
+			if($this->user_id == $this->user_data['account_id'])
+			{
+				$is_account_user = 1;	
+			}
+			$user_group = '_';
+			if($is_account_user == 1 OR !empty($current_brand))
+			{
+				$user_group = get_user_groups($this->user_id,$current_brand,$parent_id);
+			}
+
+			$page = str_replace('/','__',uri_string());
+			$url = base_url().'brands/report_bug_form/'.$page.'/'.str_replace(' ','_',$user_group).'/'.$current_brand;
+		  	?>
+
 		  	<ul class="nav navbar-nav pull-sm-right hidden-print">
+		  		<li class="nav-item">		  		
+		      		<a class="nav-link report-bug" data-modal-size="lg" ata-modal-id="report-bug" data-toggle="modal-ajax" data-clear="yes" href="javascript:;" data-modal-src="<?php echo $url; ?>">Report Bug</a>
+		    	</li>
 		    	<li class="nav-item">
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
 		    	</li>
@@ -84,28 +110,19 @@
 					<a class="nav-link" href="#"><?php echo print_user_image($this->user_data['img_folder'],$this->user_id); ?></a>
 					<ul class="dropdown-menu">
 						<li class="user-info"><?php echo $this->user_data['first_name'] . " " . $this->user_data['last_name']; ?><br>
-							<?php
-							$parent_id = NULL;
-							$is_account_user = 0;
-							if(empty($current_brand) AND isset($this->user_data['user_group']))
-							{
-								$parent_id = $this->user_data['account_id'];
-								$is_account_user = 1;
-							}
-
-							if($this->user_id == $this->user_data['account_id'])
-							{
-								$is_account_user = 1;	
-							}
+							<?php							
 							if($is_account_user == 1 OR !empty($current_brand))
-							{						
-								?>
-								<span class="user-role">
-									<?php
-									echo get_user_groups($this->user_id,$current_brand,$parent_id); 
-							 		?>
-							 	</span>
-							 	<?php
+							{
+								if($user_group != '_')
+								{
+									?>
+									<span class="user-role">
+										<?php
+										echo $user_group; 
+								 		?>
+								 	</span>
+								 	<?php
+								}
 							}
 							?>
 						 </li>
@@ -181,7 +198,7 @@
     }
     ?>
     <script type='text/javascript' src='<?php echo js_url(); ?>jquery.mask.min.js?ver=1.0.0'></script>
-    <script type='text/javascript' src='<?php echo js_url(); ?>notification.js?ver=1.0.0'></script>
+    <script type='text/javascript' src='<?php echo js_url(); ?>notification.js?ver=1.0.0'></script>    
     <script type='text/javascript' src='<?php echo js_url(); ?>main.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>tooltip-config.js?ver=1.0.0'></script>
     <script type='text/javascript' src='<?php echo js_url(); ?>modal-config.js?ver=1.0.0'></script>
