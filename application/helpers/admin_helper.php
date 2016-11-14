@@ -41,3 +41,35 @@ if(!function_exists('_render_admin_view'))
         }
     }
 }
+
+if(!function_exists('get_user_count')) 
+{
+    function get_user_count($account_id)
+    {
+       $CI = & get_instance();
+       $CI->load->model('admin_account_model');
+       return $CI->admin_account_model->get_account_users_count($account_id);
+    }
+}
+
+if(!function_exists('account_post_count')) 
+{
+    function account_post_count($account_id)
+    {
+       $CI = & get_instance();
+       $CI->load->model('admin_account_model');
+       return $CI->admin_account_model->account_post_count($account_id);
+    }
+}
+
+if(!function_exists('get_last_transaction_date')) 
+{
+    function get_last_transaction($account_id)
+    {
+       $CI = & get_instance();
+       $CI->load->model('admin_account_model');
+       return $CI->admin_account_model->get_last_transaction($account_id);
+    }
+}
+
+

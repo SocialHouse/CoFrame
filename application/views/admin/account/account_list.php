@@ -12,11 +12,14 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>First name</th>
-					<th>Last name</th>
+					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Company</th>
+					<th>No of brands</th>
+					<th>No of users</th>
+					<th>No of posts</th>
+					<th>Last payment on</th>
 					<th>Plan</th>
 					<th class="tabledit-toolbar-column">Action</th>
 				</tr>
@@ -29,11 +32,14 @@
 					{
 						?>
 						<tr>
-							<td><?php echo ucfirst($account->first_name); ?></td>
-							<td><?php echo ucfirst($account->last_name); ?></td>
+							<td><?php echo ucfirst($account->first_name).' '.ucfirst($account->last_name); ?></td>
 							<td><?php echo $account->email; ?></td>
 							<td><?php echo $account->phone; ?></td>
 							<td><?php echo ucfirst($account->company_name); ?></td>
+							<td><?php echo $account->brands_count; ?></td>
+							<td><?php echo get_user_count($account->id); ?></td>
+							<td><?php echo account_post_count($account->id); ?></td>
+							<td><?php echo isset(get_last_transaction($account->id)->created_at) ? get_last_transaction($account->id)->created_at : '-'; ?></td>
 							<td><label class="label label-success"><?php echo ucfirst($account->plan); ?></label></td>
 							<td style="white-space: nowrap; width: 1%;">
 								<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">

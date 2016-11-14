@@ -28,27 +28,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?php echo base_url().'admin/auth/logout'; ?>"><span class="font-icon glyphicon glyphicon-log-out"></span>Logout</a>
                         </div>
-                    </div>
-
-                    <button type="button" class="burger-right">
-                        <i class="font-icon-menu-addl"></i>
-                    </button>
+                    </div>                    
                 </div><!--.site-header-shown-->
-
-                <div class="mobile-menu-right-overlay"></div>
-                <div class="site-header-collapsed">
-                    <div class="site-header-collapsed-in">
-                        <div class="dropdown dropdown-typical">
-                            <div class="dropdown-menu" aria-labelledby="dd-header-sales">
-                                <a class="dropdown-item" href="#"><span class="font-icon font-icon-home"></span>Quant and Verbal</a>
-                                <a class="dropdown-item" href="#"><span class="font-icon font-icon-cart"></span>Real Gmat Test</a>
-                                <a class="dropdown-item" href="#"><span class="font-icon font-icon-speed"></span>Prep Official App</a>
-                                <a class="dropdown-item" href="#"><span class="font-icon font-icon-users"></span>CATprer Test</a>
-                                <a class="dropdown-item" href="#"><span class="font-icon font-icon-comments"></span>Third Party Test</a>
-                            </div>
-                        </div>
-                    </div><!--.site-header-collapsed-in-->
-                </div><!--.site-header-collapsed-->
             </div><!--site-header-content-in-->
         </div><!--.site-header-content-->
     </div><!--.container-fluid-->

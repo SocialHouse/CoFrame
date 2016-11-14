@@ -12,7 +12,6 @@ class Admin_account_model extends CI_Model
 		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
 		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
 		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
-
 		$this->db->where('(plan IS NOT NULL)');
 		$this->db->group_by('brands.account_id');
 		$result =  $this->db->get('user_info');
@@ -71,6 +70,64 @@ class Admin_account_model extends CI_Model
         return $result;
 	}
 
+	function get_account_users_count($parent_id)
+	{
+		$result = [];
+		$this->db->select('aauth_user_id');
+		$this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+		$this->db->join('user_info','aauth_user_to_group.user_id = user_info.aauth_user_id');
+		$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+
+        $this->db->where('aauth_user_to_group.parent_id',$parent_id);
+        $this->db->where('aauth_user_to_group.brand_id',NULL);
+        $this->db->group_by('user_id');
+        $query = $this->db->get('aauth_user_to_group');
+        if($query->num_rows() > 0)
+        {
+        	$result = $query->result();
+        }
+
+        $brand_ids = $this->get_users_brands_id($parent_id);
+        if(!empty($brand_ids))
+        {
+        	$brand_ids = array_column($brand_ids,'id');
+
+	        $this->db->select('aauth_user_id');
+			$this->db->join('aauth_groups','aauth_groups.id = aauth_user_to_group.group_id');
+			$this->db->join('user_info','aauth_user_to_group.user_id = user_info.aauth_user_id');
+			$this->db->join('aauth_users','aauth_users.id = aauth_user_to_group.user_id');
+
+			$this->db->where_in('brand_id',$brand_ids);
+
+	        $this->db->group_by('user_id');
+	        $query = $this->db->get('aauth_user_to_group');
+
+	        if($query->num_rows() > 0)
+	        {
+	        	$result = array_merge($query->result(),$result);
+	        }
+	    }
+        return count($result);
+	}
+
+	function account_post_count($account_id)
+	{
+		$result = [];
+		$brand_ids = $this->get_users_brands_id($account_id);		
+        if(!empty($brand_ids))
+        {
+        	$brand_ids = array_column($brand_ids,'id');
+	        $this->db->select('id');
+			$this->db->where_in('brand_id',$brand_ids);
+	        $query = $this->db->get('posts');
+	        if($query->num_rows() > 0)
+	        {
+	        	$result = $query->result();
+	        }
+	    }
+        return count($result);
+	}
+
 	function get_users_brands_id($user_id)
 	{
 		$this->db->select('brands.id');
@@ -104,6 +161,18 @@ class Admin_account_model extends CI_Model
 		$this->db->join('user_info','aauth_users.id = user_info.aauth_user_id');
 		$this->db->where('aauth_users.id',$user_id);
         $query = $this->db->get('aauth_users');
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        return FALSE;
+    }
+
+    public function get_last_transaction($user_id)
+    {
+        $this->db->select('card_id,current_period_end,created_at');
+        $this->db->order_by('id','DESC');
+        $query = $this->db->get_where('transactions',array('user_id'=>$user_id));
         if($query->num_rows() > 0)
         {
             return $query->row();
