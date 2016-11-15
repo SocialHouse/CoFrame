@@ -48,9 +48,17 @@ class Accounts extends CI_Controller {
 		echo json_encode(array(
 			'data' => $accounts,
 			'recordsTotal' => $account_count,
-			"recordsFiltered" => $account_count,
+			"recordsFiltered" => count($accounts),
 			"draw" => $post_data['draw'],
 		));
+	}
+
+	function account_stats()
+	{
+		$this->data['account_id'] = $this->uri->segment(3);		
+		$this->data['view'] = 'admin/account/stats';
+		$this->data['layout'] = 'admin/layouts/layout';
+		_render_admin_view($this->data);
 	}
 
 	function account_users()

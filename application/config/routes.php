@@ -122,10 +122,14 @@ $route['accounts/sub-users/(:num)'] = "admin/accounts/account_users/$1";
 $route['accounts/edit-account/(:num)'] = "admin/accounts/edit_account/$1";
 $route['users/edit-account/(:num)/(:num)'] = "admin/accounts/edit_account/$1/$2";
 $route['accounts/update-account'] = "admin/accounts/update_account";
+$route['accounts/stats/(:num)'] = "admin/accounts/account_stats/$1";
 
 $route['brand/brand-details/(:num)/(:num)'] = "admin/brands/index/$1/$2";
 $route['admin'] = "admin/auth/index";
 $route['auth'] = "admin/auth/check_login";
+$route['admin/change-password'] = "admin/auth/change_password";
+$route['admin/update-password'] = "admin/auth/update_password";
+
 
 
 

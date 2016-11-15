@@ -17,12 +17,13 @@
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Company</th>
+					<th>Plan</th>
 					<!-- <th>No of brands</th>
 					<th>No of users</th>
 					<th>No of posts</th>
 					<th>Last payment on</th> -->
 					<!-- <th>Plan</th> -->
-					<!-- <th>Action</th> -->
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>

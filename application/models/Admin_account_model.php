@@ -30,7 +30,8 @@ class Admin_account_model extends CI_Model
 					1 => 'last_name',
 					2 => 'email',
 					3 => 'phone',
-					4 => 'company_name'
+					4 => 'company_name',
+					5 => 'plan',
 					);
 				$this->db->order_by($column_array[$post_data['order'][0]['column']],$post_data['order'][0]['dir']);
 			}
@@ -41,9 +42,8 @@ class Admin_account_model extends CI_Model
 			$this->db->limit($post_data['length'],$post_data['start']);
 		}
 
-		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
+		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,plan');
 		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
-		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
 		$this->db->where('(plan IS NOT NULL)');
 		if(!empty($post_data['search']['value'])) {
 			$this->db->group_start();
@@ -53,8 +53,8 @@ class Admin_account_model extends CI_Model
 			$this->db->or_like('company_name',$post_data['search']['value']);
 			$this->db->or_like('plan',$post_data['search']['value']);
 			$this->db->group_end();
-		}		
-		$this->db->group_by('brands.account_id');
+		}
+		$this->db->group_by('aauth_users.id');
 		$query =  $this->db->get('user_info');
 		// echo $this->db->last_query();
 		if($query->num_rows() > 0){
@@ -73,16 +73,16 @@ class Admin_account_model extends CI_Model
 					1 => 'last_name',
 					2 => 'email',
 					3 => 'phone',
-					4 => 'company_name'
+					4 => 'company_name',
+					5 => 'plan'
 					);
 				$this->db->order_by($column_array[$post_data['order'][0]['column']],$post_data['order'][0]['dir']);
 			}
 
 		}
 
-		$this->db->select('aauth_users.id,user_info.id as user_info_id,first_name,last_name,email,phone,company_name,plan,banned,count(brands.id) as brands_count');
+		$this->db->select('aauth_users.id');
 		$this->db->join('aauth_users','aauth_user_id = aauth_users.id');
-		$this->db->join('brands','brands.account_id = user_info.aauth_user_id','left');
 		$this->db->where('(plan IS NOT NULL)');
 		if(!empty($post_data['search']['value'])) {
 			$this->db->group_start();
@@ -93,8 +93,9 @@ class Admin_account_model extends CI_Model
 			$this->db->or_like('plan',$post_data['search']['value']);
 			$this->db->group_end();
 		}		
-		$this->db->group_by('brands.account_id');
+		$this->db->group_by('aauth_users.id');
 		$query =  $this->db->get('user_info');
+		// print_r($this->db->last_query());
 		return $query->num_rows();
 	}
 
@@ -255,4 +256,33 @@ class Admin_account_model extends CI_Model
         }
         return FALSE;
     }
+
+    function get_account_brand_count($account_id)
+    {
+    	$this->db->select('id');
+    	$this->db->where('account_id',$account_id);
+    	$query = $this->db->get('brands');
+    	return $query->num_rows();
+    }
+
+    public function get_admin_user($user_id)
+    {
+    	$this->db->select('*');
+    	$this->db->where('id',$user_id);
+    	$query = $this->db->get('admin_users');
+    	if($query->num_rows() > 0)
+    	{
+    		return $query->row();
+    	}
+    	return FALSE;
+    }
+
+    function save_password($data){
+		if(!empty($data['password']) && !empty($data['password'])){
+			$this->db->set('password',md5($data['password']));
+			$this->db->where('id',$data['id']);
+			return $this->db->update('admin_users');
+		}
+		return FALSE;
+	}
 }

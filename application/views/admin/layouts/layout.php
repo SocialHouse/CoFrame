@@ -20,7 +20,9 @@
 	<![endif]-->
 	<link rel="stylesheet" href="<?php echo css_url(); ?>admin/others.min.css">
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo css_url(); ?>admin/datatable-bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo css_url(); ?>admin/datatables.min.css">
+    <!-- <link rel="stylesheet" href="<?php echo css_url(); ?>admin/datatables-net.min.css"> -->
+    
     <link rel="stylesheet" href="<?php echo css_url(); ?>admin/main.css">
     <script type="text/javascript">
     	var base_url = "<?php echo base_url(); ?>";
@@ -31,9 +33,24 @@
 	$this->load->view('admin/partials/header-nav');
 	$this->load->view('admin/partials/sidebar');
 	?>
+
 	<div class="page-content">
 		<div class="container-fluid">
-			<?php echo $yield; ?>
+			<?php
+			$message = $this->session->flashdata('message');
+			if(!empty($message))
+			{
+				?>
+				<div class="alert alert-<?php echo $message['class']; ?> alert-fill alert-close alert-dismissible fade in" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<?php echo $message['message']; ?>
+				</div>
+				<?php
+			}
+			echo $yield; 
+			?>
 		</div>
 	</div>
 

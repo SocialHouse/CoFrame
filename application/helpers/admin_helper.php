@@ -42,6 +42,16 @@ if(!function_exists('_render_admin_view'))
     }
 }
 
+if(!function_exists('get_brand_count')) 
+{
+    function get_brand_count($account_id)
+    {
+       $CI = & get_instance();
+       $CI->load->model('admin_account_model');
+       return $CI->admin_account_model->get_account_brand_count($account_id);
+    }
+}
+
 if(!function_exists('get_user_count')) 
 {
     function get_user_count($account_id)

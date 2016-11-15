@@ -36,21 +36,47 @@
                         <img src="<?php echo img_url(); ?>admin/avatar-sign.png" alt="">
                     </div>
                     <header class="sign-title">Log In</header>
+                    <?php                    
+                    $checked = '';
+                    $password = '';
+                    $email = '';
+                    $user_pass=$this->input->cookie('admin_pass', TRUE);
+                    $user_name=$this->input->cookie('admin_name', TRUE);
+                    if((isset($user_pass) && !empty($user_pass)) && (isset($user_name) && !empty($user_name))){
+                        $checked='checked="checked"';
+                        $user_name = $user_name;
+                        $password = $user_pass;
+                    }
+
+
+                    $message = $this->session->flashdata('message');
+                    if(!empty($message))
+                    {
+                        ?>
+                        <div class="alert alert-<?php echo $message['class']; ?> alert-fill alert-close alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <?php echo $message['message']; ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="user_name" placeholder="Username"/>
+                        <input type="text" class="form-control" name="user_name" placeholder="Username" value="<?php echo set_value('user_name',$user_name); ?>" />
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password"/>
+                        <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo set_value('password',$user_pass); ?>" />
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <div class="checkbox float-left">
-                            <input type="checkbox" id="signed-in"/>
-                            <label for="signed-in">Keep me logged in</label>
+                            <input type="checkbox" id="signed-in" name="remember_me_admin" <?php echo $checked; ?> />
+                            <label for="signed-in">Remember password</label>
                         </div>
-                        <div class="float-right reset">
+                       <!--  <div class="float-right reset">
                             <a href="reset-password.html">Reset Password</a>
-                        </div>
-                    </div> -->
+                        </div> -->
+                    </div>
                     <button type="submit" class="btn btn-rounded">Log in</button>
                     <!-- <p class="sign-note">New to our website? <a href="sign-up.html">Sign up</a></p> -->
                     <!--<button type="button" class="close">

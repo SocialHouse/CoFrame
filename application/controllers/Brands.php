@@ -936,6 +936,59 @@ class Brands extends CI_Controller {
     		echo json_encode(array('response' => 'success', 'html' => $html));
     	}
     }
+
+
+    function report_bug_form()
+    {
+    	$this->data['page'] = $this->uri->segment('3');
+    	$this->data['role'] = $this->uri->segment('4');
+    	$this->data['current_brand'] = $this->uri->segment('5');
+    	echo $this->load->view('partials/report_bug',$this->data, TRUE);
+    }
+
+    function create_ticket()
+    {
+    	$redirect = str_replace('__', '/', $_POST['page']);
+    	$error = '';
+    	if(isset($_FILES['attachment']) AND !empty($_FILES['attachment']['name']))
+		{
+	        $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+	        $randname = uniqid().'.'.$ext;	      
+	        $status = upload_file('attachment',$randname,'bug_attachment');
+	       
+	        if(array_key_exists("upload_errors",$status))
+	        {
+	        	$error =  $status['upload_errors'];	        	
+	        }
+	        else
+	        {
+	        	$uploaded_file = $status['file_name'];	        	
+	        }
+	    }
+
+	    if(empty($error))
+	    {
+	    	if(isset($uploaded_file))
+	    	{
+	    		$_POST['attachment'] = $uploaded_file;
+	    		$attachment = upload_path().'bug_attachment/'.$_POST['attachment'];
+	    	}
+	    	$_POST['page'] = base_url().str_replace('__', '/', $_POST['page']);
+	    	$_POST['role'] = str_replace('_', ' ', $_POST['role']);
+	    	
+	    	$_POST['name'] = ucfirst($this->user_data['first_name']).' '.ucfirst($this->user_data['last_name']);
+
+	    	$to_email = $this->config->item('zendesk_email');
+	    	$subject = $this->input->post('subject');
+	    	$description = $this->input->post('description');
+	    	$description = $description."\n".print_r($_POST,true);	    	
+	    	// if(isset($_POST['attachment']) AND !empty($_POST['attachment']))
+	    	// 	email_send_with_attachment($to_email,$subject,$description,$attachment);
+	    	// else
+	    	// 	email_send($to_email,$subject,$description);
+	    }
+	    redirect(base_url().$redirect);
+    }
 }
 
 

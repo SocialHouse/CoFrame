@@ -239,4 +239,6 @@
 	$lang['no_board'] = "There is no board created in this account. You need to create one to upload post.";
 	$lang['no_blog'] = "There is no blog present in this account. You need to create one to upload post.";
 	$lang['no_channel'] = "There is no channel present in this account. You need to create one to upload post.";
+
+	$lang['bug_subject'] = "Please enter bug subject.";
 ?>

@@ -13,8 +13,8 @@ if($ci->config->item('enable_server_app'))
 else
 {
 	// Local App setting
-	$config['youtube_client_id'] = '495277179424-i6ekqt1hqur10r1iq2th91tl80es69at.apps.googleusercontent.com';
-	$config['youtube_client_secret'] = 'Osp3L21dglv4XKya5kxeHQsQ';
+	$config['youtube_client_id'] = '265699630744-7i8p8849pnpdtiodj4hq6d4b90d7mlu2.apps.googleusercontent.com';
+	$config['youtube_client_secret'] = 'ct0NZwsQnKlYlURciTXMj8Pu';
 }
 
 $config['redirect_uri'] = $ci->config->item('base_url')."youtube_connect/youtube_callback";
