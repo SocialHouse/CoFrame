@@ -75,7 +75,7 @@
 
 		  	<ul class="nav navbar-nav pull-sm-right hidden-print">
 		  		<li class="nav-item">		  		
-		      		<a class="nav-link report-bug" data-modal-size="lg" ata-modal-id="report-bug" data-toggle="modal-ajax" data-clear="yes" href="javascript:;" data-modal-src="<?php echo $url; ?>">Report Bug</a>
+		      		<a class="nav-link report-bug" data-modal-size="sm" ata-modal-id="report-bug" data-toggle="modal-ajax" data-clear="yes" href="javascript:;" data-modal-src="<?php echo $url; ?>">Report Bug</a>
 		    	</li>
 		    	<li class="nav-item">
 		      		<a class="nav-link" href="<?php echo base_url(); ?>brands/overview">Overview</a>
