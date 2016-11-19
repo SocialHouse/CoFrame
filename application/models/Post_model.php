@@ -558,22 +558,19 @@ class Post_model extends CI_Model
 		$this->db->join('brands','brands.id = posts.brand_id');
 		$this->db->join('outlets','outlets.id = posts.outlet_id');
 		$this->db->where('posts.status','scheduled');
-		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d\') = "'.date("Y-m-d",strtotime($date)).'")');
+		$this->db->where('(DATE_FORMAT(`slate_date_time`, \'%Y-%m-%d %H:%i\') = "'.date("Y-m-d H:i",strtotime($date)).'")');
 		$this->db->order_by('created_by','asc');
 		$this->db->order_by('outlet_constant','asc');
 		$query = $this->db->get('posts');
-		// echo $this->db->last_query();
+
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result();
-			if(!empty($result)){
-				foreach ($result as $key => $post) {
-					// $result[$key]->post_images = $this->get_images($post->id);
-					$result[$key]->post_tags = $this->get_post_tags($post->id);
-				}
-				return $result;
+			foreach ($result as $key => $post) {
+				// $result[$key]->post_images = $this->get_images($post->id);
+				$result[$key]->post_tags = $this->get_post_tags($post->id);				
 			}
-			return FALSE;
+			return $result;
 		}
 		return FALSE;
 	}

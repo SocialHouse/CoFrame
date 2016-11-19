@@ -57,7 +57,7 @@ class Cron extends CI_Controller {
     }
 
     public function get_posts(){      
-        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d'));     
+        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d H:i'));     
         if(!empty($posts))
         {
             $previous_owner = '';
@@ -705,9 +705,9 @@ class Cron extends CI_Controller {
             
             $pinterest_data = array(
                         "note"          => (!empty($post_data->content))? $post_data->content :'' ,
-                        // "image_url"     => $image_url,
-                        // "media"         => $image_url,
-                        "image_url"     => 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif',
+                        "image_url"     => $image_url,
+                        "media"         => $image_url,
+                        // "image_url"     => 'https://media1.giphy.com/media/bwwBXeSXiSf4Y/200_s.gif',
                         // "media"         => 'https://www.ontwerpeencase.nl/uploads/categories/57a1d618a9466.jpg',
                         "board"         => $is_key_exist->pinterest_board_id
                     );
