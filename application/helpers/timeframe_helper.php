@@ -850,7 +850,7 @@ if(!function_exists('get_tag_data'))
 
 if(!function_exists('print_user_image'))
 {
-    function print_user_image($created_by, $user_id)
+    function print_user_image($user_id,$created_by)
     {
         $path = img_url()."default_profile.jpg";
         $CI = & get_instance(); 

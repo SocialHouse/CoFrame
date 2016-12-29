@@ -56,8 +56,19 @@ class Cron extends CI_Controller {
         //  die;
     }
 
-    public function get_posts(){      
-        $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d H:i'));     
+    public function get_posts($post_id = ''){
+        $posts ='';
+        if(empty($post_id))
+        {
+            $posts = $this->post_model->get_posts_with_outlet(date('Y-m-d H:i'));
+        }else{
+            $post = $this->post_model->get_post($post_id);     
+            if(!empty($post))
+            {
+                $post->post_tags = $this->post_model->get_post_tags($post->id); 
+                $posts[0] = $post;
+            }
+        }
         if(!empty($posts))
         {
             $previous_owner = '';
@@ -109,6 +120,10 @@ class Cron extends CI_Controller {
                     $this->facebook_post($post,$flag);
                 }
             }
+        }
+        if(!empty($post_id)){
+            // redirect(base_url().'calendar/day/'.$posts[0]->slug,'refresh');
+            echo json_encode(array('status'=> 'success'));
         }
     }
 
@@ -516,7 +531,7 @@ class Cron extends CI_Controller {
                     {
                         if(file_exists($videoPath))
                         {
-                            echo gmdate("Y-m-d\Th:i:s.sZ", strtotime($post_data->slate_date_time));
+                            // echo gmdate("Y-m-d\Th:i:s.sZ", strtotime($post_data->slate_date_time));
                             $snippet = new Google_Service_YouTube_VideoSnippet();
                             $snippet->setTitle($post_data->video_title);
                             $snippet->setDescription($post_data->content);
@@ -953,7 +968,7 @@ class Cron extends CI_Controller {
         $album_response = $this->facebook->request('POST', $page_id.'/albums', $album_details,$page_token);
         if (!isset($album_response['error']))
         {
-            echo '<br/>album created<br/>'.json_encode($album_response);
+            //echo '<br/>album created<br/>'.json_encode($album_response);
             return $album_response['id'];
         }
         return FALSE;
