@@ -33,3 +33,17 @@
 	font-weight: bolder;
 	padding: 12px;
 }
+
+.phase-title{
+    border: none !important;
+    background: transparent !important;
+    color: #000 !important;
+    font-size: 13px !important;
+    letter-spacing: .25em !important;
+    text-transform: uppercase;
+} 
+
+/* even out discussion on assembly */
+.discussion-list {
+    max-height: 322px;
+}

@@ -68,7 +68,7 @@
 										$image_class = 'img-responsive center-block circle-img';
 									}
 									?>
-									<img src="<?php echo $image_path; ?>" width="135" height="135" alt="" class="<?php echo $image_class; ?>"/>
+									<img src="<?php echo $image_path; ?>?version=<?php echo time(); ?>" width="135" height="135" alt="" class="<?php echo $image_class; ?>"/>
 									<a href="<?php echo base_url().'brands/dashboard/'.$brand->slug; ?>" class="btn btn-default btn-xs">View Dashboard</a>
 								</div>
 							</div>
