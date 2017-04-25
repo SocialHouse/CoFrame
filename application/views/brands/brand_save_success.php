@@ -1,8 +1,8 @@
-<section id="overview" class="page-main bg-white col-sm-12">
+<section id="overview" class="page-main bg-white col-xs-12">
 	<form action="" class="file-upload clearfix row-sm-12">	
 	<div class="row row-sm-12 equal-columns relative-wrapper">
 		<div class="brand-steps col-xl-11 center-block">
-			<div class="col-sm-3 brand-step equal-height brand-steps-success" id="brandStep1">
+			<div class="col-xs-3 brand-step equal-height brand-steps-success" id="brandStep1">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 1</h3>
 					<h4 class="text-xs-center">Add Brand</h4>
@@ -30,7 +30,7 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-sm-3 equal-height brand-step" id="brandStep2">
+			<div class="col-xs-3 equal-height brand-step" id="brandStep2">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 2</h3>
 					<h4 class="text-xs-center">Brand Outlets</h4>
@@ -59,13 +59,13 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-sm-3 equal-height brand-step" id="brandStep3">
+			<div class="col-xs-3 equal-height brand-step" id="brandStep3">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 3</h3>
 					<h4 class="text-xs-center">Users &amp; Permissions</h4>
 					<div class="user-permissions-list">
 						<div class="clearfix">
-							<div class="pull-sm-right">
+							<div class="pull-xs-right">
 								<div class="table-header">
 									<div class="permission">Create</div>
 								</div>
@@ -104,8 +104,8 @@
 								?>
 								<div class="table<?php if($num_users == $u) {echo ' border-bottom border-black';} ?>">
 									<div class="table-cell">
-										<div class="pull-sm-left"><img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>" class="circle-img"/></div>
-										<div class="pull-sm-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand[0]->id); ?></div>
+										<div class="pull-xs-left"><img src="<?php echo $image_path; ?>" width="36" height="36" alt="<?php ucfirst($user->first_name)." ".ucfirst($user->last_name); ?>" class="circle-img"/></div>
+										<div class="pull-xs-left post-approver-name"><strong><?php echo ucfirst($user->first_name)." ".ucfirst($user->last_name); ?></strong><?php echo get_user_groups($user->aauth_user_id,$brand[0]->id); ?></div>
 									</div>
 									<div class="table-cell text-xs-center vertical-middle has-permission">
 										<?php
@@ -187,7 +187,7 @@
 					</footer>
 				</div>
 			</div>
-			<div class="col-sm-3 equal-height brand-step" id="brandStep4">
+			<div class="col-xs-3 equal-height brand-step" id="brandStep4">
 				<div class="container-brand-step">
 					<h3 class="text-xs-center">Step 4</h3>
 					<h4 class="text-xs-center">Post Tags<i class="fa fa-question-circle-o" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Whatever cray disrupt ethical. Williamsburg wolf pabst meh blue bottle next level. Blue bottle flannel locavore pour-over, letterpress gluten-free fap ethical polaroid wayfarers trust fund man braid skateboard." data-popover-arrow="true"></i></h4>
@@ -261,7 +261,7 @@
 			</div>
 		</div>
 		<?php if ($isFirstBrand === TRUE): ?>
-			<div id="addBrandSuccess" class="brand-success-btn" align="center"><a href="<?php echo base_url().'brands/dashboard/'.$brand[0]->slug; ?>" class="btn btn-secondary btn-sm" tabindex="0" data-content="CONGRATULATIONS!<br><br>You’ve just added your first brand. Go to the brand dashboard to create your first post, view calendar, and more.">Go to Brand Dashboard</a></div>
+			<div id="addBrandSuccess" class="brand-success-btn" align="center"><a href="<?php echo base_url().'brands/dashboard/'.$brand[0]->slug; ?>" class="btn btn-secondary btn-sm" tabindex="0" data-content="Click here to head to the brand dashboard where you can create your first post, view the calendar and more.">Go to Brand Dashboard</a></div>
 		<?php else: ?>
 			<div id="addBrandSuccess" class="brand-success-btn" align="center"><a href="<?php echo base_url().'brands/dashboard/'.$brand[0]->slug; ?>" class="btn btn-secondary btn-sm" tabindex="0" data-content="">Go to Brand Dashboard</a></div>
 		<?php endif; ?>
